@@ -102,7 +102,9 @@
  (IMP_derivatives_TCC1 0
   (IMP_derivatives_TCC1-1 nil 3301761309
    ("" (lemma "deriv_domain_Xt") (("" (propax) nil nil)) nil)
-   ((deriv_domain_Xt formula-decl nil interval_deriv nil)) shostak))
+   ((deriv_domain_Xt formula-decl nil interval_deriv nil)) shostak
+   (IMP_derivatives assuming "analysis@derivatives[Xt]"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (IMP_derivatives_TCC2 0
   (IMP_derivatives_TCC2-1 nil 3301761489
    ("" (expand "not_one_element?")
@@ -142,42 +144,27 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (not_one_element? const-decl "bool" deriv_domain_def "analysis/"))
-   shostak))
- (D_TCC1 0
-  (D_TCC1-1 nil 3304700431
-   ("" (skosimp :preds? t)
-    (("" (expand "Diff?") (("" (propax) nil nil)) nil)) nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (Interval type-eq-decl nil interval nil)
-    (|##| const-decl "bool" interval nil)
-    (StrictInterval? const-decl "bool" interval nil)
-    (StrictInterval type-eq-decl nil interval nil)
-    (X formal-const-decl "StrictInterval" interval_deriv nil)
-    (Xt type-eq-decl nil interval_deriv nil)
-    (Diff? const-decl "bool" interval_deriv nil))
-   shostak))
+   shostak
+   (IMP_derivatives assuming "analysis@derivatives[Xt]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (Diffn?_TCC1 0
   (Diffn?_TCC1-1 nil 3321368055
    ("" (skosimp*) (("" (assert) nil nil)) nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (Diffn? subtype "(number_fields.-)(interval_deriv.n, 1)" "nat")))
  (Diffn?_TCC2 0
   (Diffn?_TCC2-1 nil 3321368055
    ("" (skosimp*) (("" (assert) nil nil)) nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (Diffn? termination
+    "interval_deriv.Diffn?((number_fields.-)(interval_deriv.n, 1))"
+    "nil")))
  (Diffn_derivn 0
   (Diffn_derivn-2 nil 3445354344
    ("" (induct "n")
@@ -252,7 +239,7 @@
    ((int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil (Dn subtype "(number_fields.-)(interval_deriv.n, 1)" "nat")))
  (Dn_TCC2 0
   (Dn_TCC2-1 nil 3321368055
    ("" (skosimp* :preds? t)
@@ -281,7 +268,7 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diffn? def-decl "bool" interval_deriv nil))
-   nil))
+   nil (Dn subtype "interval_deriv.f" "(interval_deriv.Diff?)")))
  (Dn_TCC3 0
   (Dn_TCC3-1 nil 3321368055
    ("" (skosimp* :preds? t)
@@ -311,13 +298,18 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diffn? def-decl "bool" interval_deriv nil))
-   nil))
+   nil
+   (Dn subtype "interval_deriv.D(interval_deriv.f)"
+    "(interval_deriv.Diffn?((number_fields.-)(interval_deriv.n, 1)))")))
  (Dn_TCC4 0
   (Dn_TCC4-1 nil 3321368055 ("" (skosimp) (("" (assert) nil nil)) nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (Dn termination
+    "interval_deriv.Dn((number_fields.-)(interval_deriv.n, 1), interval_deriv.D(interval_deriv.f))"
+    "nil")))
  (Dn_nderiv_TCC1 0
   (Dn_nderiv_TCC1-1 nil 3321368411
    ("" (skosimp* :preds? t)
@@ -349,7 +341,9 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diffn? def-decl "bool" interval_deriv nil))
-   nil))
+   nil
+   (Dn_nderiv subtype "interval_deriv.f"
+    "nth_derivatives[Xt].nderiv_fun(interval_deriv.n)")))
  (Dn_nderiv 0
   (Dn_nderiv-1 nil 3321368706
    ("" (induct "n")
@@ -435,7 +429,9 @@
    shostak))
  (D_id_TCC1 0
   (D_id_TCC1-1 nil 3304424118 ("" (rewrite "Diff_id") nil nil)
-   ((Diff_id formula-decl nil interval_deriv nil)) shostak))
+   ((Diff_id formula-decl nil interval_deriv nil)) shostak
+   (D_id subtype "LAMBDA (t): interval_deriv.t"
+    "(interval_deriv.Diff?)")))
  (D_id 0
   (D_id-1 nil 3304429116
    ("" (expand "D")
@@ -496,7 +492,9 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil))
-   shostak))
+   shostak
+   (D_const subtype "LAMBDA (t): interval_deriv.a"
+    "(interval_deriv.Diff?)")))
  (D_const 0
   (D_const-1 nil 3304430079
    ("" (skosimp)
@@ -533,10 +531,8 @@
       nil))
     nil)
    ((real_plus_real_is_real application-judgement "real" reals nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
-    (g!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (+ const-decl "[T -> real]" real_fun_ops "reals/")
     (derivable_sum judgement-tcc nil derivatives "analysis/")
     (boolean nonempty-type-decl nil booleans nil)
@@ -575,7 +571,10 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil))
-   shostak))
+   shostak
+   (D_add subtype
+    "LAMBDA (t): (number_fields.+)(interval_deriv.f(interval_deriv.t), interval_deriv.g(interval_deriv.t))"
+    "(interval_deriv.Diff?)")))
  (D_add 0
   (D_add-1 nil 3304430121
    ("" (skosimp :preds? t)
@@ -587,10 +586,8 @@
       nil))
     nil)
    ((D const-decl "[Xt -> real]" interval_deriv nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
-    (g!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (+ const-decl "[T -> real]" real_fun_ops "reals/")
     (deriv_sum_fun formula-decl nil derivatives "analysis/")
     (boolean nonempty-type-decl nil booleans nil)
@@ -621,10 +618,8 @@
       nil))
     nil)
    ((real_times_real_is_real application-judgement "real" reals nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
-    (g!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (derivable_prod judgement-tcc nil derivatives "analysis/")
     (boolean nonempty-type-decl nil booleans nil)
@@ -663,7 +658,10 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil))
-   shostak))
+   shostak
+   (D_mult subtype
+    "LAMBDA (t): number_fields.*(interval_deriv.f(interval_deriv.t), interval_deriv.g(interval_deriv.t))"
+    "(interval_deriv.Diff?)")))
  (D_mult 0
   (D_mult-1 nil 3304430162
    ("" (skosimp :preds? t)
@@ -677,10 +675,8 @@
       nil))
     nil)
    ((D const-decl "[Xt -> real]" interval_deriv nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
-    (g!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (+ const-decl "[T -> real]" real_fun_ops "reals/")
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (deriv_prod_fun formula-decl nil derivatives "analysis/")
@@ -703,7 +699,9 @@
    shostak))
  (Diff_pow_TCC1 0
   (Diff_pow_TCC1-1 nil 3305042267 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) shostak))
+   ((/= const-decl "boolean" notequal nil)) shostak
+   (Diff_pow subtype "interval_deriv.n"
+    "{i: integers.int | booleans.OR(interval_deriv.t /= 0, reals.>=(i, 0))}")))
  (Diff_pow 0
   (Diff_pow-1 nil 3305042471
    ("" (skeep)
@@ -762,7 +760,9 @@
    shostak))
  (D_pow_TCC1 0
   (D_pow_TCC1-1 nil 3305042277 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) shostak))
+   ((/= const-decl "boolean" notequal nil)) shostak
+   (D_pow subtype "interval_deriv.m"
+    "{i: integers.int | booleans.OR(interval_deriv.t /= 0, reals.>=(i, 0))}")))
  (D_pow_TCC2 0
   (D_pow_TCC2-1 nil 3305042285
    ("" (skosimp) (("" (rewrite "Diff_pow") nil nil)) nil)
@@ -784,10 +784,15 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil))
-   shostak))
+   shostak
+   (D_pow subtype
+    "LAMBDA (t): exponentiation.^(interval_deriv.t, interval_deriv.m)"
+    "(interval_deriv.Diff?)")))
  (D_pow_TCC3 0
   (D_pow_TCC3-1 nil 3305042306 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) shostak))
+   ((/= const-decl "boolean" notequal nil)) shostak
+   (D_pow subtype "((number_fields.-)(interval_deriv.m, 1))"
+    "{i: integers.int | booleans.OR(interval_deriv.t /= 0, reals.>=(i, 0))}")))
  (D_pow 0
   (D_pow-1 nil 3305042697
    ("" (skeep)
@@ -837,9 +842,8 @@
       nil))
     nil)
    ((real_times_real_is_real application-judgement "real" reals nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (derivable_scal judgement-tcc nil derivatives "analysis/")
     (boolean nonempty-type-decl nil booleans nil)
@@ -878,7 +882,10 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil))
-   nil))
+   nil
+   (D_scal1 subtype
+    "LAMBDA (t): number_fields.*(interval_deriv.a, interval_deriv.f(interval_deriv.t))"
+    "(interval_deriv.Diff?)")))
  (D_scal1 0
   (D_scal1-1 nil 3304431129
    ("" (skosimp :preds? t)
@@ -890,9 +897,8 @@
       nil))
     nil)
    ((D const-decl "[Xt -> real]" interval_deriv nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (deriv_scal_fun formula-decl nil derivatives "analysis/")
     (boolean nonempty-type-decl nil booleans nil)
@@ -956,7 +962,10 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil))
-   nil))
+   nil
+   (D_scal2 subtype
+    "LAMBDA (t): number_fields.*(interval_deriv.f(interval_deriv.t), interval_deriv.a)"
+    "(interval_deriv.Diff?)")))
  (D_scal2 0
   (D_scal2-1 nil 3304431330
    ("" (skosimp :preds? t)
@@ -993,9 +1002,8 @@
       nil))
     nil)
    ((minus_real_is_real application-judgement "real" reals nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (g!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (- const-decl "[T -> real]" real_fun_ops "reals/")
     (derivable_neg judgement-tcc nil derivatives "analysis/")
     (boolean nonempty-type-decl nil booleans nil)
@@ -1046,7 +1054,7 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil))
-   shostak))
+   shostak (D_neg subtype "LAMBDA (t): " "(interval_deriv.Diff?)")))
  (D_neg 0
   (D_neg-2 nil 3442592991
    ("" (skosimp :preds? t)
@@ -1058,9 +1066,8 @@
       nil))
     nil)
    ((D const-decl "[Xt -> real]" interval_deriv nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (g!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (- const-decl "[T -> real]" real_fun_ops "reals/")
     (deriv_neg_fun formula-decl nil derivatives "analysis/")
     (boolean nonempty-type-decl nil booleans nil)
@@ -1103,10 +1110,8 @@
       nil))
     nil)
    ((real_minus_real_is_real application-judgement "real" reals nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
-    (g!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (- const-decl "[T -> real]" real_fun_ops "reals/")
     (derivable_diff judgement-tcc nil derivatives "analysis/")
     (boolean nonempty-type-decl nil booleans nil)
@@ -1145,7 +1150,10 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil))
-   shostak))
+   shostak
+   (D_sub subtype
+    "LAMBDA (t): (number_fields.-)(interval_deriv.f(interval_deriv.t), interval_deriv.g(interval_deriv.t))"
+    "(interval_deriv.Diff?)")))
  (D_sub 0
   (D_sub-1 nil 3304430250
    ("" (skosimp :preds? t)
@@ -1157,10 +1165,8 @@
       nil))
     nil)
    ((D const-decl "[Xt -> real]" interval_deriv nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
-    (g!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
     (- const-decl "[T -> real]" real_fun_ops "reals/")
     (deriv_diff_fun formula-decl nil derivatives "analysis/")
     (boolean nonempty-type-decl nil booleans nil)
@@ -1207,7 +1213,9 @@
    shostak))
  (D_sq_TCC1 0
   (D_sq_TCC1-1 nil 3304424624 ("" (rewrite "Diff_sq") nil nil)
-   ((Diff_sq formula-decl nil interval_deriv nil)) shostak))
+   ((Diff_sq formula-decl nil interval_deriv nil)) shostak
+   (D_sq subtype "LAMBDA (t): sq.sq(interval_deriv.t)"
+    "(interval_deriv.Diff?)")))
  (D_sq 0
   (D_sq-1 nil 3304430266
    ("" (expand "sq")
@@ -1259,7 +1267,8 @@
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil)
     (/= const-decl "boolean" notequal nil))
-   shostak))
+   shostak
+   (Diff_div subtype "interval_deriv.k(interval_deriv.t)" "nznum")))
  (Diff_div 0
   (Diff_div-1 nil 3304431982
    ("" (skosimp :preds? t)
@@ -1274,7 +1283,6 @@
     nil)
    ((real_div_nzreal_is_real application-judgement "real" reals nil)
     (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (k!1 skolem-const-decl "(LAMBDA (f): FORALL (t: Xt): f(t) /= 0)"
      interval_deriv nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -1322,7 +1330,10 @@
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil)
     (/= const-decl "boolean" notequal nil))
-   shostak))
+   shostak
+   (D_div subtype
+    "LAMBDA (t): number_fields./(interval_deriv.f(interval_deriv.t), interval_deriv.k(interval_deriv.t))"
+    "(interval_deriv.Diff?)")))
  (D_div_TCC2 0
   (D_div_TCC2-1 nil 3304431579
    ("" (skosimp :preds? t)
@@ -1351,7 +1362,9 @@
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil)
     (/= const-decl "boolean" notequal nil))
-   shostak))
+   shostak
+   (D_div subtype "sq.sq(interval_deriv.k(interval_deriv.t))"
+    "nznum")))
  (D_div 0
   (D_div-1 nil 3304432155
    ("" (skosimp :preds? t)
@@ -1374,11 +1387,10 @@
     nil)
    ((D const-decl "[Xt -> real]" interval_deriv nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (f!1 skolem-const-decl "(Diff?)" interval_deriv nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (k!1 skolem-const-decl "(LAMBDA (f): FORALL (t: Xt): f(t) /= 0)"
      interval_deriv nil)
+    (derivable? const-decl "bool" derivatives "analysis/")
     (deriv_fun type-eq-decl nil derivatives "analysis/")
     (nzreal nonempty-type-eq-decl nil reals nil)
     (nz_deriv_fun type-eq-decl nil derivatives "analysis/")
@@ -1476,7 +1488,10 @@
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil)
     (/= const-decl "boolean" notequal nil))
-   shostak))
+   shostak
+   (D_scald1 subtype
+    "LAMBDA (t): number_fields./(interval_deriv.a, interval_deriv.k(interval_deriv.t))"
+    "(interval_deriv.Diff?)")))
  (D_scald1 0
   (D_scald1-1 nil 3304432324
    ("" (skosimp :preds? t)
@@ -1583,7 +1598,10 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil))
-   shostak))
+   shostak
+   (D_scald2 subtype
+    "LAMBDA (t): number_fields./(interval_deriv.f(interval_deriv.t), interval_deriv.b)"
+    "(interval_deriv.Diff?)")))
  (D_scald2 0
   (D_scald2-1 nil 3304432554
    ("" (skosimp)
@@ -1710,7 +1728,9 @@
    shostak))
  (D_sin_TCC1 0
   (D_sin_TCC1-1 nil 3304438388 ("" (rewrite "Diff_sin") nil nil)
-   ((Diff_sin formula-decl nil interval_deriv nil)) shostak))
+   ((Diff_sin formula-decl nil interval_deriv nil)) shostak
+   (D_sin subtype "LAMBDA (t): sincos_def.sin(interval_deriv.t)"
+    "(interval_deriv.Diff?)")))
  (D_sin 1
   (D_sin-1 nil 3350430186
    ("" (expand "D")
@@ -1896,7 +1916,9 @@
    nil))
  (D_cos_TCC1 0
   (D_cos_TCC1-1 nil 3304438400 ("" (rewrite "Diff_cos") nil nil)
-   ((Diff_cos formula-decl nil interval_deriv nil)) shostak))
+   ((Diff_cos formula-decl nil interval_deriv nil)) shostak
+   (D_cos subtype "LAMBDA (t): sincos_def.cos(interval_deriv.t)"
+    "(interval_deriv.Diff?)")))
  (D_cos 0
   (D_cos-3 "" 3555948645
    ("" (expand "D")
@@ -2096,10 +2118,7 @@
     (Interval type-eq-decl nil interval nil))
    nil))
  (Diff_tan_TCC1 0
-  (Diff_tan_TCC1-1 nil 3304442382 ("" (subtype-tcc) nil nil) nil
-   shostak))
- (Diff_tan_TCC2 0
-  (Diff_tan_TCC2-1 nil 3393001518
+  (Diff_tan_TCC1-2 "" 3744265982
    ("" (skeep)
     (("" (skosimp)
       (("" (use "Tan_pi2_def")
@@ -2108,21 +2127,25 @@
         nil))
       nil))
     nil)
+   nil shostak
+   (Diff_tan subtype "interval_deriv.t" "(trig_basic.Tan?)"))
+  (Diff_tan_TCC1-1 nil 3304442382 ("" (subtype-tcc) nil nil)
    ((NOT const-decl "[bool -> bool]" booleans nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (pi_lb_pos application-judgement "posreal" atan_approx "trig/")
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
+    (pi_lb_pos application-judgement "posreal" atan_approx "trig/")
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil)
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (|##| const-decl "bool" interval nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
     (real nonempty-type-from-decl nil reals nil)
     (Interval type-eq-decl nil interval nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -2144,7 +2167,7 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (Tan_pi2_def formula-decl nil interval_trig nil))
-   nil))
+   shostak (Diff_tan subtype "interval_deriv.t" "(trig_basic.Tan?)")))
  (Diff_tan 0
   (Diff_tan-1 nil 3304442448
    ("" (skeep)
@@ -2170,8 +2193,8 @@
     (tan const-decl "real" trig_basic "trig/")
     (Diff_sin formula-decl nil interval_deriv nil)
     (Diff_cos formula-decl nil interval_deriv nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -2184,7 +2207,8 @@
     (Tan_pi2_def formula-decl nil interval_trig nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
     (pi_lb_pos application-judgement "posreal" atan_approx "trig/")
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil)
@@ -2222,7 +2246,8 @@
    ((Diff_tan formula-decl nil interval_deriv nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
     (pi_lb_pos application-judgement "posreal" atan_approx "trig/")
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil)
@@ -2242,7 +2267,9 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   shostak))
+   shostak
+   (D_tan subtype "LAMBDA (t): trig_basic.tan(interval_deriv.t)"
+    "(interval_deriv.Diff?)")))
  (D_tan_TCC2 0
   (D_tan_TCC2-1 nil 3304442404
    ("" (skeep)
@@ -2287,19 +2314,19 @@
     (cos const-decl "real" sincos_def "trig/")
     (sq_eq_0 formula-decl nil sq "reals/")
     (Tan? const-decl "bool" trig_basic "trig/")
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
     (Tan_pi2_def formula-decl nil interval_trig nil))
-   shostak))
+   shostak
+   (D_tan subtype "sq.sq(sincos_def.cos(interval_deriv.t))" "nznum")))
  (D_tan 0
   (D_tan-1 nil 3304442607
    ("" (skeep)
@@ -2365,8 +2392,8 @@
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (Tan_pi2_def formula-decl nil interval_trig nil)
     (sin2_cos2 formula-decl nil sincos_def "trig/")
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -2379,14 +2406,15 @@
     (sq const-decl "nonneg_real" sq "reals/")
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (D_cos formula-decl nil interval_deriv nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
     (pi_lb_pos application-judgement "posreal" atan_approx "trig/")
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil)
@@ -2473,12 +2501,6 @@
     (tan_restrict const-decl "real" trig_basic "trig/")
     (atan const-decl "{x: real_abs_lt_pi2 | y = tan_restrict(x)}" atan
           "trig/")
-    (pi_bound name-judgement
-     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def "trig/")
-    (pi_bound name-judgement "{r: posreal | pi_lb < r AND r < pi_ub}"
-     atan_approx "trig/")
-    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
-     nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
     (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
@@ -2498,11 +2520,20 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (IMP_derivatives_TCC1 assuming-tcc nil interval_deriv nil)
-    (Diff? const-decl "bool" interval_deriv nil))
+    (Diff? const-decl "bool" interval_deriv nil)
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (pi_bound name-judgement "{r: posreal | pi_lb < r AND r < pi_ub}"
+     atan_approx "trig/")
+    (pi_bound name-judgement
+     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def
+     "trig/"))
    shostak))
  (D_atan_TCC1 0
   (D_atan_TCC1-1 nil 3393000230 ("" (rewrite "Diff_atan") nil nil)
-   ((Diff_atan formula-decl nil interval_deriv nil)) nil))
+   ((Diff_atan formula-decl nil interval_deriv nil)) nil
+   (D_atan subtype "LAMBDA (t): atan.atan(interval_deriv.t)"
+    "(interval_deriv.Diff?)")))
  (D_atan 0
   (D_atan-1 nil 3393000770
    ("" (expand "D")
@@ -2599,14 +2630,14 @@
     (>= const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (sq const-decl "nonneg_real" sq "reals/")
-    (restrict2 const-decl "[T1 -> real]" restrict2_deriv "analysis/")
-    (TRUE const-decl "bool" booleans nil)
     (pi_bound name-judgement
      "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def "trig/")
     (pi_bound name-judgement "{r: posreal | pi_lb < r AND r < pi_ub}"
      atan_approx "trig/")
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil)
+    (restrict2 const-decl "[T1 -> real]" restrict2_deriv "analysis/")
+    (TRUE const-decl "bool" booleans nil)
     (Diff? const-decl "bool" interval_deriv nil)
     (Diff_atan formula-decl nil interval_deriv nil)
     (IMP_derivatives_TCC2 assuming-tcc nil interval_deriv nil)
@@ -2637,7 +2668,7 @@
      real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   shostak))
+   shostak (Diff_sqrt subtype "interval_deriv.t" "nonneg_real")))
  (Diff_sqrt 0
   (Diff_sqrt-1 nil 3304435882
    ("" (expand "Diff?")
@@ -2718,7 +2749,9 @@
  (D_sqrt_TCC1 0
   (D_sqrt_TCC1-1 nil 3304436226
    ("" (flatten) (("" (rewrite "Diff_sqrt") nil nil)) nil)
-   ((Diff_sqrt formula-decl nil interval_deriv nil)) shostak))
+   ((Diff_sqrt formula-decl nil interval_deriv nil)) shostak
+   (D_sqrt subtype "LAMBDA (t): sqrt.sqrt(interval_deriv.t)"
+    "(interval_deriv.Diff?)")))
  (D_sqrt_TCC2 0
   (D_sqrt_TCC2-1 nil 3304436241
    ("" (flatten) (("" (skeep :preds? t) (("" (grind) nil nil)) nil))
@@ -2731,7 +2764,9 @@
      "(strict_total_order?[real])" real_props nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil))
-   shostak))
+   shostak
+   (D_sqrt subtype "(number_fields.*(2, sqrt.sqrt(interval_deriv.t)))"
+    "nznum")))
  (D_sqrt 0
   (D_sqrt-1 nil 3304437850
    ("" (expand "D")
@@ -2927,7 +2962,9 @@
    nil nil))
  (D_exp_TCC1 0
   (D_exp_TCC1-1 nil 3350428120 ("" (rewrite "Diff_exp") nil nil)
-   ((Diff_exp formula-decl nil interval_deriv nil)) nil))
+   ((Diff_exp formula-decl nil interval_deriv nil)) nil
+   (D_exp subtype "LAMBDA (t): ln_exp.exp(interval_deriv.t)"
+    "(interval_deriv.Diff?)")))
  (D_exp 0
   (D_exp-1 nil 3350430351
    ("" (expand "D")
@@ -3029,7 +3066,7 @@
      real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil (Diff_ln subtype "interval_deriv.t" "posreal")))
  (Diff_ln 0
   (Diff_ln-4 "Fixed, and shorter proof w.r.t. Diff_ln-3." 3555950105
    ("" (expand "Diff?")
@@ -3196,7 +3233,9 @@
  (D_ln_TCC1 0
   (D_ln_TCC1-1 nil 3350428120
    ("" (flatten) (("" (rewrite "Diff_ln") nil nil)) nil)
-   ((Diff_ln formula-decl nil interval_deriv nil)) nil))
+   ((Diff_ln formula-decl nil interval_deriv nil)) nil
+   (D_ln subtype "LAMBDA (t): ln_exp.ln(interval_deriv.t)"
+    "(interval_deriv.Diff?)")))
  (D_ln_TCC2 0
   (D_ln_TCC2-1 nil 3350428120 ("" (subtype-tcc) nil nil)
    ((real_gt_is_strict_total_order name-judgement
@@ -3220,7 +3259,7 @@
     (Xt type-eq-decl nil interval_deriv nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil (D_ln subtype "interval_deriv.t" "nznum")))
  (D_ln 0
   (D_ln-2 nil 3350430791
    ("" (expand "D")
@@ -3383,7 +3422,10 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil))
-   shostak))
+   shostak
+   (D_I subtype
+    "LAMBDA (t): identity[numfield].id(interval_deriv.f(interval_deriv.t))"
+    "(interval_deriv.Diff?)")))
  (D_I_TCC2 0
   (D_I_TCC2-1 nil 3304781295
    ("" (skosimp :preds? t)
@@ -3407,7 +3449,9 @@
     (X formal-const-decl "StrictInterval" interval_deriv nil)
     (Xt type-eq-decl nil interval_deriv nil)
     (Diff? const-decl "bool" interval_deriv nil))
-   shostak))
+   shostak
+   (D_I subtype "LAMBDA (t): interval_deriv.f(interval_deriv.t)"
+    "(interval_deriv.Diff?)")))
  (D_I 0
   (D_I-1 nil 3304781168 ("" (expand "id") (("" (propax) nil nil)) nil)
    ((id const-decl "(bijective?[T, T])" identity nil)) shostak)))

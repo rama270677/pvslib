@@ -2,11 +2,15 @@
  (IMP_integral_def_TCC1 0
   (IMP_integral_def_TCC1-1 nil 3611671301
    ("" (lemma "connected_domain") (("" (propax) nil nil)) nil)
-   ((connected_domain formula-decl nil integral nil)) nil))
+   ((connected_domain formula-decl nil integral nil)) nil
+   (IMP_integral_def assuming "integral_def[T]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (IMP_integral_def_TCC2 0
   (IMP_integral_def_TCC2-1 nil 3611671301
    ("" (lemma "not_one_element") (("" (propax) nil nil)) nil)
-   ((not_one_element formula-decl nil integral nil)) nil))
+   ((not_one_element formula-decl nil integral nil)) nil
+   (IMP_integral_def assuming "integral_def[T]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (IMP_continuous_functions_more_TCC1 0
   (IMP_continuous_functions_more_TCC1-1 nil 3611671301
    ("" (skosimp*)
@@ -29,14 +33,20 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (connected? const-decl "bool" deriv_domain_def nil))
-   nil))
+   nil
+   (IMP_continuous_functions_more assuming
+    "continuous_functions_more[T]"
+    "connected_domain: ASSUMPTION FORALL (x, y: continuous_functions_more.T), (z: reals.real): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), continuous_functions_more.T_pred(z))")))
  (IMP_continuous_functions_more_TCC2 0
   (IMP_continuous_functions_more_TCC2-1 nil 3611671301
    ("" (lemma "not_one_element")
     (("" (expand "not_one_element?") (("" (propax) nil nil)) nil)) nil)
    ((not_one_element? const-decl "bool" deriv_domain_def nil)
     (not_one_element formula-decl nil integral nil))
-   nil))
+   nil
+   (IMP_continuous_functions_more assuming
+    "continuous_functions_more[T]"
+    "not_one_element: ASSUMPTION FORALL (x: continuous_functions_more.T): EXISTS (y: continuous_functions_more.T): x /= y")))
  (Integrable?_a_to_a 0
   (Integrable?_a_to_a-1 nil 3253535925
    ("" (skosimp*)
@@ -76,9 +86,20 @@
    shostak))
  (Integral_a_to_a_TCC1 0
   (Integral_a_to_a_TCC1-1 nil 3253535925 ("" (subtype-tcc) nil nil)
-   ((Integrable? const-decl "bool" integral_def nil)
+   ((T formal-nonempty-subtype-decl nil integral nil)
+    (T_pred const-decl "[real -> boolean]" integral nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (Integrable? const-decl "bool" integral_def nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (Integral_a_to_a subtype "integral.f"
+    "integral_def[T].Integrable_funs(integral.a, integral.a)")))
  (Integral_a_to_a 0
   (Integral_a_to_a-1 nil 3253535925
    ("" (skosimp*)
@@ -236,6 +257,15 @@
       (("" (expand "Integrable?") (("" (prop) nil nil)) nil)) nil))
     nil)
    ((real_minus_real_is_real application-judgement "real" reals nil)
+    (T formal-nonempty-subtype-decl nil integral nil)
+    (T_pred const-decl "[real -> boolean]" integral nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
     (Integral const-decl "real" integral_def nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (Integrable? const-decl "bool" integral_def nil))
@@ -372,14 +402,7 @@
         nil))
       nil))
     nil)
-   ((continuous_Integrable? formula-decl nil integral nil)
-    (continuous? const-decl "bool" continuous_functions nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil) (< const-decl "bool" reals nil)
-    (Closed_interval type-eq-decl nil intervals_real "reals/")
-    (T formal-nonempty-subtype-decl nil integral nil)
+   ((T formal-nonempty-subtype-decl nil integral nil)
     (T_pred const-decl "[real -> boolean]" integral nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
@@ -387,7 +410,14 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil))
+    (number nonempty-type-decl nil numbers nil)
+    (continuous_Integrable? formula-decl nil integral nil)
+    (continuous? const-decl "bool" continuous_functions nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil) (< const-decl "bool" reals nil)
+    (Closed_interval type-eq-decl nil intervals_real "reals/"))
    shostak))
  (cont_fun_Integrable? 0
   (cont_fun_Integrable?-1 nil 3313938422
@@ -536,6 +566,80 @@
     (trichotomy formula-decl nil real_axioms nil))
    nil))
  (Integral_diff 0
+  (Integral_diff-2 "" 3754890297
+   ("" (skosimp*)
+    (("" (lemma "Integral_sum")
+      (("" (inst -1 "a!1" "b!1" "f!1" "-g!1")
+        (("" (assert)
+          (("" (split -1)
+            (("1" (flatten)
+              (("1" (expand "-")
+                (("1" (assert)
+                  (("1" (replace -2)
+                    (("1" (assert)
+                      (("1" (lemma "Integral_scal")
+                        (("1" (inst?)
+                          (("1" (assert)
+                            (("1" (flatten)
+                              (("1"
+                                (assert)
+                                (("1"
+                                  (case-replace
+                                   "(LAMBDA (x: T): -g!1(x)) = -1* g!1")
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (apply-extensionality 1 :hide? t)
+                                      (("1"
+                                        (expand "*" 1)
+                                        (("1" (assert) nil nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (hide -1 2)
+              (("2" (lemma "Integral_scal")
+                (("2" (inst -1 "-1" "a!1" "b!1" "g!1")
+                  (("2" (assert)
+                    (("2" (flatten)
+                      (("2" (assert)
+                        (("2" (expand "-")
+                          (("2"
+                            (case-replace
+                             "(LAMBDA (x: T): -g!1(x)) = -1* g!1")
+                            (("2" (hide-all-but 1)
+                              (("2"
+                                (apply-extensionality 1 :hide? t)
+                                (("2"
+                                  (expand "*")
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (Integral_diff-1 nil 3253535925
    ("" (skosimp*)
     (("" (lemma "Integral_sum")
@@ -610,27 +714,26 @@
         nil))
       nil))
     nil)
-   ((Integral_sum formula-decl nil integral nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (Integral_scal formula-decl nil integral nil)
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
-    (T formal-nonempty-subtype-decl nil integral nil)
-    (T_pred const-decl "[real -> boolean]" integral nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
+   ((number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil))
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (T_pred const-decl "[real -> boolean]" integral nil)
+    (T formal-nonempty-subtype-decl nil integral nil)
+    (- const-decl "[T -> real]" real_fun_ops "reals/")
+    (Integral_scal formula-decl nil integral nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (Integral_sum formula-decl nil integral nil))
    nil))
  (Integral_split 0
   (Integral_split-1 nil 3253535925
@@ -1216,8 +1319,6 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
-     real_defs nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_times_real_is_real application-judgement "real" reals nil)
@@ -1233,6 +1334,8 @@
          nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (Integrable? const-decl "bool" integral_def nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
     (abs_nat formula-decl nil abs_lems "reals/")
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -1281,7 +1384,7 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (connected_domain formula-decl nil integral nil))
-   shostak))
+   shostak (Integrable_bounded subtype "integral.l" "T")))
  (Integrable_bounded_TCC2 0
   (Integrable_bounded_TCC2-1 nil 3282493335
    ("" (skosimp*)
@@ -1294,7 +1397,7 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil))
-   shostak))
+   shostak (Integrable_bounded subtype "integral.u" "T")))
  (Integrable_bounded 0
   (Integrable_bounded-2 nil 3477657390
    ("" (auto-rewrite "xis_lem")
@@ -1484,7 +1587,6 @@
     (real_minus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (- const-decl "[T -> real]" real_fun_ops "reals/")
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (Integral_diff formula-decl nil integral nil))
    nil))
  (Integral_restr_eq 0

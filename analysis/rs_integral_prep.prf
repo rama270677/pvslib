@@ -2,11 +2,15 @@
  (IMP_rs_integral_def_TCC1 0
   (IMP_rs_integral_def_TCC1-1 nil 3494857844
    ("" (lemma "connected_domain") (("" (propax) nil nil)) nil)
-   ((connected_domain formula-decl nil rs_integral_prep nil)) nil))
+   ((connected_domain formula-decl nil rs_integral_prep nil)) nil
+   (IMP_rs_integral_def assuming "rs_integral_def[T]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (IMP_rs_integral_def_TCC2 0
   (IMP_rs_integral_def_TCC2-1 nil 3494857844
    ("" (lemma "not_one_element") (("" (propax) nil nil)) nil)
-   ((not_one_element formula-decl nil rs_integral_prep nil)) nil))
+   ((not_one_element formula-decl nil rs_integral_prep nil)) nil
+   (IMP_rs_integral_def assuming "rs_integral_def[T]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (integral_const_fun 0
   (integral_const_fun-1 nil 3253532115
    ("" (skosimp*)
@@ -157,12 +161,12 @@
     (Riemann_sum? const-decl "bool" rs_integral_def nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
+    (minus_even_is_even application-judgement "even_int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (sigma_0_neg formula-decl nil sigma_below "reals/")
@@ -372,7 +376,6 @@
      nil)
     (b!1 skolem-const-decl "T" rs_integral_prep nil)
     (a!1 skolem-const-decl "T" rs_integral_prep nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (partition type-eq-decl nil rs_partition nil)
     (below type-eq-decl nil naturalnumbers nil)
     (int nonempty-type-eq-decl nil integers nil)
@@ -1928,7 +1931,6 @@
     (T_high type-eq-decl nil sigma "reals/")
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (sigma_nat application-judgement "nat" sigma_below "reals/")
-    (sigma_int application-judgement "int" sigma_below "reals/")
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (integer nonempty-type-from-decl nil integers nil)
@@ -2548,6 +2550,78 @@
     (number nonempty-type-decl nil numbers nil))
    nil))
  (integral_diff 0
+  (integral_diff-2 "" 3754889541
+   ("" (skosimp*)
+    (("" (lemma "integral_sum")
+      (("" (inst -1 "a!1" "b!1" "f!1" "g!1" "-h!1")
+        (("" (assert)
+          (("" (split -1)
+            (("1" (flatten)
+              (("1" (assert)
+                (("1" (expand "-")
+                  (("1" (assert)
+                    (("1" (assert)
+                      (("1" (replace -2)
+                        (("1" (assert)
+                          (("1" (lemma "integral_scal")
+                            (("1" (inst?)
+                              (("1"
+                                (assert)
+                                (("1"
+                                  (flatten)
+                                  (("1"
+                                    (case-replace
+                                     "(LAMBDA (x: T): -h!1(x)) = -1 * h!1")
+                                    (("1"
+                                      (apply-extensionality 1 :hide? t)
+                                      (("1"
+                                        (expand "*")
+                                        (("1" (assert) nil nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (hide 2)
+              (("2" (lemma "integral_scal")
+                (("2" (inst -1 "-1" "a!1" "b!1" "h!1" "g!1")
+                  (("2" (assert)
+                    (("2" (flatten)
+                      (("2" (assert)
+                        (("2" (case-replace "-h!1 = -1*h!1")
+                          (("2" (apply-extensionality 1 :hide? t)
+                            (("2" (expand "*")
+                              (("2"
+                                (assert)
+                                (("2"
+                                  (expand "-")
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (integral_diff-1 nil 3253532115
    ("" (skosimp*)
     (("" (lemma "integral_sum")
@@ -2620,29 +2694,28 @@
         nil))
       nil))
     nil)
-   ((integral_sum formula-decl nil rs_integral_prep nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (integral_scal formula-decl nil rs_integral_prep nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
-    (T formal-nonempty-subtype-decl nil rs_integral_prep nil)
-    (T_pred const-decl "[real -> boolean]" rs_integral_prep nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
+   ((number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil))
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (T_pred const-decl "[real -> boolean]" rs_integral_prep nil)
+    (T formal-nonempty-subtype-decl nil rs_integral_prep nil)
+    (- const-decl "[T -> real]" real_fun_ops "reals/")
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (integral_scal formula-decl nil rs_integral_prep nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (integral_sum formula-decl nil rs_integral_prep nil))
    nil))
  (integral_diff_g 0
   (integral_diff_g-1 nil 3489152523
@@ -2716,7 +2789,6 @@
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (minus_real_is_real application-judgement "real" reals nil)
@@ -3079,7 +3151,6 @@
     (int nonempty-type-eq-decl nil integers nil)
     (<= const-decl "bool" reals nil)
     (Riemann?_Rie formula-decl nil rs_integral_def nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (sigma_nonneg formula-decl nil sigma "reals/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (integer nonempty-type-from-decl nil integers nil)
@@ -3240,7 +3311,6 @@
      continuous_functions nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
     (closed_interval type-eq-decl nil intervals_real "reals/")
@@ -3744,7 +3814,6 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (triangle formula-decl nil real_props nil)
     (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
@@ -4690,8 +4759,6 @@
     (div_mult_pos_le2 formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (times_div2 formula-decl nil real_props nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (div_mult_pos_le1 formula-decl nil real_props nil)
@@ -4772,7 +4839,6 @@
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (Riemann_sum? const-decl "bool" rs_integral_def nil)
     (integral? const-decl "bool" rs_integral_def nil)
     (integrable? const-decl "bool" rs_integral_def nil))
@@ -5755,8 +5821,8 @@
       nil))
     nil)
    ((partition_union const-decl "{PQ: partition(a, b) |
-         (FORALL (x: T): member(x, PQ) IFF (member(x, P) OR member(x, Q)))
-          AND strictly_increasing?(PQ)}" rs_partition nil)
+   (FORALL (x: T): member(x, PQ) IFF (member(x, P) OR member(x, Q))) AND
+    strictly_increasing?(PQ)}" rs_partition nil)
     (strictly_increasing? const-decl "bool" sort_fseq "structures/")
     (member const-decl "bool" fseqs "structures/")
     (posreal_div_posreal_is_posreal application-judgement "posreal"
@@ -5798,7 +5864,6 @@
     (f skolem-const-decl "[T -> real]" rs_integral_prep nil)
     (RSP1 skolem-const-decl "real" rs_integral_prep nil)
     (RSP2 skolem-const-decl "real" rs_integral_prep nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (Riemann?_Rie formula-decl nil rs_integral_def nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (sigma_scal formula-decl nil sigma "reals/")
@@ -6841,8 +6906,8 @@
       nil))
     nil)
    ((partition_union const-decl "{PQ: partition(a, b) |
-         (FORALL (x: T): member(x, PQ) IFF (member(x, P) OR member(x, Q)))
-          AND strictly_increasing?(PQ)}" rs_partition nil)
+   (FORALL (x: T): member(x, PQ) IFF (member(x, P) OR member(x, Q))) AND
+    strictly_increasing?(PQ)}" rs_partition nil)
     (strictly_increasing? const-decl "bool" sort_fseq "structures/")
     (member const-decl "bool" fseqs "structures/")
     (posreal_div_posreal_is_posreal application-judgement "posreal"
@@ -6884,7 +6949,6 @@
     (f skolem-const-decl "[T -> real]" rs_integral_prep nil)
     (RSP1 skolem-const-decl "real" rs_integral_prep nil)
     (RSP2 skolem-const-decl "real" rs_integral_prep nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (Riemann?_Rie formula-decl nil rs_integral_def nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (sigma_scal formula-decl nil sigma "reals/")

@@ -25,7 +25,9 @@
     (T formal-type-decl nil measure_theory nil)
     (mu_fin? const-decl "bool" measure_props nil)
     (measurable_set? const-decl "bool" measure_space_def nil))
-   nil))
+   nil
+   (null_set? subtype "measure_theory.X"
+    "{m1: (measure_theory.S) | measure_props[measure_theory.T, measure_theory.S, measure_theory.m].mu_fin?(m1)}")))
  (null_set_TCC1 0
   (null_set_TCC1-1 nil 3390722475
    ("" (expand "null_set?")
@@ -92,10 +94,11 @@
     (subset_algebra_emptyset name-judgement "(S)" measure_theory nil)
     (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
      "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
+    (finite_emptyset name-judgement "finite_set" countable_props
      "sets_aux/")
     (finite_emptyset name-judgement "finite_set" finite_sets nil))
-   nil))
+   nil
+   (null_set subtype "sets[measure_theory.T].emptyset" "null_set")))
  (negligible_TCC1 0
   (negligible_TCC1-1 nil 3390722475
    ("" (expand "negligible_set?")
@@ -112,14 +115,16 @@
     (subset_algebra_emptyset name-judgement "(S)" measure_theory nil)
     (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
      "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
+    (finite_emptyset name-judgement "finite_set" countable_props
      "sets_aux/")
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (null_set_TCC1 subtype-tcc nil measure_theory nil)
     (negligible_set? const-decl "bool" measure_theory nil))
-   nil))
+   nil
+   (negligible subtype "sets[measure_theory.T].emptyset"
+    "negligible")))
  (negligible_iff_measurable_null 0
   (negligible_iff_measurable_null-1 nil 3390726086
    ("" (expand "negligible_set?")
@@ -222,7 +227,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (null_set_is_measurable subtype "measure_theory.x"
+    "measurable_set[T, S]")))
  (null_is_negligible 0
   (null_is_negligible-1 nil 3390722475 ("" (judgement-tcc) nil nil)
    ((null_set nonempty-type-eq-decl nil measure_theory nil)
@@ -257,7 +264,7 @@
     (member const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil)
     (negligible_set? const-decl "bool" measure_theory nil))
-   nil))
+   nil (null_is_negligible subtype "measure_theory.x" "negligible")))
  (null_emptyset 0
   (null_emptyset-1 nil 3395639293
    ("" (expand "null_set?")
@@ -316,10 +323,12 @@
     (subset_algebra_emptyset name-judgement "(S)" measure_theory nil)
     (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
      "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
+    (finite_emptyset name-judgement "finite_set" countable_props
      "sets_aux/")
     (finite_emptyset name-judgement "finite_set" finite_sets nil))
-   nil))
+   nil
+   (null_emptyset subtype "sets[measure_theory.T].emptyset"
+    "null_set")))
  (null_union 0
   (null_union-1 nil 3509948281
    ("" (skosimp)
@@ -385,7 +394,10 @@
     (mu_fin? const-decl "bool" measure_props nil)
     (x_add const-decl "extended_nnreal" extended_nnreal
      "extended_nnreal/"))
-   nil))
+   nil
+   (null_union subtype
+    "sets[measure_theory.T].union(measure_theory.N1, measure_theory.N2)"
+    "null_set")))
  (null_intersection 0
   (null_intersection-1 nil 3509948281
    ("" (skosimp)
@@ -456,7 +468,10 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (mu_fin? const-decl "bool" measure_props nil))
-   nil))
+   nil
+   (null_intersection subtype
+    "sets[measure_theory.T].intersection(measure_theory.N1, measure_theory.N2)"
+    "null_set")))
  (null_difference 0
   (null_difference-1 nil 3509948281
    ("" (skosimp)
@@ -528,7 +543,10 @@
      real_props nil)
     (x_le const-decl "bool" extended_nnreal "extended_nnreal/")
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (null_difference subtype
+    "sets[measure_theory.T].difference(measure_theory.N1, measure_theory.N2)"
+    "null_set")))
  (null_IUnion 0
   (null_IUnion-1 nil 3509948281
    ("" (skosimp)
@@ -1005,7 +1023,10 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (disjoint_IUnion formula-decl nil nat_indexed_sets "sets_aux/"))
-   nil))
+   nil
+   (null_IUnion subtype
+    "indexed_sets[nat, measure_theory.T].IUnion(measure_theory.NS)"
+    "null_set")))
  (null_Union 0
   (null_Union-1 nil 3423545392
    ("" (skosimp)
@@ -1060,7 +1081,7 @@
     (sequence type-eq-decl nil sequences nil)
     (null_emptyset judgement-tcc nil measure_theory nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
+    (finite_emptyset name-judgement "finite_set" countable_props
      "sets_aux/")
     (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
      "sets_aux/")
@@ -1113,7 +1134,10 @@
     (null_union judgement-tcc nil measure_theory nil)
     (null_set? const-decl "bool" measure_theory nil)
     (null_set nonempty-type-eq-decl nil measure_theory nil))
-   nil))
+   nil
+   (negligible_union subtype
+    "sets[measure_theory.T].union(measure_theory.E1, measure_theory.E2)"
+    "negligible")))
  (negligible_intersection 0
   (negligible_intersection-1 nil 3509948281
    ("" (skosimp)
@@ -1152,7 +1176,10 @@
     (subset? const-decl "bool" sets nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil))
-   nil))
+   nil
+   (negligible_intersection subtype
+    "sets[measure_theory.T].intersection(measure_theory.E1, measure_theory.E2)"
+    "negligible")))
  (negligible_IUnion 0
   (negligible_IUnion-1 nil 3509948281
    ("" (skosimp)
@@ -1289,7 +1316,10 @@
     (null_IUnion judgement-tcc nil measure_theory nil)
     (X!1 skolem-const-decl "set[T]" measure_theory nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (negligible_IUnion subtype
+    "indexed_sets[nat, measure_theory.T].IUnion(measure_theory.ES)"
+    "negligible")))
  (negligible_Union 0
   (negligible_Union-1 nil 3423653542
    ("" (skosimp)
@@ -1355,7 +1385,7 @@
     (member const-decl "bool" sets nil)
     (emptyset const-decl "set" sets nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
+    (finite_emptyset name-judgement "finite_set" countable_props
      "sets_aux/")
     (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
      "sets_aux/")
@@ -1473,27 +1503,26 @@
       nil))
     nil)
    ((ae_eq? const-decl "bool" measure_theory nil)
-    (pointwise_ae? const-decl "bool" measure_theory nil)
-    (fullset const-decl "set" sets nil)
-    (member const-decl "bool" sets nil)
-    (ae_in? const-decl "bool" measure_theory nil)
-    (ae? const-decl "bool" measure_theory nil)
-    (subset_algebra_fullset name-judgement "(S)" measure_theory nil)
     (measurable_fullset name-judgement "measurable_set[T, S]"
      measure_theory nil)
-    (restrict const-decl "R" restrict nil)
+    (subset_algebra_fullset name-judgement "(S)" measure_theory nil)
+    (ae? const-decl "bool" measure_theory nil)
+    (ae_in? const-decl "bool" measure_theory nil)
+    (member const-decl "bool" sets nil)
+    (fullset const-decl "set" sets nil)
+    (pointwise_ae? const-decl "bool" measure_theory nil)
     (reflexive? const-decl "bool" relations nil)
-    (TRUE const-decl "bool" booleans nil)
-    (T formal-type-decl nil measure_theory nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (negligible_set? const-decl "bool" measure_theory nil)
     (negligible nonempty-type-eq-decl nil measure_theory nil)
+    (negligible_set? const-decl "bool" measure_theory nil)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T formal-type-decl nil measure_theory nil)
+    (TRUE const-decl "bool" booleans nil)
     (symmetric? const-decl "bool" relations nil)
-    (union const-decl "set" sets nil)
     (negligible_union application-judgement "negligible" measure_theory
      nil)
+    (union const-decl "set" sets nil)
     (transitive? const-decl "bool" relations nil)
     (equivalence? const-decl "bool" relations nil))
    shostak))
@@ -1550,26 +1579,25 @@
       nil))
     nil)
    ((ae_eq? const-decl "bool" measure_theory nil)
-    (restrict const-decl "R" restrict nil)
-    (fullset const-decl "set" sets nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (member const-decl "bool" sets nil)
-    (TRUE const-decl "bool" booleans nil)
-    (T formal-type-decl nil measure_theory nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (negligible_set? const-decl "bool" measure_theory nil)
-    (negligible nonempty-type-eq-decl nil measure_theory nil)
-    (union const-decl "set" sets nil)
-    (negligible_union application-judgement "negligible" measure_theory
-     nil)
-    (ae_in? const-decl "bool" measure_theory nil)
-    (ae? const-decl "bool" measure_theory nil)
-    (subset_algebra_fullset name-judgement "(S)" measure_theory nil)
     (measurable_fullset name-judgement "measurable_set[T, S]"
      measure_theory nil)
+    (subset_algebra_fullset name-judgement "(S)" measure_theory nil)
+    (ae? const-decl "bool" measure_theory nil)
+    (ae_in? const-decl "bool" measure_theory nil)
+    (negligible_union application-judgement "negligible" measure_theory
+     nil)
+    (union const-decl "set" sets nil)
+    (negligible nonempty-type-eq-decl nil measure_theory nil)
+    (negligible_set? const-decl "bool" measure_theory nil)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T formal-type-decl nil measure_theory nil)
+    (TRUE const-decl "bool" booleans nil)
+    (member const-decl "bool" sets nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (fullset const-decl "set" sets nil)
     (pointwise_ae? const-decl "bool" measure_theory nil)
     (ae_le? const-decl "bool" measure_theory nil))
    shostak))
@@ -1728,6 +1756,11 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology "metric_space/")
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
     (metric_converges_to const-decl "bool" metric_space_def
      "metric_space/")
     (cauchy? const-decl "bool" metric_space_def "metric_space/")
@@ -1842,54 +1875,279 @@
       nil))
     nil)
    ((ae_convergence? const-decl "bool" measure_theory nil)
-    (restrict const-decl "R" restrict nil)
-    (measurable_fullset name-judgement "measurable_set[T, S]"
-     measure_theory nil)
-    (subset_algebra_fullset name-judgement "(S)" measure_theory nil)
-    (ae? const-decl "bool" measure_theory nil)
-    (ae_convergence_in? const-decl "bool" measure_theory nil)
-    (member const-decl "bool" sets nil)
-    (unique_limit formula-decl nil hausdorff_convergence "topology/")
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (sequence type-eq-decl nil sequences nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (setof type-eq-decl nil defined_types nil)
-    (setofsets type-eq-decl nil sets nil)
-    (>= const-decl "bool" reals nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
-    (TRUE const-decl "bool" booleans nil)
-    (T formal-type-decl nil measure_theory nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (negligible_set? const-decl "bool" measure_theory nil)
-    (negligible nonempty-type-eq-decl nil measure_theory nil)
-    (union const-decl "set" sets nil)
+    (pointwise_ae? const-decl "bool" measure_theory nil)
+    (fullset const-decl "set" sets nil)
+    (ae_in? const-decl "bool" measure_theory nil)
     (negligible_union application-judgement "negligible" measure_theory
      nil)
-    (ae_in? const-decl "bool" measure_theory nil)
-    (fullset const-decl "set" sets nil)
-    (pointwise_ae? const-decl "bool" measure_theory nil)
+    (union const-decl "set" sets nil)
+    (negligible nonempty-type-eq-decl nil measure_theory nil)
+    (negligible_set? const-decl "bool" measure_theory nil)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T formal-type-decl nil measure_theory nil)
+    (TRUE const-decl "bool" booleans nil)
+    (metric_induced_topology const-decl "setofsets[T]" metric_space_def
+     "metric_space/")
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (>= const-decl "bool" reals nil)
+    (setofsets type-eq-decl nil sets nil)
+    (setof type-eq-decl nil defined_types nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (sequence type-eq-decl nil sequences nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (unique_limit formula-decl nil hausdorff_convergence "topology/")
+    (member const-decl "bool" sets nil)
+    (ae_convergence_in? const-decl "bool" measure_theory nil)
+    (ae? const-decl "bool" measure_theory nil)
+    (subset_algebra_fullset name-judgement "(S)" measure_theory nil)
+    (measurable_fullset name-judgement "measurable_set[T, S]"
+     measure_theory nil)
     (ae_eq? const-decl "bool" measure_theory nil))
    shostak))
  (ae_eq_convergence 0
+  (ae_eq_convergence-2 "" 3758920390
+   ("" (skosimp)
+    (("" (expand "ae_convergence?")
+      ((""
+        (case "exists NS: forall n,x: (NOT NS(n)(x)) => F!1(n)(x)=G!1(n)(x)")
+        (("1" (hide -3)
+          (("1" (expand "fullset")
+            (("1" (expand "ae_convergence_in?")
+              (("1" (expand "ae_in?")
+                (("1" (skosimp*)
+                  (("1" (typepred "E!1")
+                    (("1" (expand "negligible_set?")
+                      (("1" (skosimp)
+                        (("1" (inst + "union(X!1,IUnion(NS!1))")
+                          (("1" (skosimp)
+                            (("1" (expand "union")
+                              (("1"
+                                (expand "member")
+                                (("1"
+                                  (flatten)
+                                  (("1"
+                                    (inst - "x!1")
+                                    (("1"
+                                      (expand "subset?")
+                                      (("1"
+                                        (inst - "x!1")
+                                        (("1"
+                                          (expand "member")
+                                          (("1"
+                                            (assert)
+                                            (("1"
+                                              (rewrite
+                                               "metric_convergence_def"
+                                               *)
+                                              (("1"
+                                                (rewrite
+                                                 "metric_convergence_def"
+                                                 *)
+                                                (("1"
+                                                  (expand
+                                                   "metric_converges_to")
+                                                  (("1"
+                                                    (expand "ball")
+                                                    (("1"
+                                                      (expand "member")
+                                                      (("1"
+                                                        (skosimp)
+                                                        (("1"
+                                                          (inst
+                                                           -3
+                                                           "r!1")
+                                                          (("1"
+                                                            (skosimp)
+                                                            (("1"
+                                                              (inst
+                                                               +
+                                                               "n!1")
+                                                              (("1"
+                                                                (skosimp)
+                                                                (("1"
+                                                                  (inst
+                                                                   -3
+                                                                   "i!1")
+                                                                  (("1"
+                                                                    (assert)
+                                                                    (("1"
+                                                                      (inst
+                                                                       -
+                                                                       "i!1"
+                                                                       "x!1")
+                                                                      (("1"
+                                                                        (expand
+                                                                         "IUnion")
+                                                                        (("1"
+                                                                          (inst
+                                                                           +
+                                                                           "i!1")
+                                                                          (("1"
+                                                                            (assert)
+                                                                            nil
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (hide-all-but 1)
+                                                  (("2"
+                                                    (grind)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (assert)
+                            (("2" (rewrite "negligible_union")
+                              (("2"
+                                (rewrite "null_is_negligible")
+                                nil
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (hide -1 2)
+          (("2"
+            (case "FORALL n: EXISTS N: forall x: (NOT N(x)) => F!1(n)(x) = G!1(n)(x)")
+            (("1" (hide -2)
+              (("1"
+                (inst +
+                 "lambda n: choose({N | FORALL x: (NOT N(x)) => F!1(n)(x) = G!1(n)(x)})")
+                (("1" (skosimp)
+                  (("1"
+                    (lemma "choose_member"
+                     ("a"
+                      "{N | FORALL x: (NOT N(x)) => F!1(n!1)(x) = G!1(n!1)(x)}"))
+                    (("1" (split -1)
+                      (("1" (expand "member")
+                        (("1" (inst - "x!1")
+                          (("1" (replace 1 -1) (("1" (propax) nil nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (hide 1)
+                        (("2" (inst - "n!1")
+                          (("2" (skosimp)
+                            (("2" (expand "empty?")
+                              (("2"
+                                (expand "member")
+                                (("2" (inst - "N!1") nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (skosimp)
+                  (("2" (inst - "n!1")
+                    (("2" (skosimp)
+                      (("2" (expand "nonempty?")
+                        (("2" (expand "empty?")
+                          (("2" (expand "member")
+                            (("2" (inst - "N!1") nil nil)) nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (hide 2)
+              (("2" (skosimp)
+                (("2" (inst - "n!1")
+                  (("2" (expand "ae_eq?")
+                    (("2" (expand "pointwise_ae?")
+                      (("2" (expand "ae?")
+                        (("2" (expand "fullset")
+                          (("2" (expand "ae_in?")
+                            (("2" (skosimp)
+                              (("2"
+                                (typepred "E!1")
+                                (("2"
+                                  (expand "negligible_set?")
+                                  (("2"
+                                    (skosimp)
+                                    (("2"
+                                      (inst + "X!1")
+                                      (("2"
+                                        (skosimp)
+                                        (("2"
+                                          (inst - "x!1")
+                                          (("2"
+                                            (expand "subset?")
+                                            (("2"
+                                              (inst - "x!1")
+                                              (("2" (assert) nil nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (ae_eq_convergence-1 nil 3395676012
    ("" (skosimp)
     (("" (expand "ae_convergence?")
@@ -2114,77 +2372,84 @@
         nil))
       nil))
     nil)
-   ((ae_convergence? const-decl "bool" measure_theory nil)
-    (restrict const-decl "R" restrict nil)
+   ((= const-decl "[T, T -> boolean]" equalities nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (sequence type-eq-decl nil sequences nil)
+    (null_set nonempty-type-eq-decl nil measure_theory nil)
+    (null_set? const-decl "bool" measure_theory nil)
+    (set type-eq-decl nil sets nil)
+    (T formal-type-decl nil measure_theory nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (fullset const-decl "set" sets nil)
+    (ae_in? const-decl "bool" measure_theory nil)
+    (negligible_set? const-decl "bool" measure_theory nil)
+    (negligible nonempty-type-eq-decl nil measure_theory nil)
+    (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
+     sets_lemmas nil)
+    (null_is_negligible judgement-tcc nil measure_theory nil)
+    (negligible_union judgement-tcc nil measure_theory nil)
+    (member const-decl "bool" sets nil)
+    (TRUE const-decl "bool" booleans nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (metric? const-decl "bool" metric_def "metric_space/")
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (> const-decl "bool" reals nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (metric_converges_to const-decl "bool" metric_space_def
+     "metric_space/")
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology "metric_space/")
+    (metric_zero? const-decl "bool" metric_def "metric_space/")
+    (metric_symmetric? const-decl "bool" metric_def "metric_space/")
+    (metric_triangle? const-decl "bool" metric_def "metric_space/")
+    (minus_real_is_real application-judgement "real" reals nil)
+    (metric_convergence_def formula-decl nil metric_space
+     "metric_space/")
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (subset? const-decl "bool" sets nil)
+    (NS!1 skolem-const-decl "sequence[null_set]" measure_theory nil)
+    (IUnion const-decl "set[T]" indexed_sets nil)
+    (X!1 skolem-const-decl "set[T]" measure_theory nil)
+    (union const-decl "set" sets nil)
+    (null_IUnion application-judgement "null_set" measure_theory nil)
+    (ae_convergence_in? const-decl "bool" measure_theory nil)
+    (G!1 skolem-const-decl "sequence[[T -> real]]" measure_theory nil)
+    (F!1 skolem-const-decl "sequence[[T -> real]]" measure_theory nil)
+    (nonempty? const-decl "bool" sets nil)
+    (choose const-decl "(p)" sets nil)
+    (choose_member formula-decl nil sets_lemmas nil)
+    (empty? const-decl "bool" sets nil)
+    (ae_eq? const-decl "bool" measure_theory nil)
     (ae? const-decl "bool" measure_theory nil)
     (X!1 skolem-const-decl "set[T]" measure_theory nil)
     (pointwise_ae? const-decl "bool" measure_theory nil)
-    (ae_eq? const-decl "bool" measure_theory nil)
-    (empty? const-decl "bool" sets nil)
-    (choose_member formula-decl nil sets_lemmas nil)
-    (choose const-decl "(p)" sets nil)
-    (nonempty? const-decl "bool" sets nil)
-    (F!1 skolem-const-decl "sequence[[T -> real]]" measure_theory nil)
-    (G!1 skolem-const-decl "sequence[[T -> real]]" measure_theory nil)
-    (ae_convergence_in? const-decl "bool" measure_theory nil)
-    (null_IUnion application-judgement "null_set" measure_theory nil)
-    (negligible_IUnion application-judgement "negligible"
-     measure_theory nil)
-    (union const-decl "set" sets nil)
-    (X!1 skolem-const-decl "set[T]" measure_theory nil)
-    (IUnion const-decl "set[T]" indexed_sets nil)
-    (NS!1 skolem-const-decl "sequence[null_set]" measure_theory nil)
-    (subset? const-decl "bool" sets nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (metric_convergence_def formula-decl nil metric_space
-     "metric_space/")
-    (metric_converges_to const-decl "bool" metric_space_def
-     "metric_space/")
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (TRUE const-decl "bool" booleans nil)
-    (member const-decl "bool" sets nil)
-    (negligible_union judgement-tcc nil measure_theory nil)
-    (null_is_negligible judgement-tcc nil measure_theory nil)
-    (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
-     sets_lemmas nil)
-    (negligible nonempty-type-eq-decl nil measure_theory nil)
-    (negligible_set? const-decl "bool" measure_theory nil)
-    (ae_in? const-decl "bool" measure_theory nil)
-    (fullset const-decl "set" sets nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil measure_theory nil)
-    (set type-eq-decl nil sets nil)
-    (null_set? const-decl "bool" measure_theory nil)
-    (null_set nonempty-type-eq-decl nil measure_theory nil)
-    (sequence type-eq-decl nil sequences nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil))
+    (ae_convergence? const-decl "bool" measure_theory nil))
    shostak)))
 

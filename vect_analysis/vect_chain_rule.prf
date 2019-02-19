@@ -3,15 +3,21 @@
   (composition_derivable_vfun_TCC1-1 nil 3472221152
    ("" (lemma "deriv_domain1")
     (("" (expand "deriv_domain?") (("" (propax) nil nil)) nil)) nil)
-   ((deriv_domain1 formula-decl nil vect_chain_rule nil)) nil))
+   ((deriv_domain1 formula-decl nil vect_chain_rule nil)) nil
+   (composition_derivable_vfun assuming "analysis@derivatives[T1]"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (composition_derivable_vfun_TCC2 0
   (composition_derivable_vfun_TCC2-1 nil 3472221152
    ("" (lemma "not_one_element1") (("" (propax) nil nil)) nil)
-   ((not_one_element1 formula-decl nil vect_chain_rule nil)) nil))
+   ((not_one_element1 formula-decl nil vect_chain_rule nil)) nil
+   (composition_derivable_vfun assuming "analysis@derivatives[T1]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (composition_derivable_vfun_TCC3 0
   (composition_derivable_vfun_TCC3-1 nil 3472221152
    ("" (lemma "deriv_domain2") (("" (skosimp*) nil nil)) nil)
-   ((deriv_domain2 formula-decl nil vect_chain_rule nil)) nil))
+   ((deriv_domain2 formula-decl nil vect_chain_rule nil)) nil
+   (composition_derivable_vfun assuming "deriv_real_vect2[T2]"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (composition_derivable_vfun_TCC4 0
   (composition_derivable_vfun_TCC4-1 nil 3472221152
    ("" (skosimp*)
@@ -19,7 +25,9 @@
       (("" (expand "not_one_element?") (("" (inst?) nil nil)) nil))
       nil))
     nil)
-   ((not_one_element2 formula-decl nil vect_chain_rule nil)) nil))
+   ((not_one_element2 formula-decl nil vect_chain_rule nil)) nil
+   (composition_derivable_vfun assuming "deriv_real_vect2[T2]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (composition_derivable_vfun 0
   (composition_derivable_vfun-2 nil 3472381455
    ("" (skosimp*)
@@ -207,14 +215,6 @@
     (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
     (derivable? const-decl "bool" derivatives "analysis/"))
    nil))
- (gg_TCC1 0
-  (gg_TCC1-1 nil 3313840193
-   ("" (lemma "deriv_domain2") (("" (propax) nil nil)) nil)
-   ((deriv_domain2 formula-decl nil vect_chain_rule nil)) nil))
- (gg_TCC2 0
-  (gg_TCC2-1 nil 3313840193
-   ("" (lemma "not_one_element2") (("" (propax) nil nil)) nil)
-   ((not_one_element2 formula-decl nil vect_chain_rule nil)) nil))
  (deriv_comp_vfun_TCC1 0
   (deriv_comp_vfun_TCC1-1 nil 3472221178
    ("" (skosimp*)
@@ -237,7 +237,22 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   nil))
+   nil
+   (deriv_comp_vfun subtype
+    "function_props[T1, T2, Vect2].o(vect_chain_rule.gg, vect_chain_rule.ff)"
+    "(deriv_real_vect2[T1].derivable_rv?)")))
+ (deriv_comp_vfun_TCC2 0
+  (deriv_comp_vfun_TCC2-1 nil 3758533361
+   ("" (lemma "deriv_domain2") (("" (propax) nil nil)) nil)
+   ((deriv_domain2 formula-decl nil vect_chain_rule nil)) nil
+   (deriv_comp_vfun assuming "deriv_real_vect2[T2]"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
+ (deriv_comp_vfun_TCC3 0
+  (deriv_comp_vfun_TCC3-1 nil 3758533361
+   ("" (lemma "not_one_element2") (("" (propax) nil nil)) nil)
+   ((not_one_element2 formula-decl nil vect_chain_rule nil)) nil
+   (deriv_comp_vfun assuming "deriv_real_vect2[T2]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (deriv_comp_vfun 0
   (deriv_comp_vfun-2 nil 3472381511
    ("" (skolem-typepred)
@@ -381,8 +396,7 @@
     (deriv_domain2 formula-decl nil vect_chain_rule nil)
     (not_one_element1 formula-decl nil vect_chain_rule nil)
     (deriv_domain1 formula-decl nil vect_chain_rule nil)
-    (derivable? const-decl "bool" derivatives_def "analysis/")
-    (ff!1 skolem-const-decl "{f | derivable?(f)}" vect_chain_rule nil)
+    (derivable? const-decl "bool" derivatives_def "analysis/") nil
     (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
     (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
     (deriv_rv const-decl "Vect2" deriv_real_vect2 nil)

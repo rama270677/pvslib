@@ -17,7 +17,9 @@
     (setof type-eq-decl nil defined_types nil)
     (A const-decl "setof[nzreal]" derivatives_def nil)
     (real_plus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (NQ subtype
+    "(number_fields.+)(derivatives_def.x, derivatives_def.h)" "T")))
  (deriv_TCC 0
   (deriv_TCC-3 nil 3471267100
    ("" (skosimp*)
@@ -216,6 +218,7 @@
      "(strict_total_order?[real])" real_props nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -243,6 +246,35 @@
     (deriv_TCC formula-decl nil derivatives_def nil))
    nil))
  (deriv_continuous 0
+  (deriv_continuous-2 "" 3755985837
+   ("" (skosimp)
+    (("" (rewrite "continuous_lim" :dir rl)
+      ((""
+        (case-replace "(LAMBDA (h: (A(x!1))): f!1(h + x!1)) =
+             const_fun(f!1(x!1)) + I[(A(x!1))] * NQ(f!1, x!1)")
+        (("1" (delete -1)
+          (("1"
+            (auto-rewrite-theory "lim_of_functions[(A(x!1))]" :exclude
+                                 ("convergence"
+                                  "convergence_def"
+                                  "convergent?"
+                                  "lim"
+                                  "lim_fun_lemma"
+                                  "lim_fun_def")
+                                 :always? t)
+            (("1" (auto-rewrite "deriv_TCC")
+              (("1" (grind :defs nil) nil nil)) nil))
+            nil))
+          nil)
+         ("2" (delete -1 2)
+          (("2" (apply-extensionality :hide? t)
+            (("1" (grind) nil nil) ("2" (grind) nil nil)) nil))
+          nil)
+         ("3" (delete -1 2) (("3" (grind) nil nil)) nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (deriv_continuous-1 nil 3253536989
    ("" (skosimp)
     (("" (rewrite "continuous_lim" :dir rl)
@@ -296,6 +328,8 @@
     (const_fun_convergent formula-decl nil lim_of_functions nil)
     (deriv_TCC formula-decl nil derivatives_def nil)
     (convergence_equiv formula-decl nil lim_of_functions nil)
+    (id_fun_continuous name-judgement "continuous_fun"
+     continuous_functions nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (NQ const-decl "real" derivatives_def nil)
     (I const-decl "(bijective?[T, T])" identity nil)
@@ -313,8 +347,6 @@
     (/= const-decl "boolean" notequal nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (const_fun_continuous application-judgement "continuous_fun"
-     continuous_functions nil)
-    (id_fun_continuous name-judgement "continuous_fun"
      continuous_functions nil))
    nil))
  (derivable_continuous 0
@@ -544,12 +576,12 @@
     (deriv_continuous formula-decl nil derivatives_def nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (convergence_equiv formula-decl nil lim_of_functions nil)
-    (sum_fun_convergent formula-decl nil lim_of_functions nil)
-    (scal_fun_convergent formula-decl nil lim_of_functions nil)
-    (prod_fun_convergent formula-decl nil lim_of_functions nil)
-    (lim_scal_fun formula-decl nil lim_of_functions nil)
-    (lim_prod_fun formula-decl nil lim_of_functions nil)
     (lim_sum_fun formula-decl nil lim_of_functions nil)
+    (lim_prod_fun formula-decl nil lim_of_functions nil)
+    (lim_scal_fun formula-decl nil lim_of_functions nil)
+    (prod_fun_convergent formula-decl nil lim_of_functions nil)
+    (scal_fun_convergent formula-decl nil lim_of_functions nil)
+    (sum_fun_convergent formula-decl nil lim_of_functions nil)
     (continuous_lim formula-decl nil derivatives_def nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
@@ -994,7 +1026,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (deriv subtype "0"
+    "{a | lim_of_functions[(derivatives_def.A(derivatives_def.x0))].convergent?(derivatives_def.NQ(derivatives_def.f, derivatives_def.x0), lim_of_functions.a)}")))
  (deriv_def 0
   (deriv_def-1 nil 3297521117
    ("" (skosimp*)
@@ -1046,7 +1080,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (T_pred const-decl "[real -> boolean]" derivatives_def nil)
     (T formal-subtype-decl nil derivatives_def nil))
-   nil))
+   nil
+   (deriv_sum subtype "derivatives_def.x"
+    "{x | derivatives_def.derivable?((real_fun_ops[T].+)(derivatives_def.f1, derivatives_def.f2), derivatives_def.x)}")))
  (deriv_sum 0
   (deriv_sum-1 nil 3253536989
    ("" (skosimp)
@@ -1078,7 +1114,9 @@
  (deriv_neg_TCC1 0
   (deriv_neg_TCC1-1 nil 3442582979
    ("" (lemma "neg_derivable") (("" (propax) nil nil)) nil)
-   ((neg_derivable formula-decl nil derivatives_def nil)) shostak))
+   ((neg_derivable formula-decl nil derivatives_def nil)) shostak
+   (deriv_neg subtype "derivatives_def.x"
+    "{x | derivatives_def.derivable?((real_fun_ops[T].-)(derivatives_def.f), derivatives_def.x)}")))
  (deriv_neg 0
   (deriv_neg-2 nil 3442586421
    ("" (skosimp)
@@ -1129,7 +1167,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (T_pred const-decl "[real -> boolean]" derivatives_def nil)
     (T formal-subtype-decl nil derivatives_def nil))
-   nil))
+   nil
+   (deriv_diff subtype "derivatives_def.x"
+    "{x | derivatives_def.derivable?((real_fun_ops[T].-)(derivatives_def.f1, derivatives_def.f2), derivatives_def.x)}")))
  (deriv_diff 0
   (deriv_diff-1 nil 3253536989
    ("" (skosimp)
@@ -1171,7 +1211,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (T_pred const-decl "[real -> boolean]" derivatives_def nil)
     (T formal-subtype-decl nil derivatives_def nil))
-   nil))
+   nil
+   (deriv_prod subtype "derivatives_def.x"
+    "{x | derivatives_def.derivable?(real_fun_ops[T].*(derivatives_def.f1, derivatives_def.f2), derivatives_def.x)}")))
  (deriv_prod 0
   (deriv_prod-1 nil 3253536989
    ("" (skosimp)
@@ -1223,7 +1265,9 @@
  (deriv_const_TCC1 0
   (deriv_const_TCC1-1 nil 3253536989
    ("" (lemma "const_derivable") (("" (propax) nil nil)) nil)
-   ((const_derivable formula-decl nil derivatives_def nil)) nil))
+   ((const_derivable formula-decl nil derivatives_def nil)) nil
+   (deriv_const subtype "derivatives_def.x"
+    "{x | derivatives_def.derivable?(real_fun_ops[T].const_fun(derivatives_def.b), derivatives_def.x)}")))
  (deriv_const 0
   (deriv_const-1 nil 3253536989
    ("" (skosimp)
@@ -1262,7 +1306,9 @@
  (deriv_scal_TCC1 0
   (deriv_scal_TCC1-1 nil 3253536989
    ("" (lemma "scal_derivable") (("" (propax) nil nil)) nil)
-   ((scal_derivable formula-decl nil derivatives_def nil)) nil))
+   ((scal_derivable formula-decl nil derivatives_def nil)) nil
+   (deriv_scal subtype "derivatives_def.x"
+    "{x | derivatives_def.derivable?(real_fun_ops[T].*(derivatives_def.b, derivatives_def.f), derivatives_def.x)}")))
  (deriv_scal 0
   (deriv_scal-1 nil 3253536989
    ("" (skosimp)
@@ -1294,7 +1340,9 @@
  (deriv_inv_TCC1 0
   (deriv_inv_TCC1-1 nil 3253536989
    ("" (lemma "inv_derivable") (("" (propax) nil nil)) nil)
-   ((inv_derivable formula-decl nil derivatives_def nil)) nil))
+   ((inv_derivable formula-decl nil derivatives_def nil)) nil
+   (deriv_inv subtype "derivatives_def.x"
+    "{x | derivatives_def.derivable?(real_fun_ops[T]./(1, derivatives_def.g), derivatives_def.x)}")))
  (deriv_inv 0
   (deriv_inv-1 nil 3253536989
    ("" (skosimp)
@@ -1356,7 +1404,9 @@
     (T formal-subtype-decl nil derivatives_def nil)
     (/= const-decl "boolean" notequal nil)
     (nzreal nonempty-type-eq-decl nil reals nil))
-   nil))
+   nil
+   (deriv_div subtype "derivatives_def.x"
+    "{x | derivatives_def.derivable?(real_fun_ops[T]./(derivatives_def.f, derivatives_def.g), derivatives_def.x)}")))
  (deriv_div 0
   (deriv_div-1 nil 3253536989
    (""
@@ -1392,7 +1442,9 @@
  (deriv_identity_TCC1 0
   (deriv_identity_TCC1-1 nil 3253536989
    ("" (lemma "identity_derivable") (("" (propax) nil nil)) nil)
-   ((identity_derivable formula-decl nil derivatives_def nil)) nil))
+   ((identity_derivable formula-decl nil derivatives_def nil)) nil
+   (deriv_identity subtype "derivatives_def.x"
+    "{x | derivatives_def.derivable?(identity[T].I, derivatives_def.x)}")))
  (deriv_identity 0
   (deriv_identity-1 nil 3253536989
    ("" (skosimp)

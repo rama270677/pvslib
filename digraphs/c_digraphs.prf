@@ -5,9 +5,15 @@
    ((T formal-type-decl nil c_digraphs nil)
     (cdigraphs_implement_digraphs_ formula-decl nil c_digraphs_imp
      nil))
-   nil)
+   nil
+   (IMP_digraphs_ assuming
+    "digraphs_[c_digraphs.T, digraph_type[T], c_digraphs_imp[c_digraphs.T].digraph_verts, c_digraphs_imp[c_digraphs.T].digraph_edges, c_digraphs_imp[c_digraphs.T].digraph_size, c_digraphs_imp[c_digraphs.T].digraph_make]"
+    "concretedigraph_implements_abstractdigraph: ASSUMPTION digraphs_abs[digraphs_.T, digraphs_.ConcreteDigraph, digraphs_.vert, digraphs_.edges, digraphs_.size, digraphs_.make].correct_implementation"))
   (IMP_digraphs__TCC1-1 nil 3662143241 ("" (assuming-tcc) nil nil) nil
-   nil))
+   nil
+   (IMP_digraphs_ assuming
+    "digraphs_[c_digraphs.T, digraph_type[T], c_digraphs_imp[c_digraphs.T].digraph_verts, c_digraphs_imp[c_digraphs.T].digraph_edges, c_digraphs_imp[c_digraphs.T].digraph_size, c_digraphs_imp[c_digraphs.T].digraph_make]"
+    "concretedigraph_implements_abstractdigraph: ASSUMPTION digraphs_abs[digraphs_.T, digraphs_.ConcreteDigraph, digraphs_.vert, digraphs_.edges, digraphs_.size, digraphs_.make].correct_implementation")))
  (data_vert_list 0
   (data_vert_list-1 nil 3661532625
    ("" (skeep)
@@ -215,7 +221,7 @@
     (vert type-eq-decl nil digraphs_ nil)
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -226,23 +232,11 @@
      c_digraphs_imp nil)
     (digraph_type type-eq-decl nil c_digraphs_imp nil)
     (member_nth formula-decl nil more_list_props "structures/")
-    (nth_overloading formula-decl nil list_exp_ol "structures/")
-    (subrange type-eq-decl nil integers nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (<= const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (length_overloading formula-decl nil list_exp_ol "structures/")
     (no_repetitions? const-decl "bool" more_list_props "structures/")
-    (j skolem-const-decl "below(length(data(C)))" c_digraphs nil)
-    (C skolem-const-decl "(cdigraph)" c_digraphs nil)
-    (i skolem-const-decl "below(length(data(C)))" c_digraphs nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
     (vert_list const-decl "bool" digraphs_ nil))
-   nil))
+   nil
+   (data_vert_list subtype "data(c_digraphs.C)"
+    "digraphs_[c_digraphs.T, digraph_type[T], c_digraphs_imp[c_digraphs.T].digraph_verts, c_digraphs_imp[c_digraphs.T].digraph_edges, c_digraphs_imp[c_digraphs.T].digraph_size, c_digraphs_imp[c_digraphs.T].digraph_make].VertList(c_digraphs.C)")))
  (fully_connected_edges_TCC1 0
   (fully_connected_edges_TCC1-1 nil 3662123336
    ("" (skeep) (("" (use "msrl_nat") (("" (assert) nil nil)) nil)) nil)
@@ -268,7 +262,9 @@
     (number nonempty-type-decl nil numbers nil)
     (msrl_nat application-judgement "list[nat]" subrange_list
      "structures/"))
-   nil))
+   nil
+   (fully_connected_edges subtype "c_digraphs.i"
+    "below[length[list[nat]](ll)]")))
  (fully_connected_edges_TCC2 0
   (fully_connected_edges_TCC2-3 nil 3662145002
    ("" (skeep) (("" (use "msrl_nat") (("" (assert) nil nil)) nil)) nil)
@@ -297,7 +293,10 @@
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil)
+   nil
+   (fully_connected_edges subtype
+    "subrange_list.make_srl(0, (number_fields.-)(c_digraphs.size, 1))"
+    "list[nat]"))
   (fully_connected_edges_TCC2-2 nil 3662142234
    ("" (skeep)
     (("" (typepred "clone_times(size)(make_srl(0, size-1))")
@@ -411,9 +410,15 @@
     (subrange_list type-eq-decl nil subrange_list "structures/")
     (make_srl const-decl "subrange_list(i, j)" subrange_list
      "structures/"))
-   nil)
+   nil
+   (fully_connected_edges subtype
+    "subrange_list.make_srl(0, (number_fields.-)(c_digraphs.size, 1))"
+    "list[nat]"))
   (fully_connected_edges_TCC2-1 nil 3662141875
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (fully_connected_edges subtype
+    "subrange_list.make_srl(0, (number_fields.-)(c_digraphs.size, 1))"
+    "list[nat]")))
  (fully_connected_edges_TCC3 0
   (fully_connected_edges_TCC3-2 nil 3662144858
    ("" (skeep)
@@ -522,8 +527,8 @@
      "structures/")
     (subrange_list type-eq-decl nil subrange_list "structures/")
     (subrange_list? const-decl "bool" subrange_list "structures/")
-    (clone_times def-decl "{r: list[list[nat]] |
-         length(r) = n AND (FORALL (i: below(n)): nth(r, i) = l)}"
+    (clone_times def-decl
+     "{r: list[list[nat]] | length(r) = n AND FORALL (i: below(n)): nth(r, i) = l}"
      more_list_props "structures/")
     (nth def-decl "T" list_props nil)
     (below type-eq-decl nil nat_types nil)
@@ -552,35 +557,36 @@
     (boolean nonempty-type-decl nil booleans nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (no_repetitions? const-decl "bool" more_list_props "structures/")
-    (length_overloading formula-decl nil list_exp_ol "structures/")
-    (subrange type-eq-decl nil integers nil)
-    (<= const-decl "bool" reals nil)
-    (nth_overloading formula-decl nil list_exp_ol "structures/")
-    (j skolem-const-decl "below(length(make_srl(0, size - 1)))"
-     c_digraphs nil)
-    (i!1 skolem-const-decl "below(length(make_srl(0, size - 1)))"
-     c_digraphs nil)
-    (size skolem-const-decl "nat" c_digraphs nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (nth_member formula-decl nil more_list_props "structures/")
-    (member_overloading formula-decl nil list_exp_ol "structures/")
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (msrl_nat application-judgement "list[nat]" subrange_list
      "structures/")
+    (size skolem-const-decl "nat" c_digraphs nil)
     (msrl_nat judgement-tcc nil subrange_list "structures/"))
-   nil)
+   nil
+   (fully_connected_edges subtype
+    "more_list_props[nat].clone_times(c_digraphs.size)(subrange_list.make_srl(0, (number_fields.-)(c_digraphs.size, 1)))"
+    "{ll: list_adt[list[nat]].list | booleans.AND(list_props[list[nat]].length(ll) = c_digraphs.size, FORALL (i: naturalnumbers.below(c_digraphs.size)): booleans.AND(FORALL (j: naturalnumbers.below(list_props[nat].length(list_props[list[nat]].nth(ll, i)))): reals.<(list_props[nat].nth(list_props[list[nat]].nth(ll, i), j), c_digraphs.size), more_list_props[nat].no_repetitions?(list_props[list[nat]].nth(ll, i))))}"))
   (fully_connected_edges_TCC3-1 nil 3662142453
    ("" (subtype-tcc) nil nil)
    ((length_null formula-decl nil more_list_props "structures/")
     (no_repetitions? const-decl "bool" more_list_props "structures/"))
-   nil))
+   nil
+   (fully_connected_edges subtype
+    "more_list_props[nat].clone_times(c_digraphs.size)(subrange_list.make_srl(0, (number_fields.-)(c_digraphs.size, 1)))"
+    "{ll: list_adt[list[nat]].list | booleans.AND(list_props[list[nat]].length(ll) = c_digraphs.size, FORALL (i: naturalnumbers.below(c_digraphs.size)): booleans.AND(FORALL (j: naturalnumbers.below(list_props[nat].length(list_props[list[nat]].nth(ll, i)))): reals.<(list_props[nat].nth(list_props[list[nat]].nth(ll, i), j), c_digraphs.size), more_list_props[nat].no_repetitions?(list_props[list[nat]].nth(ll, i))))}")))
  (fully_connected_edges_TCC4 0
+  (fully_connected_edges_TCC4-2 "" 3744338124 ("" (grind) nil nil) nil
+   shostak
+   (fully_connected_edges subtype "list_adt[list[nat]].null"
+    "{ll: list_adt[list[nat]].list | booleans.AND(list_props[list[nat]].length(ll) = c_digraphs.size, FORALL (i: naturalnumbers.below(c_digraphs.size)): booleans.AND(FORALL (j: naturalnumbers.below(list_props[nat].length(list_props[list[nat]].nth(ll, i)))): reals.<(list_props[nat].nth(list_props[list[nat]].nth(ll, i), j), c_digraphs.size), more_list_props[nat].no_repetitions?(list_props[list[nat]].nth(ll, i))))}"))
   (fully_connected_edges_TCC4-1 nil 3662144805
    ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -602,10 +608,12 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (length_null formula-decl nil more_list_props "structures/")
+    (length def-decl "nat" list_props nil)
     (/= const-decl "boolean" notequal nil)
     (no_repetitions? const-decl "bool" more_list_props "structures/"))
-   nil))
+   nil
+   (fully_connected_edges subtype "list_adt[list[nat]].null"
+    "{ll: list_adt[list[nat]].list | booleans.AND(list_props[list[nat]].length(ll) = c_digraphs.size, FORALL (i: naturalnumbers.below(c_digraphs.size)): booleans.AND(FORALL (j: naturalnumbers.below(list_props[nat].length(list_props[list[nat]].nth(ll, i)))): reals.<(list_props[nat].nth(list_props[list[nat]].nth(ll, i), j), c_digraphs.size), more_list_props[nat].no_repetitions?(list_props[list[nat]].nth(ll, i))))}")))
  (make_fully_connected_TCC1 0
   (make_fully_connected_TCC1-1 nil 3662123336
    ("" (skeep)
@@ -665,13 +673,16 @@
     (nth def-decl "T" list_props nil)
     (no_repetitions? const-decl "bool" more_list_props "structures/")
     (fully_connected_edges const-decl "{ll: list[list[nat]] |
-         length(ll) = size AND
-          (FORALL (i: below(size)):
-             LET l = nth(ll, i) IN
-               (FORALL (j: below(length(l))): nth(l, j) < size) AND
-                no_repetitions?(l))}" c_digraphs nil)
+   length(ll) = size AND
+    FORALL (i: below(size)):
+      LET l = nth(ll, i) IN
+        (FORALL (j: below(length(l))): nth(l, j) < size) AND
+         no_repetitions?(l)}" c_digraphs nil)
     (T formal-type-decl nil c_digraphs nil))
-   nil))
+   nil
+   (make_fully_connected subtype
+    "(# data := c_digraphs.vl, adjs := c_digraphs.fully_connected_edges(list_props[c_digraphs.T].length(c_digraphs.vl)) #)"
+    "(c_digraphs_def[c_digraphs.T].cdigraph)")))
  (mfc_is_fully_connected 0
   (mfc_is_fully_connected-1 nil 3665226239
    ("" (skeep)
@@ -732,7 +743,6 @@
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (member_parm formula-decl nil more_list_props "structures/")
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (make_srl const-decl "subrange_list(i, j)" subrange_list
@@ -740,8 +750,8 @@
     (subrange_list type-eq-decl nil subrange_list "structures/")
     (subrange_list? const-decl "bool" subrange_list "structures/")
     (no_repetitions? const-decl "bool" more_list_props "structures/")
-    (clone_times def-decl "{r: list[list[nat]] |
-         length(r) = n AND (FORALL (i: below(n)): nth(r, i) = l)}"
+    (clone_times def-decl
+     "{r: list[list[nat]] | length(r) = n AND FORALL (i: below(n)): nth(r, i) = l}"
      more_list_props "structures/")
     (nth def-decl "T" list_props nil)
     (below type-eq-decl nil nat_types nil)
@@ -770,11 +780,11 @@
     (boolean nonempty-type-decl nil booleans nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (fully_connected_edges const-decl "{ll: list[list[nat]] |
-         length(ll) = size AND
-          (FORALL (i: below(size)):
-             LET l = nth(ll, i) IN
-               (FORALL (j: below(length(l))): nth(l, j) < size) AND
-                no_repetitions?(l))}" c_digraphs nil)
+   length(ll) = size AND
+    FORALL (i: below(size)):
+      LET l = nth(ll, i) IN
+        (FORALL (j: below(length(l))): nth(l, j) < size) AND
+         no_repetitions?(l)}" c_digraphs nil)
     (make_fully_connected const-decl "(cdigraph)" c_digraphs nil))
    shostak)))
 

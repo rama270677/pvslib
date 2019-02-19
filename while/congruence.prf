@@ -25,9 +25,11 @@
     (number nonempty-type-decl nil numbers nil)
     (V formal-nonempty-type-decl nil congruence nil)
     (I_is_continuous name-judgement "continuous
-    [Cont, scott_open_sets[Cont, (sq_le)], Cont,
-     scott_open_sets[Cont, (sq_le)]]" congruence nil))
-   nil))
+    [Cont[V], scott_open_sets[Cont[V], (sq_le)], Cont[V],
+     scott_open_sets[Cont[V], (sq_le)]]" congruence nil))
+   nil
+   (IMP_admissible existence ""
+    "(scott_continuity[Cont[V], Cont[V], Cont[congruence.V].sq_le, Cont[congruence.V].sq_le].scott_continuous?)")))
  (P_bottom_TCC1 0
   (P_bottom_TCC1-1 nil 3354849225
    ("" (expand "scott_continuous?")
@@ -106,11 +108,11 @@
     (set type-eq-decl nil sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[Cont[V]]" congruence nil)
-    (singleton_is_compact application-judgement
-     "compact[Cont[V], scott_open_sets]" congruence nil)
+     "non_empty_finite_set" congruence nil)
     (directed_singleton application-judgement
      "directed[Cont[V], (sq_le)]" congruence nil)
+    (singleton_is_compact application-judgement "compact" congruence
+     nil)
     (lub_singleton formula-decl nil bounded_order_props "orders/")
     (D!1 skolem-const-decl "directed[Cont[V], (sq_le)]" congruence nil)
     (x!2 skolem-const-decl "Cont[V]" congruence nil)
@@ -120,7 +122,9 @@
     (image const-decl "set[R]" function_image nil)
     (lub_preserving? const-decl "bool" scott_continuity "scott/")
     (scott_continuous? const-decl "bool" scott_continuity "scott/"))
-   nil))
+   nil
+   (P_bottom subtype "LAMBDA c: LAMBDA s: lift_adt[State[V]].bottom"
+    "scott_continuous[Cont[V], Cont[V], (sq_le[V]), (sq_le[V])]")))
  (P_bottom 0
   (P_bottom-1 nil 3354471613
    ("" (expand "P")
@@ -159,6 +163,99 @@
     (P const-decl "bool" congruence nil))
    shostak))
  (IMP_scott_continuity_TCC1 0
+  (IMP_scott_continuity_TCC1-2 "" 3757184700
+   ("" (expand "directed_complete_partial_order?")
+    (("" (expand "partial_order?")
+      (("" (expand "preorder?")
+        (("" (expand "directed_complete?")
+          (("" (split)
+            (("1" (expand "reflexive?") (("1" (skeep) nil nil)) nil)
+             ("2" (expand "transitive?")
+              (("2" (skeep) (("2" (assert) nil nil)) nil)) nil)
+             ("3" (expand "antisymmetric?")
+              (("3" (skeep)
+                (("3" (assert) (("3" (iff) (("3" (prop) nil nil)) nil))
+                  nil))
+                nil))
+              nil)
+             ("4" (skosimp)
+              (("4" (typepred "D!1")
+                (("4" (expand "least_bounded_above?")
+                  (("4" (case "D!1(FALSE)")
+                    (("1" (inst + "FALSE")
+                      (("1" (expand "least_upper_bound?")
+                        (("1" (expand "upper_bound?")
+                          (("1" (skosimp*)
+                            (("1" (assert)
+                              (("1" (inst - "FALSE") nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (inst + "TRUE")
+                      (("2" (expand "least_upper_bound?")
+                        (("2" (expand "upper_bound?")
+                          (("2" (skosimp)
+                            (("2" (typepred "r!1")
+                              (("2"
+                                (expand "nonempty?")
+                                (("2"
+                                  (expand "empty?")
+                                  (("2"
+                                    (skosimp)
+                                    (("2"
+                                      (expand "member")
+                                      (("2"
+                                        (expand "directed?")
+                                        (("2"
+                                          (inst - "x!1" "r!1")
+                                          (("2" (assert) nil nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((partial_order? const-decl "bool" orders nil)
+    (directed_complete? const-decl "bool" directed_orders "orders/")
+    (least_bounded_above? const-decl "bool" bounded_orders "orders/")
+    (TRUE const-decl "bool" booleans nil)
+    (empty? const-decl "bool" sets nil)
+    (member const-decl "bool" sets nil)
+    (upper_bound? const-decl "bool" bounded_orders "orders/")
+    (least_upper_bound? const-decl "bool" bounded_orders "orders/")
+    (FALSE const-decl "bool" booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (set type-eq-decl nil sets nil)
+    (nonempty? const-decl "bool" sets nil)
+    (pred type-eq-decl nil defined_types nil)
+    (directed? const-decl "bool" directed_orders "orders/")
+    (WHEN const-decl "[bool, bool -> bool]" booleans nil)
+    (antisymmetric? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
+    (preorder? const-decl "bool" orders nil)
+    (directed_complete_partial_order? const-decl "bool" directed_orders
+     "orders/"))
+   shostak
+   (IMP_scott_continuity subtype "booleans.WHEN"
+    "(directed_orders[booleans.bool].directed_complete_partial_order?)"))
   (IMP_scott_continuity_TCC1-1 nil 3355192008
    ("" (expand "directed_complete_partial_order?")
     (("" (expand "partial_order?")
@@ -222,23 +319,54 @@
     (upper_bound? const-decl "bool" bounded_orders "orders/")
     (least_upper_bound? const-decl "bool" bounded_orders "orders/")
     (FALSE const-decl "bool" booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (set type-eq-decl nil sets nil)
     (nonempty? const-decl "bool" sets nil)
     (pred type-eq-decl nil defined_types nil)
     (directed? const-decl "bool" directed_orders "orders/")
+    (WHEN const-decl "[bool, bool -> bool]" booleans nil)
     (antisymmetric? const-decl "bool" relations nil)
     (transitive? const-decl "bool" relations nil)
-    (partial_order_transitive formula-decl nil partial_order_props
-     "orders/")
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (WHEN const-decl "[bool, bool -> bool]" booleans nil)
     (reflexive? const-decl "bool" relations nil)
     (preorder? const-decl "bool" orders nil)
     (directed_complete_partial_order? const-decl "bool" directed_orders
      "orders/"))
-   nil))
+   nil
+   (IMP_scott_continuity subtype "booleans.WHEN"
+    "(directed_orders[booleans.bool].directed_complete_partial_order?)")))
+ (admissible_P_TCC1 0
+  (admissible_P_TCC1-1 nil 3757167984
+   ("" (inst 1 "(const_fun(lambda s: bottom), lambda s: bottom)") nil
+    nil)
+   ((bottom adt-constructor-decl "(bottom?)" lift_adt nil)
+    (bottom? adt-recognizer-decl "[lift -> boolean]" lift_adt nil)
+    (const_fun const-decl "[S -> T]" const_fun_def "structures/")
+    (scott_continuous? const-decl "bool" scott_continuity "scott/")
+    (sq_le const-decl "bool" Cont nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (Cont nonempty-type-eq-decl nil Cont nil)
+    (lift type-decl nil lift_adt nil)
+    (State nonempty-type-eq-decl nil State nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (V formal-nonempty-type-decl nil congruence nil)
+    (const_is_continuous application-judgement "continuous
+    [Cont[V], scott_open_sets[Cont[V], (sq_le)], Cont[V],
+     scott_open_sets[Cont[V], (sq_le)]]" congruence nil))
+   nil
+   (admissible_P existence ""
+    "[(scott_continuity[Cont[V], Cont[V], (Cont[congruence.V].sq_le), (Cont[congruence.V].sq_le)].scott_continuous?), Cont[V]]")))
  (admissible_P 0
   (admissible_P-1 nil 3355391729
    ("" (expand "admissible_pred?")
@@ -1399,46 +1527,24 @@
     (partial_order? const-decl "bool" orders nil)
     (directed? const-decl "bool" directed_orders "orders/")
     (* const-decl "bool" product_orders "orders/")
-    (product_preserves_reflexive application-judgement
-     "(reflexive?[[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]])"
-     congruence nil)
-    (product_preserves_transitive application-judgement
-     "(transitive?[[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]])"
-     congruence nil)
-    (product_preserves_preorder application-judgement
-     "(preorder?[[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]])"
-     congruence nil)
-    (product_preserves_antisymmetric application-judgement
-     "(antisymmetric?
-     [[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]])"
-     congruence nil)
-    (product_preserves_partial_order application-judgement
-     "(partial_order?
-     [[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]])"
-     congruence nil)
-    (product_preserves_directed_complete_partial_order
-     application-judgement "(directed_complete_partial_order?
-     [[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]])"
-     congruence nil)
     (product_preserves_pointed_directed_complete_partial_order
-     application-judgement "(pointed_directed_complete_partial_order?
-     [[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]])"
-     congruence nil)
+     application-judgement
+     "(pointed_directed_complete_partial_order?[[T1, T2]])" congruence
+     nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (z!3 skolem-const-decl "(D!1)" congruence nil)
     (empty? const-decl "bool" sets nil)
     (x!1 skolem-const-decl
-     "[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]"
+     "[(scott_continuous?[Cont[V], Cont[V], (sq_le), (sq_le)]), Cont[V]]"
      congruence nil)
     (member const-decl "bool" sets nil)
     (least_upper_bound? const-decl "bool" bounded_orders "orders/")
     (least_bounded_above? const-decl "bool" bounded_orders "orders/")
-    (lub const-decl "(LAMBDA (t): least_upper_bound?(t, S, <=))"
+    (lub const-decl "(LAMBDA (t: T): least_upper_bound?(t, S, <=))"
      bounded_orders "orders/")
     (apply_continuous formula-decl nil Cont nil)
     (pointwise const-decl "bool" pointwise_orders "orders/")
-    (fullset_is_clopen name-judgement "clopen[Cont, scott_open_sets]"
-     congruence nil)
+    (fullset_is_clopen name-judgement "clopen" congruence nil)
     (partial_order_antisymmetric formula-decl nil partial_order_props
      "orders/")
     (antisymmetric? const-decl "bool" relations nil)
@@ -1451,17 +1557,17 @@
     (up_down formula-decl nil lift_props "orders/")
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (D1 skolem-const-decl
-     "[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]) -> boolean]"
+     "[(scott_continuous?[Cont[V], Cont[V], (sq_le), (sq_le)]) -> boolean]"
      congruence nil)
     (D!1 skolem-const-decl
-     "set[[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]]"
+     "set[[(scott_continuous?[Cont[V], Cont[V], (sq_le), (sq_le)]), Cont[V]]]"
      congruence nil)
     (z!1 skolem-const-decl "(D!1)" congruence nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (bottom? adt-recognizer-decl "[lift -> boolean]" lift_adt nil)
     (pointwise_preserves_partial_order application-judgement
-     "(partial_order?[[Cont -> Cont]])" congruence nil)
+     "(partial_order?[[D -> R]])" congruence nil)
     (z!1 skolem-const-decl "(D!1)" congruence nil)
     (PSI skolem-const-decl
      "(LAMBDA (t: Cont[V]): least_upper_bound?(t, D2, sq_le))"
@@ -1476,22 +1582,11 @@
     (directed? const-decl "bool" directed_order_props "orders/")
     (z!3 skolem-const-decl "(D!1)" congruence nil)
     (x!1 skolem-const-decl
-     "[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]"
+     "[(scott_continuous?[Cont[V], Cont[V], (sq_le), (sq_le)]), Cont[V]]"
      congruence nil)
     (lub_rew formula-decl nil bounded_order_props "orders/")
     (lub_set? const-decl "bool" bounded_order_props "orders/")
     (emptyset const-decl "set" sets nil)
-    (finite_emptyset name-judgement
-     "finite_set[[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont[V]]]"
-     congruence nil)
-    (emptyset_is_clopen name-judgement "clopen
-    [[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont],
-     scott_open_sets]" congruence nil)
-    (finite_emptyset name-judgement "finite_set[T]" directed_orders
-     "orders/")
-    (finite_emptyset name-judgement "finite_set[T]" bounded_orders
-     "orders/")
-    (finite_emptyset name-judgement "finite_set" finite_sets nil)
     (least? const-decl "bool" minmax_orders "orders/")
     (fullset const-decl "set" sets nil)
     (bottom const-decl "(LAMBDA (t: T): least?(t, fullset[T], <=))"
@@ -1502,39 +1597,39 @@
     (lub_preserving? const-decl "bool" scott_continuity "scott/")
     (directed type-eq-decl nil directed_order_props "orders/")
     (x!2 skolem-const-decl "Cont[V]" congruence nil)
-    (D!2 skolem-const-decl "directed[Cont, (sq_le)]" congruence nil)
+    (D!2 skolem-const-decl "directed[Cont[V], (sq_le)]" congruence nil)
     (lub_singleton formula-decl nil bounded_order_props "orders/")
+    (singleton_is_compact application-judgement "compact" congruence
+     nil)
     (directed_singleton application-judgement
      "directed[Cont[V], (sq_le)]" congruence nil)
-    (singleton_is_compact application-judgement
-     "compact[Cont[V], scott_open_sets]" congruence nil)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[Cont[V]]" congruence nil)
+     "non_empty_finite_set" congruence nil)
     (singleton? const-decl "bool" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
     (image const-decl "set[R]" function_image nil)
     (increasing? const-decl "bool" fun_preds_partial "scott/")
-    (fullset_is_clopen name-judgement
-     "clopen[(scott_continuous?), scott_open_sets]" scott_continuity
+    (fullset_is_clopen name-judgement "clopen" scott_continuity
      "scott/")
-    (fullset_is_clopen name-judgement "clopen
-    [scott_continuous[Cont[V], Cont[V], (sq_le), (sq_le)], scott_open_sets]"
-     congruence nil)
-    (fullset_is_clopen name-judgement
-     "clopen[(scott_continuous?), scott_open_sets]" congruence nil)
+    (fullset_is_clopen name-judgement "clopen" congruence nil)
+    (fullset_is_clopen name-judgement "clopen" congruence nil)
+    (finite_emptyset name-judgement "finite_set" finite_sets nil)
+    (finite_emptyset name-judgement "finite_set" bounded_orders
+     "orders/")
+    (finite_emptyset name-judgement "finite_set" directed_orders
+     "orders/")
+    (emptyset_is_clopen name-judgement "clopen" congruence nil)
+    (finite_emptyset name-judgement "finite_set" congruence nil)
     (least const-decl "{t: (S) | least?(t, S, <=)}" minmax_orders
      "orders/")
     (has_least? const-decl "bool" minmax_orders "orders/")
-    (fullset_is_clopen name-judgement "clopen
-    [[(scott_continuous?[Cont, Cont, (sq_le), (sq_le)]), Cont],
-     scott_open_sets]" congruence nil)
+    (fullset_is_clopen name-judgement "clopen" congruence nil)
     (product_least formula-decl nil product_orders "orders/")
     (lub_emptyset formula-decl nil fixpoints "scott/")
     (emptyset_is_empty? formula-decl nil sets_lemmas nil)
     (continuous_pointwise_preserves_pointed_directed_complete_partial_order
      application-judgement "(pointed_directed_complete_partial_order?
-     [(scott_continuous?[Cont[V], Cont[V], (p1), (p2)])])" congruence
-     nil)
+     [(scott_continuous?[Cont[V], Cont[V], p1, p2])])" congruence nil)
     (product_preserves_pointed_directed_complete_partial_order
      judgement-tcc nil product_orders "orders/")
     (directed_complete_partial_order? const-decl "bool" directed_orders
@@ -1569,6 +1664,446 @@
     (admissible_pred? const-decl "bool" admissible "scott/"))
    shostak))
  (continuation_direct 0
+  (continuation_direct-2 "" 3757404923
+   ("" (lemma "structural_induction")
+    (("" (inst - "lambda (S:Stm): P(continuation.SS(S), direct.SS(S))")
+      (("" (skosimp)
+        (("" (split)
+          (("1" (inst - "S!1") nil nil)
+           ("2" (hide 2)
+            (("2" (expand "SS")
+              (("2" (expand "P")
+                (("2" (skosimp*)
+                  (("2" (apply-extensionality 1 :hide? t)
+                    (("2" (expand "o") (("2" (propax) nil nil)) nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("3" (hide 2)
+            (("3" (expand "SS")
+              (("3" (expand "P")
+                (("3" (expand "I")
+                  (("3" (expand "o ")
+                    (("3" (skosimp)
+                      (("3" (apply-extensionality 1 :hide? t) nil nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("4" (hide 2)
+            (("4" (skosimp*)
+              (("4" (expand "P")
+                (("4" (skosimp*)
+                  (("4" (expand "SS" 1)
+                    (("4" (expand "o" 1 1)
+                      (("4" (inst -2 "c!1")
+                        (("4" (replace -2 1)
+                          (("4" (hide -2)
+                            (("4" (inst - "c!1 o direct.SS(S2!1)")
+                              (("4"
+                                (replace -1 1)
+                                (("4"
+                                  (hide -1)
+                                  (("4"
+                                    (apply-extensionality 1 :hide? t)
+                                    (("4"
+                                      (expand "o" 1 2)
+                                      (("4"
+                                        (expand "o" 1 2)
+                                        (("4"
+                                          (expand "o" 1 2)
+                                          (("4"
+                                            (case-replace
+                                             "direct.SS(S1!1)(x!1)=bottom")
+                                            (("1" (assert) nil nil)
+                                             ("2"
+                                              (assert)
+                                              (("2"
+                                                (expand "o")
+                                                (("2"
+                                                  (propax)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("5" (hide 2)
+            (("5" (skosimp)
+              (("5" (expand "P")
+                (("5" (skosimp)
+                  (("5" (expand "SS" 1)
+                    (("5" (expand "conditional")
+                      (("5" (apply-extensionality 1 :hide? t)
+                        (("5" (expand "o")
+                          (("5" (case-replace "B(b!1)(x!1)")
+                            (("1" (inst -2 "c!1")
+                              (("1"
+                                (replace -2 1)
+                                (("1" (assert) nil nil))
+                                nil))
+                              nil)
+                             ("2" (assert)
+                              (("2"
+                                (inst -2 "c!1")
+                                (("2"
+                                  (replace -2 2)
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("6" (hide 2)
+            (("6" (skosimp)
+              (("6" (expand "SS" 1)
+                (("6" (lemma "admissible_P")
+                  (("6"
+                    (lemma "dual_fixpoint_induction"
+                     ("p" "P" "phi"
+                      "LAMBDA (g:(scott_continuous?[Cont,Cont,(sq_le),(sq_le)])): LAMBDA c: conditional(B(b!1), continuation.SS(S1!1)(g(c)), c)"
+                      "psi"
+                      "LAMBDA c: conditional(B(b!1), c o direct.SS(S1!1), LAMBDA s: up(s))"))
+                    (("1" (split -1)
+                      (("1" (propax) nil nil)
+                       ("2" (hide 2)
+                        (("2" (expand "admissible_pred?")
+                          (("2" (skosimp)
+                            (("2" (expand "P")
+                              (("2"
+                                (skosimp)
+                                (("2"
+                                  (inst -3 "x!1(c!1)")
+                                  (("2"
+                                    (replace -3)
+                                    (("2"
+                                      (inst -1 "c!1")
+                                      (("2"
+                                        (hide -2 -3)
+                                        (("2"
+                                          (lemma
+                                           "composition_conditional"
+                                           ("b" "b!1" "c" "c!1"))
+                                          (("2"
+                                            (inst
+                                             -
+                                             "y!1 o direct.SS(S1!1)"
+                                             "_")
+                                            (("2"
+                                              (inst
+                                               -
+                                               "LAMBDA s: up(s)")
+                                              (("2"
+                                                (replace -1 1 rl)
+                                                (("2"
+                                                  (hide -1)
+                                                  (("2"
+                                                    (apply-extensionality
+                                                     1
+                                                     :hide?
+                                                     t)
+                                                    (("2"
+                                                      (expand
+                                                       "conditional")
+                                                      (("2"
+                                                        (case-replace
+                                                         "B(b!1)(x!2)")
+                                                        (("1"
+                                                          (replace -2)
+                                                          (("1"
+                                                            (hide
+                                                             -1
+                                                             -2)
+                                                            (("1"
+                                                              (expand
+                                                               "o")
+                                                              (("1"
+                                                                (lift-if)
+                                                                (("1"
+                                                                  (lift-if)
+                                                                  (("1"
+                                                                    (assert)
+                                                                    nil
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (assert)
+                                                          (("2"
+                                                            (expand
+                                                             "o")
+                                                            (("2"
+                                                              (propax)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (hide 2)
+                      (("2" (expand "increasing?")
+                        (("2" (skosimp)
+                          (("2" (expand "conditional")
+                            (("2" (expand "sq_le")
+                              (("2"
+                                (skosimp)
+                                (("2"
+                                  (expand "o")
+                                  (("2"
+                                    (case-replace "B(b!1)(s1!1)")
+                                    (("1"
+                                      (case-replace
+                                       "direct.SS(S1!1)(s1!1)=bottom")
+                                      (("1" (assert) nil nil)
+                                       ("2"
+                                        (assert)
+                                        (("2"
+                                          (inst
+                                           -
+                                           "down(direct.SS(S1!1)(s1!1))"
+                                           "s2!1")
+                                          (("2" (assert) nil nil))
+                                          nil))
+                                        nil))
+                                      nil)
+                                     ("2" (assert) nil nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("3" (hide 2)
+                      (("3" (expand "increasing?")
+                        (("3" (skosimp)
+                          (("3" (typepred "continuation.SS(S1!1)")
+                            (("3" (expand "scott_continuous?")
+                              (("3"
+                                (expand "increasing?")
+                                (("3"
+                                  (flatten)
+                                  (("3"
+                                    (hide -2)
+                                    (("3"
+                                      (expand "continuous_pointwise")
+                                      (("3"
+                                        (expand "pointwise")
+                                        (("3"
+                                          (skosimp)
+                                          (("3"
+                                            (inst -2 "x!2")
+                                            (("3"
+                                              (inst
+                                               -
+                                               "x!1(x!2)"
+                                               "y!1(x!2)")
+                                              (("3"
+                                                (assert)
+                                                (("3"
+                                                  (hide-all-but (-1 1))
+                                                  (("3"
+                                                    (expand "sq_le")
+                                                    (("3"
+                                                      (skosimp)
+                                                      (("3"
+                                                        (inst
+                                                         -
+                                                         "s1!1"
+                                                         "s2!1")
+                                                        (("3"
+                                                          (expand
+                                                           "conditional")
+                                                          (("3"
+                                                            (case-replace
+                                                             "B(b!1)(s1!1)")
+                                                            (("1"
+                                                              (assert)
+                                                              nil
+                                                              nil)
+                                                             ("2"
+                                                              (assert)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("4" (hide 2)
+                      (("4" (skosimp)
+                        (("4" (typepred "g!1")
+                          (("4" (typepred "continuation.SS(S1!1)")
+                            (("4"
+                              (lemma "composition_continuous"
+                               ("f" "continuation.SS(S1!1)" "g" "g!1"))
+                              (("4"
+                                (lemma "identity_continuous")
+                                (("4"
+                                  (lemma
+                                   "conditional_continuous"
+                                   ("b"
+                                    "b!1"
+                                    "f"
+                                    "continuation.SS(S1!1) o g!1"
+                                    "g"
+                                    "I[Cont]"))
+                                  (("4"
+                                    (expand "o" -1)
+                                    (("4"
+                                      (expand "I" -1)
+                                      (("4" (propax) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("5" (propax) nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((Stm type-decl nil Stm nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (pred type-eq-decl nil defined_types nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (State nonempty-type-eq-decl nil State nil)
+    (lift type-decl nil lift_adt nil)
+    (Cont nonempty-type-eq-decl nil Cont nil)
+    (sq_le const-decl "bool" Cont nil)
+    (scott_continuous? const-decl "bool" scott_continuity "scott/")
+    (scott_continuous type-eq-decl nil scott_continuity "scott/")
+    (P const-decl "bool" congruence nil)
+    (SS def-decl
+     "(scott_continuous?[Cont[V], Cont[V], (sq_le), (sq_le)])"
+     continuation nil)
+    (SS def-decl "Cont" direct nil)
+    (up adt-constructor-decl "[T -> (up?)]" lift_adt nil)
+    (up? adt-recognizer-decl "[lift -> boolean]" lift_adt nil)
+    (O const-decl "LiftPartialFunction[X, Z]"
+     PartialFunctionComposition nil)
+    (LiftPartialFunction type-eq-decl nil PartialFunctionDefinitions
+     nil)
+    (A def-decl "[State -> int]" AExp nil)
+    (AExp type-decl nil AExp nil) (assign const-decl "State" State nil)
+    (I const-decl "(bijective?[T, T])" identity nil)
+    (O const-decl "T3" function_props nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (bottom? adt-recognizer-decl "[lift -> boolean]" lift_adt nil)
+    (bottom adt-constructor-decl "(bottom?)" lift_adt nil)
+    (conditional const-decl "Cont" Cont nil)
+    (sq_le_pdcpo name-judgement
+     "(pointed_directed_complete_partial_order?[Cont])" congruence nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (BExp type-decl nil BExp nil)
+    (B def-decl "[State -> bool]" BExp nil)
+    (admissible_P formula-decl nil congruence nil)
+    (composition_continuous formula-decl nil continuation nil)
+    (composition_is_continuous application-judgement "continuous
+    [Cont[V], scott_open_sets[Cont[V], (sq_le)], Cont[V],
+     scott_open_sets[Cont[V], (sq_le)]]" congruence nil)
+    (I_is_continuous name-judgement "continuous
+    [Cont[V], scott_open_sets[Cont[V], (sq_le)], Cont[V],
+     scott_open_sets[Cont[V], (sq_le)]]" congruence nil)
+    (conditional_continuous formula-decl nil continuation nil)
+    (bijective? const-decl "bool" functions nil)
+    (identity_continuous formula-decl nil continuation nil)
+    (pointwise const-decl "bool" pointwise_orders "orders/")
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (down adt-accessor-decl "[(up?) -> T]" lift_adt nil)
+    (composition_conditional formula-decl nil continuation nil)
+    (dual_fixpoint_induction formula-decl nil dual_fixpoints "scott/")
+    (* const-decl "bool" product_orders "orders/")
+    (admissible_pred? const-decl "bool" admissible "scott/")
+    (admissible_pred nonempty-type-eq-decl nil admissible "scott/")
+    (increasing? const-decl "bool" fun_preds_partial "scott/")
+    (directed_complete_partial_order? const-decl "bool" directed_orders
+     "orders/")
+    (continuous_pointwise const-decl "bool" pointwise_orders_aux
+     "scott/")
+    (structural_induction formula-decl nil Stm nil)
+    (V formal-nonempty-type-decl nil congruence nil))
+   shostak)
   (continuation_direct-1 nil 3353645795
    ("" (lemma "structural_induction")
     (("" (inst - "lambda (S:Stm): P(continuation.SS(S), direct.SS(S))")
@@ -1928,74 +2463,75 @@
         nil))
       nil))
     nil)
-   ((Stm type-decl nil Stm nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (pred type-eq-decl nil defined_types nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (State nonempty-type-eq-decl nil State nil)
-    (lift type-decl nil lift_adt nil)
-    (Cont nonempty-type-eq-decl nil Cont nil)
-    (sq_le const-decl "bool" Cont nil)
-    (scott_continuous? const-decl "bool" scott_continuity "scott/")
-    (scott_continuous type-eq-decl nil scott_continuity "scott/")
-    (P const-decl "bool" congruence nil)
-    (SS def-decl "(scott_continuous?[Cont, Cont, (sq_le), (sq_le)])"
-     continuation nil)
-    (SS def-decl "Cont" direct nil)
-    (up adt-constructor-decl "[T -> (up?)]" lift_adt nil)
-    (up? adt-recognizer-decl "[lift -> boolean]" lift_adt nil)
-    (O const-decl "LiftPartialFunction[X, Z]"
-     PartialFunctionComposition nil)
-    (LiftPartialFunction type-eq-decl nil PartialFunctionDefinitions
-     nil)
-    (A def-decl "[State -> int]" AExp nil)
-    (AExp type-decl nil AExp nil) (assign const-decl "State" State nil)
-    (I const-decl "(bijective?[T, T])" identity nil)
-    (O const-decl "T3" function_props nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (bottom? adt-recognizer-decl "[lift -> boolean]" lift_adt nil)
-    (bottom adt-constructor-decl "(bottom?)" lift_adt nil)
-    (conditional const-decl "Cont" Cont nil)
-    (sq_le_pdcpo name-judgement
-     "(pointed_directed_complete_partial_order?[Cont])" congruence nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (BExp type-decl nil BExp nil)
-    (B def-decl "[State -> bool]" BExp nil)
-    (admissible_P formula-decl nil congruence nil)
-    (composition_continuous formula-decl nil continuation nil)
-    (composition_is_continuous application-judgement "continuous
-    [Cont, scott_open_sets[Cont, (sq_le)], Cont,
-     scott_open_sets[Cont, (sq_le)]]" congruence nil)
-    (I_is_continuous name-judgement "continuous
-    [Cont, scott_open_sets[Cont, (sq_le)], Cont,
-     scott_open_sets[Cont, (sq_le)]]" congruence nil)
-    (conditional_continuous formula-decl nil continuation nil)
-    (bijective? const-decl "bool" functions nil)
-    (identity_continuous formula-decl nil continuation nil)
-    (pointwise const-decl "bool" pointwise_orders "orders/")
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (down adt-accessor-decl "[(up?) -> T]" lift_adt nil)
-    (composition_conditional formula-decl nil continuation nil)
-    (dual_fixpoint_induction formula-decl nil dual_fixpoints "scott/")
-    (* const-decl "bool" product_orders "orders/")
-    (admissible_pred? const-decl "bool" admissible "scott/")
-    (admissible_pred nonempty-type-eq-decl nil admissible "scott/")
-    (increasing? const-decl "bool" fun_preds_partial "scott/")
-    (directed_complete_partial_order? const-decl "bool" directed_orders
-     "orders/")
+   ((V formal-nonempty-type-decl nil congruence nil)
+    (structural_induction formula-decl nil Stm nil)
     (continuous_pointwise const-decl "bool" pointwise_orders_aux
      "scott/")
-    (structural_induction formula-decl nil Stm nil)
-    (V formal-nonempty-type-decl nil congruence nil))
+    (directed_complete_partial_order? const-decl "bool" directed_orders
+     "orders/")
+    (increasing? const-decl "bool" fun_preds_partial "scott/")
+    (admissible_pred nonempty-type-eq-decl nil admissible "scott/")
+    (admissible_pred? const-decl "bool" admissible "scott/")
+    (* const-decl "bool" product_orders "orders/")
+    (dual_fixpoint_induction formula-decl nil dual_fixpoints "scott/")
+    (composition_conditional formula-decl nil continuation nil)
+    (down adt-accessor-decl "[(up?) -> T]" lift_adt nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (pointwise const-decl "bool" pointwise_orders "orders/")
+    (identity_continuous formula-decl nil continuation nil)
+    (bijective? const-decl "bool" functions nil)
+    (conditional_continuous formula-decl nil continuation nil)
+    (I_is_continuous name-judgement "continuous
+    [Cont[V], scott_open_sets[Cont[V], (sq_le)], Cont[V],
+     scott_open_sets[Cont[V], (sq_le)]]" congruence nil)
+    (composition_is_continuous application-judgement "continuous
+    [Cont[V], scott_open_sets[Cont[V], (sq_le)], Cont[V],
+     scott_open_sets[Cont[V], (sq_le)]]" congruence nil)
+    (composition_continuous formula-decl nil continuation nil)
+    (admissible_P formula-decl nil congruence nil)
+    (B def-decl "[State -> bool]" BExp nil)
+    (BExp type-decl nil BExp nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (sq_le_pdcpo name-judgement
+     "(pointed_directed_complete_partial_order?[Cont])" congruence nil)
+    (conditional const-decl "Cont" Cont nil)
+    (bottom adt-constructor-decl "(bottom?)" lift_adt nil)
+    (bottom? adt-recognizer-decl "[lift -> boolean]" lift_adt nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (O const-decl "T3" function_props nil)
+    (I const-decl "(bijective?[T, T])" identity nil)
+    (assign const-decl "State" State nil) (AExp type-decl nil AExp nil)
+    (A def-decl "[State -> int]" AExp nil)
+    (LiftPartialFunction type-eq-decl nil PartialFunctionDefinitions
+     nil)
+    (O const-decl "LiftPartialFunction[X, Z]"
+     PartialFunctionComposition nil)
+    (up? adt-recognizer-decl "[lift -> boolean]" lift_adt nil)
+    (up adt-constructor-decl "[T -> (up?)]" lift_adt nil)
+    (SS def-decl "Cont" direct nil)
+    (SS def-decl
+     "(scott_continuous?[Cont[V], Cont[V], (sq_le), (sq_le)])"
+     continuation nil)
+    (P const-decl "bool" congruence nil)
+    (scott_continuous type-eq-decl nil scott_continuity "scott/")
+    (scott_continuous? const-decl "bool" scott_continuity "scott/")
+    (sq_le const-decl "bool" Cont nil)
+    (Cont nonempty-type-eq-decl nil Cont nil)
+    (lift type-decl nil lift_adt nil)
+    (State nonempty-type-eq-decl nil State nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (pred type-eq-decl nil defined_types nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (Stm type-decl nil Stm nil))
    shostak)))
 

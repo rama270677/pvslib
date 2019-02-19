@@ -92,7 +92,9 @@
     nil)
    ((con_dom_U formula-decl nil integral_chg_var nil)
     (deriv_domain_U formula-decl nil integral_chg_var nil))
-   nil))
+   nil
+   (int_chg_var_prep assuming "derivatives[U]"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (int_chg_var_prep_TCC2 0
   (int_chg_var_prep_TCC2-1 nil 3313937110
    ("" (lemma "not_one_U")
@@ -100,7 +102,9 @@
     nil)
    ((not_one_element? const-decl "bool" deriv_domain_def nil)
     (not_one_U formula-decl nil integral_chg_var nil))
-   nil))
+   nil
+   (int_chg_var_prep assuming "derivatives[U]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (int_chg_var_prep_TCC3 0
   (int_chg_var_prep_TCC3-1 nil 3471608937
    ("" (skosimp*)
@@ -109,7 +113,9 @@
         (("" (inst - x!1 y!1 z!1) (("" (assert) nil nil)) nil)) nil))
       nil))
     nil)
-   ((con_dom_U formula-decl nil integral_chg_var nil)) nil))
+   ((con_dom_U formula-decl nil integral_chg_var nil)) nil
+   (int_chg_var_prep assuming "integral_def[U]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (int_chg_var_prep 0
   (int_chg_var_prep-1 nil 3313937160
    ("" (skosimp*)
@@ -189,7 +195,9 @@
  (Int_chg_var_TCC1 0
   (Int_chg_var_TCC1-1 nil 3319990294
    ("" (lemma "deriv_domain_U") (("" (propax) nil nil)) nil)
-   ((deriv_domain_U formula-decl nil integral_chg_var nil)) nil))
+   ((deriv_domain_U formula-decl nil integral_chg_var nil)) nil
+   (Int_chg_var assuming "derivatives[U]"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (Int_chg_var_TCC2 0
   (Int_chg_var_TCC2-1 nil 3319990294
    ("" (skosimp*)
@@ -197,8 +205,28 @@
       (("" (expand "not_one_element?") (("" (inst?) nil nil)) nil))
       nil))
     nil)
-   ((not_one_U formula-decl nil integral_chg_var nil)) nil))
+   ((not_one_U formula-decl nil integral_chg_var nil)) nil
+   (Int_chg_var assuming "derivatives[U]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (Int_chg_var_TCC3 0
+  (Int_chg_var_TCC3-3 "" 3754889640
+   ("" (skosimp*)
+    (("" (lemma "continuous_Integrable?[T]")
+      (("1" (inst?)
+        (("1" (assert)
+          (("1" (skosimp*)
+            (("1" (expand "continuous?" -3) (("1" (inst?) nil nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (lemma "not_one_element") (("2" (propax) nil nil)) nil)
+       ("3" (lemma "connected_domain") (("3" (propax) nil nil)) nil))
+      nil))
+    nil)
+   nil shostak
+   (Int_chg_var subtype "integral_chg_var.f"
+    "integral_def[T].Integrable_funs(integral_chg_var.phi(integral_chg_var.a), integral_chg_var.phi(integral_chg_var.b))"))
   (Int_chg_var_TCC3-2 "" 3319993700
    ("" (skosimp*)
     (("" (lemma "continuous_Integrable?[T]")
@@ -238,17 +266,24 @@
     (U_pred const-decl "[real -> boolean]" integral_chg_var nil)
     (not_one_element formula-decl nil integral_chg_var nil)
     (connected_domain formula-decl nil integral_chg_var nil))
-   shostak)
-  (Int_chg_var_TCC3-1 nil 3319990294 ("" (subtype-tcc) nil nil) nil
-   nil))
+   shostak
+   (Int_chg_var subtype "integral_chg_var.f"
+    "integral_def[T].Integrable_funs(integral_chg_var.phi(integral_chg_var.a), integral_chg_var.phi(integral_chg_var.b))"))
+  (Int_chg_var_TCC3-1 nil 3319990294 ("" (subtype-tcc) nil nil) nil nil
+   (Int_chg_var subtype "integral_chg_var.f"
+    "integral_def[T].Integrable_funs(integral_chg_var.phi(integral_chg_var.a), integral_chg_var.phi(integral_chg_var.b))")))
  (Int_chg_var_TCC4 0
   (Int_chg_var_TCC4-1 nil 3319990294
    ("" (lemma "connected_domain") (("" (skosimp*) nil nil)) nil)
-   ((connected_domain formula-decl nil integral_chg_var nil)) nil))
+   ((connected_domain formula-decl nil integral_chg_var nil)) nil
+   (Int_chg_var assuming "integral_def[T]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (Int_chg_var_TCC5 0
   (Int_chg_var_TCC5-1 nil 3319990294
    ("" (lemma "not_one_element") (("" (skosimp*) nil nil)) nil)
-   ((not_one_element formula-decl nil integral_chg_var nil)) nil))
+   ((not_one_element formula-decl nil integral_chg_var nil)) nil
+   (Int_chg_var assuming "integral_def[T]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (Int_chg_var_TCC6 0
   (Int_chg_var_TCC6-2 nil 3319998251
    ("" (skosimp*)
@@ -268,7 +303,10 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   nil)
+   nil
+   (Int_chg_var subtype
+    "(LAMBDA (u: integral_chg_var.U): number_fields.*(integral_chg_var.f(integral_chg_var.phi(u)), derivatives[U].deriv(integral_chg_var.phi)(u)))"
+    "integral_def[U].Integrable_funs(integral_chg_var.a, integral_chg_var.b)"))
   (Int_chg_var_TCC6-1 nil 3319990294
    ("" (skosimp*)
     (("" (lemma "continuous_Integrable?[U]")
@@ -279,14 +317,19 @@
        ("2" (postpone) nil nil) ("3" (postpone) nil nil))
       nil))
     nil)
-   nil nil))
+   nil nil
+   (Int_chg_var subtype
+    "(LAMBDA (u: integral_chg_var.U): number_fields.*(integral_chg_var.f(integral_chg_var.phi(u)), derivatives[U].deriv(integral_chg_var.phi)(u)))"
+    "integral_def[U].Integrable_funs(integral_chg_var.a, integral_chg_var.b)")))
  (Int_chg_var_TCC7 0
   (Int_chg_var_TCC7-1 nil 3471608937
    ("" (skosimp*)
     (("" (lemma "con_dom_U")
       (("" (inst - x!1 y!1 z!1) (("" (assert) nil nil)) nil)) nil))
     nil)
-   ((con_dom_U formula-decl nil integral_chg_var nil)) nil))
+   ((con_dom_U formula-decl nil integral_chg_var nil)) nil
+   (Int_chg_var assuming "integral_def[U]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (Int_chg_var 0
   (Int_chg_var-1 nil 3319990307
    ("" (skosimp*)
@@ -578,7 +621,9 @@
     (U_pred const-decl "[real -> boolean]" integral_chg_var nil)
     (not_one_element formula-decl nil integral_chg_var nil)
     (connected_domain formula-decl nil integral_chg_var nil))
-   nil))
+   nil
+   (int_chg_var subtype "integral_chg_var.f"
+    "{f | integral_def[T].integrable?(integral_chg_var.phi(integral_chg_var.a), integral_chg_var.phi(integral_chg_var.b), integral_chg_var.f)}")))
  (int_chg_var_TCC2 0
   (int_chg_var_TCC2-2 nil 3319998518
    ("" (skosimp*)
@@ -610,9 +655,14 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   nil)
-  (int_chg_var_TCC2-1 nil 3319990512 ("" (subtype-tcc) nil nil) nil
-   nil))
+   nil
+   (int_chg_var subtype
+    "(LAMBDA (u: integral_chg_var.U): number_fields.*(integral_chg_var.f(integral_chg_var.phi(u)), derivatives[U].deriv(integral_chg_var.phi)(u)))"
+    "{f | integral_def[U].integrable?(integral_chg_var.a, integral_chg_var.b, integral_chg_var.f)}"))
+  (int_chg_var_TCC2-1 nil 3319990512 ("" (subtype-tcc) nil nil) nil nil
+   (int_chg_var subtype
+    "(LAMBDA (u: integral_chg_var.U): number_fields.*(integral_chg_var.f(integral_chg_var.phi(u)), derivatives[U].deriv(integral_chg_var.phi)(u)))"
+    "{f | integral_def[U].integrable?(integral_chg_var.a, integral_chg_var.b, integral_chg_var.f)}")))
  (int_chg_var 0
   (int_chg_var-1 nil 3313940293
    ("" (skosimp*)

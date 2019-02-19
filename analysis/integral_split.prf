@@ -2,17 +2,23 @@
  (partition_join_TCC1 0
   (partition_join_TCC1-1 nil 3281885132
    ("" (lemma "connected_domain") (("" (skosimp*) nil nil)) nil)
-   ((connected_domain formula-decl nil integral_split nil)) shostak))
+   ((connected_domain formula-decl nil integral_split nil)) shostak
+   (partition_join assuming "integral_def[T]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (partition_join_TCC2 0
   (partition_join_TCC2-1 nil 3282313772
    ("" (lemma "not_one_element") (("" (assert) nil nil)) nil)
-   ((not_one_element formula-decl nil integral_split nil)) shostak))
+   ((not_one_element formula-decl nil integral_split nil)) shostak
+   (partition_join assuming "integral_def[T]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (partition_join_TCC3 0
   (partition_join_TCC3-1 nil 3282313772
    ("" (skosimp*) (("" (assert) nil nil)) nil)
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak
+   (partition_join subtype "integral_split.c"
+    "{x: integral_split.T | reals.<(integral_split.a, x)}")))
  (partition_join 0
   (partition_join-3 nil 3399973962
    ("" (auto-rewrite "xis?")
@@ -907,10 +913,8 @@
         nil))
       nil))
     nil)
-   ((partition type-eq-decl nil integral_def nil)
-    (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
-    (xis? const-decl "bool" integral_def nil)
+   ((xis? const-decl "bool" integral_def nil)
+    (partition type-eq-decl nil integral_def nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (below type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -921,7 +925,10 @@
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (> const-decl "bool" reals nil) (<= const-decl "bool" reals nil)
+    (> const-decl "bool" reals nil)
+    (finite_sequence type-eq-decl nil finite_sequences nil)
+    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -971,6 +978,8 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (T_high type-eq-decl nil sigma "reals/")
     (T_low type-eq-decl nil sigma "reals/")
+    (even_minus_odd_is_odd application-judgement "odd_int" integers
+     nil)
     (Rie_sum const-decl "real" integral_def nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (connected_domain formula-decl nil integral_split nil)
@@ -981,8 +990,8 @@
      nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (finite_set type-eq-decl nil finite_sets nil)
     (non_empty_finite_set type-eq-decl nil finite_sets nil)
+    (finite_set type-eq-decl nil finite_sets nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (max const-decl
          "{a: T | SS(a) AND (FORALL (x: T): SS(x) IMPLIES x <= a)}"
@@ -991,7 +1000,6 @@
      "below(length(UUPart(a!1, b!1, c!1, Pa!1, Pb!1)) - 1)"
      integral_split nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (empty? const-decl "bool" sets nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -2744,7 +2752,9 @@
    ("" (skosimp*) (("" (assert) nil nil)) nil)
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak
+   (iss_prep subtype "integral_split.c"
+    "{x: integral_split.T | reals.<(integral_split.a, x)}")))
  (iss_prep 0
   (OWRE "FIX" 3399972591
    ("" (skosimp*)
@@ -2988,9 +2998,9 @@
     (P!1 skolem-const-decl "partition[T](a!1, c!1)" integral_split nil)
     (b!1 skolem-const-decl "T" integral_split nil)
     (ab skolem-const-decl "{a |
-         seq(P!1)(a) > b!1 AND
-          (FORALL (x: below(length(P!1))):
-             seq(P!1)(x) > b!1 IMPLIES a <= x)}" integral_split nil)
+   seq(P!1)(a) > b!1 AND
+    FORALL (x: below(length(P!1))): seq(P!1)(x) > b!1 IMPLIES a <= x}"
+     integral_split nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -3349,8 +3359,1114 @@
    ("" (skosimp*) (("" (assert) nil nil)) nil)
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak
+   (integrable_split_step subtype "integral_split.c"
+    "{x: integral_split.T | reals.<(integral_split.a, x)}")))
  (integrable_split_step 0
+  (integrable_split_step-6 "" 3755980711
+   ("" (skosimp*)
+    (("" (lemma "step_function_integrable?[T]")
+      (("1" (inst - "a!1" "c!1" "f!1")
+        (("1" (assert)
+          (("1" (hide -1)
+            (("1" (lemma "iss_prep")
+              (("1" (inst - "a!1" "b!1" "c!1" "f!1")
+                (("1" (assert)
+                  (("1" (expand "step_function?")
+                    (("1" (skosimp*)
+                      (("1" (inst - "P!1")
+                        (("1" (split -1)
+                          (("1" (skosimp*)
+                            (("1" (hide -7)
+                              (("1"
+                                (case-replace
+                                 "step_function_on?(a!1, b!1, f!1, PP!1^(0,ib!1))")
+                                (("1"
+                                  (case-replace
+                                   "step_function_on?(b!1, c!1, f!1, PP!1^(ib!1,length(PP!1)-1))")
+                                  (("1"
+                                    (name "LP" "PP!1 ^ (0, ib!1)")
+                                    (("1"
+                                      (replace -1)
+                                      (("1"
+                                        (name
+                                         "UP"
+                                         "PP!1 ^ (ib!1, length(PP!1) - 1)")
+                                        (("1"
+                                          (replace -1)
+                                          (("1"
+                                            (case
+                                             "length(LP) = ib!1+1")
+                                            (("1"
+                                              (case
+                                               "length(UP) = length(PP!1)-ib!1")
+                                              (("1"
+                                                (lemma
+                                                 "step_function_on_integral[T]")
+                                                (("1"
+                                                  (inst
+                                                   -
+                                                   "a!1"
+                                                   "b!1"
+                                                   "f!1")
+                                                  (("1"
+                                                    (assert)
+                                                    (("1"
+                                                      (inst - "LP")
+                                                      (("1"
+                                                        (assert)
+                                                        (("1"
+                                                          (replace -1)
+                                                          (("1"
+                                                            (hide -1)
+                                                            (("1"
+                                                              (lemma
+                                                               "step_function_on_integral[T]")
+                                                              (("1"
+                                                                (inst
+                                                                 -
+                                                                 "b!1"
+                                                                 "c!1"
+                                                                 "f!1")
+                                                                (("1"
+                                                                  (assert)
+                                                                  (("1"
+                                                                    (inst
+                                                                     -
+                                                                     "UP")
+                                                                    (("1"
+                                                                      (assert)
+                                                                      (("1"
+                                                                        (replace
+                                                                         -1)
+                                                                        (("1"
+                                                                          (hide
+                                                                           -1)
+                                                                          (("1"
+                                                                            (hide
+                                                                             -1
+                                                                             -2)
+                                                                            (("1"
+                                                                              (lemma
+                                                                               "step_function_on_integral[T]")
+                                                                              (("1"
+                                                                                (inst
+                                                                                 -
+                                                                                 "a!1"
+                                                                                 "c!1"
+                                                                                 "f!1")
+                                                                                (("1"
+                                                                                  (assert)
+                                                                                  (("1"
+                                                                                    (inst
+                                                                                     -
+                                                                                     "PP!1")
+                                                                                    (("1"
+                                                                                      (assert)
+                                                                                      (("1"
+                                                                                        (replace
+                                                                                         -1)
+                                                                                        (("1"
+                                                                                          (hide
+                                                                                           -1)
+                                                                                          (("1"
+                                                                                            (hide
+                                                                                             -3
+                                                                                             -4
+                                                                                             -5
+                                                                                             -9
+                                                                                             -10)
+                                                                                            (("1"
+                                                                                              (lemma
+                                                                                               "sigma_split[below[length(PP!1)-1]]")
+                                                                                              (("1"
+                                                                                                (inst
+                                                                                                 -1
+                                                                                                 "LAMBDA (ii: below(length(PP!1) - 1)):
+               PP!1`seq(1 + ii) * val_in(a!1, c!1, PP!1, ii, f!1) -
+                PP!1`seq(ii) * val_in(a!1, c!1, PP!1, ii, f!1)"
+                                                                                                 "length(PP!1) - 2"
+                                                                                                 "0"
+                                                                                                 _)
+                                                                                                (("1"
+                                                                                                  (inst
+                                                                                                   -
+                                                                                                   "ib!1 - 1")
+                                                                                                  (("1"
+                                                                                                    (assert)
+                                                                                                    (("1"
+                                                                                                      (replace
+                                                                                                       -1)
+                                                                                                      (("1"
+                                                                                                        (hide
+                                                                                                         -1)
+                                                                                                        (("1"
+                                                                                                          (case-replace
+                                                                                                           "sigma[below(length(LP) - 1)].sigma
+                                                                                              (0, length(LP) - 2,
+                                                                                               LAMBDA (ii: below(length(LP) - 1)):
+                                                                                                 LP`seq(1 + ii) *
+                                                                                                  integral_step[T].val_in(a!1, b!1, LP, ii, f!1)
+                                                                                                  -
+                                                                                                  LP`seq(ii) * integral_step[T].val_in(a!1, b!1, LP, ii, f!1)) = sigma[below[length(PP!1) - 1]].sigma
+                                                                                               (0, ib!1 - 1,
+                                                                                                LAMBDA (ii: below(length(PP!1) - 1)):
+                                                                                                  PP!1`seq(1 + ii) *
+                                                                                                   integral_step[T].val_in(a!1, c!1, PP!1, ii, f!1)
+                                                                                                   -
+                                                                                                   PP!1`seq(ii) *
+                                                                                                    integral_step[T].val_in(a!1, c!1, PP!1, ii, f!1))")
+                                                                                                          (("1"
+                                                                                                            (assert)
+                                                                                                            (("1"
+                                                                                                              (hide
+                                                                                                               -1)
+                                                                                                              (("1"
+                                                                                                                (lemma
+                                                                                                                 "sigma_diff_shift[length(UP)-1,length(PP!1)-1]")
+                                                                                                                (("1"
+                                                                                                                  (inst?)
+                                                                                                                  (("1"
+                                                                                                                    (inst
+                                                                                                                     -
+                                                                                                                     "(LAMBDA (ii: below(length(PP!1) - 1)):
+                                                                                         PP!1`seq(1 + ii) * val_in(a!1, c!1, PP!1, ii, f!1) -
+                                                                                          PP!1`seq(ii) * val_in(a!1, c!1, PP!1, ii, f!1))"
+                                                                                                                     "ib!1")
+                                                                                                                    (("1"
+                                                                                                                      (assert)
+                                                                                                                      (("1"
+                                                                                                                        (hide
+                                                                                                                         2)
+                                                                                                                        (("1"
+                                                                                                                          (skosimp*)
+                                                                                                                          (("1"
+                                                                                                                            (replace
+                                                                                                                             -2
+                                                                                                                             *
+                                                                                                                             rl)
+                                                                                                                            (("1"
+                                                                                                                              (hide
+                                                                                                                               -2
+                                                                                                                               -3)
+                                                                                                                              (("1"
+                                                                                                                                (case-replace
+                                                                                                                                 "val_in(b!1, c!1, PP!1 ^ (ib!1, length(PP!1) - 1), i!1, f!1) = val_in(a!1, c!1, PP!1, i!1 + ib!1, f!1)")
+                                                                                                                                (("1"
+                                                                                                                                  (assert)
+                                                                                                                                  (("1"
+                                                                                                                                    (hide
+                                                                                                                                     -1)
+                                                                                                                                    (("1"
+                                                                                                                                      (expand
+                                                                                                                                       "^")
+                                                                                                                                      (("1"
+                                                                                                                                        (propax)
+                                                                                                                                        nil
+                                                                                                                                        nil))
+                                                                                                                                      nil))
+                                                                                                                                    nil))
+                                                                                                                                  nil)
+                                                                                                                                 ("2"
+                                                                                                                                  (hide
+                                                                                                                                   2)
+                                                                                                                                  (("2"
+                                                                                                                                    (expand
+                                                                                                                                     "val_in")
+                                                                                                                                    (("2"
+                                                                                                                                      (name-replace
+                                                                                                                                       "P1"
+                                                                                                                                       "pick(b!1, c!1, PP!1 ^ (ib!1, length(PP!1) - 1), i!1)")
+                                                                                                                                      (("2"
+                                                                                                                                        (typepred
+                                                                                                                                         "P1")
+                                                                                                                                        (("2"
+                                                                                                                                          (name-replace
+                                                                                                                                           "P2"
+                                                                                                                                           "pick(a!1, c!1, PP!1, i!1 + ib!1)")
+                                                                                                                                          (("2"
+                                                                                                                                            (typepred
+                                                                                                                                             "P2")
+                                                                                                                                            (("2"
+                                                                                                                                              (reveal
+                                                                                                                                               -13)
+                                                                                                                                              (("2"
+                                                                                                                                                (expand
+                                                                                                                                                 "step_function_on?")
+                                                                                                                                                (("2"
+                                                                                                                                                  (expand
+                                                                                                                                                   "^")
+                                                                                                                                                  (("2"
+                                                                                                                                                    (expand
+                                                                                                                                                     "min")
+                                                                                                                                                    (("2"
+                                                                                                                                                      (inst
+                                                                                                                                                       -
+                                                                                                                                                       "i!1+ib!1")
+                                                                                                                                                      (("1"
+                                                                                                                                                        (skosimp*)
+                                                                                                                                                        (("1"
+                                                                                                                                                          (inst-cp
+                                                                                                                                                           -
+                                                                                                                                                           "P1")
+                                                                                                                                                          (("1"
+                                                                                                                                                            (inst
+                                                                                                                                                             -
+                                                                                                                                                             "P2")
+                                                                                                                                                            (("1"
+                                                                                                                                                              (assert)
+                                                                                                                                                              nil
+                                                                                                                                                              nil))
+                                                                                                                                                            nil)
+                                                                                                                                                           ("2"
+                                                                                                                                                            (assert)
+                                                                                                                                                            nil
+                                                                                                                                                            nil))
+                                                                                                                                                          nil))
+                                                                                                                                                        nil)
+                                                                                                                                                       ("2"
+                                                                                                                                                        (assert)
+                                                                                                                                                        nil
+                                                                                                                                                        nil))
+                                                                                                                                                      nil))
+                                                                                                                                                    nil))
+                                                                                                                                                  nil))
+                                                                                                                                                nil))
+                                                                                                                                              nil))
+                                                                                                                                            nil))
+                                                                                                                                          nil))
+                                                                                                                                        nil))
+                                                                                                                                      nil))
+                                                                                                                                    nil))
+                                                                                                                                  nil))
+                                                                                                                                nil))
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("2"
+                                                                                                                      (assert)
+                                                                                                                      (("2"
+                                                                                                                        (hide
+                                                                                                                         2)
+                                                                                                                        (("2"
+                                                                                                                          (lemma
+                                                                                                                           "connected_domain")
+                                                                                                                          (("2"
+                                                                                                                            (assert)
+                                                                                                                            nil
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil)
+                                                                                                                   ("2"
+                                                                                                                    (hide
+                                                                                                                     2)
+                                                                                                                    (("2"
+                                                                                                                      (assert)
+                                                                                                                      (("2"
+                                                                                                                        (skosimp*)
+                                                                                                                        (("2"
+                                                                                                                          (assert)
+                                                                                                                          (("2"
+                                                                                                                            (lemma
+                                                                                                                             "connected_domain")
+                                                                                                                            (("2"
+                                                                                                                              (propax)
+                                                                                                                              nil
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil)
+                                                                                                                   ("3"
+                                                                                                                    (skosimp*)
+                                                                                                                    (("3"
+                                                                                                                      (hide
+                                                                                                                       2)
+                                                                                                                      (("3"
+                                                                                                                        (split
+                                                                                                                         +)
+                                                                                                                        (("1"
+                                                                                                                          (skosimp*)
+                                                                                                                          (("1"
+                                                                                                                            (assert)
+                                                                                                                            (("1"
+                                                                                                                              (typepred
+                                                                                                                               "x1!1")
+                                                                                                                              (("1"
+                                                                                                                                (replace
+                                                                                                                                 -2
+                                                                                                                                 *
+                                                                                                                                 rl)
+                                                                                                                                (("1"
+                                                                                                                                  (hide
+                                                                                                                                   -2
+                                                                                                                                   -3)
+                                                                                                                                  (("1"
+                                                                                                                                    (grind)
+                                                                                                                                    (("1"
+                                                                                                                                      (lemma
+                                                                                                                                       "parts_order[T]")
+                                                                                                                                      (("1"
+                                                                                                                                        (inst
+                                                                                                                                         -
+                                                                                                                                         "a!1"
+                                                                                                                                         "c!1"
+                                                                                                                                         "PP!1"
+                                                                                                                                         "ib!1"
+                                                                                                                                         "x1!1+ib!1")
+                                                                                                                                        (("1"
+                                                                                                                                          (assert)
+                                                                                                                                          nil
+                                                                                                                                          nil))
+                                                                                                                                        nil))
+                                                                                                                                      nil))
+                                                                                                                                    nil))
+                                                                                                                                  nil))
+                                                                                                                                nil))
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil)
+                                                                                                                         ("2"
+                                                                                                                          (replace
+                                                                                                                           -1
+                                                                                                                           *
+                                                                                                                           rl)
+                                                                                                                          (("2"
+                                                                                                                            (hide
+                                                                                                                             -1
+                                                                                                                             -2)
+                                                                                                                            (("2"
+                                                                                                                              (grind)
+                                                                                                                              nil
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil)
+                                                                                                                         ("3"
+                                                                                                                          (replace
+                                                                                                                           -1
+                                                                                                                           *
+                                                                                                                           rl)
+                                                                                                                          (("3"
+                                                                                                                            (hide
+                                                                                                                             -1
+                                                                                                                             -2)
+                                                                                                                            (("3"
+                                                                                                                              (grind)
+                                                                                                                              nil
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil)
+                                                                                                                         ("4"
+                                                                                                                          (skosimp*)
+                                                                                                                          (("4"
+                                                                                                                            (replace
+                                                                                                                             -1
+                                                                                                                             *
+                                                                                                                             rl)
+                                                                                                                            (("4"
+                                                                                                                              (hide
+                                                                                                                               -1
+                                                                                                                               -2)
+                                                                                                                              (("4"
+                                                                                                                                (grind)
+                                                                                                                                (("4"
+                                                                                                                                  (typepred
+                                                                                                                                   "PP!1")
+                                                                                                                                  (("4"
+                                                                                                                                    (inst
+                                                                                                                                     -
+                                                                                                                                     "ib!1+ii!2")
+                                                                                                                                    (("4"
+                                                                                                                                      (assert)
+                                                                                                                                      nil
+                                                                                                                                      nil))
+                                                                                                                                    nil))
+                                                                                                                                  nil))
+                                                                                                                                nil))
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil)
+                                                                                                           ("2"
+                                                                                                            (lemma
+                                                                                                             "sigma_diff_eq[length(LP) - 1,length(PP!1) - 1]")
+                                                                                                            (("2"
+                                                                                                              (inst?)
+                                                                                                              (("1"
+                                                                                                                (assert)
+                                                                                                                (("1"
+                                                                                                                  (hide
+                                                                                                                   2)
+                                                                                                                  (("1"
+                                                                                                                    (skosimp*)
+                                                                                                                    (("1"
+                                                                                                                      (hide
+                                                                                                                       -2)
+                                                                                                                      (("1"
+                                                                                                                        (replace
+                                                                                                                         -2
+                                                                                                                         *
+                                                                                                                         rl)
+                                                                                                                        (("1"
+                                                                                                                          (hide
+                                                                                                                           -2)
+                                                                                                                          (("1"
+                                                                                                                            (case-replace
+                                                                                                                             "integral_step[T].val_in(a!1, b!1, PP!1 ^ (0, ib!1), i!1, f!1) = integral_step[T].val_in(a!1, c!1, PP!1, i!1, f!1)")
+                                                                                                                            (("1"
+                                                                                                                              (hide
+                                                                                                                               -1)
+                                                                                                                              (("1"
+                                                                                                                                (expand
+                                                                                                                                 "^")
+                                                                                                                                (("1"
+                                                                                                                                  (propax)
+                                                                                                                                  nil
+                                                                                                                                  nil))
+                                                                                                                                nil))
+                                                                                                                              nil)
+                                                                                                                             ("2"
+                                                                                                                              (hide
+                                                                                                                               2)
+                                                                                                                              (("2"
+                                                                                                                                (expand
+                                                                                                                                 "val_in")
+                                                                                                                                (("2"
+                                                                                                                                  (reveal
+                                                                                                                                   -9)
+                                                                                                                                  (("2"
+                                                                                                                                    (expand
+                                                                                                                                     "step_function_on?")
+                                                                                                                                    (("2"
+                                                                                                                                      (inst
+                                                                                                                                       -
+                                                                                                                                       "i!1")
+                                                                                                                                      (("2"
+                                                                                                                                        (skosimp*)
+                                                                                                                                        (("2"
+                                                                                                                                          (name-replace
+                                                                                                                                           "P1"
+                                                                                                                                           "pick(a!1, b!1, PP!1 ^ (0, ib!1), i!1)")
+                                                                                                                                          (("2"
+                                                                                                                                            (typepred
+                                                                                                                                             "P1")
+                                                                                                                                            (("2"
+                                                                                                                                              (name-replace
+                                                                                                                                               "P2"
+                                                                                                                                               "pick(a!1, c!1, PP!1, i!1)")
+                                                                                                                                              (("2"
+                                                                                                                                                (typepred
+                                                                                                                                                 "P2")
+                                                                                                                                                (("2"
+                                                                                                                                                  (inst-cp
+                                                                                                                                                   -
+                                                                                                                                                   "P1")
+                                                                                                                                                  (("1"
+                                                                                                                                                    (inst
+                                                                                                                                                     -
+                                                                                                                                                     "P2")
+                                                                                                                                                    (("1"
+                                                                                                                                                      (assert)
+                                                                                                                                                      nil
+                                                                                                                                                      nil))
+                                                                                                                                                    nil)
+                                                                                                                                                   ("2"
+                                                                                                                                                    (grind)
+                                                                                                                                                    nil
+                                                                                                                                                    nil))
+                                                                                                                                                  nil))
+                                                                                                                                                nil))
+                                                                                                                                              nil))
+                                                                                                                                            nil))
+                                                                                                                                          nil))
+                                                                                                                                        nil))
+                                                                                                                                      nil))
+                                                                                                                                    nil))
+                                                                                                                                  nil))
+                                                                                                                                nil))
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil)
+                                                                                                               ("2"
+                                                                                                                (skosimp*)
+                                                                                                                (("2"
+                                                                                                                  (lemma
+                                                                                                                   "connected_domain")
+                                                                                                                  (("2"
+                                                                                                                    (propax)
+                                                                                                                    nil
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil)
+                                                                                                               ("3"
+                                                                                                                (skosimp*)
+                                                                                                                (("3"
+                                                                                                                  (lemma
+                                                                                                                   "connected_domain")
+                                                                                                                  (("3"
+                                                                                                                    (propax)
+                                                                                                                    nil
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil)
+                                                                                                               ("4"
+                                                                                                                (hide
+                                                                                                                 2
+                                                                                                                 3)
+                                                                                                                (("4"
+                                                                                                                  (skosimp*)
+                                                                                                                  (("4"
+                                                                                                                    (split
+                                                                                                                     +)
+                                                                                                                    (("1"
+                                                                                                                      (skosimp*)
+                                                                                                                      (("1"
+                                                                                                                        (replace
+                                                                                                                         -2
+                                                                                                                         *
+                                                                                                                         rl)
+                                                                                                                        (("1"
+                                                                                                                          (typepred
+                                                                                                                           "x1!1")
+                                                                                                                          (("1"
+                                                                                                                            (grind)
+                                                                                                                            (("1"
+                                                                                                                              (lemma
+                                                                                                                               "parts_order[T]")
+                                                                                                                              (("1"
+                                                                                                                                (inst
+                                                                                                                                 -
+                                                                                                                                 "a!1"
+                                                                                                                                 "c!1"
+                                                                                                                                 "PP!1"
+                                                                                                                                 "x1!1"
+                                                                                                                                 "ib!1")
+                                                                                                                                (("1"
+                                                                                                                                  (assert)
+                                                                                                                                  nil
+                                                                                                                                  nil))
+                                                                                                                                nil))
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("2"
+                                                                                                                      (replace
+                                                                                                                       -2
+                                                                                                                       *
+                                                                                                                       rl)
+                                                                                                                      (("2"
+                                                                                                                        (hide
+                                                                                                                         -1
+                                                                                                                         -2)
+                                                                                                                        (("2"
+                                                                                                                          (grind)
+                                                                                                                          nil
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("3"
+                                                                                                                      (replace
+                                                                                                                       -2
+                                                                                                                       *
+                                                                                                                       rl)
+                                                                                                                      (("3"
+                                                                                                                        (hide
+                                                                                                                         -1
+                                                                                                                         -2)
+                                                                                                                        (("3"
+                                                                                                                          (grind)
+                                                                                                                          nil
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("4"
+                                                                                                                      (skosimp*)
+                                                                                                                      (("4"
+                                                                                                                        (replace
+                                                                                                                         -2
+                                                                                                                         *
+                                                                                                                         rl)
+                                                                                                                        (("4"
+                                                                                                                          (hide
+                                                                                                                           -1
+                                                                                                                           -2)
+                                                                                                                          (("4"
+                                                                                                                            (grind)
+                                                                                                                            (("4"
+                                                                                                                              (typepred
+                                                                                                                               "PP!1")
+                                                                                                                              (("4"
+                                                                                                                                (inst
+                                                                                                                                 -
+                                                                                                                                 "ii!2")
+                                                                                                                                nil
+                                                                                                                                nil))
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil)
+                                                                                                           ("3"
+                                                                                                            (lemma
+                                                                                                             "connected_domain")
+                                                                                                            (("3"
+                                                                                                              (skosimp*)
+                                                                                                              nil
+                                                                                                              nil))
+                                                                                                            nil)
+                                                                                                           ("4"
+                                                                                                            (hide
+                                                                                                             2)
+                                                                                                            (("4"
+                                                                                                              (skosimp*)
+                                                                                                              (("4"
+                                                                                                                (assert)
+                                                                                                                nil
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil)
+                                                                                                           ("5"
+                                                                                                            (lemma
+                                                                                                             "connected_domain")
+                                                                                                            (("5"
+                                                                                                              (skosimp*)
+                                                                                                              nil
+                                                                                                              nil))
+                                                                                                            nil)
+                                                                                                           ("6"
+                                                                                                            (hide
+                                                                                                             2)
+                                                                                                            (("6"
+                                                                                                              (skosimp*)
+                                                                                                              (("6"
+                                                                                                                (prop)
+                                                                                                                (("1"
+                                                                                                                  (skosimp*)
+                                                                                                                  (("1"
+                                                                                                                    (typepred
+                                                                                                                     "x1!1")
+                                                                                                                    (("1"
+                                                                                                                      (replace
+                                                                                                                       -3
+                                                                                                                       *
+                                                                                                                       rl)
+                                                                                                                      (("1"
+                                                                                                                        (assert)
+                                                                                                                        (("1"
+                                                                                                                          (hide
+                                                                                                                           -2
+                                                                                                                           -3)
+                                                                                                                          (("1"
+                                                                                                                            (lemma
+                                                                                                                             "parts_order[T]")
+                                                                                                                            (("1"
+                                                                                                                              (inst
+                                                                                                                               -
+                                                                                                                               "a!1"
+                                                                                                                               "c!1"
+                                                                                                                               "PP!1"
+                                                                                                                               "x1!1"
+                                                                                                                               "ib!1")
+                                                                                                                              (("1"
+                                                                                                                                (grind)
+                                                                                                                                nil
+                                                                                                                                nil))
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil)
+                                                                                                                 ("2"
+                                                                                                                  (assert)
+                                                                                                                  (("2"
+                                                                                                                    (replace
+                                                                                                                     -2
+                                                                                                                     *
+                                                                                                                     rl)
+                                                                                                                    (("2"
+                                                                                                                      (assert)
+                                                                                                                      (("2"
+                                                                                                                        (expand
+                                                                                                                         "^")
+                                                                                                                        (("2"
+                                                                                                                          (assert)
+                                                                                                                          nil
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil)
+                                                                                                                 ("3"
+                                                                                                                  (replace
+                                                                                                                   -2
+                                                                                                                   *
+                                                                                                                   rl)
+                                                                                                                  (("3"
+                                                                                                                    (expand
+                                                                                                                     "^")
+                                                                                                                    (("3"
+                                                                                                                      (assert)
+                                                                                                                      (("3"
+                                                                                                                        (expand
+                                                                                                                         "min")
+                                                                                                                        (("3"
+                                                                                                                          (propax)
+                                                                                                                          nil
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil)
+                                                                                                                 ("4"
+                                                                                                                  (skosimp*)
+                                                                                                                  (("4"
+                                                                                                                    (assert)
+                                                                                                                    (("4"
+                                                                                                                      (replace
+                                                                                                                       -2
+                                                                                                                       *
+                                                                                                                       rl)
+                                                                                                                      (("4"
+                                                                                                                        (expand
+                                                                                                                         "^")
+                                                                                                                        (("4"
+                                                                                                                          (assert)
+                                                                                                                          (("4"
+                                                                                                                            (typepred
+                                                                                                                             "PP!1")
+                                                                                                                            (("4"
+                                                                                                                              (inst
+                                                                                                                               -
+                                                                                                                               "ii!2")
+                                                                                                                              nil
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil)
+                                                                                                 ("2"
+                                                                                                  (skosimp*)
+                                                                                                  (("2"
+                                                                                                    (lemma
+                                                                                                     "connected_domain")
+                                                                                                    (("2"
+                                                                                                      (propax)
+                                                                                                      nil
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil)
+                                                                                               ("2"
+                                                                                                (skosimp*)
+                                                                                                (("2"
+                                                                                                  (assert)
+                                                                                                  nil
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (hide
+                                                 -1
+                                                 -3
+                                                 -4
+                                                 -5
+                                                 -6
+                                                 -9
+                                                 -10
+                                                 -11
+                                                 2)
+                                                (("2" (grind) nil nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (hide
+                                               -1
+                                               -3
+                                               -4
+                                               -5
+                                               -9
+                                               -10
+                                               2)
+                                              (("2" (grind) nil nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (hide -1 2 -6 -7)
+                                    (("2"
+                                      (expand "step_function_on?")
+                                      (("2"
+                                        (skosimp*)
+                                        (("2"
+                                          (typepred "ii!1")
+                                          (("2"
+                                            (inst - "ii!1+ib!1")
+                                            (("1"
+                                              (skosimp*)
+                                              (("1"
+                                                (inst + "fv!1")
+                                                (("1"
+                                                  (skosimp*)
+                                                  (("1"
+                                                    (inst - "x!1")
+                                                    (("1"
+                                                      (typepred "x!1")
+                                                      (("1"
+                                                        (grind)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2" (grind) nil nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil)
+                                   ("3"
+                                    (hide 2)
+                                    (("3"
+                                      (hide -1 -2 -6 -7)
+                                      (("3"
+                                        (prop)
+                                        (("1"
+                                          (skosimp*)
+                                          (("1"
+                                            (typepred "x1!1")
+                                            (("1"
+                                              (grind)
+                                              (("1"
+                                                (lemma
+                                                 "parts_order[T]")
+                                                (("1"
+                                                  (inst
+                                                   -
+                                                   "a!1"
+                                                   "c!1"
+                                                   "PP!1"
+                                                   "ib!1"
+                                                   "ib!1+x1!1")
+                                                  (("1"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2" (grind) nil nil)
+                                         ("3" (grind) nil nil)
+                                         ("4" (grind) nil nil)
+                                         ("5"
+                                          (skosimp*)
+                                          (("5"
+                                            (typepred "ii!1")
+                                            (("5"
+                                              (grind)
+                                              (("5"
+                                                (lemma
+                                                 "parts_order[T]")
+                                                (("5"
+                                                  (inst
+                                                   -
+                                                   "a!1"
+                                                   "c!1"
+                                                   "PP!1"
+                                                   "ib!1+ii!1"
+                                                   "ib!1+ii!1+1")
+                                                  (("5"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (hide 2)
+                                  (("2"
+                                    (expand "step_function_on?")
+                                    (("2"
+                                      (skosimp*)
+                                      (("2"
+                                        (inst - "ii!1")
+                                        (("1"
+                                          (skosimp*)
+                                          (("1"
+                                            (inst + "fv!1")
+                                            (("1"
+                                              (skosimp*)
+                                              (("1"
+                                                (inst - "x!1")
+                                                (("1"
+                                                  (hide -4 -5)
+                                                  (("1"
+                                                    (typepred "x!1")
+                                                    (("1"
+                                                      (typepred "ii!1")
+                                                      (("1"
+                                                        (grind)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (hide 2)
+                                          (("2"
+                                            (typepred "ii!1")
+                                            (("2" (grind) nil nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("3"
+                                  (hide -1 -5 -6 2)
+                                  (("3"
+                                    (prop)
+                                    (("1"
+                                      (skosimp*)
+                                      (("1"
+                                        (typepred "x1!1")
+                                        (("1"
+                                          (grind)
+                                          (("1"
+                                            (lemma "parts_order[T]")
+                                            (("1"
+                                              (inst
+                                               -
+                                               "a!1"
+                                               "c!1"
+                                               "PP!1"
+                                               "x1!1"
+                                               "ib!1")
+                                              (("1" (assert) nil nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil)
+                                     ("2" (grind) nil nil)
+                                     ("3" (grind) nil nil)
+                                     ("4" (grind) nil nil)
+                                     ("5"
+                                      (skosimp*)
+                                      (("5"
+                                        (typepred "ii!1")
+                                        (("5"
+                                          (grind)
+                                          (("5"
+                                            (lemma "parts_order[T]")
+                                            (("5"
+                                              (inst
+                                               -
+                                               "a!1"
+                                               "c!1"
+                                               "PP!1"
+                                               "ii!1"
+                                               "ii!1+1")
+                                              (("5" (assert) nil nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (propax) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (lemma "connected_domain") (("2" (propax) nil nil)) nil))
+      nil))
+    nil)
+   nil shostak)
   (integrable_split_step-5 nil 3282396607
    ("" (skosimp*)
     (("" (lemma "step_function_integrable?[T]")
@@ -4467,7 +5583,7 @@
     (x!1 skolem-const-decl
      "open_interval[T](seq(PP!1 ^ (0, ib!1))(ii!1),
                  seq(PP!1 ^ (0, ib!1))(1 + ii!1))" integral_split nil)
-    (ii!1 skolem-const-decl "below(length(PP!1 ^ (0, ib!1)) - 1)"
+    (ii!1 skolem-const-decl "below((PP!1 ^ (0, ib!1))`length - 1)"
      integral_split nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -4487,9 +5603,9 @@
     (i!1 skolem-const-decl "nat" integral_split nil)
     (ib!1 skolem-const-decl "below(length(PP!1))" integral_split nil)
     (P1 skolem-const-decl "{t: T |
-         seq(PP!1 ^ (ib!1, length(PP!1) - 1))(i!1) < t AND
-          t < seq(PP!1 ^ (ib!1, length(PP!1) - 1))(1 + i!1)}"
-     integral_split nil)
+   seq(PP!1 ^ (ib!1, length(PP!1) - 1))(i!1) < t AND
+    t < seq(PP!1 ^ (ib!1, length(PP!1) - 1))(1 + i!1)}" integral_split
+     nil)
     (open_interval type-eq-decl nil intervals_real "reals/")
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -4503,23 +5619,23 @@
      integral_split nil)
     (i!1 skolem-const-decl "nat" integral_split nil)
     (P1 skolem-const-decl "{t: T |
-         seq(PP!1 ^ (0, ib!1))(i!1) < t AND
-          t < seq(PP!1 ^ (0, ib!1))(1 + i!1)}" integral_split nil)
+   seq(PP!1 ^ (0, ib!1))(i!1) < t AND t < seq(PP!1 ^ (0, ib!1))(1 + i!1)}"
+     integral_split nil)
     (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
      real_defs nil)
     (sigma_diff_eq formula-decl nil sigma_below_sub "reals/")
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
-    (not_one_element formula-decl nil integral_split nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (val_in const-decl "real" integral_step nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (T_high type-eq-decl nil sigma "reals/")
     (T_low type-eq-decl nil sigma "reals/")
+    (T_high type-eq-decl nil sigma "reals/")
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (val_in const-decl "real" integral_step nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (not_one_element formula-decl nil integral_split nil)
+    (a!1 skolem-const-decl "T" integral_split nil)
+    (c!1 skolem-const-decl "T" integral_split nil)
     (PP!1 skolem-const-decl "partition[T](a!1, c!1)" integral_split
      nil)
-    (c!1 skolem-const-decl "T" integral_split nil)
-    (a!1 skolem-const-decl "T" integral_split nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
@@ -4534,7 +5650,7 @@
                  seq(PP!1 ^ (ib!1, length(PP!1) - 1))(1 + ii!1))"
      integral_split nil)
     (ii!1 skolem-const-decl
-     "below(length(PP!1 ^ (ib!1, length(PP!1) - 1)) - 1)"
+     "below((PP!1 ^ (ib!1, length(PP!1) - 1))`length - 1)"
      integral_split nil)
     (step_function_on? const-decl "bool" step_fun_def nil)
     (finseq type-eq-decl nil finite_sequences nil)
@@ -9247,7 +10363,6 @@
     (P!1 skolem-const-decl "partition[T](b!1, c!1)" integral_split nil)
     (Sbc skolem-const-decl "real" integral_split nil)
     (Riemann?_Rie formula-decl nil integral_def nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (abs_neg formula-decl nil abs_lems "reals/")
@@ -10853,7 +11968,9 @@
     (T formal-nonempty-subtype-decl nil integral_split nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak
+   (integrable?_split subtype "integral_split.c"
+    "{x: integral_split.T | reals.<(integral_split.a, x)}")))
  (integrable?_split 0
   (integrable?_split-8 nil 3319457330
    ("" (skosimp*)
@@ -13676,15 +14793,21 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   shostak))
+   shostak
+   (integrable?_inside subtype "integral_split.b"
+    "{x: integral_split.T | reals.<(integral_split.a, x)}")))
  (integrable?_inside_TCC2 0
   (integrable?_inside_TCC2-1 nil 3282313858
    ("" (lemma "connected_domain") (("" (skosimp*) nil nil)) nil)
-   ((connected_domain formula-decl nil integral_split nil)) shostak))
+   ((connected_domain formula-decl nil integral_split nil)) shostak
+   (integrable?_inside assuming "integral_def[T]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (integrable?_inside_TCC3 0
   (integrable?_inside_TCC3-1 nil 3282313858
    ("" (lemma "not_one_element") (("" (assert) nil nil)) nil)
-   ((not_one_element formula-decl nil integral_split nil)) shostak))
+   ((not_one_element formula-decl nil integral_split nil)) shostak
+   (integrable?_inside assuming "integral_def[T]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (integrable?_inside 0
   (integrable?_inside-1 nil 3281701155
    ("" (skosimp*)

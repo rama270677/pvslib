@@ -94,7 +94,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (bounded_above? const-decl "bool" real_fun_preds "reals/")
     (zero_seq const-decl "real" pointwise_convergence nil))
-   nil))
+   nil
+   (pointwise_bounded_above subtype "pointwise_convergence.zero_seq"
+    "pointwise_bounded_above")))
  (pointwise_bounded_below_TCC1 0
   (pointwise_bounded_below_TCC1-1 nil 3391989427
    ("" (expand "pointwise_bounded_below?")
@@ -119,7 +121,9 @@
     (bounded_below? const-decl "bool" real_fun_preds "reals/")
     (pointwise_bounded_below? const-decl "bool" pointwise_convergence
      nil))
-   nil))
+   nil
+   (pointwise_bounded_below subtype "pointwise_convergence.zero_seq"
+    "pointwise_bounded_below")))
  (pointwise_bounded_TCC1 0
   (pointwise_bounded_TCC1-1 nil 3391989427
    ("" (expand "pointwise_bounded?")
@@ -147,8 +151,6 @@
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
     (real_lt_is_strict_total_order name-judgement
@@ -179,7 +181,9 @@
     (real_minus_real_is_real application-judgement "real" reals nil)
     (bounded_seq? const-decl "bool" convergence_aux "metric_space/")
     (pointwise_bounded? const-decl "bool" pointwise_convergence nil))
-   nil))
+   nil
+   (pointwise_bounded subtype "pointwise_convergence.zero_seq"
+    "pointwise_bounded")))
  (pointwise_bounded_is_bounded_above 0
   (pointwise_bounded_is_bounded_above-1 nil 3391989427
    ("" (skosimp)
@@ -209,7 +213,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (pointwise_bounded_def formula-decl nil pointwise_convergence nil))
-   nil))
+   nil
+   (pointwise_bounded_is_bounded_above subtype
+    "pointwise_convergence.x" "pointwise_bounded_above")))
  (pointwise_bounded_is_bounded_below 0
   (pointwise_bounded_is_bounded_below-1 nil 3391989427
    ("" (skosimp)
@@ -239,7 +245,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (pointwise_bounded_def formula-decl nil pointwise_convergence nil))
-   nil))
+   nil
+   (pointwise_bounded_is_bounded_below subtype
+    "pointwise_convergence.x" "pointwise_bounded_below")))
  (pointwise_convergent_TCC1 0
   (pointwise_convergent_TCC1-1 nil 3391989427
    ("" (expand "pointwise_convergent?")
@@ -268,6 +276,8 @@
      "metric_space/")
     (member const-decl "bool" sets nil)
     (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
     (real_minus_real_is_real application-judgement "real" reals nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
@@ -291,7 +301,9 @@
      nil)
     (pointwise_convergent? const-decl "bool" pointwise_convergence
      nil))
-   nil))
+   nil
+   (pointwise_convergent subtype "pointwise_convergence.zero_seq"
+    "pointwise_convergent")))
  (pointwise_convergence_sum 0
   (pointwise_convergence_sum-1 nil 3392121345
    ("" (skosimp*)
@@ -301,26 +313,26 @@
           (("" (inst - "x!1")
             (("" (rewrite "metric_convergence_def" *)
               (("" (rewrite "metric_convergence_def" *)
-                (("" (rewrite "metric_convergence_def" *)
-                  (("" (expand "metric_converges_to")
-                    (("" (skosimp)
-                      (("" (inst - "r!1/2")
-                        (("" (inst - "r!1/2")
-                          (("" (skosimp*)
-                            (("" (inst + "max(n!1,n!2)")
-                              ((""
+                (("1" (rewrite "metric_convergence_def" *)
+                  (("1" (expand "metric_converges_to")
+                    (("1" (skosimp)
+                      (("1" (inst - "r!1/2")
+                        (("1" (inst - "r!1/2")
+                          (("1" (skosimp*)
+                            (("1" (inst + "max(n!1,n!2)")
+                              (("1"
                                 (skosimp)
-                                ((""
+                                (("1"
                                   (inst - "i!1")
-                                  ((""
+                                  (("1"
                                     (inst - "i!1")
-                                    ((""
+                                    (("1"
                                       (assert)
-                                      ((""
+                                      (("1"
                                         (expand "ball")
-                                        ((""
+                                        (("1"
                                           (hide -3)
-                                          (("" (grind) nil nil))
+                                          (("1" (grind) nil nil))
                                           nil))
                                         nil))
                                       nil))
@@ -332,8 +344,10 @@
                           nil))
                         nil))
                       nil))
-                    nil))
-                  nil))
+                    nil)
+                   ("2" (hide-all-but 1) (("2" (grind) nil nil)) nil))
+                  nil)
+                 ("2" (hide-all-but 1) (("2" (grind) nil nil)) nil))
                 nil))
               nil))
             nil))
@@ -368,8 +382,8 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (+ const-decl "sequence[[T -> real]]" pointwise_convergence nil)
     (+ const-decl "[T -> real]" real_fun_ops "reals/")
+    (+ const-decl "sequence[[T -> real]]" pointwise_convergence nil)
     (nonneg_rat_max application-judgement
      "{s: nonneg_rat | s >= q AND s >= r}" real_defs nil)
     (nat_max application-judgement "{k: nat | i <= k AND j <= k}"
@@ -381,12 +395,13 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (member const-decl "bool" sets nil)
-    (minus_real_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
     (ball const-decl "set[T]" metric_space_def "metric_space/")
-    (real_minus_real_is_real application-judgement "real" reals nil)
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (/= const-decl "boolean" notequal nil)
@@ -395,9 +410,88 @@
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (metric_converges_to const-decl "bool" metric_space_def
-     "metric_space/"))
+     "metric_space/")
+    (metric_zero? const-decl "bool" metric_def "metric_space/")
+    (metric_symmetric? const-decl "bool" metric_def "metric_space/")
+    (metric_triangle? const-decl "bool" metric_def "metric_space/")
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (metric? const-decl "bool" metric_def "metric_space/")
+    (nnreal type-eq-decl nil real_types nil))
    shostak))
  (pointwise_convergence_scal 0
+  (pointwise_convergence_scal-2 "" 3758920338
+   ("" (skosimp)
+    (("" (expand "pointwise_convergence?")
+      (("" (skosimp)
+        (("" (inst - "x!1")
+          (("" (rewrite "metric_convergence_def" *)
+            (("" (rewrite "metric_convergence_def" *)
+              (("1" (expand "metric_converges_to")
+                (("1" (skosimp)
+                  (("1" (expand "ball")
+                    (("1" (expand "member")
+                      (("1" (case-replace "c!1=0")
+                        (("1" (expand "*")
+                          (("1" (expand "*")
+                            (("1" (expand "abs")
+                              (("1" (propax) nil nil)) nil))
+                            nil))
+                          nil)
+                         ("2" (inst - "r!1/abs(c!1)")
+                          (("1" (skosimp)
+                            (("1" (inst + "n!1")
+                              (("1"
+                                (skosimp)
+                                (("1"
+                                  (inst - "i!1")
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (expand "*")
+                                      (("1"
+                                        (expand "*")
+                                        (("1"
+                                          (rewrite
+                                           "div_mult_pos_lt2"
+                                           -1)
+                                          (("1"
+                                            (rewrite
+                                             "abs_mult"
+                                             -1
+                                             :dir
+                                             rl)
+                                            (("1" (assert) nil nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (assert)
+                            (("2"
+                              (lemma "posreal_div_posreal_is_posreal"
+                               ("px" "r!1" "py" "abs(c!1)"))
+                              (("2" (assert) nil nil)) nil))
+                            nil)
+                           ("3" (assert) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (hide-all-but 1) (("2" (grind) nil nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (pointwise_convergence_scal-1 nil 3392121446
    ("" (skosimp)
     (("" (expand "pointwise_convergence?")
@@ -468,62 +562,71 @@
         nil))
       nil))
     nil)
-   ((pointwise_convergence? const-decl "bool" pointwise_convergence
-     nil)
-    (T formal-type-decl nil pointwise_convergence nil)
-    (* const-decl "sequence[[T -> real]]" pointwise_convergence nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (member const-decl "bool" sets nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
-    (/= const-decl "boolean" notequal nil)
-    (c!1 skolem-const-decl "real" pointwise_convergence nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (r!1 skolem-const-decl "posreal" pointwise_convergence nil)
-    (div_mult_pos_lt2 formula-decl nil real_props nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (abs_mult formula-decl nil real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (posreal_div_posreal_is_posreal judgement-tcc nil real_types nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (metric_converges_to const-decl "bool" metric_space_def
+   ((metric_convergence_def formula-decl nil metric_space
      "metric_space/")
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (sequence type-eq-decl nil sequences nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (sequence type-eq-decl nil sequences nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (metric_convergence_def formula-decl nil metric_space
-     "metric_space/"))
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (metric_triangle? const-decl "bool" metric_def "metric_space/")
+    (metric_symmetric? const-decl "bool" metric_def "metric_space/")
+    (metric_zero? const-decl "bool" metric_def "metric_space/")
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
+    (metric_converges_to const-decl "bool" metric_space_def
+     "metric_space/")
+    (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (posreal_div_posreal_is_posreal judgement-tcc nil real_types nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (abs_mult formula-decl nil real_props nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (div_mult_pos_lt2 formula-decl nil real_props nil)
+    (r!1 skolem-const-decl "posreal" pointwise_convergence nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (c!1 skolem-const-decl "real" pointwise_convergence nil)
+    (/= const-decl "boolean" notequal nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (member const-decl "bool" sets nil)
+    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (* const-decl "sequence[[T -> real]]" pointwise_convergence nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (metric? const-decl "bool" metric_def "metric_space/")
+    (nnreal type-eq-decl nil real_types nil)
+    (T formal-type-decl nil pointwise_convergence nil)
+    (pointwise_convergence? const-decl "bool" pointwise_convergence
+     nil))
    shostak))
  (pointwise_convergence_opp 0
   (pointwise_convergence_opp-1 nil 3392115698
@@ -660,7 +763,10 @@
     (+ const-decl "[T -> real]" real_fun_ops "reals/")
     (pointwise_convergence_sum formula-decl nil pointwise_convergence
      nil))
-   nil))
+   nil
+   (pointwise_convergent_sum subtype
+    "(pointwise_convergence.+)(pointwise_convergence.w0, pointwise_convergence.w1)"
+    "pointwise_convergent")))
  (pointwise_convergent_scal 0
   (pointwise_convergent_scal-1 nil 3392115342
    ("" (skosimp)
@@ -700,7 +806,10 @@
     (pointwise_convergence_scal formula-decl nil pointwise_convergence
      nil)
     (* const-decl "[T -> real]" real_fun_ops "reals/"))
-   nil))
+   nil
+   (pointwise_convergent_scal subtype
+    "pointwise_convergence.*(pointwise_convergence.c, pointwise_convergence.w)"
+    "pointwise_convergent")))
  (pointwise_convergent_opp 0
   (pointwise_convergent_opp-1 nil 3392115342
    ("" (skosimp)
@@ -739,7 +848,10 @@
     (pointwise_convergence_opp formula-decl nil pointwise_convergence
      nil)
     (- const-decl "[T -> real]" real_fun_ops "reals/"))
-   nil))
+   nil
+   (pointwise_convergent_opp subtype
+    "(pointwise_convergence.-)(pointwise_convergence.w)"
+    "pointwise_convergent")))
  (pointwise_convergent_diff 0
   (pointwise_convergent_diff-1 nil 3392115342
    ("" (skosimp)
@@ -781,7 +893,10 @@
     (- const-decl "[T -> real]" real_fun_ops "reals/")
     (pointwise_convergence_diff formula-decl nil pointwise_convergence
      nil))
-   nil))
+   nil
+   (pointwise_convergent_diff subtype
+    "(pointwise_convergence.-)(pointwise_convergence.w0, pointwise_convergence.w1)"
+    "pointwise_convergent")))
  (pointwise_convergent_is_pointwise_bounded 0
   (pointwise_convergent_is_pointwise_bounded-1 nil 3391989427
    ("" (skolem + ("u!1"))
@@ -1523,7 +1638,7 @@
     (member const-decl "bool" sets nil)
     (j!1 skolem-const-decl "nat" pointwise_convergence nil)
     (z!1 skolem-const-decl
-     "{y: real | EXISTS (x: ({n | n < 1 + j!1})): y = u!1(x)(x!1)}"
+     "({y: real | EXISTS (x: ({n | n < 1 + j!1})): y = u!1(x)(x!1)})"
      pointwise_convergence nil)
     (x!2 skolem-const-decl "({n | n < 1 + j!1})" pointwise_convergence
      nil)
@@ -1570,7 +1685,7 @@
     (empty? const-decl "bool" sets nil)
     (j!1 skolem-const-decl "nat" pointwise_convergence nil)
     (z!1 skolem-const-decl
-     "{y: real | EXISTS (x: ({n | n < 1 + j!1})): y = u!1(x)(x!1)}"
+     "({y: real | EXISTS (x: ({n | n < 1 + j!1})): y = u!1(x)(x!1)})"
      pointwise_convergence nil)
     (x!2 skolem-const-decl "({n | n < 1 + j!1})" pointwise_convergence
      nil)
@@ -1587,6 +1702,8 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
     (= const-decl "[T, T -> boolean]" equalities nil)
     (ball const-decl "set[T]" metric_space_def "metric_space/")
     (real_minus_real_is_real application-judgement "real" reals nil)
@@ -1622,8 +1739,253 @@
     (number nonempty-type-decl nil numbers nil)
     (bounded_seq_def formula-decl nil convergence_aux "metric_space/")
     (pointwise? const-decl "bool" pointwise_convergence nil))
-   nil))
+   nil
+   (pointwise_convergent_is_pointwise_bounded subtype
+    "pointwise_convergence.x" "pointwise_bounded")))
  (plus_minus_pointwise_convergence 0
+  (plus_minus_pointwise_convergence-2 "" 3758920360
+   ("" (skosimp)
+    (("" (split)
+      (("1" (flatten)
+        (("1"
+          (case-replace "pointwise_convergence?(plus(u!1), plus(f!1))")
+          (("1"
+            (lemma "pointwise_convergence_diff"
+             ("u" "plus(u!1)" "f0" "plus(f!1)" "v" "u!1" "f1" "f!1"))
+            (("1" (assert)
+              (("1" (hide -2 -3)
+                (("1" (case-replace " plus(f!1) - f!1=minus(f!1)")
+                  (("1" (case-replace "plus(u!1) - u!1=minus(u!1)")
+                    (("1" (hide-all-but 1)
+                      (("1" (apply-extensionality :hide? t)
+                        (("1" (expand "-")
+                          (("1" (expand "plus")
+                            (("1" (expand "minus")
+                              (("1"
+                                (apply-extensionality :hide? t)
+                                (("1" (grind) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (hide-all-but 1)
+                    (("2" (apply-extensionality :hide? t)
+                      (("2" (grind) nil nil)) nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (hide 2)
+            (("2" (expand "pointwise_convergence?")
+              (("2" (skosimp)
+                (("2" (inst - "x!1")
+                  (("2" (expand "plus")
+                    (("2" (expand "plus")
+                      (("2" (rewrite "metric_convergence_def" *)
+                        (("2" (rewrite "metric_convergence_def" *)
+                          (("1" (expand "metric_converges_to")
+                            (("1" (skosimp)
+                              (("1"
+                                (expand "ball")
+                                (("1"
+                                  (expand "member")
+                                  (("1"
+                                    (lemma
+                                     "trichotomy"
+                                     ("x" "f!1(x!1)"))
+                                    (("1"
+                                      (split -1)
+                                      (("1"
+                                        (case-replace
+                                         "max(f!1(x!1), 0)=f!1(x!1)")
+                                        (("1"
+                                          (hide -1)
+                                          (("1"
+                                            (inst
+                                             -
+                                             "min(r!1,abs(f!1(x!1)))")
+                                            (("1"
+                                              (skosimp)
+                                              (("1"
+                                                (inst + "n!1")
+                                                (("1"
+                                                  (skosimp)
+                                                  (("1"
+                                                    (inst - "i!1")
+                                                    (("1"
+                                                      (assert)
+                                                      (("1"
+                                                        (expand "max")
+                                                        (("1"
+                                                          (case-replace
+                                                           "u!1(i!1)(x!1) < 0")
+                                                          (("1"
+                                                            (grind)
+                                                            nil
+                                                            nil)
+                                                           ("2"
+                                                            (assert)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (hide 2)
+                                              (("2" (grind) nil nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (hide-all-but (-1 1))
+                                          (("2" (grind) nil nil))
+                                          nil))
+                                        nil)
+                                       ("2"
+                                        (replace -1)
+                                        (("2"
+                                          (expand "max" 1 1)
+                                          (("2"
+                                            (assert)
+                                            (("2"
+                                              (inst - "r!1")
+                                              (("2"
+                                                (skosimp)
+                                                (("2"
+                                                  (inst + "n!1")
+                                                  (("2"
+                                                    (skosimp)
+                                                    (("2"
+                                                      (inst - "i!1")
+                                                      (("2"
+                                                        (assert)
+                                                        (("2"
+                                                          (rewrite
+                                                           "abs_mult"
+                                                           -3)
+                                                          (("2"
+                                                            (rewrite
+                                                             "abs_mult"
+                                                             1)
+                                                            (("2"
+                                                              (grind)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil)
+                                       ("3"
+                                        (case-replace
+                                         "max(f!1(x!1), 0)=0")
+                                        (("1"
+                                          (hide -1)
+                                          (("1"
+                                            (inst
+                                             -
+                                             "min(r!1, abs(f!1(x!1)))")
+                                            (("1"
+                                              (skosimp)
+                                              (("1"
+                                                (inst + "n!1")
+                                                (("1"
+                                                  (skosimp)
+                                                  (("1"
+                                                    (inst - "i!1")
+                                                    (("1"
+                                                      (assert)
+                                                      (("1"
+                                                        (grind)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (hide 2)
+                                              (("2" (grind) nil nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (hide-all-but (-1 1))
+                                          (("2" (grind) nil nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (hide-all-but 1)
+                            (("2" (grind) nil nil)) nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (flatten)
+        (("2"
+          (lemma "pointwise_convergence_diff"
+           ("u" "plus(u!1)" "f0" "plus(f!1)" "v" "minus(u!1)" "f1"
+            "minus(f!1)"))
+          (("2" (assert)
+            (("2" (hide -2 -3)
+              (("2" (lemma "plus_minus_def" ("f" "f!1"))
+                (("2" (replace -1 -2 rl)
+                  (("2" (hide -1)
+                    (("2" (case-replace "plus(u!1) - minus(u!1)=u!1")
+                      (("2" (hide-all-but 1)
+                        (("2" (apply-extensionality :hide? t)
+                          (("2" (expand "-")
+                            (("2" (expand "plus")
+                              (("2"
+                                (expand "minus")
+                                (("2"
+                                  (lemma
+                                   "plus_minus_def"
+                                   ("f" "u!1(x!1)"))
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (plus_minus_pointwise_convergence-1 nil 3392116096
    ("" (skosimp)
     (("" (split)
@@ -1864,78 +2226,84 @@
         nil))
       nil))
     nil)
-   ((number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil pointwise_convergence nil)
-    (sequence type-eq-decl nil sequences nil)
-    (pointwise_convergence? const-decl "bool" pointwise_convergence
-     nil)
-    (nnreal type-eq-decl nil real_types nil)
-    (plus const-decl "sequence[[T -> nnreal]]" pointwise_convergence
-     nil)
-    (plus const-decl "[T -> nnreal]" real_fun_ops_aux "reals/")
-    (minus const-decl "[T -> nnreal]" real_fun_ops_aux "reals/")
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (- const-decl "sequence[[T -> real]]" pointwise_convergence nil)
-    (minus const-decl "sequence[[T -> nnreal]]" pointwise_convergence
-     nil)
-    (pointwise_convergence_diff formula-decl nil pointwise_convergence
-     nil)
-    (member const-decl "bool" sets nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (< const-decl "bool" reals nil)
-    (x!1 skolem-const-decl "T" pointwise_convergence nil)
-    (f!1 skolem-const-decl "[T -> real]" pointwise_convergence nil)
-    (r!1 skolem-const-decl "posreal" pointwise_convergence nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (<= const-decl "bool" reals nil) (> const-decl "bool" reals nil)
-    (nonneg_real_min application-judgement
-     "{z: nonneg_real | z <= x AND z <= y}" real_defs nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (abs_mult formula-decl nil real_props nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (nat_max application-judgement "{k: nat | i <= k AND j <= k}"
-     real_defs nil)
-    (trichotomy formula-decl nil real_axioms nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
-    (metric_converges_to const-decl "bool" metric_space_def
-     "metric_space/")
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+   ((plus_minus_def formula-decl nil real_fun_ops_aux "reals/")
     (metric_convergence_def formula-decl nil metric_space
      "metric_space/")
-    (plus_minus_def formula-decl nil real_fun_ops_aux "reals/"))
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (metric_triangle? const-decl "bool" metric_def "metric_space/")
+    (metric_symmetric? const-decl "bool" metric_def "metric_space/")
+    (metric_zero? const-decl "bool" metric_def "metric_space/")
+    (metric_converges_to const-decl "bool" metric_space_def
+     "metric_space/")
+    (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (trichotomy formula-decl nil real_axioms nil)
+    (nat_max application-judgement "{k: nat | i <= k AND j <= k}"
+     real_defs nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
+     real_defs nil)
+    (abs_mult formula-decl nil real_props nil)
+    (nonneg_real_min application-judgement
+     "{z: nonneg_real | z <= x AND z <= y}" real_defs nil)
+    (> const-decl "bool" reals nil) (<= const-decl "bool" reals nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (r!1 skolem-const-decl "posreal" pointwise_convergence nil)
+    (f!1 skolem-const-decl "[T -> real]" pointwise_convergence nil)
+    (x!1 skolem-const-decl "T" pointwise_convergence nil)
+    (< const-decl "bool" reals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (member const-decl "bool" sets nil)
+    (metric? const-decl "bool" metric_def "metric_space/")
+    (pointwise_convergence_diff formula-decl nil pointwise_convergence
+     nil)
+    (minus const-decl "sequence[[T -> nnreal]]" pointwise_convergence
+     nil)
+    (- const-decl "sequence[[T -> real]]" pointwise_convergence nil)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (- const-decl "[T -> real]" real_fun_ops "reals/")
+    (minus const-decl "[T -> nnreal]" real_fun_ops_aux "reals/")
+    (plus const-decl "[T -> nnreal]" real_fun_ops_aux "reals/")
+    (plus const-decl "sequence[[T -> nnreal]]" pointwise_convergence
+     nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (pointwise_convergence? const-decl "bool" pointwise_convergence
+     nil)
+    (sequence type-eq-decl nil sequences nil)
+    (T formal-type-decl nil pointwise_convergence nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil))
    shostak))
  (inf_TCC1 0
   (inf_TCC1-1 nil 3392257085
@@ -2021,7 +2389,10 @@
     (bounded_below? const-decl "bool" real_fun_preds "reals/")
     (pointwise? const-decl "bool" pointwise_convergence nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (inf subtype
+        "function_image[nat, real].image(LAMBDA m: pointwise_convergence.p(pointwise_convergence.m)(pointwise_convergence.x), {m | reals.>=(pointwise_convergence.m, pointwise_convergence.n)})"
+        "inf_set[real]")))
  (limsup_TCC1 0
   (limsup_TCC1-1 nil 3392257085
    ("" (skosimp)
@@ -2154,18 +2525,19 @@
     (upper_bound const-decl "bool" bound_defs "reals/")
     (pred type-eq-decl nil defined_types nil)
     (greatest_lower_bound const-decl "bool" bound_defs "reals/")
-    (<= const-decl "bool" reals nil) (set type-eq-decl nil sets nil)
+    (<= const-decl "bool" reals nil)
+    (inf_set type-eq-decl nil bounded_reals "reals/")
+    (set type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (below_bounded const-decl "bool" bounded_reals "reals/")
-    (inf_set type-eq-decl nil bounded_reals "reals/")
     (inf const-decl "{x | greatest_lower_bound(<=)(x, Sl)}"
-     bounded_reals "reals/")
+         bounded_reals "reals/")
     (lower_bound const-decl "bool" bound_defs "reals/")
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (x!2 skolem-const-decl "({x | TRUE})" pointwise_convergence nil)
+    (x!2 skolem-const-decl "nat" pointwise_convergence nil)
     (x!1 skolem-const-decl "T" pointwise_convergence nil)
     (b!1 skolem-const-decl "pointwise_bounded" pointwise_convergence
      nil)
@@ -2173,7 +2545,10 @@
     (bounded_above? const-decl "bool" real_fun_preds "reals/")
     (pointwise? const-decl "bool" pointwise_convergence nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (limsup subtype
+    "function_image[nat, real].image(LAMBDA m: pointwise_convergence.inf(pointwise_convergence.b)(pointwise_convergence.m)(pointwise_convergence.x), sets[nat].fullset)"
+    "sup_set[real]")))
  (sup_TCC1 0
   (sup_TCC1-1 nil 3392091014
    ("" (skosimp)
@@ -2255,7 +2630,10 @@
     (bounded_above? const-decl "bool" real_fun_preds "reals/")
     (pointwise? const-decl "bool" pointwise_convergence nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (sup subtype
+        "function_image[nat, real].image(LAMBDA m: pointwise_convergence.a(pointwise_convergence.m)(pointwise_convergence.x), {m | reals.>=(pointwise_convergence.m, pointwise_convergence.n)})"
+        "sup_set[real]")))
  (liminf_TCC1 0
   (liminf_TCC1-1 nil 3392306597
    ("" (skosimp)
@@ -2402,22 +2780,26 @@
      real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (x!2 skolem-const-decl "({x | TRUE})" pointwise_convergence nil)
+    (x!2 skolem-const-decl "nat" pointwise_convergence nil)
     (x!1 skolem-const-decl "T" pointwise_convergence nil)
     (b!1 skolem-const-decl "pointwise_bounded" pointwise_convergence
      nil)
     (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
-     "reals/")
-    (sup_set type-eq-decl nil bounded_reals "reals/")
+         "reals/")
     (above_bounded const-decl "bool" bounded_reals "reals/")
     (setof type-eq-decl nil defined_types nil)
-    (set type-eq-decl nil sets nil) (<= const-decl "bool" reals nil)
+    (set type-eq-decl nil sets nil)
+    (sup_set type-eq-decl nil bounded_reals "reals/")
+    (<= const-decl "bool" reals nil)
     (least_upper_bound const-decl "bool" bound_defs "reals/")
     (pred type-eq-decl nil defined_types nil)
     (below_bounded const-decl "bool" bounded_reals "reals/")
     (pointwise? const-decl "bool" pointwise_convergence nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (liminf subtype
+    "function_image[nat, real].image(LAMBDA m: pointwise_convergence.sup(pointwise_convergence.b)(pointwise_convergence.m)(pointwise_convergence.x), sets[nat].fullset)"
+    "inf_set[real]")))
  (sup_inf_def_TCC1 0
   (sup_inf_def_TCC1-1 nil 3392306597
    ("" (skosimp)
@@ -2488,7 +2870,10 @@
     (- const-decl "[T -> real]" real_fun_ops "reals/")
     (bounded_above? const-decl "bool" real_fun_preds "reals/")
     (pointwise? const-decl "bool" pointwise_convergence nil))
-   nil))
+   nil
+   (sup_inf_def subtype
+    "(pointwise_convergence.-)(pointwise_convergence.a)"
+    "pointwise_bounded_below")))
  (sup_inf_def 0
   (sup_inf_def-1 nil 3392306598
    ("" (skosimp)
@@ -2640,21 +3025,22 @@
     (- const-decl "[T -> real]" real_fun_ops "reals/")
     (image const-decl "set[R]" function_image nil)
     (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
-     "reals/")
-    (sup_set type-eq-decl nil bounded_reals "reals/")
+         "reals/")
     (above_bounded const-decl "bool" bounded_reals "reals/")
     (setof type-eq-decl nil defined_types nil)
     (nonempty? const-decl "bool" sets nil)
-    (set type-eq-decl nil sets nil) (<= const-decl "bool" reals nil)
+    (set type-eq-decl nil sets nil)
+    (sup_set type-eq-decl nil bounded_reals "reals/")
+    (<= const-decl "bool" reals nil)
     (least_upper_bound const-decl "bool" bound_defs "reals/")
     (pred type-eq-decl nil defined_types nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (greatest_lower_bound const-decl "bool" bound_defs "reals/")
-    (below_bounded const-decl "bool" bounded_reals "reals/")
     (inf_set type-eq-decl nil bounded_reals "reals/")
+    (below_bounded const-decl "bool" bounded_reals "reals/")
     (inf const-decl "{x | greatest_lower_bound(<=)(x, Sl)}"
-     bounded_reals "reals/")
+         bounded_reals "reals/")
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (lower_bound const-decl "bool" bound_defs "reals/")
@@ -2664,10 +3050,10 @@
     (< const-decl "bool" reals nil)
     (negreal nonempty-type-eq-decl nil real_types nil)
     (z!1 skolem-const-decl
-     "{y: real | EXISTS (x: ({m | m >= x!1})): y = a!1(x)(x!2)}"
+     "({y: real | EXISTS (x: ({m | m >= x!1})): y = a!1(x)(x!2)})"
      pointwise_convergence nil)
     (z!1 skolem-const-decl
-     "{y: real | EXISTS (x: ({m_1: nat | m_1 >= x!1})): y = -a!1(x)(x!2)}"
+     "({y: real | EXISTS (x: ({m_1: nat | m_1 >= x!1})): y = -a!1(x)(x!2)})"
      pointwise_convergence nil)
     (x!2 skolem-const-decl "T" pointwise_convergence nil)
     (a!1 skolem-const-decl "pointwise_bounded_above"
@@ -2786,7 +3172,10 @@
     (pointwise_bounded_below? const-decl "bool" pointwise_convergence
      nil)
     (pointwise_bounded_def formula-decl nil pointwise_convergence nil))
-   nil))
+   nil
+   (liminf_limsup_def subtype
+    "(pointwise_convergence.-)(pointwise_convergence.b)"
+    "pointwise_bounded")))
  (liminf_limsup_def 0
   (liminf_limsup_def-1 nil 3392307047
    ("" (skosimp)
@@ -3014,15 +3403,15 @@
     (b!1 skolem-const-decl "pointwise_bounded" pointwise_convergence
      nil)
     (x!1 skolem-const-decl "T" pointwise_convergence nil)
-    (z!1 skolem-const-decl "{y: real |
-         EXISTS (x_1: ({x | TRUE})):
-           y = inf(LAMBDA n: LAMBDA (x: T): -b!1(n)(x))(x_1)(x!1)}"
+    (z!1 skolem-const-decl "({y: real |
+    EXISTS (x_1: nat):
+      y = inf(LAMBDA n: LAMBDA (x: T): -b!1(n)(x))(x_1)(x!1)})"
      pointwise_convergence nil)
     (sup_inf_def formula-decl nil pointwise_convergence nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (z!1 skolem-const-decl
-     "{y: real | EXISTS (x_1: ({x | TRUE})): y = sup(b!1)(x_1)(x!1)}"
+     "({y: real | EXISTS (x_1: nat): y = sup(b!1)(x_1)(x!1)})"
      pointwise_convergence nil)
     (lower_bound const-decl "bool" bound_defs "reals/")
     (- const-decl "[numfield -> numfield]" number_fields nil)
@@ -3033,21 +3422,22 @@
     (pointwise_bounded_below? const-decl "bool" pointwise_convergence
      nil)
     (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
-     "reals/")
-    (sup_set type-eq-decl nil bounded_reals "reals/")
+         "reals/")
     (above_bounded const-decl "bool" bounded_reals "reals/")
+    (sup_set type-eq-decl nil bounded_reals "reals/")
     (least_upper_bound const-decl "bool" bound_defs "reals/")
     (minus_real_is_real application-judgement "real" reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (pred type-eq-decl nil defined_types nil)
     (greatest_lower_bound const-decl "bool" bound_defs "reals/")
-    (<= const-decl "bool" reals nil) (set type-eq-decl nil sets nil)
+    (<= const-decl "bool" reals nil)
+    (inf_set type-eq-decl nil bounded_reals "reals/")
+    (set type-eq-decl nil sets nil)
     (nonempty? const-decl "bool" sets nil)
     (setof type-eq-decl nil defined_types nil)
     (below_bounded const-decl "bool" bounded_reals "reals/")
-    (inf_set type-eq-decl nil bounded_reals "reals/")
     (inf const-decl "{x | greatest_lower_bound(<=)(x, Sl)}"
-     bounded_reals "reals/")
+         bounded_reals "reals/")
     (image const-decl "set[R]" function_image nil)
     (pointwise_bounded_above? const-decl "bool" pointwise_convergence
      nil)
@@ -3158,7 +3548,7 @@
     (x!3 skolem-const-decl "({m | m >= y!1})" pointwise_convergence
      nil)
     (z!1 skolem-const-decl
-     "{y: real | EXISTS (x: ({m | m >= y!1})): y = p!1(x)(x!1)}"
+     "({y: real | EXISTS (x: ({m | m >= y!1})): y = p!1(x)(x!1)})"
      pointwise_convergence nil)
     (x!1 skolem-const-decl "T" pointwise_convergence nil)
     (p!1 skolem-const-decl "pointwise_bounded_below"
@@ -3176,13 +3566,14 @@
     (real nonempty-type-from-decl nil reals nil)
     (pred type-eq-decl nil defined_types nil)
     (greatest_lower_bound const-decl "bool" bound_defs "reals/")
-    (<= const-decl "bool" reals nil) (set type-eq-decl nil sets nil)
+    (<= const-decl "bool" reals nil)
+    (inf_set type-eq-decl nil bounded_reals "reals/")
+    (set type-eq-decl nil sets nil)
     (nonempty? const-decl "bool" sets nil)
     (setof type-eq-decl nil defined_types nil)
     (below_bounded const-decl "bool" bounded_reals "reals/")
-    (inf_set type-eq-decl nil bounded_reals "reals/")
     (inf const-decl "{x | greatest_lower_bound(<=)(x, Sl)}"
-     bounded_reals "reals/")
+         bounded_reals "reals/")
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -3241,13 +3632,14 @@
     (real nonempty-type-from-decl nil reals nil)
     (pred type-eq-decl nil defined_types nil)
     (greatest_lower_bound const-decl "bool" bound_defs "reals/")
-    (<= const-decl "bool" reals nil) (set type-eq-decl nil sets nil)
+    (<= const-decl "bool" reals nil)
+    (inf_set type-eq-decl nil bounded_reals "reals/")
+    (set type-eq-decl nil sets nil)
     (nonempty? const-decl "bool" sets nil)
     (setof type-eq-decl nil defined_types nil)
     (below_bounded const-decl "bool" bounded_reals "reals/")
-    (inf_set type-eq-decl nil bounded_reals "reals/")
     (inf const-decl "{x | greatest_lower_bound(<=)(x, Sl)}"
-     bounded_reals "reals/")
+         bounded_reals "reals/")
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -3367,8 +3759,9 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (inf_le formula-decl nil pointwise_convergence nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
     (minus_real_is_real application-judgement "real" reals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (nat_max application-judgement "{k: nat | i <= k AND j <= k}"
@@ -3714,12 +4107,12 @@
     (ball const-decl "set[T]" metric_space_def "metric_space/")
     (pointwise? const-decl "bool" pointwise_convergence nil)
     (bounded_above? const-decl "bool" real_fun_preds "reals/")
-    (x!2 skolem-const-decl "({x | TRUE})" pointwise_convergence nil)
+    (x!2 skolem-const-decl "nat" pointwise_convergence nil)
     (lower_bound const-decl "bool" bound_defs "reals/")
     (inf const-decl "{x | greatest_lower_bound(<=)(x, Sl)}"
-     bounded_reals "reals/")
-    (inf_set type-eq-decl nil bounded_reals "reals/")
+         bounded_reals "reals/")
     (below_bounded const-decl "bool" bounded_reals "reals/")
+    (inf_set type-eq-decl nil bounded_reals "reals/")
     (greatest_lower_bound const-decl "bool" bound_defs "reals/")
     (pointwise_bounded_above? const-decl "bool" pointwise_convergence
      nil)
@@ -3727,7 +4120,6 @@
      pointwise_convergence nil)
     (empty? const-decl "bool" sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (< const-decl "bool" reals nil) (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
@@ -3738,6 +4130,7 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (i!1 skolem-const-decl "nat" pointwise_convergence nil)
     (x!1 skolem-const-decl "T" pointwise_convergence nil)
     (b!1 skolem-const-decl "pointwise_bounded" pointwise_convergence
@@ -3749,12 +4142,13 @@
     (fullset const-decl "set" sets nil)
     (image const-decl "set[R]" function_image nil)
     (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
-     "reals/")
-    (sup_set type-eq-decl nil bounded_reals "reals/")
+         "reals/")
     (above_bounded const-decl "bool" bounded_reals "reals/")
     (setof type-eq-decl nil defined_types nil)
     (nonempty? const-decl "bool" sets nil)
-    (set type-eq-decl nil sets nil) (<= const-decl "bool" reals nil)
+    (set type-eq-decl nil sets nil)
+    (sup_set type-eq-decl nil bounded_reals "reals/")
+    (<= const-decl "bool" reals nil)
     (least_upper_bound const-decl "bool" bound_defs "reals/")
     (pred type-eq-decl nil defined_types nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -3774,6 +4168,303 @@
      nil))
    shostak))
  (inf_pointwise_convergence_upto 0
+  (inf_pointwise_convergence_upto-2 "" 3758920375
+   ("" (skosimp)
+    ((""
+      (lemma "pointwise_convergent_is_pointwise_bounded" ("x" "p!1"))
+      (("1" (expand "pointwise_converges_upto?")
+        (("1" (lemma "inf_pointwise_increasing" ("p" "p!1"))
+          (("1" (lemma "limsup_pointwise_convergence" ("b" "p!1"))
+            (("1"
+              (lemma "extensionality" ("f" "f!1" "g" "limsup(p!1)"))
+              (("1" (split -1)
+                (("1" (assert) nil nil)
+                 ("2" (hide 2)
+                  (("2" (skosimp)
+                    (("2"
+                      (lemma "inf_pointwise_le" ("p" "p!1" "f" "f!1"))
+                      (("2" (assert)
+                        (("2" (expand "limsup")
+                          (("2"
+                            (typepred
+                             "sup(image[nat, real](LAMBDA m: inf(p!1)(m)(x!1), fullset[nat]))")
+                            (("2" (expand "pointwise_convergence?")
+                              (("2"
+                                (inst -3 "x!1")
+                                (("2"
+                                  (inst -6 "x!1")
+                                  (("2"
+                                    (name-replace
+                                     "LIMSUP"
+                                     "sup(image[nat, real](LAMBDA m: inf(p!1)(m)(x!1), fullset[nat]))")
+                                    (("2"
+                                      (expand "least_upper_bound")
+                                      (("2"
+                                        (flatten)
+                                        (("2"
+                                          (expand "fullset")
+                                          (("2"
+                                            (expand "image")
+                                            (("2"
+                                              (expand "upper_bound")
+                                              (("2"
+                                                (lemma
+                                                 "trich_lt"
+                                                 ("x"
+                                                  "f!1(x!1)"
+                                                  "y"
+                                                  "LIMSUP"))
+                                                (("2"
+                                                  (split -1)
+                                                  (("1"
+                                                    (inst
+                                                     -3
+                                                     "f!1(x!1)")
+                                                    (("1"
+                                                      (assert)
+                                                      (("1"
+                                                        (hide 2)
+                                                        (("1"
+                                                          (skosimp)
+                                                          (("1"
+                                                            (typepred
+                                                             "z!1")
+                                                            (("1"
+                                                              (skosimp)
+                                                              (("1"
+                                                                (inst
+                                                                 -4
+                                                                 "x!2"
+                                                                 "x!1")
+                                                                (("1"
+                                                                  (assert)
+                                                                  nil
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil)
+                                                   ("2"
+                                                    (propax)
+                                                    nil
+                                                    nil)
+                                                   ("3"
+                                                    (hide 1)
+                                                    (("3"
+                                                      (rewrite
+                                                       "metric_convergence_def"
+                                                       *)
+                                                      (("3"
+                                                        (rewrite
+                                                         "metric_convergence_def"
+                                                         *)
+                                                        (("1"
+                                                          (expand
+                                                           "metric_converges_to"
+                                                           -8)
+                                                          (("1"
+                                                            (inst
+                                                             -8
+                                                             "(f!1(x!1)-LIMSUP)/2")
+                                                            (("1"
+                                                              (skosimp)
+                                                              (("1"
+                                                                (expand
+                                                                 "ball")
+                                                                (("1"
+                                                                  (expand
+                                                                   "member")
+                                                                  (("1"
+                                                                    (case
+                                                                     "forall (i:nat): i >= n!1=> p!1(i)(x!1)>LIMSUP+(f!1(x!1) - LIMSUP) / 2")
+                                                                    (("1"
+                                                                      (hide
+                                                                       -9)
+                                                                      (("1"
+                                                                        (expand
+                                                                         "pointwise_increasing?")
+                                                                        (("1"
+                                                                          (inst
+                                                                           -7
+                                                                           "x!1")
+                                                                          (("1"
+                                                                            (expand
+                                                                             "increasing?")
+                                                                            (("1"
+                                                                              (inst
+                                                                               -7
+                                                                               "n!1"
+                                                                               "_")
+                                                                              (("1"
+                                                                                (name
+                                                                                 "INF"
+                                                                                 "inf(p!1)(n!1)(x!1)")
+                                                                                (("1"
+                                                                                  (replace
+                                                                                   -1)
+                                                                                  (("1"
+                                                                                    (expand
+                                                                                     "inf"
+                                                                                     -1)
+                                                                                    (("1"
+                                                                                      (typepred
+                                                                                       "inf(image[nat, real](LAMBDA m: p!1(m)(x!1), {m | m >= n!1}))")
+                                                                                      (("1"
+                                                                                        (replace
+                                                                                         -2)
+                                                                                        (("1"
+                                                                                          (expand
+                                                                                           "greatest_lower_bound")
+                                                                                          (("1"
+                                                                                            (expand
+                                                                                             "image"
+                                                                                             -1)
+                                                                                            (("1"
+                                                                                              (flatten)
+                                                                                              (("1"
+                                                                                                (expand
+                                                                                                 "lower_bound")
+                                                                                                (("1"
+                                                                                                  (inst
+                                                                                                   -2
+                                                                                                   "LIMSUP + (f!1(x!1) - LIMSUP) / 2")
+                                                                                                  (("1"
+                                                                                                    (inst
+                                                                                                     -6
+                                                                                                     "INF")
+                                                                                                    (("1"
+                                                                                                      (split
+                                                                                                       -2)
+                                                                                                      (("1"
+                                                                                                        (assert)
+                                                                                                        nil
+                                                                                                        nil)
+                                                                                                       ("2"
+                                                                                                        (assert)
+                                                                                                        nil
+                                                                                                        nil)
+                                                                                                       ("3"
+                                                                                                        (skosimp)
+                                                                                                        (("3"
+                                                                                                          (typepred
+                                                                                                           "z!1")
+                                                                                                          (("3"
+                                                                                                            (skosimp)
+                                                                                                            (("3"
+                                                                                                              (typepred
+                                                                                                               "x!2")
+                                                                                                              (("3"
+                                                                                                                (inst
+                                                                                                                 -5
+                                                                                                                 "x!2")
+                                                                                                                (("3"
+                                                                                                                  (assert)
+                                                                                                                  nil
+                                                                                                                  nil))
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil)
+                                                                                                     ("2"
+                                                                                                      (expand
+                                                                                                       "INF")
+                                                                                                      (("2"
+                                                                                                        (inst
+                                                                                                         +
+                                                                                                         "n!1")
+                                                                                                        nil
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil)
+                                                                     ("2"
+                                                                      (skosimp)
+                                                                      (("2"
+                                                                        (inst
+                                                                         -9
+                                                                         "i!1")
+                                                                        (("2"
+                                                                          (assert)
+                                                                          (("2"
+                                                                            (hide-all-but
+                                                                             (-9
+                                                                              1))
+                                                                            (("2"
+                                                                              (ground)
+                                                                              nil
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil)
+                                                             ("2"
+                                                              (assert)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (hide-all-but
+                                                           1)
+                                                          (("2"
+                                                            (grind)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (propax) nil nil))
+            nil))
+          nil))
+        nil)
+       ("2" (expand "pointwise_convergent?")
+        (("2" (inst + "f!1") nil nil)) nil))
+      nil))
+    nil)
+   nil shostak)
   (inf_pointwise_convergence_upto-1 nil 3392259265
    ("" (skosimp)
     ((""
@@ -4062,112 +4753,121 @@
         (("2" (inst + "f!1") nil nil)) nil))
       nil))
     nil)
-   ((pointwise_bounded_below nonempty-type-eq-decl nil
-     pointwise_convergence nil)
-    (pointwise_bounded_below? const-decl "bool" pointwise_convergence
+   ((pointwise_converges_upto? const-decl "bool" pointwise_convergence
      nil)
-    (pointwise_convergent nonempty-type-eq-decl nil
+    (limsup_pointwise_convergence formula-decl nil
      pointwise_convergence nil)
-    (pointwise_convergent? const-decl "bool" pointwise_convergence nil)
-    (sequence type-eq-decl nil sequences nil)
-    (T formal-type-decl nil pointwise_convergence nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
+    (pointwise_bounded? const-decl "bool" pointwise_convergence nil)
+    (pointwise_bounded nonempty-type-eq-decl nil pointwise_convergence
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (pointwise_convergent_is_pointwise_bounded judgement-tcc nil
-     pointwise_convergence nil)
-    (inf_pointwise_increasing formula-decl nil pointwise_convergence
-     nil)
-    (extensionality formula-decl nil functions nil)
-    (limsup const-decl "real" pointwise_convergence nil)
-    (inf_pointwise_le formula-decl nil pointwise_convergence nil)
-    (pointwise_convergence? const-decl "bool" pointwise_convergence
-     nil)
-    (upper_bound const-decl "bool" bound_defs "reals/")
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (TRUE const-decl "bool" booleans nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (metric_convergence_def formula-decl nil metric_space
-     "metric_space/")
-    (metric_converges_to const-decl "bool" metric_space_def
-     "metric_space/")
-    (member const-decl "bool" sets nil)
-    (greatest_lower_bound const-decl "bool" bound_defs "reals/")
-    (below_bounded const-decl "bool" bounded_reals "reals/")
-    (inf_set type-eq-decl nil bounded_reals "reals/")
-    (inf const-decl "{x | greatest_lower_bound(<=)(x, Sl)}"
-     bounded_reals "reals/")
-    (INF skolem-const-decl "real" pointwise_convergence nil)
-    (lower_bound const-decl "bool" bound_defs "reals/")
-    (increasing? const-decl "bool" real_fun_preds "reals/")
-    (pointwise_increasing? const-decl "bool" pointwise_convergence nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (LIMSUP skolem-const-decl "{x |
-         least_upper_bound(<=)
-                          (x,
-                           image[nat, real]
-                               (LAMBDA m: inf(p!1)(m)(x!1), fullset[nat]))}"
-     pointwise_convergence nil)
-    (p!1 skolem-const-decl "pointwise_bounded_below"
-     pointwise_convergence nil)
-    (x!1 skolem-const-decl "T" pointwise_convergence nil)
-    (f!1 skolem-const-decl "[T -> real]" pointwise_convergence nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (fullset const-decl "set" sets nil)
+    (inf const-decl "real" pointwise_convergence nil)
+    (image const-decl "set[R]" function_image nil)
+    (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
+         "reals/")
+    (above_bounded const-decl "bool" bounded_reals "reals/")
+    (setof type-eq-decl nil defined_types nil)
+    (nonempty? const-decl "bool" sets nil)
+    (set type-eq-decl nil sets nil)
+    (sup_set type-eq-decl nil bounded_reals "reals/")
+    (<= const-decl "bool" reals nil)
+    (least_upper_bound const-decl "bool" bound_defs "reals/")
+    (pred type-eq-decl nil defined_types nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (trich_lt formula-decl nil real_props nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (metric? const-decl "bool" metric_def "metric_space/")
     (real_minus_real_is_real application-judgement "real" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (trich_lt formula-decl nil real_props nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (pred type-eq-decl nil defined_types nil)
-    (least_upper_bound const-decl "bool" bound_defs "reals/")
-    (<= const-decl "bool" reals nil) (set type-eq-decl nil sets nil)
-    (nonempty? const-decl "bool" sets nil)
-    (setof type-eq-decl nil defined_types nil)
-    (above_bounded const-decl "bool" bounded_reals "reals/")
-    (sup_set type-eq-decl nil bounded_reals "reals/")
-    (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
-     "reals/")
-    (image const-decl "set[R]" function_image nil)
-    (inf const-decl "real" pointwise_convergence nil)
-    (fullset const-decl "set" sets nil)
-    (pointwise_bounded nonempty-type-eq-decl nil pointwise_convergence
-     nil)
-    (pointwise_bounded? const-decl "bool" pointwise_convergence nil)
-    (limsup_pointwise_convergence formula-decl nil
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (f!1 skolem-const-decl "[T -> real]" pointwise_convergence nil)
+    (x!1 skolem-const-decl "T" pointwise_convergence nil)
+    (p!1 skolem-const-decl "pointwise_bounded_below"
      pointwise_convergence nil)
-    (pointwise_converges_upto? const-decl "bool" pointwise_convergence
-     nil))
+    (LIMSUP skolem-const-decl "{x |
+   least_upper_bound(<=)
+                    (x,
+                     image[nat, real]
+                         (LAMBDA m: inf(p!1)(m)(x!1), fullset[nat]))}"
+     pointwise_convergence nil)
+    (> const-decl "bool" reals nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (pointwise_increasing? const-decl "bool" pointwise_convergence nil)
+    (increasing? const-decl "bool" real_fun_preds "reals/")
+    (lower_bound const-decl "bool" bound_defs "reals/")
+    (INF skolem-const-decl "real" pointwise_convergence nil)
+    (inf const-decl "{x | greatest_lower_bound(<=)(x, Sl)}"
+         bounded_reals "reals/")
+    (below_bounded const-decl "bool" bounded_reals "reals/")
+    (inf_set type-eq-decl nil bounded_reals "reals/")
+    (greatest_lower_bound const-decl "bool" bound_defs "reals/")
+    (member const-decl "bool" sets nil)
+    (metric_converges_to const-decl "bool" metric_space_def
+     "metric_space/")
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
+    (metric_zero? const-decl "bool" metric_def "metric_space/")
+    (metric_symmetric? const-decl "bool" metric_def "metric_space/")
+    (metric_triangle? const-decl "bool" metric_def "metric_space/")
+    (minus_real_is_real application-judgement "real" reals nil)
+    (metric_convergence_def formula-decl nil metric_space
+     "metric_space/")
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (TRUE const-decl "bool" booleans nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (upper_bound const-decl "bool" bound_defs "reals/")
+    (pointwise_convergence? const-decl "bool" pointwise_convergence
+     nil)
+    (inf_pointwise_le formula-decl nil pointwise_convergence nil)
+    (limsup const-decl "real" pointwise_convergence nil)
+    (extensionality formula-decl nil functions nil)
+    (inf_pointwise_increasing formula-decl nil pointwise_convergence
+     nil)
+    (pointwise_convergent_is_pointwise_bounded judgement-tcc nil
+     pointwise_convergence nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (T formal-type-decl nil pointwise_convergence nil)
+    (sequence type-eq-decl nil sequences nil)
+    (pointwise_convergent? const-decl "bool" pointwise_convergence nil)
+    (pointwise_convergent nonempty-type-eq-decl nil
+     pointwise_convergence nil)
+    (pointwise_bounded_below? const-decl "bool" pointwise_convergence
+     nil)
+    (pointwise_bounded_below nonempty-type-eq-decl nil
+     pointwise_convergence nil))
    shostak))
  (pointwise_convergence_plus_minus_def_TCC1 0
   (pointwise_convergence_plus_minus_def_TCC1-1 nil 3392257085
@@ -4205,11 +4905,16 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
     (real_minus_real_is_real application-judgement "real" reals nil)
     (plus const-decl "[T -> nnreal]" real_fun_ops_aux "reals/")
     (bounded_below? const-decl "bool" real_fun_preds "reals/")
     (pointwise? const-decl "bool" pointwise_convergence nil))
-   nil))
+   nil
+   (pointwise_convergence_plus_minus_def subtype
+    "pointwise_convergence.plus(pointwise_convergence.u)"
+    "pointwise_bounded_below")))
  (pointwise_convergence_plus_minus_def_TCC2 0
   (pointwise_convergence_plus_minus_def_TCC2-1 nil 3392257085
    ("" (skosimp)
@@ -4237,6 +4942,8 @@
     (minus_real_is_real application-judgement "real" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
     (real_minus_real_is_real application-judgement "real" reals nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
@@ -4248,7 +4955,10 @@
     (bounded_below? const-decl "bool" real_fun_preds "reals/")
     (pointwise_bounded_below? const-decl "bool" pointwise_convergence
      nil))
-   nil))
+   nil
+   (pointwise_convergence_plus_minus_def subtype
+    "pointwise_convergence.minus(pointwise_convergence.u)"
+    "pointwise_bounded_below")))
  (pointwise_convergence_plus_minus_def 0
   (pointwise_convergence_plus_minus_def-1 nil 3392296765
    ("" (skosimp)
@@ -4324,6 +5034,8 @@
     (pointwise? const-decl "bool" pointwise_convergence nil)
     (bounded_below? const-decl "bool" real_fun_preds "reals/")
     (real_minus_real_is_real application-judgement "real" reals nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
+     convergence_aux "metric_space/")
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)

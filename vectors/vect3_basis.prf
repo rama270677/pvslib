@@ -32,8 +32,161 @@
     (/= const-decl "boolean" notequal nil)
     (vect3_orthog_toy const-decl "Vect3" vect3_basis nil)
     (zero const-decl "Vector" vectors_3D nil))
-   nil))
+   nil
+   (vect3_orthonorm_toy subtype
+    "vect3_basis.vect3_orthog_toy(vect3_basis.nzv)" "Nz_vector")))
  (vect3_orthonorm_toz_TCC1 0
+  (vect3_orthonorm_toz_TCC1-2 "" 3757815493
+   ("" (skeep)
+    (("" (expand "vect3_orthog_toz")
+      (("" (lemma "lin_indep_cross")
+        (("" (inst?)
+          (("1" (assert)
+            (("1" (hide -2)
+              (("1"
+                (case "FORALL (w:Nz_vect3): linearly_dependent?(nzv,w) IMPLIES EXISTS (c:nzreal): nzv = c*w")
+                (("1" (inst?)
+                  (("1" (assert)
+                    (("1" (hide -2)
+                      (("1" (skosimp*)
+                        (("1" (lemma "sqv_eq_0")
+                          (("1" (inst - "nzv")
+                            (("1" (assert)
+                              (("1"
+                                (lemma "nzreal_times_nzreal_is_nzreal")
+                                (("1"
+                                  (inst - "sqv(nzv)" "c!1")
+                                  (("1"
+                                    (flatten)
+                                    (("1"
+                                      (hide 2)
+                                      (("1"
+                                        (case
+                                         "nzv*vect3_orthog_toy(nzv) = 0")
+                                        (("1"
+                                          (grind)
+                                          (("1"
+                                            (replace -2 -1)
+                                            (("1" (assert) nil nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (hide-all-but 1)
+                                          (("2" (grind) nil nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (hide -1) (("2" (grind) nil nil)) nil))
+                  nil)
+                 ("2" (hide -1)
+                  (("2" (skosimp*)
+                    (("2" (expand "linearly_dependent?")
+                      (("2" (skosimp*)
+                        (("2" (case "k1!1/=0 AND k2!1/=0")
+                          (("1" (hide -2)
+                            (("1" (flatten)
+                              (("1"
+                                (inst + "-k2!1/k1!1")
+                                (("1"
+                                  (expand "zero")
+                                  (("1"
+                                    (decompose-equality -1)
+                                    (("1"
+                                      (decompose-equality 3)
+                                      (("1" (grind) nil nil)
+                                       ("2" (grind) nil nil)
+                                       ("3" (grind) nil nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2" (assert) nil nil)
+                                 ("3" (assert) nil nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (ground)
+                            (("1" (replace -1)
+                              (("1"
+                                (assert)
+                                (("1"
+                                  (hide 2)
+                                  (("1"
+                                    (lemma "sqv_eq_0")
+                                    (("1"
+                                      (inst - "w!1")
+                                      (("1"
+                                        (assert)
+                                        (("1"
+                                          (lemma
+                                           "nzreal_times_nzreal_is_nzreal")
+                                          (("1"
+                                            (inst - "k2!1" "k2!1")
+                                            (("1"
+                                              (mult-by 1 "k2!1*k2!1")
+                                              (("1" (grind) nil nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (hide 2)
+                              (("2"
+                                (replace -1)
+                                (("2"
+                                  (assert)
+                                  (("2"
+                                    (lemma "sqv_eq_0")
+                                    (("2"
+                                      (inst - "nzv")
+                                      (("2"
+                                        (assert)
+                                        (("2"
+                                          (lemma
+                                           "nzreal_times_nzreal_is_nzreal")
+                                          (("2"
+                                            (inst - "k1!1" "k1!1")
+                                            (("2"
+                                              (mult-by 1 "k1!1*k1!1")
+                                              (("2" (grind) nil nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (hide -) (("2" (grind) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (vect3_orthonorm_toz subtype
+    "vect3_basis.vect3_orthog_toz(vect3_basis.nzv)" "Nz_vector"))
   (vect3_orthonorm_toz_TCC1-1 nil 3512137853
    ("" (skeep)
     (("" (expand "vect3_orthog_toz")
@@ -206,17 +359,14 @@
     (sqv const-decl "nnreal" vectors_3D nil)
     (nnreal type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
     (nzreal_times_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+    (int_times_even_is_even application-judgement "even_int" integers
      nil)
     (* const-decl "real" vectors_3D nil)
     (nzreal_times_nzreal_is_nzreal judgement-tcc nil real_types nil)
@@ -233,7 +383,9 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (* const-decl "Vector" vectors_3D nil)
     (lin_indep_cross formula-decl nil cross_3D nil))
-   nil))
+   nil
+   (vect3_orthonorm_toz subtype
+    "vect3_basis.vect3_orthog_toz(vect3_basis.nzv)" "Nz_vector")))
  (vect3_orthonorm_basis 0
   (vect3_orthonorm_basis-1 nil 3512137883
    ("" (skeep) (("" (assert) (("" (grind) nil nil)) nil)) nil)

@@ -24,7 +24,10 @@
     (Union_finite formula-decl nil finite_sets_of_sets nil)
     (Union_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil))
-   nil))
+   nil
+   (card_rest_aux subtype
+    "sets[class_equation_scaf.T].Union(class_equation_scaf.FP)"
+    "finite_set[T]")))
  (card_rest_aux_TCC2 0
   (card_rest_aux_TCC2-1 nil 3526046475
    ("" (skosimp*)
@@ -48,8 +51,47 @@
     (every const-decl "bool" sets nil) (set type-eq-decl nil sets nil)
     (nonempty? const-decl "bool" sets nil)
     (choose const-decl "(p)" sets nil))
-   nil))
+   nil
+   (card_rest_aux subtype
+    "sets[setof[T]].choose(class_equation_scaf.FP)" "finite_set[T]")))
  (card_rest_aux_TCC3 0
+  (card_rest_aux_TCC3-2 "" 3758136070
+   ("" (skosimp*)
+    (("" (typepred "FP!1")
+      (("" (expand "finite_partition?")
+        (("" (flatten)
+          (("" (lemma "Union_finite[T]")
+            (("" (inst?)
+              (("" (assert)
+                (("" (hide (-1 2))
+                  (("" (expand "every")
+                    (("" (skosimp*)
+                      (("" (inst?)
+                        (("" (typepred "x!1")
+                          (("" (lemma "rest_member[setof[T]]")
+                            (("" (inst -1 "FP!1" "x!1")
+                              ((""
+                                (expand "member")
+                                (("" (propax) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (card_rest_aux subtype
+    "sets[class_equation_scaf.T].Union(sets[setof[T]].rest(class_equation_scaf.FP))"
+    "finite_set[T]"))
   (card_rest_aux_TCC3-1 nil 3526046475
    ("" (skosimp*)
     (("" (typepred "FP!1")
@@ -96,20 +138,22 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (set type-eq-decl nil sets nil) (rest const-decl "set" sets nil)
-    (every const-decl "bool" sets nil)
+    (member const-decl "bool" sets nil)
+    (rest_member formula-decl nil sets_lemmas nil)
     (FP!1 skolem-const-decl "finite_partition[T]" class_equation_scaf
      nil)
     (x!1 skolem-const-decl "(rest[setof[T]](FP!1))" class_equation_scaf
      nil)
-    (rest_member formula-decl nil sets_lemmas nil)
-    (member const-decl "bool" sets nil)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (finite_rest judgement-tcc nil finite_sets nil)
+    (every const-decl "bool" sets nil)
     (Union_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    (finite_rest application-judgement "finite_set[T]" countable_props
+     "sets_aux/")
     (Union_finite formula-decl nil finite_sets_of_sets nil))
-   nil))
+   nil
+   (card_rest_aux subtype
+    "sets[class_equation_scaf.T].Union(sets[setof[T]].rest(class_equation_scaf.FP))"
+    "finite_set[T]")))
  (card_rest_aux 0
   (card_rest_aux-1 nil 3526047645
    ("" (skosimp*)
@@ -224,6 +268,8 @@
     nil)
    ((T formal-type-decl nil class_equation_scaf nil)
     (card_Union_rest formula-decl nil lagrange_scaf "algebra/")
+    (finite_rest application-judgement "finite_set[T]" countable_props
+     "sets_aux/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (Union_surjective name-judgement
@@ -275,7 +321,8 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (every const-decl "bool" sets nil))
-   nil))
+   nil
+   (card_partition subtype "class_equation_scaf.A" "finite_set[T]")))
  (card_partition_TCC2 0
   (card_partition_TCC2-1 nil 3526042692
    ("" (skosimp*)
@@ -394,6 +441,8 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
+    (finite_restrict application-judgement "finite_set[S]"
+     restrict_set_props nil)
     (finite_countable judgement-tcc nil countable_props "sets_aux/")
     (number nonempty-type-decl nil numbers nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -415,21 +464,1309 @@
     (set type-eq-decl nil sets nil)
     (is_finite const-decl "bool" finite_sets nil)
     (finite_set type-eq-decl nil finite_sets nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (FP!1 skolem-const-decl "finite_partition[T]" class_equation_scaf
      nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
     (< const-decl "bool" reals nil)
     (injective? const-decl "bool" functions nil)
     (/= const-decl "boolean" notequal nil)
-    (nonempty? const-decl "bool" sets nil)
-    (empty? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
     (x!1 skolem-const-decl "setof[T]" class_equation_scaf nil)
     (every const-decl "bool" sets nil))
-   nil))
+   nil
+   (card_partition subtype "finite_sets[class_equation_scaf.T].card"
+    "(convergence_set[finite_set[T]].convergent?(restrict[setof[T], finite_set[T], booleans.bool].restrict(class_equation_scaf.FP)))")))
  (card_partition 0
+  (card_partition-2 "" 3758267195
+   ("" (measure-induct+ "card(FP)" "FP")
+    (("1" (inst -1 "rest(x!1)")
+      (("1" (prop)
+        (("1" (lemma "choose_rest[setof[T]]")
+          (("1" (inst?)
+            (("1" (expand "nonempty?")
+              (("1" (assert)
+                (("1" (rewrite "add_as_union")
+                  (("1"
+                    (name "ZZ"
+                          "restrict[setof[T], finite_set[T], boolean](x!1)")
+                    (("1" (replace -1 2)
+                      (("1" (lemma "sigma_set.sigma_disjoint_union")
+                        (("1"
+                          (inst -1 "rest(x!1)" "singleton(choose(x!1))"
+                           "card")
+                          (("1" (prop)
+                            (("1" (replace -4 -1 rl)
+                              (("1"
+                                (case
+                                 "ZZ = union(restrict[setof[T], finite_set[T], boolean](rest(x!1)),
+                                                    singleton(choose(x!1)))")
+                                (("1"
+                                  (replace -1 -2 rl)
+                                  (("1"
+                                    (replace -2 2)
+                                    (("1"
+                                      (lemma "card_rest_aux")
+                                      (("1"
+                                        (inst -1 "x!1")
+                                        (("1"
+                                          (expand "nonempty?")
+                                          (("1"
+                                            (replaces -1)
+                                            (("1"
+                                              (assert)
+                                              (("1"
+                                                (hide-all-but 2)
+                                                (("1"
+                                                  (rewrite
+                                                   "sigma_countable")
+                                                  (("1"
+                                                    (lemma
+                                                     "sigma_countable.sigma_finite"
+                                                     ("F"
+                                                      "singleton(choose(x!1))"))
+                                                    (("1"
+                                                      (inst?)
+                                                      (("1"
+                                                        (case
+                                                         "card(singleton(choose(x!1))) = 1")
+                                                        (("1"
+                                                          (replaces -1)
+                                                          (("1"
+                                                            (assert)
+                                                            (("1"
+                                                              (replace
+                                                               -1)
+                                                              (("1"
+                                                                (hide
+                                                                 -1)
+                                                                (("1"
+                                                                  (expand
+                                                                   "sigma")
+                                                                  (("1"
+                                                                    (expand
+                                                                     "o ")
+                                                                    (("1"
+                                                                      (typepred
+                                                                       "finite_enumeration(singleton(choose(x!1)))(0)")
+                                                                      (("1"
+                                                                        (expand
+                                                                         "singleton")
+                                                                        (("1"
+                                                                          (assert)
+                                                                          (("1"
+                                                                            (replace
+                                                                             -2)
+                                                                            (("1"
+                                                                              (expand
+                                                                               "sigma")
+                                                                              (("1"
+                                                                                (propax)
+                                                                                nil
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (hide (-1 2))
+                                                          (("2"
+                                                            (rewrite
+                                                             "card_def")
+                                                            (("2"
+                                                              (rewrite
+                                                               "Card_bijection")
+                                                              (("2"
+                                                                (inst
+                                                                 1
+                                                                 "LAMBDA (y : (singleton(choose(x!1)))) : 0")
+                                                                (("2"
+                                                                  (grind)
+                                                                  (("2"
+                                                                    (inst
+                                                                     1
+                                                                     "choose(x!1)")
+                                                                    nil
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil)
+                                                     ("2"
+                                                      (hide 2)
+                                                      (("2"
+                                                        (prop)
+                                                        (("1"
+                                                          (lemma
+                                                           "finite_singleton[(x!1)]")
+                                                          (("1"
+                                                            (inst
+                                                             -1
+                                                             "choose[setof[T]](x!1)")
+                                                            (("1"
+                                                              (assert)
+                                                              (("1"
+                                                                (grind)
+                                                                nil
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (expand
+                                                           "empty?")
+                                                          (("2"
+                                                            (inst
+                                                             -1
+                                                             "choose[setof[T]](x!1)")
+                                                            (("1"
+                                                              (expand
+                                                               "member")
+                                                              (("1"
+                                                                (expand
+                                                                 "singleton")
+                                                                (("1"
+                                                                  (propax)
+                                                                  nil
+                                                                  nil))
+                                                                nil))
+                                                              nil)
+                                                             ("2"
+                                                              (typepred
+                                                               "x!1")
+                                                              (("2"
+                                                                (expand
+                                                                 "finite_partition?")
+                                                                (("2"
+                                                                  (flatten)
+                                                                  (("2"
+                                                                    (expand
+                                                                     "every")
+                                                                    (("2"
+                                                                      (inst
+                                                                       -2
+                                                                       "choose[setof[T]](x!1)")
+                                                                      nil
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil)
+                                                             ("3"
+                                                              (typepred
+                                                               "x!1")
+                                                              (("3"
+                                                                (grind)
+                                                                nil
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil)
+                                                   ("2"
+                                                    (hide 2)
+                                                    (("2"
+                                                      (expand
+                                                       "convergent?")
+                                                      (("2"
+                                                        (prop)
+                                                        (("2"
+                                                          (hide 2)
+                                                          (("2"
+                                                            (lemma
+                                                             "finite_singleton[(x!1)]")
+                                                            (("2"
+                                                              (inst?)
+                                                              (("2"
+                                                                (grind)
+                                                                nil
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil)
+                                                   ("3"
+                                                    (hide 2)
+                                                    (("3"
+                                                      (rewrite
+                                                       "finite_countable")
+                                                      (("3"
+                                                        (hide 2)
+                                                        (("3"
+                                                          (lemma
+                                                           "finite_singleton[(x!1)]")
+                                                          (("3"
+                                                            (inst?)
+                                                            (("3"
+                                                              (grind)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (hide (-1 -4 -5 3))
+                                  (("2"
+                                    (replace -2 -1 rl)
+                                    (("2"
+                                      (hide -2)
+                                      (("2"
+                                        (replace -1 1 rl)
+                                        (("2"
+                                          (hide -1)
+                                          (("2"
+                                            (decompose-equality 1)
+                                            (("2"
+                                              (iff)
+                                              (("2"
+                                                (prop)
+                                                (("1"
+                                                  (expand*
+                                                   "restrict"
+                                                   "union"
+                                                   "member")
+                                                  (("1"
+                                                    (prop)
+                                                    (("1"
+                                                      (hide (1 3))
+                                                      (("1"
+                                                        (grind)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (expand*
+                                                   "restrict"
+                                                   "union"
+                                                   "member")
+                                                  (("2"
+                                                    (prop)
+                                                    (("2"
+                                                      (hide (1 3))
+                                                      (("2"
+                                                        (grind)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (hide-all-but (1 2))
+                              (("2"
+                                (expand "disjoint?")
+                                (("2"
+                                  (expand "empty?" 1)
+                                  (("2"
+                                    (skosimp*)
+                                    (("2"
+                                      (expand "member")
+                                      (("2"
+                                        (expand "intersection")
+                                        (("2"
+                                          (flatten)
+                                          (("2"
+                                            (expand "member")
+                                            (("2"
+                                              (expand "restrict")
+                                              (("2"
+                                                (expand "singleton")
+                                                (("2"
+                                                  (lemma
+                                                   "choose_not_member[setof[T]]")
+                                                  (("2"
+                                                    (inst?)
+                                                    (("2"
+                                                      (expand "member")
+                                                      (("2"
+                                                        (assert)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (hide-all-but (1 2))
+                            (("2" (expand "convergent?")
+                              (("2"
+                                (prop)
+                                (("1"
+                                  (rewrite "finite_countable")
+                                  (("1"
+                                    (hide 2)
+                                    (("1"
+                                      (lemma
+                                       "finite_union[finite_set[T]]")
+                                      (("1"
+                                        (case
+                                         "nonzero_elts[finite_set[T]]
+               (card[T],
+                union[finite_set[T]]
+                    (restrict[setof[T], finite_set[T], boolean]
+                         (rest[setof[T]](x!1)),
+                     singleton[(x!1)](choose[setof[T]](x!1)))) = union[finite_set[T]]
+                    (restrict[setof[T], finite_set[T], boolean]
+                         (rest[setof[T]](x!1)),
+                     singleton[(x!1)](choose[setof[T]](x!1)))")
+                                        (("1"
+                                          (replace -1)
+                                          (("1"
+                                            (hide -1)
+                                            (("1"
+                                              (inst?)
+                                              (("1"
+                                                (hide 2)
+                                                (("1"
+                                                  (lemma
+                                                   "finite_singleton[(x!1)]")
+                                                  (("1"
+                                                    (inst?)
+                                                    (("1"
+                                                      (grind)
+                                                      nil
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (hide-all-but 1)
+                                          (("2"
+                                            (decompose-equality 1)
+                                            (("2"
+                                              (iff)
+                                              (("2"
+                                                (prop)
+                                                (("1"
+                                                  (expand
+                                                   "nonzero_elts")
+                                                  (("1"
+                                                    (prop)
+                                                    nil
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (expand
+                                                   "nonzero_elts")
+                                                  (("2"
+                                                    (prop)
+                                                    (("2"
+                                                      (expand "union")
+                                                      (("2"
+                                                        (expand
+                                                         "member")
+                                                        (("2"
+                                                          (expand
+                                                           "restrict")
+                                                          (("2"
+                                                            (prop)
+                                                            (("1"
+                                                              (lemma
+                                                               "rest_member[setof[T]]")
+                                                              (("1"
+                                                                (inst
+                                                                 -1
+                                                                 "x!1"
+                                                                 "x!2")
+                                                                (("1"
+                                                                  (expand
+                                                                   "member")
+                                                                  (("1"
+                                                                    (assert)
+                                                                    (("1"
+                                                                      (reveal
+                                                                       -7)
+                                                                      (("1"
+                                                                        (inst?)
+                                                                        (("1"
+                                                                          (assert)
+                                                                          nil
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil)
+                                                             ("2"
+                                                              (expand
+                                                               "singleton")
+                                                              (("2"
+                                                                (reveal
+                                                                 -6)
+                                                                (("2"
+                                                                  (inst?)
+                                                                  (("1"
+                                                                    (assert)
+                                                                    nil
+                                                                    nil)
+                                                                   ("2"
+                                                                    (typepred
+                                                                     "choose[setof[T]](x!1)")
+                                                                    (("2"
+                                                                      (assert)
+                                                                      nil
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (expand "convergent?")
+                                  (("2"
+                                    (flatten)
+                                    (("2"
+                                      (hide 2)
+                                      (("2"
+                                        (case
+                                         "nonzero_elts(card[T],
+                             union[finite_set[T]]
+                                 (restrict[setof[T], finite_set[T], boolean]
+                                      (rest[setof[T]](x!1)),
+                                  singleton[(x!1)](choose[setof[T]](x!1)))) = union[finite_set[T]]
+                                 (restrict[setof[T], finite_set[T], boolean]
+                                      (rest[setof[T]](x!1)),
+                                  singleton[(x!1)](choose[setof[T]](x!1)))")
+                                        (("1"
+                                          (replaces -1)
+                                          (("1"
+                                            (lemma
+                                             "finite_union[finite_set[T]]")
+                                            (("1"
+                                              (inst?)
+                                              (("1"
+                                                (hide 2)
+                                                (("1"
+                                                  (lemma
+                                                   "finite_singleton[(x!1)]")
+                                                  (("1"
+                                                    (inst?)
+                                                    (("1"
+                                                      (grind)
+                                                      nil
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (hide-all-but 1)
+                                          (("2"
+                                            (decompose-equality 1)
+                                            (("2"
+                                              (iff)
+                                              (("2"
+                                                (prop)
+                                                (("1"
+                                                  (expand
+                                                   "nonzero_elts")
+                                                  (("1"
+                                                    (prop)
+                                                    nil
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (expand
+                                                   "nonzero_elts")
+                                                  (("2"
+                                                    (prop)
+                                                    (("2"
+                                                      (expand "union")
+                                                      (("2"
+                                                        (expand
+                                                         "member")
+                                                        (("2"
+                                                          (expand
+                                                           "restrict")
+                                                          (("2"
+                                                            (prop)
+                                                            (("1"
+                                                              (lemma
+                                                               "rest_member[setof[T]]")
+                                                              (("1"
+                                                                (inst
+                                                                 -1
+                                                                 "x!1"
+                                                                 "x!2")
+                                                                (("1"
+                                                                  (expand
+                                                                   "member")
+                                                                  (("1"
+                                                                    (assert)
+                                                                    (("1"
+                                                                      (reveal
+                                                                       -6)
+                                                                      (("1"
+                                                                        (inst?)
+                                                                        (("1"
+                                                                          (assert)
+                                                                          nil
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil)
+                                                             ("2"
+                                                              (expand
+                                                               "singleton")
+                                                              (("2"
+                                                                (reveal
+                                                                 -5)
+                                                                (("2"
+                                                                  (inst?)
+                                                                  (("1"
+                                                                    (assert)
+                                                                    nil
+                                                                    nil)
+                                                                   ("2"
+                                                                    (assert)
+                                                                    nil
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("3" (hide (-2 -3 3))
+                            (("3" (skosimp*)
+                              (("3"
+                                (prop)
+                                (("1"
+                                  (hide (-2 -3 -4))
+                                  (("1"
+                                    (typepred "x!1")
+                                    (("1"
+                                      (expand "finite_partition?")
+                                      (("1"
+                                        (flatten)
+                                        (("1"
+                                          (expand "every")
+                                          (("1" (inst?) nil nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (hide (-1 -3 -4))
+                                  (("2"
+                                    (expand "singleton")
+                                    (("2"
+                                      (lemma "choose_member[setof[T]]")
+                                      (("2"
+                                        (inst?)
+                                        (("2" (assert) nil nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (expand "nonempty?")
+          (("2" (lemma "rest_empty_lem[setof[T]]")
+            (("2" (inst -1 "x!1")
+              (("2" (assert)
+                (("2" (lemma "card_Union_rest")
+                  (("2" (inst -1 "x!1")
+                    (("2" (expand "nonempty?")
+                      (("2"
+                        (case-replace "Union(rest(x!1)) = emptyset")
+                        (("1" (rewrite "union_commutative")
+                          (("1" (rewrite "union_empty")
+                            (("1" (replaces -2)
+                              (("1"
+                                (hide (-1 -3 -4 1))
+                                (("1"
+                                  (name-replace
+                                   "CC"
+                                   "card(choose(x!1))")
+                                  (("1"
+                                    (replaces -1)
+                                    (("1"
+                                      (expand "CC")
+                                      (("1"
+                                        (case-replace
+                                         "restrict[setof[T], finite_set[T], boolean]
+                (extend[setof[T], (x!1), bool, FALSE]
+                     (singleton(choose(x!1)))) = singleton(choose(x!1))"
+                                         :hide?
+                                         T)
+                                        (("1"
+                                          (rewrite "sigma_countable")
+                                          (("1"
+                                            (lemma
+                                             "sigma_countable.sigma_finite"
+                                             ("F"
+                                              "singleton(choose(x!1))"))
+                                            (("1"
+                                              (inst?)
+                                              (("1"
+                                                (case
+                                                 "card(singleton(choose(x!1))) = 1")
+                                                (("1"
+                                                  (replaces -1)
+                                                  (("1"
+                                                    (assert)
+                                                    (("1"
+                                                      (replace -1)
+                                                      (("1"
+                                                        (hide -1)
+                                                        (("1"
+                                                          (expand
+                                                           "sigma")
+                                                          (("1"
+                                                            (expand
+                                                             "o ")
+                                                            (("1"
+                                                              (typepred
+                                                               "finite_enumeration(singleton(choose(x!1)))(0)")
+                                                              (("1"
+                                                                (expand
+                                                                 "singleton")
+                                                                (("1"
+                                                                  (assert)
+                                                                  (("1"
+                                                                    (replace
+                                                                     -2)
+                                                                    (("1"
+                                                                      (expand
+                                                                       "sigma")
+                                                                      (("1"
+                                                                        (propax)
+                                                                        nil
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (hide (-1 2))
+                                                  (("2"
+                                                    (rewrite
+                                                     "card_def")
+                                                    (("2"
+                                                      (rewrite
+                                                       "Card_bijection")
+                                                      (("2"
+                                                        (inst
+                                                         1
+                                                         "LAMBDA (y : (singleton(choose(x!1)))) : 0")
+                                                        (("2"
+                                                          (grind)
+                                                          (("2"
+                                                            (inst
+                                                             1
+                                                             "choose(x!1)")
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (hide 2)
+                                              (("2"
+                                                (prop)
+                                                (("1"
+                                                  (lemma
+                                                   "finite_singleton[(x!1)]")
+                                                  (("1"
+                                                    (inst
+                                                     -1
+                                                     "choose[setof[T]](x!1)")
+                                                    (("1"
+                                                      (assert)
+                                                      (("1"
+                                                        (grind)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (expand "empty?")
+                                                  (("2"
+                                                    (inst
+                                                     -1
+                                                     "choose[setof[T]](x!1)")
+                                                    (("1"
+                                                      (expand "member")
+                                                      (("1"
+                                                        (expand
+                                                         "singleton")
+                                                        (("1"
+                                                          (propax)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil)
+                                                     ("2"
+                                                      (typepred "x!1")
+                                                      (("2"
+                                                        (expand
+                                                         "finite_partition?")
+                                                        (("2"
+                                                          (flatten)
+                                                          (("2"
+                                                            (expand
+                                                             "every")
+                                                            (("2"
+                                                              (inst
+                                                               -3
+                                                               "choose[setof[T]](x!1)")
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil)
+                                                     ("3"
+                                                      (typepred "x!1")
+                                                      (("3"
+                                                        (grind)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil)
+                                           ("2"
+                                            (hide 2)
+                                            (("2"
+                                              (expand "convergent?")
+                                              (("2"
+                                                (prop)
+                                                (("2"
+                                                  (hide 2)
+                                                  (("2"
+                                                    (lemma
+                                                     "finite_singleton[(x!1)]")
+                                                    (("2"
+                                                      (inst?)
+                                                      (("2"
+                                                        (grind)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil)
+                                           ("3"
+                                            (hide 2)
+                                            (("3"
+                                              (rewrite
+                                               "finite_countable")
+                                              (("3"
+                                                (hide 2)
+                                                (("3"
+                                                  (lemma
+                                                   "finite_singleton[(x!1)]")
+                                                  (("3"
+                                                    (inst?)
+                                                    (("3"
+                                                      (grind)
+                                                      nil
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (hide 2)
+                                          (("2"
+                                            (decompose-equality 1)
+                                            (("2"
+                                              (iff)
+                                              (("2"
+                                                (prop)
+                                                (("1"
+                                                  (expand*
+                                                   "restrict"
+                                                   "extend")
+                                                  (("1"
+                                                    (prop)
+                                                    nil
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (expand*
+                                                   "restrict"
+                                                   "extend")
+                                                  (("2"
+                                                    (prop)
+                                                    (("2"
+                                                      (expand
+                                                       "singleton")
+                                                      (("2"
+                                                        (lemma
+                                                         "choose_not_member[setof[T]]")
+                                                        (("2"
+                                                          (inst?)
+                                                          (("2"
+                                                            (expand
+                                                             "member")
+                                                            (("2"
+                                                              (assert)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("3"
+                                          (hide 2)
+                                          (("3"
+                                            (skosimp*)
+                                            (("3"
+                                              (prop)
+                                              (("1"
+                                                (expand "singleton")
+                                                (("1"
+                                                  (typepred "x!1")
+                                                  (("1"
+                                                    (expand
+                                                     "finite_partition?")
+                                                    (("1"
+                                                      (flatten)
+                                                      (("1"
+                                                        (expand
+                                                         "every")
+                                                        (("1"
+                                                          (inst?)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (expand "singleton")
+                                                (("2"
+                                                  (lemma
+                                                   "choose_member[setof[T]]")
+                                                  (("2"
+                                                    (inst?)
+                                                    (("2"
+                                                      (assert)
+                                                      nil
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (hide-all-but (-3 1))
+                          (("2" (decompose-equality 1)
+                            (("2" (iff)
+                              (("2"
+                                (prop)
+                                (("1"
+                                  (expand "Union")
+                                  (("1"
+                                    (skosimp)
+                                    (("1"
+                                      (typepred "a!1")
+                                      (("1" (grind) nil nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2" (grind) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("3" (hide 2)
+          (("3" (skosimp*)
+            (("3" (inst?)
+              (("1" (assert) nil nil)
+               ("2" (typepred "A!1")
+                (("2" (lemma "rest_member[setof[T]]")
+                  (("2" (inst -1 "x!1" "A!1")
+                    (("2" (expand "member") (("2" (propax) nil nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("4" (hide 2)
+          (("4"
+            (name-replace "ZZ"
+             "restrict[setof[T], finite_set[T], boolean](x!1)" :hide?
+             nil)
+            (("4"
+              (case-replace
+               "ZZ = union(restrict[setof[T], finite_set[T], boolean](rest(x!1)),
+                                                                     singleton(choose(x!1)))")
+              (("1" (lemma "card_disj_union[finite_set[T]]")
+                (("1"
+                  (inst -1
+                   "restrict[setof[T], finite_set[T], boolean](rest(x!1))"
+                   "singleton(choose(x!1))")
+                  (("1" (prop)
+                    (("1" (replaces -1)
+                      (("1" (lemma "nonempty_card[finite_set[T]]")
+                        (("1" (inst -1 "singleton(choose(x!1))")
+                          (("1" (prop)
+                            (("1" (assert) nil nil)
+                             ("2" (hide-all-but (-3 2))
+                              (("2"
+                                (expand "nonempty?" 1)
+                                (("2"
+                                  (expand "empty?")
+                                  (("2"
+                                    (inst -1 "choose(x!1)")
+                                    (("1"
+                                      (expand "member")
+                                      (("1"
+                                        (expand "singleton")
+                                        (("1" (propax) nil nil))
+                                        nil))
+                                      nil)
+                                     ("2"
+                                      (typepred "x!1")
+                                      (("2"
+                                        (expand "finite_partition?")
+                                        (("2"
+                                          (flatten)
+                                          (("2"
+                                            (expand "every")
+                                            (("2"
+                                              (inst
+                                               -3
+                                               "choose[setof[T]](x!1)")
+                                              nil
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (hide-all-but (-3 1))
+                      (("2" (expand "disjoint?")
+                        (("2" (expand "empty?")
+                          (("2" (skosimp*)
+                            (("2" (expand "member")
+                              (("2"
+                                (expand "intersection")
+                                (("2"
+                                  (expand "member")
+                                  (("2"
+                                    (expand "restrict")
+                                    (("2"
+                                      (flatten)
+                                      (("2"
+                                        (expand "singleton")
+                                        (("2"
+                                          (lemma
+                                           "choose_not_member[setof[T]]")
+                                          (("2"
+                                            (inst?)
+                                            (("2"
+                                              (expand "member")
+                                              (("2"
+                                                (expand "nonempty?")
+                                                (("2"
+                                                  (assert)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (hide-all-but (-3 1))
+                    (("2" (lemma "finite_singleton[(x!1)]")
+                      (("2" (inst?)
+                        (("2" (expand "is_finite")
+                          (("2" (propax) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (replace -1 1 rl)
+                (("2" (hide (-1 -3 2))
+                  (("2" (decompose-equality 1)
+                    (("2" (iff)
+                      (("2" (prop)
+                        (("1" (expand* "union" "member" "restrict")
+                          (("1" (prop)
+                            (("1" (expand "singleton")
+                              (("1"
+                                (expand "rest")
+                                (("1"
+                                  (prop)
+                                  (("1"
+                                    (expand "remove")
+                                    (("1"
+                                      (prop)
+                                      (("1" (assert) nil nil)
+                                       ("2"
+                                        (expand "member")
+                                        (("2" (propax) nil nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (expand* "union" "member" "restrict")
+                          (("2" (prop)
+                            (("1" (lemma "rest_member[setof[T]]")
+                              (("1"
+                                (inst -1 "x!1" "x!2")
+                                (("1"
+                                  (expand "member")
+                                  (("1" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (expand "singleton")
+                              (("2"
+                                (lemma "choose_member[setof[T]]")
+                                (("2"
+                                  (inst?)
+                                  (("2"
+                                    (expand "nonempty?")
+                                    (("2" (assert) nil nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("3" (hide (-1 -3 2))
+                (("3" (skosimp*)
+                  (("3" (prop)
+                    (("1" (hide (-2 -3))
+                      (("1" (typepred "x!1")
+                        (("1" (expand "finite_partition?")
+                          (("1" (flatten)
+                            (("1" (expand "every")
+                              (("1" (inst?) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (hide (-1 -3))
+                      (("2" (expand "singleton")
+                        (("2" (lemma "choose_member[setof[T]]")
+                          (("2" (inst?) (("2" (assert) nil nil)) nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (hide 2)
+        (("2" (typepred "x!1")
+          (("2" (expand "finite_partition?")
+            (("2" (prop)
+              (("1" (expand "partition?")
+                (("1" (skosimp*)
+                  (("1" (typepred "a!1" "b!1")
+                    (("1" (lemma "rest_member[setof[T]]")
+                      (("1" (copy -1)
+                        (("1" (inst -1 "x!1" "a!1")
+                          (("1" (inst -2 "x!1" "b!1")
+                            (("1" (expand "member")
+                              (("1"
+                                (inst -5 "a!1" "b!1")
+                                (("1" (assert) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (expand "every")
+                (("2" (skeep :preds? t)
+                  (("2" (inst? -4)
+                    (("2" (hide-all-but (-1 1)) (("2" (grind) nil nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("2" (hide 2) (("2" (rewrite "card_partition_TCC2") nil nil)) nil)
+     ("3" (hide 2) (("3" (rewrite "card_rest_aux_TCC1") nil nil)) nil)
+     ("4" (hide 2)
+      (("4" (skosimp*)
+        (("4" (lemma "card_partition_TCC1")
+          (("4" (inst?) (("4" (assert) (("4" (inst?) nil nil)) nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (card_partition-1 nil 3526051917
    ("" (measure-induct+ "card(FP)" "FP")
     (("1" (inst -1 "rest(x!1)")
@@ -1980,142 +3317,148 @@
         nil))
       nil))
     nil)
-   ((x!1 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (FP!1 skolem-const-decl "finite_partition[T]" class_equation_scaf
-     nil)
-    (card_partition_TCC1 subtype-tcc nil class_equation_scaf nil)
-    (card_rest_aux_TCC1 subtype-tcc nil class_equation_scaf nil)
-    (card_partition_TCC2 subtype-tcc nil class_equation_scaf nil)
-    (rest const-decl "set" sets nil)
-    (x!1 skolem-const-decl "finite_partition[T]" class_equation_scaf
-     nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (nonempty_card formula-decl nil finite_sets nil)
-    (card_disj_union formula-decl nil finite_sets nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (A!1 skolem-const-decl "(rest(x!1))" class_equation_scaf nil)
-    (card_Union_rest formula-decl nil lagrange_scaf "algebra/")
-    (remove const-decl "set" sets nil)
-    (union_commutative formula-decl nil sets_lemmas nil)
-    (CC skolem-const-decl "{n: nat | n = Card(choose(x!1))}"
-     class_equation_scaf nil)
-    (nonempty_extend application-judgement "(nonempty?[T])"
-     extend_set_props nil)
-    (finite_extend application-judgement "finite_set[T]"
-     extend_set_props nil)
-    (finite_restrict application-judgement "finite_set[S]"
+   ((finite_restrict application-judgement "finite_set[S]"
      restrict_set_props nil)
-    (FALSE const-decl "bool" booleans nil)
-    (extend const-decl "R" extend nil)
-    (union_empty formula-decl nil sets_lemmas nil)
-    (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]"
-     finite_sets_inductions "finite_sets/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (emptyset const-decl "set" sets nil)
-    (rest_empty_lem formula-decl nil sets_lemmas nil)
-    (choose_rest formula-decl nil sets_lemmas nil)
-    (choose const-decl "(p)" sets nil)
-    (add_as_union formula-decl nil sets_lemmas nil)
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
-    (nonempty_union2 application-judgement "(nonempty?)" sets nil)
-    (singleton? const-decl "bool" sets nil)
-    (singleton const-decl "(singleton?)" sets nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (union const-decl "set" sets nil)
-    (choose_not_member formula-decl nil sets_lemmas nil)
-    (intersection const-decl "set" sets nil)
-    (disjoint? const-decl "bool" sets nil)
-    (card_rest_aux formula-decl nil class_equation_scaf nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (convergent? const-decl "bool" countable_convergence "sigma_set/")
-    (countable_set nonempty-type-eq-decl nil countability "sets_aux/")
-    (is_countable const-decl "bool" countability "sets_aux/")
-    (sigma_countable formula-decl nil sigma_set "sigma_set/")
-    (finite_singleton judgement-tcc nil finite_sets nil)
-    (every const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
-    (Card_bijection formula-decl nil finite_sets nil)
-    (bijective? const-decl "bool" functions nil)
-    (surjective? const-decl "bool" functions nil)
-    (injective? const-decl "bool" functions nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (card_def formula-decl nil finite_sets nil)
-    (sigma def-decl "real" sigma "reals/")
-    (below type-eq-decl nil nat_types nil)
-    (finite_enumeration const-decl "[below[card(X)] -> (X)]"
-     finite_enumeration "sigma_set/")
-    (sigma_nat application-judgement "nat" sigma "reals/")
-    (O const-decl "T3" function_props nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
+    (pred type-eq-decl nil defined_types nil)
+    (well_founded? const-decl "bool" orders nil)
+    (measure_induction formula-decl nil measure_induction nil)
+    (T formal-type-decl nil class_equation_scaf nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (setof type-eq-decl nil defined_types nil)
+    (setofsets type-eq-decl nil sets nil)
+    (finite_partition? const-decl "bool" lagrange_scaf "algebra/")
+    (finite_partition type-eq-decl nil lagrange_scaf "algebra/")
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (non_empty_finite_set type-eq-decl nil finite_sets nil)
-    (empty? const-decl "bool" sets nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (sigma_finite formula-decl nil sigma_countable "sigma_set/")
-    (finite_countable judgement-tcc nil countable_props "sets_aux/")
-    (TRUE const-decl "bool" booleans nil)
-    (nonzero_elts const-decl "set[T]" convergence_set "sigma_set/")
-    (finite_union judgement-tcc nil finite_sets nil)
-    (finite_rest judgement-tcc nil finite_sets nil)
-    (rest_member formula-decl nil sets_lemmas nil)
-    (choose_member formula-decl nil sets_lemmas nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (sigma_disjoint_union formula-decl nil sigma_set "sigma_set/")
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
-    (b!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (naturalnumber type-eq-decl nil naturalnumbers nil)
+    (set type-eq-decl nil sets nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (finite_set type-eq-decl nil finite_sets nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (Card const-decl "nat" finite_sets nil)
+    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
+    (restrict const-decl "R" restrict nil)
+    (< const-decl "bool" reals nil)
+    (wf_nat formula-decl nil naturalnumbers nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (nonempty? const-decl "bool" sets nil)
+    (Union const-decl "set" sets nil)
+    (/= const-decl "boolean" notequal nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (convergent? const-decl "bool" convergence_set "sigma_set/")
+    (sigma const-decl "real" sigma_set "sigma_set/")
+    (x skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
      nil)
     (a!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
      nil)
+    (b!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
+     nil)
+    (Union_surjective name-judgement
+     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    (sigma_disjoint_union formula-decl nil sigma_set "sigma_set/")
+    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
+    (choose_member formula-decl nil sets_lemmas nil)
+    (rest_member formula-decl nil sets_lemmas nil)
+    (x!2 skolem-const-decl "finite_set[T]" class_equation_scaf nil)
+    (finite_union judgement-tcc nil finite_sets nil)
+    (nonzero_elts const-decl "set[T]" convergence_set "sigma_set/")
+    (x!2 skolem-const-decl "finite_set[T]" class_equation_scaf nil)
+    (TRUE const-decl "bool" booleans nil)
+    (finite_countable judgement-tcc nil countable_props "sets_aux/")
+    (sigma_finite formula-decl nil sigma_countable "sigma_set/")
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (empty? const-decl "bool" sets nil)
+    (non_empty_finite_set type-eq-decl nil finite_sets nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (odd_minus_odd_is_even application-judgement "even_int" integers
+     nil)
+    (O const-decl "T3" function_props nil)
+    (sigma_nat application-judgement "nat" sigma_nat "reals/")
+    (finite_enumeration const-decl "[below[card(X)] -> (X)]"
+     finite_enumeration "sigma_set/")
+    (below type-eq-decl nil nat_types nil)
+    (sigma def-decl "real" sigma "reals/")
+    (card_def formula-decl nil finite_sets nil)
+    (injective? const-decl "bool" functions nil)
+    (surjective? const-decl "bool" functions nil)
+    (bijective? const-decl "bool" functions nil)
+    (Card_bijection formula-decl nil finite_sets nil)
+    (finite_singleton judgement-tcc nil finite_sets nil)
+    (member const-decl "bool" sets nil)
+    (every const-decl "bool" sets nil)
     (partition? const-decl "bool" lagrange_scaf "algebra/")
-    (x!2 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
+    (disjoint? const-decl "bool" sets nil)
+    (intersection const-decl "set" sets nil)
+    (sigma_countable formula-decl nil sigma_set "sigma_set/")
+    (is_countable const-decl "bool" countability "sets_aux/")
+    (countable_set nonempty-type-eq-decl nil countability "sets_aux/")
+    (convergent? const-decl "bool" countable_convergence "sigma_set/")
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (card_rest_aux formula-decl nil class_equation_scaf nil)
+    (choose_not_member formula-decl nil sets_lemmas nil)
+    (union const-decl "set" sets nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (singleton const-decl "(singleton?)" sets nil)
+    (singleton? const-decl "bool" sets nil)
+    (nonempty_finite_union2 application-judgement
+     "non_empty_finite_set[T]" countable_props "sets_aux/")
+    (nonempty_singleton_finite application-judgement
+     "non_empty_finite_set" countable_props "sets_aux/")
+    (add_as_union formula-decl nil sets_lemmas nil)
+    (choose const-decl "(p)" sets nil)
+    (choose_rest formula-decl nil sets_lemmas nil)
+    (rest_empty_lem formula-decl nil sets_lemmas nil)
+    (emptyset const-decl "set" sets nil)
+    (union_empty formula-decl nil sets_lemmas nil)
+    (extend const-decl "R" extend nil)
+    (FALSE const-decl "bool" booleans nil)
+    (finite_extend application-judgement "finite_set[T]"
+     extend_set_props nil)
+    (nonempty_extend application-judgement "(nonempty?[T])"
+     extend_set_props nil)
+    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
+    (CC skolem-const-decl "{n: nat | n = Card[T](choose(x!1))}"
+     class_equation_scaf nil)
+    (finite_emptyset name-judgement "finite_set" finite_sets nil)
+    (finite_emptyset name-judgement "finite_set[T]"
+     finite_sets_inductions "finite_sets/")
+    (finite_emptyset name-judgement "finite_set" countable_props
+     "sets_aux/")
+    (union_commutative formula-decl nil sets_lemmas nil)
+    (finite_remove application-judgement "finite_set[T]"
+     countable_props "sets_aux/")
+    (remove const-decl "set" sets nil)
+    (card_Union_rest formula-decl nil lagrange_scaf "algebra/")
+    (A!1 skolem-const-decl "(rest(x!1))" class_equation_scaf nil)
+    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
+    (card_disj_union formula-decl nil finite_sets nil)
+    (nonempty_card formula-decl nil finite_sets nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (x!1 skolem-const-decl "finite_partition[T]" class_equation_scaf
      nil)
-    (sigma const-decl "real" sigma_set "sigma_set/")
-    (convergent? const-decl "bool" convergence_set "sigma_set/")
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (/= const-decl "boolean" notequal nil)
-    (Union const-decl "set" sets nil)
-    (nonempty? const-decl "bool" sets nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (wf_nat formula-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil)
-    (restrict const-decl "R" restrict nil)
-    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (Card const-decl "nat" finite_sets nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (set type-eq-decl nil sets nil)
-    (naturalnumber type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (finite_partition type-eq-decl nil lagrange_scaf "algebra/")
-    (finite_partition? const-decl "bool" lagrange_scaf "algebra/")
-    (setofsets type-eq-decl nil sets nil)
-    (setof type-eq-decl nil defined_types nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (T formal-type-decl nil class_equation_scaf nil)
-    (measure_induction formula-decl nil measure_induction nil)
-    (well_founded? const-decl "bool" orders nil)
-    (pred type-eq-decl nil defined_types nil))
+    (rest const-decl "set" sets nil)
+    (finite_rest application-judgement "finite_set[T]" countable_props
+     "sets_aux/")
+    (card_partition_TCC2 subtype-tcc nil class_equation_scaf nil)
+    (card_rest_aux_TCC1 subtype-tcc nil class_equation_scaf nil)
+    (card_partition_TCC1 subtype-tcc nil class_equation_scaf nil))
    shostak))
  (divide_sigma_TCC1 0
   (divide_sigma_TCC1-1 nil 3527412900
@@ -2130,6 +3473,8 @@
       nil))
     nil)
    ((card_partition_TCC2 subtype-tcc nil class_equation_scaf nil)
+    (finite_restrict application-judgement "finite_set[S]"
+     restrict_set_props nil)
     (finite_partition type-eq-decl nil lagrange_scaf "algebra/")
     (finite_partition? const-decl "bool" lagrange_scaf "algebra/")
     (setofsets type-eq-decl nil sets nil)
@@ -2137,7 +3482,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil class_equation_scaf nil))
-   nil))
+   nil
+   (divide_sigma subtype "finite_sets[class_equation_scaf.T].card"
+    "(convergence_set[finite_set[T]].convergent?(restrict[setof[T], finite_set[T], booleans.bool].restrict(class_equation_scaf.FP)))")))
  (divide_sigma_TCC2 0
   (divide_sigma_TCC2-1 nil 3527412900
    ("" (measure-induct+ "card(FP)" "FP")
@@ -5017,22 +6364,10 @@
         nil))
       nil))
     nil)
-   ((x!1 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (FP!1 skolem-const-decl "finite_partition[T]" class_equation_scaf
-     nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (divide_sigma_TCC1 subtype-tcc nil class_equation_scaf nil)
-    (x!2 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
-    (partition? const-decl "bool" lagrange_scaf "algebra/")
-    (a!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
-    (b!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (card_disj_union formula-decl nil finite_sets nil)
+   (nil nil nil nil
+    (divide_sigma_TCC1 subtype-tcc nil class_equation_scaf nil) nil
+    (partition? const-decl "bool" lagrange_scaf "algebra/") nil nil nil
+    nil (card_disj_union formula-decl nil finite_sets nil)
     (nonempty_card formula-decl nil finite_sets nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -5047,16 +6382,11 @@
      extend_set_props nil)
     (nonempty_extend application-judgement "(nonempty?[T])"
      extend_set_props nil)
-    (choose_member formula-decl nil sets_lemmas nil)
-    (A!1 skolem-const-decl "(rest(x!1))" class_equation_scaf nil)
-    (A!1 skolem-const-decl "(rest(x!1))" class_equation_scaf nil)
+    (choose_member formula-decl nil sets_lemmas nil) nil nil
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (closed_plus formula-decl nil integers nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
+    (closed_plus formula-decl nil integers nil) nil nil
     (singleton? const-decl "bool" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
     (choose const-decl "(p)" sets nil)
@@ -5084,8 +6414,7 @@
     (bijective? const-decl "bool" functions nil)
     (surjective? const-decl "bool" functions nil)
     (injective? const-decl "bool" functions nil)
-    (member const-decl "bool" sets nil)
-    (every const-decl "bool" sets nil)
+    (member const-decl "bool" sets nil) nil
     (finite_singleton judgement-tcc nil finite_sets nil)
     (sigma_countable formula-decl nil sigma_set "sigma_set/")
     (is_countable const-decl "bool" countability "sets_aux/")
@@ -5099,15 +6428,11 @@
     (nonzero_elts const-decl "set[T]" convergence_set "sigma_set/")
     (finite_union judgement-tcc nil finite_sets nil)
     (finite_rest judgement-tcc nil finite_sets nil)
-    (rest_member formula-decl nil sets_lemmas nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (sigma_disjoint_union formula-decl nil sigma_set "sigma_set/")
-    (x!1 skolem-const-decl "finite_partition[T]" class_equation_scaf
-     nil)
+    (rest_member formula-decl nil sets_lemmas nil) nil
+    (sigma_disjoint_union formula-decl nil sigma_set "sigma_set/") nil
     (rest const-decl "set" sets nil)
     (sigma const-decl "real" sigma_set "sigma_set/")
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (divides const-decl "bool" divides nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil) nil
     (nonempty? const-decl "bool" sets nil)
     (convergent? const-decl "bool" convergence_set "sigma_set/")
     (/= const-decl "boolean" notequal nil)
@@ -5144,7 +6469,10 @@
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
-   nil))
+   nil
+   (divide_sigma subtype
+    "sigma_set[finite_set[T]].sigma(restrict[setof[T], finite_set[T], booleans.bool].restrict(class_equation_scaf.FP), finite_sets[class_equation_scaf.T].card)"
+    "int")))
  (divide_sigma 0
   (divide_sigma-1 nil 3527554283
    ("" (measure-induct+ "card(FP)" "FP")
@@ -7447,26 +8775,14 @@
         nil))
       nil))
     nil)
-   ((x!1 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (FP!1 skolem-const-decl "finite_partition[T]" class_equation_scaf
-     nil)
-    (card_partition_TCC2 subtype-tcc nil class_equation_scaf nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (divide_sigma_TCC1 subtype-tcc nil class_equation_scaf nil)
-    (x!2 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
-    (a!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
-    (b!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
-    (card_disj_union formula-decl nil finite_sets nil)
+   (nil nil
+    (card_partition_TCC2 subtype-tcc nil class_equation_scaf nil) nil
+    nil (divide_sigma_TCC1 subtype-tcc nil class_equation_scaf nil) nil
+    nil nil nil (card_disj_union formula-decl nil finite_sets nil)
     (nonempty_card formula-decl nil finite_sets nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (A!1 skolem-const-decl "(rest(x!1))" class_equation_scaf nil)
-    (choose_member formula-decl nil sets_lemmas nil)
+    nil (choose_member formula-decl nil sets_lemmas nil)
     (finite_extend application-judgement "finite_set[T]"
      extend_set_props nil)
     (nonempty_extend application-judgement "(nonempty?[T])"
@@ -7478,32 +8794,20 @@
     (FALSE const-decl "bool" booleans nil)
     (extend const-decl "R" extend nil)
     (rest_empty_lem formula-decl nil sets_lemmas nil)
-    (sigma_disjoint_union formula-decl nil sigma_set "sigma_set/")
-    (x!2 skolem-const-decl "setof[T]" class_equation_scaf nil)
+    (sigma_disjoint_union formula-decl nil sigma_set "sigma_set/") nil
     (finite_union judgement-tcc nil finite_sets nil)
     (nonzero_elts const-decl "set[T]" convergence_set "sigma_set/")
     (remove const-decl "set" sets nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (divide_sigma_TCC2 subtype-tcc nil class_equation_scaf nil)
-    (b!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
-    (a!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
-    (partition? const-decl "bool" lagrange_scaf "algebra/")
-    (x!2 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
+    (divide_sigma_TCC2 subtype-tcc nil class_equation_scaf nil) nil nil
+    (partition? const-decl "bool" lagrange_scaf "algebra/") nil
     (rest_member formula-decl nil sets_lemmas nil)
     (member const-decl "bool" sets nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (A!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
-    (A!1 skolem-const-decl "(rest[setof[T]](x!1))" class_equation_scaf
-     nil)
+    (NOT const-decl "[bool -> bool]" booleans nil) nil nil
     (finite_countable judgement-tcc nil countable_props "sets_aux/")
     (finite_rest judgement-tcc nil finite_sets nil)
     (below type-eq-decl nil nat_types nil)
-    (injective? const-decl "bool" functions nil)
-    (every const-decl "bool" sets nil)
+    (injective? const-decl "bool" functions nil) nil
     (sigma const-decl "real" sigma_countable "sigma_set/")
     (empty? const-decl "bool" sets nil)
     (sigma_countable formula-decl nil sigma_set "sigma_set/")
@@ -7535,15 +8839,10 @@
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (choose const-decl "(p)" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
-    (singleton? const-decl "bool" sets nil)
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
-    (x!1 skolem-const-decl "finite_partition[T]" class_equation_scaf
-     nil)
+    (singleton? const-decl "bool" sets nil) nil nil
     (rest const-decl "set" sets nil)
     (sigma const-decl "real" sigma_set "sigma_set/")
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (divides const-decl "bool" divides nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil) nil
     (convergent? const-decl "bool" convergence_set "sigma_set/")
     (/= const-decl "boolean" notequal nil)
     (nonempty? const-decl "bool" sets nil)

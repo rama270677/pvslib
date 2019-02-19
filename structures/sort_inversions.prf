@@ -79,7 +79,6 @@
     (pred type-eq-decl nil defined_types nil)
     (total_order? const-decl "bool" orders nil)
     (<= formal-const-decl "(total_order?[T])" sort_inversions nil)
-    (A!1 skolem-const-decl "[below(N) -> T]" sort_inversions nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -117,7 +116,10 @@
     (N formal-const-decl "posnat" sort_inversions nil)
     (below type-eq-decl nil naturalnumbers nil)
     (T formal-type-decl nil sort_inversions nil))
-   shostak))
+   shostak
+   (inversions subtype
+    "{(i, j) | booleans.&(reals.<(sort_inversions.i, sort_inversions.j), )}"
+    "finite_set[index_pair]")))
  (finite_ap 0
   (finite_ap-1 nil 3262601179
    ("" (skosimp*)
@@ -235,7 +237,10 @@
     (finite_set type-eq-decl nil finite_sets nil)
     (bijective? const-decl "bool" functions nil)
     (permutation nonempty-type-eq-decl nil permutation nil))
-   shostak))
+   shostak
+   (ap subtype
+    "LAMBDA (i, j): sort_inversions.inv(sort_inversions.pi(sort_inversions.i), sort_inversions.pi(sort_inversions.j))"
+    "finite_set[index_pair]")))
  (card_ap 0
   (card_ap-1 nil 3262608494
    ("" (skosimp*)
@@ -381,7 +386,6 @@
     (card_injective_image formula-decl nil function_image_aux nil)
     (bij_inv_is_bij formula-decl nil function_inverse nil)
     (ap const-decl "finite_set[index_pair]" sort_inversions nil)
-    (image const-decl "set[R]" function_image nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_image application-judgement "finite_set[R]"
      function_image_aux nil)
@@ -393,10 +397,6 @@
      function_inverse nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (x!2 skolem-const-decl "below(N)" sort_inversions nil)
-    (x!1 skolem-const-decl "below(N)" sort_inversions nil)
-    (inv!1 skolem-const-decl "finite_set[index_pair]" sort_inversions
-     nil)
     (finite_set type-eq-decl nil finite_sets nil)
     (is_finite const-decl "bool" finite_sets nil)
     (set type-eq-decl nil sets nil)
@@ -404,7 +404,6 @@
     (inverse const-decl "D" function_inverse nil)
     (bijective? const-decl "bool" functions nil)
     (permutation nonempty-type-eq-decl nil permutation nil)
-    (pi!1 skolem-const-decl "permutation[N]" sort_inversions nil)
     (TRUE const-decl "bool" booleans nil))
    shostak))
  (inversions_transpose_TCC1 0
@@ -436,7 +435,10 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak
+   (inversions_transpose subtype
+    "(number_fields.+)(sort_inversions.j, 1)"
+    "naturalnumbers.below(sort_inversions.N)")))
  (inversions_transpose 0
   (inversions_transpose-1 nil 3262604054
    ("" (skosimp*)
@@ -750,7 +752,6 @@
      integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (j!1 skolem-const-decl "nat" sort_inversions nil)
     (preorder? const-decl "bool" orders nil)
     (transitive? const-decl "bool" relations nil)
     (partial_order? const-decl "bool" orders nil)
@@ -839,7 +840,6 @@
     (int_plus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (x!1 skolem-const-decl "index_pair" sort_inversions nil)
     (index_pair type-eq-decl nil sort_inversions nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)

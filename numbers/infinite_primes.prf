@@ -45,8 +45,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (prod_nnr application-judgement "nnreal" product_nat "reals/")
-    (int_minus_int_is_int application-judgement "int" integers nil)
+    nil (int_minus_int_is_int application-judgement "int" integers nil)
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (posint_times_posint_is_posint application-judgement "posint"
@@ -56,8 +55,7 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
     (T_low type-eq-decl nil product "reals/")
-    (T_high type-eq-decl nil product "reals/")
-    (divides const-decl "bool" divides nil)
+    (T_high type-eq-decl nil product "reals/") nil
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -128,11 +126,8 @@
         nil))
       nil))
     nil)
-   ((prime_factors formula-decl nil prime_factorization nil)
-    (prod_posnat application-judgement "posnat" product_nat "reals/")
-    (prod_pr application-judgement "posreal" product_nat "reals/")
-    (prod_nat application-judgement "nat" product_nat "reals/")
-    (prod_nnr application-judgement "nnreal" product_nat "reals/")
+   ((prime_factors formula-decl nil prime_factorization nil) nil nil
+    nil nil
     (ordered_list_of_primes? const-decl "bool" prime_factorization nil)
     (list_of_primes? const-decl "bool" prime_factorization nil)
     (T_low type-eq-decl nil product "reals/")
@@ -294,8 +289,7 @@
       nil))
     nil)
    ((product const-decl "posnat" product_fseq_posnat "reals/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (j!1 skolem-const-decl "nat" infinite_primes nil)
+    (= const-decl "[T, T -> boolean]" equalities nil) nil
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (posint_times_posint_is_posint application-judgement "posint"
@@ -307,11 +301,8 @@
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (prod_nnr application-judgement "nnreal" product_nat "reals/")
-    (prod_nat application-judgement "nat" product_nat "reals/")
-    (prod_pr application-judgement "posreal" product_nat "reals/")
-    (prod_posnat application-judgement "posnat" product_nat "reals/")
+    (numfield nonempty-type-eq-decl nil number_fields nil) nil nil nil
+    nil
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -341,8 +332,7 @@
     (barray type-eq-decl nil fseqs "structures/")
     (fseq type-eq-decl nil fseqs "structures/")
     (<= const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (divides const-decl "bool" divides nil)
+    (below type-eq-decl nil naturalnumbers nil) nil
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (T_low type-eq-decl nil product "reals/")
     (T_high type-eq-decl nil product "reals/")
@@ -472,6 +462,310 @@
     nil)
    nil nil))
  (primes_infinite 0
+  (primes_infinite-6 "" 3757786273
+   ("" (lemma "bij_exists[nat]")
+    (("" (inst?)
+      (("" (skosimp*)
+        ((""
+          (case "(EXISTS (f: [below(card(Primes)) -> (Primes)]): bijective?(f))")
+          (("1" (skosimp*)
+            (("1" (hide -2)
+              (("1"
+                (name "prime_seq" "(# length := card(Primes),
+                                                          seq := (LAMBDA (ii: nat): IF ii < card(Primes) THEN f!2(ii) ELSE default
+                                                                                     ENDIF) #)")
+                (("1" (name "M" "product(prime_seq) + 1")
+                  (("1"
+                    (case "(FORALL (p: (Primes)): NOT divides(p,M))")
+                    (("1" (case "prime?(M)")
+                      (("1" (expand "bijective?")
+                        (("1" (flatten)
+                          (("1" (expand "surjective?")
+                            (("1" (inst -6 "M")
+                              (("1"
+                                (skosimp*)
+                                (("1"
+                                  (lemma "product_fseq_ge")
+                                  (("1"
+                                    (inst -1 "prime_seq" "x!1")
+                                    (("1"
+                                      (replace -5 -1 rl)
+                                      (("1" (assert) nil nil))
+                                      nil)
+                                     ("2"
+                                      (replace -4 + rl)
+                                      (("2" (assert) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (expand "Primes")
+                                (("2" (propax) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (lemma "prime_divides")
+                        (("2" (inst?)
+                          (("2" (assert)
+                            (("2" (skosimp*)
+                              (("2"
+                                (inst?)
+                                (("2"
+                                  (expand "Primes")
+                                  (("2" (propax) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (skosimp*)
+                      (("2" (lemma "divides_plus_1")
+                        (("2" (inst -1 "M-1" "p!1")
+                          (("1" (assert)
+                            (("1" (split -1)
+                              (("1"
+                                (hide -1)
+                                (("1"
+                                  (replace -1 * rl)
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (typepred "p!1")
+                                      (("1"
+                                        (expand "bijective?")
+                                        (("1"
+                                          (flatten)
+                                          (("1"
+                                            (expand "surjective?")
+                                            (("1"
+                                              (inst -5 "p!1")
+                                              (("1"
+                                                (skosimp*)
+                                                (("1"
+                                                  (replace -5 + rl)
+                                                  (("1"
+                                                    (case-replace
+                                                     "f!2(x!1) = seq(prime_seq)(x!1)")
+                                                    (("1"
+                                                      (lemma
+                                                       "divides_product")
+                                                      (("1"
+                                                        (ground)
+                                                        (("1"
+                                                          (inst
+                                                           -1
+                                                           "prime_seq"
+                                                           "x!1")
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil)
+                                                     ("2"
+                                                      (hide -2 2)
+                                                      (("2"
+                                                        (replace
+                                                         -2
+                                                         :dir
+                                                         rl)
+                                                        (("2"
+                                                          (assert)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (typepred "p!1")
+                                (("2"
+                                  (expand "Primes")
+                                  (("2"
+                                    (lemma "prime_gt_1")
+                                    (("2"
+                                      (lemma "prime_gt_1")
+                                      (("2"
+                                        (inst?)
+                                        (("2"
+                                          (inst?)
+                                          (("2" (assert) nil nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (assert)
+                            (("2" (lemma "prime_gt_1")
+                              (("2"
+                                (inst?)
+                                (("2"
+                                  (assert)
+                                  (("2"
+                                    (typepred "p!1")
+                                    (("2"
+                                      (expand "Primes")
+                                      (("2" (propax) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("3" (lemma "product_fseq_ge")
+                            (("3" (inst -1 "prime_seq" "0")
+                              (("1"
+                                (expand "prime_seq" -1 2)
+                                (("1"
+                                  (lift-if)
+                                  (("1" (assert) nil nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (replace -3 1 :dir rl)
+                                (("2" (assert) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (prop)
+                    (("1" (skosimp*)
+                      (("1" (ground)
+                        (("1" (replace -1 * rl)
+                          (("1" (assert)
+                            (("1" (hide -1)
+                              (("1"
+                                (typepred "f!2(x1!1)")
+                                (("1"
+                                  (expand "Primes")
+                                  (("1"
+                                    (lemma "prime_gt_1")
+                                    (("1"
+                                      (inst?)
+                                      (("1"
+                                        (assert)
+                                        (("1"
+                                          (lemma
+                                           "bij_inv_is_bij[(Primes),below(card(Primes))]")
+                                          (("1"
+                                            (inst?)
+                                            (("1"
+                                              (assert)
+                                              (("1"
+                                                (hide -1 -2 -3)
+                                                (("1"
+                                                  (lift-if)
+                                                  (("1"
+                                                    (ground)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (ground)
+                                              (("1"
+                                                (skosimp*)
+                                                (("1"
+                                                  (lift-if)
+                                                  (("1"
+                                                    (ground)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (skosimp*)
+                                                (("2"
+                                                  (lift-if)
+                                                  (("2"
+                                                    (ground)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil)
+                                           ("2"
+                                            (inst + "2")
+                                            (("2"
+                                              (expand "Primes")
+                                              (("2"
+                                                (rewrite "prime_2")
+                                                nil
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (lift-if)
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (skosimp*)
+                      (("2" (assert)
+                        (("2" (expand "prime_seq")
+                          (("2" (propax) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (propax) nil nil))
+                nil))
+              nil))
+            nil)
+           ("2" (lemma "bij_inv_is_bij[(Primes),below(card(Primes))]")
+            (("1" (inst?)
+              (("1" (assert)
+                (("1" (inst?)
+                  (("1" (inst + "2")
+                    (("1" (expand "Primes")
+                      (("1" (assert)
+                        (("1" (rewrite "prime_2") nil nil)) nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (propax) nil nil)
+             ("3" (inst 1 "2")
+              (("3" (expand "Primes")
+                (("3" (rewrite "prime_2") nil nil)) nil))
+              nil))
+            nil)
+           ("3" (expand "Primes") (("3" (skosimp) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (primes_infinite-5 nil 3514297915
    ("" (lemma "bij_exists[nat]")
     (("" (inst?)
@@ -778,7 +1072,7 @@
     (Card const-decl "nat" finite_sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (< const-decl "bool" reals nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)

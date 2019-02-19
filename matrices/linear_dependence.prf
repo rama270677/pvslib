@@ -24,8 +24,7 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -57,10 +56,10 @@
     (Matrix type-eq-decl nil matrices nil)
     (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (array2list_it def-decl
@@ -82,7 +81,9 @@
      integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (zerow subtype "(: matrices.zero(linear_dependence.p) :)"
+    "PosFullMatrix")))
  (zerow_dim 0
   (zerow_dim-1 nil 3620567942
    ("" (skeep)
@@ -115,10 +116,10 @@
      real_defs nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil))
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil))
    shostak))
  (zecolumn_dim 0
   (zecolumn_dim-1 nil 3620568042
@@ -140,10 +141,10 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (<= const-decl "bool" reals nil)
     (rows const-decl "nat" matrices nil)
     (> const-decl "bool" reals nil)
@@ -168,8 +169,7 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil) nil
     (PRED type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -222,8 +222,7 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -253,10 +252,10 @@
     (rows const-decl "nat" matrices nil)
     (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (null adt-constructor-decl "(null?)" list_adt nil)
     (real_gt_is_strict_total_order name-judgement
@@ -276,7 +275,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (length_singleton formula-decl nil more_list_props "structures/"))
-   nil))
+   nil
+   (row2mat subtype
+    "(: matrices.row(linear_dependence.A)(linear_dependence.j) :)"
+    "PosFullMatrix")))
  (row2mat_dim 0
   (row2mat_dim-1 nil 3620568149
    ("" (skeep)
@@ -323,10 +325,10 @@
     nil)
    ((PosFullMatrix type-eq-decl nil matrices nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (<= const-decl "bool" reals nil)
     (rows const-decl "nat" matrices nil)
     (> const-decl "bool" reals nil)
@@ -351,8 +353,7 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil) nil
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
@@ -401,8 +402,7 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -426,26 +426,19 @@
     (below type-eq-decl nil nat_types nil)
     (nth def-decl "T" list_props nil) (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (MatrixMN type-eq-decl nil matrices nil)
     (entry const-decl "real" matrices nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (+ const-decl
-       "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) + entry(N)(i, j)}"
-       matrices nil)
-    (FullMatrix type-eq-decl nil matrices nil)
+    nil (FullMatrix type-eq-decl nil matrices nil)
     (> const-decl "bool" reals nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (* const-decl "{A: MatrixMN(rows(M), columns(M)) |
-         FORALL (i, j): entry(A)(i, j) = r * entry(M)(i, j)}" matrices
-       nil)
-    (row2mat const-decl "PosFullMatrix" linear_dependence nil)
+    nil (row2mat const-decl "PosFullMatrix" linear_dependence nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (columns_scal formula-decl nil matrices nil)
@@ -457,7 +450,10 @@
     (rows_scal formula-decl nil matrices nil)
     (rows_add formula-decl nil matrices nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (sum_rows subtype
+    "(matrices.+)(linear_dependence.M, matrices.*(linear_dependence.f(linear_dependence.j), linear_dependence.row2mat(linear_dependence.A, linear_dependence.j)))"
+    "PosFullMatrix")))
  (sum_rows_TCC2 0
   (sum_rows_TCC2-1 nil 3620493442 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -465,8 +461,7 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -491,10 +486,10 @@
     (FullMatrix type-eq-decl nil matrices nil)
     (> const-decl "bool" reals nil) (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -504,7 +499,9 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (rows const-decl "nat" matrices nil))
-   nil))
+   nil
+   (sum_rows subtype "(number_fields.-)(linear_dependence.j, 1)"
+    "naturalnumbers.below(matrices.rows(linear_dependence.A))")))
  (sum_rows_TCC3 0
   (sum_rows_TCC3-2 nil 3620570095
    ("" (skeep)
@@ -530,8 +527,7 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -555,26 +551,19 @@
     (below type-eq-decl nil nat_types nil)
     (nth def-decl "T" list_props nil) (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (MatrixMN type-eq-decl nil matrices nil)
     (entry const-decl "real" matrices nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (+ const-decl
-       "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) + entry(N)(i, j)}"
-       matrices nil)
-    (FullMatrix type-eq-decl nil matrices nil)
+    nil (FullMatrix type-eq-decl nil matrices nil)
     (> const-decl "bool" reals nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (* const-decl "{A: MatrixMN(rows(M), columns(M)) |
-         FORALL (i, j): entry(A)(i, j) = r * entry(M)(i, j)}" matrices
-       nil)
-    (row2mat const-decl "PosFullMatrix" linear_dependence nil)
+    nil (row2mat const-decl "PosFullMatrix" linear_dependence nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (columns_scal formula-decl nil matrices nil)
@@ -586,11 +575,20 @@
     (rows_scal formula-decl nil matrices nil)
     (rows_add formula-decl nil matrices nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil)
-  (sum_rows_TCC3-1 nil 3620493442 ("" (subtype-tcc) nil nil) nil nil))
+   nil
+   (sum_rows subtype
+    "(matrices.+)(linear_dependence.M, matrices.*(linear_dependence.f(linear_dependence.j), linear_dependence.row2mat(linear_dependence.A, linear_dependence.j)))"
+    "PosFullMatrix"))
+  (sum_rows_TCC3-1 nil 3620493442 ("" (subtype-tcc) nil nil) nil nil
+   (sum_rows subtype
+    "(matrices.+)(linear_dependence.M, matrices.*(linear_dependence.f(linear_dependence.j), linear_dependence.row2mat(linear_dependence.A, linear_dependence.j)))"
+    "PosFullMatrix")))
  (sum_rows_TCC4 0
   (sum_rows_TCC4-1 nil 3620493442 ("" (termination-tcc) nil nil) nil
-   nil))
+   nil
+   (sum_rows termination
+    "linear_dependence.sum_rows(linear_dependence.A, linear_dependence.f, (number_fields.-)(linear_dependence.j, 1), (matrices.+)(linear_dependence.M, matrices.*(linear_dependence.f(linear_dependence.j), linear_dependence.row2mat(linear_dependence.A, linear_dependence.j))))"
+    "nil")))
  (sum_rows_TCC5 0
   (sum_rows_TCC5-1 nil 3620493442 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -598,8 +596,7 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -624,10 +621,10 @@
     (FullMatrix type-eq-decl nil matrices nil)
     (> const-decl "bool" reals nil) (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -635,9 +632,14 @@
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (rows const-decl "nat" matrices nil))
-   nil))
+   nil
+   (sum_rows subtype
+    "(number_fields.-)(matrices.rows(linear_dependence.A), 1)"
+    "naturalnumbers.below(matrices.rows(linear_dependence.A))")))
  (sum_rows_TCC6 0
-  (sum_rows_TCC6-1 nil 3620493442 ("" (subtype-tcc) nil nil) nil nil))
+  (sum_rows_TCC6-1 nil 3620493442 ("" (subtype-tcc) nil nil) nil nil
+   (sum_rows subtype "matrices.columns(linear_dependence.A)"
+    "posnat")))
  (sum_rows_eq 0
   (sum_rows_eq-2 "alt-proof" 3620557971
    (""
@@ -701,21 +703,14 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (A skolem-const-decl "PosFullMatrix" linear_dependence nil)
-    (j skolem-const-decl "below(rows(A))" linear_dependence nil)
+    nil nil
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (MatrixMN type-eq-decl nil matrices nil)
     (entry const-decl "real" matrices nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (+ const-decl
-       "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) + entry(N)(i, j)}"
-       matrices nil)
+    nil
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (* const-decl "{A: MatrixMN(rows(M), columns(M)) |
-         FORALL (i, j): entry(A)(i, j) = r * entry(M)(i, j)}" matrices
-       nil)
-    (row2mat const-decl "PosFullMatrix" linear_dependence nil)
+    nil (row2mat const-decl "PosFullMatrix" linear_dependence nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -737,8 +732,7 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (Matrix type-eq-decl nil matrices nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
@@ -754,10 +748,10 @@
     (rows const-decl "nat" matrices nil)
     (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (subrange type-eq-decl nil integers nil)
@@ -820,6 +814,25 @@
     nil)
    nil shostak))
  (sum_rows_add_start_TCC1 0
+  (sum_rows_add_start_TCC1-3 "" 3750617654
+   ("" (skeep)
+    (("" (splash +)
+      (("1" (rewrite "columns_add") (("1" (ground) nil nil)) nil)
+       ("2" (rewrite "rows_add") (("2" (ground) nil nil)) nil)
+       ("3" (flatten)
+        (("3" (typepred "(M + N)")
+          (("3" (skeep)
+            (("3" (inst-cp - "i")
+              (("3" (inst - "j!1") (("3" (ground) nil nil)) nil)) nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (sum_rows_add_start subtype
+    "(matrices.+)(linear_dependence.M, linear_dependence.N)"
+    "PosFullMatrix"))
   (sum_rows_add_start_TCC1-2 nil 3620570216
    ("" (skeep)
     (("" (splash +)
@@ -866,17 +879,17 @@
     (below type-eq-decl nil nat_types nil)
     (nth def-decl "T" list_props nil) (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (MatrixMN type-eq-decl nil matrices nil)
     (entry const-decl "real" matrices nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (+ const-decl
        "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) + entry(N)(i, j)}"
+   FORALL (i, j: nat): entry(A)(i, j) = entry(M)(i, j) + entry(N)(i, j)}"
        matrices nil)
     (FullMatrix type-eq-decl nil matrices nil)
     (> const-decl "bool" reals nil)
@@ -890,10 +903,117 @@
     (columns_add formula-decl nil matrices nil)
     (rows_add formula-decl nil matrices nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil)
+   nil
+   (sum_rows_add_start subtype
+    "(matrices.+)(linear_dependence.M, linear_dependence.N)"
+    "PosFullMatrix"))
   (sum_rows_add_start_TCC1-1 nil 3620563385 ("" (subtype-tcc) nil nil)
-   nil nil))
+   nil nil
+   (sum_rows_add_start subtype
+    "(matrices.+)(linear_dependence.M, linear_dependence.N)"
+    "PosFullMatrix")))
  (sum_rows_add_start 0
+  (sum_rows_add_start-2 "" 3750617873
+   (""
+    (case "FORALL (n:nat, A, M, N: PosFullMatrix, f: [nat -> real], j: below(rows(A))):
+               n=j IMPLIES
+               sum_rows(A, f, j, M + N) = sum_rows(A, f, j, M) + N")
+    (("1" (skeep) (("1" (inst -1 "j" "A" "M" "N" "f" "j") nil nil))
+      nil)
+     ("2" (hide 2)
+      (("2" (induct "n")
+        (("1" (skeep)
+          (("1" (replace -1 :dir rl)
+            (("1" (expand "sum_rows")
+              (("1" (ground)
+                (("1" (lemma "matrix_add_comm")
+                  (("1" (inst -1 "N" "f(0) * row2mat(A, 0)")
+                    (("1" (ground)
+                      (("1" (rewrite "matrix_add_assoc" 1)
+                        (("1" (rewrite "matrix_add_assoc" 1)
+                          (("1" (ground) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (skeep)
+          (("2" (skeep)
+            (("2" (expand "sum_rows" 1)
+              (("2" (lift-if 1)
+                (("2" (split 1)
+                  (("1" (flatten) (("1" (ground) nil nil)) nil)
+                   ("2" (flatten)
+                    (("2" (hide -2)
+                      (("2" (rewrite "matrix_add_assoc" 2)
+                        (("2" (rewrite "matrix_add_comm" (2 2))
+                          (("2" (rewrite "matrix_add_assoc" 2 :dir rl)
+                            (("2"
+                              (inst -1 "A" "M + f(j) * row2mat(A, j)"
+                               "N" "f" "j-1")
+                              (("1"
+                                (split -1)
+                                (("1" (propax) nil nil)
+                                 ("2"
+                                  (reveal -2)
+                                  (("2" (ground) nil nil))
+                                  nil))
+                                nil)
+                               ("2" (ground) nil nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("3" (hide 2)
+          (("3" (skeep)
+            (("3" (splash +)
+              (("1" (rewrite "columns_add") (("1" (ground) nil nil))
+                nil)
+               ("2" (rewrite "rows_add") (("2" (ground) nil nil)) nil)
+               ("3" (flatten)
+                (("3" (skeep)
+                  (("3" (typepred "M+N")
+                    (("3" (inst-cp - "i")
+                      (("3" (inst - "j!1") (("3" (ground) nil nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("3" (skeep)
+      (("3" (typepred "M + N")
+        (("3" (split 1)
+          (("1" (flatten)
+            (("1" (skeep)
+              (("1" (inst-cp -3 "i")
+                (("1" (inst-cp - "j!1") (("1" (ground) nil nil)) nil))
+                nil))
+              nil))
+            nil)
+           ("2" (ground)
+            (("2" (rewrite "rows_add") (("2" (ground) nil nil)) nil))
+            nil)
+           ("3" (rewrite "columns_add") (("3" (ground) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (sum_rows_add_start-1 nil 3620563440
    (""
     (case "FORALL (n:nat, A, M, N: PosFullMatrix, f: [nat -> real], j: below(rows(A))):
@@ -1016,7 +1136,7 @@
     (matrix_add_assoc formula-decl nil matrices nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (* const-decl "{A: MatrixMN(rows(M), columns(M)) |
-         FORALL (i, j): entry(A)(i, j) = r * entry(M)(i, j)}" matrices
+   FORALL (i, j: nat): entry(A)(i, j) = r * entry(M)(i, j)}" matrices
        nil)
     (row2mat const-decl "PosFullMatrix" linear_dependence nil)
     (nat_induction formula-decl nil naturalnumbers nil)
@@ -1053,10 +1173,10 @@
     (rows const-decl "nat" matrices nil)
     (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (sum_rows def-decl "PosFullMatrix" linear_dependence nil)
@@ -1067,7 +1187,7 @@
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (+ const-decl
        "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) + entry(N)(i, j)}"
+   FORALL (i, j: nat): entry(A)(i, j) = entry(M)(i, j) + entry(N)(i, j)}"
        matrices nil))
    shostak))
  (subtract_same_scal 0
@@ -1158,24 +1278,18 @@
    ((row2mat const-decl "PosFullMatrix" linear_dependence nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (> const-decl "bool" reals nil)
-    (FullMatrix type-eq-decl nil matrices nil)
-    (* const-decl "{A: MatrixMN(rows(M), columns(M)) |
-         FORALL (i, j): entry(A)(i, j) = r * entry(M)(i, j)}" matrices
-       nil)
+    (FullMatrix type-eq-decl nil matrices nil) nil
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (- const-decl
-       "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) - entry(N)(i, j)}"
-       matrices nil)
+    nil
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (entry const-decl "real" matrices nil)
     (MatrixMN type-eq-decl nil matrices nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil) (nth def-decl "T" list_props nil)
@@ -1198,8 +1312,7 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil) nil
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
@@ -1227,8 +1340,7 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -1253,10 +1365,10 @@
     (FullMatrix type-eq-decl nil matrices nil)
     (> const-decl "bool" reals nil) (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -1267,8 +1379,207 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (rows const-decl "nat" matrices nil))
-   nil))
+   nil
+   (sum_lem_prep subtype "linear_dependence.k"
+    "naturalnumbers.below(matrices.rows(linear_dependence.A))")))
  (sum_lem_prep 0
+  (sum_lem_prep-2 "" 3750618168
+   (""
+    (case "FORALL (n:nat, A, M: PosFullMatrix, f: [nat -> real], j: below(rows(A)),
+                     k: below(1 + j)):
+               n=j IMPLIES
+               sum_rows(A, f WITH [k := 0], j, M) =
+                sum_rows(A, f, j, M) - f(k) * row2mat(A, k)")
+    (("1" (skeep) (("1" (inst -1 "j" "A" "M" "f" "j" "k") nil nil))
+      nil)
+     ("2" (hide 2)
+      (("2" (induct "n")
+        (("1" (skeep)
+          (("1" (replace -1 :dir rl)
+            (("1" (expand "sum_rows")
+              (("1" (typepred (k))
+                (("1" (case-replace "k=0")
+                  (("1" (simplify 1)
+                    (("1" (expand "-")
+                      (("1" (expand "sub")
+                        (("1" (rewrite "matrix_add_assoc" 1)
+                          (("1" (lemma "subtract_same_scal")
+                            (("1" (inst?)
+                              (("1"
+                                (expand "-")
+                                (("1"
+                                  (expand "sub")
+                                  (("1" (ground) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (ground) nil nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (skeep)
+          (("2" (skeep)
+            (("2" (expand "sum_rows" 1)
+              (("2" (lift-if 1)
+                (("2" (split 1)
+                  (("1" (flatten) (("1" (ground) nil nil)) nil)
+                   ("2" (flatten)
+                    (("2" (split 2)
+                      (("1" (flatten)
+                        (("1" (lemma "sum_rows_eq")
+                          (("1"
+                            (inst -1 "A" "M + 0 * row2mat(A, j)"
+                             "f WITH [k := 0]" "f" "j-1")
+                            (("1" (split -1)
+                              (("1"
+                                (replace -1)
+                                (("1"
+                                  (replace -2 1 :dir rl)
+                                  (("1"
+                                    (expand "-" 1)
+                                    (("1"
+                                      (expand "sub")
+                                      (("1"
+                                        (rewrite
+                                         "sum_rows_add_start"
+                                         1
+                                         :dir
+                                         rl)
+                                        (("1"
+                                          (rewrite
+                                           "matrix_add_assoc"
+                                           1)
+                                          (("1"
+                                            (lemma
+                                             "subtract_same_scal")
+                                            (("1"
+                                              (inst -1 "A" "f" "j")
+                                              (("1"
+                                                (expand "-")
+                                                (("1"
+                                                  (expand "sub")
+                                                  (("1"
+                                                    (replace -1)
+                                                    (("1"
+                                                      (propax)
+                                                      nil
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (hide (2 3))
+                                          (("2"
+                                            (splash +)
+                                            (("1"
+                                              (rewrite "columns_scal")
+                                              (("1"
+                                                (rewrite
+                                                 "columns_scal")
+                                                (("1"
+                                                  (lemma "row2mat_dim")
+                                                  (("1"
+                                                    (inst?)
+                                                    (("1"
+                                                      (ground)
+                                                      nil
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (rewrite "rows_scal")
+                                              (("2"
+                                                (rewrite "rows_scal")
+                                                (("2"
+                                                  (lemma "row2mat_dim")
+                                                  (("2"
+                                                    (inst?)
+                                                    (("2"
+                                                      (ground)
+                                                      nil
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("3"
+                                              (flatten)
+                                              (("3"
+                                                (typepred
+                                                 "-1 * (f(j) * row2mat(A, j))")
+                                                (("3"
+                                                  (skeep)
+                                                  (("3"
+                                                    (inst-cp - "i")
+                                                    (("3"
+                                                      (inst - "j_1!1")
+                                                      (("3"
+                                                        (ground)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (skeep)
+                                (("2"
+                                  (typepred (k_1))
+                                  (("2"
+                                    (ground)
+                                    (("2"
+                                      (replace -3)
+                                      (("2" (ground) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (ground) nil nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (flatten)
+                        (("2" (inst?)
+                          (("1" (split -1)
+                            (("1" (propax) nil nil)
+                             ("2" (ground) nil nil))
+                            nil)
+                           ("2" (ground) nil nil)
+                           ("3" (ground) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (sum_lem_prep-1 nil 3620565983
    (""
     (case "FORALL (n:nat, A, M: PosFullMatrix, f: [nat -> real], j: below(rows(A)),
@@ -1500,7 +1811,7 @@
      real_props nil)
     (+ const-decl
        "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) + entry(N)(i, j)}"
+   FORALL (i, j: nat): entry(A)(i, j) = entry(M)(i, j) + entry(N)(i, j)}"
        matrices nil)
     (j skolem-const-decl "below(rows(A))" linear_dependence nil)
     (A skolem-const-decl "PosFullMatrix" linear_dependence nil)
@@ -1517,9 +1828,8 @@
     (subtract_same_scal formula-decl nil linear_dependence nil)
     (sub const-decl
      "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) - entry(N)(i, j)}"
+   FORALL (i, j: nat): entry(A)(i, j) = entry(M)(i, j) - entry(N)(i, j)}"
      matrices nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
@@ -1555,10 +1865,10 @@
     (rows const-decl "nat" matrices nil)
     (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -1570,11 +1880,11 @@
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (- const-decl
        "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) - entry(N)(i, j)}"
+   FORALL (i, j: nat): entry(A)(i, j) = entry(M)(i, j) - entry(N)(i, j)}"
        matrices nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (* const-decl "{A: MatrixMN(rows(M), columns(M)) |
-         FORALL (i, j): entry(A)(i, j) = r * entry(M)(i, j)}" matrices
+   FORALL (i, j: nat): entry(A)(i, j) = r * entry(M)(i, j)}" matrices
        nil)
     (row2mat const-decl "PosFullMatrix" linear_dependence nil))
    shostak))
@@ -1595,8 +1905,7 @@
     (list type-decl nil list_adt nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -1623,10 +1932,10 @@
     (rows const-decl "nat" matrices nil)
     (<= const-decl "bool" reals nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (posnat nonempty-type-eq-decl nil integers nil)
@@ -1870,7 +2179,7 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (matrix2array formula-decl nil matrices nil)
     (form_matrix const-decl "{M: MatrixMN(m, n) |
-         FORALL (i: below(m), j: below(n)): nth(row(M)(i), j) = F(i, j)}"
+   FORALL (i: below(m), j: below(n)): nth(row(M)(i), j) = F(i, j)}"
      matrices nil)
     (row const-decl "Vector" matrices nil)
     (Vector type-eq-decl nil matrices nil)
@@ -1902,42 +2211,25 @@
     (form_matrix_eq formula-decl nil matrices nil)
     (row2mat_dim formula-decl nil linear_dependence nil)
     (columns_scal formula-decl nil matrices nil)
-    (columns_sub formula-decl nil matrices nil)
-    (FMB skolem-const-decl "{M:
-   MatrixMN(rows((zerow(columns(A)) - -1 * row2mat(A, j))),
-            columns((zerow(columns(A)) - -1 * row2mat(A, j)))) |
-         FORALL (i: below(rows((zerow(columns(A)) - -1 * row2mat(A, j)))),
-                 j_1:
-                   below(columns((zerow(columns(A)) -
-                                   -1 * row2mat(A, j))))):
-           nth(row(M)(i), j_1) =
-            entry((zerow(columns(A)) - -1 * row2mat(A, j)))(i, j_1)}"
-     linear_dependence nil)
+    (columns_sub formula-decl nil matrices nil) nil
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (MatrixMN type-eq-decl nil matrices nil)
     (entry const-decl "real" matrices nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (- const-decl
-       "{A: MatrixMN(max(rows(M), rows(N)), max(columns(M), columns(N))) |
-         FORALL (i, j): entry(A)(i, j) = entry(M)(i, j) - entry(N)(i, j)}"
-       matrices nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    nil (nonneg_int nonempty-type-eq-decl nil integers nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (zerow const-decl "PosFullMatrix" linear_dependence nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (* const-decl "{A: MatrixMN(rows(M), columns(M)) |
-         FORALL (i, j): entry(A)(i, j) = r * entry(M)(i, j)}" matrices
-       nil)
-    (row2mat const-decl "PosFullMatrix" linear_dependence nil)
+    nil (row2mat const-decl "PosFullMatrix" linear_dependence nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (PosFullMatrix type-eq-decl nil matrices nil)
     (columns def-decl "{c: nat |
-         (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
-          (null?(M) AND c = 0 OR
-            (EXISTS (i: below(length(M))): length(nth(M, i)) = c))}"
-     matrices nil)
+   (FORALL (i: below(length(M))): length(nth(M, i)) <= c) AND
+    (null?(M) AND c = 0 OR
+      EXISTS (i: below(length(M))): length(nth(M, i)) = c)}" matrices
+     nil)
     (<= const-decl "bool" reals nil)
     (rows const-decl "nat" matrices nil)
     (> const-decl "bool" reals nil)
@@ -1962,8 +2254,7 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil) nil
     (PRED type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)

@@ -19,11 +19,15 @@
     (member const-decl "bool" sets nil)
     (monoid? const-decl "bool" monoid_def nil)
     (fullset_is_group formula-decl nil cayleys nil))
-   nil))
+   nil
+   (S assuming "semigroup[cayleys.T, cayleys.*]"
+    "fullset_is_semigroup: ASSUMPTION booleans.AND(groupoid_def[semigroup.T, semigroup.*].star_closed?(sets[semigroup.T].fullset), operator_defs[(sets[semigroup.T].fullset)].associative?(restrict[[semigroup.T, semigroup.T], [(sets[semigroup.T].fullset), (sets[semigroup.T].fullset)], semigroup.T].restrict(semigroup.*)))")))
  (cayley_prep_TCC1 0
   (cayley_prep_TCC1-1 nil 3407761054
    ("" (lemma "fullset_is_group") (("" (propax) nil nil)) nil)
-   ((fullset_is_group formula-decl nil cayleys nil)) nil))
+   ((fullset_is_group formula-decl nil cayleys nil)) nil
+   (cayley_prep assuming "group[cayleys.T, cayleys.*, cayleys.one]"
+    "fullset_is_group: ASSUMPTION group_def[group.T, group.*, group.one].group?(sets[group.T].fullset)")))
  (cayley_prep_TCC2 0
   (cayley_prep_TCC2-1 nil 3407763770 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -43,7 +47,9 @@
     (associative? const-decl "bool" operator_defs nil)
     (monoid? const-decl "bool" monoid_def nil)
     (inv_exists? const-decl "bool" group_def nil))
-   nil))
+   nil
+   (cayley_prep subtype "cayleys.*(cayleys.a, cayleys.s)"
+    "(cayleys.G)")))
  (cayley_prep 0
   (cayley_prep-1 nil 3407761162
    ("" (skosimp*)
@@ -130,9 +136,7 @@
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (T formal-nonempty-type-decl nil cayleys nil)
     (set type-eq-decl nil sets nil)
-    (* formal-const-decl "[T, T -> T]" cayleys nil)
     (one formal-const-decl "T" cayleys nil)
     (group? const-decl "bool" group_def nil)
     (group nonempty-type-eq-decl nil group nil)
@@ -141,38 +145,15 @@
     (monad? const-decl "bool" monad_def nil)
     (identity? const-decl "bool" operator_defs nil)
     (member const-decl "bool" sets nil)
+    (* formal-const-decl "[T, T -> T]" cayleys nil)
+    (T formal-nonempty-type-decl nil cayleys nil)
     (star_closed? const-decl "bool" groupoid_def nil)
     (restrict const-decl "R" restrict nil)
     (associative? const-decl "bool" operator_defs nil))
-   nil))
+   nil (trans_is_group subtype "cayleys.G" "semigroup[T, *]")))
  (trans_is_group_TCC2 0
-  (trans_is_group_TCC2-1 nil 3407763770 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (T formal-nonempty-type-decl nil cayleys nil)
-    (set type-eq-decl nil sets nil)
-    (* formal-const-decl "[T, T -> T]" cayleys nil)
-    (one formal-const-decl "T" cayleys nil)
-    (group? const-decl "bool" group_def nil)
-    (group nonempty-type-eq-decl nil group nil)
-    (G!1 skolem-const-decl "group[T, *, one]" cayleys nil)
-    (inv_exists? const-decl "bool" group_def nil)
-    (monoid? const-decl "bool" monoid_def nil)
-    (associative? const-decl "bool" operator_defs nil)
-    (monad? const-decl "bool" monad_def nil)
-    (identity? const-decl "bool" operator_defs nil)
-    (restrict const-decl "R" restrict nil)
-    (star_closed? const-decl "bool" groupoid_def nil)
-    (member const-decl "bool" sets nil)
-    (empty? const-decl "bool" sets nil)
-    (nonempty? const-decl "bool" sets nil))
-   nil))
- (trans_is_group_TCC3 0
-  (trans_is_group_TCC3-1 nil 3407763770
-   ("" (skosimp*)
-    (("" (inst + "(LAMBDA (x:(G!1)): x)") (("" (grind) nil nil)) nil))
-    nil)
+  (trans_is_group_TCC2-1 nil 3407763770
+   ("" (skeep :preds? t) (("" (inst 1 "id") nil nil)) nil)
    ((T formal-nonempty-type-decl nil cayleys nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -183,11 +164,39 @@
     (group nonempty-type-eq-decl nil group nil)
     (bijective? const-decl "bool" functions nil)
     (maps type-eq-decl nil A_group nil)
-    (G!1 skolem-const-decl "group[T, *, one]" cayleys nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (surjective? const-decl "bool" functions nil)
-    (injective? const-decl "bool" functions nil))
-   nil))
+    (id const-decl "(bijective?[T, T])" identity nil))
+   nil
+   (trans_is_group existence "" "A_group[cayleys.T].maps(cayleys.G)")))
+ (trans_is_group_TCC3 0
+  (trans_is_group_TCC3-2 "" 3754925609
+   ("" (skeep :preds? t) (("" (grind) nil nil)) nil) nil shostak
+   (trans_is_group subtype "cayleys.G" "(sets[cayleys.T].nonempty?)"))
+  (trans_is_group_TCC3-1 nil 3407763770
+   ("" (skosimp*)
+    (("" (inst + "(LAMBDA (x:(G!1)): x)") (("" (grind) nil nil)) nil))
+    nil)
+   ((nonempty? const-decl "bool" sets nil)
+    (empty? const-decl "bool" sets nil)
+    (group? const-decl "bool" group_def nil)
+    (inv_exists? const-decl "bool" group_def nil)
+    (monoid? const-decl "bool" monoid_def nil)
+    (associative? const-decl "bool" operator_defs nil)
+    (monad? const-decl "bool" monad_def nil)
+    (one formal-const-decl "T" cayleys nil)
+    (identity? const-decl "bool" operator_defs nil)
+    (restrict const-decl "R" restrict nil)
+    (star_closed? const-decl "bool" groupoid_def nil)
+    (T formal-nonempty-type-decl nil cayleys nil)
+    (* formal-const-decl "[T, T -> T]" cayleys nil)
+    (member const-decl "bool" sets nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (group nonempty-type-eq-decl nil group nil)
+    (G skolem-const-decl "group[T, *, one]" cayleys nil)
+    (NOT const-decl "[bool -> bool]" booleans nil))
+   nil
+   (trans_is_group subtype "cayleys.G" "(sets[cayleys.T].nonempty?)")))
  (trans_is_group 0
   (trans_is_group-1 nil 3407764162
    ("" (skosimp*)
@@ -631,7 +640,7 @@
         nil))
       nil))
     nil)
-   ((ML const-decl "set[maps(S)]" cayleys nil)
+   ((ML const-decl "set[maps[T](S)]" cayleys nil)
     (group? const-decl "bool" group_def nil)
     (y!1 skolem-const-decl "(G!1)" cayleys nil)
     (cancel_left formula-decl nil group nil)
@@ -691,7 +700,9 @@
     (one formal-const-decl "T" cayleys nil)
     (group? const-decl "bool" group_def nil)
     (group nonempty-type-eq-decl nil group nil))
-   nil))
+   nil
+   (Cayleys subtype "cayleys.ML(cayleys.G)"
+    "group[maps[T](G), op[T](G), id[T](G)]")))
  (Cayleys_TCC2 0
   (Cayleys_TCC2-1 nil 3407763770
    ("" (skosimp*)
@@ -744,7 +755,10 @@
     (monad nonempty-type-eq-decl nil monad nil)
     (fullset_is_group formula-decl nil cayleys nil)
     (empty? const-decl "bool" sets nil))
-   nil))
+   nil
+   (Cayleys assuming
+    "homomorphisms[cayleys.T, cayleys.*, cayleys.one, A_group[cayleys.T].maps(cayleys.G), A_group[cayleys.T].op(cayleys.G), A_group[cayleys.T].id(cayleys.G)]"
+    "T2_is_group: ASSUMPTION group_def[homomorphisms.T2, homomorphisms.o, homomorphisms.one2].group?(sets[homomorphisms.T2].fullset)")))
  (Cayleys 0
   (Cayleys-2 nil 3407763539
    ("" (skosimp*)
@@ -1028,12 +1042,12 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-nonempty-type-decl nil cayleys nil)
-    (ML const-decl "set[maps(S)]" cayleys nil)
+    (ML const-decl "set[maps[T](S)]" cayleys nil)
     (maps type-eq-decl nil A_group nil)
-    (semigroup nonempty-type-eq-decl nil semigroup nil)
     (restrict const-decl "R" restrict nil)
     (associative? const-decl "bool" operator_defs nil)
     (star_closed? const-decl "bool" groupoid_def nil)
+    (semigroup nonempty-type-eq-decl nil semigroup nil)
     (bijective? const-decl "bool" functions nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (homomorphism? const-decl "bool" homomorphisms nil)

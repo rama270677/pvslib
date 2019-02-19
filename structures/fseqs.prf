@@ -4,17 +4,19 @@
    ((member const-decl "bool" sets nil)
     (empty? const-decl "bool" sets nil)
     (nonempty? const-decl "bool" sets nil))
-   nil))
+   nil
+   (default subtype "{t: fseqs.T | booleans.TRUE}"
+    "(sets[fseqs.T].nonempty?)")))
  (empty_seq_fseq 0
   (empty_seq_fseq-1 nil 3410528601 ("" (judgement-tcc) nil nil)
    ((default const-decl "T" fseqs nil)
     (empty_seq const-decl "fsq" fseqs nil))
-   nil))
+   nil (empty_seq_fseq subtype "fseqs.empty_seq" "fseq")))
  (emptyseq_fseq 0
   (emptyseq_fseq-1 nil 3411463305 ("" (judgement-tcc) nil nil)
    ((default const-decl "T" fseqs nil)
     (empty_seq const-decl "fsq" fseqs nil))
-   nil))
+   nil (emptyseq_fseq subtype "fseqs.emptyseq" "fseq")))
  (singleton_TCC1 0
   (singleton_TCC1-1 nil 3473180360 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -35,7 +37,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (default const-decl "T" fseqs nil))
-   nil))
+   nil
+   (singleton subtype
+    "(LAMBDA (n: naturalnumbers.nat): IF n = 0 THEN fseqs.x ELSE fseqs.default ENDIF)"
+    "fseqs.barray(1)")))
  (tofseq_TCC1 0
   (tofseq_TCC1-1 nil 3506271677 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -58,8 +63,104 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (default const-decl "T" fseqs nil))
-   nil))
+   nil
+   (tofseq subtype
+    "LAMBDA (i: naturalnumbers.nat): IF reals.<(i, fseqs.f`length) THEN fseqs.f`seq(i) ELSE fseqs.default ENDIF"
+    "fseqs.barray(fseqs.f`length)")))
  (singleton_length 0
+  (singleton_length-2 "" 3744486127
+   (""
+    (case "NOT FORALL (fsqz: fseq): fsqz = singleton(fsqz`seq(0)) IFF fsqz`length = 1")
+    (("1" (hide 2)
+      (("1" (skeep)
+        (("1" (expand "singleton")
+          (("1" (ground)
+            (("1" (decompose-equality)
+              (("1" (decompose-equality)
+                (("1" (lift-if)
+                  (("1" (ground)
+                    (("1" (typepred "fsqz`seq")
+                      (("1" (inst - "x!1") (("1" (assert) nil nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (skosimp*)
+                (("2" (lift-if) (("2" (ground) nil nil)) nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("2" (skeep)
+      (("2" (inst - "fs")
+        (("2" (replace -1 :dir rl)
+          (("2" (hide -1)
+            (("2" (expand "singleton")
+              (("2" (expand "singleton?")
+                (("2" (ground)
+                  (("1" (decompose-equality)
+                    (("1" (skosimp*)
+                      (("1" (expand "singleton")
+                        (("1" (assert) nil nil)) nil))
+                      nil)
+                     ("2" (skosimp*)
+                      (("2" (decompose-equality)
+                        (("2" (lift-if)
+                          (("2" (ground)
+                            (("2" (expand "singleton")
+                              (("2"
+                                (replace -1)
+                                (("2" (assert) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("3" (skeep)
+                      (("3" (lift-if) (("3" (ground) nil nil)) nil))
+                      nil))
+                    nil)
+                   ("2" (inst + "fs`seq(0)")
+                    (("2" (replace -1)
+                      (("2" (hide -1)
+                        (("2" (decompose-equality)
+                          (("1" (expand "singleton")
+                            (("1" (propax) nil nil)) nil)
+                           ("2" (decompose-equality)
+                            (("2" (lift-if)
+                              (("2"
+                                (ground)
+                                (("1"
+                                  (replace -1)
+                                  (("1"
+                                    (expand "singleton")
+                                    (("1" (propax) nil nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (expand "singleton")
+                                  (("2" (propax) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("3" (hide 2) (("3" (grind) nil nil)) nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (singleton_length-1 nil 3473181682
    (""
     (case "NOT FORALL (fsqz: fseq): fsqz = singleton(fsqz`seq(0)) IFF fsqz`length = 1")
@@ -154,8 +255,11 @@
    ((fs skolem-const-decl "fseq" fseqs nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (odd_posnat nonempty-type-eq-decl nil naturalnumbers nil)
+    (odd? const-decl "bool" integers nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (posint nonempty-type-eq-decl nil integers nil)
     (singleton? const-decl "bool" fseqs nil)
     (default const-decl "T" fseqs nil)
     (fsqz skolem-const-decl "fseq" fseqs nil)
@@ -299,7 +403,6 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -307,7 +410,7 @@
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil (oh subtype "(number_fields.-)(fseqs.n, fseqs.l1)" "nat")))
  (oh_TCC2 0
   (oh_TCC2-1 nil 3410601808 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -332,7 +435,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (default const-decl "T" fseqs nil))
-   nil))
+   nil
+   (oh subtype
+    "(LAMBDA (n: naturalnumbers.nat): IF reals.<(n, fseqs.l1) THEN fseqs.fs1`seq(n) ELSIF reals.<(n, (number_fields.+)(fseqs.l1, fseqs.l2)) THEN fseqs.fs2`seq((number_fields.-)(n, fseqs.l1)) ELSE fseqs.default ENDIF)"
+    "fseqs.barray((number_fields.+)(fseqs.l1, fseqs.l2))")))
  (concat_length_add 0
   (concat_length_add-1 nil 3481897577
    ("" (skeep) (("" (expand "o") (("" (propax) nil nil)) nil)) nil)
@@ -527,7 +633,9 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (caret subtype "(number_fields.-)(fseqs.fs`length, fseqs.m)"
+    "nat")))
  (caret_TCC2 0
   (caret_TCC2-1 nil 3410601808 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -545,7 +653,6 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
@@ -553,7 +660,10 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (caret subtype
+    "(number_fields.+)((number_fields.-)(fseqs.n, fseqs.m), 1)"
+    "nat")))
  (caret_TCC3 0
   (caret_TCC3-1 nil 3411463305 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -578,11 +688,13 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (default const-decl "T" fseqs nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (caret subtype
+    "(LAMBDA (x: naturalnumbers.nat): IF reals.<(x, fseqs.len) THEN fseqs.fs`seq((number_fields.+)(x, fseqs.m)) ELSE fseqs.default ENDIF)"
+    "fseqs.barray(fseqs.len)")))
  (o_assoc 0
   (o_assoc-1 nil 3410258465
    ("" (skeep)
@@ -601,8 +713,7 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (T formal-nonempty-type-decl nil fseqs nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -640,7 +751,10 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (default const-decl "T" fseqs nil))
-   nil))
+   nil
+   (fseq1 subtype
+    "(LAMBDA (n: naturalnumbers.nat): IF reals.<(n, 1) THEN fseqs.t ELSE fseqs.default ENDIF)"
+    "fseqs.barray(1)")))
  (fseq2_TCC1 0
   (fseq2_TCC1-1 nil 3411463305 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -661,7 +775,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (default const-decl "T" fseqs nil))
-   nil))
+   nil
+   (fseq2 subtype
+    "(LAMBDA (i: naturalnumbers.nat): IF i = 0 THEN fseqs.u ELSIF i = 1 THEN fseqs.v ELSE fseqs.default ENDIF)"
+    "fseqs.barray(2)")))
  (fseq1_def 0
   (fseq1_def-1 nil 3410692610 ("" (grind) nil nil)
    ((default const-decl "T" fseqs nil)
@@ -689,7 +806,10 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (default const-decl "T" fseqs nil))
-   nil))
+   nil
+   (const_seq subtype
+    "(LAMBDA (i: naturalnumbers.nat): IF reals.<(i, fseqs.n) THEN fseqs.c ELSE fseqs.default ENDIF)"
+    "fseqs.barray(fseqs.n)")))
  (rev_TCC1 0
   (rev_TCC1-1 nil 3411463305 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -712,7 +832,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (rev subtype
+    "(number_fields.-)((number_fields.-)(fseqs.fs`length, 1), fseqs.i)"
+    "nat")))
  (rev_TCC2 0
   (rev_TCC2-1 nil 3411463305 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -735,5 +858,8 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (default const-decl "T" fseqs nil))
-   nil)))
+   nil
+   (rev subtype
+    "(LAMBDA (i: naturalnumbers.nat): IF reals.<(i, fseqs.fs`length) THEN seq(fseqs.fs)((number_fields.-)((number_fields.-)(fseqs.fs`length, 1), i)) ELSE fseqs.default ENDIF)"
+    "fseqs.barray(fseqs.fs`length)"))))
 

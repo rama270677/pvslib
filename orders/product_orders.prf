@@ -10,7 +10,10 @@
     (T2 formal-type-decl nil product_orders nil)
     (* const-decl "bool" product_orders nil)
     (reflexive? const-decl "bool" relations nil))
-   nil))
+   nil
+   (product_preserves_reflexive subtype
+    "product_orders.*(product_orders.r1, product_orders.r2)"
+    "(relations[[product_orders.T1, product_orders.T2]].reflexive?)")))
  (product_preserves_transitive 0
   (product_preserves_transitive-1 nil 3353154167
    ("" (skosimp)
@@ -37,7 +40,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (* const-decl "bool" product_orders nil)
     (T2 formal-type-decl nil product_orders nil))
-   nil))
+   nil
+   (product_preserves_transitive subtype
+    "product_orders.*(product_orders.r1, product_orders.r2)"
+    "(relations[[product_orders.T1, product_orders.T2]].transitive?)")))
  (product_preserves_antisymmetric 0
   (product_preserves_antisymmetric-1 nil 3353154167
    ("" (skosimp)
@@ -66,7 +72,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (* const-decl "bool" product_orders nil)
     (T2 formal-type-decl nil product_orders nil))
-   nil))
+   nil
+   (product_preserves_antisymmetric subtype
+    "product_orders.*(product_orders.r1, product_orders.r2)"
+    "(relations[[product_orders.T1, product_orders.T2]].antisymmetric?)")))
  (product_preserves_preorder 0
   (product_preserves_preorder-1 nil 3353154927
    ("" (judgement-tcc) nil nil)
@@ -75,7 +84,10 @@
     (product_preserves_reflexive application-judgement
      "(reflexive?[[T1, T2]])" product_orders nil)
     (preorder? const-decl "bool" orders nil))
-   nil))
+   nil
+   (product_preserves_preorder subtype
+    "product_orders.*(product_orders.r1, product_orders.r2)"
+    "(orders[[product_orders.T1, product_orders.T2]].preorder?)")))
  (product_preserves_partial_order 0
   (product_preserves_partial_order-1 nil 3353154927
    ("" (judgement-tcc) nil nil)
@@ -84,7 +96,10 @@
     (product_preserves_preorder application-judgement
      "(preorder?[[T1, T2]])" product_orders nil)
     (partial_order? const-decl "bool" orders nil))
-   nil))
+   nil
+   (product_preserves_partial_order subtype
+    "product_orders.*(product_orders.r1, product_orders.r2)"
+    "(orders[[product_orders.T1, product_orders.T2]].partial_order?)")))
  (product_preserves_directed_complete 0
   (product_preserves_directed_complete-1 nil 3353154927
    ("" (skosimp)
@@ -335,65 +350,21 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (* const-decl "bool" product_orders nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (DD1 skolem-const-decl "[T1 -> boolean]" product_orders nil)
-    (r1!1 skolem-const-decl "(directed_complete?[T1])" product_orders
-     nil)
+    (= const-decl "[T, T -> boolean]" equalities nil) nil nil
     (empty? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
-    (x!1 skolem-const-decl "[T1, T2]" product_orders nil)
-    (z!3 skolem-const-decl "(D!1)" product_orders nil)
+    (member const-decl "bool" sets nil) nil nil
     (least_bounded_above? const-decl "bool" bounded_orders nil)
-    (upper_bound? const-decl "bool" bounded_orders nil)
-    (D!1 skolem-const-decl
-     "(directed?(LAMBDA (x, y): r1!1(x`1, y`1) AND r2!1(x`2, y`2)))"
-     product_orders nil)
-    (r!1 skolem-const-decl "(D!1)" product_orders nil)
-    (least_upper_bound? const-decl "bool" bounded_orders nil)
-    (r2!1 skolem-const-decl "(directed_complete?[T2])" product_orders
-     nil)
-    (DD2 skolem-const-decl "[T2 -> boolean]" product_orders nil)
-    (z!3 skolem-const-decl "(D!1)" product_orders nil)
-    (x!1 skolem-const-decl "[T1, T2]" product_orders nil)
-    (set type-eq-decl nil sets nil)
+    (upper_bound? const-decl "bool" bounded_orders nil) nil nil
+    (least_upper_bound? const-decl "bool" bounded_orders nil) nil nil
+    nil nil (set type-eq-decl nil sets nil)
     (nonempty? const-decl "bool" sets nil)
     (directed? const-decl "bool" directed_orders nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (T1 formal-type-decl nil product_orders nil))
-   nil))
- (product_preserves_directed_complete_partial_order 0
-  (product_preserves_directed_complete_partial_order-1 nil 3353154927
-   ("" (skosimp)
-    (("" (typepred "r2!1")
-      (("" (typepred "r1!1")
-        (("" (expand "directed_complete_partial_order?")
-          (("" (flatten)
-            ((""
-              (lemma "product_preserves_directed_complete"
-               ("r1" "r1!1" "r2" "r2!1"))
-              (("1" (propax) nil nil) ("2" (propax) nil nil)
-               ("3" (propax) nil nil))
-              nil))
-            nil))
-          nil))
-        nil))
-      nil))
-    nil)
-   ((directed_complete_partial_order? const-decl "bool" directed_orders
-     nil)
-    (pred type-eq-decl nil defined_types nil)
-    (T2 formal-type-decl nil product_orders nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (product_preserves_partial_order application-judgement
-     "(partial_order?[[T1, T2]])" product_orders nil)
-    (directed_complete? const-decl "bool" directed_orders nil)
-    (partial_order? const-decl "bool" orders nil)
-    (product_preserves_directed_complete judgement-tcc nil
-     product_orders nil)
-    (T1 formal-type-decl nil product_orders nil))
-   nil))
+   nil
+   (product_preserves_directed_complete subtype
+    "product_orders.*(product_orders.r1, product_orders.r2)"
+    "(directed_orders[[product_orders.T1, product_orders.T2]].directed_complete?)")))
  (product_lub_TCC1 0
   (product_lub_TCC1-1 nil 3353466317
    ("" (skosimp)
@@ -428,7 +399,9 @@
     (directed? const-decl "bool" directed_orders nil)
     (* const-decl "bool" product_orders nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (product_lub subtype "product_orders.D"
+    "(LAMBDA (S: sets[[product_orders.T1, product_orders.T2]].set): bounded_orders[[product_orders.T1, product_orders.T2]].least_bounded_above?(S, product_orders.*(product_orders.r1, product_orders.r2)))")))
  (product_lub_TCC2 0
   (product_lub_TCC2-1 nil 3353466317
    ("" (skosimp)
@@ -539,23 +512,17 @@
     (T1 formal-type-decl nil product_orders nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (z!3 skolem-const-decl "(D!1)" product_orders nil)
-    (D!1 skolem-const-decl "(directed?[[T1, T2]](r1!1 * r2!1))"
-     product_orders nil)
-    (r2!1 skolem-const-decl "(directed_complete_partial_order?[T2])"
-     product_orders nil)
-    (r1!1 skolem-const-decl "(directed_complete_partial_order?[T1])"
-     product_orders nil)
-    (D1 skolem-const-decl "[T1 -> boolean]" product_orders nil)
-    (x!1 skolem-const-decl "[T1, T2]" product_orders nil)
-    (member const-decl "bool" sets nil)
+    (boolean nonempty-type-decl nil booleans nil) nil nil nil nil nil
+    nil (member const-decl "bool" sets nil)
     (empty? const-decl "bool" sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (directed_complete? const-decl "bool" directed_orders nil)
     (product_preserves_directed_complete judgement-tcc nil
      product_orders nil))
-   nil))
+   nil
+   (product_lub subtype
+    "{x: product_orders.T1 | EXISTS (z: (product_orders.D)): z`1 = x}"
+    "(LAMBDA (S: sets[product_orders.T1].set): bounded_orders[product_orders.T1].least_bounded_above?(S, product_orders.r1))")))
  (product_lub_TCC3 0
   (product_lub_TCC3-1 nil 3353466317
    ("" (skosimp)
@@ -654,23 +621,17 @@
     (T1 formal-type-decl nil product_orders nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (z!3 skolem-const-decl "(D!1)" product_orders nil)
-    (D!1 skolem-const-decl "(directed?[[T1, T2]](r1!1 * r2!1))"
-     product_orders nil)
-    (r1!1 skolem-const-decl "(directed_complete_partial_order?[T1])"
-     product_orders nil)
-    (D2 skolem-const-decl "[T2 -> boolean]" product_orders nil)
-    (r2!1 skolem-const-decl "(directed_complete_partial_order?[T2])"
-     product_orders nil)
-    (x!1 skolem-const-decl "[T1, T2]" product_orders nil)
-    (member const-decl "bool" sets nil)
+    (boolean nonempty-type-decl nil booleans nil) nil nil nil nil nil
+    nil (member const-decl "bool" sets nil)
     (empty? const-decl "bool" sets nil)
     (directed_complete? const-decl "bool" directed_orders nil)
     (product_preserves_directed_complete judgement-tcc nil
      product_orders nil)
     (= const-decl "[T, T -> boolean]" equalities nil))
-   nil))
+   nil
+   (product_lub subtype
+    "{y: product_orders.T2 | EXISTS (z: (product_orders.D)): z`2 = y}"
+    "(LAMBDA (S: sets[product_orders.T2].set): bounded_orders[product_orders.T2].least_bounded_above?(S, product_orders.r2))")))
  (product_lub 0
   (product_lub-1 nil 3353505738
    ("" (skosimp)
@@ -1078,32 +1039,19 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (lub const-decl "(LAMBDA (t): least_upper_bound?(t, S, <=))"
+    (lub const-decl "(LAMBDA (t: T): least_upper_bound?(t, S, <=))"
      bounded_orders nil)
     (least_bounded_above? const-decl "bool" bounded_orders nil)
     (least_upper_bound? const-decl "bool" bounded_orders nil)
     (product_preserves_directed_complete_partial_order
      application-judgement
      "(directed_complete_partial_order?[[T1, T2]])" product_orders nil)
-    (member const-decl "bool" sets nil)
-    (x!1 skolem-const-decl "[T1, T2]" product_orders nil)
-    (empty? const-decl "bool" sets nil)
-    (z!3 skolem-const-decl "(D!1)" product_orders nil)
-    (r2!1 skolem-const-decl "(directed_complete_partial_order?[T2])"
-     product_orders nil)
-    (D2 skolem-const-decl "[T2 -> boolean]" product_orders nil)
+    (member const-decl "bool" sets nil) nil
+    (empty? const-decl "bool" sets nil) nil nil nil
     (product_preserves_partial_order judgement-tcc nil product_orders
      nil)
-    (r!1 skolem-const-decl "(D!1)" product_orders nil)
-    (D!1 skolem-const-decl "(directed?(r1!1 * r2!1))" product_orders
-     nil)
-    (antisymmetric? const-decl "bool" relations nil)
-    (upper_bound? const-decl "bool" bounded_orders nil)
-    (D1 skolem-const-decl "[T1 -> boolean]" product_orders nil)
-    (r1!1 skolem-const-decl "(directed_complete_partial_order?[T1])"
-     product_orders nil)
-    (z!3 skolem-const-decl "(D!1)" product_orders nil)
-    (x!1 skolem-const-decl "[T1, T2]" product_orders nil)
+    nil nil (antisymmetric? const-decl "bool" relations nil)
+    (upper_bound? const-decl "bool" bounded_orders nil) nil nil nil nil
     (= const-decl "[T, T -> boolean]" equalities nil)
     (directed_complete? const-decl "bool" directed_orders nil)
     (product_preserves_directed_complete judgement-tcc nil
@@ -1145,6 +1093,32 @@
     (* const-decl "bool" product_orders nil))
    shostak))
  (product_preserves_pointed_directed_complete_partial_order 0
+  (product_preserves_pointed_directed_complete_partial_order-2 ""
+   3745025440
+   ("" (skosimp)
+    ((""
+      (lemma "product_preserves_directed_complete"
+       ("r1" "r1!1" "r2" "r2!1"))
+      (("" (expand "pointed_directed_complete_partial_order?")
+        ((""
+          (lemma "product_preserves_has_least"
+           ("rel1" "r1!1" "rel2" "r2!1"))
+          (("" (typepred "r1!1")
+            (("" (typepred "r2!1")
+              (("" (expand "pointed_directed_complete_partial_order?")
+                (("" (flatten)
+                  (("" (assert) (("" (grind) nil nil)) nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (product_preserves_pointed_directed_complete_partial_order subtype
+    "product_orders.*(product_orders.r1, product_orders.r2)"
+    "(directed_orders[[product_orders.T1, product_orders.T2]].pointed_directed_complete_partial_order?)"))
   (product_preserves_pointed_directed_complete_partial_order-1 nil
    3353154927
    ("" (skosimp)
@@ -1168,21 +1142,36 @@
    ((T2 formal-type-decl nil product_orders nil)
     (pointed_directed_complete_partial_order? const-decl "bool"
      directed_orders nil)
-    (directed_complete_partial_order? const-decl "bool" directed_orders
-     nil)
+    (directed_complete? const-decl "bool" directed_orders nil)
+    (partial_order? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T1 formal-type-decl nil product_orders nil)
-    (product_preserves_directed_complete_partial_order judgement-tcc
-     nil product_orders nil)
+    (product_preserves_directed_complete judgement-tcc nil
+     product_orders nil)
     (product_preserves_has_least formula-decl nil product_orders nil)
+    (* const-decl "bool" product_orders nil)
+    (has_least? const-decl "bool" minmax_orders nil)
+    (least? const-decl "bool" minmax_orders nil)
+    (lower_bound? const-decl "bool" bounded_orders nil)
+    (fullset const-decl "set" sets nil)
+    (directed_complete_partial_order? const-decl "bool" directed_orders
+     nil)
+    (least_bounded_above? const-decl "bool" bounded_orders nil)
+    (least_upper_bound? const-decl "bool" bounded_orders nil)
+    (upper_bound? const-decl "bool" bounded_orders nil)
+    (antisymmetric? const-decl "bool" relations nil)
+    (preorder? const-decl "bool" orders nil)
+    (transitive? const-decl "bool" relations nil)
+    (reflexive? const-decl "bool" relations nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (product_preserves_directed_complete_partial_order
-     application-judgement
-     "(directed_complete_partial_order?[[T1, T2]])" product_orders
-     nil))
-   nil))
+    (product_preserves_directed_complete application-judgement
+     "(directed_complete?[[T1, T2]])" product_orders nil))
+   nil
+   (product_preserves_pointed_directed_complete_partial_order subtype
+    "product_orders.*(product_orders.r1, product_orders.r2)"
+    "(directed_orders[[product_orders.T1, product_orders.T2]].pointed_directed_complete_partial_order?)")))
  (product_least_TCC1 0
   (product_least_TCC1-1 nil 3355018550
    ("" (skosimp)
@@ -1207,7 +1196,10 @@
      application-judgement
      "(pointed_directed_complete_partial_order?[[T1, T2]])"
      product_orders nil))
-   nil))
+   nil
+   (product_least subtype
+    "sets[[product_orders.T1, product_orders.T2]].fullset"
+    "(LAMBDA (S: sets[[product_orders.T1, product_orders.T2]].set): minmax_orders[[product_orders.T1, product_orders.T2]].has_least?(S, product_orders.*(product_orders.r1, product_orders.r2)))")))
  (product_least_TCC2 0
   (product_least_TCC2-1 nil 3355018550 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1233,7 +1225,9 @@
     (lower_bound? const-decl "bool" bounded_orders nil)
     (least? const-decl "bool" minmax_orders nil)
     (has_least? const-decl "bool" minmax_orders nil))
-   nil))
+   nil
+   (product_least subtype "sets[product_orders.T1].fullset"
+    "(LAMBDA (S: sets[product_orders.T1].set): minmax_orders[product_orders.T1].has_least?(S, product_orders.r1))")))
  (product_least_TCC3 0
   (product_least_TCC3-1 nil 3355018550 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1259,7 +1253,9 @@
     (lower_bound? const-decl "bool" bounded_orders nil)
     (least? const-decl "bool" minmax_orders nil)
     (has_least? const-decl "bool" minmax_orders nil))
-   nil))
+   nil
+   (product_least subtype "sets[product_orders.T2].fullset"
+    "(LAMBDA (S: sets[product_orders.T2].set): minmax_orders[product_orders.T2].has_least?(S, product_orders.r2))")))
  (product_least 0
   (product_least-1 nil 3355018561
    ("" (skosimp)

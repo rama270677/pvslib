@@ -1,7 +1,7 @@
 (nvectors
  (difference_TCC1 0
-  (difference_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (difference_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil
+   (difference subtype "nvectors.v`length" "posnat")))
  (difference_TCC2 0
   (difference_TCC2-1 nil 3500755723
    ("" (skosimp*)
@@ -32,7 +32,10 @@
     (minus_real_is_real application-judgement "real" reals nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (difference subtype
+    "LAMBDA (i: naturalnumbers.nat): (number_fields.-)(nvectors.v`seq(i))"
+    "fseqs_def[real, 0].barray(nvectors.v`length)")))
  (plus_TCC1 0
   (plus_TCC1-1 nil 3500755723
    ("" (skosimp*)
@@ -70,45 +73,63 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (Vect type-eq-decl nil nvectors nil))
-   nil))
+   nil
+   (plus subtype
+    "(LAMBDA (i: naturalnumbers.nat): (number_fields.+)(nvectors.u`seq(i), nvectors.v`seq(i)))"
+    "fseqs_def[real, 0].barray(nvectors.u`length)")))
  (plus_TCC2 0
-  (plus_TCC2-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil))
+  (plus_TCC2-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil
+   (plus subtype
+    "(# length := nvectors.u`length, seq := (LAMBDA (i: naturalnumbers.nat): (number_fields.+)(nvectors.u`seq(i), nvectors.v`seq(i))) #)"
+    "nvectors.Vect(nvectors.u`length)")))
  (difference_TCC3 0
   (difference_TCC3-1 nil 3501234730 ("" (subtype-tcc) nil nil)
-   ((- const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((- const-decl "Vect(v`length)" nvectors nil)) nil
+   (difference subtype "(nvectors.-)(nvectors.v)"
+    "nvectors.Vect(nvectors.u`length)")))
  (times_TCC1 0
-  (times_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil))
- (times_TCC2 0
-  (times_TCC2-1 nil 3500755723
-   ("" (skosimp*)
-    (("" (typepred "v!1`seq")
-      (("" (inst?) (("" (assert) nil nil)) nil)) nil))
+  (times_TCC1-2 "" 3757796518
+   ("" (skeep :preds? t)
+    (("" (skeep)
+      (("" (typepred "v`seq")
+        (("" (inst?) (("" (assert) nil nil)) nil)) nil))
+      nil))
     nil)
-   ((= const-decl "[T, T -> boolean]" equalities nil)
-    (Vector type-eq-decl nil nvectors nil)
-    (> const-decl "bool" reals nil)
-    (fseq type-eq-decl nil fseqs_def "structures/")
-    (barray type-eq-decl nil fseqs_def "structures/")
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
+   nil shostak
+   (times subtype
+    "LAMBDA (i: naturalnumbers.nat): number_fields.*(nvectors.a, nvectors.v`seq(i))"
+    "fseqs_def[real, 0].barray(nvectors.v`length)"))
+  (times_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
+   ((real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (barray type-eq-decl nil fseqs_def "structures/")
+    (fseq type-eq-decl nil fseqs_def "structures/")
+    (> const-decl "bool" reals nil)
+    (Vector type-eq-decl nil nvectors nil)
+    (= const-decl "[T, T -> boolean]" equalities nil))
+   nil
+   (times subtype
+    "LAMBDA (i: naturalnumbers.nat): number_fields.*(nvectors.a, nvectors.v`seq(i))"
+    "fseqs_def[real, 0].barray(nvectors.v`length)")))
  (sqv_TCC1 0
   (sqv_TCC1-1 nil 3500755723
    ("" (skosimp*)
@@ -152,9 +173,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil))
-   nil))
- (sq_TCC1 0
-  (sq_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil))
+   nil (sqv subtype "nvectors.*(nvectors.v, nvectors.v)" "nnreal")))
  (zero_TCC1 0
   (zero_TCC1-1 nil 3500755723
    ("" (skosimp*)
@@ -173,7 +192,9 @@
         nil))
       nil))
     nil)
-   nil nil))
+   nil nil
+   (zero subtype "LAMBDA (i: naturalnumbers.nat): 0"
+    "fseqs_def[real, 0].barray(nvectors.n)")))
  (zero_TCC2 0
   (zero_TCC2-1 nil 3501326694
    ("" (skosimp*)
@@ -219,8 +240,7 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
-    (T_low type-eq-decl nil sigma "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
+    (T_low type-eq-decl nil sigma "reals/") nil
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -240,7 +260,10 @@
     (sigma_const formula-decl nil sigma "reals/")
     (* const-decl "real" nvectors nil)
     (norm const-decl "nnreal" nvectors nil))
-   nil))
+   nil
+   (zero subtype
+    "(# length := nvectors.n, seq := LAMBDA (i: naturalnumbers.nat): 0 #)"
+    "nvectors.Zero_vect(nvectors.n)")))
  (unity_TCC1 0
   (unity_TCC1-1 nil 3500755723
    ("" (skosimp*)
@@ -459,9 +482,7 @@
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
-    (sigma_const formula-decl nil sigma "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
+    (sigma_const formula-decl nil sigma "reals/") nil nil
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -482,7 +503,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (norm const-decl "nnreal" nvectors nil))
-   nil))
+   nil
+   (unity subtype
+    "nvectors.zero(nvectors.n) WITH [`seq(nvectors.i) := 1]"
+    "nvectors.Normalized_vect(nvectors.n)")))
  (const_vec_TCC1 0
   (const_vec_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
    ((real nonempty-type-from-decl nil reals nil)
@@ -493,7 +517,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (const_seq const-decl "fseq" fseqs_def "structures/"))
-   nil))
+   nil
+   (const_vec subtype
+    "fseqs_def[real, 0].const_seq(nvectors.n, nvectors.a)"
+    "nvectors.Vect(nvectors.n)")))
  (comp_distr_add 0
   (comp_distr_add-1 nil 3500783129 ("" (grind) nil nil)
    ((+ const-decl "Vect(u`length)" nvectors nil)) shostak))
@@ -539,9 +566,7 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (x!1 skolem-const-decl "nat" nvectors nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
+    (NOT const-decl "[bool -> bool]" booleans nil) nil nil
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
     (real_lt_is_strict_total_order name-judgement
@@ -564,7 +589,9 @@
    shostak))
  (add_zero_left_TCC1 0
   (add_zero_left_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((zero const-decl "Zero_vect(n)" nvectors nil)) nil))
+   ((zero const-decl "Zero_vect(n)" nvectors nil)) nil
+   (add_zero_left subtype "nvectors.v"
+    "nvectors.Vect(nvectors.zero(nvectors.n)`length)")))
  (add_zero_left 0
   (add_zero_left-1 nil 3500783169
    ("" (grind-with-ext :exclude "default")
@@ -599,7 +626,9 @@
    shostak))
  (add_zero_right_TCC1 0
   (add_zero_right_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((zero const-decl "Zero_vect(n)" nvectors nil)) nil))
+   ((zero const-decl "Zero_vect(n)" nvectors nil)) nil
+   (add_zero_right subtype "nvectors.zero(nvectors.n)"
+    "nvectors.Vect(nvectors.v`length)")))
  (add_zero_right 0
   (add_zero_right-1 nil 3500783182
    ("" (grind-with-ext :exclude "default")
@@ -633,18 +662,25 @@
     (+ const-decl "Vect(u`length)" nvectors nil))
    shostak))
  (add_comm_TCC1 0
-  (add_comm_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil))
+  (add_comm_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil
+   (add_comm subtype "nvectors.u" "nvectors.Vect(nvectors.v`length)")))
  (add_comm 0
   (add_comm-1 nil 3500783188 ("" (grind-with-ext) nil nil)
    ((+ const-decl "Vect(u`length)" nvectors nil)) shostak))
  (add_assoc_TCC1 0
-  (add_assoc_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil))
+  (add_assoc_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil
+   (add_assoc subtype "nvectors.w"
+    "nvectors.Vect(nvectors.v`length)")))
  (add_assoc_TCC2 0
   (add_assoc_TCC2-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((+ const-decl "Vect(u`length)" nvectors nil)) nil))
+   ((+ const-decl "Vect(u`length)" nvectors nil)) nil
+   (add_assoc subtype "((nvectors.+)(nvectors.v, nvectors.w))"
+    "nvectors.Vect(nvectors.u`length)")))
  (add_assoc_TCC3 0
   (add_assoc_TCC3-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((+ const-decl "Vect(u`length)" nvectors nil)) nil))
+   ((+ const-decl "Vect(u`length)" nvectors nil)) nil
+   (add_assoc subtype "nvectors.w"
+    "nvectors.Vect(((nvectors.+)(nvectors.u, nvectors.v))`length)")))
  (add_assoc 0
   (add_assoc-1 nil 3500783193 ("" (grind-with-ext) nil nil)
    ((+ const-decl "Vect(u`length)" nvectors nil)
@@ -760,7 +796,9 @@
    shostak))
  (add_neg_sub_TCC1 0
   (add_neg_sub_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((- const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((- const-decl "Vect(v`length)" nvectors nil)) nil
+   (add_neg_sub subtype "(nvectors.-)(nvectors.u)"
+    "nvectors.Vect(nvectors.v`length)")))
  (add_neg_sub 0
   (add_neg_sub-1 nil 3500783295
    ("" (grind-with-ext :exclude "default") nil nil)
@@ -771,7 +809,9 @@
    shostak))
  (add_cancel_TCC1 0
   (add_cancel_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((+ const-decl "Vect(u`length)" nvectors nil)) nil))
+   ((+ const-decl "Vect(u`length)" nvectors nil)) nil
+   (add_cancel subtype "nvectors.v"
+    "nvectors.Vect(((nvectors.+)(nvectors.v, nvectors.w))`length)")))
  (add_cancel 0
   (add_cancel-1 nil 3500783299
    ("" (skosimp*)
@@ -819,12 +859,16 @@
    shostak))
  (add_cancel_neg_TCC1 0
   (add_cancel_neg_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((- const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((- const-decl "Vect(v`length)" nvectors nil)) nil
+   (add_cancel_neg subtype "nvectors.w"
+    "nvectors.Vect(((nvectors.-)(nvectors.v))`length)")))
  (add_cancel_neg_TCC2 0
   (add_cancel_neg_TCC2-1 nil 3500755723 ("" (subtype-tcc) nil nil)
    ((- const-decl "Vect(v`length)" nvectors nil)
     (+ const-decl "Vect(u`length)" nvectors nil))
-   nil))
+   nil
+   (add_cancel_neg subtype "nvectors.v"
+    "nvectors.Vect(((nvectors.+)((nvectors.-)(nvectors.v), nvectors.w))`length)")))
  (add_cancel_neg 0
   (add_cancel_neg-1 nil 3500783303
    ("" (grind-with-ext :exclude "default")
@@ -872,7 +916,9 @@
    ((- const-decl "Vect(v`length)" nvectors nil)
     (+ const-decl "Vect(u`length)" nvectors nil)
     (- const-decl "Vect(u`length)" nvectors nil))
-   nil))
+   nil
+   (add_cancel2 subtype "nvectors.v"
+    "nvectors.Vect(((nvectors.-)(nvectors.w, nvectors.v))`length)")))
  (add_cancel2 0
   (add_cancel2-1 nil 3500783307
    ("" (grind-with-ext :exclude "default")
@@ -920,7 +966,9 @@
    shostak))
  (add_cancel_neg2_TCC1 0
   (add_cancel_neg2_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((+ const-decl "Vect(u`length)" nvectors nil)) nil))
+   ((+ const-decl "Vect(u`length)" nvectors nil)) nil
+   (add_cancel_neg2 subtype "nvectors.v"
+    "nvectors.Vect(((nvectors.+)(nvectors.w, nvectors.v))`length)")))
  (add_cancel_neg2 0
   (add_cancel_neg2-1 nil 3500783311
    ("" (grind-with-ext :exclude "default")
@@ -1054,8 +1102,9 @@
     (minus_real_is_real application-judgement "real" reals nil))
    shostak))
  (sub_eq_zero_TCC1 0
-  (sub_eq_zero_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (sub_eq_zero_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil
+   (sub_eq_zero subtype "nvectors.v"
+    "nvectors.Vect(nvectors.u`length)")))
  (sub_eq_zero 0
   (sub_eq_zero-1 nil 3500783328
    ("" (grind-with-ext :exclude "default")
@@ -1116,7 +1165,9 @@
    ((- const-decl "Vect(v`length)" nvectors nil)
     (+ const-decl "Vect(u`length)" nvectors nil)
     (- const-decl "Vect(u`length)" nvectors nil))
-   nil))
+   nil
+   (sub_cancel subtype "nvectors.v"
+    "nvectors.Vect(((nvectors.-)(nvectors.v, nvectors.w))`length)")))
  (sub_cancel 0
   (sub_cancel-1 nil 3500783354
    ("" (grind-with-ext :exclude "default") nil nil)
@@ -1131,7 +1182,9 @@
    ((- const-decl "Vect(v`length)" nvectors nil)
     (+ const-decl "Vect(u`length)" nvectors nil)
     (- const-decl "Vect(u`length)" nvectors nil))
-   nil))
+   nil
+   (sub_cancel_neg subtype "nvectors.v"
+    "nvectors.Vect(((nvectors.-)((nvectors.-)(nvectors.v), nvectors.w))`length)")))
  (sub_cancel_neg 0
   (sub_cancel_neg-1 nil 3500783361
    ("" (grind-with-ext :exclude "default") nil nil)
@@ -1143,7 +1196,9 @@
    shostak))
  (neg_add_left_TCC1 0
   (neg_add_left_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((- const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((- const-decl "Vect(v`length)" nvectors nil)) nil
+   (neg_add_left subtype "nvectors.v"
+    "nvectors.Vect(((nvectors.-)(nvectors.v))`length)")))
  (neg_add_left 0
   (neg_add_left-1 nil 3500783364
    ("" (grind-with-ext :exclude "default") nil nil)
@@ -1202,7 +1257,9 @@
    shostak))
  (neg_distr_add_TCC1 0
   (neg_distr_add_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((- const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((- const-decl "Vect(v`length)" nvectors nil)) nil
+   (neg_distr_add subtype "nvectors.v"
+    "nvectors.Vect(((nvectors.-)(nvectors.u))`length)")))
  (neg_distr_add 0
   (neg_distr_add-1 nil 3500783381
    ("" (grind-with-ext :exclude "default") nil nil)
@@ -1434,7 +1491,9 @@
    shostak))
  (dot_zero_left_TCC1 0
   (dot_zero_left_TCC1-1 nil 3500785044 ("" (subtype-tcc) nil nil)
-   ((zero const-decl "Zero_vect(n)" nvectors nil)) nil))
+   ((zero const-decl "Zero_vect(n)" nvectors nil)) nil
+   (dot_zero_left subtype "nvectors.v"
+    "nvectors.Vect(nvectors.zero(nvectors.v`length)`length)")))
  (dot_zero_left 0
   (dot_zero_left-1 nil 3500784801
    ("" (grind-with-ext :exclude "default")
@@ -1456,9 +1515,7 @@
       nil))
     nil)
    ((sigma_restrict_eq formula-decl nil sigma "reals/")
-    (sigma_zero formula-decl nil sigma "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
+    (sigma_zero formula-decl nil sigma "reals/") nil nil
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
@@ -1526,8 +1583,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
+    nil nil
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (Vector type-eq-decl nil nvectors nil)
@@ -1605,7 +1661,9 @@
    shostak))
  (dot_assoc_TCC1 0
   (dot_assoc_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((* const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((* const-decl "Vect(v`length)" nvectors nil)) nil
+   (dot_assoc subtype "nvectors.w"
+    "nvectors.Vect((nvectors.*(nvectors.a, nvectors.v))`length)")))
  (dot_assoc 0
   (dot_assoc-1 nil 3500785460
    ("" (grind-with-ext :exclude "default")
@@ -1750,10 +1808,14 @@
    shostak))
  (dot_distr_add_right_TCC1 0
   (dot_distr_add_right_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((+ const-decl "Vect(u`length)" nvectors nil)) nil))
+   ((+ const-decl "Vect(u`length)" nvectors nil)) nil
+   (dot_distr_add_right subtype "nvectors.u"
+    "nvectors.Vect(((nvectors.+)(nvectors.v, nvectors.w))`length)")))
  (dot_distr_add_right_TCC2 0
   (dot_distr_add_right_TCC2-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   nil nil))
+   nil nil
+   (dot_distr_add_right subtype "nvectors.u"
+    "nvectors.Vect(nvectors.w`length)")))
  (dot_distr_add_right 0
   (dot_distr_add_right-1 nil 3500785664
    ("" (skosimp :preds? t)
@@ -1830,7 +1892,9 @@
    ((- const-decl "Vect(v`length)" nvectors nil)
     (+ const-decl "Vect(u`length)" nvectors nil)
     (- const-decl "Vect(u`length)" nvectors nil))
-   nil))
+   nil
+   (dot_distr_sub_left subtype "((nvectors.-)(nvectors.v, nvectors.w))"
+    "nvectors.Vect(nvectors.u`length)")))
  (dot_distr_sub_left 0
   (dot_distr_sub_left-1 nil 3500785912
    ("" (skosimp :preds? t)
@@ -1864,10 +1928,7 @@
    ((- const-decl "Vect(u`length)" nvectors nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (- const-decl "Vect(v`length)" nvectors nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
-    (w!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
-    (v!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
+    (- const-decl "Vect(v`length)" nvectors nil) nil nil nil
     (+ const-decl "Vect(u`length)" nvectors nil)
     (sigma_eq formula-decl nil sigma "reals/")
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -1907,7 +1968,9 @@
    ((- const-decl "Vect(v`length)" nvectors nil)
     (+ const-decl "Vect(u`length)" nvectors nil)
     (- const-decl "Vect(u`length)" nvectors nil))
-   nil))
+   nil
+   (dot_distr_sub_right subtype "nvectors.u"
+    "nvectors.Vect(((nvectors.-)(nvectors.v, nvectors.w))`length)")))
  (dot_distr_sub_right 0
   (dot_distr_sub_right-1 nil 3500786067
    ("" (skosimp :preds? t)
@@ -2031,7 +2094,9 @@
    shostak))
  (dot_scal_left_TCC1 0
   (dot_scal_left_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((* const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((* const-decl "Vect(v`length)" nvectors nil)) nil
+   (dot_scal_left subtype "nvectors.v"
+    "nvectors.Vect((nvectors.*(nvectors.a, nvectors.u))`length)")))
  (dot_scal_left 0
   (dot_scal_left-1 nil 3500786422
    ("" (skosimp :preds? t)
@@ -2088,7 +2153,9 @@
    shostak))
  (dot_scal_right_TCC1 0
   (dot_scal_right_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((* const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((* const-decl "Vect(v`length)" nvectors nil)) nil
+   (dot_scal_right subtype "(nvectors.*(nvectors.a, nvectors.v))"
+    "nvectors.Vect(nvectors.u`length)")))
  (dot_scal_right 0
   (dot_scal_right-1 nil 3500786537
    ("" (skosimp :preds? t)
@@ -2151,7 +2218,9 @@
    shostak))
  (dot_scal_canon_TCC1 0
   (dot_scal_canon_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((* const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((* const-decl "Vect(v`length)" nvectors nil)) nil
+   (dot_scal_canon subtype "(nvectors.*(nvectors.b, nvectors.v))"
+    "nvectors.Vect((nvectors.*(nvectors.a, nvectors.u))`length)")))
  (dot_scal_canon 0
   (dot_scal_canon-1 nil 3500786586
    ("" (skosimp :preds? t)
@@ -2208,7 +2277,9 @@ b!1" "u!1`length - 1" "0")
    shostak))
  (dot_scal_distr_add_TCC1 0
   (dot_scal_distr_add_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((* const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((* const-decl "Vect(v`length)" nvectors nil)) nil
+   (dot_scal_distr_add subtype "nvectors.*(nvectors.b, nvectors.u)"
+    "nvectors.Vect((nvectors.*(nvectors.a, nvectors.u))`length)")))
  (dot_scal_distr_add 0
   (dot_scal_distr_add-1 nil 3500786724
    ("" (grind-with-ext :exclude "default") nil nil)
@@ -2228,7 +2299,9 @@ b!1" "u!1`length - 1" "0")
    shostak))
  (scal_add_distr_TCC1 0
   (scal_add_distr_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((* const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((* const-decl "Vect(v`length)" nvectors nil)) nil
+   (scal_add_distr subtype "nvectors.*(nvectors.a, nvectors.v)"
+    "nvectors.Vect((nvectors.*(nvectors.a, nvectors.u))`length)")))
  (scal_add_distr 0
   (scal_add_distr-1 nil 3500786734
    ("" (grind-with-ext :exclude "default") nil nil)
@@ -2378,9 +2451,7 @@ b!1" "u!1`length - 1" "0")
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (T_high type-eq-decl nil sigma "reals/")
     (<= const-decl "bool" reals nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
+    (OR const-decl "[bool, bool -> bool]" booleans nil) nil nil
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -2454,8 +2525,9 @@ b!1" "u!1`length - 1" "0")
     (Vect type-eq-decl nil nvectors nil))
    shostak))
  (dot_ge_dist_TCC1 0
-  (dot_ge_dist_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (dot_ge_dist_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil nil
+   (dot_ge_dist subtype "nvectors.v"
+    "nvectors.Vect(nvectors.w`length)")))
  (dot_ge_dist_TCC2 0
   (dot_ge_dist_TCC2-1 nil 3500755723 ("" (subtype-tcc) nil nil)
    ((* const-decl "real" nvectors nil)
@@ -2464,7 +2536,9 @@ b!1" "u!1`length - 1" "0")
     (- const-decl "Vect(u`length)" nvectors nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (dot_ge_dist subtype "((nvectors.-)(nvectors.u, nvectors.v))"
+    "nvectors.Vect(nvectors.w`length)")))
  (dot_ge_dist 0
   (dot_ge_dist-1 nil 3500786888
    ("" (skosimp :preds? t)
@@ -2524,9 +2598,7 @@ b!1" "u!1`length - 1" "0")
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (- const-decl "Vect(v`length)" nvectors nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
-    (v!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
+    (- const-decl "Vect(v`length)" nvectors nil) nil nil
     (+ const-decl "Vect(u`length)" nvectors nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (sigma_eq formula-decl nil sigma "reals/")
@@ -2567,7 +2639,9 @@ b!1" "u!1`length - 1" "0")
     (- const-decl "Vect(u`length)" nvectors nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (dot_gt_dist subtype "((nvectors.-)(nvectors.u, nvectors.v))"
+    "nvectors.Vect(nvectors.w`length)")))
  (dot_gt_dist 0
   (dot_gt_dist-1 nil 3500787454
    ("" (skosimp :preds? t)
@@ -2628,8 +2702,7 @@ b!1" "u!1`length - 1" "0")
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (v!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
+    nil nil
     (real_minus_real_is_real application-judgement "real" reals nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -2789,7 +2862,7 @@ b!1" "u!1`length - 1" "0")
     (* const-decl "real" nvectors nil)
     (sqv const-decl "nnreal" nvectors nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
+    nil
     (int_minus_int_is_int application-judgement "int" integers nil))
    shostak))
  (sq_lem 0
@@ -2813,7 +2886,7 @@ b!1" "u!1`length - 1" "0")
     (sigma def-decl "real" sigma "reals/")
     (sq const-decl "nnreal" nvectors nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
+    nil
     (int_minus_int_is_int application-judgement "int" integers nil))
    shostak))
  (sqv_lem 0
@@ -2923,7 +2996,9 @@ b!1" "u!1`length - 1" "0")
    shostak))
  (sqv_add_TCC1 0
   (sqv_add_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((* const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((* const-decl "Vect(v`length)" nvectors nil)) nil
+   (sqv_add subtype "nvectors.v"
+    "nvectors.Vect((nvectors.*(2, nvectors.u))`length)")))
  (sqv_add 0
   (sqv_add-1 nil 3500789436
    ("" (skosimp :preds? t)
@@ -2954,10 +3029,8 @@ b!1" "u!1`length - 1" "0")
         nil))
       nil))
     nil)
-   ((sqv const-decl "nnreal" nvectors nil)
-    (v!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
-    (+ const-decl "Vect(u`length)" nvectors nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
+   ((sqv const-decl "nnreal" nvectors nil) nil
+    (+ const-decl "Vect(u`length)" nvectors nil) nil
     (dot_distr_add_left formula-decl nil nvectors nil)
     (dot_comm formula-decl nil nvectors nil)
     (real_gt_is_strict_total_order name-judgement
@@ -3011,11 +3084,9 @@ b!1" "u!1`length - 1" "0")
         nil))
       nil))
     nil)
-   ((sqv const-decl "nnreal" nvectors nil)
-    (v!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
+   ((sqv const-decl "nnreal" nvectors nil) nil
     (- const-decl "Vect(u`length)" nvectors nil)
-    (Vect type-eq-decl nil nvectors nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
+    (Vect type-eq-decl nil nvectors nil) nil
     (Vector type-eq-decl nil nvectors nil)
     (> const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -3231,8 +3302,7 @@ b!1" "u!1`length - 1" "0")
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil) nil
     (= const-decl "[T, T -> boolean]" equalities nil)
     (sub_zero_right formula-decl nil nvectors nil)
     (sub_zero_left formula-decl nil nvectors nil)
@@ -3362,8 +3432,7 @@ b!1" "u!1`length - 1" "0")
    ((norm const-decl "nnreal" nvectors nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (v!1 skolem-const-decl "Vector" nvectors nil)
-    (* const-decl "real" nvectors nil)
+    nil (* const-decl "real" nvectors nil)
     (Vect type-eq-decl nil nvectors nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (>= const-decl "bool" reals nil)
@@ -3382,9 +3451,7 @@ b!1" "u!1`length - 1" "0")
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
-    (sqrt_0 formula-decl nil sqrt "reals/")
+    nil nil (sqrt_0 formula-decl nil sqrt "reals/")
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
     (T_high type-eq-decl nil sigma "reals/")
@@ -3532,8 +3599,7 @@ b!1" "u!1`length - 1" "0")
    ((scal_cancel formula-decl nil nvectors nil)
     (norm_eq_0 formula-decl nil nvectors nil)
     (scal_1 formula-decl nil nvectors nil)
-    (Nz_vector type-eq-decl nil nvectors nil)
-    (v!1 skolem-const-decl "Vector" nvectors nil)
+    (Nz_vector type-eq-decl nil nvectors nil) nil
     (/= const-decl "boolean" notequal nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -3600,7 +3666,7 @@ b!1" "u!1`length - 1" "0")
     (norm const-decl "nnreal" nvectors nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil (caret subtype "nvectors.norm(nvectors.nzv)" "nznum")))
  (caret_TCC2 0
   (caret_TCC2-1 nil 3500755723
    ("" (skosimp :preds? t)
@@ -3708,7 +3774,10 @@ b!1" "u!1`length - 1" "0")
     (nnreal type-eq-decl nil real_types nil)
     (norm const-decl "nnreal" nvectors nil)
     (Nz_vector type-eq-decl nil nvectors nil))
-   nil))
+   nil
+   (caret subtype
+    "nvectors.*((number_fields./(1, nvectors.norm(nvectors.nzv))), nvectors.nzv)"
+    "Normalized")))
  (dot_normalize_TCC1 0
   (dot_normalize_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
    ((* const-decl "real" nvectors nil)
@@ -3718,7 +3787,9 @@ b!1" "u!1`length - 1" "0")
     (^ const-decl "Normalized" nvectors nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (dot_normalize subtype "nvectors.^(nvectors.nzv)"
+    "nvectors.Vect(nvectors.^(nvectors.nzu)`length)")))
  (dot_normalize_TCC2 0
   (dot_normalize_TCC2-1 nil 3500755723 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -3755,7 +3826,10 @@ b!1" "u!1`length - 1" "0")
     (norm const-decl "nnreal" nvectors nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (dot_normalize subtype
+    "(number_fields.*(nvectors.norm(nvectors.nzu), nvectors.norm(nvectors.nzv)))"
+    "nznum")))
  (dot_normalize 0
   (dot_normalize-1 nil 3500793449
    ("" (skosimp*)
@@ -3840,7 +3914,9 @@ b!1" "u!1`length - 1" "0")
     (nnreal type-eq-decl nil real_types nil)
     (norm const-decl "nnreal" nvectors nil)
     (Nz_vector type-eq-decl nil nvectors nil))
-   nil))
+   nil
+   (normalize_normalize subtype "nvectors.^(nvectors.nzv)"
+    "Nz_vector")))
  (normalize_normalize 0
   (normalize_normalize-1 nil 3500793485
    ("" (skosimp*)
@@ -3912,7 +3988,9 @@ b!1" "u!1`length - 1" "0")
    shostak))
  (sqv_minus_dot_TCC1 0
   (sqv_minus_dot_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil)
-   ((* const-decl "Vect(v`length)" nvectors nil)) nil))
+   ((* const-decl "Vect(v`length)" nvectors nil)) nil
+   (sqv_minus_dot subtype "nvectors.v"
+    "nvectors.Vect((nvectors.*(number_fields.*(2, nvectors.a), nvectors.u))`length)")))
  (sqv_minus_dot 0
   (sqv_minus_dot-1 nil 3500793554
    ("" (skosimp*)
@@ -4069,13 +4147,10 @@ b!1" "u!1`length - 1" "0")
         nil))
       nil))
     nil)
-   ((sqv const-decl "nnreal" nvectors nil)
-    (v!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
-    (a!1 skolem-const-decl "real" nvectors nil)
+   ((sqv const-decl "nnreal" nvectors nil) nil nil
     (* const-decl "Vect(v`length)" nvectors nil)
     (- const-decl "Vect(u`length)" nvectors nil)
-    (Vect type-eq-decl nil nvectors nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
+    (Vect type-eq-decl nil nvectors nil) nil
     (Vector type-eq-decl nil nvectors nil)
     (> const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -4200,9 +4275,7 @@ b!1" "u!1`length - 1" "0")
     (sq_0 formula-decl nil sq "reals/")
     (sqv_eq_0 formula-decl nil nvectors nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (/= const-decl "boolean" notequal nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
-    (v!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
+    (/= const-decl "boolean" notequal nil) nil nil
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
@@ -4495,9 +4568,7 @@ b!1" "u!1`length - 1" "0")
     (sq_rew formula-decl nil sq "reals/")
     (sqv_sub formula-decl nil nvectors nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (sqrt_sqv_norm formula-decl nil nvectors nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
-    (v!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
+    (sqrt_sqv_norm formula-decl nil nvectors nil) nil nil
     (- const-decl "Vect(v`length)" nvectors nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
@@ -4549,10 +4620,8 @@ b!1" "u!1`length - 1" "0")
     (fseq type-eq-decl nil fseqs_def "structures/")
     (bool nonempty-type-eq-decl nil booleans nil)
     (> const-decl "bool" reals nil)
-    (Vector type-eq-decl nil nvectors nil)
-    (u!1 skolem-const-decl "Vector" nvectors nil)
-    (Vect type-eq-decl nil nvectors nil)
-    (v!1 skolem-const-decl "Vect(u!1`length)" nvectors nil)
+    (Vector type-eq-decl nil nvectors nil) nil
+    (Vect type-eq-decl nil nvectors nil) nil
     (- const-decl "Vect(u`length)" nvectors nil))
    shostak))
  (norm_ge_comps 0
@@ -4638,8 +4707,7 @@ b!1" "u!1`length - 1" "0")
     (T_high type-eq-decl nil sigma "reals/")
     (sigma def-decl "real" sigma "reals/")
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
+    (int_minus_int_is_int application-judgement "int" integers nil) nil
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -4672,7 +4740,9 @@ b!1" "u!1`length - 1" "0")
     (- const-decl "Vect(u`length)" nvectors nil)
     (* const-decl "Vect(v`length)" nvectors nil)
     (minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (norm_triangle subtype "nvectors.b"
+    "nvectors.Vect((nvectors.*(2, nvectors.a))`length)")))
  (norm_triangle 0
   (norm_triangle-1 nil 3500825007
    ("" (skosimp*)
@@ -4878,9 +4948,7 @@ b!1" "u!1`length - 1" "0")
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (< const-decl "bool" reals nil)
-    (x!1 skolem-const-decl "nat" nvectors nil)
-    (nzv!1 skolem-const-decl "Nz_vector" nvectors nil)
+    (< const-decl "bool" reals nil) nil nil
     (below type-eq-decl nil naturalnumbers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -4888,7 +4956,7 @@ b!1" "u!1`length - 1" "0")
    shostak))
  (nzvec_neq_zero_TCC1 0
   (nzvec_neq_zero_TCC1-1 nil 3500755723 ("" (subtype-tcc) nil nil) nil
-   nil))
+   nil (nzvec_neq_zero subtype "nvectors.nzv`length" "posnat")))
  (nzvec_neq_zero 0
   (nzvec_neq_zero-1 nil 3500826085
    ("" (skosimp*)
@@ -4988,13 +5056,11 @@ b!1" "u!1`length - 1" "0")
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
+    (int_minus_int_is_int application-judgement "int" integers nil) nil
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (zero const-decl "Zero_vect(n)" nvectors nil)
-    (sigma_zero formula-decl nil sigma "reals/")
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
+    (sigma_zero formula-decl nil sigma "reals/") nil
     (* const-decl "real" nvectors nil)
     (Vect type-eq-decl nil nvectors nil)
     (= const-decl "[T, T -> boolean]" equalities nil)

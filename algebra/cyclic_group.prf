@@ -2,7 +2,10 @@
  (IMP_group_TCC1 0
   (IMP_group_TCC1-1 nil 3407083357
    ("" (lemma "fullset_is_group") (("" (propax) nil nil)) nil)
-   ((fullset_is_group formula-decl nil cyclic_group nil)) nil))
+   ((fullset_is_group formula-decl nil cyclic_group nil)) nil
+   (IMP_group assuming
+    "group[cyclic_group.T, cyclic_group.*, cyclic_group.one]"
+    "fullset_is_group: ASSUMPTION group_def[group.T, group.*, group.one].group?(sets[group.T].fullset)")))
  (generated_by_lem 0
   (generated_by_lem-1 nil 3396976913
    ("" (skosimp*)
@@ -193,8 +196,7 @@
     (one_expt formula-decl nil group nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (surjective? const-decl "bool" functions nil)
     (generated_by const-decl "group" group nil)
@@ -317,6 +319,573 @@
     (commutative? const-decl "bool" operator_defs nil))
    nil))
  (cyclic_subgroup 0
+  (cyclic_subgroup-2 "" 3754923813
+   ("" (skosimp*)
+    (("" (case "H!1 = one_group")
+      (("1" (expand "cyclic?" 1)
+        (("1" (inst + "one")
+          (("1" (hide -2 -3)
+            (("1" (replace -1)
+              (("1" (hide -1)
+                (("1" (apply-extensionality 1 :hide? t)
+                  (("1" (expand "one_group")
+                    (("1" (expand "singleton")
+                      (("1" (expand "generated_by")
+                        (("1" (iff 1)
+                          (("1" (prop)
+                            (("1" (inst + "1") (("1" (grind) nil nil))
+                              nil)
+                             ("2" (skosimp*)
+                              (("2"
+                                (replace -1)
+                                (("2"
+                                  (hide -1)
+                                  (("2" (rewrite "one_expt") nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (rewrite "one_in") (("2" (grind) nil nil)) nil))
+          nil))
+        nil)
+       ("2" (expand "cyclic?")
+        (("2" (skosimp*)
+          (("2"
+            (case "(EXISTS (h:T),(m:posnat): H!1(h) AND h /= one AND h = a!1^m)")
+            (("1" (skosimp*)
+              (("1" (name s "min({n: posnat | H!1(a!1^n)})")
+                (("1" (inst + "a!1^s")
+                  (("1" (apply-extensionality 3 :hide? t)
+                    (("1" (iff 1)
+                      (("1" (prop)
+                        (("1" (expand "subgroup?")
+                          (("1" (expand "subset?")
+                            (("1" (assert)
+                              (("1"
+                                (inst?)
+                                (("1"
+                                  (assert)
+                                  (("1"
+                                    (replace -6 -5)
+                                    (("1"
+                                      (expand "generated_by")
+                                      (("1"
+                                        (skosimp*)
+                                        (("1"
+                                          (lemma "euclid_int")
+                                          (("1"
+                                            (inst - "s" "i!1")
+                                            (("1"
+                                              (skosimp*)
+                                              (("1"
+                                                (typepred "r!1")
+                                                (("1"
+                                                  (case
+                                                   "a!1^r!1 = (a!1^i!1)*(a!1^s)^(-q!1)")
+                                                  (("1"
+                                                    (inst + "q!1")
+                                                    (("1"
+                                                      (case "r!1 = 0")
+                                                      (("1"
+                                                        (assert)
+                                                        (("1"
+                                                          (replace -1)
+                                                          (("1"
+                                                            (assert)
+                                                            (("1"
+                                                              (replace
+                                                               -4)
+                                                              (("1"
+                                                                (rewrite
+                                                                 "expt_expt")
+                                                                (("1"
+                                                                  (rewrite
+                                                                   "expt_expt")
+                                                                  nil
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil)
+                                                       ("2"
+                                                        (typepred
+                                                         "min({n: posnat | H!1(a!1 ^ n)})")
+                                                        (("2"
+                                                          (inst
+                                                           -3
+                                                           "r!1")
+                                                          (("1"
+                                                            (assert)
+                                                            (("1"
+                                                              (replace
+                                                               -7)
+                                                              (("1"
+                                                                (lemma
+                                                                 "expt_member")
+                                                                (("1"
+                                                                  (inst
+                                                                   -
+                                                                   "H!1"
+                                                                   "a!1^s"
+                                                                   "-q!1")
+                                                                  (("1"
+                                                                    (assert)
+                                                                    (("1"
+                                                                      (replace
+                                                                       -4)
+                                                                      (("1"
+                                                                        (rewrite
+                                                                         "star_closed")
+                                                                        (("1"
+                                                                          (typepred
+                                                                           "H!1")
+                                                                          (("1"
+                                                                            (hide-all-but
+                                                                             (-1
+                                                                              1))
+                                                                            (("1"
+                                                                              (grind)
+                                                                              nil
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil)
+                                                           ("2"
+                                                            (assert)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil)
+                                                   ("2"
+                                                    (hide
+                                                     -6
+                                                     -7
+                                                     -8
+                                                     2
+                                                     3
+                                                     4)
+                                                    (("2"
+                                                      (case
+                                                       "a!1 ^ i!1 = a!1^(s * q!1 + r!1)")
+                                                      (("1"
+                                                        (hide -3 -4)
+                                                        (("1"
+                                                          (rewrite
+                                                           "expt_mult"
+                                                           -
+                                                           :dir
+                                                           rl)
+                                                          (("1"
+                                                            (rewrite
+                                                             "expt_expt"
+                                                             -
+                                                             :dir
+                                                             rl)
+                                                            (("1"
+                                                              (lemma
+                                                               "cancel_left")
+                                                              (("1"
+                                                                (inst
+                                                                 -
+                                                                 "a!1 ^ i!1"
+                                                                 "(a!1 ^ s) ^ q!1 * a!1 ^ r!1"
+                                                                 "(a!1 ^ s) ^ (-q!1)")
+                                                                (("1"
+                                                                  (flatten)
+                                                                  (("1"
+                                                                    (hide
+                                                                     -1)
+                                                                    (("1"
+                                                                      (split
+                                                                       -1)
+                                                                      (("1"
+                                                                        (case-replace
+                                                                         "(a!1 ^ s) ^ (-q!1) * ((a!1 ^ s) ^ q!1 * a!1 ^ r!1) = a!1^r!1")
+                                                                        (("1"
+                                                                          (hide
+                                                                           -1)
+                                                                          (("1"
+                                                                            (lemma
+                                                                             "cyclic_abelian")
+                                                                            (("1"
+                                                                              (inst
+                                                                               -
+                                                                               "G!1")
+                                                                              (("1"
+                                                                                (assert)
+                                                                                (("1"
+                                                                                  (split
+                                                                                   -1)
+                                                                                  (("1"
+                                                                                    (expand
+                                                                                     "abelian_group?")
+                                                                                    (("1"
+                                                                                      (ground)
+                                                                                      (("1"
+                                                                                        (expand
+                                                                                         "commutative?")
+                                                                                        (("1"
+                                                                                          (assert)
+                                                                                          (("1"
+                                                                                            (expand
+                                                                                             "restrict")
+                                                                                            (("1"
+                                                                                              (assert)
+                                                                                              (("1"
+                                                                                                (inst
+                                                                                                 -
+                                                                                                 "(a!1 ^ s) ^ (-q!1)"
+                                                                                                 "a!1 ^ i!1")
+                                                                                                (("1"
+                                                                                                  (assert)
+                                                                                                  nil
+                                                                                                  nil)
+                                                                                                 ("2"
+                                                                                                  (hide
+                                                                                                   2)
+                                                                                                  (("2"
+                                                                                                    (reveal
+                                                                                                     -10)
+                                                                                                    (("2"
+                                                                                                      (replace
+                                                                                                       -1
+                                                                                                       +)
+                                                                                                      (("2"
+                                                                                                        (assert)
+                                                                                                        (("2"
+                                                                                                          (inst
+                                                                                                           +
+                                                                                                           "i!1")
+                                                                                                          nil
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil)
+                                                                                                 ("3"
+                                                                                                  (reveal
+                                                                                                   -10)
+                                                                                                  (("3"
+                                                                                                    (replace
+                                                                                                     -1
+                                                                                                     +)
+                                                                                                    (("3"
+                                                                                                      (assert)
+                                                                                                      (("3"
+                                                                                                        (inst
+                                                                                                         +
+                                                                                                         "-s*q!1")
+                                                                                                        (("3"
+                                                                                                          (assert)
+                                                                                                          (("3"
+                                                                                                            (rewrite
+                                                                                                             "expt_expt")
+                                                                                                            (("3"
+                                                                                                              (assert)
+                                                                                                              nil
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil)
+                                                                                   ("2"
+                                                                                    (expand
+                                                                                     "cyclic?")
+                                                                                    (("2"
+                                                                                      (reveal
+                                                                                       -9)
+                                                                                      (("2"
+                                                                                        (expand
+                                                                                         "generated_by")
+                                                                                        (("2"
+                                                                                          (assert)
+                                                                                          (("2"
+                                                                                            (inst
+                                                                                             +
+                                                                                             "a!1")
+                                                                                            nil
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil)
+                                                                         ("2"
+                                                                          (assert)
+                                                                          (("2"
+                                                                            (rewrite
+                                                                             "assoc")
+                                                                            (("2"
+                                                                              (rewrite
+                                                                               "expt_neg")
+                                                                              (("2"
+                                                                                (rewrite
+                                                                                 "expt_inv_left")
+                                                                                (("2"
+                                                                                  (assert)
+                                                                                  nil
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil)
+                                                                       ("2"
+                                                                        (propax)
+                                                                        nil
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil)
+                                                       ("2"
+                                                        (assert)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (expand "generated_by")
+                          (("2" (skosimp*)
+                            (("2"
+                              (typepred
+                               "min({n: posnat | H!1(a!1 ^ n)})")
+                              (("2"
+                                (replace -5)
+                                (("2"
+                                  (lemma "expt_member")
+                                  (("2"
+                                    (assert)
+                                    (("2"
+                                      (inst - "H!1" "a!1^s" "i!1")
+                                      (("2" (assert) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (typepred "min({n: posnat | H!1(a!1 ^ n)})")
+                    (("2" (replace -4) (("2" (propax) nil nil)) nil))
+                    nil))
+                  nil)
+                 ("2" (assert)
+                  (("2" (expand "nonempty?")
+                    (("2" (expand "empty?")
+                      (("2" (assert)
+                        (("2" (inst - "m!1") (("2" (assert) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (hide 3)
+              (("2" (apply-extensionality 2 :hide? t)
+                (("2" (expand "one_group")
+                  (("2" (expand "singleton")
+                    (("2" (iff 1)
+                      (("2" (prop)
+                        (("1" (expand "subgroup?")
+                          (("1" (expand "subset?")
+                            (("1" (assert)
+                              (("1"
+                                (inst? -)
+                                (("1"
+                                  (assert)
+                                  (("1"
+                                    (replace -3 -)
+                                    (("1"
+                                      (expand "generated_by")
+                                      (("1"
+                                        (skosimp*)
+                                        (("1"
+                                          (case "i!1 >= 0")
+                                          (("1"
+                                            (inst + "a!1^i!1" "i!1")
+                                            (("1" (assert) nil nil)
+                                             ("2"
+                                              (assert)
+                                              (("2"
+                                                (case-replace
+                                                 "i!1 = 0")
+                                                (("1"
+                                                  (assert)
+                                                  (("1"
+                                                    (grind)
+                                                    nil
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (assert)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil)
+                                           ("2"
+                                            (inst
+                                             +
+                                             "inv(a!1)^i!1"
+                                             "-i!1")
+                                            (("1"
+                                              (rewrite "expt_neg")
+                                              (("1"
+                                                (replace -2)
+                                                (("1"
+                                                  (lemma "inv_in")
+                                                  (("1"
+                                                    (inst
+                                                     -
+                                                     "H!1"
+                                                     "a!1^i!1")
+                                                    (("1"
+                                                      (assert)
+                                                      (("1"
+                                                        (rewrite
+                                                         "inv_expt")
+                                                        (("1"
+                                                          (assert)
+                                                          (("1"
+                                                            (flatten)
+                                                            (("1"
+                                                              (lemma
+                                                               "cancel_left")
+                                                              (("1"
+                                                                (inst
+                                                                 -
+                                                                 "x!1"
+                                                                 "a!1 ^ i!1"
+                                                                 "one")
+                                                                (("1"
+                                                                  (flatten)
+                                                                  (("1"
+                                                                    (hide
+                                                                     -1)
+                                                                    (("1"
+                                                                      (split
+                                                                       -1)
+                                                                      (("1"
+                                                                        (rewrite
+                                                                         "one_left"
+                                                                         -1)
+                                                                        (("1"
+                                                                          (replace
+                                                                           -4
+                                                                           -
+                                                                           :dir
+                                                                           rl)
+                                                                          (("1"
+                                                                            (rewrite
+                                                                             "expt_inv_left")
+                                                                            (("1"
+                                                                              (assert)
+                                                                              nil
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil)
+                                                                       ("2"
+                                                                        (propax)
+                                                                        nil
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2" (assert) nil nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (assert)
+                          (("2" (replace -1)
+                            (("2" (rewrite "one_in")
+                              (("2"
+                                (typepred "H!1")
+                                (("2" (grind) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (cyclic_subgroup-1 nil 3407147440
    ("" (skosimp*)
     (("" (case "H!1 = one_group")
@@ -907,6 +1476,17 @@
     (^ const-decl "T" group nil)
     (left_identity formula-decl nil monad nil)
     (power def-decl "T" monoid_def nil)
+    (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
+     sets_lemmas nil)
+    (nonempty_singleton_finite application-judgement
+     "non_empty_finite_set" finite_sets nil)
+    (member const-decl "bool" sets nil)
+    (star_closed? const-decl "bool" groupoid_def nil)
+    (right_identity formula-decl nil monad nil)
+    (restrict const-decl "R" restrict nil)
+    (identity? const-decl "bool" operator_defs nil)
+    (subset? const-decl "bool" sets nil)
+    (subgroup? const-decl "bool" group_def nil)
     (one_in formula-decl nil monad nil)
     (monad? const-decl "bool" monad_def nil)
     (monad nonempty-type-eq-decl nil monad nil)
@@ -922,23 +1502,22 @@
     (G!1 skolem-const-decl "group[T, *, one]" cyclic_group nil)
     (a!1 skolem-const-decl "(G!1)" cyclic_group nil)
     (s skolem-const-decl
-     "{a | H!1(a!1 ^ a) AND (FORALL (x: posnat): H!1(a!1 ^ x) IMPLIES a <= x)}"
+     "{a | H!1(a!1 ^ a) AND FORALL (x: posnat): H!1(a!1 ^ x) IMPLIES a <= x}"
      cyclic_group nil)
-    (subgroup? const-decl "bool" group_def nil)
-    (member const-decl "bool" sets nil)
     (euclid_int formula-decl nil euclidean_division nil)
     (minus_int_is_int application-judgement "int" integers nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (expt_expt formula-decl nil group nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (r!1 skolem-const-decl "mod(s)" cyclic_group nil)
+    (associative? const-decl "bool" operator_defs nil)
+    (monoid? const-decl "bool" monoid_def nil)
+    (inv_exists? const-decl "bool" group_def nil)
     (star_closed formula-decl nil groupoid nil)
-    (star_closed? const-decl "bool" groupoid_def nil)
     (groupoid nonempty-type-eq-decl nil groupoid nil)
     (expt_member formula-decl nil group nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -951,7 +1530,6 @@
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (i!1 skolem-const-decl "int" cyclic_group nil)
     (q!1 skolem-const-decl "int" cyclic_group nil)
-    (restrict const-decl "R" restrict nil)
     (commutative? const-decl "bool" operator_defs nil)
     (abelian_group? const-decl "bool" group_def nil)
     (cyclic_abelian formula-decl nil cyclic_group nil)
@@ -959,7 +1537,6 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (subset? const-decl "bool" sets nil)
     (min const-decl "{a | S(a) AND (FORALL x: S(x) IMPLIES a <= x)}"
          min_nat nil)
     (<= const-decl "bool" reals nil)

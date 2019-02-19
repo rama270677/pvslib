@@ -1,10 +1,14 @@
 (sigma_props
  (sigma_unfolding_theory_instantiation_TCC1 0
   (sigma_unfolding_theory_instantiation_TCC1-1 nil 3688123610
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (sigma_unfolding_theory_instantiation subtype "sigma_props.low"
+    "T_low[subrange(low_th, 1 + high_th)]")))
  (sigma_unfolding_theory_instantiation_TCC2 0
   (sigma_unfolding_theory_instantiation_TCC2-1 nil 3688123610
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (sigma_unfolding_theory_instantiation subtype "sigma_props.high"
+    "T_high[subrange(low_th, 1 + high_th)]")))
  (sigma_unfolding_theory_instantiation_TCC3 0
   (sigma_unfolding_theory_instantiation_TCC3-1 nil 3688123610
    ("" (assuming-tcc) nil nil)
@@ -35,13 +39,20 @@
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (sigma_unfolding_theory_instantiation assuming
+    "sigma[integers.subrange(sigma_props.low_th, (number_fields.+)(1, sigma_props.high_th))]"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (sigma_unfolding_theory_instantiation_TCC4 0
   (sigma_unfolding_theory_instantiation_TCC4-1 nil 3688123610
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (sigma_unfolding_theory_instantiation subtype "sigma_props.low"
+    "T_low[subrange(low_th, high_th)]")))
  (sigma_unfolding_theory_instantiation_TCC5 0
   (sigma_unfolding_theory_instantiation_TCC5-1 nil 3688123610
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (sigma_unfolding_theory_instantiation subtype "sigma_props.high"
+    "T_high[subrange(low_th, high_th)]")))
  (sigma_unfolding_theory_instantiation_TCC6 0
   (sigma_unfolding_theory_instantiation_TCC6-1 nil 3688123610
    ("" (assuming-tcc) nil nil)
@@ -68,7 +79,10 @@
      real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (sigma_unfolding_theory_instantiation assuming
+    "sigma[integers.subrange(sigma_props.low_th, sigma_props.high_th)]"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (sigma_unfolding_theory_instantiation 0
   (sigma_unfolding_theory_instantiation-1 nil 3688123611
    ("" (skeep :preds? t)
@@ -161,10 +175,12 @@
    shostak))
  (sigma_constrains_theory_TCC1 0
   (sigma_constrains_theory_TCC1-1 nil 3688123610
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (sigma_constrains_theory subtype "sigma_props.low" "T_low[nat]")))
  (sigma_constrains_theory_TCC2 0
   (sigma_constrains_theory_TCC2-1 nil 3688123610
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (sigma_constrains_theory subtype "sigma_props.high" "T_high[nat]")))
  (sigma_constrains_theory_TCC3 0
   (sigma_constrains_theory_TCC3-1 nil 3688123610
    ("" (assuming-tcc) nil nil)
@@ -189,13 +205,19 @@
      real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (sigma_constrains_theory assuming "sigma[nat]"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (sigma_constrains_theory_TCC4 0
   (sigma_constrains_theory_TCC4-1 nil 3688123610
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (sigma_constrains_theory subtype "sigma_props.low"
+    "T_low[subrange(low, high)]")))
  (sigma_constrains_theory_TCC5 0
   (sigma_constrains_theory_TCC5-1 nil 3688123610
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (sigma_constrains_theory subtype "sigma_props.high"
+    "T_high[subrange(low, high)]")))
  (sigma_constrains_theory_TCC6 0
   (sigma_constrains_theory_TCC6-1 nil 3688123610
    ("" (assuming-tcc) nil nil)
@@ -222,8 +244,49 @@
      real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (sigma_constrains_theory assuming
+    "sigma[integers.subrange(sigma_props.low, sigma_props.high)]"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (sigma_constrains_theory 0
+  (sigma_constrains_theory-2 "" 3744690915
+   ("" (skeep)
+    (("" (name "diff" "high-low")
+      (("" (case "high = low + diff")
+        (("1" (hide -2)
+          (("1" (replace -1 * :actuals? t :hide? t)
+            (("1" (generalize "diff" "diffG" "nat" :subterms-only? nil)
+              (("1" (expand "sigma" 2) (("1" (assert) nil nil)) nil)
+               ("2" (induct "diffG")
+                (("1" (expand "sigma" 1)
+                  (("1" (expand "sigma" 1) (("1" (propax) nil nil))
+                    nil))
+                  nil)
+                 ("2" (skeep)
+                  (("2" (expand "sigma" 1)
+                    (("2" (replace -1 1 :hide? t)
+                      (("2"
+                        (lemma "sigma_unfolding_theory_instantiation")
+                        (("2"
+                          (inst -1 "low" "low" "low + j" "low + j" "F")
+                          (("2" (assert) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("3" (skeep)
+                  (("3" (skeep) (("3" (assert) nil nil)) nil)) nil))
+                nil)
+               ("3" (skeep)
+                (("3" (skeep) (("3" (assert) nil nil)) nil)) nil))
+              nil))
+            nil))
+          nil)
+         ("2" (assert) nil nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (sigma_constrains_theory-1 nil 3688123699
    ("" (skeep)
     (("" (name "diff" "high-low")
@@ -315,33 +378,29 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (T_low type-eq-decl nil sigma nil)
+    (T_high type-eq-decl nil sigma nil)
+    (sigma def-decl "real" sigma nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (subrange type-eq-decl nil integers nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (low skolem-const-decl "nat" sigma_props nil)
-    (pred type-eq-decl nil defined_types nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (sigma_unfolding_theory_instantiation formula-decl nil sigma_props
-     nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (diff skolem-const-decl "int" sigma_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sigma def-decl "real" sigma nil)
-    (T_high type-eq-decl nil sigma nil)
-    (T_low type-eq-decl nil sigma nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (integer nonempty-type-from-decl nil integers nil)
-    (high skolem-const-decl "{high: nat | low <= high}" sigma_props
+    (diff skolem-const-decl "int" sigma_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (sigma_unfolding_theory_instantiation formula-decl nil sigma_props
      nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (pred type-eq-decl nil defined_types nil)
+    (low skolem-const-decl "nat" sigma_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (int_plus_int_is_int application-judgement "int" integers nil))
    shostak)))

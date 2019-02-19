@@ -2,7 +2,10 @@
  (IMP_group_TCC1 0
   (IMP_group_TCC1-1 nil 3529777709
    ("" (rewrite "fullset_is_group") nil nil)
-   ((fullset_is_group formula-decl nil group_action nil)) nil))
+   ((fullset_is_group formula-decl nil group_action nil)) nil
+   (IMP_group assuming
+    "algebra@group[group_action.T, group_action.*, group_action.one]"
+    "fullset_is_group: ASSUMPTION group_def[group.T, group.*, group.one].group?(sets[group.T].fullset)")))
  (group_action?_TCC1 0
   (group_action?_TCC1-1 nil 3529395416
    ("" (skosimp) (("" (rewrite "one_in") nil nil)) nil)
@@ -17,7 +20,7 @@
     (T formal-type-decl nil group_action nil)
     (* formal-const-decl "[T, T -> T]" group_action nil)
     (one formal-const-decl "T" group_action nil))
-   nil))
+   nil (group_action? subtype "group_action.one" "(group_action.G)")))
  (group_action?_TCC2 0
   (group_action?_TCC2-1 nil 3529395416
    ("" (skosimp) (("" (rewrite "product_in") nil nil)) nil)
@@ -30,7 +33,10 @@
     (T formal-type-decl nil group_action nil)
     (* formal-const-decl "[T, T -> T]" group_action nil)
     (one formal-const-decl "T" group_action nil))
-   nil))
+   nil
+   (group_action? subtype
+    "group_action.*(group_action.g1, group_action.g2)"
+    "(group_action.G)")))
  (stabilizer_TCC1 0
   (stabilizer_TCC1-1 nil 3529496770 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -57,7 +63,10 @@
     (extend const-decl "R" extend nil)
     (member const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil))
-   nil))
+   nil
+   (stabilizer subtype
+    "extend[group_action.T, (group_action.G), booleans.bool, booleans.FALSE].extend({g: (group_action.G) | group_action.f(g, group_action.x) = group_action.x})"
+    "{S: sets[group_action.T].set | sets[group_action.T].subset?(S, group_action.G)}")))
  (orbit_TCC1 0
   (orbit_TCC1-1 nil 3529607419 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -84,7 +93,10 @@
     (extend const-decl "R" extend nil)
     (member const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil))
-   nil))
+   nil
+   (orbit subtype
+    "extend[group_action.T1, (group_action.X), booleans.bool, booleans.FALSE].extend({y: (group_action.X) | EXISTS (g: (group_action.G)): y = group_action.f(g, group_action.x)})"
+    "{Y: sets[group_action.T1].set | sets[group_action.T1].subset?(Y, group_action.X)}")))
  (Fix_TCC1 0
   (Fix_TCC1-1 nil 3529669814 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -110,7 +122,10 @@
     (extend const-decl "R" extend nil)
     (member const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil))
-   nil))
+   nil
+   (Fix subtype
+    "extend[group_action.T1, (group_action.X), booleans.bool, booleans.FALSE].extend({x: (group_action.X) | FORALL (g: (group_action.G)): group_action.f(g, x) = x})"
+    "{Y: sets[group_action.T1].set | sets[group_action.T1].subset?(Y, group_action.X)}")))
  (stabilizer_is_subgroup 0
   (stabilizer_is_subgroup-1 nil 3529497669
    ("" (skosimp*)
@@ -234,13 +249,6 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (inv const-decl "{y | x * y = one AND y * x = one}" group
      "algebra/")
-    (x!2 skolem-const-decl "(stabilizer(G!1, X!1)(f!1, x!1))"
-     group_action nil)
-    (x!1 skolem-const-decl "(X!1)" group_action nil)
-    (f!1 skolem-const-decl "F(G!1, X!1)" group_action nil)
-    (X!1 skolem-const-decl "set[T1]" group_action nil)
-    (inv macro-decl "T" normal_subgroups "algebra/")
-    (G!1 skolem-const-decl "group[T, *, one]" group_action nil)
     (inv_closed? const-decl "bool" group "algebra/")
     (stabilizer const-decl "{S: set[T] | subset?(S, G)}" group_action
      nil)
@@ -357,7 +365,7 @@
     (singleton? const-decl "bool" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
+     "non_empty_finite_set" countable_props "sets_aux/")
     (finite_extend application-judgement "finite_set[T]"
      extend_set_props nil)
     (nonempty_extend application-judgement "(nonempty?[T])"
@@ -625,14 +633,13 @@
     (subset? const-decl "bool" sets nil)
     (Fix const-decl "{Y: set[T1] | subset?(Y, X)}" group_action nil)
     (G!1 skolem-const-decl "group[T, *, one]" group_action nil)
-    (inv macro-decl "T" normal_subgroups "algebra/")
-    (g!1 skolem-const-decl "(G!1)" group_action nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
     (inv const-decl "{y | x * y = one AND y * x = one}" group
      "algebra/")
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (g!1 skolem-const-decl "(G!1)" group_action nil)
     (inv_left formula-decl nil group "algebra/")
-    (inv_in formula-decl nil group "algebra/")
     (group_action? const-decl "bool" group_action nil)
+    (inv_in formula-decl nil group "algebra/")
     (TRUE const-decl "bool" booleans nil)
     (singleton_iff_Fix formula-decl nil group_action nil)
     (nonempty_extend application-judgement "(nonempty?[T])"
@@ -640,7 +647,7 @@
     (finite_extend application-judgement "finite_set[T]"
      extend_set_props nil)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
+     "non_empty_finite_set" countable_props "sets_aux/")
     (= const-decl "[T, T -> boolean]" equalities nil)
     (FALSE const-decl "bool" booleans nil)
     (singleton? const-decl "bool" sets nil)
@@ -1356,7 +1363,6 @@
      "algebra/")
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (inv_left formula-decl nil group "algebra/")
-    (inv macro-decl "T" normal_subgroups "algebra/")
     (g!2 skolem-const-decl "(G!1)" group_action nil)
     (one_right formula-decl nil group "algebra/")
     (inv_in formula-decl nil group "algebra/")
@@ -1571,7 +1577,10 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil group_action nil))
-   nil))
+   nil
+   (orbits_eq_index_aux subtype
+    "group_action.stabilizer(group_action.G, group_action.X)(group_action.f, group_action.x)"
+    "group[group_action.T, group_action.*, group_action.one].subgroup(group_action.G)")))
  (orbits_eq_index_aux 0
   (orbits_eq_index_aux-1 nil 3529617585
    ("" (skosimp)
@@ -1904,7 +1913,10 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil group_action nil))
-   nil))
+   nil
+   (orbits_eq_index subtype
+    "group_action.stabilizer(group_action.G, group_action.X)(group_action.f, group_action.x)"
+    "group[group_action.T, group_action.*, group_action.one].subgroup(group_action.G)")))
  (orbits_eq_index_TCC2 0
   (orbits_eq_index_TCC2-1 nil 3529497668
    ("" (skosimp*)
@@ -1924,7 +1936,10 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil group_action nil))
-   nil))
+   nil
+   (orbits_eq_index subtype
+    "group_action.orbit(group_action.G, group_action.X)(group_action.f, group_action.x)"
+    "finite_set[T1]")))
  (orbits_eq_index 0
   (orbits_eq_index-1 nil 3529612554
    ("" (skosimp)
@@ -1969,6 +1984,58 @@
     (orbits_eq_index_aux formula-decl nil group_action nil))
    shostak))
  (counting_formula_TCC1 0
+  (counting_formula_TCC1-2 "" 3758135808
+   ("" (skosimp)
+    (("" (lemma "card_partition_TCC2")
+      (("" (inst?)
+        (("1" (assert)
+          (("1" (hide 2)
+            (("1" (expand "nonempty?")
+              (("1" (prop)
+                (("1" (lemma "orbits_nonempty")
+                  (("1" (inst?)
+                    (("1" (assert)
+                      (("1" (expand "nonempty?")
+                        (("1" (propax) nil nil)) nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (skosimp)
+                  (("2" (typepred "A!1")
+                    (("2" (expand "orbits")
+                      (("2" (skosimp)
+                        (("2" (replaces -1)
+                          (("2" (lemma "orbit_nonempty")
+                            (("2" (inst?)
+                              (("2"
+                                (assert)
+                                (("2"
+                                  (expand "nonempty?")
+                                  (("2"
+                                    (rewrite "empty_card")
+                                    nil
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (hide 2) (("2" (rewrite "orbits_partition") nil nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (counting_formula subtype "finite_sets[group_action.T1].card"
+    "(convergence_set[finite_set[T1]].convergent?(restrict[setof[T1], finite_set[T1], booleans.bool].restrict(group_action.orbits(group_action.G, group_action.X)(group_action.f))))"))
   (counting_formula_TCC1-1 nil 3529497668
    ("" (skosimp)
     (("" (lemma "card_partition_TCC2")
@@ -2025,7 +2092,6 @@
     (card_partition_TCC2 subtype-tcc nil class_equation_scaf nil)
     (orbits_partition formula-decl nil group_action nil)
     (nonempty? const-decl "bool" sets nil)
-    (orbits_nonempty formula-decl nil group_action nil)
     (TRUE const-decl "bool" booleans nil)
     (empty_card formula-decl nil finite_sets nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -2034,6 +2100,7 @@
     (orbit const-decl "{Y: set[T1] | subset?(Y, X)}" group_action nil)
     (orbit_nonempty formula-decl nil group_action nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
+    (orbits_nonempty formula-decl nil group_action nil)
     (finite_partition type-eq-decl nil lagrange_scaf "algebra/")
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
@@ -2048,7 +2115,9 @@
     (G!1 skolem-const-decl "group[T, *, one]" group_action nil)
     (X!1 skolem-const-decl "set[T1]" group_action nil)
     (f!1 skolem-const-decl "F(G!1, X!1)" group_action nil))
-   nil))
+   nil
+   (counting_formula subtype "finite_sets[group_action.T1].card"
+    "(convergence_set[finite_set[T1]].convergent?(restrict[setof[T1], finite_set[T1], booleans.bool].restrict(group_action.orbits(group_action.G, group_action.X)(group_action.f))))")))
  (counting_formula 0
   (counting_formula-1 nil 3529521666
    ("" (skosimp*)
@@ -2148,7 +2217,10 @@
     (set type-eq-decl nil sets nil)
     (is_finite const-decl "bool" finite_sets nil)
     (X!1 skolem-const-decl "set[T1]" group_action nil))
-   nil))
+   nil
+   (class_equation subtype
+    "group_action.Fix(group_action.G, group_action.X)(group_action.f)"
+    "finite_set[T1]")))
  (class_equation_TCC2 0
   (class_equation_TCC2-1 nil 3529669814
    ("" (skosimp)
@@ -2234,33 +2306,32 @@
     (boolean nonempty-type-decl nil booleans nil)
     (T1 formal-type-decl nil group_action nil)
     (member const-decl "bool" sets nil)
-    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (Card const-decl "nat" finite_sets nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
+    (finite_emptyset name-judgement "finite_set" finite_sets nil)
+    (finite_emptyset name-judgement "finite_set[T]"
+     finite_sets_inductions "finite_sets/")
+    (finite_emptyset name-judgement "finite_set" countable_props
+     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set" group_action nil)
+    (convergent_empty formula-decl nil convergence_set "sigma_set/")
+    (number nonempty-type-decl nil numbers nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number nonempty-type-decl nil numbers nil)
-    (convergent_empty formula-decl nil convergence_set "sigma_set/")
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (Card const-decl "nat" finite_sets nil)
+    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
     (emptyset const-decl "set" sets nil)
     (restrict const-decl "R" restrict nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_set type-eq-decl nil finite_sets nil)
     (is_finite const-decl "bool" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[finite_set[T1]]"
-     group_action nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]"
-     finite_sets_inductions "finite_sets/")
-    (finite_emptyset name-judgement "finite_set" finite_sets nil)
     (f!1 skolem-const-decl "F(G!1, X!1)" group_action nil)
     (X!1 skolem-const-decl "set[T1]" group_action nil)
     (G!1 skolem-const-decl "group[T, *, one]" group_action nil)
@@ -2277,7 +2348,9 @@
     (nonempty? const-decl "bool" sets nil)
     (orbits_nFix_partition formula-decl nil group_action nil)
     (card_partition_TCC2 subtype-tcc nil class_equation_scaf nil))
-   nil))
+   nil
+   (class_equation subtype "finite_sets[group_action.T1].card"
+    "(convergence_set[finite_set[T1]].convergent?(restrict[setof[T1], finite_set[T1], booleans.bool].restrict(group_action.orbits_nFix(group_action.G, group_action.X)(group_action.f))))")))
  (class_equation 0
   (class_equation-1 nil 3529674998
    ("" (skosimp*)
@@ -2447,21 +2520,27 @@
     (extend const-decl "R" extend nil)
     (orbits const-decl "setofsets[T1]" group_action nil)
     (orbit const-decl "{Y: set[T1] | subset?(Y, X)}" group_action nil)
-    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (Card const-decl "nat" finite_sets nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
+    (finite_emptyset name-judgement "finite_set" finite_sets nil)
+    (finite_emptyset name-judgement "finite_set[T]"
+     finite_sets_inductions "finite_sets/")
+    (finite_emptyset name-judgement "finite_set" countable_props
+     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set" group_action nil)
+    (sigma_empty formula-decl nil sigma_set "sigma_set/")
+    (number nonempty-type-decl nil numbers nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number nonempty-type-decl nil numbers nil)
-    (sigma_empty formula-decl nil sigma_set "sigma_set/")
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (Card const-decl "nat" finite_sets nil)
+    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
     (empty_iff_eq_Fix formula-decl nil group_action nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
@@ -2470,13 +2549,6 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_set type-eq-decl nil finite_sets nil)
     (is_finite const-decl "bool" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[finite_set[T1]]"
-     group_action nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]"
-     finite_sets_inductions "finite_sets/")
-    (finite_emptyset name-judgement "finite_set" finite_sets nil)
     (orbits_is_union formula-decl nil group_action nil)
     (Union_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
@@ -2527,13 +2599,20 @@
     (one formal-const-decl "T" group_action nil)
     (group? const-decl "bool" group_def "algebra/")
     (group nonempty-type-eq-decl nil group "algebra/"))
-   nil))
+   nil
+   (Fix_congruence subtype "group_action.G"
+    "finite_monad[T, *, one]")))
  (Fix_congruence_TCC2 0
   (Fix_congruence_TCC2-1 nil 3529686733 ("" (subtype-tcc) nil nil)
    ((injective? const-decl "bool" functions nil)
     (is_finite const-decl "bool" finite_sets nil)
+    (one formal-const-decl "T" group_action nil)
+    (* formal-const-decl "[T, T -> T]" group_action nil)
+    (T formal-type-decl nil group_action nil)
     (finite_group? const-decl "bool" group_def "algebra/"))
-   nil))
+   nil
+   (Fix_congruence subtype "group_action.n"
+    "{i: integers.int | booleans.OR(group_action.p /= 0, reals.>=(i, 0))}")))
  (Fix_congruence 0
   (Fix_congruence-1 nil 3529686786
    ("" (skosimp*)
@@ -2938,7 +3017,6 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (/= const-decl "boolean" notequal nil)
     (^ const-decl "real" exponentiation nil)
@@ -2956,8 +3034,6 @@
     (int_exp judgement-tcc nil exponentiation nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (left_coset_one formula-decl nil cosets "algebra/")
     (one_in formula-decl nil monad "algebra/")
     (monad? const-decl "bool" monad_def "algebra/")

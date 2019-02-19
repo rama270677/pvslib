@@ -257,27 +257,29 @@ rational number up to the PRECISION-1 decimal."
 			 val)
 	       (ia-error (format nil "Don't know how to translate expression ~a" (args2 expr))))))
 	  ((if-expr? expr)
-	   (if (is-bool-type (type expr))
-	       (format nil "BITE(~a,~a,~a)"
-		       (ia-interval-expr-rec (nth 0 (arguments expr)) n vars subs extended localvars)
-		       (ia-interval-expr-rec (nth 1 (arguments expr)) n vars subs extended localvars)
-		       (ia-interval-expr-rec (nth 2 (arguments expr)) n vars subs extended localvars))
-	     (ia-error (format nil "IF-THEN-ELSE construct ~a is unsupported" expr))))
+	   (let ((opl (ia-idsubs? "*bite*" subs)))
+	     (if (and (is-bool-type (type expr)) opl)
+		 (format nil "~a(~a,~a,~a)" (cadr opl)
+			 (ia-interval-expr-rec (nth 0 (arguments expr)) n vars subs localvars)
+			 (ia-interval-expr-rec (nth 1 (arguments expr)) n vars subs localvars)
+			 (ia-interval-expr-rec (nth 2 (arguments expr)) n vars subs localvars))
+	       (ia-error (format nil "Don't know how to translate IF-THEN-ELSE")))))
 	  ((let-expr? expr)
-	   (if (or (is-bool-type (type expr)) (is-number-type (type expr)))
-	       (let* ((op  (operator expr))
-		      (typ (domain (type op))))
-		 (if (or (is-number-type typ) (and (is-bool-type (type expr))
-						   (is-bool-type typ)))
-		     (let* ((vt  (cons (id (car (bindings op))) typ))
-			    (xm  (ia-interval-expr-rec (argument expr) n vars subs extended localvars))
-			    (nm  (freshname (format nil "V_~a" (length *ia-let-names*)))))
-		       (setq *ia-let-names* (append *ia-let-names* (list (cons nm xm))))
-		       (format nil "~:[~;B~]LETIN(~a,~a)" (is-bool-type (type expr)) nm
-			       (ia-interval-expr-rec (expression op) n vars subs extended
-						     (cons vt localvars))))
-		   (ia-error (format nil "LET-IN construct ~a is unsupported" expr))))
-	     (ia-error (format nil "LET-IN construct ~a is unsupported" expr))))
+	   (let ((opl (cond ((is-bool-type (type expr))  (ia-idsubs? "*bletin*" subs))
+			    ((is-number-type (type expr)) (ia-idsubs? "*letin*" subs)))))
+	     (if opl
+		 (let* ((op  (operator expr))
+			(typ (domain (type op))))
+		   (if (or (is-number-type typ) (and (is-bool-type (type expr))
+						     (is-bool-type typ)))
+		       (let* ((vt  (cons (id (car (bindings op))) typ))
+			      (xm  (ia-interval-expr-rec (argument expr) n vars subs localvars))
+			      (nm  (freshname (format nil "V_~a" (length *ia-let-names*)))))
+			 (setq *ia-let-names* (append *ia-let-names* (list (cons nm xm))))
+			 (format nil "~a(~a,~a)" (cadr opl) nm
+				 (ia-interval-expr-rec (expression op) n vars subs (cons vt localvars))))
+		     (ia-error (format nil "Don't know how to translate LET-IN"))))
+	       (ia-error (format nil "Don't know how to translate LET-IN")))))
 	  ((arg-tuple-expr? expr)
 	   (format nil "~{~a~^,~}"
 		   (mapcar #'(lambda(x)(ia-interval-expr-rec x n vars subs extended localvars))
@@ -939,34 +941,3 @@ deep embedding of the original expression is correct. The proof of
 this fact is trivial from a logical point of view, but requires
 unfolding of several definitions which is time consuming in PVS."
   "Computing minmax values of expression ~a,~%via interval arithmetic")
-
-(defstep numerical_dom_info (expr 
-		    &optional (precision 3) (maxdepth 10)
-		    min? max?
-		    vars 
-		    subs
-		    dirvar
-		    verbose?
-		    label
-		    (equiv? t))
-  (gbandb_numerical__$ expr precision maxdepth min? max? vars subs dirvar verbose?
-		       label equiv?
-		       ;; required-theories:
-		       (("IntervalStrategies4Q__") "This strategy requires importing either interval_arith@strategies4Q (for rational expressions) or interval_arith@strategies (for real-valued expressions) for its proper operation")
-		       ;; pvsexpr-to-strobj
-		       ia-interval-expr
-		       ;; bandb-function-name
-		       "numerical_dom_info"
-		       ;; bandb soundness theorem name
-		       "numerical_dom_info_soundness"
-		       )
-  "" "")
-
-(defun is-number-type (type)
-  (or (and (type-name? type)
-           (equal type *number*))
-      (and (subtype? type)
-	   (is-number-type (supertype type)))))
-
-(defun is-number-expr (expr)
-  (is-number-type (type expr)))

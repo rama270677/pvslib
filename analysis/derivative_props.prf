@@ -19,12 +19,16 @@
     (T_pred const-decl "[real -> boolean]" derivative_props nil)
     (T formal-subtype-decl nil derivative_props nil)
     (connected_domain formula-decl nil derivative_props nil))
-   nil))
+   nil
+   (IMP_derivatives_alt assuming "derivatives_alt[T]"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (IMP_derivatives_alt_TCC2 0
   (IMP_derivatives_alt_TCC2-1 nil 3471618864
    ("" (lemma not_one_element)
     (("" (expand "not_one_element?") (("" (propax) nil nil)) nil)) nil)
-   ((not_one_element formula-decl nil derivative_props nil)) nil))
+   ((not_one_element formula-decl nil derivative_props nil)) nil
+   (IMP_derivatives_alt assuming "derivatives_alt[T]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (deriv_domain 0
   (deriv_domain-1 nil 3472398507
    ("" (lemma "connected_deriv_domain[T]")
@@ -392,20 +396,31 @@
     (minus_real_is_real application-judgement "real" reals nil))
    nil))
  (mean_value_aux_TCC1 0
+  (mean_value_aux_TCC1-2 "" 3755981743
+   ("" (skosimp*)
+    (("" (expand "derivable?")
+      (("" (expand "derivable?") (("" (inst?) nil nil)) nil)) nil))
+    nil)
+   nil shostak
+   (mean_value_aux subtype "derivative_props.c"
+    "{x | derivatives_def[T].derivable?(derivative_props.f, x)}"))
   (mean_value_aux_TCC1-1 nil 3297598424
    ("" (skosimp*)
     (("" (expand "derivable?" -3) (("" (inst?) nil nil)) nil)) nil)
-   ((derivable? const-decl "bool" derivatives nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
+   ((derivable? const-decl "bool" derivatives_def nil)
+    (derivable? const-decl "bool" derivatives nil)
+    (T formal-subtype-decl nil derivative_props nil)
+    (T_pred const-decl "[real -> boolean]" derivative_props nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (T_pred const-decl "[real -> boolean]" derivative_props nil)
-    (T formal-subtype-decl nil derivative_props nil))
-   nil))
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil))
+   nil
+   (mean_value_aux subtype "derivative_props.c"
+    "{x | derivatives_def[T].derivable?(derivative_props.f, x)}")))
  (mean_value_aux 0
   (mean_value_aux-1 nil 3297598424
    ("" (skosimp)
@@ -566,7 +581,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (T_pred const-decl "[real -> boolean]" derivative_props nil)
     (T formal-subtype-decl nil derivative_props nil))
-   nil))
+   nil
+   (mean_value subtype "derivative_props.c"
+    "{x | derivatives_def[T].derivable?(derivative_props.f, x)}")))
  (mean_value 0
   (mean_value-2 nil 3445340249
    ("" (skosimp)
@@ -634,6 +651,9 @@
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (id_fun_continuous name-judgement "continuous_fun"
+     continuous_functions nil)
+    (derivable_id name-judgement "deriv_fun" derivatives nil)
     (diff_derivable_fun formula-decl nil derivatives nil)
     (scal_derivable formula-decl nil derivatives_def nil)
     (diff_derivable formula-decl nil derivatives_def nil)
@@ -651,25 +671,23 @@
     (derivable? const-decl "bool" derivatives nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (id_fun_continuous name-judgement "continuous_fun"
-     continuous_functions nil)
-    (derivable_id name-judgement "deriv_fun" derivatives nil)
-    (derivable_const application-judgement "deriv_fun" derivatives nil)
+    (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
+    (I const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (- const-decl "[T -> real]" real_fun_ops "reals/")
+    (mean_value_aux formula-decl nil derivative_props nil)
+    (derivable_scal application-judgement "deriv_fun" derivatives nil)
+    (derivable_diff application-judgement "deriv_fun" derivatives nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
     (constant_seq1 application-judgement "(convergent?)"
      convergence_ops nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (derivable_diff application-judgement "deriv_fun" derivatives nil)
-    (derivable_scal application-judgement "deriv_fun" derivatives nil)
-    (mean_value_aux formula-decl nil derivative_props nil)
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (/= const-decl "boolean" notequal nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (bijective? const-decl "bool" functions nil)
-    (I const-decl "(bijective?[T, T])" identity nil)
-    (const_fun const-decl "[T -> real]" real_fun_ops "reals/"))
+    (derivable_const application-judgement "deriv_fun" derivatives
+     nil))
    nil)
   (mean_value-1 nil 3297598424
    ("" (skosimp)
@@ -761,7 +779,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (T_pred const-decl "[real -> boolean]" derivative_props nil)
     (T formal-subtype-decl nil derivative_props nil))
-   shostak))
+   shostak
+   (mean_value_abs subtype "derivative_props.c"
+    "{x | derivatives_def[T].derivable?(derivative_props.f, x)}")))
  (mean_value_abs 0
   (mean_value_abs-1 nil 3299344268
    ("" (skosimp*)
@@ -867,7 +887,6 @@
       nil))
     nil)
    ((mean_value formula-decl nil derivative_props nil)
-    (minus_real_is_real application-judgement "real" reals nil)
     (abs_neg formula-decl nil abs_lems "reals/")
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (>= const-decl "bool" reals nil)
@@ -882,7 +901,7 @@
      real_props nil)
     (abs_mult formula-decl nil real_props nil)
     (abs_abs formula-decl nil real_props nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -923,7 +942,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (nonneg_derivative subtype "derivative_props.x"
+    "{x | derivatives_def[T].derivable?(derivative_props.g, x)}")))
  (nonneg_derivative 0
   (nonneg_derivative-1 nil 3297598424
    ("" (skolem-typepred)
@@ -2303,7 +2324,10 @@
    nil))
  (derivative_alt_TCC1 0
   (derivative_alt_TCC1-1 nil 3471267395 ("" (subtype-tcc) nil nil) nil
-   nil))
+   nil
+   (derivative_alt subtype
+    "((number_fields.-)(derivative_props.y, derivative_props.x))"
+    "nznum")))
  (derivative_alt 0
   (derivative_alt-1 nil 3471267395
    ("" (skosimp*)

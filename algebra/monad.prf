@@ -7,7 +7,8 @@
  (monad_TCC1 0
   (monad_TCC1-1 nil 3294071529
    ("" (lemma "fullset_is_monad") (("" (propax) nil nil)) nil)
-   ((fullset_is_monad formula-decl nil monad nil)) shostak))
+   ((fullset_is_monad formula-decl nil monad nil)) shostak
+   (monad subtype "sets[monad.T].fullset" "monad")))
  (one_member 0
   (one_member-1 nil 3294071569 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -233,7 +234,9 @@
     (monad? const-decl "bool" monad_def nil)
     (nonempty_singleton_finite application-judgement
      "non_empty_finite_set" finite_sets nil))
-   shostak))
+   shostak
+   (trivial_monad subtype "sets[monad.T].singleton(monad.one)"
+    "monad")))
  (monad_is_groupoid 0
   (monad_is_groupoid-1 nil 3294071529 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -249,7 +252,7 @@
     (* formal-const-decl "[T, T -> T]" monad nil)
     (T formal-nonempty-type-decl nil monad nil)
     (star_closed? const-decl "bool" groupoid_def nil))
-   shostak))
+   shostak (monad_is_groupoid subtype "monad.x" "groupoid[T, *]")))
  (sing_one_finite_monad 0
   (sing_one_finite_monad-1 nil 3407064383 ("" (grind) nil nil)
    ((singleton? const-decl "bool" sets nil)
@@ -294,7 +297,9 @@
     (T formal-nonempty-type-decl nil monad nil)
     (nonempty_singleton_finite application-judgement
      "non_empty_finite_set" finite_sets nil))
-   nil))
+   nil
+   (finite_monad existence ""
+    "{x: set[T] | monad_def[monad.T, monad.*, monad.one].finite_monad?(x)}")))
  (commutative_monad_TCC1 0
   (commutative_monad_TCC1-1 nil 3407068743
    ("" (inst + "singleton[T](one)")
@@ -322,7 +327,9 @@
     (T formal-nonempty-type-decl nil monad nil)
     (nonempty_singleton_finite application-judgement
      "non_empty_finite_set" finite_sets nil))
-   nil))
+   nil
+   (commutative_monad existence ""
+    "{x: set[T] | monad_def[monad.T, monad.*, monad.one].commutative_monad?(x)}")))
  (finite_commutative_monad_TCC1 0
   (finite_commutative_monad_TCC1-1 nil 3407068743
    ("" (inst + "singleton[T](one)") (("" (grind) nil nil)) nil)
@@ -347,40 +354,19 @@
     (T formal-nonempty-type-decl nil monad nil)
     (nonempty_singleton_finite application-judgement
      "non_empty_finite_set" finite_sets nil))
-   nil))
+   nil
+   (finite_commutative_monad existence ""
+    "{x: set[T] | monad_def[monad.T, monad.*, monad.one].finite_commutative_monad?(x)}")))
  (order_TCC1 0
-  (order_TCC1-1 nil 3407064251 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (T formal-nonempty-type-decl nil monad nil)
-    (set type-eq-decl nil sets nil)
-    (* formal-const-decl "[T, T -> T]" monad nil)
-    (one formal-const-decl "T" monad nil)
-    (finite_monad? const-decl "bool" monad_def nil)
-    (finite_monad nonempty-type-eq-decl nil monad nil)
-    (member const-decl "bool" sets nil)
-    (star_closed? const-decl "bool" groupoid_def nil)
-    (right_identity formula-decl nil monad nil)
-    (restrict const-decl "R" restrict nil)
-    (left_identity formula-decl nil monad nil)
-    (identity? const-decl "bool" operator_defs nil)
-    (monad? const-decl "bool" monad_def nil)
-    (injective? const-decl "bool" functions nil)
-    (is_finite const-decl "bool" finite_sets nil))
-   nil))
- (order_TCC2 0
-  (order_TCC2-1 nil 3407064251
-   ("" (skosimp)
-    (("" (typepred "F!1")
-      (("" (expand "finite_monad?")
+  (order_TCC1-2 "" 3755241096
+   ("" (skeep :preds? t)
+    (("" (expand "finite_monad?")
+      (("" (flatten)
         (("" (expand "monad?")
           (("" (flatten)
-            (("" (expand "member")
-              (("" (lemma "nonempty_card" ("S" "F!1"))
-                (("" (replace -1 1 rl)
-                  (("" (hide-all-but (-3 1)) (("" (grind) nil nil))
-                    nil))
+            (("" (hide -1 -3)
+              (("" (expand "member")
+                (("" (use "nonempty_card[T]") (("" (grind) nil nil))
                   nil))
                 nil))
               nil))
@@ -389,23 +375,28 @@
         nil))
       nil))
     nil)
-   ((finite_monad nonempty-type-eq-decl nil monad nil)
-    (finite_monad? const-decl "bool" monad_def nil)
+   nil shostak
+   (order subtype "finite_sets[monad.T].card(monad.F)" "posnat"))
+  (order_TCC1-1 nil 3407064251 ("" (subtype-tcc) nil nil)
+   ((finite_monad? const-decl "bool" monad_def nil)
+    (monad? const-decl "bool" monad_def nil)
+    (T formal-nonempty-type-decl nil monad nil)
+    (nonempty_card formula-decl nil finite_sets nil)
+    (finite_monad nonempty-type-eq-decl nil monad nil)
     (one formal-const-decl "T" monad nil)
     (* formal-const-decl "[T, T -> T]" monad nil)
+    (finite_set type-eq-decl nil finite_sets nil)
+    (is_finite const-decl "bool" finite_sets nil)
     (set type-eq-decl nil sets nil)
-    (T formal-nonempty-type-decl nil monad nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (monad? const-decl "bool" monad_def nil)
-    (member const-decl "bool" sets nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (empty? const-decl "bool" sets nil)
     (nonempty? const-decl "bool" sets nil)
-    (nonempty_card formula-decl nil finite_sets nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (finite_set type-eq-decl nil finite_sets nil))
-   nil))
+    (injective? const-decl "bool" functions nil)
+    (member const-decl "bool" sets nil))
+   nil (order subtype "finite_sets[monad.T].card(monad.F)" "posnat")))
  (order_is_1 0
   (order_is_1-1 nil 3407064442
    ("" (skosimp*)
@@ -567,6 +558,8 @@
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (odd_plus_odd_is_even application-judgement "even_int" integers
      nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
@@ -622,7 +615,7 @@
     (identity? const-decl "bool" operator_defs nil)
     (one formal-const-decl "T" monad nil)
     (monad? const-decl "bool" monad_def nil))
-   nil))
+   nil (finite_monad_is_monad subtype "monad.x" "monad")))
  (commutative_monad_is_monad 0
   (commutative_monad_is_monad-1 nil 3407068743
    ("" (judgement-tcc) nil nil)
@@ -643,7 +636,7 @@
     (identity? const-decl "bool" operator_defs nil)
     (one formal-const-decl "T" monad nil)
     (monad? const-decl "bool" monad_def nil))
-   nil))
+   nil (commutative_monad_is_monad subtype "monad.x" "monad")))
  (finite_commutative_monad_is_commutative_monad 0
   (finite_commutative_monad_is_commutative_monad-1 nil 3407068743
    ("" (judgement-tcc) nil nil)
@@ -668,7 +661,9 @@
     (monad? const-decl "bool" monad_def nil)
     (commutative? const-decl "bool" operator_defs nil)
     (commutative_monad? const-decl "bool" monad_def nil))
-   nil))
+   nil
+   (finite_commutative_monad_is_commutative_monad subtype "monad.x"
+    "commutative_monad")))
  (finite_commutative_monad_is_finite_monad 0
   (finite_commutative_monad_is_finite_monad-1 nil 3407068743
    ("" (judgement-tcc) nil nil)
@@ -692,5 +687,7 @@
     (injective? const-decl "bool" functions nil)
     (is_finite const-decl "bool" finite_sets nil)
     (finite_monad? const-decl "bool" monad_def nil))
-   nil)))
+   nil
+   (finite_commutative_monad_is_finite_monad subtype "monad.x"
+    "finite_monad"))))
 

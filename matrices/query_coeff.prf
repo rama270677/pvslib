@@ -1,9 +1,12 @@
 (query_coeff
  (bump_one_ind_TCC1 0
   (bump_one_ind_TCC1-1 nil 3621165054 ("" (subtype-tcc) nil nil)
-   ((posint_plus_nnint_is_posint application-judgement "posint"
+   ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (bump_one_ind subtype
+    "((number_fields.-)((number_fields.+)(query_coeff.j, 1), query_coeff.i))"
+    "naturalnumber")))
  (bump_one_ind_TCC2 0
   (bump_one_ind_TCC2-1 nil 3621165054 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -32,15 +35,20 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (bump_one_ind subtype
+    "(number_fields.+)(query_coeff.f(query_coeff.i), 1)"
+    "naturalnumbers.below(3)")))
  (bump_one_ind_TCC3 0
   (bump_one_ind_TCC3-1 nil 3621165054
    ("" (skeep)
@@ -74,13 +82,11 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -88,7 +94,10 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil))
-   nil))
+   nil
+   (bump_one_ind subtype
+    "query_coeff.f WITH [(query_coeff.i) := (number_fields.+)(query_coeff.f(query_coeff.i), 1)]"
+    "{ff: [naturalnumbers.nat -> naturalnumbers.below(3)] | FORALL (k: integers.above((number_fields.+)(query_coeff.j, 1))): ff(k) = 0}")))
  (bump_one_ind_TCC4 0
   (bump_one_ind_TCC4-1 nil 3621165054 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -117,16 +126,20 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (bump_one_ind subtype "(number_fields.+)(query_coeff.i, 1)"
+    "naturalnumbers.upto((number_fields.+)(1, query_coeff.j))")))
  (bump_one_ind_TCC5 0
   (bump_one_ind_TCC5-1 nil 3621165054
    ("" (skeep)
@@ -159,17 +172,18 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil))
-   nil))
+    (int_minus_int_is_int application-judgement "int" integers nil))
+   nil
+   (bump_one_ind termination
+    "query_coeff.bump_one_ind(query_coeff.j, query_coeff.f, (number_fields.+)(query_coeff.i, 1))"
+    "nil")))
  (bump_one_ind_TCC6 0
   (bump_one_ind_TCC6-1 nil 3621165054
    ("" (skeep)
@@ -193,12 +207,12 @@
         nil))
       nil))
     nil)
-   ((real_gt_is_strict_total_order name-judgement
+   ((posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
@@ -231,7 +245,10 @@
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (bump_one_ind subtype
+    "query_coeff.bump_one_ind(query_coeff.j, query_coeff.f, (number_fields.+)(query_coeff.i, 1)) WITH [(query_coeff.i) := 0]"
+    "{ff: [naturalnumbers.nat -> naturalnumbers.below(3)] | FORALL (k: integers.above((number_fields.+)(query_coeff.j, 1))): ff(k) = 0}")))
  (switch_one_entry_TCC1 0
   (switch_one_entry_TCC1-1 nil 3621672198 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -257,7 +274,9 @@
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (length def-decl "nat" list_props nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (switch_one_entry subtype "query_coeff.i"
+    "below[length[below(3)](ll)]")))
  (switch_one_entry_TCC2 0
   (switch_one_entry_TCC2-1 nil 3621672198
    ("" (skeep)
@@ -271,7 +290,10 @@
     (length def-decl "nat" list_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (nth def-decl "T" list_props nil))
-   nil))
+   nil
+   (switch_one_entry subtype
+    "list_adt[naturalnumbers.below(3)].cons(query_coeff.new, list_adt[naturalnumbers.below(3)].cdr(query_coeff.L))"
+    "{ll: list_adt[naturalnumbers.below(3)].list | booleans.AND(list_props[naturalnumbers.below(3)].length(ll) = list_props[naturalnumbers.below(3)].length(query_coeff.L), FORALL (i: naturalnumbers.below(list_props[naturalnumbers.below(3)].length(query_coeff.L))): booleans.IMPLIES(i /= query_coeff.n, list_props[naturalnumbers.below(3)].nth(ll, i) = list_props[naturalnumbers.below(3)].nth(query_coeff.L, i)))}")))
  (switch_one_entry_TCC3 0
   (switch_one_entry_TCC3-1 nil 3621672198
    ("" (skeep)
@@ -310,7 +332,10 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (below type-eq-decl nil naturalnumbers nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil))
-   nil))
+   nil
+   (switch_one_entry subtype
+    "list_adt[naturalnumbers.below(3)].cdr(query_coeff.L)"
+    "{ll: list_adt[naturalnumbers.below(3)].list | list_adt[naturalnumbers.below(3)].cons?(ll)}")))
  (switch_one_entry_TCC4 0
   (switch_one_entry_TCC4-1 nil 3621672198
    ("" (skeep) (("" (typepred (n)) (("" (grind) nil nil)) nil)) nil)
@@ -344,10 +369,15 @@
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (switch_one_entry subtype "(number_fields.-)(query_coeff.n, 1)"
+    "naturalnumbers.below(list_props[naturalnumbers.below(3)].length(list_adt[naturalnumbers.below(3)].cdr(query_coeff.L)))")))
  (switch_one_entry_TCC5 0
   (switch_one_entry_TCC5-1 nil 3621672198
-   ("" (termination-tcc) nil nil) nil nil))
+   ("" (termination-tcc) nil nil) nil nil
+   (switch_one_entry termination
+    "query_coeff.switch_one_entry(list_adt[naturalnumbers.below(3)].cdr(query_coeff.L), (number_fields.-)(query_coeff.n, 1), query_coeff.new)"
+    "nil")))
  (switch_one_entry_TCC6 0
   (switch_one_entry_TCC6-1 nil 3621672198
    ("" (skeep)
@@ -420,7 +450,10 @@
      query_coeff nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (switch_one_entry subtype
+    "list_adt[naturalnumbers.below(3)].cons(list_adt[naturalnumbers.below(3)].car(query_coeff.L), query_coeff.switch_one_entry(list_adt[naturalnumbers.below(3)].cdr(query_coeff.L), (number_fields.-)(query_coeff.n, 1), query_coeff.new))"
+    "{ll: list_adt[naturalnumbers.below(3)].list | booleans.AND(list_props[naturalnumbers.below(3)].length(ll) = list_props[naturalnumbers.below(3)].length(query_coeff.L), FORALL (i: naturalnumbers.below(list_props[naturalnumbers.below(3)].length(query_coeff.L))): booleans.IMPLIES(i /= query_coeff.n, list_props[naturalnumbers.below(3)].nth(ll, i) = list_props[naturalnumbers.below(3)].nth(query_coeff.L, i)))}")))
  (switch_is_with_TCC1 0
   (switch_is_with_TCC1-1 nil 3621678714 ("" (existence-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -447,8 +480,699 @@
     (length def-decl "nat" list_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (switch_is_with existence "" "naturalnumbers.below(3)")))
  (switch_is_with 0
+  (switch_is_with-2 "" 3744292736
+   (""
+    (case " FORALL (nn:posnat, L: list[below(3)], n: below(length(L)), new: below(3),
+                            (f: [nat -> below(3)]
+                                 | array2list[below(3)](length(L))(f) = L)):
+                      nn = length(L) IMPLIES switch_one_entry(L, n, new) =
+                       array2list[below(3)](length(L))(f WITH [n := new])")
+    (("1" (skeep)
+      (("1" (inst?) (("1" (inst -1 "length(L)") nil nil)) nil)) nil)
+     ("2" (hide 2)
+      (("2" (induct "nn")
+        (("1" (ground) nil nil) ("2" (ground) nil nil)
+         ("3" (skeep)
+          (("3" (skeep)
+            (("3" (case-replace "j=0")
+              (("1" (expand "switch_one_entry")
+                (("1" (hide -2)
+                  (("1" (typepred (n))
+                    (("1" (ground)
+                      (("1" (replace -4 :dir rl)
+                        (("1" (case-replace "n=0")
+                          (("1" (grind)
+                            (("1" (case "cdr(L) = null")
+                              (("1" (ground) nil nil)
+                               ("2"
+                                (grind)
+                                (("2"
+                                  (expand "length")
+                                  (("2" (grind) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (ground) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (case "n=0")
+                (("1" (expand "switch_one_entry" 2)
+                  (("1" (ground)
+                    (("1" (expand "array2list" 2)
+                      (("1" (expand "array2list_it")
+                        (("1"
+                          (case-replace
+                           "cdr(L) = array2list_it(f WITH [n := new], length(L), 1)")
+                          (("1" (hide 3)
+                            (("1"
+                              (lemma "list_extensionality[below(3)]")
+                              (("1"
+                                (inst
+                                 -1
+                                 "cdr(L)"
+                                 " array2list_it(f WITH [n := new], length(L), 1)")
+                                (("1"
+                                  (flatten)
+                                  (("1"
+                                    (hide -1)
+                                    (("1"
+                                      (split -1)
+                                      (("1" (propax) nil nil)
+                                       ("2"
+                                        (typepred
+                                         "array2list_it(f WITH [n := new], length(L), 1)")
+                                        (("1"
+                                          (replace -2)
+                                          (("1"
+                                            (ground)
+                                            (("1"
+                                              (typepred "cdr(L)")
+                                              (("1"
+                                                (expand "length" 1 2)
+                                                (("1"
+                                                  (lift-if 1)
+                                                  (("1"
+                                                    (ground)
+                                                    (("1"
+                                                      (typepred (L))
+                                                      (("1"
+                                                        (expand
+                                                         "length")
+                                                        (("1"
+                                                          (ground)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2" (inst 1 "0") nil nil))
+                                        nil)
+                                       ("3"
+                                        (skeep)
+                                        (("3"
+                                          (typepred
+                                           "array2list_it(f WITH [n := new], length(L), 1)")
+                                          (("1"
+                                            (typepred (n_1))
+                                            (("1"
+                                              (inst -4 "n_1+1")
+                                              (("1"
+                                                (replace -6)
+                                                (("1"
+                                                  (ground)
+                                                  (("1"
+                                                    (replace
+                                                     -4
+                                                     :dir
+                                                     rl)
+                                                    (("1"
+                                                      (typepred (f))
+                                                      (("1"
+                                                        (case-replace
+                                                         "nth(cdr(L), n_1) = nth(L, n_1+1)")
+                                                        (("1"
+                                                          (replace
+                                                           -2
+                                                           :dir
+                                                           rl)
+                                                          (("1"
+                                                            (hide 2)
+                                                            (("1"
+                                                              (typepred
+                                                               "array2list[below(3)](length(L))(f)")
+                                                              (("1"
+                                                                (inst
+                                                                 -3
+                                                                 "n_1+1")
+                                                                (("1"
+                                                                  (ground)
+                                                                  nil
+                                                                  nil)
+                                                                 ("2"
+                                                                  (ground)
+                                                                  (("2"
+                                                                    (expand
+                                                                     "length"
+                                                                     1)
+                                                                    (("2"
+                                                                      (lift-if
+                                                                       1)
+                                                                      (("2"
+                                                                        (split
+                                                                         1)
+                                                                        (("1"
+                                                                          (flatten)
+                                                                          (("1"
+                                                                            (expand
+                                                                             "length")
+                                                                            (("1"
+                                                                              (ground)
+                                                                              nil
+                                                                              nil))
+                                                                            nil))
+                                                                          nil)
+                                                                         ("2"
+                                                                          (ground)
+                                                                          nil
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (expand
+                                                           "nth"
+                                                           1
+                                                           2)
+                                                          (("2"
+                                                            (propax)
+                                                            nil
+                                                            nil))
+                                                          nil)
+                                                         ("3"
+                                                          (expand
+                                                           "length"
+                                                           1)
+                                                          (("3"
+                                                            (lift-if 1)
+                                                            (("3"
+                                                              (split 1)
+                                                              (("1"
+                                                                (flatten)
+                                                                (("1"
+                                                                  (expand
+                                                                   "length")
+                                                                  (("1"
+                                                                    (ground)
+                                                                    nil
+                                                                    nil))
+                                                                  nil))
+                                                                nil)
+                                                               ("2"
+                                                                (ground)
+                                                                nil
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (expand "length" 1)
+                                                (("2"
+                                                  (lift-if 1)
+                                                  (("2"
+                                                    (split 1)
+                                                    (("1"
+                                                      (flatten)
+                                                      (("1"
+                                                        (expand
+                                                         "length")
+                                                        (("1"
+                                                          (ground)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil)
+                                                     ("2"
+                                                      (flatten)
+                                                      (("2"
+                                                        (ground)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil)
+                                           ("2" (inst 1 "0") nil nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2" (inst 1 "0") nil nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (inst 1 "0") nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (expand "switch_one_entry" 3)
+                  (("2" (ground)
+                    (("2" (expand "array2list" 3)
+                      (("2" (expand "array2list_it")
+                        (("2" (typepred (f))
+                          (("2" (case-replace "f(0) = car(L)")
+                            (("1"
+                              (case-replace
+                               "switch_one_entry(cdr(L), n - 1, new) = array2list_it(f WITH [n := new], length(L), 1)")
+                              (("1"
+                                (hide 4)
+                                (("1"
+                                  (lemma
+                                   "list_extensionality[below(3)]")
+                                  (("1"
+                                    (hide -2)
+                                    (("1"
+                                      (inst?)
+                                      (("1"
+                                        (flatten)
+                                        (("1"
+                                          (hide -1)
+                                          (("1"
+                                            (split -1)
+                                            (("1" (propax) nil nil)
+                                             ("2"
+                                              (typepred
+                                               "array2list_it(f WITH [n:=new], length(L), 1)")
+                                              (("1"
+                                                (replace -2)
+                                                (("1"
+                                                  (hide 2)
+                                                  (("1"
+                                                    (expand
+                                                     "length"
+                                                     1
+                                                     2)
+                                                    (("1"
+                                                      (lift-if)
+                                                      (("1"
+                                                        (split 1)
+                                                        (("1"
+                                                          (flatten)
+                                                          (("1"
+                                                            (ground)
+                                                            (("1"
+                                                              (expand
+                                                               "length")
+                                                              (("1"
+                                                                (ground)
+                                                                nil
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (flatten)
+                                                          (("2"
+                                                            (ground)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (inst 1 "0")
+                                                nil
+                                                nil))
+                                              nil)
+                                             ("3"
+                                              (typepred
+                                               "array2list_it(f WITH [n := new], length(L), 1)")
+                                              (("1"
+                                                (skeep)
+                                                (("1"
+                                                  (inst -3 "n_1+1")
+                                                  (("1"
+                                                    (replace
+                                                     -3
+                                                     :dir
+                                                     rl)
+                                                    (("1"
+                                                      (typepred
+                                                       "switch_one_entry(cdr(L), n - 1, new)")
+                                                      (("1"
+                                                        (inst -3 "n_1")
+                                                        (("1"
+                                                          (typepred
+                                                           (n_1))
+                                                          (("1"
+                                                            (case
+                                                             "n_1/=n-1")
+                                                            (("1"
+                                                              (ground)
+                                                              (("1"
+                                                                (replace
+                                                                 -1)
+                                                                (("1"
+                                                                  (typepred
+                                                                   (f))
+                                                                  (("1"
+                                                                    (case-replace
+                                                                     "nth(cdr(L), n_1) = nth(L, n_1+1)")
+                                                                    (("1"
+                                                                      (typepred
+                                                                       (n_1))
+                                                                      (("1"
+                                                                        (typepred
+                                                                         "array2list[below(3)](length(L))(f)")
+                                                                        (("1"
+                                                                          (inst
+                                                                           -3
+                                                                           "n_1+1")
+                                                                          (("1"
+                                                                            (replace
+                                                                             -6)
+                                                                            (("1"
+                                                                              (ground)
+                                                                              nil
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil)
+                                                                     ("2"
+                                                                      (expand
+                                                                       "nth"
+                                                                       1
+                                                                       2)
+                                                                      (("2"
+                                                                        (propax)
+                                                                        nil
+                                                                        nil))
+                                                                      nil)
+                                                                     ("3"
+                                                                      (expand
+                                                                       "length"
+                                                                       1)
+                                                                      (("3"
+                                                                        (lift-if
+                                                                         1)
+                                                                        (("3"
+                                                                          (split
+                                                                           1)
+                                                                          (("1"
+                                                                            (flatten)
+                                                                            (("1"
+                                                                              (expand
+                                                                               "length")
+                                                                              (("1"
+                                                                                (ground)
+                                                                                nil
+                                                                                nil))
+                                                                              nil))
+                                                                            nil)
+                                                                           ("2"
+                                                                            (ground)
+                                                                            nil
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil)
+                                                             ("2"
+                                                              (hide -4)
+                                                              (("2"
+                                                                (ground)
+                                                                (("2"
+                                                                  (replace
+                                                                   -1)
+                                                                  (("2"
+                                                                    (case
+                                                                     "FORALL (mm:posnat, ll:{lll:list[below(3)]|cons?(lll) AND length(lll) =mm}, m:below(mm)):
+                               nth(switch_one_entry(ll, m, new), m) = new")
+                                                                    (("1"
+                                                                      (inst
+                                                                       -1
+                                                                       "length(cdr(L))"
+                                                                       "cdr(L)"
+                                                                       "n-1")
+                                                                      nil
+                                                                      nil)
+                                                                     ("2"
+                                                                      (hide-all-but
+                                                                       1)
+                                                                      (("2"
+                                                                        (induct
+                                                                         "mm")
+                                                                        (("1"
+                                                                          (ground)
+                                                                          nil
+                                                                          nil)
+                                                                         ("2"
+                                                                          (ground)
+                                                                          nil
+                                                                          nil)
+                                                                         ("3"
+                                                                          (skeep)
+                                                                          (("3"
+                                                                            (skeep)
+                                                                            (("3"
+                                                                              (case
+                                                                               "j!1=0")
+                                                                              (("1"
+                                                                                (case-replace
+                                                                                 "m=0")
+                                                                                (("1"
+                                                                                  (expand
+                                                                                   "switch_one_entry")
+                                                                                  (("1"
+                                                                                    (expand
+                                                                                     "nth")
+                                                                                    (("1"
+                                                                                      (propax)
+                                                                                      nil
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil)
+                                                                                 ("2"
+                                                                                  (typepred
+                                                                                   (m))
+                                                                                  (("2"
+                                                                                    (ground)
+                                                                                    nil
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil)
+                                                                               ("2"
+                                                                                (case
+                                                                                 "m=0")
+                                                                                (("1"
+                                                                                  (replace
+                                                                                   -1)
+                                                                                  (("1"
+                                                                                    (expand
+                                                                                     "switch_one_entry")
+                                                                                    (("1"
+                                                                                      (expand
+                                                                                       "nth")
+                                                                                      (("1"
+                                                                                        (propax)
+                                                                                        nil
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil)
+                                                                                 ("2"
+                                                                                  (expand
+                                                                                   "switch_one_entry"
+                                                                                   3)
+                                                                                  (("2"
+                                                                                    (ground)
+                                                                                    (("2"
+                                                                                      (expand
+                                                                                       "nth"
+                                                                                       3)
+                                                                                      (("2"
+                                                                                        (inst
+                                                                                         -1
+                                                                                         "cdr(ll)"
+                                                                                         "m-1")
+                                                                                        (("2"
+                                                                                          (typepred
+                                                                                           (ll))
+                                                                                          (("2"
+                                                                                            (expand
+                                                                                             "length"
+                                                                                             -3)
+                                                                                            (("2"
+                                                                                              (ground)
+                                                                                              (("2"
+                                                                                                (expand
+                                                                                                 "length")
+                                                                                                (("2"
+                                                                                                  (ground)
+                                                                                                  nil
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil)
+                                                                         ("4"
+                                                                          (skeep)
+                                                                          (("4"
+                                                                            (skeep)
+                                                                            (("4"
+                                                                              (typepred
+                                                                               (ll))
+                                                                              (("4"
+                                                                                (typepred
+                                                                                 "switch_one_entry(ll, m, new)")
+                                                                                (("4"
+                                                                                  (ground)
+                                                                                  nil
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil)
+                                                                     ("3"
+                                                                      (hide
+                                                                       -)
+                                                                      (("3"
+                                                                        (skeep)
+                                                                        (("3"
+                                                                          (typepred
+                                                                           (m))
+                                                                          (("3"
+                                                                            (typepred
+                                                                             "mm")
+                                                                            (("3"
+                                                                              (typepred
+                                                                               (ll))
+                                                                              (("3"
+                                                                                (typepred
+                                                                                 "switch_one_entry(ll, m, new)")
+                                                                                (("3"
+                                                                                  (ground)
+                                                                                  nil
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil)
+                                                   ("2"
+                                                    (expand "length")
+                                                    (("2"
+                                                      (lift-if)
+                                                      (("2"
+                                                        (split)
+                                                        (("1"
+                                                          (flatten)
+                                                          (("1"
+                                                            (ground)
+                                                            nil
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (flatten)
+                                                          (("2"
+                                                            (typepred
+                                                             (n_1))
+                                                            (("2"
+                                                              (ground)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (inst 1 "0")
+                                                nil
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil)
+                                       ("2" (inst 1 "0") nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2" (inst 1 "0") nil nil))
+                              nil)
+                             ("2" (hide 4)
+                              (("2"
+                                (typepred
+                                 "array2list[below(3)](length(L))(f)")
+                                (("1"
+                                  (inst -3 "0")
+                                  (("1"
+                                    (ground)
+                                    (("1"
+                                      (replace -4)
+                                      (("1"
+                                        (expand "nth")
+                                        (("1" (propax) nil nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2" (grind) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("4" (skeep) (("4" (ground) (("4" (grind) nil nil)) nil)) nil)
+         ("5" (grind) nil nil) ("6" (grind) nil nil))
+        nil))
+      nil)
+     ("3" (grind) nil nil) ("4" (grind) nil nil) ("5" (grind) nil nil))
+    nil)
+   nil shostak)
   (switch_is_with-1 nil 3621678727
    (""
     (case " FORALL (nn:posnat, L: list[below(3)], n: below(length(L)), new: below(3),
@@ -1126,21 +1850,15 @@
       nil)
      ("3" (skeep) (("3" (ground) (("3" (grind) nil nil)) nil)) nil))
     nil)
-   ((real_lt_is_strict_total_order name-judgement
+   (nil nil
+    (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (cdr adt-accessor-decl "[(cons?) -> list]" list_adt nil)
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (null adt-constructor-decl "(null?)" list_adt nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -1150,15 +1868,7 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (n skolem-const-decl "below(length(L))" query_coeff nil)
-    (new skolem-const-decl "below(3)" query_coeff nil)
-    (n_1 skolem-const-decl
-     "below(length(switch_one_entry(cdr(L), n - 1, new)))" query_coeff
-     nil)
-    (ll skolem-const-decl
-     "{lll: list[below(3)] | cons?(lll) AND length(lll) = 1 + j!1}"
-     query_coeff nil)
-    (j!1 skolem-const-decl "nat" query_coeff nil)
+    nil nil nil nil nil
     (car adt-accessor-decl "[(cons?) -> T]" list_adt nil)
     (subrange type-eq-decl nil integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -1172,12 +1882,11 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (L skolem-const-decl "list[below(3)]" query_coeff nil)
-    (n_1 skolem-const-decl "below(length(cdr(L)))" query_coeff nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
+    nil nil (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (TRUE const-decl "bool" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -1195,8 +1904,7 @@
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -1213,15 +1921,18 @@
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (/= const-decl "boolean" notequal nil)
     (switch_one_entry def-decl "{ll: list[below(3)] |
-         length(ll) = length(L) AND
-          (FORALL (i: below(length(L))):
-             i /= n IMPLIES nth(ll, i) = nth(L, i))}" query_coeff nil))
+   length(ll) = length(L) AND
+    FORALL (i: below(length(L))): i /= n IMPLIES nth(ll, i) = nth(L, i)}"
+     query_coeff nil))
    shostak))
  (bump_one_ind_list_TCC1 0
   (bump_one_ind_list_TCC1-1 nil 3621672198 ("" (subtype-tcc) nil nil)
-   ((posint_plus_nnint_is_posint application-judgement "posint"
+   ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype
+    "(number_fields.-)((number_fields.+)(query_coeff.j, 1), query_coeff.i)"
+    "naturalnumber")))
  (bump_one_ind_list_TCC2 0
   (bump_one_ind_list_TCC2-1 nil 3621672198
    ("" (skeep)
@@ -1255,7 +1966,7 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (above nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -1273,12 +1984,8 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (expt def-decl "real" exponentiation nil)
     (^ const-decl "real" exponentiation nil)
@@ -1288,7 +1995,9 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (expt_ge1 formula-decl nil exponentiation nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype "query_coeff.L"
+    "{ll: list_adt[naturalnumbers.below(3)].list | list_adt[naturalnumbers.below(3)].cons?(ll)}")))
  (bump_one_ind_list_TCC3 0
   (bump_one_ind_list_TCC3-1 nil 3621672198
    ("" (skeep)
@@ -1315,7 +2024,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -1334,7 +2043,9 @@
     (>= const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (posnat nonempty-type-eq-decl nil integers nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype "query_coeff.i"
+    "naturalnumbers.below(list_props[naturalnumbers.below(3)].length(query_coeff.L))")))
  (bump_one_ind_list_TCC4 0
   (bump_one_ind_list_TCC4-1 nil 3621672198 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1368,16 +2079,20 @@
     (listn type-eq-decl nil listn "structures/")
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype "(number_fields.+)(query_coeff.ent, 1)"
+    "naturalnumbers.below(3)")))
  (bump_one_ind_list_TCC5 0
   (bump_one_ind_list_TCC5-1 nil 3621672198 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1411,15 +2126,20 @@
     (listn type-eq-decl nil listn "structures/")
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype
+    "query_coeff.switch_one_entry(query_coeff.L, query_coeff.i, (number_fields.+)(query_coeff.ent, 1))"
+    "listn[naturalnumbers.below(3)].listn((number_fields.+)(1, query_coeff.j))")))
  (bump_one_ind_list_TCC6 0
   (bump_one_ind_list_TCC6-1 nil 3621672198 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1453,21 +2173,28 @@
     (listn type-eq-decl nil listn "structures/")
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype "(number_fields.+)(query_coeff.i, 1)"
+    "naturalnumbers.upto((number_fields.+)(1, query_coeff.j))")))
  (bump_one_ind_list_TCC7 0
   (bump_one_ind_list_TCC7-1 nil 3621672198 ("" (subtype-tcc) nil nil)
-   ((posint_plus_nnint_is_posint application-judgement "posint"
+   ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (bump_one_ind_list termination
+    "query_coeff.bump_one_ind_list(query_coeff.j, query_coeff.L, (number_fields.+)(query_coeff.i, 1))"
+    "nil")))
  (bump_one_ind_list_TCC8 0
   (bump_one_ind_list_TCC8-1 nil 3621672198
    ("" (skeep)
@@ -1503,22 +2230,25 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (>= const-decl "bool" reals nil) (< const-decl "bool" reals nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
     (int nonempty-type-eq-decl nil integers nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (below type-eq-decl nil naturalnumbers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (length def-decl "nat" list_props nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
     (listn type-eq-decl nil listn "structures/")
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype
+    "query_coeff.bump_one_ind_list(query_coeff.j, query_coeff.L, (number_fields.+)(query_coeff.i, 1))"
+    "{ll: list_adt[naturalnumbers.below(3)].list | list_adt[naturalnumbers.below(3)].cons?(ll)}")))
  (bump_one_ind_list_TCC9 0
   (bump_one_ind_list_TCC9-1 nil 3621672198
    ("" (skeep)
@@ -1555,22 +2285,24 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (>= const-decl "bool" reals nil) (< const-decl "bool" reals nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
     (int nonempty-type-eq-decl nil integers nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (below type-eq-decl nil naturalnumbers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (length def-decl "nat" list_props nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
     (listn type-eq-decl nil listn "structures/")
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype "query_coeff.i"
+    "naturalnumbers.below(list_props[naturalnumbers.below(3)].length(query_coeff.bump_one_ind_list(query_coeff.j, query_coeff.L, (number_fields.+)(1, query_coeff.i))))")))
  (bump_one_ind_list_TCC10 0
   (bump_one_ind_list_TCC10-1 nil 3621672198 ("" (subtype-tcc) nil nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
@@ -1605,15 +2337,20 @@
     (listn type-eq-decl nil listn "structures/")
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype
+    "query_coeff.switch_one_entry(query_coeff.bump_one_ind_list(query_coeff.j, query_coeff.L, (number_fields.+)(query_coeff.i, 1)), query_coeff.i, 0)"
+    "listn[naturalnumbers.below(3)].listn((number_fields.+)(1, query_coeff.j))")))
  (bump_one_ind_list_TCC11 0
   (bump_one_ind_list_TCC11-1 nil 3621672198 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1649,13 +2386,15 @@
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (bump_one_ind_list subtype "query_coeff.i"
+    "below[length[below(3)](L)]")))
  (bump_one_below 0
   (bump_one_below-1 nil 3621242035
    ("" (skolem 1 ("j" "_" "_" "_"))
@@ -1760,25 +2499,195 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (pred type-eq-decl nil defined_types nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (i skolem-const-decl "upto(1 + j)" query_coeff nil)
-    (j skolem-const-decl "posnat" query_coeff nil)
+    nil nil
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (i skolem-const-decl "upto(1 + j)" query_coeff nil)
-    (int_plus_int_is_int application-judgement "int" integers nil))
+    nil (int_plus_int_is_int application-judgement "int" integers nil))
    shostak))
  (bump_one_ind_lem 0
+  (bump_one_ind_lem-2 "" 3750606833
+   ("" (skeep)
+    (("" (lift-if 1)
+      (("" (split 1)
+        (("1" (expand "base_n_to_nat")
+          (("1" (lemma "sigma_with")
+            (("1" (expand "bump_one_ind")
+              (("1" (flatten)
+                (("1"
+                  (case-replace "(LAMBDA (s: nat):
+                  3 ^ s *
+                   IF f(i) < 2 THEN f WITH [i := 1 + f(i)](s)
+                   ELSE bump_one_ind(j, f, 1 + i) WITH [i := 0](s)
+                   ENDIF) =  (LAMBDA (s: nat): 3 ^ s * f(s)) WITH [i:= 3^i*(1+f(i))]")
+                  (("1"
+                    (inst -2
+                     "(LAMBDA (s: nat): 3 ^ s * f(s)) WITH [i := 3 ^ i * (1 + f(i))]"
+                     "LAMBDA (s: nat): 3 ^ s * f(s)"
+                     "3 ^ i * (1 + f(i))" "1+j" "i" "0")
+                    (("1" (split -2)
+                      (("1" (ground) nil nil) ("2" (ground) nil nil)
+                       ("3" (ground) nil nil))
+                      nil))
+                    nil)
+                   ("2" (hide 2)
+                    (("2" (decompose-equality 1)
+                      (("2" (ground)
+                        (("2" (case "i=x!1")
+                          (("1" (ground) nil nil)
+                           ("2" (ground) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("3" (flatten) nil nil) ("4" (assert) nil nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (flatten)
+          (("2" (expand "base_n_to_nat")
+            (("2" (expand "bump_one_ind" 2 1)
+              (("2" (lemma "sigma_with")
+                (("2"
+                  (inst -1 "LAMBDA (s: nat):
+              3 ^ s *
+               IF f(i) < 2 THEN f WITH [i := 1 + f(i)](s)
+               ELSE bump_one_ind(j, f, 1 + i) WITH [i := 0](s)
+               ENDIF "
+                   " LAMBDA (s: nat): 3 ^ s * bump_one_ind(j, f, 1 + i)(s)"
+                   "0" "j+1" "i" "0")
+                  (("1" (split -1)
+                    (("1" (ground)
+                      (("1" (case "i+1<=j+1")
+                        (("1" (ground)
+                          (("1" (replace -2)
+                            (("1"
+                              (case-replace
+                               "bump_one_ind(j, f, 1 + i)(i) = f(i)")
+                              (("1" (ground) nil nil)
+                               ("2"
+                                (lemma "bump_one_below")
+                                (("2"
+                                  (inst?)
+                                  (("2" (ground) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (hide (-1 3))
+                          (("2" (typepred (f))
+                            (("2" (typepred (i))
+                              (("2"
+                                (case "i<1+j")
+                                (("1" (ground) nil nil)
+                                 ("2"
+                                  (case "i=1+j")
+                                  (("1"
+                                    (inst -3 "i")
+                                    (("1" (ground) nil nil)
+                                     ("2" (ground) nil nil))
+                                    nil)
+                                   ("2" (ground) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (ground) nil nil) ("3" (ground) nil nil)
+                     ("4" (hide 3)
+                      (("4" (decompose-equality 1)
+                        (("1" (case "x!1 = i")
+                          (("1" (ground) nil nil)
+                           ("2" (ground) nil nil))
+                          nil)
+                         ("2" (typepred (f))
+                          (("2" (typepred (i))
+                            (("2" (case "i<1+j")
+                              (("1" (ground) nil nil)
+                               ("2"
+                                (case "i=1+j")
+                                (("1"
+                                  (inst -3 "i")
+                                  (("1" (ground) nil nil))
+                                  nil)
+                                 ("2" (ground) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("3" (typepred (f))
+                          (("3" (typepred (i))
+                            (("3" (case "i<1+j")
+                              (("1" (ground) nil nil)
+                               ("2"
+                                (case "i=1+j")
+                                (("1"
+                                  (inst -3 "i")
+                                  (("1" (ground) nil nil))
+                                  nil)
+                                 ("2" (ground) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (typepred (f))
+                    (("2" (typepred (i))
+                      (("2" (case "i<1+j")
+                        (("1" (ground) nil nil)
+                         ("2" (case "i=1+j")
+                          (("1" (inst -3 "i")
+                            (("1" (ground) nil nil)
+                             ("2" (ground) nil nil))
+                            nil)
+                           ("2" (ground) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("3" (flatten)
+                    (("3" (typepred (f))
+                      (("3" (typepred (i))
+                        (("3" (case "i<1+j")
+                          (("1" (ground) nil nil)
+                           ("2" (case "i=1+j")
+                            (("1" (inst -3 "i")
+                              (("1" (ground) nil nil)
+                               ("2" (ground) nil nil))
+                              nil)
+                             ("2" (ground) nil nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("4" (assert) nil nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (bump_one_ind_lem-1 nil 3621174807
    ("" (skeep)
     (("" (lift-if 1)
@@ -1949,80 +2858,75 @@
         nil))
       nil))
     nil)
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
-    (sigma_int application-judgement "int" sigma_nat "reals/")
-    (real_gt_is_strict_total_order name-judgement
+   ((nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (sigma_with formula-decl nil sigma "reals/")
+    (i skolem-const-decl "upto(1 + j)" query_coeff nil)
+    (f skolem-const-decl "{f | FORALL (k: above(j)): f(k) = 0}"
+     query_coeff nil)
+    (j skolem-const-decl "posnat" query_coeff nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (T_low type-eq-decl nil sigma "reals/")
+    (T_high type-eq-decl nil sigma "reals/")
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (<= const-decl "bool" reals nil)
+    (above nonempty-type-eq-decl nil integers nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil)
+    (^ const-decl "real" exponentiation nil)
+    (/= const-decl "boolean" notequal nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (bump_one_below formula-decl nil query_coeff nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (base_n_to_nat const-decl "nat" base_repr "reals/")
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (bump_one_ind def-decl
      "{ff: [nat -> below(3)] | FORALL (k: above(j + 1)): ff(k) = 0}"
      query_coeff nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (posint_times_posint_is_posint application-judgement "posint"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (/= const-decl "boolean" notequal nil)
-    (^ const-decl "real" exponentiation nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (< const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (above nonempty-type-eq-decl nil integers nil)
-    (<= const-decl "bool" reals nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (j skolem-const-decl "posnat" query_coeff nil)
-    (f skolem-const-decl "{f | FORALL (k: above(j)): f(k) = 0}"
-     query_coeff nil)
-    (i skolem-const-decl "upto(1 + j)" query_coeff nil)
-    (sigma_with formula-decl nil sigma "reals/")
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil))
+    (base_n_to_nat const-decl "nat" base_repr "reals/")
+    (sigma_nat application-judgement "nat" sigma_nat "reals/")
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (bump_one_below formula-decl nil query_coeff nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil))
    shostak))
  (bump_one_ind_lem2_TCC1 0
   (bump_one_ind_lem2_TCC1-1 nil 3621258320 ("" (subtype-tcc) nil nil)
-   nil nil))
+   nil nil
+   (bump_one_ind_lem2 subtype "0"
+    "naturalnumbers.upto((number_fields.+)(1, query_coeff.j))")))
  (bump_one_ind_lem2_TCC2 0
   (bump_one_ind_lem2_TCC2-1 nil 3621258320
    ("" (skeep)
@@ -2060,8 +2964,6 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
     (above nonempty-type-eq-decl nil integers nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
@@ -2072,12 +2974,11 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
- (bump_one_ind_lem2_TCC3 0
-  (bump_one_ind_lem2_TCC3-1 nil 3621258320 ("" (subtype-tcc) nil nil)
-   nil nil))
+   nil
+   (bump_one_ind_lem2 subtype "(number_fields.+)(query_coeff.i, 1)"
+    "naturalnumbers.upto((number_fields.+)(1, query_coeff.j))")))
  (bump_one_ind_lem2 0
   (bump_one_ind_lem2-1 nil 3621258372
    ("" (skolem 1 ("j" "_" "_"))
@@ -2300,39 +3201,28 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (j skolem-const-decl "posnat" query_coeff nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil) nil
     (pred type-eq-decl nil defined_types nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (sigma_eq_arg formula-decl nil sigma "reals/")
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (sigma_with formula-decl nil sigma "reals/")
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
-    (sigma_int application-judgement "int" sigma_nat "reals/")
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (expt def-decl "real" exponentiation nil)
-    (bump_one_below formula-decl nil query_coeff nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (bump_one_below formula-decl nil query_coeff nil) nil
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -2341,16 +3231,16 @@
      real_props nil)
     (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (bump_one_ind_lem formula-decl nil query_coeff nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (both_sides_times1 formula-decl nil real_props nil)
     (odd? const-decl "bool" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (i skolem-const-decl "upto(1 + j)" query_coeff nil)
+    (int_times_int_is_int application-judgement "int" integers nil) nil
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (i skolem-const-decl "upto(1 + j)" query_coeff nil)
-    (i skolem-const-decl "upto(1 + j)" query_coeff nil))
+    nil nil)
    shostak))
  (low2_TCC1 0
   (low2_TCC1-1 nil 3621333123 ("" (subtype-tcc) nil nil)
@@ -2391,14 +3281,17 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (member const-decl "bool" sets nil)
     (empty? const-decl "bool" sets nil)
     (nonempty? const-decl "bool" sets nil))
-   nil))
+   nil
+   (low2 subtype
+    "{m: naturalnumbers.nat | booleans.AND(reals.<(m, query_coeff.i), reals.<(query_coeff.f(m), 2))}"
+    "(sets[nat].nonempty?)")))
  (low2_TCC2 0
   (low2_TCC2-1 nil 3621333123 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -2438,11 +3331,14 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (low2 subtype
+    "sets[nat].choose({m: naturalnumbers.nat | booleans.AND(reals.<(m, query_coeff.i), reals.<(query_coeff.f(m), 2))})"
+    "{ii: naturalnumbers.upto((number_fields.+)(1, query_coeff.j)) | reals.<(query_coeff.f(ii), 2)}")))
  (low2_lem 0
   (low2_lem-1 nil 3621333584
    ("" (skolem 1 ("j" "f" "_"))
@@ -2584,15 +3480,10 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (pred type-eq-decl nil defined_types nil)
-    (NAT_induction formula-decl nil naturalnumbers nil)
-    (i skolem-const-decl "{ii: upto(1 + j) | f(ii) < 2}" query_coeff
-     nil)
-    (f skolem-const-decl "{f | FORALL (k: above(j)): f(k) = 0}"
-     query_coeff nil)
-    (j skolem-const-decl "posnat" query_coeff nil)
+    (NAT_induction formula-decl nil naturalnumbers nil) nil nil nil
     (nonempty? const-decl "bool" sets nil)
     (set type-eq-decl nil sets nil) (choose const-decl "(p)" sets nil)
     (real_lt_is_strict_total_order name-judgement
@@ -2605,7 +3496,9 @@
    shostak))
  (bump_one_prep_TCC1 0
   (bump_one_prep_TCC1-1 nil 3621256133 ("" (subtype-tcc) nil nil) nil
-   nil))
+   nil
+   (bump_one_prep subtype "0"
+    "naturalnumbers.upto((number_fields.+)(1, query_coeff.j))")))
  (bump_one_prep 0
   (bump_one_prep-1 nil 3621256149
    (""
@@ -2772,36 +3665,28 @@
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (posint_exp application-judgement "posint" exponentiation nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (j skolem-const-decl "posnat" query_coeff nil)
-    (f skolem-const-decl
-     "{f: [nat -> below(3)] | FORALL (k: above(j)): f(k) = 0}"
-     query_coeff nil)
-    (n skolem-const-decl
-     "{nn: upto(1 + j) | f(nn) < 2 AND (FORALL (m: nat): m < nn IMPLIES f(m) = 2)}"
-     query_coeff nil)
+    nil nil nil
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (sigma_geometric formula-decl nil sigma_nat "reals/")
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
+    (posrat_exp application-judgement "posrat" exponentiation nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (minus_even_is_even application-judgement "even_int" integers nil)
-    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (minus_int_is_int application-judgement "int" integers nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (times_div1 formula-decl nil real_props nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
@@ -2814,12 +3699,10 @@
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (^ const-decl "real" exponentiation nil)
     (expt def-decl "real" exponentiation nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (bump_one_ind_lem formula-decl nil query_coeff nil)
     (bump_one_ind_lem2 formula-decl nil query_coeff nil)
     (low2_lem formula-decl nil query_coeff nil)
@@ -2831,12 +3714,7 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (j skolem-const-decl "posnat" query_coeff nil)
-    (f skolem-const-decl "{f | FORALL (k: above(j)): f(k) = 0}"
-     query_coeff nil)
-    (nn skolem-const-decl "upto(1 + j)" query_coeff nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    nil nil nil
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (number nonempty-type-decl nil numbers nil)
@@ -2914,7 +3792,9 @@
     (below type-eq-decl nil naturalnumbers nil)
     (> const-decl "bool" reals nil)
     (base_n def-decl "nat" base_repr "reals/"))
-   nil))
+   nil
+   (bump_one_prep2 subtype "query_coeff.f"
+    "{f | FORALL (k_1: integers.above((number_fields.+)(1, base_repr.upper_index(3, query_coeff.k)))): query_coeff.f(k_1) = 0}")))
  (bump_one_prep2_TCC2 0
   (bump_one_prep2_TCC2-1 nil 3621264743 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -2943,7 +3823,9 @@
      real_props nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (bump_one_prep2 subtype "0"
+    "naturalnumbers.upto((number_fields.+)(2, base_repr.upper_index(3, query_coeff.k)))")))
  (bump_one_prep2 0
   (bump_one_prep2-1 nil 3621264745
    ("" (skeep)
@@ -3170,11 +4052,9 @@
     (expt def-decl "real" exponentiation nil)
     (nat_exp application-judgement "nat" exponentiation nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (base_n_to_nat const-decl "nat" base_repr "reals/")
-    (k skolem-const-decl "nat" query_coeff nil)
+    (base_n_to_nat const-decl "nat" base_repr "reals/") nil
     (upper_is_bound formula-decl nil base_repr "reals/")
+    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
@@ -3189,8 +4069,7 @@
      nil)
     (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]" log_nat
      "reals/")
-    (log_nat_incr formula-decl nil log_nat "reals/")
-    (x!1 skolem-const-decl "nat" query_coeff nil)
+    (log_nat_incr formula-decl nil log_nat "reals/") nil
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (base_n_lt_n formula-decl nil base_repr "reals/")
@@ -3199,12 +4078,11 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (bump_one_ind def-decl
@@ -3243,8 +4121,194 @@
  (bump_one_TCC1 0
   (bump_one_TCC1-1 nil 3621165054
    ("" (lemma "bump_one_prep2") (("" (ground) nil nil)) nil)
-   ((bump_one_prep2 formula-decl nil query_coeff nil)) nil))
+   ((bump_one_prep2 formula-decl nil query_coeff nil)) nil
+   (bump_one subtype
+    "query_coeff.bump_one_ind((number_fields.+)(base_repr.upper_index(3, query_coeff.k), 1), query_coeff.f, 0)"
+    "{ff: [naturalnumbers.nat -> naturalnumbers.below(3)] | ff = base_repr.base_n(3, (number_fields.+)(1, query_coeff.k))}")))
+ (switch_to_array_TCC1 0
+  (switch_to_array_TCC1-1 nil 3744277570
+   ("" (skeep) (("" (inst 1 "0") nil nil)) nil)
+   ((number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil naturalnumbers nil))
+   nil (switch_to_array existence "" "naturalnumbers.below(3)")))
  (switch_to_array 0
+  (switch_to_array-2 "" 3750606908
+   (""
+    (case "FORALL (nn:nat, j: posnat, L: listn[below(3)](j + 1),
+              (f: [nat -> below(3)] | FORALL (k: above(j)): f(k) = 0),
+              i: upto(j + 1)): nn = j+1-i IMPLIES
+        ( array2list[below(3)](j + 1)(f) = L IMPLIES
+         bump_one_ind_list(j, L, i) =
+          array2list[below(3)](j + 1)(bump_one_ind(j, f, i)))")
+    (("1" (skeep)
+      (("1" (inst?)
+        (("1" (inst -1 "j+1-i") (("1" (ground) nil nil)) nil)) nil))
+      nil)
+     ("2" (hide 2)
+      (("2" (induct "nn")
+        (("1" (skeep)
+          (("1" (both-sides "+" "i" -1)
+            (("1" (simplify)
+              (("1" (expand "bump_one_ind_list")
+                (("1" (lift-if 1)
+                  (("1" (ground)
+                    (("1" (lemma "bump_one_below")
+                      (("1" (lemma "list_extensionality[below(3)]")
+                        (("1" (inst?)
+                          (("1" (flatten)
+                            (("1" (hide -1)
+                              (("1"
+                                (typepred
+                                 "array2list[below(3)](1 + j)(bump_one_ind(j, f, i))")
+                                (("1"
+                                  (replace -2)
+                                  (("1"
+                                    (split -4)
+                                    (("1" (propax) nil nil)
+                                     ("2"
+                                      (typepred (L))
+                                      (("2" (propax) nil nil))
+                                      nil)
+                                     ("3"
+                                      (skeep)
+                                      (("3"
+                                        (inst -3 "n")
+                                        (("3"
+                                          (replace -3 :dir rl)
+                                          (("3"
+                                            (inst -4 "j" "f" "i" "n")
+                                            (("3"
+                                              (typepred (n))
+                                              (("3"
+                                                (ground)
+                                                (("3"
+                                                  (replace -1)
+                                                  (("3"
+                                                    (typepred (f))
+                                                    (("3"
+                                                      (typepred (L))
+                                                      (("3"
+                                                        (replace
+                                                         -11
+                                                         :dir
+                                                         rl)
+                                                        (("3"
+                                                          (hide 2)
+                                                          (("3"
+                                                            (typepred
+                                                             "array2list[below(3)](1 + j)(f)")
+                                                            (("3"
+                                                              (inst
+                                                               -3
+                                                               "n")
+                                                              (("3"
+                                                                (ground)
+                                                                nil
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2" (inst 1 "0") nil nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (inst 1 "0") nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (ground) nil nil))
+            nil))
+          nil)
+         ("2" (skeep)
+          (("2" (skeep)
+            (("2" (case "nth(L,i) = f(i)")
+              (("1" (case "f(i)<2")
+                (("1" (expand "bump_one_ind_list")
+                  (("1" (expand "bump_one_ind")
+                    (("1" (hide -3)
+                      (("1" (ground)
+                        (("1" (lemma "switch_is_with")
+                          (("1" (inst -1 "L" "i" "1+f(i)" "f")
+                            (("1" (ground) nil nil)) nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (expand "bump_one_ind" 2)
+                  (("2" (expand "bump_one_ind_list" 2)
+                    (("2" (ground)
+                      (("2" (lemma "switch_is_with")
+                        (("2"
+                          (inst -1 "bump_one_ind_list(j, L, 1 + i)" "i"
+                           "0" "bump_one_ind(j, f, 1 + i)")
+                          (("1" (ground) nil nil)
+                           ("2" (hide 3)
+                            (("2" (inst -2 "j" "L" "f" "i+1")
+                              (("2"
+                                (split -2)
+                                (("1" (ground) nil nil)
+                                 ("2" (propax) nil nil)
+                                 ("3" (ground) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (replace -3 :dir rl)
+                (("2" (typepred "array2list[below(3)](j + 1)(f)")
+                  (("1" (inst -3 "i")
+                    (("1" (ground) nil nil) ("2" (ground) nil nil))
+                    nil)
+                   ("2" (inst 1 "0") nil nil))
+                  nil))
+                nil)
+               ("3" (ground) nil nil))
+              nil))
+            nil))
+          nil)
+         ("3" (skeep) (("3" (inst 1 "0") nil nil)) nil)
+         ("4" (skeep) (("4" (inst 1 "0") nil nil)) nil))
+        nil))
+      nil)
+     ("3" (skeep) (("3" (inst 1 "0") nil nil)) nil)
+     ("4" (skeep) (("4" (inst 1 "0") nil nil)) nil))
+    nil)
+   nil shostak)
   (switch_to_array-1 nil 3621677401
    (""
     (case "FORALL (nn:nat, j: posnat, L: listn[below(3)](j + 1),
@@ -3400,81 +4464,84 @@
         nil))
       nil))
     nil)
-   ((j skolem-const-decl "posnat" query_coeff nil)
-    (L skolem-const-decl "listn[below(3)](1 + j)" query_coeff nil)
-    (i skolem-const-decl "upto(1 + j)" query_coeff nil)
-    (f skolem-const-decl
-     "{f: [nat -> below(3)] | FORALL (k: above(j)): f(k) = 0}"
+   ((bump_one_ind def-decl
+     "{ff: [nat -> below(3)] | FORALL (k: above(j + 1)): ff(k) = 0}"
      query_coeff nil)
-    (switch_is_with formula-decl nil query_coeff nil)
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (bump_one_below formula-decl nil query_coeff nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (list_extensionality formula-decl nil more_list_props
-     "structures/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (pred type-eq-decl nil defined_types nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
+    (bump_one_ind_list def-decl "listn[below(3)](j + 1)" query_coeff
      nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (< const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (length def-decl "nat" list_props nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (listn type-eq-decl nil listn "structures/")
-    (above nonempty-type-eq-decl nil integers nil)
-    (<= const-decl "bool" reals nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (below type-eq-decl nil nat_types nil)
-    (nth def-decl "T" list_props nil)
     (array2list const-decl
      "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
      array2list "structures/")
-    (bump_one_ind_list def-decl "listn[below(3)](j + 1)" query_coeff
+    (nth def-decl "T" list_props nil)
+    (below type-eq-decl nil nat_types nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (<= const-decl "bool" reals nil)
+    (above nonempty-type-eq-decl nil integers nil)
+    (listn type-eq-decl nil listn "structures/")
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (length def-decl "nat" list_props nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (list type-decl nil list_adt nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (bump_one_ind def-decl
-     "{ff: [nat -> below(3)] | FORALL (k: above(j + 1)): ff(k) = 0}"
-     query_coeff nil))
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (TRUE const-decl "bool" booleans nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (pred type-eq-decl nil defined_types nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (list_extensionality formula-decl nil more_list_props
+     "structures/")
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (bump_one_below formula-decl nil query_coeff nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
+    (switch_is_with formula-decl nil query_coeff nil)
+    (f skolem-const-decl
+     "{f: [nat -> below(3)] | FORALL (k: above(j)): f(k) = 0}"
+     query_coeff nil)
+    (i skolem-const-decl "upto(1 + j)" query_coeff nil)
+    (L skolem-const-decl "listn[below(3)](1 + j)" query_coeff nil)
+    (j skolem-const-decl "posnat" query_coeff nil))
    shostak))
  (bump_one_list_TCC1 0
   (bump_one_list_TCC1-1 nil 3621696480 ("" (subtype-tcc) nil nil) nil
-   nil))
+   nil
+   (bump_one_list subtype "0"
+    "naturalnumbers.upto((number_fields.+)(1, query_coeff.j))")))
  (bump_one_list_TCC2 0
   (bump_one_list_TCC2-1 nil 3621696480
    ("" (skeep)
@@ -3786,6 +4853,8 @@
      query_coeff nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
     (base_n_to_nat_unique formula-decl nil base_repr "reals/")
     (base_n_lt_n formula-decl nil base_repr "reals/")
     (real_gt_is_strict_total_order name-judgement
@@ -3803,14 +4872,10 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
     (expt def-decl "real" exponentiation nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
@@ -3854,7 +4919,10 @@
     (k skolem-const-decl "below(3 ^ (1 + j))" query_coeff nil)
     (above nonempty-type-eq-decl nil integers nil)
     (= const-decl "[T, T -> boolean]" equalities nil))
-   nil))
+   nil
+   (bump_one_list subtype
+    "query_coeff.bump_one_ind_list(query_coeff.j, query_coeff.L, 0)"
+    "{ll: listn[naturalnumbers.below(3)].listn((number_fields.+)(query_coeff.j, 1)) | ll = base_repr.base_list(3, (number_fields.+)(1, query_coeff.k), (number_fields.+)(1, query_coeff.j))}")))
  (is_nonzero_TCC1 0
   (is_nonzero_TCC1-1 nil 3621592121 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -3886,10 +4954,12 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (is_nonzero subtype "0"
+    "{x: reals.real | x = number_fields.*(query_coeff.F(query_coeff.l), query_coeff.G(query_coeff.l))}")))
  (dot_tail_sum2plus_TCC1 0
   (dot_tail_sum2plus_TCC1-1 nil 3621758096 ("" (subtype-tcc) nil nil)
-   nil nil))
+   nil nil (dot_tail_sum2plus subtype "query_coeff.n" "posnat")))
  (dot_tail_sum2plus_TCC2 0
   (dot_tail_sum2plus_TCC2-1 nil 3621758096 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -3937,7 +5007,10 @@
      "(strict_total_order?[real])" real_props nil)
     (^ const-decl "real" exponentiation nil)
     (posnat_expt application-judgement "posnat" exponentiation nil))
-   nil))
+   nil
+   (dot_tail_sum2plus subtype
+    "(number_fields.-)(exponentiation.^(3, query_coeff.n), query_coeff.i)"
+    "naturalnumber")))
  (dot_tail_sum2plus_TCC3 0
   (dot_tail_sum2plus_TCC3-1 nil 3621758096
    ("" (skeep)
@@ -3987,10 +5060,14 @@
      real_props nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (dot_tail_sum2plus subtype "(number_fields.+)(query_coeff.i, 1)"
+    "naturalnumbers.upto(exponentiation.^(3, query_coeff.n))")))
  (dot_tail_sum2plus_TCC4 0
   (dot_tail_sum2plus_TCC4-1 nil 3621758096 ("" (subtype-tcc) nil nil)
-   ((^ const-decl "real" exponentiation nil)) nil))
+   ((^ const-decl "real" exponentiation nil)) nil
+   (dot_tail_sum2plus subtype "(number_fields.-)(query_coeff.n, 1)"
+    "posnat")))
  (dot_tail_sum2plus_TCC5 0
   (dot_tail_sum2plus_TCC5-1 nil 3621758096 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -4040,7 +5117,9 @@
      "(strict_total_order?[real])" real_props nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (dot_tail_sum2plus subtype "query_coeff.i"
+    "naturalnumbers.below(exponentiation.^(3, query_coeff.n))")))
  (dot_tail_sum2plus_TCC6 0
   (dot_tail_sum2plus_TCC6-1 nil 3621758096 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -4089,21 +5168,24 @@
      array2list "structures/")
     (base_list const-decl "listn[below(n)](digits)" base_repr
      "reals/"))
-   nil))
+   nil
+   (dot_tail_sum2plus subtype "query_coeff.L"
+    "{ll: listn[naturalnumbers.below(3)].listn(query_coeff.n) | ll = base_repr.base_list(3, query_coeff.i, query_coeff.n)}")))
  (dot_tail_sum2plus_TCC7 0
   (dot_tail_sum2plus_TCC7-1 nil 3621758096
    ("" (termination-tcc) nil nil)
-   ((posnat_expt application-judgement "posnat" exponentiation nil)
-    (posint_times_posint_is_posint application-judgement "posint"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
+   ((expt def-decl "real" exponentiation nil)
+    (^ const-decl "real" exponentiation nil)
     (is_nonzero const-decl "{x: real | x = F(l) * G(l)}" query_coeff
      nil)
-    (^ const-decl "real" exponentiation nil)
-    (expt def-decl "real" exponentiation nil))
-   nil))
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil))
+   nil
+   (dot_tail_sum2plus termination
+    "query_coeff.dot_tail_sum2plus(query_coeff.n, query_coeff.F, query_coeff.G, query_coeff.A, (number_fields.+)(query_coeff.i, 1), query_coeff.bump_one_list((number_fields.-)(query_coeff.n, 1), query_coeff.i, query_coeff.L))"
+    "nil")))
  (dot_tail_sum2plus_TCC8 0
   (dot_tail_sum2plus_TCC8-1 nil 3621758096 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -4150,55 +5232,9 @@
      "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
      array2list "structures/")
     (^ const-decl "real" exponentiation nil))
-   nil))
- (dot_tail_sum_lem_TCC1 0
-  (dot_tail_sum_lem_TCC1-1 nil 3621592759 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (> const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (/= const-decl "boolean" notequal nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (list type-decl nil list_adt nil)
-    (every adt-def-decl "boolean" list_adt nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (< const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (length def-decl "nat" list_props nil)
-    (listn type-eq-decl nil listn "structures/")
-    (base_list const-decl "listn[below(n)](digits)" base_repr "reals/")
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (array2list const-decl
-     "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
-     array2list "structures/")
-    (^ const-decl "real" exponentiation nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil))
-   nil))
+   nil
+   (dot_tail_sum2plus subtype "query_coeff.L"
+    "{ll: list_adt[naturalnumbers.below(3)].list | list_props[naturalnumbers.below(3)].length(ll) = query_coeff.n}")))
  (dot_tail_sum_lem 0
   (dot_tail_sum_lem-1 nil 3621592773
    (""
@@ -4274,8 +5310,7 @@
     nil)
    ((real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (n skolem-const-decl "{x: nat | x > 1}" query_coeff nil)
-    (pred type-eq-decl nil defined_types nil)
+    nil (pred type-eq-decl nil defined_types nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
@@ -4292,7 +5327,7 @@
     (bump_one_list const-decl
      "{ll: listn[below(3)](j + 1) | ll = base_list(3, k + 1, j + 1)}"
      query_coeff nil)
-    (i skolem-const-decl "upto(3 ^ n)" query_coeff nil)
+    nil
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -4316,8 +5351,7 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (> const-decl "bool" reals nil) (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil) nil
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
@@ -4346,7 +5380,9 @@
  (is_nz_TCC1 0
   (is_nz_TCC1-1 nil 3621595927 ("" (subtype-tcc) nil nil)
    ((real_times_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (is_nz subtype "0"
+    "{x: reals.real | x = number_fields.*(query_coeff.F(query_coeff.f), query_coeff.G(query_coeff.f))}")))
  (dot_tail_sum2_TCC1 0
   (dot_tail_sum2_TCC1-1 nil 3621595927
    ("" (skeep)
@@ -4391,7 +5427,10 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (dot_tail_sum2 subtype
+    "(number_fields.-)(exponentiation.^(3, query_coeff.n), query_coeff.i)"
+    "naturalnumber")))
  (dot_tail_sum2_TCC2 0
   (dot_tail_sum2_TCC2-1 nil 3621595927
    ("" (skeep)
@@ -4438,19 +5477,22 @@
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil))
-   nil))
+   nil
+   (dot_tail_sum2 subtype "(number_fields.+)(query_coeff.i, 1)"
+    "naturalnumbers.upto(exponentiation.^(3, query_coeff.n))")))
  (dot_tail_sum2_TCC3 0
   (dot_tail_sum2_TCC3-1 nil 3621758128 ("" (termination-tcc) nil nil)
-   ((posnat_expt application-judgement "posnat" exponentiation nil)
+   ((expt def-decl "real" exponentiation nil)
+    (^ const-decl "real" exponentiation nil)
+    (is_nz const-decl "{x: real | x = F(f) * G(f)}" query_coeff nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (is_nz const-decl "{x: real | x = F(f) * G(f)}" query_coeff nil)
-    (^ const-decl "real" exponentiation nil)
-    (expt def-decl "real" exponentiation nil))
-   nil))
+    (posnat_expt application-judgement "posnat" exponentiation nil))
+   nil
+   (dot_tail_sum2 termination
+    "query_coeff.dot_tail_sum2(query_coeff.n, query_coeff.F, query_coeff.G, query_coeff.A, (number_fields.+)(query_coeff.i, 1), query_coeff.bump_one(query_coeff.i, query_coeff.f))"
+    "nil")))
  (dot_tail_sum_lem2_TCC1 0
   (dot_tail_sum_lem2_TCC1-1 nil 3621595927
    ("" (skeep)
@@ -4477,38 +5519,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (base_n_lt_n formula-decl nil base_repr "reals/"))
-   nil))
+   nil
+   (dot_tail_sum_lem2 subtype "base_repr.base_n(3, query_coeff.i)"
+    "{f | query_coeff.f = base_repr.base_n(3, query_coeff.i)}")))
  (dot_tail_sum_lem2_TCC2 0
-  (dot_tail_sum_lem2_TCC2-1 nil 3621595927
-   ("" (skeep) (("" (inst 2 "3^n") (("" (ground) nil nil)) nil)) nil)
-   ((posint_exp application-judgement "posint" exponentiation nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (/= const-decl "boolean" notequal nil)
-    (^ const-decl "real" exponentiation nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
- (dot_tail_sum_lem2_TCC3 0
   (dot_tail_sum_lem2_TCC3-1 nil 3621758128
    ("" (skeep)
     (("" (skeep) (("" (rewrite "base_n_lt_n") nil nil)) nil)) nil)
@@ -4528,8 +5542,127 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (base_n_lt_n formula-decl nil base_repr "reals/"))
-   nil))
+   nil
+   (dot_tail_sum_lem2 subtype "base_repr.base_n(3, query_coeff.j)"
+    "[nat -> naturalnumbers.below(3)]")))
  (dot_tail_sum_lem2 0
+  (dot_tail_sum_lem2-2 "" 3750606989
+   ("" (skolem 1 ("n" "F" "G" "_" "_"))
+    ((""
+      (case "FORALL (nn:nat, a: real, i: upto(3 ^ n)): nn=3^n-i IMPLIES
+        dot_tail_sum2(n, F, G, a, i, base_n(3, i)) =
+         a +
+          sigma(i, 3 ^ n - 1,
+                LAMBDA (j: nat): F(base_n(3, j)) * G(base_n(3, j))) ")
+      (("1" (skeep)
+        (("1" (inst?) (("1" (inst -1 "3^n-i") nil nil)) nil)) nil)
+       ("2" (hide 2)
+        (("2" (induct "nn")
+          (("1" (skeep)
+            (("1" (both-sides "+" "i" -1)
+              (("1" (simplify -1)
+                (("1" (replace -1)
+                  (("1" (expand "dot_tail_sum2")
+                    (("1" (expand "sigma") (("1" (propax) nil nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (skeep)
+            (("2" (skeep)
+              (("2" (expand "dot_tail_sum2" 1)
+                (("2" (lift-if 1)
+                  (("2" (split 1)
+                    (("1" (flatten) (("1" (ground) nil nil)) nil)
+                     ("2" (flatten)
+                      (("2"
+                        (inst -1 "is_nz(n, base_n(3, i), F, G) + a "
+                         "1 + i")
+                        (("2" (split -1)
+                          (("1" (typepred "bump_one(i, base_n(3, i))")
+                            (("1" (replace -1)
+                              (("1"
+                                (replace -2)
+                                (("1"
+                                  (swap-rel 2)
+                                  (("1"
+                                    (rewrite "sigma_first" 2)
+                                    (("1"
+                                      (typepred
+                                       "is_nz(n, base_n(3, i), F, G)")
+                                      (("1" (ground) nil nil))
+                                      nil)
+                                     ("2"
+                                      (skeep)
+                                      (("2"
+                                        (skeep)
+                                        (("2"
+                                          (rewrite "base_n_lt_n")
+                                          nil
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (skeep)
+                                    (("2"
+                                      (skeep)
+                                      (("2"
+                                        (rewrite "base_n_lt_n")
+                                        nil
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (ground) nil nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("3" (skeep)
+            (("3" (skeep)
+              (("3" (skeep)
+                (("3" (skeep) (("3" (rewrite "base_n_lt_n") nil nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("4" (skeep)
+            (("4" (ground)
+              (("4" (skeep)
+                (("4" (skeep) (("4" (rewrite "base_n_lt_n") nil nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("3" (skeep)
+        (("3" (skeep)
+          (("3" (skeep)
+            (("3" (skeep) (("3" (rewrite "base_n_lt_n") nil nil)) nil))
+            nil))
+          nil))
+        nil)
+       ("4" (skeep)
+        (("4" (ground)
+          (("4" (skeep)
+            (("4" (skeep) (("4" (rewrite "base_n_lt_n") nil nil)) nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (dot_tail_sum_lem2-1 nil 3621596460
    ("" (skolem 1 ("n" "F" "G" "_" "_"))
     ((""
@@ -4644,65 +5777,66 @@
         nil))
       nil))
     nil)
-   ((* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (sigma def-decl "real" sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (dot_tail_sum2 def-decl "real" query_coeff nil)
-    (base_n def-decl "nat" base_repr "reals/")
-    (below type-eq-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (^ const-decl "real" exponentiation nil)
-    (/= const-decl "boolean" notequal nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (n skolem-const-decl "posnat" query_coeff nil)
-    (pred type-eq-decl nil defined_types nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+   ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (base_n_lt_n formula-decl nil base_repr "reals/")
-    (sigma_first formula-decl nil sigma "reals/")
-    (bump_one const-decl
-     "{ff: [nat -> below(3)] | ff = base_n(3, k + 1)}" query_coeff nil)
-    (is_nz const-decl "{x: real | x = F(f) * G(f)}" query_coeff nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil))
+    (is_nz const-decl "{x: real | x = F(f) * G(f)}" query_coeff nil)
+    (bump_one const-decl
+     "{ff: [nat -> below(3)] | ff = base_n(3, k + 1)}" query_coeff nil)
+    (sigma_first formula-decl nil sigma "reals/")
+    (base_n_lt_n formula-decl nil base_repr "reals/")
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (pred type-eq-decl nil defined_types nil)
+    (n skolem-const-decl "posnat" query_coeff nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (<= const-decl "bool" reals nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (/= const-decl "boolean" notequal nil)
+    (^ const-decl "real" exponentiation nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (base_n def-decl "nat" base_repr "reals/")
+    (dot_tail_sum2 def-decl "real" query_coeff nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (T_low type-eq-decl nil sigma "reals/")
+    (T_high type-eq-decl nil sigma "reals/")
+    (sigma def-decl "real" sigma "reals/")
+    (* const-decl "[numfield, numfield -> numfield]" number_fields
+       nil))
    shostak)))
 

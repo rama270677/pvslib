@@ -33,7 +33,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (sorted? const-decl "bool" sort_array nil))
-   shostak))
+   shostak
+   (epsilon_lem subtype "(number_fields.+)(bubblesort.j, 1)"
+    "naturalnumbers.below(bubblesort.N)")))
  (epsilon_lem_TCC2 0
   (epsilon_lem_TCC2-1 nil 3271516180 ("" (existence-tcc) nil nil)
    ((below type-eq-decl nil naturalnumbers nil)
@@ -65,8 +67,24 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (sorted? const-decl "bool" sort_array nil))
-   shostak))
+   shostak
+   (epsilon_lem existence "" "naturalnumbers.below(bubblesort.N)")))
  (epsilon_lem 0
+  (epsilon_lem-2 "" 3744469499
+   ("" (skosimp*)
+    (("" (use "epsilon_ax[below(N)]")
+      (("1" (split -)
+        (("1" (replace -2 :dir rl :hide? t) (("1" (propax) nil nil))
+          nil)
+         ("2" (use "successive_inversion_exists")
+          (("2" (assert) nil nil)) nil))
+        nil)
+       ("2" (hide-all-but 1)
+        (("2" (skosimp*) (("2" (assert) nil nil)) nil)) nil)
+       ("3" (inst 1 "0") nil nil))
+      nil))
+    nil)
+   nil shostak)
   (epsilon_lem-1 nil 3271515427
    ("" (skosimp*)
     (("" (use "epsilon_ax[below(N)]")
@@ -153,9 +171,13 @@
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil)
+   nil
+   (bubblesort subtype "(number_fields.+)(bubblesort.j, 1)"
+    "naturalnumbers.below(bubblesort.N)"))
   (bubblesort_TCC1-1 nil 3271184426 ("" (termination-tcc) nil nil)
-   ((sorted? const-decl "bool" sort_array nil)) shostak))
+   ((sorted? const-decl "bool" sort_array nil)) shostak
+   (bubblesort subtype "(number_fields.+)(bubblesort.j, 1)"
+    "naturalnumbers.below(bubblesort.N)")))
  (bubblesort_TCC2 0
   (bubblesort_TCC2-2 nil 3272301630
    ("" (skosimp*)
@@ -201,9 +223,15 @@
     (<= formal-const-decl "(total_order?[T])" bubblesort nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil)
+   nil
+   (bubblesort termination
+    "bubblesort.bubblesort(function_props[naturalnumbers.below(bubblesort.N), naturalnumbers.below(bubblesort.N), bubblesort.T].o(bubblesort.A, permutation[bubblesort.N].transpose(bubblesort.j, (number_fields.+)(bubblesort.j, 1))))"
+    "nil"))
   (bubblesort_TCC2-1 nil 3271514528 ("" (existence-tcc) nil nil)
-   ((sorted? const-decl "bool" sort_array nil)) shostak))
+   ((sorted? const-decl "bool" sort_array nil)) shostak
+   (bubblesort termination
+    "bubblesort.bubblesort(function_props[naturalnumbers.below(bubblesort.N), naturalnumbers.below(bubblesort.N), bubblesort.T].o(bubblesort.A, permutation[bubblesort.N].transpose(bubblesort.j, (number_fields.+)(bubblesort.j, 1))))"
+    "nil")))
  (sorted_bubblesort 0
   (sorted_bubblesort-1 nil 3271184528
    ("" (measure-induct+ "card(inversions(A))" ("A"))

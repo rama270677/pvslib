@@ -5,23 +5,19 @@
      rationals nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (+ const-decl "PosRatPair" clear_denominators nil)
     (posratpair_convert const-decl "posrat" clear_denominators nil))
    shostak))
  (posratpair_div 0
   (posratpair_div-1 nil 3599588176 ("" (grind) nil nil)
-   ((posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
+   ((posratpair_convert const-decl "posrat" clear_denominators nil)
+    (/ const-decl "PosRatPair" clear_denominators nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (/ const-decl "PosRatPair" clear_denominators nil)
-    (posratpair_convert const-decl "posrat" clear_denominators nil))
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil))
    shostak))
  (PosRatSet_nonempty 0
   (PosRatSet_nonempty-1 nil 3599814580
@@ -159,11 +155,14 @@
      rationals nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (lower_bound? const-decl "bool" bounded_real_defs nil)
     (bounded_below? const-decl "bool" bounded_real_defs nil))
-   nil))
+   nil
+   (PosRatSet_glb_posnat subtype
+    "extend[real, posnat, booleans.bool, booleans.FALSE].extend(clear_denominators.PosRatSet(clear_denominators.x))"
+    "(bounded_real_defs.bounded_below?)")))
  (PosRatSet_glb_posnat 0
   (PosRatSet_glb_posnat-1 nil 3599840375
    ("" (skeep)
@@ -310,7 +309,6 @@
    ((glb_nat formula-decl nil integer_props nil)
     (PosRatSet_nonempty formula-decl nil clear_denominators nil)
     (empty? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (bounded_below? const-decl "bool" bounded_real_defs nil)
     (greatest_lower_bound? const-decl "bool" bounded_real_defs nil)
@@ -330,7 +328,7 @@
      clear_denominators nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -434,7 +432,10 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (empty? const-decl "bool" sets nil)
     (PosRatSet_nonempty formula-decl nil clear_denominators nil))
-   nil))
+   nil
+   (PosRatMeas subtype
+    "extend[real, posnat, booleans.bool, booleans.FALSE].extend(clear_denominators.PosRatSet(clear_denominators.x))"
+    "(bounded_real_defs.bounded_below?)")))
  (PosRatMeas_TCC2 0
   (PosRatMeas_TCC2-1 nil 3599814898
    ("" (assert)
@@ -622,7 +623,7 @@
         nil))
       nil))
     nil)
-   ((posint_plus_nnint_is_posint application-judgement "posint"
+   ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (glb_nat formula-decl nil integer_props nil)
     (empty? const-decl "bool" sets nil)
@@ -630,7 +631,7 @@
     (PosRatSet_nonempty formula-decl nil clear_denominators nil)
     (glb_lem formula-decl nil bounded_real_defs nil)
     (s skolem-const-decl "(extend[real, nat, bool, FALSE]
-     (restrict[real, nat, boolean]
+     (restrict[real, nat, bool]
           (extend[real, posnat, bool, FALSE](PosRatSet(x)))))"
      clear_denominators nil)
     (s!1 skolem-const-decl
@@ -682,7 +683,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil))
-   nil))
+   nil
+   (PosRatMeas subtype
+    "bounded_real_defs.glb(extend[real, posnat, booleans.bool, booleans.FALSE].extend(clear_denominators.PosRatSet(clear_denominators.x)))"
+    "posnat")))
  (PosRatMeas_TCC3 0
   (PosRatMeas_TCC3-1 nil 3599840492
    ("" (skeep)
@@ -717,14 +721,10 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (expt def-decl "real" exponentiation nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nat_induction formula-decl nil naturalnumbers nil)
@@ -735,7 +735,6 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
@@ -765,7 +764,10 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   nil))
+   nil
+   (PosRatMeas subtype
+    "(number_fields.-)(exponentiation.^(10, clear_denominators.mp), 1)"
+    "nat")))
  (PosRatMeas_increasing 0
   (PosRatMeas_increasing-1 nil 3599838300
    ("" (skeep)
@@ -1091,33 +1093,25 @@
     nil)
    ((PosRatMeas const-decl "nat" clear_denominators nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (< const-decl "bool" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (x skolem-const-decl "posrat" clear_denominators nil)
     (mpx skolem-const-decl "{x_1 |
-         greatest_lower_bound?(x_1,
-                               extend[real, posnat, bool, FALSE]
-                                   (PosRatSet(x)))}" clear_denominators
-     nil)
+   greatest_lower_bound?(x_1,
+                         extend[real, posnat, bool, FALSE](PosRatSet(x)))}"
+     clear_denominators nil)
     (y skolem-const-decl "posrat" clear_denominators nil)
     (mpy skolem-const-decl "{x |
-         greatest_lower_bound?(x,
-                               extend[real, posnat, bool, FALSE]
-                                   (PosRatSet(y)))}" clear_denominators
-     nil)
+   greatest_lower_bound?(x,
+                         extend[real, posnat, bool, FALSE](PosRatSet(y)))}"
+     clear_denominators nil)
     (expt def-decl "real" exponentiation nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nat_induction formula-decl nil naturalnumbers nil)
@@ -1126,7 +1120,6 @@
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (TRUE const-decl "bool" booleans nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
@@ -1139,6 +1132,7 @@
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
+    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -1148,6 +1142,7 @@
     (/= const-decl "boolean" notequal nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
+    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1210,7 +1205,10 @@
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (PosRatMeas_glb_minus_posnat subtype
+    "(number_fields.-)(clear_denominators.x, clear_denominators.pn)"
+    "posrat")))
  (PosRatMeas_glb_minus_posnat_TCC2 0
   (PosRatMeas_glb_minus_posnat_TCC2-1 nil 3599903317
    ("" (lemma "PosRatSet_nonempty")
@@ -1245,13 +1243,12 @@
      real_props nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (FALSE const-decl "bool" booleans nil)
     (set type-eq-decl nil sets nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (nonempty? const-decl "bool" sets nil)
     (member const-decl "bool" sets nil)
     (extend const-decl "R" extend nil)
@@ -1285,7 +1282,10 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (PosRatSet_nonempty formula-decl nil clear_denominators nil))
-   nil))
+   nil
+   (PosRatMeas_glb_minus_posnat subtype
+    "extend[real, posnat, booleans.bool, booleans.FALSE].extend(clear_denominators.PosRatSet((number_fields.-)(clear_denominators.x, clear_denominators.pn)))"
+    "(bounded_real_defs.bounded_below?)")))
  (PosRatMeas_glb_minus_posnat 0
   (PosRatMeas_glb_minus_posnat-1 nil 3599903321
    ("" (skeep)
@@ -1511,15 +1511,13 @@
     (PosRatSet const-decl "set[posnat]" clear_denominators nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (PosRatSet_glb_posnat formula-decl nil clear_denominators nil)
     (x skolem-const-decl "posrat" clear_denominators nil)
     (pn skolem-const-decl "posnat" clear_denominators nil)
     (mx skolem-const-decl "{x_1 |
-         greatest_lower_bound?(x_1,
-                               extend[real, posnat, bool, FALSE]
-                                   (PosRatSet(x)))}" clear_denominators
-     nil)
+   greatest_lower_bound?(x_1,
+                         extend[real, posnat, bool, FALSE](PosRatSet(x)))}"
+     clear_denominators nil)
     (pn2 skolem-const-decl "posnat" clear_denominators nil)
     (div_cancel4 formula-decl nil real_props nil)
     (/= const-decl "boolean" notequal nil)
@@ -1536,14 +1534,12 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -1570,7 +1566,9 @@
     (nonneg_rat nonempty-type-eq-decl nil rationals nil)
     (> const-decl "bool" reals nil)
     (posrat nonempty-type-eq-decl nil rationals nil))
-   nil))
+   nil
+   (compute_posratpair subtype "floor_ceil.floor(clear_denominators.x)"
+    "posnat")))
  (compute_posratpair_TCC2 0
   (compute_posratpair_TCC2-1 nil 3599821439 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1590,7 +1588,10 @@
     (posrat nonempty-type-eq-decl nil rationals nil)
     (posratpair_convert const-decl "posrat" clear_denominators nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   nil))
+   nil
+   (compute_posratpair subtype
+    "(# num := floor_ceil.floor(clear_denominators.x), den := 1 #)"
+    "{prp | clear_denominators.posratpair_convert(clear_denominators.prp) = clear_denominators.x}")))
  (compute_posratpair_TCC3 0
   (compute_posratpair_TCC3-1 nil 3599821439 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1613,7 +1614,9 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (compute_posratpair subtype "floor_ceil.floor(clear_denominators.x)"
+    "posnat")))
  (compute_posratpair_TCC4 0
   (compute_posratpair_TCC4-1 nil 3599821439 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1637,7 +1640,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   nil))
+   nil
+   (compute_posratpair subtype
+    "(number_fields.-)(clear_denominators.x, floor_ceil.floor(clear_denominators.x))"
+    "posrat")))
  (compute_posratpair_TCC5 0
   (compute_posratpair_TCC5-1 nil 3599821439
    ("" (skeep)
@@ -1851,7 +1857,6 @@
     (PosRatMeas const-decl "nat" clear_denominators nil)
     (PosRatMeas_glb_minus_posnat formula-decl nil clear_denominators
      nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (both_sides_expt_gt1_lt_aux formula-decl nil exponentiation nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (^ const-decl "real" exponentiation nil)
@@ -1861,8 +1866,6 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
@@ -1876,15 +1879,14 @@
     (posreal nonempty-type-eq-decl nil real_types nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (pz skolem-const-decl "{x_1 |
-         greatest_lower_bound?(x_1,
-                               extend[real, posnat, bool, FALSE]
-                                   (PosRatSet(x)))}" clear_denominators
-     nil)
-    (pe skolem-const-decl "{x_1 |
-         greatest_lower_bound?(x_1,
-                               extend[real, posnat, bool, FALSE]
-                                   (PosRatSet(x - pnn)))}"
+   greatest_lower_bound?(x_1,
+                         extend[real, posnat, bool, FALSE](PosRatSet(x)))}"
      clear_denominators nil)
+    (pe skolem-const-decl "{x_1 |
+   greatest_lower_bound?(x_1,
+                         extend[real, posnat, bool, FALSE]
+                             (PosRatSet(x - pnn)))}" clear_denominators
+     nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
@@ -1933,9 +1935,12 @@
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
-    (rat_minus_rat_is_rat application-judgement "rat" rationals nil))
-   nil))
+    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
+    (nnrat_exp application-judgement "nnrat" exponentiation nil))
+   nil
+   (compute_posratpair termination
+    "clear_denominators.compute_posratpair((number_fields.-)(clear_denominators.x, floor_ceil.floor(clear_denominators.x)))"
+    "nil")))
  (compute_posratpair_TCC6 0
   (compute_posratpair_TCC6-1 nil 3599821439
    ("" (skeep)
@@ -1991,8 +1996,6 @@
      integers nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
@@ -2000,7 +2003,10 @@
     (+ const-decl "PosRatPair" clear_denominators nil)
     (TRUE const-decl "bool" booleans nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil))
-   nil))
+   nil
+   (compute_posratpair subtype
+    "(clear_denominators.+)((# num := floor_ceil.floor(clear_denominators.x), den := 1 #), clear_denominators.compute_posratpair((number_fields.-)(clear_denominators.x, floor_ceil.floor(clear_denominators.x))))"
+    "{prp | clear_denominators.posratpair_convert(clear_denominators.prp) = clear_denominators.x}")))
  (compute_posratpair_TCC7 0
   (compute_posratpair_TCC7-1 nil 3599821439
    ("" (skeep)
@@ -2086,19 +2092,22 @@
     (set type-eq-decl nil sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (PosRatSet const-decl "set[posnat]" clear_denominators nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
-    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil))
-   nil))
+     rationals nil)
+    (nnrat_exp application-judgement "nnrat" exponentiation nil))
+   nil
+   (compute_posratpair termination
+    "clear_denominators.compute_posratpair(number_fields./(1, clear_denominators.x))"
+    "nil")))
  (compute_posratpair_TCC8 0
   (compute_posratpair_TCC8-1 nil 3599821439
    ("" (skeep)
@@ -2146,7 +2155,10 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posratpair_div formula-decl nil clear_denominators nil))
-   nil))
+   nil
+   (compute_posratpair subtype
+    "clear_denominators./((# num := 1, den := 1 #), clear_denominators.compute_posratpair(number_fields./(1, clear_denominators.x)))"
+    "{prp | clear_denominators.posratpair_convert(clear_denominators.prp) = clear_denominators.x}")))
  (rat_poly_to_int_rec_TCC1 0
   (rat_poly_to_int_rec_TCC1-1 nil 3599920945
    ("" (skeep)
@@ -2178,8 +2190,65 @@
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (one_divides formula-decl nil divides nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "(# newpoly := clear_denominators.aq, currgcd := 1 #)"
+    "{ans: [# currgcd: integers.posnat, newpoly: [naturalnumbers.nat -> rationals.rat] #] | booleans.AND(EXISTS (cp: rationals.posrat): FORALL (j: naturalnumbers.nat): ans`newpoly(j) = number_fields.*(cp, clear_denominators.aq(j)), FORALL (j: naturalnumbers.upto(clear_denominators.n)): booleans.AND(integers.integer_pred(ans`newpoly(j)), divides.divides(ans`currgcd, ans`newpoly(j))))}")))
  (rat_poly_to_int_rec_TCC2 0
+  (rat_poly_to_int_rec_TCC2-2 "" 3755375060
+   ("" (skeep)
+    (("" (assert)
+      (("" (skeep)
+        (("" (assert)
+          (("" (case "NOT thisden*aq(0)/=0")
+            (("1" (assert) nil nil)
+             ("2" (split +)
+              (("1" (flatten)
+                (("1" (case "integer_pred(thisden*aq(0))")
+                  (("1" (case "EXISTS (kk:int): thisden*aq(0)=kk")
+                    (("1" (skeep -1)
+                      (("1" (replaces -1 +) (("1" (grind) nil nil))
+                        nil))
+                      nil)
+                     ("2" (inst + "thisden*aq(0)") nil nil))
+                    nil)
+                   ("2" (hide 2)
+                    (("2" (typepred "compute_posratpair(abs(aq(0)))")
+                      (("2" (expand "posratpair_convert")
+                        (("2" (replace -3 :dir rl)
+                          (("2" (case "aq(0) > 0")
+                            (("1" (expand "abs")
+                              (("1" (assert) nil nil)) nil)
+                             ("2" (expand "abs")
+                              (("2"
+                                (assert)
+                                (("2"
+                                  (cross-mult -1)
+                                  (("2"
+                                    (assert)
+                                    (("2" (neg-formula -1) nil nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (grind) nil nil) ("3" (grind) nil nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (rat_poly_to_int_rec subtype
+    "real_defs.abs(number_fields.*(clear_denominators.thisden, clear_denominators.aq(0)))"
+    "posnat"))
   (rat_poly_to_int_rec_TCC2-1 nil 3599920945
    ("" (skeep)
     (("" (assert)
@@ -2232,17 +2301,14 @@
     nil)
    ((rat_abs_is_nonneg application-judgement "{r: nonneg_rat | r >= q}"
      real_defs nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (aq skolem-const-decl "[nat -> rat]" clear_denominators nil)
+    (thisden skolem-const-decl "posnat" clear_denominators nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (minus_rat_is_rat application-judgement "rat" rationals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (thisden skolem-const-decl "posnat" clear_denominators nil)
-    (aq skolem-const-decl "[nat -> rat]" clear_denominators nil)
     (minus_int_is_int application-judgement "int" integers nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
@@ -2267,14 +2333,15 @@
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nzint_times_nzint_is_nzint application-judgement "nzint" integers
      nil)
     (both_sides_times1_imp formula-decl nil extra_real_props nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
+    (minus_rat_is_rat application-judgement "rat" rationals nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -2298,7 +2365,10 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (rat nonempty-type-eq-decl nil rationals nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "real_defs.abs(number_fields.*(clear_denominators.thisden, clear_denominators.aq(0)))"
+    "posnat")))
  (rat_poly_to_int_rec_TCC3 0
   (rat_poly_to_int_rec_TCC3-1 nil 3599920945
    ("" (skeep)
@@ -2408,8 +2478,6 @@
     (mult_neg formula-decl nil extra_tegies nil)
     (nzint_times_nzint_is_nzint application-judgement "nzint" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
@@ -2438,7 +2506,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "(# newpoly := (LAMBDA (i: naturalnumbers.nat): number_fields.*(clear_denominators.thisden, clear_denominators.aq(i))), currgcd := real_defs.abs(number_fields.*(clear_denominators.thisden, clear_denominators.aq(0))) #)"
+    "{ans: [# currgcd: integers.posnat, newpoly: [naturalnumbers.nat -> rationals.rat] #] | booleans.AND(EXISTS (cp: rationals.posrat): FORALL (j: naturalnumbers.nat): ans`newpoly(j) = number_fields.*(cp, clear_denominators.aq(j)), FORALL (j: naturalnumbers.upto(clear_denominators.n)): booleans.AND(integers.integer_pred(ans`newpoly(j)), divides.divides(ans`currgcd, ans`newpoly(j))))}")))
  (rat_poly_to_int_rec_TCC4 0
   (rat_poly_to_int_rec_TCC4-1 nil 3599920945 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -2464,7 +2535,9 @@
      real_defs nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "real_defs.abs(clear_denominators.aq(0))" "posrat")))
  (rat_poly_to_int_rec_TCC5 0
   (rat_poly_to_int_rec_TCC5-1 nil 3599920945 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -2485,10 +2558,15 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "(number_fields.-)(clear_denominators.n, 1)" "nat")))
  (rat_poly_to_int_rec_TCC6 0
   (rat_poly_to_int_rec_TCC6-1 nil 3599920945
-   ("" (termination-tcc) nil nil) nil nil))
+   ("" (termination-tcc) nil nil) nil nil
+   (rat_poly_to_int_rec termination
+    "clear_denominators.rat_poly_to_int_rec(clear_denominators.aq, (number_fields.-)(clear_denominators.n, 1))"
+    "nil")))
  (rat_poly_to_int_rec_TCC7 0
   (rat_poly_to_int_rec_TCC7-1 nil 3599920945
    ("" (skeep)
@@ -2574,7 +2652,10 @@
     (n skolem-const-decl "nat" clear_denominators nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "clear_denominators.rat_poly_to_int_rec(clear_denominators.aq, (number_fields.-)(clear_denominators.n, 1))"
+    "{ans: [# currgcd: integers.posnat, newpoly: [naturalnumbers.nat -> rationals.rat] #] | booleans.AND(EXISTS (cp: rationals.posrat): FORALL (j: naturalnumbers.nat): ans`newpoly(j) = number_fields.*(cp, clear_denominators.aq(j)), FORALL (j: naturalnumbers.upto(clear_denominators.n)): booleans.AND(integers.integer_pred(ans`newpoly(j)), divides.divides(ans`currgcd, ans`newpoly(j))))}")))
  (rat_poly_to_int_rec_TCC8 0
   (rat_poly_to_int_rec_TCC8-1 nil 3599920945 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -2615,7 +2696,10 @@
     (posrat nonempty-type-eq-decl nil rationals nil)
     (> const-decl "bool" reals nil)
     (nonneg_rat nonempty-type-eq-decl nil rationals nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "real_defs.abs(clear_denominators.currpoly`newpoly(clear_denominators.n))"
+    "posrat")))
  (rat_poly_to_int_rec_TCC9 0
   (rat_poly_to_int_rec_TCC9-1 nil 3599920945
    ("" (skeep)
@@ -2701,8 +2785,6 @@
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nzint_times_nzint_is_nzint application-judgement "nzint" integers
      nil)
     (both_sides_times1_imp formula-decl nil extra_real_props nil)
@@ -2722,7 +2804,10 @@
     (PosRatPair type-eq-decl nil clear_denominators nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "number_fields.*(clear_denominators.thisden, clear_denominators.currpoly`newpoly(clear_denominators.n))"
+    "int")))
  (rat_poly_to_int_rec_TCC10 0
   (rat_poly_to_int_rec_TCC10-1 nil 3599920945
    ("" (subtype-tcc) nil nil)
@@ -2766,7 +2851,9 @@
     (> const-decl "bool" reals nil)
     (nonneg_rat nonempty-type-eq-decl nil rationals nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype "clear_denominators.currpoly`currgcd"
+    "{jj: integers.int | booleans.=>(number_fields.*(clear_denominators.thisden, clear_denominators.currpoly`newpoly(clear_denominators.n)) = 0, jj /= 0)}")))
  (rat_poly_to_int_rec_TCC11 0
   (rat_poly_to_int_rec_TCC11-1 nil 3599920945
    ("" (skeep)
@@ -3097,8 +3184,7 @@
     (div_cancel3 formula-decl nil real_props nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (divides const-decl "bool" divides nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
@@ -3131,7 +3217,10 @@
     (posrat_times_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "(# newpoly := (LAMBDA (i: naturalnumbers.nat): number_fields.*(clear_denominators.thisden, (clear_denominators.currpoly`newpoly(i)))), currgcd := gcd.compute_gcd(number_fields.*(clear_denominators.thisden, clear_denominators.currpoly`newpoly(clear_denominators.n)), clear_denominators.currpoly`currgcd) #)"
+    "{ans: [# currgcd: integers.posnat, newpoly: [naturalnumbers.nat -> rationals.rat] #] | booleans.AND(EXISTS (cp: rationals.posrat): FORALL (j: naturalnumbers.nat): ans`newpoly(j) = number_fields.*(cp, clear_denominators.aq(j)), FORALL (j: naturalnumbers.upto(clear_denominators.n)): booleans.AND(integers.integer_pred(ans`newpoly(j)), divides.divides(ans`currgcd, ans`newpoly(j))))}")))
  (rat_poly_to_int_rec_TCC12 0
   (rat_poly_to_int_rec_TCC12-1 nil 3599920945
    ("" (subtype-tcc) nil nil)
@@ -3153,10 +3242,15 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (rat_poly_to_int_rec subtype
+    "(number_fields.-)(clear_denominators.n, 1)" "nat")))
  (rat_poly_to_int_rec_TCC13 0
   (rat_poly_to_int_rec_TCC13-1 nil 3599920945
-   ("" (termination-tcc) nil nil) nil nil))
+   ("" (termination-tcc) nil nil) nil nil
+   (rat_poly_to_int_rec termination
+    "clear_denominators.rat_poly_to_int_rec(clear_denominators.aq, (number_fields.-)(clear_denominators.n, 1))"
+    "nil")))
  (rat_poly_to_int_TCC1 0
   (rat_poly_to_int_TCC1-1 nil 3599920402 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -3194,10 +3288,12 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil))
-   nil))
+   nil
+   (rat_poly_to_int subtype
+    "number_fields./(clear_denominators.ppoly(clear_denominators.i), clear_denominators.mgcd)"
+    "int")))
  (rat_poly_to_int_TCC2 0
   (rat_poly_to_int_TCC2-1 nil 3599920402
    ("" (skeep)
@@ -3255,5 +3351,8 @@
      real_props nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil))
-   nil)))
+   nil
+   (rat_poly_to_int subtype
+    "(LAMBDA (i: naturalnumbers.nat): IF reals.<=(i, clear_denominators.n) THEN number_fields./(clear_denominators.ppoly(i), clear_denominators.mgcd) ELSE 0 ENDIF)"
+    "{ai: [naturalnumbers.nat -> integers.int] | EXISTS (cp: rationals.posrat): FORALL (j: naturalnumbers.upto(clear_denominators.n)): ai(j) = number_fields.*(cp, clear_denominators.aq(j))}"))))
 

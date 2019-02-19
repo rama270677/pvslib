@@ -581,9 +581,7 @@
      "(strict_total_order?[real])" real_props nil)
     (increasing? const-decl "bool" real_fun_preds "reals/")
     (exp_0 formula-decl nil ln_exp nil)
-    (exp_increasing formula-decl nil ln_exp nil)
-    (n!1 skolem-const-decl "nat" exp_approx nil)
-    (x!1 skolem-const-decl "real" exp_approx nil)
+    (exp_increasing formula-decl nil ln_exp nil) nil nil
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (le_times_le_any1 formula-decl nil extra_real_props nil)
@@ -619,8 +617,7 @@
     (real_plus_real_is_real application-judgement "real" reals nil)
     (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props
      nil)
-    (both_sides_times_pos_gt1 formula-decl nil real_props nil)
-    (nn skolem-const-decl "nat" exp_approx nil)
+    (both_sides_times_pos_gt1 formula-decl nil real_props nil) nil
     (mult_expt formula-decl nil exponentiation nil)
     (TRUE const-decl "bool" booleans nil)
     (even_or_odd formula-decl nil naturalnumbers nil)
@@ -643,8 +640,7 @@
      real_defs nil)
     (posint_max application-judgement "{k: posint | i <= k AND j <= k}"
      real_defs nil)
-    (FF skolem-const-decl "[nat -> real]" exp_approx nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
+    nil (NOT const-decl "[bool -> bool]" booleans nil)
     (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (nnreal_exp application-judgement "nnreal" exponentiation nil)
@@ -1703,8 +1699,7 @@
     (int_plus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (x!2 skolem-const-decl "nat" exp_approx nil)
-    (y!1 skolem-const-decl "nat" exp_approx nil)
+    nil nil
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -2331,7 +2326,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   shostak))
+   shostak (exp_neg_ub subtype "exp_approx.pn" "nznum")))
  (exp_neg_ub_TCC2 0
   (exp_neg_ub_TCC2-1 nil 3295622180
    ("" (skosimp)
@@ -2358,7 +2353,9 @@
      real_types nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   shostak))
+   shostak
+   (exp_neg_ub subtype "exp_approx.pn"
+    "{i: integers.int | booleans.OR((booleans.NOT)(exp_approx.exp_neg_le1_ub((number_fields.+)(1, exp_approx.n), number_fields./(exp_approx.nx, exp_approx.pn)) = 0), reals.>=(i, 0))}")))
  (exp_neg_ub_TCC3 0
   (exp_neg_ub_TCC3-2 nil 3352452386
    ("" (skosimp*)
@@ -2469,9 +2466,15 @@
     (nonpos_real nonempty-type-eq-decl nil real_types nil)
     (< const-decl "bool" reals nil)
     (negreal nonempty-type-eq-decl nil real_types nil))
-   nil)
+   nil
+   (exp_neg_ub subtype
+    "exponentiation.^(exp_approx.exp_neg_le1_ub((number_fields.+)(exp_approx.n, 1), number_fields./(exp_approx.nx, exp_approx.pn)), exp_approx.pn)"
+    "posreal"))
   (exp_neg_ub_TCC3-1 nil 3295622180
-   ("" (skosimp) (("" (assert) nil nil)) nil) nil shostak))
+   ("" (skosimp) (("" (assert) nil nil)) nil) nil shostak
+   (exp_neg_ub subtype
+    "exponentiation.^(exp_approx.exp_neg_le1_ub((number_fields.+)(exp_approx.n, 1), number_fields./(exp_approx.nx, exp_approx.pn)), exp_approx.pn)"
+    "posreal")))
  (exp_neg_lb_TCC1 0
   (exp_neg_lb_TCC1-1 nil 3295622181
    ("" (skosimp) (("" (assert) nil nil)) nil)
@@ -2482,7 +2485,9 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (minus_int_is_int application-judgement "int" integers nil))
-   shostak))
+   shostak
+   (exp_neg_lb subtype "exp_approx.pn"
+    "{i: integers.int | booleans.OR((booleans.NOT)(exp_approx.exp_neg_le1_lb((number_fields.+)(1, exp_approx.n), number_fields./(exp_approx.nx, exp_approx.pn)) = 0), reals.>=(i, 0))}")))
  (exp_neg_lb_TCC2 0
   (exp_neg_lb_TCC2-1 nil 3295622181
    ("" (skosimp*)
@@ -2584,7 +2589,10 @@
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (nonpos_real nonempty-type-eq-decl nil real_types nil)
     (negreal nonempty-type-eq-decl nil real_types nil))
-   shostak))
+   shostak
+   (exp_neg_lb subtype
+    "exponentiation.^(exp_approx.exp_neg_le1_lb((number_fields.+)(exp_approx.n, 1), number_fields./(exp_approx.nx, exp_approx.pn)), exp_approx.pn)"
+    "posreal")))
  (exp_neg_bounds 0
   (exp_neg_bounds-1 nil 3295363258
    ("" (skosimp)
@@ -2694,10 +2702,7 @@
     (posreal_exp application-judgement "posreal" exponentiation nil)
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (both_sides_expt_pos_lt formula-decl nil exponentiation nil)
-    (exp_neg_le1_ub const-decl "real" exp_approx nil)
-    (n!1 skolem-const-decl "nat" exp_approx nil)
-    (nx!1 skolem-const-decl "negreal" exp_approx nil)
-    (P skolem-const-decl "int" exp_approx nil)
+    (exp_neg_le1_ub const-decl "real" exp_approx nil) nil nil nil
     (exp_neg_le1_lb const-decl "real" exp_approx nil)
     (exp const-decl "{py | x = ln(py)}" ln_exp nil)
     (ln const-decl "real" ln_exp nil)
@@ -2748,7 +2753,7 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (exp_ub_n subtype "exp_approx.x" "negreal")))
  (exp_ub_n_TCC2 0
   (exp_ub_n_TCC2-1 nil 3568465985 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -2765,7 +2770,7 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil (exp_ub_n subtype "(number_fields.-)(exp_approx.x)" "negreal")))
  (exp_bounds 0
   (exp_bounds-1 nil 3295623866
    (""
@@ -3252,8 +3257,7 @@
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    nil (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (int_min application-judgement "{k: int | k <= i AND k <= j}"
      real_defs nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -3290,19 +3294,21 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (rat_expt application-judgement "rat" exponentiation nil)
-    (nzreal_expt application-judgement "nzreal" exponentiation nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
+    (nzreal_expt application-judgement "nzreal" exponentiation nil) nil
     (exp_estimate const-decl "real" exp_series nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (exp_range_test subtype "((number_fields.+)(exp_approx.kk, 1))"
+    "{i: integers.int | booleans.OR((booleans.NOT)(exp_series.exp_estimate(number_fields./((number_fields.-)(exp_approx.kk), (number_fields.+)(1, exp_approx.kk)), number_fields.*(2, exp_approx.nn)) = 0), reals.>=(i, 0))}")))
  (exp_range_test_TCC2 0
   (exp_range_test_TCC2-1 nil 3568376623 ("" (subtype-tcc) nil nil)
    ((int_expt application-judgement "int" exponentiation nil)
-    (nzreal_expt application-judgement "nzreal" exponentiation nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
+    (nzreal_expt application-judgement "nzreal" exponentiation nil) nil
     (exp_estimate const-decl "real" exp_series nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (exp_range_test subtype "exp_approx.kk"
+    "{i: integers.int | booleans.OR(exp_series.exp_estimate((number_fields.-)(1), number_fields.*(2, exp_approx.nn)) /= 0, reals.>=(i, 0))}")))
  (exp_range_test 0
   (exp_range_test-1 nil 3568376625 ("" (eval-formula) nil nil)
    ((TRUE const-decl "bool" booleans nil)
@@ -3326,11 +3332,12 @@
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
-    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    nil (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (exp_estimate const-decl "real" exp_series nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (exp_range_test_lb subtype "((number_fields.+)(exp_approx.kk, 1))"
+    "{i: integers.int | booleans.OR((booleans.NOT)(((number_fields.-)(exp_series.exp_estimate(number_fields./((number_fields.-)(exp_approx.kk), (number_fields.+)(1, exp_approx.kk)), number_fields.*(2, exp_approx.nn)), number_fields./(1000001/1000000, factorial.factorial((number_fields.+)(1, number_fields.*(2, exp_approx.nn)))))) = 0), reals.>=(i, 0))}")))
  (exp_range_test_lb_TCC2 0
   (exp_range_test_lb_TCC2-1 nil 3568572776 ("" (subtype-tcc) nil nil)
    ((int_expt application-judgement "int" exponentiation nil)
@@ -3343,11 +3350,12 @@
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
-    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    nil (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (exp_estimate const-decl "real" exp_series nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (exp_range_test_lb subtype "exp_approx.kk"
+    "{i: integers.int | booleans.OR((booleans.NOT)(((number_fields.-)(exp_series.exp_estimate((number_fields.-)(1), number_fields.*(2, exp_approx.nn)), number_fields./(1000001/1000000, factorial.factorial((number_fields.+)(1, number_fields.*(2, exp_approx.nn)))))) = 0), reals.>=(i, 0))}")))
  (exp_range_test_lb 0
   (exp_range_test_lb-1 nil 3568572777 ("" (eval-formula) nil nil)
    ((TRUE const-decl "bool" booleans nil)
@@ -3996,8 +4004,7 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (exp_neg_le1_ub const-decl "real" exp_approx nil)
-    (TT skolem-const-decl "[negreal -> bool]" exp_approx nil)
+    (exp_neg_le1_ub const-decl "real" exp_approx nil) nil
     (pred type-eq-decl nil defined_types nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (exp_estimate_increasing formula-decl nil exp_series nil)
@@ -4009,39 +4016,31 @@
      nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
-    (both_sides_expt_pos_le formula-decl nil exponentiation nil)
-    (xx skolem-const-decl "(TT)" exp_approx nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (yy skolem-const-decl "(TT)" exp_approx nil)
-    (div_mult_pos_le2 formula-decl nil real_props nil)
+    (both_sides_expt_pos_le formula-decl nil exponentiation nil) nil
+    nil nil (div_mult_pos_le2 formula-decl nil real_props nil)
     (exp_estimate_positive formula-decl nil exp_series nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (xx skolem-const-decl "(TT)" exp_approx nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
+    nil (real_plus_real_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (yy skolem-const-decl "(TT)" exp_approx nil)
-    (exp_range_test formula-decl nil exp_approx nil)
+    nil (exp_range_test formula-decl nil exp_approx nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (div_cancel3 formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (subrange type-eq-decl nil integers nil)
-    (N skolem-const-decl "posnat" exp_approx nil)
+    (subrange type-eq-decl nil integers nil) nil
     (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
-    (xx skolem-const-decl "(TT)" exp_approx nil)
+    (both_sides_times_pos_lt1 formula-decl nil real_props nil) nil
     (int_plus_int_is_int application-judgement "int" integers nil)
     (floor_int formula-decl nil floor_ceil nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (FF skolem-const-decl "[[negreal, posnat] -> real]" exp_approx nil)
+    (int_minus_int_is_int application-judgement "int" integers nil) nil
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -4786,8 +4785,7 @@
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (minus_int_is_int application-judgement "int" integers nil)
-    (exp_neg_le1_lb const-decl "real" exp_approx nil)
-    (TT skolem-const-decl "[negreal -> bool]" exp_approx nil)
+    (exp_neg_le1_lb const-decl "real" exp_approx nil) nil
     (pred type-eq-decl nil defined_types nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (exp_estimate_increasing formula-decl nil exp_series nil)
@@ -4799,34 +4797,26 @@
      nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
-    (both_sides_expt_pos_le formula-decl nil exponentiation nil)
-    (xx skolem-const-decl "(TT)" exp_approx nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (yy skolem-const-decl "(TT)" exp_approx nil)
-    (exp_neg_le1_lb_pos formula-decl nil exp_approx nil)
+    (both_sides_expt_pos_le formula-decl nil exponentiation nil) nil
+    nil nil (exp_neg_le1_lb_pos formula-decl nil exp_approx nil)
     (div_mult_pos_le2 formula-decl nil real_props nil)
     (div_mult_pos_lt1 formula-decl nil real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (xx skolem-const-decl "(TT)" exp_approx nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (yy skolem-const-decl "(TT)" exp_approx nil)
-    (exp_range_test_lb formula-decl nil exp_approx nil)
+    nil (real_plus_real_is_real application-judgement "real" reals nil)
+    nil (exp_range_test_lb formula-decl nil exp_approx nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (subrange type-eq-decl nil integers nil)
-    (N skolem-const-decl "posnat" exp_approx nil)
+    (subrange type-eq-decl nil integers nil) nil
     (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
-    (xx skolem-const-decl "(TT)" exp_approx nil)
+    (both_sides_times_pos_lt1 formula-decl nil real_props nil) nil
     (int_plus_int_is_int application-judgement "int" integers nil)
     (floor_int formula-decl nil floor_ceil nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (FF skolem-const-decl "[[negreal, posnat] -> real]" exp_approx nil)
+    (int_minus_int_is_int application-judgement "int" integers nil) nil
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -4898,7 +4888,7 @@
     (minus_even_is_even application-judgement "even_int" integers nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil))
-   nil))
+   nil (test subtype "exp_approx.xx" "negreal")))
  (test_TCC2 0
   (test_TCC2-1 nil 3568479300 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -4936,7 +4926,7 @@
     (minus_even_is_even application-judgement "even_int" integers nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil))
-   nil))
+   nil (test subtype "exp_approx.yy" "negreal")))
  (test 0
        (test-1 nil 3568479302 ("" (eval-formula) nil nil)
         ((TRUE const-decl "bool" booleans nil)
@@ -4946,6 +4936,667 @@
          (boolean nonempty-type-decl nil booleans nil))
         shostak))
  (exp_ub_increasing 0
+  (exp_ub_increasing-2 "" 3758787574
+   (""
+    (case "(FORALL (n: nat): increasing?(LAMBDA (xn: negreal): exp_ub(xn, n))) AND (FORALL (n: nat): increasing?(LAMBDA (xp: posreal): exp_ub(xp, n))) AND (FORALL (n: nat): FORALL (xn:negreal): exp_ub(xn, n)<=1) AND (FORALL (n: nat): FORALL (xp:posreal): exp_ub(xp, n)>=1)")
+    (("1" (flatten)
+      (("1" (skeep)
+        (("1" (inst - "n")
+          (("1" (inst - "n")
+            (("1" (inst - "n")
+              (("1" (inst -4 "n")
+                (("1" (assert)
+                  (("1" (expand "increasing?")
+                    (("1" (skosimp*)
+                      (("1" (case "y!1 < 0")
+                        (("1" (inst - "x!1" "y!1")
+                          (("1" (assert) nil nil)
+                           ("2" (assert) nil nil)
+                           ("3" (assert) nil nil))
+                          nil)
+                         ("2" (case "x!1 > 0")
+                          (("1" (inst -3 "x!1" "y!1")
+                            (("1" (assert) nil nil)
+                             ("2" (assert) nil nil)
+                             ("3" (assert) nil nil))
+                            nil)
+                           ("2" (assert)
+                            (("2" (case "exp_ub(0,n) = 1")
+                              (("1"
+                                (assert)
+                                (("1"
+                                  (case "exp_ub(x!1,n)<=1")
+                                  (("1"
+                                    (case "exp_ub(y!1,n)>=1")
+                                    (("1" (assert) nil nil)
+                                     ("2"
+                                      (inst -6 "y!1")
+                                      (("2" (assert) nil nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (inst -4 "x!1")
+                                    (("2" (assert) nil nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (expand "exp_ub" 1)
+                                (("2"
+                                  (expand "exp_ub_n")
+                                  (("2" (propax) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("2" (hide 2)
+      (("2" (split)
+        (("1" (lemma "exp_neg_ub_increasing")
+          (("1" (skeep)
+            (("1" (inst - "min(n,exp_approx_term_cutoff)")
+              (("1" (expand "increasing?")
+                (("1" (skosimp*)
+                  (("1" (assert)
+                    (("1" (case "min(n,30)<=30")
+                      (("1" (assert)
+                        (("1" (hide -1)
+                          (("1" (expand "exp_ub")
+                            (("1" (name "kk" "min(n,30)")
+                              (("1"
+                                (case
+                                 "exp_ub_n(x!1,kk) <= exp_ub_n(y!1,kk)")
+                                (("1"
+                                  (hide-all-but (-1 1))
+                                  (("1"
+                                    (expand "kk")
+                                    (("1"
+                                      (grind :exclude "exp_ub_n")
+                                      nil
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (hide 2)
+                                  (("2"
+                                    (expand "exp_ub_n")
+                                    (("2"
+                                      (lift-if)
+                                      (("2"
+                                        (lift-if)
+                                        (("2"
+                                          (assert)
+                                          (("2"
+                                            (lift-if)
+                                            (("2"
+                                              (assert)
+                                              (("2"
+                                                (ground)
+                                                (("1"
+                                                  (inst - "x!1" "y!1")
+                                                  (("1"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (inst - "-60" "y!1")
+                                                  (("2"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (expand "min")
+                        (("2" (lift-if) (("2" (ground) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (lemma "exp_neg_ub_increasing")
+          (("2" (skeep)
+            (("2" (inst - "min(n,exp_approx_term_cutoff)")
+              (("2" (expand "increasing?")
+                (("2" (skosimp*)
+                  (("2" (assert)
+                    (("2" (case "min(n,30)<=30")
+                      (("1" (assert)
+                        (("1" (hide -1)
+                          (("1" (expand "exp_ub")
+                            (("1" (name "kk" "min(n,30)")
+                              (("1"
+                                (case
+                                 "exp_ub_n(x!1,kk) <= exp_ub_n(y!1,kk)")
+                                (("1"
+                                  (hide-all-but (-1 1))
+                                  (("1"
+                                    (expand "kk")
+                                    (("1"
+                                      (grind :exclude "exp_ub_n")
+                                      nil
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (hide 2)
+                                  (("2"
+                                    (expand "exp_ub_n")
+                                    (("2"
+                                      (lift-if)
+                                      (("2"
+                                        (lift-if)
+                                        (("2"
+                                          (assert)
+                                          (("2"
+                                            (ground)
+                                            (("1"
+                                              (cross-mult 1)
+                                              (("1"
+                                                (lemma
+                                                 "exp_neg_lb_increasing")
+                                                (("1"
+                                                  (inst - "kk")
+                                                  (("1"
+                                                    (assert)
+                                                    (("1"
+                                                      (expand
+                                                       "increasing?")
+                                                      (("1"
+                                                        (inst
+                                                         -
+                                                         "-y!1"
+                                                         "-x!1")
+                                                        (("1"
+                                                          (assert)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (hide 1)
+                                              (("2"
+                                                (case
+                                                 "FORALL (aa,bb,cc:real): aa<=bb IMPLIES aa<=max(bb,cc)")
+                                                (("1"
+                                                  (rewrite -1)
+                                                  (("1"
+                                                    (hide 2)
+                                                    (("1"
+                                                      (cross-mult 1)
+                                                      (("1"
+                                                        (lemma
+                                                         "exp_neg_lb_increasing")
+                                                        (("1"
+                                                          (inst - "kk")
+                                                          (("1"
+                                                            (assert)
+                                                            (("1"
+                                                              (expand
+                                                               "increasing?")
+                                                              (("1"
+                                                                (inst
+                                                                 -
+                                                                 "-60"
+                                                                 "-x!1")
+                                                                (("1"
+                                                                  (assert)
+                                                                  nil
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (hide-all-but 1)
+                                                  (("2"
+                                                    (grind)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("3"
+                                              (lemma
+                                               "both_sides_expt_gt1_lt")
+                                              (("3"
+                                                (inst
+                                                 -
+                                                 "4"
+                                                 "1+floor(x!1)"
+                                                 "1+floor(y!1)")
+                                                (("3"
+                                                  (expand "max")
+                                                  (("3"
+                                                    (lift-if)
+                                                    (("3"
+                                                      (lift-if)
+                                                      (("3"
+                                                        (lift-if)
+                                                        (("3"
+                                                          (assert)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (expand "min")
+                        (("2" (lift-if) (("2" (ground) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("3" (skeep)
+          (("3" (skeep)
+            (("3" (expand "exp_ub")
+              (("3" (name "KK" "min(n,30)")
+                (("3" (case "exp_ub_n(xn,KK) <=1")
+                  (("1" (lift-if)
+                    (("1" (expand "min")
+                      (("1" (lift-if) (("1" (ground) nil nil)) nil))
+                      nil))
+                    nil)
+                   ("2" (hide 2)
+                    (("2" (expand "exp_ub_n")
+                      (("2" (name "XK" "max(-60,xn)")
+                        (("2" (case "exp_neg_ub(KK,XK) <= 1")
+                          (("1" (expand "max")
+                            (("1" (lift-if) (("1" (ground) nil nil))
+                              nil))
+                            nil)
+                           ("2" (hide 2)
+                            (("2" (expand "exp_neg_ub")
+                              (("2"
+                                (lemma "both_sides_expt_pos_ge")
+                                (("2"
+                                  (inst
+                                   -
+                                   "-floor(XK)"
+                                   "1"
+                                   "exp_neg_le1_ub(1 + KK, XK / -floor(XK))")
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (hide 2)
+                                      (("1"
+                                        (expand "exp_neg_le1_ub")
+                                        (("1"
+                                          (lemma
+                                           "exp_estimate_increasing")
+                                          (("1"
+                                            (inst
+                                             -
+                                             "2+2*KK"
+                                             "XK/-floor(XK)"
+                                             "0")
+                                            (("1"
+                                              (assert)
+                                              (("1"
+                                                (split -)
+                                                (("1"
+                                                  (rewrite
+                                                   "exp_estimate_0")
+                                                  (("1"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (cross-mult 1)
+                                                  (("2"
+                                                    (ground)
+                                                    (("2"
+                                                      (expand "max")
+                                                      (("2"
+                                                        (lift-if)
+                                                        (("2"
+                                                          (ground)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil)
+                                                 ("3"
+                                                  (cross-mult 1)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (case
+                                     "FORALL (rr:real): rr>0 IMPLIES (rr>=0 AND rr > 0)")
+                                    (("1"
+                                      (rewrite -1)
+                                      (("1"
+                                        (hide 2)
+                                        (("1"
+                                          (hide 2)
+                                          (("1"
+                                            (lemma
+                                             "exp_neg_le1_lb_pos")
+                                            (("1"
+                                              (inst - "1+KK" _)
+                                              (("1"
+                                                (inst
+                                                 -
+                                                 "XK/-floor(XK)")
+                                                (("1"
+                                                  (assert)
+                                                  (("1"
+                                                    (expand
+                                                     "exp_neg_le1_lb")
+                                                    (("1"
+                                                      (expand
+                                                       "exp_neg_le1_ub")
+                                                      (("1"
+                                                        (assert)
+                                                        (("1"
+                                                          (ground)
+                                                          (("1"
+                                                            (cross-mult
+                                                             1)
+                                                            (("1"
+                                                              (ground)
+                                                              (("1"
+                                                                (expand
+                                                                 "max")
+                                                                (("1"
+                                                                  (lift-if)
+                                                                  (("1"
+                                                                    (ground)
+                                                                    nil
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil)
+                                                           ("2"
+                                                            (cross-mult
+                                                             1)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil)
+                                     ("2"
+                                      (hide-all-but 1)
+                                      (("2" (grind) nil nil))
+                                      nil))
+                                    nil)
+                                   ("3"
+                                    (expand "min")
+                                    (("3"
+                                      (lift-if)
+                                      (("3"
+                                        (assert)
+                                        (("3"
+                                          (typepred "xn")
+                                          (("3"
+                                            (hide -4 2)
+                                            (("3"
+                                              (assert)
+                                              (("3"
+                                                (expand "max")
+                                                (("3"
+                                                  (lift-if)
+                                                  (("3"
+                                                    (split -3)
+                                                    (("1"
+                                                      (flatten)
+                                                      (("1"
+                                                        (assert)
+                                                        nil
+                                                        nil))
+                                                      nil)
+                                                     ("2"
+                                                      (flatten)
+                                                      (("2"
+                                                        (assert)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("3" (expand "max")
+                            (("3" (lift-if) (("3" (ground) nil nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("4" (skeep)
+          (("4" (skeep)
+            (("4" (expand "exp_ub")
+              (("4" (name "KK" "min(n,30)")
+                (("4" (case "exp_ub_n(xp,KK) >=1")
+                  (("1" (expand "min")
+                    (("1" (lift-if) (("1" (ground) nil nil)) nil)) nil)
+                   ("2" (hide 2)
+                    (("2" (expand "exp_ub_n")
+                      (("2" (lift-if)
+                        (("2" (ground)
+                          (("1" (cross-mult 1)
+                            (("1" (lemma "exp_neg_lb_increasing")
+                              (("1"
+                                (inst - "KK")
+                                (("1"
+                                  (assert)
+                                  (("1"
+                                    (expand "increasing?")
+                                    (("1"
+                                      (expand "exp_neg_lb")
+                                      (("1"
+                                        (assert)
+                                        (("1"
+                                          (lemma
+                                           "both_sides_expt_pos_ge")
+                                          (("1"
+                                            (inst
+                                             -
+                                             "-floor(-xp)"
+                                             "1"
+                                             "exp_neg_le1_lb(1 + KK, -xp / -floor(-xp))")
+                                            (("1"
+                                              (assert)
+                                              (("1"
+                                                (hide 2)
+                                                (("1"
+                                                  (expand
+                                                   "exp_neg_le1_lb")
+                                                  (("1"
+                                                    (lemma
+                                                     "exp_estimate_increasing")
+                                                    (("1"
+                                                      (inst
+                                                       -
+                                                       "2+2*KK"
+                                                       "-xp / -floor(-xp)"
+                                                       "0")
+                                                      (("1"
+                                                        (assert)
+                                                        (("1"
+                                                          (split -)
+                                                          (("1"
+                                                            (rewrite
+                                                             "exp_estimate_0")
+                                                            (("1"
+                                                              (assert)
+                                                              nil
+                                                              nil))
+                                                            nil)
+                                                           ("2"
+                                                            (hide -1)
+                                                            (("2"
+                                                              (cross-mult
+                                                               1)
+                                                              nil
+                                                              nil))
+                                                            nil)
+                                                           ("3"
+                                                            (cross-mult
+                                                             1)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (case
+                                               "FORALL (rr:real): rr>0 IMPLIES (rr>=0 AND rr > 0)")
+                                              (("1"
+                                                (rewrite -1)
+                                                (("1"
+                                                  (hide (-1 -2))
+                                                  (("1"
+                                                    (hide 2)
+                                                    (("1"
+                                                      (lemma
+                                                       "exp_neg_le1_lb_pos")
+                                                      (("1"
+                                                        (inst?)
+                                                        (("1"
+                                                          (assert)
+                                                          (("1"
+                                                            (split)
+                                                            (("1"
+                                                              (cross-mult
+                                                               1)
+                                                              nil
+                                                              nil)
+                                                             ("2"
+                                                              (cross-mult
+                                                               1)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (hide-all-but 1)
+                                                (("2" (grind) nil nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (case "floor(xp) >= 1")
+                            (("1" (lemma "both_sides_expt_pos_ge")
+                              (("1"
+                                (inst - "1+floor(xp)" "4" "1")
+                                (("1" (assert) nil nil))
+                                nil))
+                              nil)
+                             ("2" (assert) nil nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (exp_ub_increasing-1 nil 3568389268
    (""
     (case "(FORALL (n: nat): increasing?(LAMBDA (xn: negreal): exp_ub(xn, n))) AND (FORALL (n: nat): increasing?(LAMBDA (xp: posreal): exp_ub(xp, n))) AND (FORALL (n: nat): FORALL (xn:negreal): exp_ub(xn, n)<=1) AND (FORALL (n: nat): FORALL (xp:posreal): exp_ub(xp, n)>=1)")
@@ -5748,132 +6399,832 @@
         nil))
       nil))
     nil)
-   ((div_mult_pos_lt1 formula-decl nil real_props nil)
-    (xp skolem-const-decl "posreal" exp_approx nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
-    (KK skolem-const-decl "{k: int | k <= n AND k <= 30}" exp_approx
-     nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (div_mult_pos_ge1 formula-decl nil real_props nil)
-    (exp_neg_ub const-decl "posreal" exp_approx nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (minus_int_is_int application-judgement "int" integers nil)
-    (xn skolem-const-decl "negreal" exp_approx nil)
-    (XK skolem-const-decl "{p: real | p >= -60 AND p >= xn}" exp_approx
-     nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (KK skolem-const-decl "{k: int | k <= n AND k <= 30}" exp_approx
-     nil)
-    (exp_neg_le1_ub const-decl "real" exp_approx nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (exp_estimate_increasing formula-decl nil exp_series nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (div_mult_pos_neg_le1 formula-decl nil extra_real_props nil)
-    (div_mult_pos_neg_le2 formula-decl nil extra_real_props nil)
-    (exp_estimate_0 formula-decl nil exp_series nil)
-    (even_plus_even_is_even application-judgement "even_int" integers
-     nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (expt_1i formula-decl nil exponentiation nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
-    (posrat_exp application-judgement "posrat" exponentiation nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
-    (div_mult_pos_neg_lt1 formula-decl nil extra_real_props nil)
-    (exp_neg_le1_lb const-decl "real" exp_approx nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (exp_neg_le1_lb_pos formula-decl nil exp_approx nil)
-    (both_sides_expt_pos_ge formula-decl nil exponentiation nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (both_sides_expt_gt1_lt formula-decl nil exponentiation nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
-    (integer nonempty-type-from-decl nil integers nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (^ const-decl "real" exponentiation nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (posreal_times_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (div_mult_pos_le1 formula-decl nil real_props nil)
-    (exp_neg_lb const-decl "posreal" exp_approx nil)
-    (/= const-decl "boolean" notequal nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (times_div2 formula-decl nil real_props nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (div_mult_pos_le2 formula-decl nil real_props nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (exp_neg_lb_increasing formula-decl nil exp_approx nil)
-    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
-     nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (posreal_max application-judgement
-     "{z: posreal | z >= x AND z >= y}" real_defs nil)
-    (kk skolem-const-decl "{k: int | k <= n AND k <= 30}" exp_approx
-     nil)
-    (exp_neg_ub_increasing formula-decl nil exp_approx nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (minus_even_is_even application-judgement "even_int" integers nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (kk skolem-const-decl "{k: int | k <= n AND k <= 30}" exp_approx
-     nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (exp_ub_n const-decl "posreal" exp_approx nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (x!1 skolem-const-decl "real" exp_approx nil)
-    (y!1 skolem-const-decl "real" exp_approx nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
+   ((exp_ub const-decl "posreal" exp_approx nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (increasing? const-decl "bool" real_fun_preds "reals/")
+    (negreal nonempty-type-eq-decl nil real_types nil)
+    (< const-decl "bool" reals nil)
+    (nonpos_real nonempty-type-eq-decl nil real_types nil)
+    (<= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (nonpos_real nonempty-type-eq-decl nil real_types nil)
-    (< const-decl "bool" reals nil)
-    (negreal nonempty-type-eq-decl nil real_types nil)
-    (increasing? const-decl "bool" real_fun_preds "reals/")
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (exp_ub const-decl "posreal" exp_approx nil))
+    (number nonempty-type-decl nil numbers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (y!1 skolem-const-decl "real" exp_approx nil)
+    (x!1 skolem-const-decl "real" exp_approx nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (exp_ub_n const-decl "posreal" exp_approx nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (kk skolem-const-decl "{k: nat | k <= n AND k <= 30}" exp_approx
+     nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (minus_even_is_even application-judgement "even_int" integers nil)
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
+     real_defs nil)
+    (exp_neg_ub_increasing formula-decl nil exp_approx nil)
+    (kk skolem-const-decl "{k: nat | k <= n AND k <= 30}" exp_approx
+     nil)
+    (posreal_max application-judgement
+     "{z: posreal | z >= x AND z >= y}" real_defs nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (exp_neg_lb_increasing formula-decl nil exp_approx nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (div_mult_pos_le2 formula-decl nil real_props nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (times_div2 formula-decl nil real_props nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (exp_neg_lb const-decl "posreal" exp_approx nil)
+    (div_mult_pos_le1 formula-decl nil real_props nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (both_sides_expt_gt1_lt formula-decl nil exponentiation nil)
+    (nzreal_max application-judgement "{z: nzreal | z >= x AND z >= y}"
+     real_defs nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (both_sides_expt_pos_ge formula-decl nil exponentiation nil)
+    (exp_neg_le1_lb_pos formula-decl nil exp_approx nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (exp_neg_le1_lb const-decl "real" exp_approx nil)
+    (div_mult_pos_neg_lt1 formula-decl nil extra_real_props nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (posrat_exp application-judgement "posrat" exponentiation nil)
+    (expt_1i formula-decl nil exponentiation nil)
+    (even_plus_even_is_even application-judgement "even_int" integers
+     nil)
+    (exp_estimate_0 formula-decl nil exp_series nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (div_mult_pos_neg_le2 formula-decl nil extra_real_props nil)
+    (div_mult_pos_neg_le1 formula-decl nil extra_real_props nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (exp_estimate_increasing formula-decl nil exp_series nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (KK skolem-const-decl "{k: nat | k <= n AND k <= 30}" exp_approx
+     nil)
+    (n skolem-const-decl "nat" exp_approx nil)
+    (exp_neg_le1_ub const-decl "real" exp_approx nil)
+    (XK skolem-const-decl "{z: nzreal | z >= -60 AND z >= xn}"
+     exp_approx nil)
+    (xn skolem-const-decl "negreal" exp_approx nil)
+    (minus_int_is_int application-judgement "int" integers nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (exp_neg_ub const-decl "posreal" exp_approx nil)
+    (div_mult_pos_ge1 formula-decl nil real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (n skolem-const-decl "nat" exp_approx nil)
+    (KK skolem-const-decl "{k: nat | k <= n AND k <= 30}" exp_approx
+     nil)
+    (xp skolem-const-decl "posreal" exp_approx nil)
+    (div_mult_pos_lt1 formula-decl nil real_props nil))
    shostak))
  (exp_lb_increasing 0
+  (exp_lb_increasing-2 "" 3758787830
+   (""
+    (case "(FORALL (n: nat): increasing?(LAMBDA (xn: negreal): exp_lb(xn, n))) AND (FORALL (n: nat): increasing?(LAMBDA (xp: posreal): exp_lb(xp, n))) AND (FORALL (n: nat): FORALL (xn:negreal): exp_lb(xn, n)<=1) AND (FORALL (n: nat): FORALL (xp:posreal): exp_lb(xp, n)>=1)")
+    (("1" (flatten)
+      (("1" (skeep)
+        (("1" (inst - "n")
+          (("1" (inst - "n")
+            (("1" (inst - "n")
+              (("1" (inst -4 "n")
+                (("1" (assert)
+                  (("1" (expand "increasing?")
+                    (("1" (skosimp*)
+                      (("1" (case "y!1 < 0")
+                        (("1" (inst - "x!1" "y!1")
+                          (("1" (assert) nil nil)
+                           ("2" (assert) nil nil)
+                           ("3" (assert) nil nil))
+                          nil)
+                         ("2" (case "x!1 > 0")
+                          (("1" (inst -3 "x!1" "y!1")
+                            (("1" (assert) nil nil)
+                             ("2" (assert) nil nil)
+                             ("3" (assert) nil nil))
+                            nil)
+                           ("2" (assert)
+                            (("2" (case "exp_lb(0,n) = 1")
+                              (("1"
+                                (assert)
+                                (("1"
+                                  (case "exp_lb(x!1,n)<=1")
+                                  (("1"
+                                    (case "exp_lb(y!1,n)>=1")
+                                    (("1" (assert) nil nil)
+                                     ("2"
+                                      (inst -6 "y!1")
+                                      (("2" (assert) nil nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (inst -4 "x!1")
+                                    (("2" (assert) nil nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (expand "exp_lb" 1)
+                                (("2"
+                                  (expand "exp_lb_n")
+                                  (("2" (propax) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("2" (hide 2)
+      (("2" (split)
+        (("1" (lemma "exp_neg_lb_increasing")
+          (("1" (skeep)
+            (("1" (inst - "min(n,exp_approx_term_cutoff)")
+              (("1" (expand "increasing?")
+                (("1" (skosimp*)
+                  (("1" (assert)
+                    (("1" (case "min(n,30)<=30")
+                      (("1" (assert)
+                        (("1" (expand "exp_lb")
+                          (("1" (name "kk" "min(n,30)")
+                            (("1"
+                              (case "exp_lb_n(x!1,kk) <= exp_lb_n(y!1,kk)")
+                              (("1"
+                                (hide-all-but (-1 1))
+                                (("1"
+                                  (expand "kk")
+                                  (("1"
+                                    (grind :exclude "exp_lb_n")
+                                    nil
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (hide 2)
+                                (("2"
+                                  (expand "exp_lb_n")
+                                  (("2"
+                                    (lift-if)
+                                    (("2"
+                                      (lift-if)
+                                      (("2"
+                                        (assert)
+                                        (("2"
+                                          (lift-if)
+                                          (("2"
+                                            (ground)
+                                            (("1"
+                                              (inst - "x!1" "y!1")
+                                              (("1" (assert) nil nil))
+                                              nil)
+                                             ("2"
+                                              (inst - "-60" "y!1")
+                                              (("2" (assert) nil nil))
+                                              nil)
+                                             ("3"
+                                              (lemma
+                                               "both_sides_expt_gt1_lt")
+                                              (("3"
+                                                (inst
+                                                 -
+                                                 "4"
+                                                 "floor(x!1)"
+                                                 "floor(y!1)")
+                                                (("3"
+                                                  (assert)
+                                                  (("3"
+                                                    (expand "min")
+                                                    (("3"
+                                                      (lift-if)
+                                                      (("3"
+                                                        (lift-if)
+                                                        (("3"
+                                                          (lift-if)
+                                                          (("3"
+                                                            (ground)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (hide-all-but 1) (("2" (grind) nil nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (lemma "exp_neg_lb_increasing")
+          (("2" (skeep)
+            (("2" (inst - "min(n,exp_approx_term_cutoff)")
+              (("2" (expand "increasing?")
+                (("2" (skosimp*)
+                  (("2" (assert)
+                    (("2" (case "min(n,30)<=30")
+                      (("1" (assert)
+                        (("1" (hide -1)
+                          (("1" (expand "exp_lb")
+                            (("1" (name "kk" "min(n,30)")
+                              (("1"
+                                (case
+                                 "exp_lb_n(x!1,kk) <= exp_lb_n(y!1,kk)")
+                                (("1"
+                                  (hide-all-but (-1 1))
+                                  (("1"
+                                    (expand "kk")
+                                    (("1"
+                                      (grind :exclude "exp_lb_n")
+                                      nil
+                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (hide 2)
+                                  (("2"
+                                    (expand "exp_lb_n")
+                                    (("2"
+                                      (lift-if)
+                                      (("2"
+                                        (lift-if)
+                                        (("2"
+                                          (assert)
+                                          (("2"
+                                            (ground)
+                                            (("1"
+                                              (cross-mult 1)
+                                              (("1"
+                                                (lemma
+                                                 "exp_neg_ub_increasing")
+                                                (("1"
+                                                  (inst - "kk")
+                                                  (("1"
+                                                    (assert)
+                                                    (("1"
+                                                      (expand
+                                                       "increasing?")
+                                                      (("1"
+                                                        (inst
+                                                         -
+                                                         "-y!1"
+                                                         "-x!1")
+                                                        (("1"
+                                                          (assert)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (hide 1)
+                                              (("2"
+                                                (case
+                                                 "FORALL (aa,bb,cc:real): aa<=bb IMPLIES aa<=max(bb,cc)")
+                                                (("1"
+                                                  (rewrite -1)
+                                                  (("1"
+                                                    (hide 2)
+                                                    (("1"
+                                                      (cross-mult 1)
+                                                      (("1"
+                                                        (lemma
+                                                         "exp_neg_ub_increasing")
+                                                        (("1"
+                                                          (inst - "kk")
+                                                          (("1"
+                                                            (assert)
+                                                            (("1"
+                                                              (expand
+                                                               "increasing?")
+                                                              (("1"
+                                                                (inst
+                                                                 -
+                                                                 "-60"
+                                                                 "-x!1")
+                                                                (("1"
+                                                                  (assert)
+                                                                  nil
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (hide-all-but 1)
+                                                  (("2"
+                                                    (grind)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("3"
+                                              (lemma
+                                               "both_sides_expt_gt1_lt")
+                                              (("3"
+                                                (inst
+                                                 -
+                                                 "2"
+                                                 "floor(x!1)"
+                                                 "floor(y!1)")
+                                                (("3"
+                                                  (expand "max")
+                                                  (("3"
+                                                    (lift-if)
+                                                    (("3"
+                                                      (lift-if)
+                                                      (("3"
+                                                        (lift-if)
+                                                        (("3"
+                                                          (assert)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (expand "min")
+                        (("2" (lift-if) (("2" (ground) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("3" (skeep)
+          (("3" (skeep)
+            (("3" (expand "exp_lb")
+              (("3" (name "KK" "min(n,30)")
+                (("3" (case "exp_lb_n(xn,KK) <=1")
+                  (("1" (lift-if)
+                    (("1" (expand "min")
+                      (("1" (lift-if) (("1" (ground) nil nil)) nil))
+                      nil))
+                    nil)
+                   ("2" (hide 2)
+                    (("2" (expand "exp_lb_n")
+                      (("2" (name "XK" "max(-60,xn)")
+                        (("2" (case "exp_neg_lb(KK,XK) <= 1")
+                          (("1" (expand "max")
+                            (("1" (lift-if) (("1" (ground) nil nil))
+                              nil))
+                            nil)
+                           ("2" (hide 2)
+                            (("2" (expand "exp_neg_lb")
+                              (("2"
+                                (lemma "both_sides_expt_pos_ge")
+                                (("2"
+                                  (inst
+                                   -
+                                   "-floor(XK)"
+                                   "1"
+                                   "exp_neg_le1_lb(1 + KK, XK / -floor(XK))")
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (hide 2)
+                                      (("1"
+                                        (expand "exp_neg_le1_lb")
+                                        (("1"
+                                          (lemma
+                                           "exp_estimate_increasing")
+                                          (("1"
+                                            (inst
+                                             -
+                                             "2+2*KK"
+                                             "XK/-floor(XK)"
+                                             "0")
+                                            (("1"
+                                              (assert)
+                                              (("1"
+                                                (split -)
+                                                (("1"
+                                                  (rewrite
+                                                   "exp_estimate_0")
+                                                  (("1"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil)
+                                                 ("2"
+                                                  (cross-mult 1)
+                                                  (("2"
+                                                    (ground)
+                                                    (("2"
+                                                      (expand "max")
+                                                      (("2"
+                                                        (lift-if)
+                                                        (("2"
+                                                          (ground)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil)
+                                                 ("3"
+                                                  (cross-mult 1)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (case
+                                     "FORALL (rr:real): rr>0 IMPLIES (rr>=0 AND rr > 0)")
+                                    (("1"
+                                      (rewrite -1)
+                                      (("1"
+                                        (hide 2)
+                                        (("1"
+                                          (hide 2)
+                                          (("1"
+                                            (lemma
+                                             "exp_neg_le1_lb_pos")
+                                            (("1"
+                                              (inst?)
+                                              (("1"
+                                                (assert)
+                                                (("1"
+                                                  (split)
+                                                  (("1"
+                                                    (cross-mult 1)
+                                                    (("1"
+                                                      (ground)
+                                                      (("1"
+                                                        (expand "max")
+                                                        (("1"
+                                                          (lift-if)
+                                                          (("1"
+                                                            (ground)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil)
+                                                   ("2"
+                                                    (cross-mult 1)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil)
+                                     ("2"
+                                      (hide-all-but 1)
+                                      (("2" (grind) nil nil))
+                                      nil))
+                                    nil)
+                                   ("3"
+                                    (expand "min")
+                                    (("3"
+                                      (lift-if)
+                                      (("3"
+                                        (ground)
+                                        (("1"
+                                          (expand "max")
+                                          (("1"
+                                            (lift-if)
+                                            (("1"
+                                              (split -3)
+                                              (("1" (ground) nil nil)
+                                               ("2" (ground) nil nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (expand "max")
+                                          (("2"
+                                            (ground)
+                                            (("2"
+                                              (lift-if)
+                                              (("2" (ground) nil nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("3"
+                                          (expand "max")
+                                          (("3"
+                                            (lift-if)
+                                            (("3"
+                                              (split -3)
+                                              (("1"
+                                                (flatten)
+                                                (("1"
+                                                  (assert)
+                                                  nil
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (flatten)
+                                                (("2"
+                                                  (assert)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("4"
+                                          (expand "max")
+                                          (("4"
+                                            (lift-if)
+                                            (("4"
+                                              (split -2)
+                                              (("1"
+                                                (flatten)
+                                                (("1"
+                                                  (assert)
+                                                  nil
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (flatten)
+                                                (("2"
+                                                  (assert)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("3" (expand "max")
+                            (("3" (lift-if) (("3" (ground) nil nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("4" (skeep)
+          (("4" (skeep)
+            (("4" (expand "exp_lb")
+              (("4" (name "KK" "min(n,30)")
+                (("4" (case "exp_lb_n(xp,KK) >=1")
+                  (("1" (expand "min")
+                    (("1" (lift-if) (("1" (ground) nil nil)) nil)) nil)
+                   ("2" (hide 2)
+                    (("2" (expand "exp_lb_n")
+                      (("2" (lift-if)
+                        (("2" (ground)
+                          (("1" (cross-mult 1)
+                            (("1" (expand "exp_neg_ub")
+                              (("1"
+                                (lemma "both_sides_expt_pos_ge")
+                                (("1"
+                                  (inst
+                                   -
+                                   "-floor(-xp)"
+                                   "1"
+                                   "exp_neg_le1_ub(1 + KK, -xp / -floor(-xp))")
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (hide 2)
+                                      (("1"
+                                        (expand "exp_neg_le1_ub")
+                                        (("1"
+                                          (lemma
+                                           "exp_estimate_increasing")
+                                          (("1"
+                                            (inst
+                                             -
+                                             "2+2*KK"
+                                             "-xp / -floor(-xp)"
+                                             "0")
+                                            (("1"
+                                              (assert)
+                                              (("1"
+                                                (rewrite
+                                                 "exp_estimate_0")
+                                                (("1"
+                                                  (assert)
+                                                  (("1"
+                                                    (split)
+                                                    (("1"
+                                                      (cross-mult 1)
+                                                      nil
+                                                      nil)
+                                                     ("2"
+                                                      (cross-mult 1)
+                                                      nil
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (case
+                                     "FORALL (rr:real): rr>0 IMPLIES (rr>=0 AND rr > 0)")
+                                    (("1"
+                                      (rewrite -1)
+                                      (("1"
+                                        (hide (-1 -2))
+                                        (("1"
+                                          (hide 2)
+                                          (("1"
+                                            (lemma
+                                             "exp_neg_le1_lb_pos")
+                                            (("1"
+                                              (inst
+                                               -
+                                               "1+KK"
+                                               "-xp/-floor(-xp)")
+                                              (("1"
+                                                (expand
+                                                 "exp_neg_le1_lb")
+                                                (("1"
+                                                  (expand
+                                                   "exp_neg_le1_ub")
+                                                  (("1"
+                                                    (assert)
+                                                    (("1"
+                                                      (case
+                                                       "1000001/1000000 / factorial(3 + 2 * KK) > 0")
+                                                      (("1"
+                                                        (assert)
+                                                        (("1"
+                                                          (split)
+                                                          (("1"
+                                                            (cross-mult
+                                                             1)
+                                                            nil
+                                                            nil)
+                                                           ("2"
+                                                            (cross-mult
+                                                             1)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil)
+                                                       ("2"
+                                                        (assert)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil)
+                                     ("2"
+                                      (hide-all-but 1)
+                                      (("2" (grind) nil nil))
+                                      nil))
+                                    nil)
+                                   ("3"
+                                    (expand "min")
+                                    (("3"
+                                      (lift-if)
+                                      (("3" (ground) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (case "floor(xp) >= 1")
+                            (("1" (lemma "both_sides_expt_pos_ge")
+                              (("1"
+                                (inst - "floor(xp)" "2" "1")
+                                (("1" (assert) nil nil))
+                                nil))
+                              nil)
+                             ("2" (assert) nil nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (exp_lb_increasing-1 nil 3568630459
    (""
     (case "(FORALL (n: nat): increasing?(LAMBDA (xn: negreal): exp_lb(xn, n))) AND (FORALL (n: nat): increasing?(LAMBDA (xp: posreal): exp_lb(xp, n))) AND (FORALL (n: nat): FORALL (xn:negreal): exp_lb(xn, n)<=1) AND (FORALL (n: nat): FORALL (xp:posreal): exp_lb(xp, n)>=1)")
@@ -6665,131 +8016,133 @@
         nil))
       nil))
     nil)
-   ((nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
-    (xp skolem-const-decl "posreal" exp_approx nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (KK skolem-const-decl "{k: int | k <= n AND k <= 30}" exp_approx
-     nil)
-    (exp_neg_le1_ub const-decl "real" exp_approx nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (factorial def-decl "posnat" factorial "ints/")
-    (div_mult_pos_lt1 formula-decl nil real_props nil)
-    (div_mult_pos_ge1 formula-decl nil real_props nil)
-    (exp_neg_lb const-decl "posreal" exp_approx nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (minus_int_is_int application-judgement "int" integers nil)
-    (xn skolem-const-decl "negreal" exp_approx nil)
-    (XK skolem-const-decl "{p: real | p >= -60 AND p >= xn}" exp_approx
-     nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (KK skolem-const-decl "{k: int | k <= n AND k <= 30}" exp_approx
-     nil)
-    (exp_neg_le1_lb const-decl "real" exp_approx nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (exp_estimate_increasing formula-decl nil exp_series nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (div_mult_pos_neg_le1 formula-decl nil extra_real_props nil)
-    (div_mult_pos_neg_le2 formula-decl nil extra_real_props nil)
-    (exp_estimate_0 formula-decl nil exp_series nil)
-    (even_plus_even_is_even application-judgement "even_int" integers
-     nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (expt_1i formula-decl nil exponentiation nil)
-    (posrat_exp application-judgement "posrat" exponentiation nil)
-    (div_mult_pos_neg_lt1 formula-decl nil extra_real_props nil)
-    (exp_neg_le1_lb_pos formula-decl nil exp_approx nil)
-    (both_sides_expt_pos_ge formula-decl nil exponentiation nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (^ const-decl "real" exponentiation nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (posreal_times_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (div_mult_pos_le1 formula-decl nil real_props nil)
-    (exp_neg_ub const-decl "posreal" exp_approx nil)
-    (/= const-decl "boolean" notequal nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (times_div2 formula-decl nil real_props nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (div_mult_pos_le2 formula-decl nil real_props nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (exp_neg_ub_increasing formula-decl nil exp_approx nil)
-    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
-     nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (posreal_max application-judgement
-     "{z: posreal | z >= x AND z >= y}" real_defs nil)
-    (kk skolem-const-decl "{k: int | k <= n AND k <= 30}" exp_approx
-     nil)
-    (exp_neg_lb_increasing formula-decl nil exp_approx nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (n skolem-const-decl "nat" exp_approx nil)
-    (kk skolem-const-decl "{k: int | k <= n AND k <= 30}" exp_approx
-     nil)
-    (both_sides_expt_gt1_lt formula-decl nil exponentiation nil)
-    (integer nonempty-type-from-decl nil integers nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
-    (posreal_min application-judgement
-     "{z: posreal | z <= x AND z <= y}" real_defs nil)
-    (minus_even_is_even application-judgement "even_int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (exp_lb_n const-decl "posreal" exp_approx nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (x!1 skolem-const-decl "real" exp_approx nil)
-    (y!1 skolem-const-decl "real" exp_approx nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
+   ((exp_lb const-decl "posreal" exp_approx nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (increasing? const-decl "bool" real_fun_preds "reals/")
+    (negreal nonempty-type-eq-decl nil real_types nil)
+    (< const-decl "bool" reals nil)
+    (nonpos_real nonempty-type-eq-decl nil real_types nil)
+    (<= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (nonpos_real nonempty-type-eq-decl nil real_types nil)
-    (< const-decl "bool" reals nil)
-    (negreal nonempty-type-eq-decl nil real_types nil)
-    (increasing? const-decl "bool" real_fun_preds "reals/")
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (exp_lb const-decl "posreal" exp_approx nil))
+    (number nonempty-type-decl nil numbers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (y!1 skolem-const-decl "real" exp_approx nil)
+    (x!1 skolem-const-decl "real" exp_approx nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (exp_lb_n const-decl "posreal" exp_approx nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (minus_even_is_even application-judgement "even_int" integers nil)
+    (posreal_min application-judgement
+     "{z: posreal | z <= x AND z <= y}" real_defs nil)
+    (posrat_exp application-judgement "posrat" exponentiation nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (both_sides_expt_gt1_lt formula-decl nil exponentiation nil)
+    (kk skolem-const-decl "{k: nat | k <= n AND k <= 30}" exp_approx
+     nil)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
+     real_defs nil)
+    (exp_neg_lb_increasing formula-decl nil exp_approx nil)
+    (kk skolem-const-decl "{k: nat | k <= n AND k <= 30}" exp_approx
+     nil)
+    (posreal_max application-judgement
+     "{z: posreal | z >= x AND z >= y}" real_defs nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (exp_neg_ub_increasing formula-decl nil exp_approx nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (div_mult_pos_le2 formula-decl nil real_props nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (times_div2 formula-decl nil real_props nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (exp_neg_ub const-decl "posreal" exp_approx nil)
+    (div_mult_pos_le1 formula-decl nil real_props nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nzreal_max application-judgement "{z: nzreal | z >= x AND z >= y}"
+     real_defs nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (both_sides_expt_pos_ge formula-decl nil exponentiation nil)
+    (exp_neg_le1_lb_pos formula-decl nil exp_approx nil)
+    (div_mult_pos_neg_lt1 formula-decl nil extra_real_props nil)
+    (expt_1i formula-decl nil exponentiation nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (even_plus_even_is_even application-judgement "even_int" integers
+     nil)
+    (exp_estimate_0 formula-decl nil exp_series nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (div_mult_pos_neg_le2 formula-decl nil extra_real_props nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (div_mult_pos_neg_le1 formula-decl nil extra_real_props nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
+    (exp_estimate_increasing formula-decl nil exp_series nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (KK skolem-const-decl "{k: nat | k <= n AND k <= 30}" exp_approx
+     nil)
+    (n skolem-const-decl "nat" exp_approx nil)
+    (exp_neg_le1_lb const-decl "real" exp_approx nil)
+    (XK skolem-const-decl "{z: nzreal | z >= -60 AND z >= xn}"
+     exp_approx nil)
+    (xn skolem-const-decl "negreal" exp_approx nil)
+    (minus_int_is_int application-judgement "int" integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (exp_neg_lb const-decl "posreal" exp_approx nil)
+    (div_mult_pos_ge1 formula-decl nil real_props nil)
+    (div_mult_pos_lt1 formula-decl nil real_props nil)
+    (factorial def-decl "posnat" factorial "ints/")
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (KK skolem-const-decl "{k: nat | k <= n AND k <= 30}" exp_approx
+     nil)
+    (n skolem-const-decl "nat" exp_approx nil)
+    (exp_neg_le1_ub const-decl "real" exp_approx nil)
+    (xp skolem-const-decl "posreal" exp_approx nil))
    nil))
  (e_bounds 0
   (e_bounds-1 nil 3295625003
@@ -6801,8 +8154,7 @@
         nil))
       nil))
     nil)
-   ((e const-decl "posreal" ln_exp nil)
-    (e_ub const-decl "posreal" exp_approx nil)
+   ((e const-decl "posreal" ln_exp nil) nil
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -6817,8 +8169,7 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (exp_bounds formula-decl nil exp_approx nil)
-    (e_lb const-decl "posreal" exp_approx nil))
+    (exp_bounds formula-decl nil exp_approx nil) nil)
    shostak))
  (e_bounds2 0
   (e_bounds2-1 nil 3307355846
@@ -6892,8 +8243,7 @@
      "(strict_total_order?[real])" real_props nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
-    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    nil (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (exp_neg_le1_lb const-decl "real" exp_approx nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -6938,12 +8288,13 @@
         nil))
       nil))
     nil)
-   ((e_lb const-decl "posreal" exp_approx nil)
+   (nil
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (e_ub const-decl "posreal" exp_approx nil)
-    (e_bounds2 formula-decl nil exp_approx nil))
-   shostak)))
+    nil (e_bounds2 formula-decl nil exp_approx nil))
+   shostak
+   (e_bound subtype "ln_exp.e"
+    "{x: real_types.posreal | booleans.AND(reals.<(exp_approx.e_lb, ln_exp.e), reals.<(ln_exp.e, exp_approx.e_ub))}"))))
 

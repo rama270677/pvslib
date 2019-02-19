@@ -1,5 +1,437 @@
 (direct_sos
  (sos_le_direct 0
+  (sos_le_direct-2 "" 3757262780
+   (""
+    (case "forall (S:Stm,s,s1:State): step(S,s)=T(s1) => direct.SS(S)(s) = up(s1)")
+    (("1"
+      (case "FORALL (S,S1: Stm, s, s1: State):
+                          step(S, s) = I(S1,s1) => direct.SS(S)(s) = direct.SS(S1)(s1)")
+      (("1"
+        (case "forall (n:nat,s,s1:State,S:Stm): tr(n)(I(S,s),T(s1)) => direct.SS(S)(s) = up(s1)")
+        (("1" (hide -2 -3)
+          (("1" (skosimp)
+            (("1" (inst - "_" "_" _ " S!1")
+              (("1" (expand "sq_le")
+                (("1" (skosimp)
+                  (("1" (inst - "_" "s1!1" "s2!1")
+                    (("1"
+                      (name-replace "RHS"
+                       "direct.SS(S!1)(s1!1) = up(s2!1)")
+                      (("1"
+                        (lemma "SS_deterministic"
+                         ("S" "S!1" "s" "s1!1" "s1" "s2!1"))
+                        (("1" (assert)
+                          (("1" (skosimp)
+                            (("1" (inst - "n!1") nil nil)) nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (hide 2)
+          (("2" (induct "n")
+            (("1" (skosimp)
+              (("1" (expand "tr") (("1" (propax) nil nil)) nil)) nil)
+             ("2" (skosimp)
+              (("2" (skosimp)
+                (("2" (expand "tr" -2)
+                  (("2" (case "T?(step(S!1, s!1))")
+                    (("1" (hide -2 -4)
+                      (("1" (expand "tr" -2)
+                        (("1" (assert)
+                          (("1" (prop)
+                            (("1" (inst - "S!1" "s!1" "s1!1")
+                              (("1" (assert) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (case "I?(step(S!1, s!1))")
+                      (("1" (hide 1)
+                        (("1"
+                          (inst - "s(step(S!1, s!1))" "s1!1"
+                           "S(step(S!1, s!1))")
+                          (("1" (split -2)
+                            (("1"
+                              (inst -4 "S!1" "S(step(S!1, s!1))" "s!1"
+                               "s(step(S!1, s!1))")
+                              (("1"
+                                (replace -1)
+                                (("1"
+                                  (split -4)
+                                  (("1" (propax) nil nil)
+                                   ("2"
+                                    (hide -1 -4 -3 2)
+                                    (("2"
+                                      (decompose-equality)
+                                      nil
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (hide-all-but (-1 -2 1))
+                              (("2"
+                                (case-replace
+                                 "I(S(step(S!1, s!1)), s(step(S!1, s!1)))=step(S!1, s!1)")
+                                (("2"
+                                  (hide -2 2)
+                                  (("2" (decompose-equality) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (assert) nil nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (hide 2)
+        (("2" (induct "S")
+          (("1" (skolem + ("x!1" "a!1"))
+            (("1" (skosimp)
+              (("1" (expand "step") (("1" (propax) nil nil)) nil))
+              nil))
+            nil)
+           ("2" (skosimp)
+            (("2" (expand "SS" 1)
+              (("2" (expand "step" -1) (("2" (propax) nil nil)) nil))
+              nil))
+            nil)
+           ("3" (skolem + ("S!1" "S!2"))
+            (("3" (flatten)
+              (("3" (skosimp)
+                (("3" (case "T?(step(S!1,s!1))")
+                  (("1" (case "S1!1=S!2 & s1(step(S!1, s!1))=s1!1")
+                    (("1" (flatten)
+                      (("1" (replace -1)
+                        (("1" (inst -7 "S!1" "s!1" "s1!1")
+                          (("1" (split -7)
+                            (("1" (expand "SS" 1 1)
+                              (("1"
+                                (expand "o")
+                                (("1"
+                                  (replace -1)
+                                  (("1" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (replace -2 1 rl)
+                              (("2"
+                                (hide-all-but (-3 1))
+                                (("2" (decompose-equality) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (hide 2)
+                      (("2" (hide -2 -3 -5)
+                        (("2" (expand "step" -2)
+                          (("2" (assert)
+                            (("2" (decompose-equality)
+                              (("2" (assert) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("3" (assert) nil nil))
+                    nil)
+                   ("2" (case "I?(step(S!1, s!1))")
+                    (("1" (hide 1)
+                      (("1"
+                        (case "S1!1=Sequence(S(step(S!1,s!1)), S!2) & s(step(S!1,s!1))=s1!1")
+                        (("1" (flatten)
+                          (("1" (replace -1)
+                            (("1" (expand "SS" 1)
+                              (("1"
+                                (inst
+                                 -4
+                                 "S(step(S!1, s!1))"
+                                 "s!1"
+                                 "s1!1")
+                                (("1"
+                                  (split -4)
+                                  (("1"
+                                    (expand "o")
+                                    (("1"
+                                      (replace -1)
+                                      (("1" (propax) nil nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (replace -2 1 rl)
+                                    (("2"
+                                      (hide-all-but (-3 1))
+                                      (("2"
+                                        (decompose-equality)
+                                        nil
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (hide 2)
+                          (("2" (hide -2 -3 -5)
+                            (("2" (expand "step" -2)
+                              (("2"
+                                (assert)
+                                (("2"
+                                  (decompose-equality)
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("3" (assert) nil nil) ("4" (propax) nil nil))
+                        nil))
+                      nil)
+                     ("2" (assert) nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("4" (skolem + ("b!1" "S!1" "S!2"))
+            (("4" (skosimp)
+              (("4" (skosimp)
+                (("4" (expand "step" -3)
+                  (("4" (lift-if)
+                    (("4" (expand "SS" 1 1)
+                      (("4" (expand "conditional")
+                        (("4" (lift-if)
+                          (("4" (case-replace "B(b!1)(s!1)")
+                            (("1" (hide -3 -5)
+                              (("1"
+                                (hide -1 -2)
+                                (("1"
+                                  (decompose-equality)
+                                  (("1" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (assert)
+                              (("2"
+                                (hide -1 -2 -4 1)
+                                (("2"
+                                  (decompose-equality)
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("5" (skolem + ("b!1" "S!1"))
+            (("5" (flatten)
+              (("5" (skosimp)
+                (("5" (expand "step" -2)
+                  (("5" (decompose-equality)
+                    (("5" (replace -1 * rl)
+                      (("5" (replace -2 * rl)
+                        (("5" (hide -1 -2)
+                          (("5" (expand "SS" 1)
+                            (("5" (rewrite "fix_prop" 1 :dir rl)
+                              (("1"
+                                (expand "conditional" 1 3)
+                                (("1"
+                                  (expand "conditional" 1 1)
+                                  (("1"
+                                    (case-replace "B(b!1)(s!1)")
+                                    (("1"
+                                      (expand "SS" 1 3)
+                                      (("1"
+                                        (expand "SS" 1 3)
+                                        (("1" (propax) nil nil))
+                                        nil))
+                                      nil)
+                                     ("2"
+                                      (assert)
+                                      (("2"
+                                        (expand "SS" 2)
+                                        (("2" (propax) nil nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (hide 2)
+                                (("2"
+                                  (hide -1 -2)
+                                  (("2"
+                                    (rewrite "scott_continuous_def")
+                                    (("2"
+                                      (lemma
+                                       "apply_continuous"
+                                       ("c1" "direct.SS(S!1)"))
+                                      (("2"
+                                        (lemma
+                                         "conditional_continuous"
+                                         ("b"
+                                          "b!1"
+                                          "f"
+                                          "LAMBDA (c:Cont): c o direct.SS(S!1)"
+                                          "g"
+                                          "lambda (c:Cont): LAMBDA (s:State): up[State](s)"))
+                                        (("1" (assert) nil nil)
+                                         ("2"
+                                          (hide -1 2)
+                                          (("2"
+                                            (expand
+                                             "scott_continuous?")
+                                            (("2"
+                                              (split)
+                                              (("1"
+                                                (expand "increasing?")
+                                                (("1"
+                                                  (skosimp*)
+                                                  (("1"
+                                                    (expand "sq_le")
+                                                    (("1"
+                                                      (skosimp)
+                                                      nil
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (expand
+                                                 "lub_preserving?")
+                                                (("2"
+                                                  (skosimp*)
+                                                  (("2"
+                                                    (case-replace
+                                                     "image[Cont,Cont](LAMBDA (c: Cont): LAMBDA (s: State): up[State](s), D!1) = singleton[Cont](LAMBDA (s: State): up[State](s))")
+                                                    (("1"
+                                                      (hide -1)
+                                                      (("1"
+                                                        (rewrite
+                                                         "lub_singleton")
+                                                        nil
+                                                        nil))
+                                                      nil)
+                                                     ("2"
+                                                      (hide 2)
+                                                      (("2"
+                                                        (apply-extensionality
+                                                         :hide?
+                                                         t)
+                                                        (("2"
+                                                          (expand
+                                                           "singleton")
+                                                          (("2"
+                                                            (expand
+                                                             "image")
+                                                            (("2"
+                                                              (typepred
+                                                               "D!1")
+                                                              (("2"
+                                                                (expand
+                                                                 "nonempty?")
+                                                                (("2"
+                                                                  (expand
+                                                                   "empty?")
+                                                                  (("2"
+                                                                    (skosimp)
+                                                                    (("2"
+                                                                      (expand
+                                                                       "member")
+                                                                      (("2"
+                                                                        (case-replace
+                                                                         "(LAMBDA (s: State): up[State](s))=x!1")
+                                                                        (("1"
+                                                                          (inst
+                                                                           +
+                                                                           "x!2")
+                                                                          nil
+                                                                          nil)
+                                                                         ("2"
+                                                                          (assert)
+                                                                          nil
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("3" (propax) nil nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("2" (hide 2)
+      (("2" (skosimp)
+        (("2" (expand "SS")
+          (("2" (expand "step")
+            (("2" (case "Assign?(S!1)")
+              (("1" (assert)
+                (("1" (decompose-equality) (("1" (assert) nil nil))
+                  nil))
+                nil)
+               ("2" (case "Skip?(S!1)")
+                (("1" (assert)
+                  (("1" (decompose-equality) (("1" (assert) nil nil))
+                    nil))
+                  nil)
+                 ("2" (case "Sequence?(S!1)")
+                  (("1" (assert) nil nil)
+                   ("2" (lift-if) (("2" (assert) nil nil)) nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (sos_le_direct-1 nil 3398581278
    (""
     (case "forall (S:Stm,s,s1:State): step(S,s)=T(s1) => direct.SS(S)(s) = up(s1)")
@@ -485,10 +917,10 @@
     (D!1 skolem-const-decl "directed[Cont[V], (sq_le)]" direct_sos nil)
     (x!2 skolem-const-decl "Cont[V]" direct_sos nil)
     (lub_singleton formula-decl nil bounded_order_props "orders/")
-    (directed_singleton application-judgement
-     "directed[Cont[V], (sq_le)]" direct_sos nil)
     (singleton_is_compact application-judgement
-     "compact[Cont[V], scott_open_sets]" direct_sos nil)
+     "compact[T, scott_open_sets]" direct_sos nil)
+    (directed_singleton application-judgement "directed[T, <=]"
+     direct_sos nil)
     (nonempty_singleton_finite application-judgement
      "non_empty_finite_set[Cont[V]]" direct_sos nil)
     (set type-eq-decl nil sets nil)
@@ -1198,10 +1630,10 @@
     (empty? const-decl "bool" sets nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (lub_singleton formula-decl nil bounded_order_props "orders/")
-    (directed_singleton application-judgement
-     "directed[Cont[V], (sq_le)]" direct_sos nil)
     (singleton_is_compact application-judgement
-     "compact[Cont[V], scott_open_sets]" direct_sos nil)
+     "compact[T, scott_open_sets]" direct_sos nil)
+    (directed_singleton application-judgement "directed[T, <=]"
+     direct_sos nil)
     (nonempty_singleton_finite application-judgement
      "non_empty_finite_set[Cont[V]]" direct_sos nil)
     (set type-eq-decl nil sets nil)

@@ -2,12 +2,15 @@
  (IMP_finite_cyclic_groups_TCC1 0
   (IMP_finite_cyclic_groups_TCC1-1 nil 3531317209
    ("" (rewrite "fullset_is_group") nil nil)
-   ((fullset_is_group formula-decl nil cauchy nil)) nil))
+   ((fullset_is_group formula-decl nil cauchy nil)) nil
+   (IMP_finite_cyclic_groups assuming
+    "algebra@finite_cyclic_groups[cauchy.T, cauchy.*, cauchy.one]"
+    "fullset_is_group: ASSUMPTION group_def[finite_cyclic_groups.T, finite_cyclic_groups.*, finite_cyclic_groups.one].group?(sets[finite_cyclic_groups.T].fullset)")))
  (fseq_product_TCC1 0
   (fseq_product_TCC1-1 nil 3529790042 ("" (subtype-tcc) nil nil)
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (fseq_product subtype "0" "below[fs`length]")))
  (fseq_product_TCC2 0
   (fseq_product_TCC2-1 nil 3529790042 ("" (termination-tcc) nil nil)
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -22,7 +25,10 @@
     (rest const-decl "finseq" seq_extras "structures/")
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (fseq_product termination
+    "cauchy.fseq_product(seq_extras[cauchy.T].rest(cauchy.fs))"
+    "nil")))
  (S_TCC1 0
   (S_TCC1-1 nil 3529800017 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -42,7 +48,7 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (below type-eq-decl nil nat_types nil)
     (< const-decl "bool" reals nil))
-   nil))
+   nil (S subtype "cauchy.i" "below[fs`length]")))
  (fseq_product_in 0
   (fseq_product_in-1 nil 3529792046
    ("" (measure-induct+ "length(fs)" "fs")
@@ -670,7 +676,7 @@
     nil)
    ((member const-decl "bool" sets nil)
     (extend const-decl "R" extend nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (same_element const-decl "bool" cauchy nil)
     (TRUE const-decl "bool" booleans nil)
     (finseq type-eq-decl nil finite_sequences nil)
@@ -702,7 +708,7 @@
     (one_in formula-decl nil monad "algebra/")
     (monad? const-decl "bool" monad_def "algebra/")
     (monad nonempty-type-eq-decl nil monad "algebra/")
-    (SE const-decl "set[finseq]" cauchy nil))
+    (SE const-decl "set[finseq[T]]" cauchy nil))
    shostak))
  (order_SE 0
   (order_SE-1 nil 3530094223
@@ -805,7 +811,7 @@
     nil)
    ((member const-decl "bool" sets nil)
     (extend const-decl "R" extend nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (T formal-type-decl nil cauchy nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -845,36 +851,11 @@
     (number nonempty-type-decl nil numbers nil)
     (fullset_is_group formula-decl nil cauchy nil)
     (fseq_product_power formula-decl nil cauchy nil)
-    (SE const-decl "set[finseq]" cauchy nil))
+    (SE const-decl "set[finseq[T]]" cauchy nil))
    shostak))
  (S_bij_set_seq_TCC1 0
   (S_bij_set_seq_TCC1-1 nil 3529790452 ("" (subtype-tcc) nil nil) nil
-   nil))
- (S_bij_set_seq_TCC2 0
-  (S_bij_set_seq_TCC2-1 nil 3529790452 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (T formal-type-decl nil cauchy nil) (set type-eq-decl nil sets nil)
-    (* formal-const-decl "[T, T -> T]" cauchy nil)
-    (one formal-const-decl "T" cauchy nil)
-    (finite_group? const-decl "bool" group_def "algebra/")
-    (finite_group nonempty-type-eq-decl nil group "algebra/")
-    (member const-decl "bool" sets nil)
-    (star_closed? const-decl "bool" groupoid_def "algebra/")
-    (one_member formula-decl nil monad "algebra/")
-    (one_right formula-decl nil group "algebra/")
-    (restrict const-decl "R" restrict nil)
-    (one_left formula-decl nil group "algebra/")
-    (identity? const-decl "bool" operator_defs nil)
-    (monad? const-decl "bool" monad_def "algebra/")
-    (associative? const-decl "bool" operator_defs nil)
-    (monoid? const-decl "bool" monoid_def "algebra/")
-    (inv_exists? const-decl "bool" group_def "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
-    (injective? const-decl "bool" functions nil)
-    (is_finite const-decl "bool" finite_sets nil))
-   nil))
+   nil (S_bij_set_seq subtype "(number_fields.-)(cauchy.p, 1)" "nat")))
  (S_bij_set_seq 0
   (S_bij_set_seq-1 nil 3529790556
    ("" (skosimp*)
@@ -1191,19 +1172,12 @@
         nil))
       nil))
     nil)
-   ((finite_group nonempty-type-eq-decl nil group "algebra/")
-    (finite_group? const-decl "bool" group_def "algebra/")
-    (one formal-const-decl "T" cauchy nil)
-    (* formal-const-decl "[T, T -> T]" cauchy nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (set type-eq-decl nil sets nil) (T formal-type-decl nil cauchy nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
+   ((int_minus_int_is_int application-judgement "int" integers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (TRUE const-decl "bool" booleans nil)
-    (id const-decl "(bijective?[T, T])" identity nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
     (bijective? const-decl "bool" functions nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (TRUE const-decl "bool" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -1225,11 +1199,18 @@
      real_props nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (below type-eq-decl nil nat_types nil)
+    (T formal-type-decl nil cauchy nil)
     (finseq type-eq-decl nil finite_sequences nil)
+    (set type-eq-decl nil sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
+    (is_finite const-decl "bool" finite_sets nil)
     (finite_set type-eq-decl nil finite_sets nil)
-    (set_seq const-decl "set[finseq]" cauchy_scaf nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (set_seq const-decl "set[finseq[T]]" cauchy_scaf nil)
+    (* formal-const-decl "[T, T -> T]" cauchy nil)
+    (one formal-const-decl "T" cauchy nil)
+    (finite_group? const-decl "bool" group_def "algebra/")
+    (finite_group nonempty-type-eq-decl nil group "algebra/")
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (rest_add_first formula-decl nil seq_extras "structures/")
     (inv_left formula-decl nil group "algebra/")
     (fseq_product_one formula-decl nil cauchy nil)
@@ -1240,6 +1221,7 @@
     (i!1 skolem-const-decl "below[p!1]" cauchy nil)
     (insert? const-decl "finseq" seq_extras "structures/")
     (surjective? const-decl "bool" functions nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
     (rest const-decl "finseq" seq_extras "structures/")
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
@@ -1281,7 +1263,7 @@
      "algebra/")
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (add_first const-decl "finseq" seq_extras "structures/")
-    (B skolem-const-decl "set[finseq]" cauchy nil)
+    (B skolem-const-decl "set[finseq[T]]" cauchy nil)
     (A skolem-const-decl "set[finseq[T]]" cauchy nil))
    shostak))
  (S_is_finite 0
@@ -1360,7 +1342,7 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
+     "non_empty_finite_set" countable_props "sets_aux/")
     (below type-eq-decl nil nat_types nil)
     (T formal-type-decl nil cauchy nil)
     (finseq type-eq-decl nil finite_sequences nil)
@@ -1369,7 +1351,7 @@
     (one formal-const-decl "T" cauchy nil)
     (finite_group? const-decl "bool" group_def "algebra/")
     (finite_group nonempty-type-eq-decl nil group "algebra/")
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (singleton? const-decl "bool" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
@@ -1385,15 +1367,13 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (set_seq_is_finite formula-decl nil cauchy_scaf nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (set_seq const-decl "set[finseq]" cauchy_scaf nil)
+    (set_seq const-decl "set[finseq[T]]" cauchy_scaf nil)
     (bijection_finite_set2 formula-decl nil finite_sets_eq
      "finite_sets/")
+    (is_finite const-decl "bool" finite_sets nil)
     (finite_set type-eq-decl nil finite_sets nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" cauchy nil)
-    (is_finite const-decl "bool" finite_sets nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -1426,7 +1406,9 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil))
-   nil))
+   nil
+   (S_card subtype "cauchy.S(cauchy.G)(cauchy.p)"
+    "finite_set[finseq[T]]")))
  (S_card 0
   (S_card-1 nil 3529842529
    ("" (skosimp*)
@@ -1468,8 +1450,8 @@
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (card_set_seq formula-decl nil cauchy_scaf nil)
-    (set_seq const-decl "set[finseq]" cauchy_scaf nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (set_seq const-decl "set[finseq[T]]" cauchy_scaf nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (set_seq_is_finite formula-decl nil cauchy_scaf nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
@@ -1496,8 +1478,7 @@
    shostak))
  (F_TCC1 0
   (F_TCC1-1 nil 3529848984 ("" (subtype-tcc) nil nil)
-   ((mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
+   ((int_times_int_is_int application-judgement "int" integers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -1526,7 +1507,7 @@
     (Zn const-decl "set[below(n)]" zp_group nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (G!1 skolem-const-decl "finite_group[T, *, one]" cauchy nil)
@@ -1552,13 +1533,20 @@
      integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (F subtype
+    "modulo_arithmetic.rem(cauchy.p)((number_fields.+)(cauchy.i, cauchy.k))"
+    "below[fs`length]")))
  (F_1_TCC1 0
-  (F_1_TCC1-1 nil 3529874518 ("" (subtype-tcc) nil nil) nil nil))
+  (F_1_TCC1-1 nil 3529874518 ("" (subtype-tcc) nil nil) nil nil
+   (F_1 subtype "(number_fields.-)(length(cauchy.fs), cauchy.k)"
+    "nat")))
  (F_1_TCC2 0
-  (F_1_TCC2-1 nil 3529874518 ("" (subtype-tcc) nil nil) nil nil))
+  (F_1_TCC2-1 nil 3529874518 ("" (subtype-tcc) nil nil) nil nil
+   (F_1 subtype "length(cauchy.fs)" "posnat")))
  (F_2_TCC1 0
-  (F_2_TCC1-1 nil 3529874615 ("" (subtype-tcc) nil nil) nil nil))
+  (F_2_TCC1-1 nil 3529874615 ("" (subtype-tcc) nil nil) nil nil
+   (F_2 subtype "cauchy.i" "below[fs`length]")))
  (F_o_F12_TCC1 0
   (F_o_F12_TCC1-1 nil 3529874749 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1589,7 +1577,7 @@
     (Zn const-decl "set[below(n)]" zp_group nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (G!1 skolem-const-decl "finite_group[T, *, one]" cauchy nil)
     (is_finite const-decl "bool" finite_sets nil)
     (injective? const-decl "bool" functions nil)
@@ -1611,7 +1599,7 @@
      "(strict_total_order?[real])" real_props nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil (F_o_F12 subtype "cauchy.k" "below[length(fs)]")))
  (F_o_F12 0
   (F_o_F12-1 nil 3529874799
    ("" (skosimp*)
@@ -1709,7 +1697,7 @@
    ((posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (below type-eq-decl nil nat_types nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -1739,8 +1727,7 @@
     (O const-decl "finseq" finite_sequences nil)
     (F_1 const-decl "finseq" cauchy nil)
     (F_2 const-decl "finseq" cauchy nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1756,10 +1743,10 @@
      real_props nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
     (odd_plus_odd_is_even application-judgement "even_int" integers
      nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
     (floor_val formula-decl nil floor_ceil nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
@@ -1778,8 +1765,7 @@
     (mod nonempty-type-eq-decl nil euclidean_division nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (TRUE const-decl "bool" booleans nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil))
+    (TRUE const-decl "bool" booleans nil))
    shostak))
  (fs_o_F21 0
   (fs_o_F21-1 nil 3529881525
@@ -1811,7 +1797,7 @@
    ((posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (below type-eq-decl nil nat_types nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -1840,8 +1826,7 @@
     (below type-eq-decl nil naturalnumbers nil)
     (Zn const-decl "set[below(n)]" zp_group nil)
     (F_1 const-decl "finseq" cauchy nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (TRUE const-decl "bool" booleans nil)
     (rem_mod formula-decl nil modulo_arithmetic nil)
@@ -2137,8 +2122,7 @@
     nil)
    ((member const-decl "bool" sets nil)
     (F const-decl "finseq" cauchy nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -2204,7 +2188,7 @@
     (F_2 const-decl "finseq" cauchy nil)
     (TRUE const-decl "bool" booleans nil)
     (F_o_F12 formula-decl nil cauchy nil)
-    (S const-decl "set[finseq]" cauchy nil))
+    (S const-decl "set[finseq[T]]" cauchy nil))
    shostak))
  (F_is_action_TCC1 0
   (F_is_action_TCC1-1 nil 3529848984
@@ -2216,7 +2200,7 @@
     nil)
    ((F_in_S formula-decl nil cauchy nil)
     (member const-decl "bool" sets nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (below type-eq-decl nil nat_types nil)
     (Zn const-decl "set[below(n)]" zp_group nil)
@@ -2245,7 +2229,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil cauchy nil))
-   nil))
+   nil
+   (F_is_action subtype "cauchy.F(cauchy.p, cauchy.G)"
+    "group_action[naturalnumbers.below(cauchy.p), zp_group[cauchy.p].++, 0, finseq[T]].F(zp_group[cauchy.p].Zn, cauchy.S(cauchy.G)(cauchy.p))")))
  (F_is_action_TCC2 0
   (F_is_action_TCC2-1 nil 3529848984
    ("" (skosimp) (("" (rewrite "Zn_group") nil nil)) nil)
@@ -2266,10 +2252,12 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil))
-   nil))
+   nil
+   (F_is_action subtype "zp_group[cauchy.p].Zn"
+    "group[below(p), ++[p], 0]")))
  (F_is_action_TCC3 0
-  (F_is_action_TCC3-1 nil 3529848984 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (F_is_action_TCC3-1 nil 3529848984 ("" (subtype-tcc) nil nil) nil nil
+   (F_is_action subtype "0" "naturalnumbers.below(cauchy.p)")))
  (F_is_action_TCC4 0
   (F_is_action_TCC4-1 nil 3530102299
    ("" (skosimp*)
@@ -2313,7 +2301,10 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (restrict const-decl "R" restrict nil))
-   nil))
+   nil
+   (F_is_action assuming
+    "group_action[naturalnumbers.below(cauchy.p), zp_group[cauchy.p].++, 0, finseq[T]]"
+    "fullset_is_group: ASSUMPTION group_def[group_action.T, group_action.*, group_action.one].group?(sets[group_action.T].fullset)")))
  (F_is_action 0
   (F_is_action-1 nil 3529882859
    ("" (skosimp*)
@@ -2356,8 +2347,7 @@
      "(strict_total_order?[real])" real_props nil)
     (mod nonempty-type-eq-decl nil euclidean_division nil)
     (rem_mod formula-decl nil modulo_arithmetic nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (member const-decl "bool" sets nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -2365,7 +2355,7 @@
     (T formal-type-decl nil cauchy nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (F const-decl "finseq" cauchy nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (Zn const-decl "set[below(n)]" zp_group nil)
     (below type-eq-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
@@ -2427,7 +2417,7 @@
     (boolean nonempty-type-decl nil booleans nil)
     (F_in_S formula-decl nil cauchy nil)
     (member const-decl "bool" sets nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (below type-eq-decl nil nat_types nil)
     (Zn const-decl "set[below(n)]" zp_group nil)
@@ -2454,7 +2444,9 @@
     (* formal-const-decl "[T, T -> T]" cauchy nil)
     (set type-eq-decl nil sets nil)
     (T formal-type-decl nil cauchy nil))
-   nil))
+   nil
+   (Fixed_subset subtype "cauchy.f"
+    "group_action[naturalnumbers.below(cauchy.p), zp_group[cauchy.p].++, 0, finseq[T]].F(cauchy.H, cauchy.X)")))
  (Fixed_subset_TCC2 0
   (Fixed_subset_TCC2-1 nil 3529964584
    ("" (skosimp*)
@@ -2476,7 +2468,7 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (Zn_group formula-decl nil zp_group nil))
-   nil))
+   nil (Fixed_subset subtype "cauchy.H" "group[below(p), ++[p], 0]")))
  (Fixed_subset 0
   (Fixed_subset-1 nil 3529964774
    ("" (skosimp*)
@@ -2662,7 +2654,7 @@
         nil))
       nil))
     nil)
-   ((SE const-decl "set[finseq]" cauchy nil)
+   ((SE const-decl "set[finseq[T]]" cauchy nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (g!1 skolem-const-decl "(Zn[p!1])" cauchy nil)
@@ -2671,8 +2663,7 @@
     (x!1 skolem-const-decl "finseq[T]" cauchy nil)
     (G!1 skolem-const-decl "finite_group[T, *, one]" cauchy nil)
     (restrict const-decl "R" restrict nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (rem_mod formula-decl nil modulo_arithmetic nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
@@ -2701,7 +2692,7 @@
     (extend const-decl "R" extend nil)
     (FALSE const-decl "bool" booleans nil)
     (F const-decl "finseq" cauchy nil)
-    (S const-decl "set[finseq]" cauchy nil)
+    (S const-decl "set[finseq[T]]" cauchy nil)
     (finite_group nonempty-type-eq-decl nil group "algebra/")
     (finite_group? const-decl "bool" group_def "algebra/")
     (one formal-const-decl "T" cauchy nil)
@@ -2732,6 +2723,857 @@
      "(strict_total_order?[real])" real_props nil))
    shostak))
  (cauchy 0
+  (cauchy-2 "" 3758135680
+   ("" (skosimp*)
+    (("" (expand "order")
+      (("" (lemma "Fix_congruence[below(p!1),++,0,finseq]")
+        (("1" (inst -1 "Zn[p!1]" "S(G!1)(p!1)" "1" "p!1" "F(p!1,G!1)")
+          (("1" (prop)
+            (("1" (lemma "S_card")
+              (("1" (inst -1 "G!1" "p!1")
+                (("1" (lemma "Fixed_subset")
+                  (("1" (inst -1 "G!1" "p!1")
+                    (("1" (assert)
+                      (("1" (replaces -1)
+                        (("1" (replaces -1)
+                          (("1" (lemma "order_gt_1[T,*,one]")
+                            (("1" (inst -1 "p!1" "G!1")
+                              (("1"
+                                (expand "order")
+                                (("1"
+                                  (expand "divides")
+                                  (("1"
+                                    (skosimp*)
+                                    (("1"
+                                      (case "x!2 > 0")
+                                      (("1"
+                                        (case
+                                         "card(SE(G!1)(p!1)) = (p!1 * x!2) ^ (p!1 - 1) - p!1 * x!1")
+                                        (("1"
+                                          (hide -4)
+                                          (("1"
+                                            (rewrite "mult_expt")
+                                            (("1"
+                                              (lemma "expt_plus")
+                                              (("1"
+                                                (inst
+                                                 -1
+                                                 "1"
+                                                 "p!1 - 2"
+                                                 "p!1")
+                                                (("1"
+                                                  (assert)
+                                                  (("1"
+                                                    (rewrite "expt_x1")
+                                                    (("1"
+                                                      (replaces -1)
+                                                      (("1"
+                                                        (rewrite
+                                                         "associative_mult"
+                                                         :dir
+                                                         rl)
+                                                        (("1"
+                                                          (lemma
+                                                           "distributive")
+                                                          (("1"
+                                                            (inst
+                                                             -1
+                                                             "p!1"
+                                                             "(p!1 ^ (p!1 - 2)) * x!2 ^ (p!1 - 1)"
+                                                             "- x!1")
+                                                            (("1"
+                                                              (replace
+                                                               -1
+                                                               -2
+                                                               rl)
+                                                              (("1"
+                                                                (hide
+                                                                 -1)
+                                                                (("1"
+                                                                  (case
+                                                                   "divides(p!1, card(SE(G!1)(p!1)))")
+                                                                  (("1"
+                                                                    (hide
+                                                                     -2)
+                                                                    (("1"
+                                                                      (case
+                                                                       "card(SE(G!1)(p!1)) > 1")
+                                                                      (("1"
+                                                                        (hide
+                                                                         -2)
+                                                                        (("1"
+                                                                          (lemma
+                                                                           "card_2_has_2[finseq]")
+                                                                          (("1"
+                                                                            (inst?)
+                                                                            (("1"
+                                                                              (assert)
+                                                                              (("1"
+                                                                                (skosimp)
+                                                                                (("1"
+                                                                                  (case
+                                                                                   "same_element(one, y!1)")
+                                                                                  (("1"
+                                                                                    (inst
+                                                                                     2
+                                                                                     "x!3`seq(0)")
+                                                                                    (("1"
+                                                                                      (lemma
+                                                                                       "order_SE")
+                                                                                      (("1"
+                                                                                        (inst
+                                                                                         -1
+                                                                                         "G!1"
+                                                                                         "x!3"
+                                                                                         "p!1"
+                                                                                         "x!3`seq(0)")
+                                                                                        (("1"
+                                                                                          (assert)
+                                                                                          (("1"
+                                                                                            (hide
+                                                                                             (-4
+                                                                                              -5
+                                                                                              -6
+                                                                                              -7
+                                                                                              -8
+                                                                                              3))
+                                                                                            (("1"
+                                                                                              (prop)
+                                                                                              (("1"
+                                                                                                (decompose-equality
+                                                                                                 1)
+                                                                                                (("1"
+                                                                                                  (hide
+                                                                                                   (-1
+                                                                                                    -2))
+                                                                                                  (("1"
+                                                                                                    (expand
+                                                                                                     "SE")
+                                                                                                    (("1"
+                                                                                                      (expand
+                                                                                                       "extend")
+                                                                                                      (("1"
+                                                                                                        (prop)
+                                                                                                        (("1"
+                                                                                                          (hide
+                                                                                                           (-2
+                                                                                                            -4))
+                                                                                                          (("1"
+                                                                                                            (expand
+                                                                                                             "S")
+                                                                                                            (("1"
+                                                                                                              (flatten)
+                                                                                                              (("1"
+                                                                                                                (hide
+                                                                                                                 (-2
+                                                                                                                  -3
+                                                                                                                  -5
+                                                                                                                  -6))
+                                                                                                                (("1"
+                                                                                                                  (assert)
+                                                                                                                  nil
+                                                                                                                  nil))
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil)
+                                                                                                 ("2"
+                                                                                                  (decompose-equality
+                                                                                                   1)
+                                                                                                  (("2"
+                                                                                                    (expand
+                                                                                                     "same_element")
+                                                                                                    (("2"
+                                                                                                      (inst
+                                                                                                       -2
+                                                                                                       "x!4")
+                                                                                                      (("2"
+                                                                                                        (replaces
+                                                                                                         -2)
+                                                                                                        (("2"
+                                                                                                          (hide
+                                                                                                           -3)
+                                                                                                          (("2"
+                                                                                                            (expand
+                                                                                                             "SE")
+                                                                                                            (("2"
+                                                                                                              (expand
+                                                                                                               "extend")
+                                                                                                              (("2"
+                                                                                                                (prop)
+                                                                                                                (("2"
+                                                                                                                  (hide
+                                                                                                                   -1)
+                                                                                                                  (("2"
+                                                                                                                    (skosimp)
+                                                                                                                    (("2"
+                                                                                                                      (expand
+                                                                                                                       "same_element")
+                                                                                                                      (("2"
+                                                                                                                        (inst-cp
+                                                                                                                         -1
+                                                                                                                         "x!4")
+                                                                                                                        (("2"
+                                                                                                                          (inst
+                                                                                                                           -1
+                                                                                                                           "0")
+                                                                                                                          (("2"
+                                                                                                                            (assert)
+                                                                                                                            nil
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil)
+                                                                                               ("2"
+                                                                                                (hide
+                                                                                                 (-1
+                                                                                                  -3
+                                                                                                  2))
+                                                                                                (("2"
+                                                                                                  (expand
+                                                                                                   "SE")
+                                                                                                  (("2"
+                                                                                                    (expand
+                                                                                                     "extend")
+                                                                                                    (("2"
+                                                                                                      (prop)
+                                                                                                      (("2"
+                                                                                                        (hide
+                                                                                                         -1)
+                                                                                                        (("2"
+                                                                                                          (skosimp)
+                                                                                                          (("2"
+                                                                                                            (expand
+                                                                                                             "same_element")
+                                                                                                            (("2"
+                                                                                                              (skosimp)
+                                                                                                              (("2"
+                                                                                                                (inst-cp
+                                                                                                                 -1
+                                                                                                                 "i!1")
+                                                                                                                (("2"
+                                                                                                                  (inst
+                                                                                                                   -1
+                                                                                                                   "0")
+                                                                                                                  (("2"
+                                                                                                                    (assert)
+                                                                                                                    nil
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil)
+                                                                                     ("2"
+                                                                                      (hide
+                                                                                       (-1
+                                                                                        -3
+                                                                                        -4
+                                                                                        -5
+                                                                                        -6
+                                                                                        -7
+                                                                                        -8
+                                                                                        2))
+                                                                                      (("2"
+                                                                                        (expand
+                                                                                         "SE")
+                                                                                        (("2"
+                                                                                          (expand
+                                                                                           "extend")
+                                                                                          (("2"
+                                                                                            (prop)
+                                                                                            (("2"
+                                                                                              (hide
+                                                                                               -1)
+                                                                                              (("2"
+                                                                                                (skosimp)
+                                                                                                (("2"
+                                                                                                  (expand
+                                                                                                   "same_element")
+                                                                                                  (("2"
+                                                                                                    (inst?)
+                                                                                                    (("2"
+                                                                                                      (assert)
+                                                                                                      nil
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil)
+                                                                                     ("3"
+                                                                                      (hide
+                                                                                       (-1
+                                                                                        -3
+                                                                                        -4
+                                                                                        -5
+                                                                                        -6
+                                                                                        -7
+                                                                                        -8
+                                                                                        2))
+                                                                                      (("3"
+                                                                                        (expand
+                                                                                         "SE")
+                                                                                        (("3"
+                                                                                          (expand
+                                                                                           "extend")
+                                                                                          (("3"
+                                                                                            (prop)
+                                                                                            (("3"
+                                                                                              (hide
+                                                                                               -2)
+                                                                                              (("3"
+                                                                                                (expand
+                                                                                                 "S")
+                                                                                                (("3"
+                                                                                                  (assert)
+                                                                                                  nil
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil)
+                                                                                   ("2"
+                                                                                    (hide
+                                                                                     (-3
+                                                                                      -4
+                                                                                      -5
+                                                                                      -6
+                                                                                      -7))
+                                                                                    (("2"
+                                                                                      (inst
+                                                                                       3
+                                                                                       "y!1`seq(0)")
+                                                                                      (("1"
+                                                                                        (lemma
+                                                                                         "order_SE")
+                                                                                        (("1"
+                                                                                          (inst
+                                                                                           -1
+                                                                                           "G!1"
+                                                                                           "y!1"
+                                                                                           "p!1"
+                                                                                           "y!1`seq(0)")
+                                                                                          (("1"
+                                                                                            (assert)
+                                                                                            (("1"
+                                                                                              (hide
+                                                                                               (-1
+                                                                                                3
+                                                                                                4))
+                                                                                              (("1"
+                                                                                                (prop)
+                                                                                                (("1"
+                                                                                                  (expand*
+                                                                                                   "SE"
+                                                                                                   "same_element"
+                                                                                                   "extend")
+                                                                                                  (("1"
+                                                                                                    (prop)
+                                                                                                    (("1"
+                                                                                                      (skosimp*)
+                                                                                                      (("1"
+                                                                                                        (hide
+                                                                                                         -1)
+                                                                                                        (("1"
+                                                                                                          (inst-cp
+                                                                                                           -1
+                                                                                                           "i!1")
+                                                                                                          (("1"
+                                                                                                            (inst
+                                                                                                             -1
+                                                                                                             "0")
+                                                                                                            (("1"
+                                                                                                              (assert)
+                                                                                                              nil
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil)
+                                                                                                 ("2"
+                                                                                                  (hide
+                                                                                                   2)
+                                                                                                  (("2"
+                                                                                                    (expand*
+                                                                                                     "SE"
+                                                                                                     "same_element"
+                                                                                                     "extend")
+                                                                                                    (("2"
+                                                                                                      (prop)
+                                                                                                      (("2"
+                                                                                                        (hide
+                                                                                                         -1)
+                                                                                                        (("2"
+                                                                                                          (skosimp*)
+                                                                                                          (("2"
+                                                                                                            (inst-cp
+                                                                                                             -1
+                                                                                                             "i!1")
+                                                                                                            (("2"
+                                                                                                              (inst
+                                                                                                               -1
+                                                                                                               "0")
+                                                                                                              (("2"
+                                                                                                                (assert)
+                                                                                                                nil
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil)
+                                                                                       ("2"
+                                                                                        (hide
+                                                                                         (-1
+                                                                                          2
+                                                                                          3))
+                                                                                        (("2"
+                                                                                          (expand
+                                                                                           "SE")
+                                                                                          (("2"
+                                                                                            (expand
+                                                                                             "extend")
+                                                                                            (("2"
+                                                                                              (prop)
+                                                                                              (("2"
+                                                                                                (hide
+                                                                                                 -1)
+                                                                                                (("2"
+                                                                                                  (skosimp)
+                                                                                                  (("2"
+                                                                                                    (expand
+                                                                                                     "same_element")
+                                                                                                    (("2"
+                                                                                                      (inst?)
+                                                                                                      (("2"
+                                                                                                        (assert)
+                                                                                                        nil
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil)
+                                                                                       ("3"
+                                                                                        (hide
+                                                                                         (-1
+                                                                                          2
+                                                                                          3))
+                                                                                        (("3"
+                                                                                          (expand
+                                                                                           "SE")
+                                                                                          (("3"
+                                                                                            (expand
+                                                                                             "extend")
+                                                                                            (("3"
+                                                                                              (prop)
+                                                                                              (("3"
+                                                                                                (hide
+                                                                                                 -2)
+                                                                                                (("3"
+                                                                                                  (expand
+                                                                                                   "S")
+                                                                                                  (("3"
+                                                                                                    (assert)
+                                                                                                    nil
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil)
+                                                                       ("2"
+                                                                        (hide
+                                                                         2)
+                                                                        (("2"
+                                                                          (expand
+                                                                           "divides")
+                                                                          (("2"
+                                                                            (skosimp)
+                                                                            (("2"
+                                                                              (typepred
+                                                                               "card(SE(G!1)(p!1))")
+                                                                              (("2"
+                                                                                (replaces
+                                                                                 -1)
+                                                                                (("2"
+                                                                                  (typepred
+                                                                                   "Card[finseq[T]](SE(G!1)(p!1))")
+                                                                                  (("2"
+                                                                                    (case
+                                                                                     "Card[finseq[T]](SE(G!1)(p!1)) = 0")
+                                                                                    (("1"
+                                                                                      (hide
+                                                                                       (-2
+                                                                                        -3
+                                                                                        -4
+                                                                                        -5
+                                                                                        1))
+                                                                                      (("1"
+                                                                                        (lemma
+                                                                                         "empty_card[finseq]")
+                                                                                        (("1"
+                                                                                          (inst?)
+                                                                                          (("1"
+                                                                                            (assert)
+                                                                                            (("1"
+                                                                                              (hide
+                                                                                               -2)
+                                                                                              (("1"
+                                                                                                (expand
+                                                                                                 "empty?")
+                                                                                                (("1"
+                                                                                                  (lemma
+                                                                                                   "one_in_SE")
+                                                                                                  (("1"
+                                                                                                    (inst
+                                                                                                     -1
+                                                                                                     "G!1"
+                                                                                                     "(# length := p!1, seq := (LAMBDA (i: below[p!1]): one) #)"
+                                                                                                     "p!1")
+                                                                                                    (("1"
+                                                                                                      (expand
+                                                                                                       "same_element")
+                                                                                                      (("1"
+                                                                                                        (expand
+                                                                                                         "member")
+                                                                                                        (("1"
+                                                                                                          (inst
+                                                                                                           -2
+                                                                                                           "(# length := p!1, seq := (LAMBDA (i: below[p!1]): one) #)")
+                                                                                                          nil
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil)
+                                                                                     ("2"
+                                                                                      (case
+                                                                                       "Card[finseq[T]](SE(G!1)(p!1)) = 1")
+                                                                                      (("1"
+                                                                                        (replaces
+                                                                                         -3)
+                                                                                        (("1"
+                                                                                          (case
+                                                                                           "x!3 <= 0")
+                                                                                          (("1"
+                                                                                            (expand
+                                                                                             "<=")
+                                                                                            (("1"
+                                                                                              (prop)
+                                                                                              (("1"
+                                                                                                (lemma
+                                                                                                 "neg_times_ge")
+                                                                                                (("1"
+                                                                                                  (inst?)
+                                                                                                  (("1"
+                                                                                                    (assert)
+                                                                                                    nil
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil)
+                                                                                               ("2"
+                                                                                                (assert)
+                                                                                                nil
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil)
+                                                                                           ("2"
+                                                                                            (expand
+                                                                                             "<=")
+                                                                                            (("2"
+                                                                                              (flatten)
+                                                                                              (("2"
+                                                                                                (lemma
+                                                                                                 "prime_gt_1")
+                                                                                                (("2"
+                                                                                                  (inst
+                                                                                                   -1
+                                                                                                   "p!1")
+                                                                                                  (("2"
+                                                                                                    (assert)
+                                                                                                    (("2"
+                                                                                                      (lemma
+                                                                                                       "eq1_gt")
+                                                                                                      (("2"
+                                                                                                        (inst?)
+                                                                                                        (("2"
+                                                                                                          (assert)
+                                                                                                          nil
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil)
+                                                                                       ("2"
+                                                                                        (assert)
+                                                                                        nil
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil)
+                                                                   ("2"
+                                                                    (hide
+                                                                     2)
+                                                                    (("2"
+                                                                      (expand
+                                                                       "divides")
+                                                                      (("2"
+                                                                        (inst?)
+                                                                        (("2"
+                                                                          (hide
+                                                                           -1)
+                                                                          (("2"
+                                                                            (hide
+                                                                             -2)
+                                                                            (("2"
+                                                                              (lemma
+                                                                               "prime_gt_1")
+                                                                              (("2"
+                                                                                (inst?)
+                                                                                (("2"
+                                                                                  (assert)
+                                                                                  (("2"
+                                                                                    (hide
+                                                                                     -3)
+                                                                                    (("2"
+                                                                                      (grind)
+                                                                                      nil
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (hide (-1 -2 -4 2))
+                                          (("2"
+                                            (replaces -2)
+                                            (("2" (assert) nil nil))
+                                            nil))
+                                          nil))
+                                        nil)
+                                       ("2"
+                                        (hide (-2 2))
+                                        (("2"
+                                          (lemma "prime_gt_1")
+                                          (("2"
+                                            (inst -1 "p!1")
+                                            (("2"
+                                              (prop)
+                                              (("2"
+                                                (hide -3)
+                                                (("2"
+                                                  (replaces -3)
+                                                  (("2"
+                                                    (lemma
+                                                     "pos_times_gt")
+                                                    (("2"
+                                                      (inst?)
+                                                      (("2"
+                                                        (assert)
+                                                        nil
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (rewrite "fullset_is_group") nil
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (hide (-2 2))
+              (("2" (expand "finite_group?")
+                (("2" (rewrite "Zn_group")
+                  (("2" (rewrite "Zn_finite") nil nil)) nil))
+                nil))
+              nil)
+             ("3" (hide (-2 2))
+              (("3" (expand "order")
+                (("3" (rewrite "expt_x1")
+                  (("3" (rewrite "Zn_card") nil nil)) nil))
+                nil))
+              nil)
+             ("4" (hide (-1 -2 2))
+              (("4" (rewrite "S_is_finite") nil nil)) nil)
+             ("5" (hide (-1 -2 2))
+              (("5" (expand "nonempty?")
+                (("5" (expand "empty?")
+                  (("5"
+                    (inst -1
+                     "(# length := p!1, seq := (LAMBDA (i: below[p!1]): one) #)")
+                    (("5" (expand "member")
+                      (("5" (expand "S")
+                        (("5" (prop)
+                          (("1" (skosimp)
+                            (("1" (expand "member")
+                              (("1" (rewrite "one_in") nil nil)) nil))
+                            nil)
+                           ("2" (lemma "fseq_product_power")
+                            (("2"
+                              (inst -1 "G!1"
+                               "(# length := p!1, seq := (LAMBDA (i: below[p!1]): one) #)"
+                               "one")
+                              (("1"
+                                (expand "same_element")
+                                (("1" (rewrite "one_expt") nil nil))
+                                nil)
+                               ("2"
+                                (hide 2)
+                                (("2" (rewrite "one_in") nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("6" (hide (-1 -2 2))
+              (("6" (rewrite "F_is_action") nil nil)) nil))
+            nil)
+           ("2" (hide (-1 -2 2))
+            (("2" (skosimp)
+              (("2" (lemma "F_in_S")
+                (("2" (inst -1 "G!1" "p!1" "x1!1`1" "x1!1`2")
+                  (("2" (expand "member") (("2" (assert) nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("3" (hide (-1 -2 2)) (("3" (rewrite "Zn_group") nil nil))
+            nil))
+          nil)
+         ("2" (hide-all-but 1)
+          (("2" (grind :if-match nil)
+            (("1" (case "x!1 = 0")
+              (("1" (inst 1 "0")
+                (("1" (assert)
+                  (("1" (replace -1)
+                    (("1" (rewrite "rem_zero") nil nil)) nil))
+                  nil))
+                nil)
+               ("2" (inst 2 "p!1 - x!1")
+                (("1" (assert) (("1" (rewrite "rem_self") nil nil))
+                  nil)
+                 ("2" (assert) nil nil))
+                nil))
+              nil)
+             ("2" (rewrite "rem_sum1")
+              (("2" (rewrite "rem_sum1") nil nil)) nil)
+             ("3" (rewrite "rem_mod2") nil nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (cauchy-1 nil 3530095796
    ("" (skosimp*)
     (("" (expand "order")
@@ -3562,131 +4404,140 @@
         nil))
       nil))
     nil)
-   ((order const-decl "posnat" monad "algebra/")
-    (p!1 skolem-const-decl "posnat" cauchy nil)
-    (set type-eq-decl nil sets nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (Zn const-decl "set[below(n)]" zp_group nil)
-    (F const-decl "finseq" cauchy nil)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" cauchy nil)
-    (S const-decl "set[finseq]" cauchy nil)
-    (finite_group nonempty-type-eq-decl nil group "algebra/")
-    (finite_group? const-decl "bool" group_def "algebra/")
-    (one formal-const-decl "T" cauchy nil)
-    (* formal-const-decl "[T, T -> T]" cauchy nil)
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (F type-eq-decl nil group_action nil)
-    (F_is_action formula-decl nil cauchy nil)
-    (one_in formula-decl nil monad "algebra/")
-    (monad? const-decl "bool" monad_def "algebra/")
-    (monad nonempty-type-eq-decl nil monad "algebra/")
-    (one_expt formula-decl nil group "algebra/")
-    (fseq_product_power formula-decl nil cauchy nil)
-    (nonempty? const-decl "bool" sets nil)
-    (S_is_finite formula-decl nil cauchy nil)
-    (Zn_card formula-decl nil zp_group nil)
-    (Zn_group formula-decl nil zp_group nil)
-    (Zn_finite formula-decl nil zp_group nil)
-    (S_card formula-decl nil cauchy nil)
-    (Fixed_subset formula-decl nil cauchy nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (fullset_is_group formula-decl nil cauchy nil)
-    (divides const-decl "bool" divides nil)
-    (expt_plus formula-decl nil exponentiation nil)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (posrat_times_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (posrat_exp application-judgement "posrat" exponentiation nil)
-    (distributive formula-decl nil number_fields nil)
-    (minus_int_is_int application-judgement "int" integers nil)
-    (card_2_has_2 formula-decl nil finite_sets nil)
-    (same_element const-decl "bool" cauchy nil)
-    (order_SE formula-decl nil cauchy nil)
-    (member const-decl "bool" sets nil)
-    (extend const-decl "R" extend nil)
-    (x!3 skolem-const-decl "finseq[T]" cauchy nil)
-    (y!1 skolem-const-decl "finseq[T]" cauchy nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil)
-    (neg_times_ge formula-decl nil real_props nil)
-    (eq1_gt formula-decl nil real_props nil)
-    (prime_gt_1 formula-decl nil primes "ints/")
-    (one_in_SE formula-decl nil cauchy nil)
-    (empty? const-decl "bool" sets nil)
-    (empty_card formula-decl nil finite_sets nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (expt def-decl "real" exponentiation nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
-     nil)
-    (int_expt application-judgement "int" exponentiation nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil)
-    (x!2 skolem-const-decl "int" cauchy nil)
-    (x!1 skolem-const-decl "int" cauchy nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (associative_mult formula-decl nil number_fields nil)
-    (expt_x1 formula-decl nil exponentiation nil)
-    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (rat_exp application-judgement "rat" exponentiation nil)
-    (mult_expt formula-decl nil exponentiation nil)
-    (nzreal nonempty-type-eq-decl nil reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (^ const-decl "real" exponentiation nil)
-    (/= const-decl "boolean" notequal nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (SE const-decl "set[finseq]" cauchy nil)
-    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (Card const-decl "nat" finite_sets nil)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (pos_times_gt formula-decl nil real_props nil)
-    (fullset const-decl "set" sets nil)
-    (order_gt_1 formula-decl nil groups_scaf nil)
-    (TRUE const-decl "bool" booleans nil)
-    (F_in_S formula-decl nil cauchy nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (Fix_congruence formula-decl nil group_action nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
+   ((finseq type-eq-decl nil finite_sequences nil)
+    (T formal-type-decl nil cauchy nil)
+    (below type-eq-decl nil nat_types nil)
+    (++ const-decl "below(n)" zp_group nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (< const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (++ const-decl "below(n)" zp_group nil)
-    (below type-eq-decl nil nat_types nil)
-    (T formal-type-decl nil cauchy nil)
-    (finseq type-eq-decl nil finite_sequences nil))
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (Fix_congruence formula-decl nil group_action nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (fullset const-decl "set" sets nil)
+    (group? const-decl "bool" group_def "algebra/")
+    (set type-eq-decl nil sets nil)
+    (F_in_S formula-decl nil cauchy nil)
+    (TRUE const-decl "bool" booleans nil)
+    (order_gt_1 formula-decl nil groups_scaf nil)
+    (pos_times_gt formula-decl nil real_props nil)
+    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (finite_set type-eq-decl nil finite_sets nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (Card const-decl "nat" finite_sets nil)
+    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
+    (SE const-decl "set[finseq[T]]" cauchy nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (/= const-decl "boolean" notequal nil)
+    (^ const-decl "real" exponentiation nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (mult_expt formula-decl nil exponentiation nil)
+    (rat_exp application-judgement "rat" exponentiation nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (posrat_exp application-judgement "posrat" exponentiation nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
+    (expt_x1 formula-decl nil exponentiation nil)
+    (associative_mult formula-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (x!1 skolem-const-decl "int" cauchy nil)
+    (x!2 skolem-const-decl "int" cauchy nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil)
+    (int_expt application-judgement "int" exponentiation nil)
+    (expt def-decl "real" exponentiation nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (empty_card formula-decl nil finite_sets nil)
+    (empty? const-decl "bool" sets nil)
+    (one_in_SE formula-decl nil cauchy nil)
+    (prime_gt_1 formula-decl nil primes "ints/")
+    (eq1_gt formula-decl nil real_props nil)
+    (neg_times_ge formula-decl nil real_props nil)
+    (<= const-decl "bool" reals nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (y!1 skolem-const-decl "finseq[T]" cauchy nil)
+    (x!3 skolem-const-decl "finseq[T]" cauchy nil)
+    (extend const-decl "R" extend nil)
+    (member const-decl "bool" sets nil)
+    (order_SE formula-decl nil cauchy nil)
+    (same_element const-decl "bool" cauchy nil)
+    (card_2_has_2 formula-decl nil finite_sets nil)
+    (minus_int_is_int application-judgement "int" integers nil)
+    (distributive formula-decl nil number_fields nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (posrat_times_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (expt_plus formula-decl nil exponentiation nil)
+    (divides const-decl "bool" divides nil)
+    (fullset_is_group formula-decl nil cauchy nil)
+    (nnrat_exp application-judgement "nnrat" exponentiation nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (Fixed_subset formula-decl nil cauchy nil)
+    (S_card formula-decl nil cauchy nil)
+    (Zn_finite formula-decl nil zp_group nil)
+    (Zn_group formula-decl nil zp_group nil)
+    (Zn_card formula-decl nil zp_group nil)
+    (S_is_finite formula-decl nil cauchy nil)
+    (nonempty? const-decl "bool" sets nil)
+    (fseq_product_power formula-decl nil cauchy nil)
+    (one_expt formula-decl nil group "algebra/")
+    (monad nonempty-type-eq-decl nil monad "algebra/")
+    (monad? const-decl "bool" monad_def "algebra/")
+    (one_in formula-decl nil monad "algebra/")
+    (F_is_action formula-decl nil cauchy nil)
+    (F type-eq-decl nil group_action nil)
+    (group nonempty-type-eq-decl nil group "algebra/")
+    (* formal-const-decl "[T, T -> T]" cauchy nil)
+    (one formal-const-decl "T" cauchy nil)
+    (finite_group? const-decl "bool" group_def "algebra/")
+    (finite_group nonempty-type-eq-decl nil group "algebra/")
+    (S const-decl "set[finseq[T]]" cauchy nil)
+    (G!1 skolem-const-decl "finite_group[T, *, one]" cauchy nil)
+    (F const-decl "finseq" cauchy nil)
+    (Zn const-decl "set[below(n)]" zp_group nil)
+    (p!1 skolem-const-decl "posnat" cauchy nil)
+    (inv_exists? const-decl "bool" group_def "algebra/")
+    (monoid? const-decl "bool" monoid_def "algebra/")
+    (associative? const-decl "bool" operator_defs nil)
+    (identity? const-decl "bool" operator_defs nil)
+    (restrict const-decl "R" restrict nil)
+    (star_closed? const-decl "bool" groupoid_def "algebra/")
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (x!1 skolem-const-decl "(fullset[below(p!1)])" cauchy nil)
+    (rem_self formula-decl nil modulo_arithmetic nil)
+    (rem_zero formula-decl nil modulo_arithmetic nil)
+    (rem_sum1 formula-decl nil modulo_arithmetic nil)
+    (rem_mod2 formula-decl nil modulo_arithmetic nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (order const-decl "posnat" monad "algebra/"))
    shostak))
  (cauchy_cor_TCC1 0
   (cauchy_cor_TCC1-1 nil 3530980535
@@ -3727,7 +4578,7 @@
     (group nonempty-type-eq-decl nil group "algebra/")
     (subgroup? const-decl "bool" group_def "algebra/")
     (subgroup type-eq-decl nil group "algebra/"))
-   nil))
+   nil (cauchy_cor subtype "cauchy.H" "finite_monad[T, *, one]")))
  (cauchy_cor 0
   (cauchy_cor-1 nil 3530980803
    ("" (skosimp*)
@@ -3755,7 +4606,7 @@
     (period_is_generated_order formula-decl nil finite_groups
      "algebra/")
     (member const-decl "bool" sets nil)
-    (generated_is_subgroup formula-decl nil group "algebra/")
+    (generated_is_subgroup formula-decl nil cyclic_group "algebra/")
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)

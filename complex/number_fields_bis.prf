@@ -175,6 +175,9 @@
     (inverse_add formula-decl nil number_fields nil))
    shostak))
  (zero_times1 0
+  (zero_times1-2 "" 3744317886
+   ("" (skeep) (("" (rewrite "commutative_mult") nil nil)) nil) nil
+   shostak)
   (zero_times1-1 nil 3280124273
    ("" (skosimp*)
     (("" (lemma "inverse_add" ("x" "x!1"))
@@ -182,15 +185,13 @@
         (("" (grind) nil nil)) nil))
       nil))
     nil)
-   ((number_field nonempty-type-from-decl nil number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
+   ((commutative_mult formula-decl nil number_fields nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (inverse_add formula-decl nil number_fields nil)
-    (distributive formula-decl nil number_fields nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil))
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (number_field nonempty-type-from-decl nil number_fields nil))
    shostak))
  (zero_times2 0
   (zero_times2-1 nil 3280124509
@@ -298,7 +299,10 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields
        nil))
-   shostak))
+   shostak
+   (nznum_times_nznum_is_nznum subtype
+    "number_fields.*(number_fields_bis.nzx, number_fields_bis.nzy)"
+    "nznum")))
  (minus_nznum_is_nznum 0
   (minus_nznum_is_nznum-1 nil 3280140087
    ("" (skosimp*)
@@ -324,7 +328,7 @@
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (inverse_add formula-decl nil number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil))
-   shostak))
+   shostak (minus_nznum_is_nznum subtype "" "nznum")))
  (zero_times3 0
   (zero_times3-1 nil 3280133331
    ("" (skosimp*)
@@ -453,17 +457,13 @@
     (identity_mult formula-decl nil number_fields nil)
     (commutative_mult formula-decl nil number_fields nil)
     (zero_times1 formula-decl nil number_fields_bis nil)
-    (minus_nznum_is_nznum application-judgement "nznum"
-     number_fields_bis nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (zero_times2 formula-decl nil number_fields_bis nil)
     (distributive formula-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil))
    shostak))
  (zero_is_neg_zero 0
-  (zero_is_neg_zero-1 nil 3280127050 ("" (grind) nil nil)
-   ((minus_even_is_even application-judgement "even_int" integers nil))
-   shostak))
+  (zero_is_neg_zero-1 nil 3280127050 ("" (grind) nil nil) nil shostak))
  (both_sides_times1 0
   (both_sides_times1-1 nil 3280127668
    ("" (skosimp*)
@@ -674,8 +674,6 @@
     (number nonempty-type-decl nil numbers nil)
     (both_sides_minus1 formula-decl nil number_fields_bis nil)
     (minus_add formula-decl nil number_fields nil)
-    (minus_nznum_is_nznum application-judgement "nznum"
-     number_fields_bis nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -771,7 +769,10 @@
     (nznum_times_nznum_is_nznum judgement-tcc nil number_fields_bis
      nil)
     (inv_ne_0 formula-decl nil number_fields_bis nil))
-   shostak))
+   shostak
+   (nznum_div_nznum_is_nznum subtype
+    "number_fields./(number_fields_bis.nzx, number_fields_bis.nzy)"
+    "nznum")))
  (both_sides_div1 0
   (both_sides_div1-1 nil 3280130887
    ("" (skosimp*)
@@ -1466,8 +1467,6 @@
     (distributive formula-decl nil number_fields nil)
     (minus_add formula-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (minus_nznum_is_nznum application-judgement "nznum"
-     number_fields_bis nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (div_def formula-decl nil number_fields nil)
     (nznum_div_nznum_is_nznum application-judgement "nznum"
@@ -1609,8 +1608,6 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (div_def formula-decl nil number_fields nil)
-    (minus_nznum_is_nznum application-judgement "nznum"
-     number_fields_bis nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (commutative_mult formula-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
@@ -1955,19 +1952,14 @@
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (minus_nznum_is_nznum application-judgement "nznum"
-     number_fields_bis nil)
     (inverse_add formula-decl nil number_fields nil)
-    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (nznum_times_nznum_is_nznum application-judgement "nznum"
-     number_fields_bis nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
+    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil))
+     integers nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil))
    shostak))
  (number_fields_negative_times 0
   (number_fields_negative_times-1 nil 3294692619
@@ -2051,10 +2043,8 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (minus_nznum_is_nznum application-judgement "nznum"
-     number_fields_bis nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (identity_mult formula-decl nil number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil))
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (identity_mult formula-decl nil number_fields nil))
    shostak)))
 

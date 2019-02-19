@@ -1,13 +1,36 @@
 (riesz_representation
  (IMP_rs_integral_cont_TCC1 0
+  (IMP_rs_integral_cont_TCC1-2 "" 3754701632
+   ("" (inst 1 "a") (("" (assert) nil nil)) nil) nil shostak
+   (IMP_rs_integral_cont existence "" "INTab[a, b]"))
   (IMP_rs_integral_cont_TCC1-1 nil 3511191506
    ("" (expand "connected?")
     (("" (skosimp*) (("" (ground) nil nil)) nil)) nil)
-   ((real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (connected? const-decl "bool" deriv_domain_def nil))
-   nil))
+   ((INTab type-eq-decl nil riesz_interval_funs nil)
+    (b formal-const-decl "{bb: real | a < bb}" riesz_representation
+     nil)
+    (< const-decl "bool" reals nil)
+    (a formal-const-decl "real" riesz_representation nil)
+    (<= const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil))
+   nil (IMP_rs_integral_cont existence "" "INTab[a, b]")))
  (IMP_rs_integral_cont_TCC2 0
+  (IMP_rs_integral_cont_TCC2-2 "" 3754701665
+   ("" (expand "connected?")
+    (("" (skosimp*) (("" (ground) nil nil)) nil)) nil)
+   nil shostak
+   (IMP_rs_integral_cont assuming "rs_integral_cont[INTab[a, b]]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?"))
   (IMP_rs_integral_cont_TCC2-1 nil 3511191506
    ("" (expand "not_one_element?")
     (("" (skosimp*)
@@ -15,6 +38,25 @@
         (("" (inst + "b") (("" (grind) nil nil)) nil)) nil))
       nil))
     nil)
+   ((real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (connected? const-decl "bool" deriv_domain_def nil))
+   nil
+   (IMP_rs_integral_cont assuming "rs_integral_cont[INTab[a, b]]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
+ (IMP_rs_integral_cont_TCC3 0
+  (IMP_rs_integral_cont_TCC3-2 "" 3754701695
+   ("" (expand "not_one_element?")
+    (("" (skosimp*)
+      (("" (inst-cp + "a")
+        (("" (inst + "b") (("" (grind) nil nil)) nil)) nil))
+      nil))
+    nil)
+   nil shostak
+   (IMP_rs_integral_cont assuming "rs_integral_cont[INTab[a, b]]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?"))
+  (IMP_rs_integral_cont_TCC3-1 nil 3754688367
+   ("" (assuming-tcc) nil nil)
    ((/= const-decl "boolean" notequal nil)
     (INTab type-eq-decl nil riesz_interval_funs nil)
     (b formal-const-decl "{bb: real | a < bb}" riesz_representation
@@ -34,13 +76,17 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (not_one_element? const-decl "bool" deriv_domain_def nil))
-   nil))
+   nil
+   (IMP_rs_integral_cont assuming "rs_integral_cont[INTab[a, b]]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (integral_norm_bounded_TCC1 0
   (integral_norm_bounded_TCC1-1 nil 3492953409
    ("" (subtype-tcc) nil nil)
    ((real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (integral_norm_bounded subtype "riesz_representation.a"
+    "INTab[a, b]")))
  (integral_norm_bounded_TCC2 0
   (integral_norm_bounded_TCC2-1 nil 3492953409
    ("" (subtype-tcc) nil nil)
@@ -48,7 +94,9 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (integral_norm_bounded subtype "riesz_representation.b"
+    "{x: riesz_interval_funs[riesz_representation.a, riesz_representation.b].INTab | reals.<(riesz_representation.a, x)}")))
  (integral_norm_bounded_TCC3 0
   (integral_norm_bounded_TCC3-1 nil 3492953409
    ("" (skolem 1 ("ff" "gg"))
@@ -82,7 +130,9 @@
     (< const-decl "bool" reals nil)
     (b formal-const-decl "{bb: real | a < bb}" riesz_representation
      nil))
-   nil))
+   nil
+   (integral_norm_bounded subtype "riesz_representation.b"
+    "(LAMBDA (x: riesz_interval_funs[riesz_representation.a, riesz_representation.b].INTab): booleans.AND(reals.<=(riesz_representation.a, x), reals.<=(x, riesz_representation.b)))")))
  (integral_norm_bounded 0
   (integral_norm_bounded-1 nil 3492953409
    ("" (skolem 1 ("ff" "gg"))
@@ -436,31 +486,28 @@
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
-    (y!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (y!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (member const-decl "bool" sets nil)
-    (x!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (x!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (TRUE const-decl "bool" booleans nil)
     (Intab const-decl "set[real]" riesz_interval_funs nil)
     (set type-eq-decl nil sets nil)
     (restrict const-decl "R" restrict nil)
     (continuous? const-decl "bool" continuity_ms_def nil)
     (fun_norm const-decl "{M: nnreal |
-         (FORALL (x): abs(f(x)) <= M) AND
-          (FORALL (M1: real): M1 < M IMPLIES (EXISTS (x): abs(f(x)) > M1))}"
+   (FORALL (x: INTab): abs(f(x)) <= M) AND
+    (FORALL (M1: real): M1 < M IMPLIES EXISTS (x: INTab): abs(f(x)) > M1)}"
      riesz_interval_funs nil)
     (bounded_on_int? const-decl "bool" riesz_interval_funs nil)
     (total_variation const-decl "{M: nnreal |
-         (x = a IMPLIES M = 0) AND
-          (x > a IMPLIES
-            (FORALL (P: partition(a, x)): variation_on(a, x, P)(f) <= M))
-           AND
-           (FORALL (M1: nnreal):
-              M1 < M IMPLIES
-               (EXISTS (P: partition(a, x)):
-                  variation_on(a, x, P)(f) > M1))}" bounded_variation
-     nil)
+   (x = a IMPLIES M = 0) AND
+    (x > a IMPLIES
+      FORALL (P: partition(a, x)): variation_on(a, x, P)(f) <= M)
+     AND
+     (FORALL (M1: nnreal):
+        M1 < M IMPLIES
+         EXISTS (P: partition(a, x)): variation_on(a, x, P)(f) > M1)}"
+     bounded_variation nil)
     (variation_on const-decl "nnreal" bounded_variation nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (nnreal type-eq-decl nil real_types nil)
@@ -609,11 +656,9 @@
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
-    (y!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (y!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (member const-decl "bool" sets nil)
-    (x!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (x!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (TRUE const-decl "bool" booleans nil)
     (Intab const-decl "set[real]" riesz_interval_funs nil)
     (set type-eq-decl nil sets nil)
@@ -621,7 +666,9 @@
     (bounded_variation? const-decl "bool" bounded_variation nil)
     (Continuous_Function type-eq-decl nil riesz_interval_funs nil)
     (continuous_on_int? const-decl "bool" riesz_interval_funs nil))
-   nil))
+   nil
+   (fun_to_op subtype "riesz_representation.f"
+    "{f | rs_integral_def[INTab[a, b]].integrable?(riesz_representation.a, riesz_representation.b, riesz_representation.g, riesz_representation.f)}")))
  (fun_to_op_TCC2 0
   (fun_to_op_TCC2-1 nil 3492953553
    ("" (skolem 1 "gg")
@@ -901,26 +948,20 @@
     (const_inv_op? const-decl "bool" riesz_linear_functionals nil)
     (integral_scal formula-decl nil rs_integral_prep nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (x!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
-    (y!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (x!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
+    (y!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (additive_op? const-decl "bool" riesz_linear_functionals nil)
     (integral_sum formula-decl nil rs_integral_prep nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (y!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
-    (x!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (y!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
+    (x!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (RS_integrable_cont_BV formula-decl nil rs_integral_cont nil)
     (continuous_at? const-decl "bool" continuity_ms_def nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (y!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (y!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (member const-decl "bool" sets nil)
-    (x!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (x!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (TRUE const-decl "bool" booleans nil)
     (Intab const-decl "set[real]" riesz_interval_funs nil)
     (set type-eq-decl nil sets nil)
@@ -936,15 +977,14 @@
      real_types nil)
     (integral_norm_bounded formula-decl nil riesz_representation nil)
     (total_variation const-decl "{M: nnreal |
-         (x = a IMPLIES M = 0) AND
-          (x > a IMPLIES
-            (FORALL (P: partition(a, x)): variation_on(a, x, P)(f) <= M))
-           AND
-           (FORALL (M1: nnreal):
-              M1 < M IMPLIES
-               (EXISTS (P: partition(a, x)):
-                  variation_on(a, x, P)(f) > M1))}" bounded_variation
-     nil)
+   (x = a IMPLIES M = 0) AND
+    (x > a IMPLIES
+      FORALL (P: partition(a, x)): variation_on(a, x, P)(f) <= M)
+     AND
+     (FORALL (M1: nnreal):
+        M1 < M IMPLIES
+         EXISTS (P: partition(a, x)): variation_on(a, x, P)(f) > M1)}"
+     bounded_variation nil)
     (variation_on const-decl "nnreal" bounded_variation nil)
     (partition type-eq-decl nil rs_partition nil)
     (below type-eq-decl nil naturalnumbers nil)
@@ -984,12 +1024,17 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (fun_to_op subtype
+    "(LAMBDA (f): rs_integral_def[INTab[a, b]].integral(riesz_representation.a, riesz_representation.b, riesz_representation.g, riesz_representation.f))"
+    "C_Bounded_Linear_Operator[a, b]")))
  (fun_to_op_bound_TCC1 0
   (fun_to_op_bound_TCC1-1 nil 3492957266 ("" (subtype-tcc) nil nil)
    ((real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (fun_to_op_bound subtype "riesz_representation.b"
+    "(LAMBDA (x: riesz_interval_funs[riesz_representation.a, riesz_representation.b].INTab): booleans.AND(reals.<=(riesz_representation.a, x), reals.<=(x, riesz_representation.b)))")))
  (fun_to_op_bound 0
   (fun_to_op_bound-1 nil 3492957266
    ("" (skolem 1 ("ff" "gg"))
@@ -1059,18 +1104,18 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
     (char_fun const-decl "nnreal" riesz_representation nil))
    shostak))
  (step_approx_TCC1 0
-  (step_approx_TCC1-1 nil 3492959104 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (step_approx_TCC1-1 nil 3492959104 ("" (subtype-tcc) nil nil) nil nil
+   (step_approx subtype "0" "T_low[below(P`length - 1)]")))
  (step_approx_TCC2 0
-  (step_approx_TCC2-1 nil 3492959104 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (step_approx_TCC2-1 nil 3492959104 ("" (subtype-tcc) nil nil) nil nil
+   (step_approx subtype
+    "(number_fields.-)(riesz_representation.P`length, 2)"
+    "T_high[below(P`length - 1)]")))
  (step_approx_TCC3 0
   (step_approx_TCC3-1 nil 3492959104 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1118,7 +1163,10 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (step_approx assuming
+    "reals@sigma[naturalnumbers.below((number_fields.-)(riesz_representation.P`length, 1))]"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (step_approx_TCC4 0
   (step_approx_TCC4-1 nil 3492959104
    ("" (skeep)
@@ -1238,7 +1286,10 @@
     (>= const-decl "bool" reals nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil))
-   nil))
+   nil
+   (step_approx subtype
+    "(LAMBDA (x: riesz_interval_funs[riesz_representation.a, riesz_representation.b].INTab): sigma[naturalnumbers.below((number_fields.-)(riesz_representation.P`length, 1))].sigma(0, (number_fields.-)(riesz_representation.P`length, 2), LAMBDA (n: naturalnumbers.below((number_fields.-)(riesz_representation.P`length, 1))): number_fields.*(riesz_representation.fr(riesz_representation.xis`seq(n)), riesz_representation.char_fun(riesz_representation.P`seq(n), riesz_representation.P`seq((number_fields.+)(n, 1)))(x))))"
+    "(riesz_interval_funs[riesz_representation.a, riesz_representation.b].bounded_on_int?)")))
  (step_approx_def 0
   (step_approx_def-1 nil 3492960304
    ("" (skeep)
@@ -1964,39 +2015,27 @@
     (posreal nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (total_order_restrict application-judgement "(total_order?[S])"
-     restrict_order_props nil)
-    (dichotomous_restrict application-judgement "(dichotomous?[S])"
-     restrict_order_props nil)
-    (partial_order_restrict application-judgement "(partial_order?[S])"
-     restrict_order_props nil)
-    (preorder_restrict application-judgement "(preorder?[S])"
-     restrict_order_props nil)
-    (transitive_restrict application-judgement "(transitive?[S])"
-     restrict_order_props nil)
-    (antisymmetric_restrict application-judgement "(antisymmetric?[S])"
-     restrict_order_props nil)
-    (reflexive_restrict application-judgement "(reflexive?[S])"
-     restrict_order_props nil)
+    (char_fun const-decl "nnreal" riesz_representation nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (strictly_increasing? const-decl "bool" sort_fseq "structures/")
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (partition type-eq-decl nil rs_partition nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (increasing? const-decl "bool" sort_fseq "structures/")
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (fseq type-eq-decl nil fseqs "structures/")
+    (barray type-eq-decl nil fseqs "structures/")
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (barray type-eq-decl nil fseqs "structures/")
-    (fseq type-eq-decl nil fseqs "structures/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (increasing? const-decl "bool" sort_fseq "structures/")
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (partition type-eq-decl nil rs_partition nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (strictly_increasing? const-decl "bool" sort_fseq "structures/")
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (char_fun const-decl "nnreal" riesz_representation nil)
+    (total_order_restrict application-judgement "(total_order?[S])"
+     restrict_order_props nil)
     (sigma_split formula-decl nil sigma "reals/")
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -2026,6 +2065,7 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (width_lem formula-decl nil rs_partition nil)
     (step_approx const-decl "(bounded_on_int?[a, b])"
      riesz_representation nil)
@@ -2041,12 +2081,6 @@
      nil)
     (part_in formula-decl nil rs_partition nil)
     (Heine formula-decl nil uniform_continuity nil)
-    (x!1 skolem-const-decl
-     "(restrict[real, INTab[a, b], boolean](Intab))"
-     riesz_representation nil)
-    (p!1 skolem-const-decl
-     "(restrict[real, INTab[a, b], boolean](Intab))"
-     riesz_representation nil)
     (ff skolem-const-decl "[real -> real]" riesz_representation nil)
     (continuous_at? const-decl "bool" continuity_ms_def nil)
     (y!1 skolem-const-decl "(Intab)" riesz_representation nil)
@@ -2060,8 +2094,6 @@
     (space_zero? const-decl "bool" metric_spaces_def nil)
     (space_symmetric? const-decl "bool" metric_spaces_def nil)
     (space_triangle? const-decl "bool" metric_spaces_def nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (minus_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
    shostak))
  (IMP_riesz_bounded_functionals_TCC1 0
@@ -2188,7 +2220,10 @@
     (bounded_linear_subspace? const-decl "bool" riesz_function_sets
      nil)
     (fullset const-decl "set" sets nil))
-   nil))
+   nil
+   (IMP_riesz_bounded_functionals assuming
+    "riesz_bounded_functionals[riesz_representation.a, riesz_representation.b, Continuous_Function[a, b]]"
+    "funs_subspace: ASSUMPTION riesz_function_sets[riesz_bounded_functionals.a, riesz_bounded_functionals.b].bounded_linear_subspace?(extend[[INTab[a, b] -> real], Funs, booleans.boolean, booleans.FALSE].extend(sets[Funs].fullset))")))
  (IMP_riesz_bounded_functionals_TCC2 0
   (IMP_riesz_bounded_functionals_TCC2-3 nil 3493978249
    ("" (expand "fullset")
@@ -2300,6 +2335,7 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (nnreal type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -2308,7 +2344,6 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (+ const-decl "[T -> real]" real_fun_ops "reals/")
-    (minus_real_is_real application-judgement "real" reals nil)
     (funs_sum_closed? const-decl "bool" riesz_function_sets nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (* const-decl "[T -> real]" real_fun_ops "reals/")
@@ -2334,7 +2369,10 @@
     (bounded_linear_subspace? const-decl "bool" riesz_function_sets
      nil)
     (fullset const-decl "set" sets nil))
-   nil)
+   nil
+   (IMP_riesz_bounded_functionals assuming
+    "riesz_bounded_functionals[riesz_representation.a, riesz_representation.b, Bounded_Function[a, b]]"
+    "funs_subspace: ASSUMPTION riesz_function_sets[riesz_bounded_functionals.a, riesz_bounded_functionals.b].bounded_linear_subspace?(extend[[INTab[a, b] -> real], Funs, booleans.boolean, booleans.FALSE].extend(sets[Funs].fullset))"))
   (IMP_riesz_bounded_functionals_TCC2-2 nil 3493978219
    (";;; Proof IMP_riesz_bounded_functionals_TCC1-1 for formula riesz_representation.IMP_riesz_bounded_functionals_TCC1"
     (expand "fullset")
@@ -2409,58 +2447,15 @@
             (("6" (skolem 1 "ff")
               (("6" (flatten) (("6" (ground) nil))))))))))))))
     ";;; developed with shostak decision procedures")
-   nil nil)
+   nil nil
+   (IMP_riesz_bounded_functionals assuming
+    "riesz_bounded_functionals[riesz_representation.a, riesz_representation.b, Bounded_Function[a, b]]"
+    "funs_subspace: ASSUMPTION riesz_function_sets[riesz_bounded_functionals.a, riesz_bounded_functionals.b].bounded_linear_subspace?(extend[[INTab[a, b] -> real], Funs, booleans.boolean, booleans.FALSE].extend(sets[Funs].fullset))"))
   (IMP_riesz_bounded_functionals_TCC2-1 nil 3493977883
-   ("" (assuming-tcc) nil nil) nil nil))
- (riesz_representation_TCC1 0
-  (riesz_representation_TCC1-1 nil 3492949849
-   ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil)
-    (a formal-const-decl "real" riesz_representation nil)
-    (< const-decl "bool" reals nil)
-    (b formal-const-decl "{bb: real | a < bb}" riesz_representation
-     nil)
-    (INTab type-eq-decl nil riesz_interval_funs nil)
-    (continuous_on_int? const-decl "bool" riesz_interval_funs nil)
-    (Operator type-eq-decl nil riesz_linear_functionals nil)
-    (bounded_linear_operator? const-decl "bool"
-     riesz_bounded_functionals nil)
-    (C_Bounded_Linear_Operator type-eq-decl nil riesz_hahn_banach nil)
-    (bounded_variation? const-decl "bool" bounded_variation nil)
-    (variation_on const-decl "nnreal" bounded_variation nil)
-    (linear_op? const-decl "bool" riesz_linear_functionals nil)
-    (const_inv_op? const-decl "bool" riesz_linear_functionals nil)
-    (additive_op? const-decl "bool" riesz_linear_functionals nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (partition type-eq-decl nil rs_partition nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (increasing? const-decl "bool" sort_fseq "structures/")
-    (restrict const-decl "R" restrict nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (> const-decl "bool" reals nil)
-    (fseq type-eq-decl nil fseqs "structures/")
-    (barray type-eq-decl nil fseqs "structures/")
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (bounded_op? const-decl "bool" riesz_bounded_functionals nil)
-    (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   ("" (assuming-tcc) nil nil) nil nil
+   (IMP_riesz_bounded_functionals assuming
+    "riesz_bounded_functionals[riesz_representation.a, riesz_representation.b, Bounded_Function[a, b]]"
+    "funs_subspace: ASSUMPTION riesz_function_sets[riesz_bounded_functionals.a, riesz_bounded_functionals.b].bounded_linear_subspace?(extend[[INTab[a, b] -> real], Funs, booleans.boolean, booleans.FALSE].extend(sets[Funs].fullset))")))
  (riesz_representation 0
   (riesz_representation-2 nil 3495206890
    ("" (auto-rewrite + "member")
@@ -5535,14 +5530,13 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (op_norm const-decl "{M: nnreal |
-         (FORALL (f: Funs): abs(L(f)) <= M * fun_norm(f)) AND
-          (FORALL (M1: real):
-             M1 < M IMPLIES
-              (EXISTS (f: Funs): abs(L(f)) > M1 * fun_norm(f)))}"
+   (FORALL (f: Funs): abs(L(f)) <= M * fun_norm(f)) AND
+    (FORALL (M1: real):
+       M1 < M IMPLIES EXISTS (f: Funs): abs(L(f)) > M1 * fun_norm(f))}"
      riesz_bounded_functionals nil)
     (fun_norm const-decl "{M: nnreal |
-         (FORALL (x): abs(f(x)) <= M) AND
-          (FORALL (M1: real): M1 < M IMPLIES (EXISTS (x): abs(f(x)) > M1))}"
+   (FORALL (x: INTab): abs(f(x)) <= M) AND
+    (FORALL (M1: real): M1 < M IMPLIES EXISTS (x: INTab): abs(f(x)) > M1)}"
      riesz_interval_funs nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
@@ -5567,31 +5561,18 @@
     (fseq type-eq-decl nil fseqs "structures/")
     (barray type-eq-decl nil fseqs "structures/")
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (reflexive_restrict application-judgement "(reflexive?[S])"
-     restrict_order_props nil)
-    (antisymmetric_restrict application-judgement "(antisymmetric?[S])"
-     restrict_order_props nil)
-    (transitive_restrict application-judgement "(transitive?[S])"
-     restrict_order_props nil)
-    (preorder_restrict application-judgement "(preorder?[S])"
-     restrict_order_props nil)
-    (partial_order_restrict application-judgement "(partial_order?[S])"
-     restrict_order_props nil)
-    (dichotomous_restrict application-judgement "(dichotomous?[S])"
-     restrict_order_props nil)
     (total_order_restrict application-judgement "(total_order?[S])"
      restrict_order_props nil)
     (bounded_variation? const-decl "bool" bounded_variation nil)
     (total_variation const-decl "{M: nnreal |
-         (x = a IMPLIES M = 0) AND
-          (x > a IMPLIES
-            (FORALL (P: partition(a, x)): variation_on(a, x, P)(f) <= M))
-           AND
-           (FORALL (M1: nnreal):
-              M1 < M IMPLIES
-               (EXISTS (P: partition(a, x)):
-                  variation_on(a, x, P)(f) > M1))}" bounded_variation
-     nil)
+   (x = a IMPLIES M = 0) AND
+    (x > a IMPLIES
+      FORALL (P: partition(a, x)): variation_on(a, x, P)(f) <= M)
+     AND
+     (FORALL (M1: nnreal):
+        M1 < M IMPLIES
+         EXISTS (P: partition(a, x)): variation_on(a, x, P)(f) > M1)}"
+     bounded_variation nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -5604,11 +5585,9 @@
     (set type-eq-decl nil sets nil)
     (Intab const-decl "set[real]" riesz_interval_funs nil)
     (TRUE const-decl "bool" booleans nil)
-    (x!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (x!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (member const-decl "bool" sets nil)
-    (y!1 skolem-const-decl "(LAMBDA (x: INTab[a, b]): TRUE)"
-     riesz_representation nil)
+    (y!1 skolem-const-decl "INTab[a, b]" riesz_representation nil)
     (continuous_at? const-decl "bool" continuity_ms_def nil)
     (integral? const-decl "bool" rs_integral_def nil)
     (Riemann?_Rie formula-decl nil rs_integral_def nil)
@@ -5634,8 +5613,6 @@
     (restrict const-decl "[T -> real]" sigma "reals/")
     (char_fun_minus formula-decl nil riesz_representation nil)
     (minus_even_is_even application-judgement "even_int" integers nil)
-    (int_times_even_is_even application-judgement "even_int" integers
-     nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (odd_minus_even_is_odd application-judgement "odd_int" integers
@@ -5672,16 +5649,14 @@
     (real_plus_real_is_real application-judgement "real" reals nil)
     (+ const-decl "[T -> real]" real_fun_ops "reals/")
     (const_inv_op? const-decl "bool" riesz_linear_functionals nil)
-    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
     (abs_mult formula-decl nil real_props nil)
     (additive_op? const-decl "bool" riesz_linear_functionals nil)
     (linear_op? const-decl "bool" riesz_linear_functionals nil)
-    (minus_real_is_real application-judgement "real" reals nil)
     (continuous_implies_bounded formula-decl nil riesz_interval_funs
      nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil)
     (step_approx_def formula-decl nil riesz_representation nil)
@@ -5689,14 +5664,15 @@
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (member const-decl "bool" fseqs "structures/")
     (strictly_sort const-decl "{ss: fseq |
-         strictly_increasing?(ss) AND
-          (FORALL (x: T): member(x, s) IFF member(x, ss))}" sort_fseq
+   strictly_increasing?(ss) AND
+    (FORALL (x: T): member(x, s) IFF member(x, ss))}" sort_fseq
      "structures/")
     (partition_strictly_sort formula-decl nil rs_partition nil)
     (partition_union_is_strictly_sort formula-decl nil rs_partition
      nil)
     (partition_union_width formula-decl nil rs_partition nil)
     (gen_xis const-decl "xis?(a, b, P)" rs_integral_def nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (posreal_min application-judgement
@@ -5714,12 +5690,10 @@
     (gg skolem-const-decl "[INTab[a, b] -> real]" riesz_representation
      nil)
     (abs_nat formula-decl nil abs_lems "reals/")
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
     (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
@@ -5748,6 +5722,7 @@
     (sigma_restrict_eq_0 formula-decl nil sigma "reals/")
     (int_plus_int_is_int application-judgement "int" integers nil)
     (subrange type-eq-decl nil integers nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (minus_int_is_int application-judgement "int" integers nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
@@ -5759,9 +5734,12 @@
     (sigma_nnreal application-judgement "nnreal" sigma_below "reals/")
     (x!1 skolem-const-decl "below(P`length - 1)" riesz_representation
      nil)
-    (naturalnumber type-eq-decl nil naturalnumbers nil)
-    (zerofun skolem-const-decl "[INTab[a, b] -> naturalnumber]"
+    (even? const-decl "bool" integers nil)
+    (even_nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (zerofun skolem-const-decl "[INTab[a, b] -> even_nat]"
      riesz_representation nil)
+    (even_plus_even_is_even application-judgement "even_int" integers
+     nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (siggy skolem-const-decl "[# length: int, seq: [nat -> real] #]"
@@ -5771,9 +5749,9 @@
     (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
      nil)
     (Bounded_Function type-eq-decl nil riesz_interval_funs nil)
-    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
+    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (sign const-decl "Sign" sign "reals/")
     (Sign type-eq-decl nil sign "reals/")
     (nzint nonempty-type-eq-decl nil integers nil)
@@ -8935,8 +8913,8 @@
     (abs_nat formula-decl nil abs_lems "reals/")
     (abs_eq_0 formula-decl nil abs_lems "reals/")
     (strictly_sort const-decl "{ss: fseq |
-         strictly_increasing?(ss) AND
-          (FORALL (x: T): member(x, s) IFF member(x, ss))}" sort_fseq
+   strictly_increasing?(ss) AND
+    (FORALL (x: T): member(x, s) IFF member(x, ss))}" sort_fseq
      "structures/")
     (member const-decl "bool" fseqs "structures/")
     (continuous_implies_bounded formula-decl nil riesz_interval_funs
@@ -8953,15 +8931,14 @@
     (Intab const-decl "set[real]" riesz_interval_funs nil)
     (variation_on_strictly_sort formula-decl nil bounded_variation nil)
     (total_variation const-decl "{M: nnreal |
-         (x = a IMPLIES M = 0) AND
-          (x > a IMPLIES
-            (FORALL (P: partition(a, x)): variation_on(a, x, P)(f) <= M))
-           AND
-           (FORALL (M1: nnreal):
-              M1 < M IMPLIES
-               (EXISTS (P: partition(a, x)):
-                  variation_on(a, x, P)(f) > M1))}" bounded_variation
-     nil)
+   (x = a IMPLIES M = 0) AND
+    (x > a IMPLIES
+      FORALL (P: partition(a, x)): variation_on(a, x, P)(f) <= M)
+     AND
+     (FORALL (M1: nnreal):
+        M1 < M IMPLIES
+         EXISTS (P: partition(a, x)): variation_on(a, x, P)(f) > M1)}"
+     bounded_variation nil)
     (bounded_variation? const-decl "bool" bounded_variation nil)
     (barray type-eq-decl nil fseqs "structures/")
     (fseq type-eq-decl nil fseqs "structures/")
@@ -8971,14 +8948,13 @@
     (Continuous_Function type-eq-decl nil riesz_interval_funs nil)
     (bounded_op? const-decl "bool" riesz_bounded_functionals nil)
     (fun_norm const-decl "{M: nnreal |
-         (FORALL (x): abs(f(x)) <= M) AND
-          (FORALL (M1: real): M1 < M IMPLIES (EXISTS (x): abs(f(x)) > M1))}"
+   (FORALL (x: INTab): abs(f(x)) <= M) AND
+    (FORALL (M1: real): M1 < M IMPLIES EXISTS (x: INTab): abs(f(x)) > M1)}"
      riesz_interval_funs nil)
     (op_norm const-decl "{M: nnreal |
-         (FORALL (f: Funs): abs(L(f)) <= M * fun_norm(f)) AND
-          (FORALL (M1: real):
-             M1 < M IMPLIES
-              (EXISTS (f: Funs): abs(L(f)) > M1 * fun_norm(f)))}"
+   (FORALL (f: Funs): abs(L(f)) <= M * fun_norm(f)) AND
+    (FORALL (M1: real):
+       M1 < M IMPLIES EXISTS (f: Funs): abs(L(f)) > M1 * fun_norm(f))}"
      riesz_bounded_functionals nil)
     (bounded_on_int? const-decl "bool" riesz_interval_funs nil)
     (B_Bounded_Linear_Operator type-eq-decl nil riesz_hahn_banach nil)

@@ -33,25 +33,16 @@
   (sigma_derivable_TCC1-1 nil 3255192119
    ("" (skosimp*)
     (("" (lemma "deriv_domain") (("" (inst?) nil nil)) nil)) nil)
-   ((deriv_domain formula-decl nil taylors nil)) nil))
+   ((deriv_domain formula-decl nil taylors nil)) nil
+   (sigma_derivable assuming "derivatives[T]"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (sigma_derivable_TCC2 0
   (sigma_derivable_TCC2-1 nil 3255192119
    ("" (skolem!)
     (("" (lemma "not_one_element") (("" (propax) nil nil)) nil)) nil)
-   ((not_one_element formula-decl nil taylors nil)) nil))
- (sigma_derivable_TCC3 0
-  (sigma_derivable_TCC3-1 nil 3374341760 ("" (subtype-tcc) nil nil)
-   ((fullset const-decl "set" sets nil)
-    (adh const-decl "setof[real]" convergence_functions nil)
-    (NQ const-decl "real" derivatives_def nil)
-    (convergence const-decl "bool" convergence_functions nil)
-    (convergence const-decl "bool" lim_of_functions nil)
-    (convergent? const-decl "bool" lim_of_functions nil)
-    (derivable? const-decl "bool" derivatives_def nil)
-    (derivable? const-decl "bool" derivatives nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   ((not_one_element formula-decl nil taylors nil)) nil
+   (sigma_derivable assuming "derivatives[T]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (sigma_derivable 0
   (sigma_derivable-1 nil 3255192119
    ("" (induct "n" 1)
@@ -133,7 +124,9 @@
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (tay1 subtype "taylors.n"
+    "{i: integers.int | booleans.OR(((number_fields.-)(taylors.bb, taylors.x)) /= 0, reals.>=(i, 0))}")))
  (tay1 0
   (tay1-1 nil 3255192119
    ("" (skosimp*)
@@ -304,7 +297,9 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (tay3 subtype "((number_fields.+)(taylors.n, 1))"
+    "{i: integers.int | booleans.OR(((number_fields.-)(taylors.bb, taylors.x)) /= 0, reals.>=(i, 0))}")))
  (tay3 0
   (tay3-1 nil 3255192119
    ("" (skosimp*)
@@ -437,8 +432,6 @@
     (minus_real_is_real application-judgement "real" reals nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (- const-decl "[T -> real]" real_fun_ops "reals/")
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -461,11 +454,8 @@
      integers nil)
     (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
     (derivable_const application-judgement "deriv_fun" derivatives nil)
-    (const_fun_continuous application-judgement "continuous_fun"
-     continuous_functions nil)
     (constant_seq2 application-judgement "(convergent_nz?)"
      convergence_ops nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -494,7 +484,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (sigma_derivable formula-decl nil taylors nil))
-   nil))
+   nil
+   (deriv_sigma subtype
+    "LAMBDA x: sigma[nat].sigma(0, taylors.n, (LAMBDA n: taylors.FF(taylors.x, taylors.n)))"
+    "deriv_fun[T]")))
  (deriv_sigma_TCC2 0
   (deriv_sigma_TCC2-1 nil 3255192119
    ("" (skosimp*) (("" (inst - "ii1!1") (("" (assert) nil nil)) nil))
@@ -521,7 +514,9 @@
     (ii1!1 skolem-const-decl "nat" taylors nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (deriv_sigma subtype "LAMBDA xx: taylors.FF(taylors.xx, taylors.ii)"
+    "deriv_fun[T]")))
  (deriv_sigma 0
   (deriv_sigma-2 nil 3303660794
    ("" (induct "n1")
@@ -925,7 +920,9 @@
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (nderiv_term_derivable subtype "taylors.f"
+    "nth_derivatives[T].nderiv_fun(taylors.n)")))
  (nderiv_term_derivable 0
   (nderiv_term_derivable-1 nil 3255192119
    ("" (skosimp*)
@@ -1005,34 +1002,17 @@
     (real_times_real_is_real application-judgement "real" reals nil))
    nil))
  (taylor_derivable_TCC1 0
-  (taylor_derivable_TCC1-1 nil 3255192119
-   ("" (skosimp*) (("" (inst + "0") (("" (assert) nil nil)) nil)) nil)
-   ((number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
- (taylor_derivable_TCC2 0
-  (taylor_derivable_TCC2-1 nil 3255192119
+  (taylor_derivable_TCC1-2 "" 3754690330
    ("" (skosimp*)
     (("" (lemma "derivable_n_times_lem[T]")
       (("" (inst - "f!1" "nn!1" "n!1+1") (("" (assert) nil nil)) nil))
       nil))
     nil)
+   nil shostak
+   (taylor_derivable subtype "taylors.f"
+    "nth_derivatives[T].nderiv_fun(taylors.nn)"))
+  (taylor_derivable_TCC1-1 nil 3255192119
+   ("" (skosimp*) (("" (inst + "0") (("" (assert) nil nil)) nil)) nil)
    ((T formal-subtype-decl nil taylors nil)
     (T_pred const-decl "[real -> boolean]" taylors nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1058,9 +1038,11 @@
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
- (taylor_derivable_TCC3 0
-  (taylor_derivable_TCC3-1 nil 3374341760
+   nil
+   (taylor_derivable subtype "taylors.f"
+    "nth_derivatives[T].nderiv_fun(taylors.nn)")))
+ (taylor_derivable_TCC2 0
+  (taylor_derivable_TCC2-1 nil 3255192119
    ("" (skosimp*)
     (("" (lemma "derivable_n_times_lem[T]")
       (("" (inst - "f!1" "nn!1" "n!1+1") (("" (assert) nil nil)) nil))
@@ -1092,7 +1074,9 @@
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (taylor_derivable subtype "taylors.nn"
+    "{i: integers.int | booleans.OR(((number_fields.-)(taylors.bb, taylors.aa)) /= 0, reals.>=(i, 0))}")))
  (taylor_derivable 0
   (taylor_derivable-2 nil 3306748084
    ("" (skosimp*)
@@ -1193,10 +1177,10 @@
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (sigma_derivable formula-decl nil taylors nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (> const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
@@ -1322,7 +1306,9 @@
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (deriv_nderiv subtype "taylors.f"
+    "nth_derivatives[T].nderiv_fun(taylors.n)")))
  (deriv_nderiv_TCC2 0
   (deriv_nderiv_TCC2-1 nil 3255192119
    ("" (skosimp*)
@@ -1367,7 +1353,10 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (deriv_nderiv subtype
+    "(LAMBDA xx: (nth_derivatives[T].nderiv(taylors.n, taylors.f)(taylors.xx)))"
+    "deriv_fun[T]")))
  (deriv_nderiv_TCC3 0
   (deriv_nderiv_TCC3-1 nil 3255192119
    ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -1375,7 +1364,9 @@
      integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (deriv_nderiv subtype "taylors.f"
+    "nth_derivatives[T].nderiv_fun((number_fields.+)(1, taylors.n))")))
  (deriv_nderiv 0
   (deriv_nderiv-1 nil 3255192119
    ("" (skosimp*)
@@ -1433,34 +1424,17 @@
      integers nil))
    nil))
  (term_by_term_deriv_TCC1 0
-  (term_by_term_deriv_TCC1-1 nil 3255192119
-   ("" (skosimp*) (("" (inst + "0") (("" (assert) nil nil)) nil)) nil)
-   ((number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
- (term_by_term_deriv_TCC2 0
-  (term_by_term_deriv_TCC2-1 nil 3255192119
+  (term_by_term_deriv_TCC1-2 "" 3754690402
    ("" (skosimp*)
     (("" (lemma "derivable_n_times_lem[T]")
       (("" (inst - "f!1" "ii!1" "n!1+1") (("" (assert) nil nil)) nil))
       nil))
     nil)
+   nil shostak
+   (term_by_term_deriv subtype "taylors.f"
+    "nth_derivatives[T].nderiv_fun(taylors.ii)"))
+  (term_by_term_deriv_TCC1-1 nil 3255192119
+   ("" (skosimp*) (("" (inst + "0") (("" (assert) nil nil)) nil)) nil)
    ((T formal-subtype-decl nil taylors nil)
     (T_pred const-decl "[real -> boolean]" taylors nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1488,74 +1462,49 @@
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
- (term_by_term_deriv_TCC3 0
-  (term_by_term_deriv_TCC3-1 nil 3255192119
+   nil
+   (term_by_term_deriv subtype "taylors.f"
+    "nth_derivatives[T].nderiv_fun(taylors.ii)")))
+ (term_by_term_deriv_TCC2 0
+  (term_by_term_deriv_TCC2-1 nil 3255192119
    ("" (skosimp*)
-    (("" (case "ii!1=0")
-      (("1" (propax) nil nil)
-       ("2" (assert)
-        (("2" (expand "derivable_n_times?")
-          (("2"
-            (lemma "extensionality"
-             ("f" "f!1" "g" "LAMBDA xx: f!1(xx)"))
-            (("2" (split -1)
-              (("1" (skosimp*)
-                (("1" (assert)
-                  (("1"
-                    (lemma "nderiv_derivable[T]"
-                     ("f" "f!1" "n" "n!1" "m" "ii!1"))
-                    (("1" (assert)
-                      (("1" (lemma "identity_derivable_fun[T]")
-                        (("1" (expand "I")
-                          (("1" (assert)
-                            (("1" (hide -2)
-                              (("1"
-                                (lemma
-                                 "derivable_n_times_lem[T]"
-                                 ("f" "f!1" "n" "1+n!1" "m" "ii!1"))
-                                (("1" (assert) nil nil))
-                                nil))
-                              nil))
-                            nil))
-                          nil))
-                        nil))
-                      nil))
-                    nil))
-                  nil))
-                nil)
-               ("2" (assert) nil nil))
-              nil))
-            nil))
-          nil))
-        nil))
+    (("" (lemma "derivable_n_times_lem[T]")
+      (("" (inst - "f!1" "ii!1" "n!1+1") (("" (assert) nil nil)) nil))
       nil))
     nil)
-   ((nat nonempty-type-eq-decl nil naturalnumbers nil)
+   ((T formal-subtype-decl nil taylors nil)
+    (T_pred const-decl "[real -> boolean]" taylors nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (derivable_n_times_lem formula-decl nil nth_derivatives nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
- (term_by_term_deriv_TCC4 0
-  (term_by_term_deriv_TCC4-2 nil 3399971885
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil))
+   nil
+   (term_by_term_deriv subtype "taylors.ii"
+    "{i: integers.int | booleans.OR(((number_fields.-)(taylors.bb, taylors.xx)) /= 0, reals.>=(i, 0))}")))
+ (term_by_term_deriv_TCC3 0
+  (term_by_term_deriv_TCC3-2 "" 3754696984
    ("" (skosimp*)
     (("" (case "ii!1=0")
       (("1" (grind) nil nil)
@@ -1590,6 +1539,51 @@
                                       nil))
                                     nil))
                                   nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (assert) nil nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (term_by_term_deriv subtype
+    "LAMBDA xx: IF taylors.ii = 0 THEN taylors.f(taylors.xx) ELSE number_fields./(number_fields.*(nth_derivatives[T].nderiv(taylors.ii, taylors.f)(taylors.xx), exponentiation.^(((number_fields.-)(taylors.bb, taylors.xx)), taylors.ii)), factorial.factorial(taylors.ii)) ENDIF"
+    "deriv_fun[T]"))
+  (term_by_term_deriv_TCC3-1 nil 3255192119
+   ("" (skosimp*)
+    (("" (case "ii!1=0")
+      (("1" (propax) nil nil)
+       ("2" (assert)
+        (("2" (expand "derivable_n_times?")
+          (("2"
+            (lemma "extensionality"
+             ("f" "f!1" "g" "LAMBDA xx: f!1(xx)"))
+            (("2" (split -1)
+              (("1" (skosimp*)
+                (("1" (assert)
+                  (("1"
+                    (lemma "nderiv_derivable[T]"
+                     ("f" "f!1" "n" "n!1" "m" "ii!1"))
+                    (("1" (assert)
+                      (("1" (lemma "identity_derivable_fun[T]")
+                        (("1" (expand "I")
+                          (("1" (assert)
+                            (("1" (hide -2)
+                              (("1"
+                                (lemma
+                                 "derivable_n_times_lem[T]"
+                                 ("f" "f!1" "n" "1+n!1" "m" "ii!1"))
+                                (("1" (assert) nil nil))
                                 nil))
                               nil))
                             nil))
@@ -1654,9 +1648,10 @@
     (T_pred const-decl "[real -> boolean]" taylors nil)
     (extensionality formula-decl nil functions nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   nil)
-  (term_by_term_deriv_TCC4-1 nil 3374341760 ("" (subtype-tcc) nil nil)
-   nil nil))
+   nil
+   (term_by_term_deriv subtype
+    "LAMBDA xx: IF taylors.ii = 0 THEN taylors.f(taylors.xx) ELSE number_fields./(number_fields.*(nth_derivatives[T].nderiv(taylors.ii, taylors.f)(taylors.xx), exponentiation.^(((number_fields.-)(taylors.bb, taylors.xx)), taylors.ii)), factorial.factorial(taylors.ii)) ENDIF"
+    "deriv_fun[T]")))
  (term_by_term_deriv 0
   (term_by_term_deriv-2 nil 3445339548
    ("" (induct "n")
@@ -2637,7 +2632,7 @@
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil (taylor_lemma subtype "taylors.Rn" "deriv_fun[T]")))
  (taylor_lemma 0
   (taylor_lemma-1 nil 3255192119
    ("" (skosimp*)
@@ -2959,7 +2954,6 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (deriv_sigma formula-decl nil taylors nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (not_one_element? const-decl "bool" deriv_domain_def nil)
     (deriv_domain? const-decl "bool" deriv_domain_def nil)
     (deriv_const formula-decl nil derivatives_def nil)
@@ -2972,8 +2966,8 @@
     (T_low type-eq-decl nil sigma "reals/")
     (T_high type-eq-decl nil sigma "reals/")
     (sigma def-decl "real" sigma "reals/")
-    (numfield nonempty-type-eq-decl nil number_fields nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
@@ -3992,9 +3986,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (> const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
@@ -4009,13 +4003,10 @@
     (sigma_const formula-decl nil sigma "reals/")
     (sigma def-decl "real" sigma "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (int_plus_int_is_int application-judgement "int" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (< const-decl "bool" reals nil)
@@ -5119,16 +5110,15 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   shostak))
+   shostak
+   (Taylor_term subtype "taylors.f"
+    "nth_derivatives[T].nderiv_fun(taylors.n)")))
  (Taylors_inf_TCC1 0
   (Taylors_inf_TCC1-1 nil 3298376642
    ("" (subtype-tcc)
     (("1" (postpone) nil nil) ("2" (postpone) nil nil)
      ("3" (postpone) nil nil))
     nil)
-   ((inf_deriv_fun? const-decl "bool" taylors nil)) shostak))
- (Taylors_inf_TCC2 0
-  (Taylors_inf_TCC2-1 nil 3374341760 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -5160,7 +5150,9 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (between type-eq-decl nil taylors nil)
     (inf_deriv_fun? const-decl "bool" taylors nil))
-   nil))
+   shostak
+   (Taylors_inf subtype "taylors.f"
+    "nth_derivatives[T].nderiv_fun((number_fields.+)(1, taylors.n))")))
  (Taylors_inf 0
   (Taylors_inf-1 nil 3298376718
    ("" (skosimp*)
@@ -5274,9 +5266,9 @@
     (real_plus_real_is_real application-judgement "real" reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (sigma_restrict_eq formula-decl nil sigma "reals/")
-    (numfield nonempty-type-eq-decl nil number_fields nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (> const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)

@@ -53,7 +53,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (first subtype "sets[well_ordered_traversal.T].fullset"
+          "(LAMBDA (S: sets[well_ordered_traversal.T].set): minmax_orders[well_ordered_traversal.T].has_least?(S, closure_ops[well_ordered_traversal.T].reflexive_closure(well_ordered_traversal.<)))")))
  (last_TCC1 0
   (last_TCC1-1 nil 3318619947 ("" (subtype-tcc) nil nil)
    ((has_last? const-decl "bool" well_ordered_traversal nil)
@@ -68,8 +70,10 @@
     (trichotomous? const-decl "bool" orders nil)
     (strict_total_order? const-decl "bool" orders nil)
     (well_founded? const-decl "bool" orders nil)
-    (linear_order_to_total_order application-judgement "(total_order?)"
-     well_ordered_traversal nil)
+    (reflexive_closure_preserves_transitive application-judgement
+     "(preorder?)" well_ordered_traversal nil)
+    (reflexive_closure_dichotomous application-judgement
+     "(dichotomous?)" well_ordered_traversal nil)
     (T formal-type-decl nil well_ordered_traversal nil)
     (reflexive_closure const-decl "(reflexive?)" closure_ops nil)
     (fullset const-decl "set" sets nil)
@@ -78,8 +82,96 @@
     (upper_bound? const-decl "bool" bounded_orders nil)
     (greatest? const-decl "bool" minmax_orders nil)
     (has_greatest? const-decl "bool" minmax_orders nil))
-   nil))
+   nil
+   (last subtype "sets[well_ordered_traversal.T].fullset"
+         "(LAMBDA (S: sets[well_ordered_traversal.T].set): minmax_orders[well_ordered_traversal.T].has_greatest?(S, closure_ops[well_ordered_traversal.T].reflexive_closure(well_ordered_traversal.<)))")))
+ (has_next?_TCC1 0
+  (has_next?_TCC1-2 "" 3744701396
+   ("" (skeep :preds? t)
+    (("" (expand "well_ordered?")
+      (("" (flatten)
+        (("" (expand "strict_total_order?")
+          (("" (flatten)
+            (("" (expand "strict_order?")
+              (("" (flatten)
+                (("" (expand "order?")
+                  (("" (assert)
+                    (("" (expand "antisymmetric?")
+                      (("" (skeep)
+                        (("" (expand "transitive?")
+                          (("" (inst -2 "x" "y" "x")
+                            (("" (assert)
+                              ((""
+                                (expand "irreflexive?")
+                                (("" (inst?) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (has_next? subtype "well_ordered_traversal.<"
+    "(relations_extra[well_ordered_traversal.T].order?)"))
+  (has_next?_TCC1-1 nil 3744697368 ("" (subtype-tcc) nil nil)
+   ((well_ordered? const-decl "bool" orders nil)
+    (strict_total_order? const-decl "bool" orders nil)
+    (strict_order? const-decl "bool" orders nil)
+    (order? const-decl "bool" relations_extra nil)
+    (antisymmetric? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (irreflexive? const-decl "bool" relations nil)
+    (T formal-type-decl nil well_ordered_traversal nil))
+   nil
+   (has_next? subtype "well_ordered_traversal.<"
+    "(relations_extra[well_ordered_traversal.T].order?)")))
  (well_ordering_has_next 0
+  (well_ordering_has_next-2 "" 3744701592
+   ("" (grind :if-match nil)
+    (("" (inst -4 "above(t!1, lessp!1)")
+      (("1" (split)
+        (("1" (skolem-typepred)
+          (("1" (assert)
+            (("1" (flatten)
+              (("1" (inst + "y!1")
+                (("1" (assert)
+                  (("1" (skosimp :preds? t)
+                    (("1" (inst - "r!1")
+                      (("1" (inst - "y!1" "r!1")
+                        (("1" (assert) nil nil)) nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (inst 3 "x!1")
+          (("2" (assert)
+            (("2" (skosimp :preds? t)
+              (("2" (inst + "x!1") (("2" (assert) nil nil)) nil)) nil))
+            nil))
+          nil))
+        nil)
+       ("2" (split 1)
+        (("1" (propax) nil nil)
+         ("2" (skeep)
+          (("2" (inst -4 "x" "y" "x")
+            (("2" (assert) (("2" (inst? -3) nil nil)) nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (well_ordering_has_next-1 nil 3318620127
    ("" (grind :if-match nil)
     (("" (inst -4 "above(t!1, lessp!1)")
@@ -109,13 +201,15 @@
         nil))
       nil))
     nil)
-   ((suffix? const-decl "bool" ordered_subset nil)
+   ((AND const-decl "[bool, bool -> bool]" booleans nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (lessp!1 skolem-const-decl "(well_ordered?)" well_ordered_traversal
+     nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (suffix? const-decl "bool" ordered_subset nil)
     (set type-eq-decl nil sets nil)
     (order? const-decl "bool" relations_extra nil)
-    (irreflexive_kernel_of_antisymmetric application-judgement
-     "(asymmetric?)" well_ordered_traversal nil)
-    (order_to_strict_order application-judgement "(strict_order?)"
-     well_ordered_traversal nil)
+    (antisymmetric? const-decl "bool" relations nil)
     (irreflexive? const-decl "bool" relations nil)
     (transitive? const-decl "bool" relations nil)
     (strict_order? const-decl "bool" orders nil)
@@ -135,8 +229,8 @@
     (has_next? const-decl "bool" well_ordered_traversal nil)
     (nonempty? const-decl "bool" sets nil)
     (empty? const-decl "bool" sets nil)
-    (above const-decl "(LAMBDA (S): suffix?(S, ord))" ordered_subset
-     nil)
+    (above const-decl "(LAMBDA (S: set[T]): suffix?(S, ord))"
+     ordered_subset nil)
     (difference const-decl "set" sets nil)
     (member const-decl "bool" sets nil)
     (irreflexive_kernel const-decl "(irreflexive?)" closure_ops nil)
@@ -155,7 +249,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (next subtype
+    "ordered_subset[well_ordered_traversal.T].above(well_ordered_traversal.t, well_ordered_traversal.<)"
+    "(LAMBDA (S: sets[well_ordered_traversal.T].set): minmax_orders[well_ordered_traversal.T].has_least?(S, closure_ops[well_ordered_traversal.T].reflexive_closure(well_ordered_traversal.<)))")))
  (last_no_next 0
   (last_no_next-1 nil 3318620416
    (""
@@ -203,14 +300,14 @@
     (PRED type-eq-decl nil defined_types nil)
     (reflexive? const-decl "bool" relations nil)
     (last const-decl
-          "(LAMBDA (t: T): greatest?(t, fullset[T], reflexive_closure(<)))"
+          "(LAMBDA (t: T): (greatest?)(t, fullset[T], reflexive_closure(<)))"
           well_ordered_traversal nil)
     (has_last? const-decl "bool" well_ordered_traversal nil)
     (has_greatest? const-decl "bool" minmax_orders nil)
     (fullset const-decl "set" sets nil)
     (nonempty? const-decl "bool" sets nil)
-    (above const-decl "(LAMBDA (S): suffix?(S, ord))" ordered_subset
-     nil)
+    (above const-decl "(LAMBDA (S: set[T]): suffix?(S, ord))"
+     ordered_subset nil)
     (union const-decl "set" sets nil)
     (difference const-decl "set" sets nil)
     (member const-decl "bool" sets nil)
@@ -221,6 +318,43 @@
     (greatest? const-decl "bool" minmax_orders nil)
     (has_next? const-decl "bool" well_ordered_traversal nil))
    shostak))
+ (last_is_last_TCC1 0
+  (last_is_last_TCC1-2 "" 3744701671
+   ("" (skeep :preds? t)
+    (("" (grind :if-match nil)
+      (("" (inst -2 "x!1" "y!1" "x!1")
+        (("" (assert) (("" (inst?) nil nil)) nil)) nil))
+      nil))
+    nil)
+   nil shostak
+   (last_is_last subtype "well_ordered_traversal.<"
+    "(relations_extra[well_ordered_traversal.T].order?)"))
+  (last_is_last_TCC1-1 nil 3744697368 ("" (subtype-tcc) nil nil)
+   ((irreflexive? const-decl "bool" relations nil)
+    (transitive? const-decl "bool" relations nil)
+    (strict_order? const-decl "bool" orders nil)
+    (trichotomous? const-decl "bool" orders nil)
+    (strict_total_order? const-decl "bool" orders nil)
+    (well_founded? const-decl "bool" orders nil)
+    (well_ordered? const-decl "bool" orders nil)
+    (T formal-type-decl nil well_ordered_traversal nil)
+    (reflexive_closure const-decl "(reflexive?)" closure_ops nil)
+    (fullset const-decl "set" sets nil)
+    (member const-decl "bool" sets nil)
+    (union const-decl "set" sets nil)
+    (upper_bound? const-decl "bool" bounded_orders nil)
+    (greatest? const-decl "bool" minmax_orders nil)
+    (has_greatest? const-decl "bool" minmax_orders nil)
+    (has_last? const-decl "bool" well_ordered_traversal nil)
+    (antisymmetric? const-decl "bool" relations nil)
+    (order? const-decl "bool" relations_extra nil)
+    (reflexive_closure_dichotomous application-judgement
+     "(dichotomous?)" well_ordered_traversal nil)
+    (reflexive_closure_preserves_transitive application-judgement
+     "(preorder?)" well_ordered_traversal nil))
+   nil
+   (last_is_last subtype "well_ordered_traversal.<"
+    "(relations_extra[well_ordered_traversal.T].order?)")))
  (last_is_last 0
   (last_is_last-1 nil 3318620611
    ("" (skosimp :preds? t)
@@ -230,7 +364,7 @@
       nil))
     nil)
    ((last const-decl
-          "(LAMBDA (t: T): greatest?(t, fullset[T], reflexive_closure(<)))"
+          "(LAMBDA (t: T): (greatest?)(t, fullset[T], reflexive_closure(<)))"
           well_ordered_traversal nil)
     (reflexive_closure const-decl "(reflexive?)" closure_ops nil)
     (reflexive? const-decl "bool" relations nil)
@@ -239,11 +373,13 @@
     (has_last? const-decl "bool" well_ordered_traversal nil)
     (greatest? const-decl "bool" minmax_orders nil)
     (set type-eq-decl nil sets nil)
-    (linear_order_to_total_order application-judgement "(total_order?)"
-     well_ordered_traversal nil)
+    (reflexive_closure_preserves_transitive application-judgement
+     "(preorder?)" well_ordered_traversal nil)
+    (reflexive_closure_dichotomous application-judgement
+     "(dichotomous?)" well_ordered_traversal nil)
     (full? const-decl "bool" sets nil)
-    (upto const-decl "(LAMBDA (S): prefix?(S, ord))" ordered_subset
-     nil)
+    (upto const-decl "(LAMBDA (S: set[T]): prefix?(S, ord))"
+     ordered_subset nil)
     (has_greatest? const-decl "bool" minmax_orders nil)
     (well_founded? const-decl "bool" orders nil)
     (strict_total_order? const-decl "bool" orders nil)
@@ -300,13 +436,13 @@
     nil)
    ((has_prev? const-decl "bool" well_ordered_traversal nil)
     (next const-decl
-     "(LAMBDA (t_1: T): least?(t_1, above(t, <), reflexive_closure(<)))"
+     "(LAMBDA (t_1: T): (least?)(t_1, above(t, <), reflexive_closure(<)))"
      well_ordered_traversal nil)
     (reflexive_closure const-decl "(reflexive?)" closure_ops nil)
     (reflexive? const-decl "bool" relations nil)
     (PRED type-eq-decl nil defined_types nil)
-    (above const-decl "(LAMBDA (S): suffix?(S, ord))" ordered_subset
-     nil)
+    (above const-decl "(LAMBDA (S: set[T]): suffix?(S, ord))"
+     ordered_subset nil)
     (suffix? const-decl "bool" ordered_subset nil)
     (order? const-decl "bool" relations_extra nil)
     (least? const-decl "bool" minmax_orders nil)
@@ -324,17 +460,15 @@
     (trichotomous? const-decl "bool" orders nil)
     (strict_total_order? const-decl "bool" orders nil)
     (well_founded? const-decl "bool" orders nil)
-    (below const-decl "(LAMBDA (S): prefix?(S, ord))" ordered_subset
-     nil)
+    (below const-decl "(LAMBDA (S: set[T]): prefix?(S, ord))"
+     ordered_subset nil)
     (upper_bound? const-decl "bool" bounded_orders nil)
     (greatest? const-decl "bool" minmax_orders nil)
     (has_greatest? const-decl "bool" minmax_orders nil)
-    (linear_order_to_total_order application-judgement "(total_order?)"
-     well_ordered_traversal nil)
-    (irreflexive_kernel_of_antisymmetric application-judgement
-     "(asymmetric?)" well_ordered_traversal nil)
-    (order_to_strict_order application-judgement "(strict_order?)"
-     well_ordered_traversal nil)
+    (reflexive_closure_dichotomous application-judgement
+     "(dichotomous?)" well_ordered_traversal nil)
+    (reflexive_closure_preserves_transitive application-judgement
+     "(preorder?)" well_ordered_traversal nil)
     (prefix? const-decl "bool" ordered_subset nil)
     (has_next? const-decl "bool" well_ordered_traversal nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -357,5 +491,8 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil)))
+   nil
+   (prev subtype
+    "ordered_subset[well_ordered_traversal.T].below(well_ordered_traversal.t, well_ordered_traversal.<)"
+    "(LAMBDA (S: sets[well_ordered_traversal.T].set): minmax_orders[well_ordered_traversal.T].has_greatest?(S, closure_ops[well_ordered_traversal.T].reflexive_closure(well_ordered_traversal.<)))"))))
 

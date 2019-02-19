@@ -2,7 +2,10 @@
  (IMP_normal_subgroups_TCC1 0
   (IMP_normal_subgroups_TCC1-1 nil 3405954319
    ("" (lemma "fullset_is_group") (("" (propax) nil nil)) nil)
-   ((fullset_is_group formula-decl nil factor_groups nil)) nil))
+   ((fullset_is_group formula-decl nil factor_groups nil)) nil
+   (IMP_normal_subgroups assuming
+    "normal_subgroups[factor_groups.T, factor_groups.*, factor_groups.one]"
+    "fullset_is_group: ASSUMPTION group_def[normal_subgroups.T, normal_subgroups.*, normal_subgroups.one].group?(sets[normal_subgroups.T].fullset)")))
  (p0 0
   (p0-1 nil 3406303495
    ("" (skosimp*)
@@ -156,14 +159,19 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (mult subtype "factor_groups.H"
+    "group[factor_groups.T, factor_groups.*, factor_groups.one].subgroup(factor_groups.G)")))
  (mult_TCC2 0
-  (mult_TCC2-1 nil 3405954319
+  (mult_TCC2-2 "" 3755104667
    ("" (skosimp*)
     ((""
       (inst + "lc_gen[T, *, one](G!1, H!1, A!1) *
-              lc_gen[T, *, one](G!1, H!1, B!1)")
-      (("1" (rewrite "star_closed") nil nil)
+                lc_gen[T, *, one](G!1, H!1, B!1)")
+      (("1" (rewrite "star_closed")
+        (("1" (typepred "G!1")
+          (("1" (hide 2) (("1" (grind) nil nil)) nil)) nil))
+        nil)
        ("2" (assert)
         (("2" (typepred "H!1")
           (("2" (expand "normal_subgroup?") (("2" (propax) nil nil))
@@ -200,7 +208,57 @@
     (star_closed? const-decl "bool" groupoid_def nil)
     (groupoid nonempty-type-eq-decl nil groupoid nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   shostak
+   (mult subtype
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].*(factor_groups.*(cosets[factor_groups.T, factor_groups.*, factor_groups.one].lc_gen(factor_groups.G, factor_groups.H, factor_groups.A), cosets[factor_groups.T, factor_groups.*, factor_groups.one].lc_gen(factor_groups.G, factor_groups.H, factor_groups.B)), factor_groups.H)"
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.H)"))
+  (mult_TCC2-1 nil 3405954319
+   ("" (skosimp*)
+    ((""
+      (inst + "lc_gen[T, *, one](G!1, H!1, A!1) *
+              lc_gen[T, *, one](G!1, H!1, B!1)")
+      (("1" (rewrite "star_closed") nil nil)
+       ("2" (assert)
+        (("2" (typepred "H!1")
+          (("2" (expand "normal_subgroup?") (("2" (propax) nil nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((T formal-nonempty-type-decl nil factor_groups nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (group? const-decl "bool" group_def nil)
+    (group nonempty-type-eq-decl nil group nil)
+    (subgroup type-eq-decl nil group nil)
+    (= const-decl "[T, T -> boolean]" equalities nil) nil
+    (subgroup? const-decl "bool" group_def nil)
+    (left_cosets type-eq-decl nil cosets nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (lc_gen const-decl "{a: T | G(a) AND lc = a * H}" cosets nil)
+    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups nil) nil nil nil
+    nil (NOT const-decl "[bool -> bool]" booleans nil)
+    (member const-decl "bool" sets nil)
+    (right_identity formula-decl nil monad nil)
+    (restrict const-decl "R" restrict nil)
+    (left_identity formula-decl nil monad nil)
+    (identity? const-decl "bool" operator_defs nil)
+    (monad? const-decl "bool" monad_def nil)
+    (associative? const-decl "bool" operator_defs nil)
+    (monoid? const-decl "bool" monoid_def nil)
+    (inv_exists? const-decl "bool" group_def nil)
+    (star_closed formula-decl nil groupoid nil)
+    (star_closed? const-decl "bool" groupoid_def nil)
+    (groupoid nonempty-type-eq-decl nil groupoid nil))
+   nil
+   (mult subtype
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].*(factor_groups.*(cosets[factor_groups.T, factor_groups.*, factor_groups.one].lc_gen(factor_groups.G, factor_groups.H, factor_groups.A), cosets[factor_groups.T, factor_groups.*, factor_groups.one].lc_gen(factor_groups.G, factor_groups.H, factor_groups.B)), factor_groups.H)"
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.H)")))
  (mult_lem_TCC1 0
   (mult_lem_TCC1-1 nil 3405955207
    ("" (skosimp*) (("" (inst + "a!1") nil nil)) nil)
@@ -212,7 +270,10 @@
     (one formal-const-decl "T" factor_groups nil)
     (group? const-decl "bool" group_def nil)
     (group nonempty-type-eq-decl nil group nil))
-   nil))
+   nil
+   (mult_lem subtype
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].*(factor_groups.a, factor_groups.H)"
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.H)")))
  (mult_lem_TCC2 0
   (mult_lem_TCC2-1 nil 3405955207
    ("" (skosimp*) (("" (inst + "b!1") nil nil)) nil)
@@ -224,8 +285,280 @@
     (one formal-const-decl "T" factor_groups nil)
     (group? const-decl "bool" group_def nil)
     (group nonempty-type-eq-decl nil group nil))
-   nil))
+   nil
+   (mult_lem subtype
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].*(factor_groups.b, factor_groups.H)"
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.H)")))
  (mult_lem 0
+  (mult_lem-4 "" 3755104713
+   ("" (skosimp*)
+    (("" (expand "mult")
+      (("" (name "aa" "lc_gen(G!1, H!1, a!1 * H!1)")
+        (("" (replace -1)
+          (("" (name "bb" "lc_gen(G!1, H!1, b!1 * H!1)")
+            (("" (replace -1)
+              (("" (lemma "lc_is_eq")
+                (("" (inst - "G!1" "H!1" "aa*bb" "a!1*b!1")
+                  (("" (typepred "H!1")
+                    (("" (expand "normal_subgroup?")
+                      (("" (flatten)
+                        (("" (assert)
+                          (("" (hide 2)
+                            (("" (lemma "lc_gen_normal")
+                              ((""
+                                (inst?)
+                                ((""
+                                  (assert)
+                                  ((""
+                                    (skosimp*)
+                                    ((""
+                                      (replace -1)
+                                      ((""
+                                        (hide -1)
+                                        ((""
+                                          (lemma "lc_gen_normal")
+                                          ((""
+                                            (inst?)
+                                            ((""
+                                              (assert)
+                                              ((""
+                                                (skosimp*)
+                                                ((""
+                                                  (replace -1)
+                                                  ((""
+                                                    (hide -1)
+                                                    ((""
+                                                      (replace
+                                                       -4
+                                                       :dir
+                                                       rl)
+                                                      ((""
+                                                        (hide -4)
+                                                        ((""
+                                                          (replace
+                                                           -4
+                                                           :dir
+                                                           rl)
+                                                          ((""
+                                                            (hide -4)
+                                                            ((""
+                                                              (inst
+                                                               +
+                                                               "inv(b!1)*inv(a!1)*h!2*a!1*h!1*b!1")
+                                                              (("1"
+                                                                (rewrite
+                                                                 "assoc")
+                                                                (("1"
+                                                                  (rewrite
+                                                                   "assoc")
+                                                                  (("1"
+                                                                    (rewrite
+                                                                     "assoc")
+                                                                    (("1"
+                                                                      (rewrite
+                                                                       "assoc")
+                                                                      (("1"
+                                                                        (rewrite
+                                                                         "assoc")
+                                                                        (("1"
+                                                                          (rewrite
+                                                                           "assoc")
+                                                                          (("1"
+                                                                            (case-replace
+                                                                             "(a!1 * b!1 * inv(b!1)) = a!1")
+                                                                            (("1"
+                                                                              (rewrite
+                                                                               "inv_right")
+                                                                              (("1"
+                                                                                (rewrite
+                                                                                 "one_left")
+                                                                                nil
+                                                                                nil))
+                                                                              nil)
+                                                                             ("2"
+                                                                              (assert)
+                                                                              (("2"
+                                                                                (hide
+                                                                                 2)
+                                                                                (("2"
+                                                                                  (rewrite
+                                                                                   "associative")
+                                                                                  nil
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil)
+                                                               ("2"
+                                                                (lemma
+                                                                 "nsg_prop2")
+                                                                (("2"
+                                                                  (inst
+                                                                   -
+                                                                   "a!1"
+                                                                   "h!2"
+                                                                   "G!1"
+                                                                   "H!1")
+                                                                  (("2"
+                                                                    (assert)
+                                                                    (("2"
+                                                                      (name
+                                                                       "HH"
+                                                                       "inv(a!1) * h!2 * a!1")
+                                                                      (("2"
+                                                                        (case-replace
+                                                                         "inv[T, *, one](b!1) * inv[T, *, one](a!1) * h!2 * a!1 *
+               h!1
+               * b!1 = inv[T, *, one](b!1) * HH *
+               h!1
+               * b!1")
+                                                                        (("1"
+                                                                          (hide
+                                                                           -1)
+                                                                          (("1"
+                                                                            (lemma
+                                                                             "nsg_prop2")
+                                                                            (("1"
+                                                                              (inst
+                                                                               -
+                                                                               "b!1"
+                                                                               "HH*h!1"
+                                                                               "G!1"
+                                                                               "H!1")
+                                                                              (("1"
+                                                                                (assert)
+                                                                                (("1"
+                                                                                  (split
+                                                                                   -1)
+                                                                                  (("1"
+                                                                                    (assert)
+                                                                                    (("1"
+                                                                                      (rewrite
+                                                                                       "assoc")
+                                                                                      nil
+                                                                                      nil))
+                                                                                    nil)
+                                                                                   ("2"
+                                                                                    (hide
+                                                                                     2)
+                                                                                    (("2"
+                                                                                      (rewrite
+                                                                                       "star_closed")
+                                                                                      (("2"
+                                                                                        (hide-all-but
+                                                                                         (-3
+                                                                                          1))
+                                                                                        (("2"
+                                                                                          (grind)
+                                                                                          nil
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil)
+                                                                         ("2"
+                                                                          (hide
+                                                                           2)
+                                                                          (("2"
+                                                                            (rewrite
+                                                                             "associative")
+                                                                            (("2"
+                                                                              (rewrite
+                                                                               "associative")
+                                                                              (("2"
+                                                                                (replace
+                                                                                 -1)
+                                                                                (("2"
+                                                                                  (propax)
+                                                                                  nil
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((mult const-decl "left_cosets(G, H)" factor_groups nil)
+    (lc_gen_normal formula-decl nil normal_subgroups nil)
+    (G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
+    (H!1 skolem-const-decl "normal_subgroup[T, *, one](G!1)"
+     factor_groups nil)
+    (inv const-decl "{y | x * y = one AND y * x = one}" group nil)
+    (b!1 skolem-const-decl "(G!1)" factor_groups nil)
+    (a!1 skolem-const-decl "(G!1)" factor_groups nil)
+    (h!2 skolem-const-decl "(H!1)" factor_groups nil)
+    (h!1 skolem-const-decl "(H!1)" factor_groups nil)
+    (right_identity formula-decl nil monad nil)
+    (associative formula-decl nil semigroup nil)
+    (inv_right formula-decl nil group nil)
+    (one_left formula-decl nil group nil)
+    (assoc formula-decl nil group nil)
+    (groupoid nonempty-type-eq-decl nil groupoid nil)
+    (star_closed? const-decl "bool" groupoid_def nil)
+    (star_closed formula-decl nil groupoid nil)
+    (nsg_prop2 formula-decl nil normal_subgroups nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (lc_is_eq formula-decl nil cosets nil)
+    (T formal-nonempty-type-decl nil factor_groups nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (group nonempty-type-eq-decl nil group nil)
+    (subgroup type-eq-decl nil group nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (group? const-decl "bool" group_def nil)
+    (* const-decl "set[T]" cosets nil)
+    (subgroup? const-decl "bool" group_def nil)
+    (left_cosets type-eq-decl nil cosets nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (lc_gen const-decl "{a: T | G(a) AND lc = a * H}" cosets nil)
+    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups nil))
+   shostak)
   (mult_lem-3 nil 3406564417
    ("" (skosimp*)
     (("" (expand "mult")
@@ -459,44 +792,44 @@
         nil))
       nil))
     nil)
-   ((mult const-decl "left_cosets(G, H)" factor_groups nil)
-    (lc_gen_normal formula-decl nil normal_subgroups nil)
-    (G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
-    (H!1 skolem-const-decl "normal_subgroup[T, *, one](G!1)"
-     factor_groups nil)
-    (inv const-decl "{y | x * y = one AND y * x = one}" group nil)
-    (b!1 skolem-const-decl "(G!1)" factor_groups nil)
-    (a!1 skolem-const-decl "(G!1)" factor_groups nil)
-    (h!2 skolem-const-decl "(H!1)" factor_groups nil)
-    (h!1 skolem-const-decl "(H!1)" factor_groups nil)
-    (right_identity formula-decl nil monad nil)
-    (associative formula-decl nil semigroup nil)
-    (inv_right formula-decl nil group nil)
-    (one_left formula-decl nil group nil)
-    (assoc formula-decl nil group nil)
-    (groupoid nonempty-type-eq-decl nil groupoid nil)
-    (star_closed? const-decl "bool" groupoid_def nil)
-    (star_closed formula-decl nil groupoid nil)
-    (nsg_prop2 formula-decl nil normal_subgroups nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (lc_is_eq formula-decl nil cosets nil)
-    (T formal-nonempty-type-decl nil factor_groups nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (* formal-const-decl "[T, T -> T]" factor_groups nil)
-    (one formal-const-decl "T" factor_groups nil)
-    (group nonempty-type-eq-decl nil group nil)
-    (subgroup type-eq-decl nil group nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (group? const-decl "bool" group_def nil)
-    (* const-decl "set[T]" cosets nil)
-    (subgroup? const-decl "bool" group_def nil)
-    (left_cosets type-eq-decl nil cosets nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (lc_gen const-decl "{a: T | G(a) AND lc = a * H}" cosets nil)
+   ((normal_subgroup type-eq-decl nil normal_subgroups nil)
     (normal_subgroup? const-decl "boolean" normal_subgroups nil)
-    (normal_subgroup type-eq-decl nil normal_subgroups nil))
+    (lc_gen const-decl "{a: T | G(a) AND lc = a * H}" cosets nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (left_cosets type-eq-decl nil cosets nil)
+    (subgroup? const-decl "bool" group_def nil) nil
+    (group? const-decl "bool" group_def nil)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (subgroup type-eq-decl nil group nil)
+    (group nonempty-type-eq-decl nil group nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T formal-nonempty-type-decl nil factor_groups nil)
+    (lc_is_eq formula-decl nil cosets nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nsg_prop2 formula-decl nil normal_subgroups nil)
+    (inv_exists? const-decl "bool" group_def nil)
+    (monoid? const-decl "bool" monoid_def nil)
+    (associative? const-decl "bool" operator_defs nil)
+    (monad? const-decl "bool" monad_def nil)
+    (identity? const-decl "bool" operator_defs nil)
+    (left_identity formula-decl nil monad nil)
+    (restrict const-decl "R" restrict nil)
+    (member const-decl "bool" sets nil)
+    (star_closed formula-decl nil groupoid nil)
+    (star_closed? const-decl "bool" groupoid_def nil)
+    (groupoid nonempty-type-eq-decl nil groupoid nil)
+    (assoc formula-decl nil group nil)
+    (one_left formula-decl nil group nil)
+    (inv_right formula-decl nil group nil)
+    (associative formula-decl nil semigroup nil)
+    (right_identity formula-decl nil monad nil) nil nil nil nil
+    (inv const-decl "{y | x * y = one AND y * x = one}" group nil) nil
+    nil (lc_gen_normal formula-decl nil normal_subgroups nil)
+    (mult const-decl "left_cosets(G, H)" factor_groups nil))
    nil)
   (mult_lem-2 nil 3406552141
    ("" (skosimp*)
@@ -802,73 +1135,87 @@
                   (("" (lemma "mult_lem")
                     (("" (inst?)
                       (("" (assert)
-                        (("" (expand "restrict")
-                          (("" (replace -1)
-                            (("" (hide -1)
+                        (("" (replace -1)
+                          (("" (hide -1)
+                            (("" (expand "*")
                               ((""
-                                (assert)
+                                (skosimp*)
                                 ((""
-                                  (expand "*")
+                                  (typepred "a!2")
                                   ((""
-                                    (skosimp*)
+                                    (typepred "a!3")
                                     ((""
-                                      (typepred "a!2")
+                                      (typepred "h!1")
                                       ((""
-                                        (typepred "a!3")
+                                        (typepred "H!1")
                                         ((""
-                                          (typepred "h!1")
+                                          (expand "normal_subgroup?")
                                           ((""
-                                            (typepred "H!1")
+                                            (flatten)
                                             ((""
-                                              (expand
-                                               "normal_subgroup?")
+                                              (expand "subgroup?")
                                               ((""
-                                                (flatten)
+                                                (hide -3)
                                                 ((""
-                                                  (expand "subgroup?")
+                                                  (expand "subset?")
                                                   ((""
-                                                    (hide -3)
+                                                    (assert)
                                                     ((""
-                                                      (expand
-                                                       "subset?")
+                                                      (inst - "h!1")
                                                       ((""
                                                         (assert)
                                                         ((""
-                                                          (inst
-                                                           -
-                                                           "h!1")
+                                                          (lemma
+                                                           "star_closed")
                                                           ((""
-                                                            (assert)
-                                                            ((""
-                                                              (lemma
-                                                               "star_closed")
-                                                              ((""
-                                                                (inst?)
-                                                                ((""
-                                                                  (name-replace
-                                                                   "A23"
-                                                                   "a!2 * a!3")
-                                                                  ((""
-                                                                    (hide
-                                                                     -2
-                                                                     -3
-                                                                     -4)
-                                                                    ((""
-                                                                      (lemma
-                                                                       "star_closed")
-                                                                      ((""
-                                                                        (inst
-                                                                         -
-                                                                         "G!1"
-                                                                         "A23"
-                                                                         "h!1")
-                                                                        ((""
-                                                                          (assert)
+                                                            (inst?)
+                                                            (("1"
+                                                              (name-replace
+                                                               "A23"
+                                                               "a!2 * a!3")
+                                                              (("1"
+                                                                (hide
+                                                                 -2
+                                                                 -3
+                                                                 -4)
+                                                                (("1"
+                                                                  (lemma
+                                                                   "star_closed")
+                                                                  (("1"
+                                                                    (inst
+                                                                     -
+                                                                     "G!1"
+                                                                     "A23"
+                                                                     "h!1")
+                                                                    (("1"
+                                                                      (assert)
+                                                                      nil
+                                                                      nil)
+                                                                     ("2"
+                                                                      (hide-all-but
+                                                                       1)
+                                                                      (("2"
+                                                                        (typepred
+                                                                         "G!1")
+                                                                        (("2"
+                                                                          (grind)
                                                                           nil
                                                                           nil))
                                                                         nil))
                                                                       nil))
                                                                     nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil)
+                                                             ("2"
+                                                              (hide-all-but
+                                                               1)
+                                                              (("2"
+                                                                (typepred
+                                                                 "G!1")
+                                                                (("2"
+                                                                  (grind)
+                                                                  nil
                                                                   nil))
                                                                 nil))
                                                               nil))
@@ -926,6 +1273,71 @@
     (mult_lem formula-decl nil factor_groups nil))
    shostak))
  (mult_is_coset 0
+  (mult_is_coset-2 "" 3755104779
+   ("" (skosimp*)
+    (("" (typepred "B!1")
+      (("" (typepred "A!1")
+        (("" (skosimp*)
+          (("" (replace -1)
+            (("" (hide -1)
+              (("" (replace -1)
+                (("" (hide -1)
+                  (("" (inst + "a!1*a!2")
+                    (("1" (lemma "mult_lem") (("1" (inst?) nil nil))
+                      nil)
+                     ("2" (typepred "a!1")
+                      (("2" (typepred "a!2")
+                        (("2" (assert)
+                          (("2" (lemma "closed")
+                            (("2" (inst?)
+                              (("1"
+                                (expand "member")
+                                (("1" (propax) nil nil))
+                                nil)
+                               ("2"
+                                (hide-all-but 1)
+                                (("2"
+                                  (typepred "G!1")
+                                  (("2" (grind) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((left_cosets type-eq-decl nil cosets nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups nil)
+    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
+    (* const-decl "set[T]" cosets nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (group nonempty-type-eq-decl nil group nil)
+    (group? const-decl "bool" group_def nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (set type-eq-decl nil sets nil)
+    (T formal-nonempty-type-decl nil factor_groups nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (groupoid nonempty-type-eq-decl nil groupoid nil)
+    (star_closed? const-decl "bool" groupoid_def nil)
+    (member const-decl "bool" sets nil)
+    (closed formula-decl nil groupoid nil)
+    (mult_lem formula-decl nil factor_groups nil)
+    (a!2 skolem-const-decl "(G!1)" factor_groups nil)
+    (a!1 skolem-const-decl "(G!1)" factor_groups nil)
+    (G!1 skolem-const-decl "group[T, *, one]" factor_groups nil))
+   shostak)
   (mult_is_coset-1 nil 3405963272
    ("" (skosimp*)
     (("" (expand "restrict")
@@ -968,30 +1380,83 @@
         nil))
       nil))
     nil)
-   ((left_cosets type-eq-decl nil cosets nil)
-    (normal_subgroup type-eq-decl nil normal_subgroups nil)
+   (nil nil nil (mult_lem formula-decl nil factor_groups nil)
+    (closed formula-decl nil groupoid nil)
+    (right_identity formula-decl nil monad nil)
+    (restrict const-decl "R" restrict nil)
+    (left_identity formula-decl nil monad nil)
+    (identity? const-decl "bool" operator_defs nil)
+    (monad? const-decl "bool" monad_def nil)
+    (associative? const-decl "bool" operator_defs nil)
+    (monoid? const-decl "bool" monoid_def nil)
+    (inv_exists? const-decl "bool" group_def nil)
+    (member const-decl "bool" sets nil)
+    (groupoid nonempty-type-eq-decl nil groupoid nil)
+    (star_closed? const-decl "bool" groupoid_def nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (T formal-nonempty-type-decl nil factor_groups nil)
+    (set type-eq-decl nil sets nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (group? const-decl "bool" group_def nil)
+    (group nonempty-type-eq-decl nil group nil)
+    (= const-decl "[T, T -> boolean]" equalities nil) nil
     (normal_subgroup? const-decl "boolean" normal_subgroups nil)
-    (* const-decl "set[T]" cosets nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups nil)
+    (left_cosets type-eq-decl nil cosets nil))
+   shostak))
+ (N_is_identity_TCC1 0
+  (N_is_identity_TCC1-2 "" 3755104805
+   ("" (skosimp*)
+    (("" (inst + "one")
+      (("1" (assert)
+        (("1" (apply-extensionality 1 :hide? t)
+          (("1" (expand "*")
+            (("1" (iff 1)
+              (("1" (prop)
+                (("1" (inst + "x!1")
+                  (("1" (rewrite "left_identity") nil nil)) nil)
+                 ("2" (skosimp*)
+                  (("2" (replace -1)
+                    (("2" (rewrite "left_identity")
+                      (("2" (assert) nil nil)) nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (rewrite "one_in")
+        (("2" (hide-all-but 1)
+          (("2" (typepred "G!1") (("2" (grind) nil nil)) nil)) nil))
+        nil))
+      nil))
+    nil)
+   ((G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
     (group nonempty-type-eq-decl nil group nil)
     (group? const-decl "bool" group_def nil)
     (one formal-const-decl "T" factor_groups nil)
     (* formal-const-decl "[T, T -> T]" factor_groups nil)
     (set type-eq-decl nil sets nil)
-    (T formal-nonempty-type-decl nil factor_groups nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (groupoid nonempty-type-eq-decl nil groupoid nil)
-    (star_closed? const-decl "bool" groupoid_def nil)
-    (member const-decl "bool" sets nil)
-    (closed formula-decl nil groupoid nil)
-    (mult_lem formula-decl nil factor_groups nil)
-    (a!2 skolem-const-decl "(G!1)" factor_groups nil)
-    (a!1 skolem-const-decl "(G!1)" factor_groups nil)
-    (G!1 skolem-const-decl "group[T, *, one]" factor_groups nil))
-   shostak))
- (N_is_identity_TCC1 0
+    (T formal-nonempty-type-decl nil factor_groups nil)
+    (* const-decl "set[T]" cosets nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups nil)
+    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
+    (x!1 skolem-const-decl "T" factor_groups nil)
+    (N!1 skolem-const-decl "normal_subgroup[T, *, one](G!1)"
+     factor_groups nil)
+    (left_identity formula-decl nil monad nil)
+    (monad nonempty-type-eq-decl nil monad nil)
+    (monad? const-decl "bool" monad_def nil)
+    (one_in formula-decl nil monad nil))
+   shostak
+   (N_is_identity subtype "factor_groups.N"
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.N)"))
   (N_is_identity_TCC1-1 nil 3405964115
    ("" (skosimp*)
     (("" (inst + "one")
@@ -1016,27 +1481,151 @@
        ("2" (rewrite "one_in") nil nil))
       nil))
     nil)
-   ((G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
+   ((one_in formula-decl nil monad nil)
+    (monad? const-decl "bool" monad_def nil)
+    (monad nonempty-type-eq-decl nil monad nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (inv_exists? const-decl "bool" group_def nil)
+    (monoid? const-decl "bool" monoid_def nil)
+    (associative? const-decl "bool" operator_defs nil)
+    (restrict const-decl "R" restrict nil)
+    (left_identity formula-decl nil monad nil) nil nil
+    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups nil) nil
+    (T formal-nonempty-type-decl nil factor_groups nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (group? const-decl "bool" group_def nil)
+    (group nonempty-type-eq-decl nil group nil) nil)
+   nil
+   (N_is_identity subtype "factor_groups.N"
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.N)")))
+ (N_is_identity 0
+  (N_is_identity-2 "" 3755104857
+   ("" (skosimp*)
+    (("" (prop)
+      (("1" (apply-extensionality 1 :hide? t)
+        (("1" (typepred "N!1")
+          (("1"
+            (case-replace
+             "mult(G!1, N!1)(N!1, A!1)(x!1) = mult(G!1, N!1)(one*N!1, A!1)(x!1)")
+            (("1" (hide -1)
+              (("1" (typepred "A!1")
+                (("1" (skosimp*)
+                  (("1" (replace -1)
+                    (("1" (hide -1)
+                      (("1" (lemma "mult_lem")
+                        (("1" (inst?)
+                          (("1" (replace -1)
+                            (("1" (hide -1)
+                              (("1" (rewrite "left_identity") nil nil))
+                              nil))
+                            nil)
+                           ("2" (rewrite "one_in")
+                            (("2" (hide-all-but 1)
+                              (("2"
+                                (typepred "G!1")
+                                (("2" (grind) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (hide 2)
+              (("2" (lemma "left_coset_one")
+                (("2" (inst?) (("2" (assert) nil nil)) nil)) nil))
+              nil)
+             ("3" (hide 2)
+              (("3" (inst + "one")
+                (("3" (rewrite "one_in")
+                  (("3" (hide-all-but 1)
+                    (("3" (typepred "G!1") (("3" (grind) nil nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (apply-extensionality 1 :hide? t)
+        (("2"
+          (case-replace
+           "mult(G!1, N!1)(A!1,N!1)(x!1) = mult(G!1, N!1)(A!1,one*N!1)(x!1)")
+          (("1" (hide -1)
+            (("1" (typepred "A!1")
+              (("1" (skosimp*)
+                (("1" (replace -1)
+                  (("1" (hide -1)
+                    (("1" (lemma "mult_lem")
+                      (("1" (inst?)
+                        (("1" (replace -1)
+                          (("1" (hide -1)
+                            (("1" (rewrite "right_identity") nil nil))
+                            nil))
+                          nil)
+                         ("2" (rewrite "one_in")
+                          (("2" (hide-all-but 1)
+                            (("2" (typepred "G!1")
+                              (("2" (grind) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (hide 2)
+            (("2" (lemma "left_coset_one")
+              (("2" (inst?) (("2" (assert) nil nil)) nil)) nil))
+            nil)
+           ("3" (hide 2)
+            (("3" (inst + "one")
+              (("3" (rewrite "one_in")
+                (("3" (hide-all-but 1)
+                  (("3" (typepred "G!1") (("3" (grind) nil nil)) nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((NOT const-decl "[bool -> bool]" booleans nil)
+    (left_coset_one formula-decl nil cosets nil)
+    (G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
+    (left_identity formula-decl nil monad nil)
+    (one_in formula-decl nil monad nil)
+    (monad? const-decl "bool" monad_def nil)
+    (monad nonempty-type-eq-decl nil monad nil)
+    (mult_lem formula-decl nil factor_groups nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (one formal-const-decl "T" factor_groups nil)
     (group nonempty-type-eq-decl nil group nil)
     (group? const-decl "bool" group_def nil)
-    (one formal-const-decl "T" factor_groups nil)
-    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (* const-decl "set[T]" cosets nil)
+    (left_cosets type-eq-decl nil cosets nil)
+    (mult const-decl "left_cosets(G, H)" factor_groups nil)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-nonempty-type-decl nil factor_groups nil)
-    (* const-decl "set[T]" cosets nil)
-    (normal_subgroup type-eq-decl nil normal_subgroups nil)
-    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
-    (x!1 skolem-const-decl "T" factor_groups nil)
-    (N!1 skolem-const-decl "normal_subgroup[T, *, one](G!1)"
-     factor_groups nil)
-    (left_identity formula-decl nil monad nil)
-    (monad nonempty-type-eq-decl nil monad nil)
-    (monad? const-decl "bool" monad_def nil)
-    (one_in formula-decl nil monad nil))
-   nil))
- (N_is_identity 0
+    (right_identity formula-decl nil monad nil))
+   shostak)
   (N_is_identity-1 nil 3405964913
    ("" (skosimp*)
     (("" (expand "restrict")
@@ -1127,31 +1716,84 @@
         nil))
       nil))
     nil)
-   ((NOT const-decl "[bool -> bool]" booleans nil)
-    (left_coset_one formula-decl nil cosets nil)
-    (G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
-    (left_identity formula-decl nil monad nil)
-    (one_in formula-decl nil monad nil)
-    (monad? const-decl "bool" monad_def nil)
-    (monad nonempty-type-eq-decl nil monad nil)
-    (mult_lem formula-decl nil factor_groups nil)
-    (* formal-const-decl "[T, T -> T]" factor_groups nil)
-    (one formal-const-decl "T" factor_groups nil)
-    (group nonempty-type-eq-decl nil group nil)
-    (group? const-decl "bool" group_def nil)
-    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
-    (normal_subgroup type-eq-decl nil normal_subgroups nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (* const-decl "set[T]" cosets nil)
-    (left_cosets type-eq-decl nil cosets nil)
-    (mult const-decl "left_cosets(G, H)" factor_groups nil)
-    (set type-eq-decl nil sets nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
+   ((right_identity formula-decl nil monad nil)
     (T formal-nonempty-type-decl nil factor_groups nil)
-    (right_identity formula-decl nil monad nil))
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (mult const-decl "left_cosets(G, H)" factor_groups nil)
+    (left_cosets type-eq-decl nil cosets nil) nil
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups nil)
+    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
+    (group? const-decl "bool" group_def nil)
+    (group nonempty-type-eq-decl nil group nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (mult_lem formula-decl nil factor_groups nil)
+    (monad nonempty-type-eq-decl nil monad nil)
+    (monad? const-decl "bool" monad_def nil)
+    (one_in formula-decl nil monad nil)
+    (inv_exists? const-decl "bool" group_def nil)
+    (monoid? const-decl "bool" monoid_def nil)
+    (associative? const-decl "bool" operator_defs nil)
+    (restrict const-decl "R" restrict nil)
+    (left_identity formula-decl nil monad nil) nil
+    (left_coset_one formula-decl nil cosets nil)
+    (NOT const-decl "[bool -> bool]" booleans nil))
    shostak))
  (left_cosets_group_TCC1 0
+  (left_cosets_group_TCC1-2 "" 3755233648
+   ("" (skosimp*)
+    (("" (inst + "N!1")
+      (("" (inst + "one")
+        (("1" (apply-extensionality 1 :hide? t)
+          (("1" (iff 1)
+            (("1" (ground)
+              (("1" (expand "*")
+                (("1" (inst?) (("1" (rewrite "one_left") nil nil))
+                  nil))
+                nil)
+               ("2" (expand "*")
+                (("2" (skosimp*)
+                  (("2" (replace -1)
+                    (("2" (hide -1)
+                      (("2" (rewrite "one_left")
+                        (("2" (assert) nil nil)) nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (rewrite "one_in") nil nil))
+        nil))
+      nil))
+    nil)
+   ((T formal-nonempty-type-decl nil factor_groups nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (group? const-decl "bool" group_def nil)
+    (group nonempty-type-eq-decl nil group nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (* const-decl "set[T]" cosets nil)
+    (normal_subgroup? const-decl "boolean" normal_subgroups nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups nil)
+    (left_cosets type-eq-decl nil cosets nil)
+    (N!1 skolem-const-decl "normal_subgroup[T, *, one](G!1)"
+     factor_groups nil)
+    (G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
+    (monad nonempty-type-eq-decl nil monad nil)
+    (monad? const-decl "bool" monad_def nil)
+    (one_in formula-decl nil monad nil)
+    (one_left formula-decl nil group nil))
+   shostak
+   (left_cosets_group existence ""
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.N)"))
   (left_cosets_group_TCC1-1 nil 3406297184
    ("" (skosimp*)
     (("" (inst + "one")
@@ -1175,24 +1817,45 @@
        ("2" (rewrite "one_in") nil nil))
       nil))
     nil)
-   ((G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
-    (group nonempty-type-eq-decl nil group nil)
-    (group? const-decl "bool" group_def nil)
-    (one formal-const-decl "T" factor_groups nil)
-    (* formal-const-decl "[T, T -> T]" factor_groups nil)
-    (set type-eq-decl nil sets nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
+   ((T formal-nonempty-type-decl nil factor_groups nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (T formal-nonempty-type-decl nil factor_groups nil)
-    (left_identity formula-decl nil monad nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (group? const-decl "bool" group_def nil)
+    (group nonempty-type-eq-decl nil group nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (* const-decl "set[T]" cosets nil)
     (normal_subgroup? const-decl "boolean" normal_subgroups nil)
     (normal_subgroup type-eq-decl nil normal_subgroups nil)
-    (* const-decl "set[T]" cosets nil)
+    (left_cosets type-eq-decl nil cosets nil)
+    (N!1 skolem-const-decl "normal_subgroup[T, *, one](G!1)"
+     factor_groups nil)
+    (G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
     (monad nonempty-type-eq-decl nil monad nil)
     (monad? const-decl "bool" monad_def nil)
-    (one_in formula-decl nil monad nil))
-   nil))
+    (one_in formula-decl nil monad nil)
+    (one_left formula-decl nil group nil))
+   nil
+   (left_cosets_group existence ""
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.N)")))
  (left_cosets_group_TCC2 0
+  (left_cosets_group_TCC2-2 "" 3755233840
+   ("" (skosimp*)
+    (("" (inst + "one")
+      (("1" (apply-extensionality 1 :hide? t)
+        (("1" (expand "*")
+          (("1" (iff 1) (("1" (ground) (("1" (inst?) nil nil)) nil))
+            nil))
+          nil))
+        nil)
+       ("2" (rewrite "one_in") nil nil))
+      nil))
+    nil)
+   nil shostak
+   (left_cosets_group subtype "factor_groups.N"
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.N)"))
   (left_cosets_group_TCC2-1 nil 3406297184
    ("" (skosimp*)
     (("" (inst + "N!1")
@@ -1223,27 +1886,25 @@
         nil))
       nil))
     nil)
-   ((T formal-nonempty-type-decl nil factor_groups nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (* formal-const-decl "[T, T -> T]" factor_groups nil)
-    (one formal-const-decl "T" factor_groups nil)
-    (group? const-decl "bool" group_def nil)
+   ((G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
     (group nonempty-type-eq-decl nil group nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (* const-decl "set[T]" cosets nil)
+    (group? const-decl "bool" group_def nil)
+    (one formal-const-decl "T" factor_groups nil)
+    (* formal-const-decl "[T, T -> T]" factor_groups nil)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T formal-nonempty-type-decl nil factor_groups nil)
+    (left_identity formula-decl nil monad nil)
     (normal_subgroup? const-decl "boolean" normal_subgroups nil)
     (normal_subgroup type-eq-decl nil normal_subgroups nil)
-    (left_cosets type-eq-decl nil cosets nil)
-    (N!1 skolem-const-decl "normal_subgroup[T, *, one](G!1)"
-     factor_groups nil)
-    (G!1 skolem-const-decl "group[T, *, one]" factor_groups nil)
+    (* const-decl "set[T]" cosets nil)
     (monad nonempty-type-eq-decl nil monad nil)
     (monad? const-decl "bool" monad_def nil)
-    (one_in formula-decl nil monad nil)
-    (one_left formula-decl nil group nil))
-   nil))
+    (one_in formula-decl nil monad nil))
+   nil
+   (left_cosets_group subtype "factor_groups.N"
+    "cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.N)")))
  (left_cosets_group 0
   (left_cosets_group-1 nil 3406303072
    ("" (skosimp*)
@@ -1476,6 +2137,7 @@
     (left_coset_one formula-decl nil cosets nil)
     (inv_right formula-decl nil group nil)
     (inv_in formula-decl nil group nil)
+    (inv macro-decl "T" normal_subgroups nil)
     (monoid? const-decl "bool" monoid_def nil)
     (associative? const-decl "bool" operator_defs nil)
     (star_closed formula-decl nil groupoid nil)
@@ -1521,5 +2183,8 @@
     (group nonempty-type-eq-decl nil group nil)
     (normal_subgroup? const-decl "boolean" normal_subgroups nil)
     (normal_subgroup type-eq-decl nil normal_subgroups nil))
-   nil)))
+   nil
+   (divide assuming
+    "group[cosets[factor_groups.T, factor_groups.*, factor_groups.one].left_cosets(factor_groups.G, factor_groups.N), factor_groups.mult(factor_groups.G, factor_groups.N), factor_groups.N]"
+    "fullset_is_group: ASSUMPTION group_def[group.T, group.*, group.one].group?(sets[group.T].fullset)"))))
 

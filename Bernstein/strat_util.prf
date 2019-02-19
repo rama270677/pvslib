@@ -132,6 +132,8 @@
     (box_poly_ub? const-decl "bool" poly_minmax nil)
     (box_poly_lb? const-decl "bool" poly_minmax nil)
     (forall_X_poly_between const-decl "bool" multi_polynomial nil)
+    (eval_X_poly_between macro-decl "bool" multi_polynomial nil)
+    (eval_X_poly_rel macro-decl "bool" multi_polynomial nil)
     (multipoly_eval const-decl "real" multi_polynomial nil)
     (polyproduct_eval const-decl "real" multi_polynomial nil)
     (polynomial const-decl "[real -> real]" polynomials "reals/")
@@ -164,7 +166,9 @@
              boundedpts, intendpts))" poly_minmax nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (multipoly_strategy subtype "strat_util.omm`ub_var"
+    "(list_adt[real].cons?)")))
  (multipoly_strategy_TCC2 0
   (multipoly_strategy_TCC2-1 nil 3509445920 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -208,6 +212,8 @@
     (box_poly_ub? const-decl "bool" poly_minmax nil)
     (box_poly_lb? const-decl "bool" poly_minmax nil)
     (forall_X_poly_between const-decl "bool" multi_polynomial nil)
+    (eval_X_poly_between macro-decl "bool" multi_polynomial nil)
+    (eval_X_poly_rel macro-decl "bool" multi_polynomial nil)
     (multipoly_eval const-decl "real" multi_polynomial nil)
     (polyproduct_eval const-decl "real" multi_polynomial nil)
     (polynomial const-decl "[real -> real]" polynomials "reals/")
@@ -240,8 +246,202 @@
              boundedpts, intendpts))" poly_minmax nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (multipoly_strategy subtype "strat_util.omm`lb_var"
+    "(list_adt[real].cons?)")))
  (multipoly_strategy_true 0
+  (multipoly_strategy_true-2 "" 3758307765
+   ("" (skeep)
+    (("" (expand "multipoly_strategy" :assert? none)
+      (("" (beta)
+        ((""
+          (name-replace "mm" "multipolynomial_minmax(mpr`mpoly,
+                                                               mpr`mdeg,
+                                                               mv`numvars,
+                                                               mpr`terms,
+                                                               mpr`mcoeff,
+                                                               mv`vars_lb,
+                                                               mv`vars_ub,
+                                                               depth,
+                                                               rel_localexit(mpr`rel),
+                                                               rel_globalexit(mpr`rel,depth,true),
+                                                               mv`iepts,
+                                                               mv`bdpts,
+                                                               varselect)")
+          (("" (lift-if)
+            (("" (assert)
+              (("" (split -3)
+                (("1" (typepred "mm")
+                  (("1" (expand "rel_localexit")
+                    (("1" (lemma "sound_poly_lb_le_ub")
+                      (("1" (inst?)
+                        (("1" (assert)
+                          (("1" (label "lbleub" -1)
+                            (("1" (hide "lbleub")
+                              (("1"
+                                (expand "sound_poly?")
+                                (("1"
+                                  (split -1)
+                                  (("1"
+                                    (flatten)
+                                    (("1"
+                                      (expand "sound_poly_fin?")
+                                      (("1"
+                                        (flatten)
+                                        (("1"
+                                          (expand
+                                           "forall_X_poly_interval")
+                                          (("1"
+                                            (expand
+                                             "forall_X_poly_between")
+                                            (("1"
+                                              (expand
+                                               "eval_X_poly_between"
+                                               -2)
+                                              (("1"
+                                                (skeep)
+                                                (("1"
+                                                  (inst? -)
+                                                  (("1"
+                                                    (expand
+                                                     "eval_X_poly_rel")
+                                                    (("1"
+                                                      (assert)
+                                                      (("1"
+                                                        (flatten)
+                                                        (("1"
+                                                          (name-replace
+                                                           "meval"
+                                                           "multipoly_eval(mpr`mpoly, mpr`mdeg, mpr`mcoeff, mv`numvars,
+                                                                                      mpr`terms)
+                                                                                     (X)")
+                                                          (("1"
+                                                            (hide-all-but
+                                                             (-2
+                                                              -3
+                                                              -7
+                                                              1))
+                                                            (("1"
+                                                              (typepred
+                                                               "mpr`rel")
+                                                              (("1"
+                                                                (expand
+                                                                 "realorder?")
+                                                                (("1"
+                                                                  (grind)
+                                                                  nil
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (flatten)
+                                    (("2"
+                                      (expand "sound_poly_inf?")
+                                      (("2"
+                                        (inst? -1)
+                                        (("2"
+                                          (flatten)
+                                          (("2"
+                                            (hide -2 -3)
+                                            (("2"
+                                              (typepred "mpr`rel")
+                                              (("2"
+                                                (expand "realorder?")
+                                                (("2"
+                                                  (split -2)
+                                                  (("1"
+                                                    (expand
+                                                     "forall_X_poly_interval")
+                                                    (("1"
+                                                      (expand
+                                                       "forall_X_poly_rel")
+                                                      (("1"
+                                                        (expand
+                                                         "eval_X_poly_rel")
+                                                        (("1"
+                                                          (propax)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil)
+                                                   ("2"
+                                                    (reveal "lbleub")
+                                                    (("2"
+                                                      (expand
+                                                       "lb_le_ub?")
+                                                      (("2"
+                                                        (hide-all-but
+                                                         (-1
+                                                          -2
+                                                          -4
+                                                          -5
+                                                          1))
+                                                        (("2"
+                                                          (grind)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil)
+                                                   ("3"
+                                                    (reveal "lbleub")
+                                                    (("3"
+                                                      (expand
+                                                       "lb_le_ub?")
+                                                      (("3"
+                                                        (hide-all-but
+                                                         (-1
+                                                          -2
+                                                          -4
+                                                          -5
+                                                          1))
+                                                        (("3"
+                                                          (grind)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (propax) nil nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (multipoly_strategy_true-1 nil 3509487957
    ("" (skeep)
     (("" (expand "multipoly_strategy" :assert? none)
@@ -463,6 +663,7 @@
     (sound_poly_lb_le_ub formula-decl nil poly_minmax nil)
     (sound_poly_fin? const-decl "bool" poly_minmax nil)
     (forall_X_poly_interval const-decl "bool" multi_polynomial nil)
+    (eval_X_poly_between macro-decl "bool" multi_polynomial nil)
     (multipoly_eval const-decl "real" multi_polynomial nil)
     (le_realorder name-judgement "RealOrder" real_orders "reals/")
     (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -476,6 +677,7 @@
     (gt_realorder name-judgement "RealOrder" real_orders "reals/")
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (eval_X_poly_rel macro-decl "bool" multi_polynomial nil)
     (forall_X_poly_between const-decl "bool" multi_polynomial nil)
     (sound_poly_inf? const-decl "bool" poly_minmax nil)
     (forall_X_poly_rel const-decl "bool" multi_polynomial nil)
@@ -949,27 +1151,30 @@
      real_props nil)
     (rel_localexit_inv application-judgement "(localexit_inv?)" minmax
      nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
     (multipoly_translate const-decl "Polyproduct" multi_polynomial nil)
     (bs_convert_poly const-decl "Polyproduct" poly2bernstein nil)
     (array2list const-decl
-     "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
-     array2list "structures/")
+                "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
+                array2list "structures/")
     (polylist const-decl "PolyList" util nil)
     (single_outminmax const-decl "Outminmax" minmax nil)
     (empty_minmax const-decl "Outminmax" minmax nil)
     (a2l__Bernstein_minmax const-decl "{omm: Outminmax |
-         FORALL (mb: MultiBernstein | represents(bspoly, mb),
-                 vs: VarSelector | represents(varselect, vs)):
-           omm =
-            Bernstein_minmax(mb, bsdegmono, nvars, terms, cf, depth,
-                             localexit, globalexit, intendpts, vs)}"
-     a2l__bernstein_minmax nil)
+   FORALL (mb: MultiBernstein | represents(bspoly, mb),
+           vs: VarSelector | represents(varselect, vs)):
+     omm =
+      Bernstein_minmax(mb, bsdegmono, nvars, terms, cf, depth, localexit,
+                       globalexit, intendpts, vs)}"
+      a2l__bernstein_minmax nil)
     (denormalize_listreal const-decl "listn[real](length(l))" util nil)
     (a2l__multipolynomial_minmax const-decl "Outminmax" poly_minmax
-     nil)
+      nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (a2l__multipoly_strategy subtype "strat_util.omm`ub_var"
+     "(list_adt[real].cons?)")))
  (a2l__multipoly_strategy_TCC2 0
   (a2l__multipoly_strategy_TCC2-1 nil 3687535336
    ("" (subtype-tcc) nil nil)
@@ -995,27 +1200,30 @@
      real_props nil)
     (rel_localexit_inv application-judgement "(localexit_inv?)" minmax
      nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
     (multipoly_translate const-decl "Polyproduct" multi_polynomial nil)
     (bs_convert_poly const-decl "Polyproduct" poly2bernstein nil)
     (array2list const-decl
-     "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
-     array2list "structures/")
+                "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
+                array2list "structures/")
     (polylist const-decl "PolyList" util nil)
     (single_outminmax const-decl "Outminmax" minmax nil)
     (empty_minmax const-decl "Outminmax" minmax nil)
     (a2l__Bernstein_minmax const-decl "{omm: Outminmax |
-         FORALL (mb: MultiBernstein | represents(bspoly, mb),
-                 vs: VarSelector | represents(varselect, vs)):
-           omm =
-            Bernstein_minmax(mb, bsdegmono, nvars, terms, cf, depth,
-                             localexit, globalexit, intendpts, vs)}"
-     a2l__bernstein_minmax nil)
+   FORALL (mb: MultiBernstein | represents(bspoly, mb),
+           vs: VarSelector | represents(varselect, vs)):
+     omm =
+      Bernstein_minmax(mb, bsdegmono, nvars, terms, cf, depth, localexit,
+                       globalexit, intendpts, vs)}"
+      a2l__bernstein_minmax nil)
     (denormalize_listreal const-decl "listn[real](length(l))" util nil)
     (a2l__multipolynomial_minmax const-decl "Outminmax" poly_minmax
-     nil)
+      nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (a2l__multipoly_strategy subtype "strat_util.omm`lb_var"
+     "(list_adt[real].cons?)")))
  (a2l__multipoly_strategy__equivalence 0
   (a2l__multipoly_strategy__equivalence-1 nil 3687537101
    ("" (skeep :preds? t)
@@ -1110,12 +1318,12 @@
      vardirselector_into_a2lvardirselector nil)
     (represents const-decl "bool" vardirselector_into_a2lvardirselector
      nil)
-    (a2l__VarSelector type-eq-decl nil a2l__vardirselector nil)
     (PolyList type-eq-decl nil util nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
+    (a2l__VarSelector type-eq-decl nil a2l__vardirselector nil)
     (VarSelector type-eq-decl nil vardirselector nil)
     (Coeff type-eq-decl nil util nil)
     (posnat nonempty-type-eq-decl nil integers nil)
@@ -1175,8 +1383,8 @@
     (MVars type-eq-decl nil MPoly nil) (Vars type-eq-decl nil util nil)
     (IntervalEndpoints type-eq-decl nil util nil)
     (MPolyRel type-eq-decl nil MPoly nil)
-    (RealOrder type-eq-decl nil real_orders "reals/")
     (posnat nonempty-type-eq-decl nil integers nil)
+    (RealOrder type-eq-decl nil real_orders "reals/")
     (MultiPolynomial type-eq-decl nil util nil)
     (DegreeMono type-eq-decl nil util nil)
     (Coeff type-eq-decl nil util nil)
@@ -1228,8 +1436,8 @@
     (MVars type-eq-decl nil MPoly nil) (Vars type-eq-decl nil util nil)
     (IntervalEndpoints type-eq-decl nil util nil)
     (MPolyRel type-eq-decl nil MPoly nil)
-    (RealOrder type-eq-decl nil real_orders "reals/")
     (posnat nonempty-type-eq-decl nil integers nil)
+    (RealOrder type-eq-decl nil real_orders "reals/")
     (MultiPolynomial type-eq-decl nil util nil)
     (DegreeMono type-eq-decl nil util nil)
     (Coeff type-eq-decl nil util nil)

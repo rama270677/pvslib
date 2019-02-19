@@ -1,7 +1,7 @@
 (interval
  (all_belong_TCC1 0
-  (all_belong_TCC1-1 nil 3683824331 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (all_belong_TCC1-1 nil 3683824331 ("" (subtype-tcc) nil nil) nil nil
+   (all_belong subtype "interval.i" "below[length[real](rs)]")))
  (all_belong_TCC2 0
   (all_belong_TCC2-1 nil 3683824331 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -33,7 +33,8 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (<= const-decl "bool" reals nil))
-   nil))
+   nil
+   (all_belong subtype "interval.i" "below[length[Interval](xs)]")))
  (Member_Proper 0
   (Member_Proper-1 nil 3545739152 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -69,7 +70,8 @@
   (r2i_Proper-1 nil 3549199013 ("" (judgement-tcc) nil nil)
    (([\|\|] const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (r2i_Proper subtype "interval.[||](interval.x)" "ProperInterval")))
  (Proper_eq_NonEmpty 0
   (Proper_eq_NonEmpty-1 nil 3546812344 ("" (grind) nil nil)
    ((real_le_is_total_order name-judgement "(total_order?[real])"
@@ -89,7 +91,8 @@
    shostak))
  (all_included_TCC1 0
   (all_included_TCC1-1 nil 3683824331 ("" (subtype-tcc) nil nil) nil
-   nil))
+   nil
+   (all_included subtype "interval.i" "below[length[Interval](xs)]")))
  (all_included_TCC2 0
   (all_included_TCC2-1 nil 3683824331 ("" (subtype-tcc) nil nil)
    ((real_lt_is_strict_total_order name-judgement
@@ -119,7 +122,8 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (all_included subtype "interval.i" "below[length[Interval](ys)]")))
  (eq_Incl 0
   (eq_Incl-1 nil 3545738788
    ("" (grind) (("" (decompose-equality) nil nil)) nil)
@@ -345,7 +349,10 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Ge const-decl "bool" interval nil)
     (NonNeg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Abs subtype
+        "[|0, real_defs.max(real_defs.abs(lb(interval.X)), real_defs.abs(ub(interval.X)))|]"
+        "(interval.NonNeg?)")))
  (Abs_TCC2 0
   (Abs_TCC2-1 nil 3579649336 ("" (grind) nil nil)
    ((minus_real_is_real application-judgement "real" reals nil)
@@ -361,14 +368,19 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Ge const-decl "bool" interval nil)
     (NonNeg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Abs subtype
+        "[|real_defs.min(real_defs.abs(lb(interval.X)), real_defs.abs(ub(interval.X))), real_defs.max(real_defs.abs(lb(interval.X)), real_defs.abs(ub(interval.X)))|]"
+        "(interval.NonNeg?)")))
  (Sq_TCC1 0
   (Sq_TCC1-1 nil 3318333335 ("" (subtype-tcc) nil nil)
    ((Ge const-decl "bool" interval nil)
     (sq const-decl "nonneg_real" sq "reals/")
     ([\|\|] const-decl "Interval" interval nil)
     (NonNeg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Sq subtype "[|sq.sq(lb(interval.X)), sq.sq(ub(interval.X))|]"
+       "(interval.NonNeg?)")))
  (Sq_TCC2 0
   (Sq_TCC2-1 nil 3579649506 ("" (subtype-tcc) nil nil)
    ((Le const-decl "bool" interval nil)
@@ -376,7 +388,9 @@
     (sq const-decl "nonneg_real" sq "reals/")
     ([\|\|] const-decl "Interval" interval nil)
     (NonNeg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Sq subtype "[|sq.sq(ub(interval.X)), sq.sq(lb(interval.X))|]"
+       "(interval.NonNeg?)")))
  (Sq_TCC3 0
   (Sq_TCC3-1 nil 3579649506 ("" (subtype-tcc) nil nil)
    ((real_lt_is_strict_total_order name-judgement
@@ -389,71 +403,74 @@
     (sq const-decl "nonneg_real" sq "reals/")
     ([\|\|] const-decl "Interval" interval nil)
     (NonNeg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Sq subtype
+       "[|0, real_defs.max(sq.sq(lb(interval.X)), sq.sq(ub(interval.X)))|]"
+       "(interval.NonNeg?)")))
  (Pow_TCC1 0
   (Pow_TCC1-1 nil 3350326108 ("" (subtype-tcc) nil nil)
    ((Ge const-decl "bool" interval nil)
     (odd? const-decl "bool" integers nil)
     (/= const-decl "boolean" notequal nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil))
-   nil))
+   nil
+   (Pow subtype "interval.n"
+        "{i: integers.int | booleans.OR(lb(interval.X) /= 0, reals.>=(i, 0))}")))
  (Pow_TCC2 0
   (Pow_TCC2-1 nil 3350326108 ("" (subtype-tcc) nil nil)
    ((Ge const-decl "bool" interval nil)
     (odd? const-decl "bool" integers nil)
     (/= const-decl "boolean" notequal nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil))
-   nil))
+   nil
+   (Pow subtype "interval.n"
+        "{i: integers.int | booleans.OR(ub(interval.X) /= 0, reals.>=(i, 0))}")))
  (Pow_TCC3 0
   (Pow_TCC3-1 nil 3350326108 ("" (subtype-tcc) nil nil)
    ((Le const-decl "bool" interval nil)
     (Ge const-decl "bool" interval nil)
     (odd? const-decl "bool" integers nil)
     (/= const-decl "boolean" notequal nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil))
-   nil))
+   nil
+   (Pow subtype "interval.n"
+        "{i: integers.int | booleans.OR(ub(interval.X) /= 0, reals.>=(i, 0))}")))
  (Pow_TCC4 0
   (Pow_TCC4-1 nil 3350326108 ("" (subtype-tcc) nil nil)
    ((Le const-decl "bool" interval nil)
     (Ge const-decl "bool" interval nil)
     (odd? const-decl "bool" integers nil)
     (/= const-decl "boolean" notequal nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil))
-   nil))
+   nil
+   (Pow subtype "interval.n"
+        "{i: integers.int | booleans.OR(lb(interval.X) /= 0, reals.>=(i, 0))}")))
  (Pow_TCC5 0
   (Pow_TCC5-1 nil 3350326108 ("" (subtype-tcc) nil nil)
    ((Le const-decl "bool" interval nil)
     (Ge const-decl "bool" interval nil)
     (odd? const-decl "bool" integers nil)
     (/= const-decl "boolean" notequal nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil))
-   nil))
+   nil
+   (Pow subtype "interval.n"
+        "{i: integers.int | booleans.OR(lb(interval.X) /= 0, reals.>=(i, 0))}")))
  (Pow_TCC6 0
   (Pow_TCC6-1 nil 3350326108 ("" (subtype-tcc) nil nil)
    ((Le const-decl "bool" interval nil)
     (Ge const-decl "bool" interval nil)
     (odd? const-decl "bool" integers nil)
     (/= const-decl "boolean" notequal nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil))
-   nil))
+   nil
+   (Pow subtype "interval.n"
+        "{i: integers.int | booleans.OR(ub(interval.X) /= 0, reals.>=(i, 0))}")))
  (Intersection_inclusion 0
   (Intersection_inclusion-1 nil 3577002526 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -3953,8 +3970,6 @@
     (Pow const-decl "Interval" interval nil)
     (sq const-decl "nonneg_real" sq "reals/")
     (Sq const-decl "(NonNeg?)" interval nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil))
    shostak))
@@ -4126,12 +4141,170 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (/= const-decl "boolean" notequal nil)
-    (|##| const-decl "bool" interval nil)
+    (Proper? const-decl "bool" interval nil)
     (Zeroless? const-decl "bool" interval nil)
-    (Proper? const-decl "bool" interval nil))
-   nil))
+    (/= const-decl "boolean" notequal nil)
+    (|##| const-decl "bool" interval nil))
+   nil (Div_inv subtype "interval.y" "nznum")))
  (Div_inv 0
+  (Div_inv-2 "" 3758862413
+   ("" (skeep)
+    (("" (expand "Div")
+      (("" (lift-if -4)
+        (("" (split -4)
+          (("1" (flatten)
+            (("1" (use "Mult_inv")
+              (("1" (split -1)
+                (("1" (skeep -1)
+                  (("1" (inst 3 "x" "1/y")
+                    (("1" (split 3)
+                      (("1" (propax) nil nil)
+                       ("2" (hide-all-but (-2 1 -6 -7))
+                        (("2" (expand "Proper?")
+                          (("2" (expand "Zeroless?")
+                            (("2" (expand "##")
+                              (("2"
+                                (expand "[||]")
+                                (("2"
+                                  (flatten)
+                                  (("2"
+                                    (assert)
+                                    (("2"
+                                      (case "lb(Y)<0")
+                                      (("1"
+                                        (case "NOT y < 0")
+                                        (("1"
+                                          (lemma "quotient_neg_lt")
+                                          (("1"
+                                            (inst? -1 :where -2)
+                                            (("1" (assert) nil nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (split 1)
+                                          (("1"
+                                            (mult-by -4 "lb(Y)" -)
+                                            (("1"
+                                              (div-by -1 "y" -)
+                                              (("1" (assert) nil nil))
+                                              nil))
+                                            nil)
+                                           ("2"
+                                            (mult-by -3 "ub(Y)" -)
+                                            (("2"
+                                              (div-by -1 "y" -)
+                                              (("2" (assert) nil nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil)
+                                       ("2"
+                                        (assert)
+                                        (("2"
+                                          (case "NOT ub(Y) > 0")
+                                          (("1" (assert) nil nil)
+                                           ("2"
+                                            (case "NOT y > 0")
+                                            (("1"
+                                              (lemma "quotient_pos_lt")
+                                              (("1"
+                                                (inst? -1 :where -2)
+                                                (("1"
+                                                  (assert)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (split 2)
+                                              (("1"
+                                                (mult-by -4 "lb(Y)" +)
+                                                (("1"
+                                                  (div-by -1 "y")
+                                                  (("1"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (mult-by -3 "ub(Y)" +)
+                                                (("2"
+                                                  (div-by -1 "y")
+                                                  (("2"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("3" (assert) nil nil))
+                      nil)
+                     ("2" (expand "Zeroless?")
+                      (("2" (expand "/=")
+                        (("2" (replace -1 :hide? t)
+                          (("2" (expand "##")
+                            (("2" (flatten)
+                              (("2"
+                                (expand "[||]")
+                                (("2"
+                                  (assert)
+                                  (("2"
+                                    (expand "Proper?")
+                                    (("2"
+                                      (assert)
+                                      (("2" (grind-reals) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (propax) nil nil)
+                 ("3" (expand "Proper?")
+                  (("3" (expand "[||]")
+                    (("3" (assert)
+                      (("3" (expand "Zeroless?")
+                        (("3" (split -4)
+                          (("1" (rewrite "both_sides_div_pos_le2") nil
+                            nil)
+                           ("2" (rewrite "both_sides_div_neg_le2") nil
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("4" (propax) nil nil))
+                nil))
+              nil))
+            nil)
+           ("2" (flatten)
+            (("2" (expand "Zeroless?")
+              (("2" (expand "Proper?") (("2" (ground) nil nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (Div_inv-1 nil 3676460470
    ("" (skeep)
     (("" (expand "Div")
@@ -4283,65 +4456,65 @@
         nil))
       nil))
     nil)
-   ((Div const-decl "Interval" interval nil)
-    (Mult_inv formula-decl nil interval nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    ([\|\|] const-decl "Interval" interval nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (Interval type-eq-decl nil interval nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
-    (both_sides_div_neg_le2 formula-decl nil real_props nil)
-    (le_div_le_pos formula-decl nil real_props nil)
-    (div_mult_neg_le2 formula-decl nil real_props nil)
-    (zero_times1 formula-decl nil real_props nil)
-    (neg_div_le formula-decl nil real_props nil)
-    (Proper? const-decl "bool" interval nil)
-    (|##| const-decl "bool" interval nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (< const-decl "bool" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (both_sides_div_neg_le1 formula-decl nil real_props nil)
-    (negreal nonempty-type-eq-decl nil real_types nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (times_div_cancel1 formula-decl nil extra_real_props nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (<= const-decl "bool" reals nil)
-    (Y skolem-const-decl "Interval" interval nil)
-    (nonpos_real nonempty-type-eq-decl nil real_types nil)
-    (both_sides_times_neg_le1_imp formula-decl nil extra_real_props
-     nil)
-    (quotient_neg_lt formula-decl nil real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (> const-decl "bool" reals nil)
-    (both_sides_div_pos_le1 formula-decl nil real_props nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
-    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
-     nil)
-    (quotient_pos_lt formula-decl nil real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+   ((y skolem-const-decl "real" interval nil)
+    (Zeroless? const-decl "bool" interval nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (Zeroless? const-decl "bool" interval nil)
-    (y skolem-const-decl "real" interval nil))
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (quotient_pos_lt formula-decl nil real_props nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
+     nil)
+    (>= const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (both_sides_div_pos_le1 formula-decl nil real_props nil)
+    (> const-decl "bool" reals nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (quotient_neg_lt formula-decl nil real_props nil)
+    (both_sides_times_neg_le1_imp formula-decl nil extra_real_props
+     nil)
+    (nonpos_real nonempty-type-eq-decl nil real_types nil)
+    (Y skolem-const-decl "Interval" interval nil)
+    (<= const-decl "bool" reals nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (times_div_cancel1 formula-decl nil extra_real_props nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (negreal nonempty-type-eq-decl nil real_types nil)
+    (both_sides_div_neg_le1 formula-decl nil real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (< const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (|##| const-decl "bool" interval nil)
+    (Proper? const-decl "bool" interval nil)
+    (neg_div_le formula-decl nil real_props nil)
+    (zero_times1 formula-decl nil real_props nil)
+    (div_mult_neg_le2 formula-decl nil real_props nil)
+    (both_sides_div_neg_le2 formula-decl nil real_props nil)
+    (both_sides_div_pos_le2 formula-decl nil real_props nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (Interval type-eq-decl nil interval nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    ([\|\|] const-decl "Interval" interval nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (Mult_inv formula-decl nil interval nil)
+    (Div const-decl "Interval" interval nil))
    shostak))
  (Floor_Add 0
   (Floor_Add-1 nil 3677058402
@@ -4980,43 +5153,46 @@
     (Floor const-decl "Interval" interval nil))
    shostak))
  (pXp 0
-  (pXp-1 nil 3278260700 ("" (grind :theories "real_props") nil nil)
-   ((pXp const-decl "Interval" interval nil)
-    ([\|\|] const-decl "Interval" interval nil)
-    (|##| const-decl "bool" interval nil)
-    (Ge const-decl "bool" interval nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (le_times_le_pos formula-decl nil real_props nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil))
-   shostak))
+      (pXp-1 nil 3278260700 ("" (grind :theories "real_props") nil nil)
+       ((pXp const-decl "Interval" interval nil)
+        ([\|\|] const-decl "Interval" interval nil)
+        (|##| const-decl "bool" interval nil)
+        (Ge const-decl "bool" interval nil)
+        (real_ge_is_total_order name-judgement "(total_order?[real])"
+         real_props nil)
+        (real_le_is_total_order name-judgement "(total_order?[real])"
+         real_props nil)
+        (real_times_real_is_real application-judgement "real" reals
+         nil)
+        (le_times_le_pos formula-decl nil real_props nil)
+        (real nonempty-type-from-decl nil reals nil)
+        (real_pred const-decl "[number_field -> boolean]" reals nil)
+        (number_field nonempty-type-from-decl nil number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]"
+         number_fields nil)
+        (number nonempty-type-decl nil numbers nil)
+        (NOT const-decl "[bool -> bool]" booleans nil)
+        (bool nonempty-type-eq-decl nil booleans nil)
+        (boolean nonempty-type-decl nil booleans nil))
+       shostak))
  (nXp 0
-  (nXp-1 nil 3278260739
-   ("" (skeep)
-    (("" (expand "nXp")
-      (("" (lemma "Neg_inclusion")
-        (("" (inst -1 "X" "x")
-          (("" (assert)
-            (("" (lemma "pXp")
-              (("" (inst -1 "Neg(X)" "Y" "-x" "y")
-                (("" (assert)
-                  (("" (split -1)
-                    (("1" (lemma "Neg_inclusion")
-                      (("1" (inst -1 "pXp(Neg(X),Y)" "-x*y")
-                        (("1" (assert) nil nil)) nil))
-                      nil)
-                     ("2" (hide-all-but (-2 1)) (("2" (grind) nil nil))
+      (nXp-1 nil 3278260739
+       ("" (skeep)
+        (("" (expand "nXp")
+          (("" (lemma "Neg_inclusion")
+            (("" (inst -1 "X" "x")
+              (("" (assert)
+                (("" (lemma "pXp")
+                  (("" (inst -1 "Neg(X)" "Y" "-x" "y")
+                    (("" (assert)
+                      (("" (split -1)
+                        (("1" (lemma "Neg_inclusion")
+                          (("1" (inst -1 "pXp(Neg(X),Y)" "-x*y")
+                            (("1" (assert) nil nil)) nil))
+                          nil)
+                         ("2" (hide-all-but (-2 1))
+                          (("2" (grind) nil nil)) nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -5024,316 +5200,332 @@
               nil))
             nil))
           nil))
-        nil))
-      nil))
-    nil)
-   ((nXp const-decl "Interval" interval nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (Interval type-eq-decl nil interval nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (pXp formula-decl nil interval nil)
-    (Le const-decl "bool" interval nil)
-    (Ge const-decl "bool" interval nil)
-    ([\|\|] const-decl "Interval" interval nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (pXp const-decl "Interval" interval nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (Neg const-decl "Interval" interval nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (Neg_inclusion formula-decl nil interval nil))
-   nil))
- (pXn 0
-  (pXn-1 nil 3278260788
-   ("" (skeep)
-    (("" (expand "pXn")
-      (("" (lemma "nXp")
-        (("" (inst -1 "Y" "X" "y" "x") (("" (assert) nil nil)) nil))
-        nil))
-      nil))
-    nil)
-   ((pXn const-decl "Interval" interval nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (Interval type-eq-decl nil interval nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (nXp formula-decl nil interval nil))
-   nil))
- (nXn 0
-  (nXn-2 nil 3278261218 ("" (grind :theories "real_props") nil nil)
-   ((nXn const-decl "Interval" interval nil)
-    (pXp const-decl "Interval" interval nil)
-    (neg_times_neg formula-decl nil real_props nil)
-    (Neg const-decl "Interval" interval nil)
-    ([\|\|] const-decl "Interval" interval nil)
-    (|##| const-decl "bool" interval nil)
-    (Le const-decl "bool" interval nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (le_times_le_neg formula-decl nil real_props nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil))
-   nil))
- (pXm 0
-  (pXm-1 nil 3301392992
-   ("" (skeep)
-    (("" (case "y >= 0")
-      (("1" (grind :theories "real_props")
-        (("1" (case "x * y >= 0")
-          (("1" (case "ub(X) * lb(Y) <= 0")
-            (("1" (assert) nil nil) ("2" (grind-reals) nil nil)) nil)
-           ("2" (grind-reals) nil nil))
-          nil))
         nil)
-       ("2" (grind :theories "real_props")
-        (("1" (case "x*y <= 0")
-          (("1" (case "ub(X) * ub(Y) >= 0")
-            (("1" (assert) nil nil) ("2" (grind-reals) nil nil)) nil)
-           ("2" (grind-reals) nil nil))
-          nil)
-         ("2" (mult-ineq -6 -7 (+ -)) nil nil))
-        nil))
-      nil))
-    nil)
-   ((>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (neg_times_le formula-decl nil real_props nil)
-    (pos_times_ge formula-decl nil real_props nil)
-    (Interval type-eq-decl nil interval nil)
-    (<= const-decl "bool" reals nil)
-    (le_times_le_pos formula-decl nil real_props nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (Ge const-decl "bool" interval nil)
-    (Zeroin? const-decl "bool" interval nil)
-    (|##| const-decl "bool" interval nil)
-    ([\|\|] const-decl "Interval" interval nil)
-    (pXm const-decl "Interval" interval nil)
-    (le_times_le_any1 formula-decl nil extra_real_props nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil))
-   shostak))
- (mXp 0
-  (mXp-1 nil 3301397382
-   ("" (skeep)
-    (("" (expand "mXp")
-      (("" (lemma "pXm")
-        (("" (inst -1 "Y" "X" "y" "x") (("" (assert) nil nil)) nil))
-        nil))
-      nil))
-    nil)
-   ((mXp const-decl "Interval" interval nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (Interval type-eq-decl nil interval nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (pXm formula-decl nil interval nil))
-   shostak))
- (nXm 0
-  (nXm-2 nil 3579693670
-   ("" (skeep)
-    (("" (expand "nXm")
-      (("" (lemma "pXm")
-        (("" (inst -1 "Neg(X)" "Y" "-x" "y")
-          (("" (assert)
-            (("" (split)
-              (("1" (lemma "Neg_inclusion")
-                (("1" (inst? -1) (("1" (assert) nil nil)) nil)) nil)
-               ("2" (rewrite "Neg_Ge_0") nil nil)
-               ("3" (rewrite "Neg_inclusion") nil nil))
+       ((nXp const-decl "Interval" interval nil)
+        (real nonempty-type-from-decl nil reals nil)
+        (Interval type-eq-decl nil interval nil)
+        (number nonempty-type-decl nil numbers nil)
+        (boolean nonempty-type-decl nil booleans nil)
+        (number_field_pred const-decl "[number -> boolean]"
+         number_fields nil)
+        (number_field nonempty-type-from-decl nil number_fields nil)
+        (real_pred const-decl "[number_field -> boolean]" reals nil)
+        (pXp formula-decl nil interval nil)
+        (Le const-decl "bool" interval nil)
+        (Ge const-decl "bool" interval nil)
+        ([\|\|] const-decl "Interval" interval nil)
+        (real_ge_is_total_order name-judgement "(total_order?[real])"
+         real_props nil)
+        (real_le_is_total_order name-judgement "(total_order?[real])"
+         real_props nil)
+        (pXp const-decl "Interval" interval nil)
+        (* const-decl "[numfield, numfield -> numfield]" number_fields
+           nil)
+        (Neg const-decl "Interval" interval nil)
+        (numfield nonempty-type-eq-decl nil number_fields nil)
+        (- const-decl "[numfield -> numfield]" number_fields nil)
+        (minus_real_is_real application-judgement "real" reals nil)
+        (real_times_real_is_real application-judgement "real" reals
+         nil)
+        (Neg_inclusion formula-decl nil interval nil))
+       nil))
+ (pXn 0
+      (pXn-1 nil 3278260788
+       ("" (skeep)
+        (("" (expand "pXn")
+          (("" (lemma "nXp")
+            (("" (inst -1 "Y" "X" "y" "x") (("" (assert) nil nil))
               nil))
             nil))
           nil))
-        nil))
-      nil))
-    nil)
-   ((nXm const-decl "Interval" interval nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (Interval type-eq-decl nil interval nil)
-    (Neg const-decl "Interval" interval nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (pXm const-decl "Interval" interval nil)
-    (Neg_inclusion formula-decl nil interval nil)
-    (Neg_Ge_0 formula-decl nil interval nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (pXm formula-decl nil interval nil))
-   nil))
- (mXn 0
-  (mXn-1 nil 3301399245
-   ("" (skeep)
-    (("" (expand "mXn")
-      (("" (lemma "nXm")
-        (("" (inst -1 "Y" "X" "y" "x") (("" (assert) nil nil)) nil))
-        nil))
-      nil))
-    nil)
-   ((mXn const-decl "Interval" interval nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (Interval type-eq-decl nil interval nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (nXm formula-decl nil interval nil))
-   shostak))
- (mXm 0
-  (mXm-1 nil 3301399821
-   ("" (skeep)
-    (("" (expand "mXm")
-      (("" (expand "Zeroin?")
-        ((""
-          (case "ub(X) * ub(Y) >=0"
-            "lb(X) * lb(Y) >= 0"
-            "ub(X) * lb(Y) <= 0"
-            "lb(X) * ub(Y) <= 0")
-          (("1" (label "H" (-1 -2 -3 -4))
-            (("1" (hide "H")
-              (("1" (grind :theories "real_props")
-                (("1" (case "x*y >= 0")
-                  (("1" (grind-reals)
-                    (("1" (mult-ineq -7 -9 (- -))
-                      (("1" (assert) nil nil)) nil))
+        nil)
+       ((pXn const-decl "Interval" interval nil)
+        (real nonempty-type-from-decl nil reals nil)
+        (Interval type-eq-decl nil interval nil)
+        (number nonempty-type-decl nil numbers nil)
+        (boolean nonempty-type-decl nil booleans nil)
+        (number_field_pred const-decl "[number -> boolean]"
+         number_fields nil)
+        (number_field nonempty-type-from-decl nil number_fields nil)
+        (real_pred const-decl "[number_field -> boolean]" reals nil)
+        (real_times_real_is_real application-judgement "real" reals
+         nil)
+        (nXp formula-decl nil interval nil))
+       nil))
+ (nXn 0
+      (nXn-2 nil 3278261218 ("" (grind :theories "real_props") nil nil)
+       ((nXn const-decl "Interval" interval nil)
+        (pXp const-decl "Interval" interval nil)
+        (neg_times_neg formula-decl nil real_props nil)
+        (Neg const-decl "Interval" interval nil)
+        ([\|\|] const-decl "Interval" interval nil)
+        (|##| const-decl "bool" interval nil)
+        (Le const-decl "bool" interval nil)
+        (real_le_is_total_order name-judgement "(total_order?[real])"
+         real_props nil)
+        (real_times_real_is_real application-judgement "real" reals
+         nil)
+        (le_times_le_neg formula-decl nil real_props nil)
+        (real nonempty-type-from-decl nil reals nil)
+        (real_pred const-decl "[number_field -> boolean]" reals nil)
+        (number_field nonempty-type-from-decl nil number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]"
+         number_fields nil)
+        (number nonempty-type-decl nil numbers nil)
+        (NOT const-decl "[bool -> bool]" booleans nil)
+        (bool nonempty-type-eq-decl nil booleans nil)
+        (boolean nonempty-type-decl nil booleans nil))
+       nil))
+ (pXm 0
+      (pXm-1 nil 3301392992
+       ("" (skeep)
+        (("" (case "y >= 0")
+          (("1" (grind :theories "real_props")
+            (("1" (case "x * y >= 0")
+              (("1" (case "ub(X) * lb(Y) <= 0")
+                (("1" (assert) nil nil) ("2" (grind-reals) nil nil))
+                nil)
+               ("2" (grind-reals) nil nil))
+              nil))
+            nil)
+           ("2" (grind :theories "real_props")
+            (("1" (case "x*y <= 0")
+              (("1" (case "ub(X) * ub(Y) >= 0")
+                (("1" (assert) nil nil) ("2" (grind-reals) nil nil))
+                nil)
+               ("2" (grind-reals) nil nil))
+              nil)
+             ("2" (mult-ineq -6 -7 (+ -)) nil nil))
+            nil))
+          nil))
+        nil)
+       ((>= const-decl "bool" reals nil)
+        (bool nonempty-type-eq-decl nil booleans nil)
+        (real nonempty-type-from-decl nil reals nil)
+        (real_pred const-decl "[number_field -> boolean]" reals nil)
+        (number_field nonempty-type-from-decl nil number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]"
+         number_fields nil)
+        (boolean nonempty-type-decl nil booleans nil)
+        (number nonempty-type-decl nil numbers nil)
+        (numfield nonempty-type-eq-decl nil number_fields nil)
+        (* const-decl "[numfield, numfield -> numfield]" number_fields
+           nil)
+        (neg_times_le formula-decl nil real_props nil)
+        (pos_times_ge formula-decl nil real_props nil)
+        (Interval type-eq-decl nil interval nil)
+        (<= const-decl "bool" reals nil)
+        (le_times_le_pos formula-decl nil real_props nil)
+        (real_times_real_is_real application-judgement "real" reals
+         nil)
+        (real_le_is_total_order name-judgement "(total_order?[real])"
+         real_props nil)
+        (real_lt_is_strict_total_order name-judgement
+         "(strict_total_order?[real])" real_props nil)
+        (real_ge_is_total_order name-judgement "(total_order?[real])"
+         real_props nil)
+        (Ge const-decl "bool" interval nil)
+        (Zeroin? const-decl "bool" interval nil)
+        (|##| const-decl "bool" interval nil)
+        ([\|\|] const-decl "Interval" interval nil)
+        (pXm const-decl "Interval" interval nil)
+        (le_times_le_any1 formula-decl nil extra_real_props nil)
+        (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
+             real_defs nil))
+       shostak))
+ (mXp 0
+      (mXp-1 nil 3301397382
+       ("" (skeep)
+        (("" (expand "mXp")
+          (("" (lemma "pXm")
+            (("" (inst -1 "Y" "X" "y" "x") (("" (assert) nil nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ((mXp const-decl "Interval" interval nil)
+        (real nonempty-type-from-decl nil reals nil)
+        (Interval type-eq-decl nil interval nil)
+        (number nonempty-type-decl nil numbers nil)
+        (boolean nonempty-type-decl nil booleans nil)
+        (number_field_pred const-decl "[number -> boolean]"
+         number_fields nil)
+        (number_field nonempty-type-from-decl nil number_fields nil)
+        (real_pred const-decl "[number_field -> boolean]" reals nil)
+        (real_times_real_is_real application-judgement "real" reals
+         nil)
+        (pXm formula-decl nil interval nil))
+       shostak))
+ (nXm 0
+      (nXm-2 nil 3579693670
+       ("" (skeep)
+        (("" (expand "nXm")
+          (("" (lemma "pXm")
+            (("" (inst -1 "Neg(X)" "Y" "-x" "y")
+              (("" (assert)
+                (("" (split)
+                  (("1" (lemma "Neg_inclusion")
+                    (("1" (inst? -1) (("1" (assert) nil nil)) nil))
                     nil)
-                   ("2" (reveal "H")
-                    (("2" (name-replace "A" "x*y")
-                      (("2" (assert) nil nil)) nil))
-                    nil))
-                  nil)
-                 ("2" (case "x*y >= 0")
-                  (("1" (grind-reals)
-                    (("1" (mult-ineq -8 -10 (+ +))
-                      (("1" (assert) nil nil)) nil))
-                    nil)
-                   ("2" (reveal "H")
-                    (("2" (name-replace "A" "x*y")
-                      (("2" (assert) nil nil)) nil))
-                    nil))
-                  nil)
-                 ("3" (case "x*y >= 0")
-                  (("1" (reveal "H")
-                    (("1" (name-replace "A" "x*y")
-                      (("1" (assert) nil nil)) nil))
-                    nil)
-                   ("2" (grind-reals)
-                    (("1" (mult-ineq -5 -8 (- +))
-                      (("1" (assert) nil nil)) nil)
-                     ("2" (mult-ineq -6 -7 (+ -)) nil nil))
-                    nil))
-                  nil)
-                 ("4" (case "x*y >= 0")
-                  (("1" (reveal "H")
-                    (("1" (name-replace "A" "x*y")
-                      (("1" (assert) nil nil)) nil))
-                    nil)
-                   ("2" (grind-reals)
-                    (("1" (mult-ineq -5 -8 (- +)) nil nil)
-                     ("2" (mult-ineq -6 -7 (+ -))
-                      (("2" (assert) nil nil)) nil))
-                    nil))
+                   ("2" (rewrite "Neg_Ge_0") nil nil)
+                   ("3" (rewrite "Neg_inclusion") nil nil))
                   nil))
                 nil))
               nil))
-            nil)
-           ("2" (hide 2) (("2" (grind-reals) nil nil)) nil)
-           ("3" (hide 2) (("3" (grind-reals) nil nil)) nil)
-           ("4" (hide 2) (("4" (grind-reals) nil nil)) nil)
-           ("5" (hide 2) (("5" (grind-reals) nil nil)) nil))
+            nil))
           nil))
-        nil))
-      nil))
-    nil)
-   ((mXm const-decl "Interval" interval nil)
-    (Interval type-eq-decl nil interval nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (<= const-decl "bool" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+        nil)
+       ((nXm const-decl "Interval" interval nil)
+        (minus_real_is_real application-judgement "real" reals nil)
+        (real nonempty-type-from-decl nil reals nil)
+        (Interval type-eq-decl nil interval nil)
+        (Neg const-decl "Interval" interval nil)
+        (number nonempty-type-decl nil numbers nil)
+        (boolean nonempty-type-decl nil booleans nil)
+        (number_field_pred const-decl "[number -> boolean]"
+         number_fields nil)
+        (number_field nonempty-type-from-decl nil number_fields nil)
+        (real_pred const-decl "[number_field -> boolean]" reals nil)
+        (numfield nonempty-type-eq-decl nil number_fields nil)
+        (- const-decl "[numfield -> numfield]" number_fields nil)
+        (* const-decl "[numfield, numfield -> numfield]" number_fields
+           nil)
+        (pXm const-decl "Interval" interval nil)
+        (Neg_inclusion formula-decl nil interval nil)
+        (Neg_Ge_0 formula-decl nil interval nil)
+        (real_times_real_is_real application-judgement "real" reals
          nil)
-    (le_times_le_any1 formula-decl nil extra_real_props nil)
-    (le_times_le_neg formula-decl nil real_props nil)
-    (le_times_le_pos formula-decl nil real_props nil)
-    (pos_times_ge formula-decl nil real_props nil)
-    (TRUE const-decl "bool" booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (neg_times_le formula-decl nil real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (|##| const-decl "bool" interval nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    ([\|\|] const-decl "Interval" interval nil)
-    (Zeroin? const-decl "bool" interval nil))
-   shostak))
+        (pXm formula-decl nil interval nil))
+       nil))
+ (mXn 0
+      (mXn-1 nil 3301399245
+       ("" (skeep)
+        (("" (expand "mXn")
+          (("" (lemma "nXm")
+            (("" (inst -1 "Y" "X" "y" "x") (("" (assert) nil nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ((mXn const-decl "Interval" interval nil)
+        (real nonempty-type-from-decl nil reals nil)
+        (Interval type-eq-decl nil interval nil)
+        (number nonempty-type-decl nil numbers nil)
+        (boolean nonempty-type-decl nil booleans nil)
+        (number_field_pred const-decl "[number -> boolean]"
+         number_fields nil)
+        (number_field nonempty-type-from-decl nil number_fields nil)
+        (real_pred const-decl "[number_field -> boolean]" reals nil)
+        (real_times_real_is_real application-judgement "real" reals
+         nil)
+        (nXm formula-decl nil interval nil))
+       shostak))
+ (mXm 0
+      (mXm-1 nil 3301399821
+       ("" (skeep)
+        (("" (expand "mXm")
+          (("" (expand "Zeroin?")
+            ((""
+              (case "ub(X) * ub(Y) >=0"
+                "lb(X) * lb(Y) >= 0"
+                "ub(X) * lb(Y) <= 0"
+                "lb(X) * ub(Y) <= 0")
+              (("1" (label "H" (-1 -2 -3 -4))
+                (("1" (hide "H")
+                  (("1" (grind :theories "real_props")
+                    (("1" (case "x*y >= 0")
+                      (("1" (grind-reals)
+                        (("1" (mult-ineq -7 -9 (- -))
+                          (("1" (assert) nil nil)) nil))
+                        nil)
+                       ("2" (reveal "H")
+                        (("2" (name-replace "A" "x*y")
+                          (("2" (assert) nil nil)) nil))
+                        nil))
+                      nil)
+                     ("2" (case "x*y >= 0")
+                      (("1" (grind-reals)
+                        (("1" (mult-ineq -8 -10 (+ +))
+                          (("1" (assert) nil nil)) nil))
+                        nil)
+                       ("2" (reveal "H")
+                        (("2" (name-replace "A" "x*y")
+                          (("2" (assert) nil nil)) nil))
+                        nil))
+                      nil)
+                     ("3" (case "x*y >= 0")
+                      (("1" (reveal "H")
+                        (("1" (name-replace "A" "x*y")
+                          (("1" (assert) nil nil)) nil))
+                        nil)
+                       ("2" (grind-reals)
+                        (("1" (mult-ineq -5 -8 (- +))
+                          (("1" (assert) nil nil)) nil)
+                         ("2" (mult-ineq -6 -7 (+ -)) nil nil))
+                        nil))
+                      nil)
+                     ("4" (case "x*y >= 0")
+                      (("1" (reveal "H")
+                        (("1" (name-replace "A" "x*y")
+                          (("1" (assert) nil nil)) nil))
+                        nil)
+                       ("2" (grind-reals)
+                        (("1" (mult-ineq -5 -8 (- +)) nil nil)
+                         ("2" (mult-ineq -6 -7 (+ -))
+                          (("2" (assert) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (hide 2) (("2" (grind-reals) nil nil)) nil)
+               ("3" (hide 2) (("3" (grind-reals) nil nil)) nil)
+               ("4" (hide 2) (("4" (grind-reals) nil nil)) nil)
+               ("5" (hide 2) (("5" (grind-reals) nil nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ((mXm const-decl "Interval" interval nil)
+        (Interval type-eq-decl nil interval nil)
+        (* const-decl "[numfield, numfield -> numfield]" number_fields
+           nil)
+        (numfield nonempty-type-eq-decl nil number_fields nil)
+        (>= const-decl "bool" reals nil)
+        (bool nonempty-type-eq-decl nil booleans nil)
+        (real nonempty-type-from-decl nil reals nil)
+        (real_pred const-decl "[number_field -> boolean]" reals nil)
+        (number_field nonempty-type-from-decl nil number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]"
+         number_fields nil)
+        (boolean nonempty-type-decl nil booleans nil)
+        (number nonempty-type-decl nil numbers nil)
+        (<= const-decl "bool" reals nil)
+        (real_times_real_is_real application-judgement "real" reals
+         nil)
+        (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
+             real_defs nil)
+        (le_times_le_any1 formula-decl nil extra_real_props nil)
+        (le_times_le_neg formula-decl nil real_props nil)
+        (le_times_le_pos formula-decl nil real_props nil)
+        (pos_times_ge formula-decl nil real_props nil)
+        (TRUE const-decl "bool" booleans nil)
+        (= const-decl "[T, T -> boolean]" equalities nil)
+        (neg_times_le formula-decl nil real_props nil)
+        (real_ge_is_total_order name-judgement "(total_order?[real])"
+         real_props nil)
+        (real_gt_is_strict_total_order name-judgement
+         "(strict_total_order?[real])" real_props nil)
+        (real_le_is_total_order name-judgement "(total_order?[real])"
+         real_props nil)
+        (real_lt_is_strict_total_order name-judgement
+         "(strict_total_order?[real])" real_props nil)
+        (|##| const-decl "bool" interval nil)
+        (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+        (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
+        ([\|\|] const-decl "Interval" interval nil)
+        (Zeroin? const-decl "bool" interval nil))
+       shostak))
  (Mult_inclusion 0
   (Mult_inclusion-2 nil 3579648824
    ("" (skeep)
@@ -5556,6 +5748,8 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Interval type-eq-decl nil interval nil)
     (minus_real_is_real application-judgement "real" reals nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -5570,8 +5764,6 @@
     (odd? const-decl "bool" integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -5601,7 +5793,9 @@
   (Pow_inclusion_TCC1-1 nil 3318333335 ("" (subtype-tcc) nil nil)
    ((|##| const-decl "bool" interval nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (Pow_inclusion subtype "interval.n"
+    "{i: integers.int | booleans.OR(interval.x /= 0, reals.>=(i, 0))}")))
  (Pow_inclusion 0
   (Pow_inclusion-1 nil 3318335744
    ("" (skeep)
@@ -5795,10 +5989,10 @@
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (Zeroless? const-decl "bool" interval nil)
     (|##| const-decl "bool" interval nil)
+    (Zeroless? const-decl "bool" interval nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil (Div_inclusion subtype "interval.y" "nznum")))
  (Div_inclusion 0
   (Div_inclusion-1 nil 3318336029
    ("" (skeep)
@@ -5943,7 +6137,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil (Sigma subtype "interval.i" "nat")))
  (Sigma_TCC2 0
   (Sigma_TCC2-1 nil 3318333335 ("" (termination-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -5972,31 +6166,13 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (int_plus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (Sigma termination
+    "interval.Sigma(interval.n, (number_fields.-)(interval.i, 1), interval.F)"
+    "nil")))
  (Sigma_inclusion_TCC1 0
   (Sigma_inclusion_TCC1-1 nil 3391527110 ("" (subtype-tcc) nil nil) nil
-   nil))
- (Sigma_inclusion_TCC2 0
-  (Sigma_inclusion_TCC2-1 nil 3391527110 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (|##| const-decl "bool" interval nil))
-   nil))
+   nil (Sigma_inclusion subtype "interval.k" "nat")))
  (Sigma_inclusion 0
   (Sigma_inclusion-2 nil 3318336332
    ("" (skolem 1 ("F" "f" _ "n"))
@@ -7796,6 +7972,42 @@
     (Trichotomy formula-decl nil interval nil))
    shostak))
  (Div_fundamental 0
+  (Div_fundamental-2 "" 3758862472
+   ("" (skeep)
+    (("" (expand "Div")
+      ((""
+        (case "ub(Y1) /= 0 AND lb(Y1) /= 0 AND ub(Y) /= 0 AND lb(Y) /= 0")
+        (("1" (flatten)
+          (("1" (assert)
+            (("1" (rewrite "Mult_fundamental")
+              (("1" (hide 6)
+                (("1" (grind)
+                  (("1" (grind-reals) nil nil)
+                   ("2" (grind-reals)
+                    (("2" (rewrite "both_sides_div_neg_le2") nil nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (hide 6)
+                (("2" (grind)
+                  (("1" (grind-reals) nil nil)
+                   ("2" (grind-reals)
+                    (("2" (rewrite "both_sides_div_neg_le2") nil nil))
+                    nil)
+                   ("3" (grind-reals) nil nil)
+                   ("4" (grind-reals)
+                    (("4" (rewrite "both_sides_div_neg_le2") nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (hide 2) (("2" (grind) nil nil)) nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (Div_fundamental-1 nil 3545820842
    ("" (skeep)
     (("" (expand "Div")
@@ -7825,38 +8037,47 @@
         nil))
       nil))
     nil)
-   ((Div const-decl "Interval" interval nil)
-    (Mult_fundamental formula-decl nil interval nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    ([\|\|] const-decl "Interval" interval nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (Zeroless? const-decl "bool" interval nil)
-    (<< const-decl "bool" interval nil)
-    (Proper? const-decl "bool" interval nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (le_div_le_pos formula-decl nil real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (both_sides_div_neg_le2 formula-decl nil real_props nil)
+   ((Interval type-eq-decl nil interval nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (/= const-decl "boolean" notequal nil)
+    (number nonempty-type-decl nil numbers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (/= const-decl "boolean" notequal nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (Interval type-eq-decl nil interval nil))
+    (TRUE const-decl "bool" booleans nil)
+    (both_sides_div_neg_le2 formula-decl nil real_props nil)
+    (<= const-decl "bool" reals nil)
+    (nonpos_real nonempty-type-eq-decl nil real_types nil)
+    (< const-decl "bool" reals nil)
+    (negreal nonempty-type-eq-decl nil real_types nil)
+    (>= const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (le_div_le_pos formula-decl nil real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (Proper? const-decl "bool" interval nil)
+    (<< const-decl "bool" interval nil)
+    (Zeroless? const-decl "bool" interval nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    ([\|\|] const-decl "Interval" interval nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (Mult_fundamental formula-decl nil interval nil)
+    (Div const-decl "Interval" interval nil))
    shostak))
  (Pow_p_fundamental 0
   (Pow_p_fundamental-2 nil 3579693818
@@ -8404,6 +8625,33 @@
     (Max const-decl "Interval" interval nil))
    shostak))
  (Mult_Strict_r2i 0
+  (Mult_Strict_r2i-2 "" 3758863719
+   ("" (grind :if-match nil)
+    (("1" (rewrite "both_sides_times_pos_lt2") nil nil)
+     ("2" (lemma "both_sides_times_neg_lt1")
+      (("2" (inst -1 "-x!1" "lb(X!1)" "ub(X!1)")
+        (("2" (assert) nil nil)) nil))
+      nil)
+     ("3" (rewrite "both_sides_times_pos_lt2") nil nil)
+     ("4" (rewrite "both_sides_times_pos_lt2") nil nil)
+     ("5" (lemma "both_sides_times_neg_lt1")
+      (("5" (inst -1 "-x!1" "lb(X!1)" "ub(X!1)")
+        (("5" (assert) nil nil)) nil))
+      nil)
+     ("6" (lemma "both_sides_times_pos_lt1")
+      (("6" (inst -1 "-x!1" "-ub(X!1)" "-lb(X!1)")
+        (("6" (assert) nil nil)) nil))
+      nil)
+     ("7" (lemma "both_sides_times_neg_lt2")
+      (("7" (inst -1 "x!1" "lb(X!1)" "ub(X!1)")
+        (("7" (assert) nil nil)) nil))
+      nil)
+     ("8" (lemma "both_sides_times_neg_lt2")
+      (("8" (inst -1 "x!1" "lb(X!1)" "ub(X!1)")
+        (("8" (assert) nil nil)) nil))
+      nil))
+    nil)
+   nil shostak)
   (Mult_Strict_r2i-1 nil 3320581805
    ("" (skeep)
     (("" (grind)
@@ -8417,45 +8665,93 @@
        ("8" (grind-reals :theories "extra_tegies") nil nil))
       nil))
     nil)
-   ((StrictInterval? const-decl "bool" interval nil)
+   ((both_sides_times_neg_lt2 formula-decl nil real_props nil)
+    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
+    (both_sides_times_neg_lt1 formula-decl nil real_props nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (negreal nonempty-type-eq-decl nil real_types nil)
+    (< const-decl "bool" reals nil)
+    (nonpos_real nonempty-type-eq-decl nil real_types nil)
+    (<= const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (Interval type-eq-decl nil interval nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (>= const-decl "bool" reals nil)
+    (both_sides_times_pos_lt2 formula-decl nil real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (Mult const-decl "Interval" interval nil)
+    (mXm const-decl "Interval" interval nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    (mXn const-decl "Interval" interval nil)
+    (mXp const-decl "Interval" interval nil)
+    (nXm const-decl "Interval" interval nil)
+    (nXn const-decl "Interval" interval nil)
+    (pXm const-decl "Interval" interval nil)
+    (pXn const-decl "Interval" interval nil)
+    (nXp const-decl "Interval" interval nil)
+    (Neg const-decl "Interval" interval nil)
+    (Le const-decl "bool" interval nil)
+    (pXp const-decl "Interval" interval nil)
     ([\|\|] const-decl "Interval" interval nil)
     (Ge const-decl "bool" interval nil)
     ([\|\|] const-decl "Interval" interval nil)
-    (pXp const-decl "Interval" interval nil)
-    (Le const-decl "bool" interval nil)
-    (Neg const-decl "Interval" interval nil)
-    (nXp const-decl "Interval" interval nil)
-    (pXn const-decl "Interval" interval nil)
-    (pXm const-decl "Interval" interval nil)
-    (nXn const-decl "Interval" interval nil)
-    (nXm const-decl "Interval" interval nil)
-    (mXp const-decl "Interval" interval nil)
-    (mXn const-decl "Interval" interval nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (mXm const-decl "Interval" interval nil)
-    (Mult const-decl "Interval" interval nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (r2i_Proper application-judgement "ProperInterval" interval nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (lt_times_lt_pos1 formula-decl nil real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (neg_mult formula-decl nil extra_tegies nil)
-    (neg_neg formula-decl nil extra_tegies nil)
-    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
-    (both_sides_times_pos_lt2 formula-decl nil real_props nil)
-    (mult_neg formula-decl nil extra_tegies nil)
-    (lt_times_lt_neg1 formula-decl nil real_props nil)
-    (both_sides_times_neg_lt2 formula-decl nil real_props nil))
+    (/= const-decl "boolean" notequal nil)
+    (StrictInterval? const-decl "bool" interval nil))
    shostak))
  (Mult_r2i_Strict 0
+  (Mult_r2i_Strict-2 "" 3758869930
+   ("" (skeep :preds? t)
+    (("" (hide -1)
+      (("" (grind :if-match nil)
+        (("1" (rewrite "both_sides_times_pos_lt2") nil nil)
+         ("2" (lemma "both_sides_times_pos_lt1")
+          (("2" (inst -1 "x" "lb(X)" "ub(X)") (("2" (assert) nil nil))
+            nil))
+          nil)
+         ("3" (rewrite "both_sides_times_pos_lt2") nil nil)
+         ("4" (rewrite "both_sides_times_pos_lt2") nil nil)
+         ("5" (lemma "both_sides_times_neg_lt1")
+          (("5" (inst -1 "-x" "lb(X)" "ub(X)") (("5" (assert) nil nil))
+            nil))
+          nil)
+         ("6" (lemma "both_sides_times_pos_lt2")
+          (("6" (inst -1 "-x" "lb(X)" "ub(X)") (("6" (assert) nil nil))
+            nil))
+          nil)
+         ("7" (lemma "both_sides_times_neg_lt2")
+          (("7" (inst -1 "x" "-ub(X)" "-lb(X)")
+            (("7" (assert) nil nil)) nil))
+          nil)
+         ("8" (lemma "both_sides_times_neg_lt2")
+          (("8" (inst -1 "x" "-ub(X)" "-lb(X)")
+            (("8" (assert) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (Mult_r2i_Strict-1 nil 3320581969
    ("" (skeep)
     (("" (grind)
@@ -8469,43 +8765,59 @@
        ("8" (grind-reals :theories "extra_tegies") nil nil))
       nil))
     nil)
-   ((StrictInterval? const-decl "bool" interval nil)
+   ((both_sides_times_neg_lt2 formula-decl nil real_props nil)
+    (both_sides_times_neg_lt1 formula-decl nil real_props nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (negreal nonempty-type-eq-decl nil real_types nil)
+    (< const-decl "bool" reals nil)
+    (nonpos_real nonempty-type-eq-decl nil real_types nil)
+    (<= const-decl "bool" reals nil)
+    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (Interval type-eq-decl nil interval nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (both_sides_times_pos_lt2 formula-decl nil real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (r2i_Proper application-judgement "ProperInterval" interval nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (Mult const-decl "Interval" interval nil)
+    (mXm const-decl "Interval" interval nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    (mXn const-decl "Interval" interval nil)
+    (mXp const-decl "Interval" interval nil)
+    (nXm const-decl "Interval" interval nil)
+    (nXn const-decl "Interval" interval nil)
+    (pXm const-decl "Interval" interval nil)
+    (pXn const-decl "Interval" interval nil)
+    (nXp const-decl "Interval" interval nil)
+    (Neg const-decl "Interval" interval nil)
+    (Le const-decl "bool" interval nil)
+    (pXp const-decl "Interval" interval nil)
     ([\|\|] const-decl "Interval" interval nil)
     (Ge const-decl "bool" interval nil)
     ([\|\|] const-decl "Interval" interval nil)
-    (pXp const-decl "Interval" interval nil)
-    (Le const-decl "bool" interval nil)
-    (Neg const-decl "Interval" interval nil)
-    (nXp const-decl "Interval" interval nil)
-    (pXn const-decl "Interval" interval nil)
-    (pXm const-decl "Interval" interval nil)
-    (nXn const-decl "Interval" interval nil)
-    (nXm const-decl "Interval" interval nil)
-    (mXp const-decl "Interval" interval nil)
-    (mXn const-decl "Interval" interval nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (mXm const-decl "Interval" interval nil)
-    (Mult const-decl "Interval" interval nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (r2i_Proper application-judgement "ProperInterval" interval nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (lt_times_lt_pos1 formula-decl nil real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (neg_mult formula-decl nil extra_tegies nil)
-    (neg_neg formula-decl nil extra_tegies nil)
-    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
-    (both_sides_times_pos_lt2 formula-decl nil real_props nil)
-    (mult_neg formula-decl nil extra_tegies nil)
-    (lt_times_lt_neg1 formula-decl nil real_props nil)
-    (both_sides_times_neg_lt2 formula-decl nil real_props nil))
+    (StrictInterval? const-decl "bool" interval nil))
    nil))
  (Pos_Zeroless 0
   (Pos_Zeroless-1 nil 3318333335 ("" (judgement-tcc) nil nil)
@@ -8521,7 +8833,7 @@
      "(strict_total_order?[real])" real_props nil)
     (Gt const-decl "bool" interval nil)
     (Zeroless? const-decl "bool" interval nil))
-   nil))
+   nil (Pos_Zeroless subtype "interval.x" "(interval.Zeroless?)")))
  (Neg_Zeroless 0
   (Neg_Zeroless-1 nil 3318333335 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -8536,7 +8848,7 @@
      "(strict_total_order?[real])" real_props nil)
     (Lt const-decl "bool" interval nil)
     (Zeroless? const-decl "bool" interval nil))
-   nil))
+   nil (Neg_Zeroless subtype "interval.x" "(interval.Zeroless?)")))
  (Pos_NonNeg 0
   (Pos_NonNeg-1 nil 3318333335 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -8552,7 +8864,7 @@
      real_props nil)
     (Ge const-decl "bool" interval nil)
     (NonNeg? const-decl "bool" interval nil))
-   nil))
+   nil (Pos_NonNeg subtype "interval.x" "(interval.NonNeg?)")))
  (Pos_Add_NonNeg 0
   (Pos_Add_NonNeg-1 nil 3319587443 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -8571,7 +8883,9 @@
     (Add const-decl "Interval" interval nil)
     (Gt const-decl "bool" interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Pos_Add_NonNeg subtype "interval.Add(interval.X, interval.Y)"
+    "(interval.Pos?)")))
  (NonNeg_Add_Pos 0
   (NonNeg_Add_Pos-1 nil 3319587443 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -8590,7 +8904,9 @@
     (Add const-decl "Interval" interval nil)
     (Gt const-decl "bool" interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil
+   (NonNeg_Add_Pos subtype "interval.Add(interval.X, interval.Y)"
+    "(interval.Pos?)")))
  (Neg_Add 0
   (Neg_Add-1 nil 3318333335 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -8605,7 +8921,9 @@
     (Add const-decl "Interval" interval nil)
     (Lt const-decl "bool" interval nil)
     (Neg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Neg_Add subtype "interval.Add(interval.X, interval.Y)"
+    "(interval.Neg?)")))
  (NonNeg_Add 0
   (NonNeg_Add-1 nil 3318333335 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -8620,7 +8938,9 @@
     (Add const-decl "Interval" interval nil)
     (Ge const-decl "bool" interval nil)
     (NonNeg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (NonNeg_Add subtype "interval.Add(interval.X, interval.Y)"
+    "(interval.NonNeg?)")))
  (Neg_Pos 0
   (Neg_Pos-1 nil 3318333335 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -8639,7 +8959,7 @@
     (Neg const-decl "Interval" interval nil)
     (Gt const-decl "bool" interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil (Neg_Pos subtype "interval.Neg(interval.X)" "(interval.Pos?)")))
  (Pos_Neg 0
   (Pos_Neg-1 nil 3318333335 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -8658,7 +8978,7 @@
     (Neg const-decl "Interval" interval nil)
     (Lt const-decl "bool" interval nil)
     (Neg? const-decl "bool" interval nil))
-   nil))
+   nil (Pos_Neg subtype "interval.Neg(interval.X)" "(interval.Neg?)")))
  (Pos_Mult 0
   (Pos_Mult-1 nil 3318333335
    ("" (skosimp :preds? t)
@@ -8699,7 +9019,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (Interval type-eq-decl nil interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Pos_Mult subtype "interval.Mult(interval.X, interval.Y)"
+    "(interval.Pos?)")))
  (Neg_Mult 0
   (Neg_Mult-1 nil 3318333673
    ("" (skosimp :preds? t)
@@ -8745,7 +9067,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (Interval type-eq-decl nil interval nil)
     (Neg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Neg_Mult subtype "interval.Mult(interval.X, interval.Y)"
+    "(interval.Pos?)")))
  (NonNeg_Mult 0
   (NonNeg_Mult-1 nil 3318333335
    ("" (skosimp :preds? t)
@@ -8779,7 +9103,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (Interval type-eq-decl nil interval nil)
     (NonNeg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (NonNeg_Mult subtype "interval.Mult(interval.X, interval.Y)"
+    "(interval.NonNeg?)")))
  (Pos_Div 0
   (Pos_Div-1 nil 3318333335
    ("" (skosimp :preds? t)
@@ -8838,7 +9164,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (Interval type-eq-decl nil interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Pos_Div subtype "interval.Div(interval.X, interval.Y)"
+    "(interval.Pos?)")))
  (Neg_Div 0
   (Neg_Div-1 nil 3318333823
    ("" (skosimp :preds? t)
@@ -8902,7 +9230,9 @@
     (real nonempty-type-from-decl nil reals nil)
     (Interval type-eq-decl nil interval nil)
     (Neg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Neg_Div subtype "interval.Div(interval.X, interval.Y)"
+    "(interval.Pos?)")))
  (NonNeg_Div 0
   (NonNeg_Div-1 nil 3318333951
    ("" (skosimp :preds? t)
@@ -8959,25 +9289,31 @@
     (Interval type-eq-decl nil interval nil)
     (NonNeg? const-decl "bool" interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil
+   (NonNeg_Div subtype "interval.Div(interval.X, interval.Y)"
+    "(interval.NonNeg?)")))
  (r2i_Pos 0
   (r2i_Pos-1 nil 3318333335 ("" (judgement-tcc) nil nil)
    (([\|\|] const-decl "Interval" interval nil)
     (Gt const-decl "bool" interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil
+   (r2i_Pos subtype "interval.[||](interval.x)" "(interval.Pos?)")))
  (r2i_Neg 0
   (r2i_Neg-1 nil 3318333335 ("" (judgement-tcc) nil nil)
    (([\|\|] const-decl "Interval" interval nil)
     (Lt const-decl "bool" interval nil)
     (Neg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (r2i_Neg subtype "interval.[||](interval.x)" "(interval.Neg?)")))
  (r2i_Nneg 0
   (r2i_Nneg-1 nil 3318333335 ("" (judgement-tcc) nil nil)
    (([\|\|] const-decl "Interval" interval nil)
     (Ge const-decl "bool" interval nil)
     (NonNeg? const-decl "bool" interval nil))
-   nil))
+   nil
+   (r2i_Nneg subtype "interval.[||](interval.x)"
+    "(interval.NonNeg?)")))
  (Sq_Pos 0
   (Sq_Pos-1 nil 3318333335
    ("" (skosimp :preds? t)
@@ -9003,7 +9339,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (Interval type-eq-decl nil interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil (Sq_Pos subtype "interval.Sq(interval.X)" "(interval.Pos?)")))
  (Sq_Neg 0
   (Sq_Neg-2 nil 3319587456
    ("" (skosimp :preds? t)
@@ -9035,7 +9371,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (Interval type-eq-decl nil interval nil)
     (Neg? const-decl "bool" interval nil))
-   nil))
+   nil (Sq_Neg subtype "interval.Sq(interval.X)" "(interval.Pos?)")))
  (Abs_Pos 0
   (Abs_Pos-1 nil 3318333335 ("" (grind) nil nil)
    ((Interval type-eq-decl nil interval nil)
@@ -9056,7 +9392,7 @@
     (Abs const-decl "(NonNeg?)" interval nil)
     (Gt const-decl "bool" interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil (Abs_Pos subtype "interval.Abs(interval.X)" "(interval.Pos?)")))
  (Abs_Neg 0
   (Abs_Neg-2 nil 3319587494 ("" (grind) nil nil)
    ((Neg? const-decl "bool" interval nil)
@@ -9080,7 +9416,7 @@
     (Abs const-decl "(NonNeg?)" interval nil)
     (Gt const-decl "bool" interval nil)
     (Pos? const-decl "bool" interval nil))
-   nil))
+   nil (Abs_Neg subtype "interval.Abs(interval.X)" "(interval.Pos?)")))
  (Proper_midpoint 0
   (Proper_midpoint-1 nil 3320961402 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9097,7 +9433,9 @@
     (midpoint const-decl "real" interval nil)
     (|##| const-decl "bool" interval nil)
     (real_plus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (Proper_midpoint subtype "interval.midpoint(interval.X)"
+    "interval.IntervalType(interval.X)")))
  (Includes_Proper 0
   (Includes_Proper-1 nil 3567527616 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9115,7 +9453,7 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil (Includes_Proper subtype "interval.x1" "ProperInterval")))
  (Strict_Proper 0
   (Strict_Proper-1 nil 3320020995 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9130,7 +9468,7 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil (Strict_Proper subtype "interval.x" "ProperInterval")))
  (Strict_Add 0
   (Strict_Add-1 nil 3320020995 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9149,7 +9487,9 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Add const-decl "Interval" interval nil)
     (StrictInterval? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Strict_Add subtype "interval.Add(interval.X, interval.Y)"
+    "StrictInterval")))
  (Add_Strict 0
   (Add_Strict-1 nil 3320020995 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9168,7 +9508,9 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Add const-decl "Interval" interval nil)
     (StrictInterval? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Add_Strict subtype "interval.Add(interval.X, interval.Y)"
+    "StrictInterval")))
  (Proper_Add 0
   (Proper_Add-1 nil 3320020995 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9183,7 +9525,9 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Add const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Proper_Add subtype "interval.Add(interval.X, interval.Y)"
+    "ProperInterval")))
  (Strict_Sub 0
   (Strict_Sub-1 nil 3320020995 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9202,7 +9546,9 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Sub const-decl "Interval" interval nil)
     (StrictInterval? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Strict_Sub subtype "interval.Sub(interval.X, interval.Y)"
+    "StrictInterval")))
  (Sub_Strict 0
   (Sub_Strict-1 nil 3320020995 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9221,7 +9567,9 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Sub const-decl "Interval" interval nil)
     (StrictInterval? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Sub_Strict subtype "interval.Sub(interval.X, interval.Y)"
+    "StrictInterval")))
  (Proper_Sub 0
   (Proper_Sub-1 nil 3320020995 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9236,7 +9584,9 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Sub const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Proper_Sub subtype "interval.Sub(interval.X, interval.Y)"
+    "ProperInterval")))
  (Strict_Neg 0
   (Strict_Neg-1 nil 3320020995 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9251,7 +9601,8 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Neg const-decl "Interval" interval nil)
     (StrictInterval? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Strict_Neg subtype "interval.Neg(interval.X)" "StrictInterval")))
  (Proper_Neg 0
   (Proper_Neg-1 nil 3320020995 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9266,7 +9617,8 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Neg const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Proper_Neg subtype "interval.Neg(interval.X)" "ProperInterval")))
  (Strict_Abs 0
   (Strict_Abs-1 nil 3320020995
    ("" (skosimp :preds? t) (("" (grind) nil nil)) nil)
@@ -9289,7 +9641,8 @@
     (Interval type-eq-decl nil interval nil)
     (StrictInterval? const-decl "bool" interval nil)
     (StrictInterval type-eq-decl nil interval nil))
-   nil))
+   nil
+   (Strict_Abs subtype "interval.Abs(interval.X)" "StrictInterval")))
  (Proper_Abs 0
   (Proper_Abs-1 nil 3579693294 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9313,7 +9666,8 @@
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (Abs const-decl "(NonNeg?)" interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Proper_Abs subtype "interval.Abs(interval.X)" "ProperInterval")))
  (Proper_Mult 0
   (Proper_Mult-2 nil 3579694493
    ("" (skeep :preds? t)
@@ -9356,8 +9710,12 @@
     (boolean nonempty-type-decl nil booleans nil)
     (Interval type-eq-decl nil interval nil)
     (real nonempty-type-from-decl nil reals nil))
-   nil)
-  (Proper_Mult-1 nil 3579694424 ("" (judgement-tcc) nil nil) nil nil))
+   nil
+   (Proper_Mult subtype "interval.Mult(interval.X, interval.Y)"
+    "ProperInterval"))
+  (Proper_Mult-1 nil 3579694424 ("" (judgement-tcc) nil nil) nil nil
+   (Proper_Mult subtype "interval.Mult(interval.X, interval.Y)"
+    "ProperInterval")))
  (Proper_Div 0
   (Proper_Div-2 nil 3579695210
    ("" (skeep :preds? t)
@@ -9413,7 +9771,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (Interval type-eq-decl nil interval nil)
     (real nonempty-type-from-decl nil reals nil))
-   nil))
+   nil
+   (Proper_Div subtype "interval.Div(interval.X, interval.Y)"
+    "ProperInterval")))
  (Strict_Sq 0
   (Strict_Sq-1 nil 3579695478
    ("" (skosimp :preds? t)
@@ -9459,7 +9819,7 @@
     (Interval type-eq-decl nil interval nil)
     (StrictInterval? const-decl "bool" interval nil)
     (StrictInterval type-eq-decl nil interval nil))
-   nil))
+   nil (Strict_Sq subtype "interval.Sq(interval.X)" "StrictInterval")))
  (Proper_Pow 0
   (Proper_Pow-2 nil 3579694648
    ("" (skeep :preds? t)
@@ -9506,8 +9866,12 @@
     (boolean nonempty-type-decl nil booleans nil)
     (Interval type-eq-decl nil interval nil)
     (real nonempty-type-from-decl nil reals nil))
-   nil)
-  (Proper_Pow-1 nil 3579694643 ("" (judgement-tcc) nil nil) nil nil))
+   nil
+   (Proper_Pow subtype "interval.Pow(interval.X, interval.n)"
+    "ProperInterval"))
+  (Proper_Pow-1 nil 3579694643 ("" (judgement-tcc) nil nil) nil nil
+   (Proper_Pow subtype "interval.Pow(interval.X, interval.n)"
+    "ProperInterval")))
  (Proper_Sq 0
   (Proper_Sq-1 nil 3579695307
    ("" (grind)
@@ -9534,7 +9898,8 @@
     ([\|\|] const-decl "Interval" interval nil)
     (sq const-decl "nonneg_real" sq "reals/")
     (Ge const-decl "bool" interval nil))
-   shostak))
+   shostak
+   (Proper_Sq subtype "interval.Sq(interval.X)" "ProperInterval")))
  (Proper_Floor 0
   (Proper_Floor-1 nil 3670440120 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9548,7 +9913,9 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Floor const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Proper_Floor subtype "interval.Floor(interval.X)"
+    "ProperInterval")))
  (Proper_Fractional 0
   (Proper_Fractional-1 nil 3676991207 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9565,7 +9932,10 @@
     (Fractional const-decl "Interval" interval nil)
     (Add const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Proper_Fractional subtype
+    "interval.Add(interval.Floor(interval.X), interval.Fractional(interval.X))"
+    "ProperInterval")))
  (Proper_size 0
   (Proper_size-1 nil 3321035309 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9581,7 +9951,7 @@
      real_props nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (size const-decl "real" interval nil))
-   nil))
+   nil (Proper_size subtype "interval.size(interval.X)" "nnreal")))
  (Strict_size 0
   (Strict_size-1 nil 3321035309 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9597,7 +9967,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (size const-decl "real" interval nil))
-   nil))
+   nil (Strict_size subtype "interval.size(interval.X)" "posreal")))
  (Proper_HalfLeft 0
   (Proper_HalfLeft-1 nil 3321037291 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9615,7 +9985,9 @@
     (HalfLeft const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil)
     (real_plus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (Proper_HalfLeft subtype "interval.HalfLeft(interval.X)"
+    "ProperInterval")))
  (Strict_HalfLeft 0
   (Strict_HalfLeft-1 nil 3321037291 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9633,7 +10005,9 @@
     (HalfLeft const-decl "Interval" interval nil)
     (StrictInterval? const-decl "bool" interval nil)
     (real_plus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (Strict_HalfLeft subtype "interval.HalfLeft(interval.X)"
+    "StrictInterval")))
  (Proper_HalfRight 0
   (Proper_HalfRight-1 nil 3321037361 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9651,7 +10025,9 @@
     (HalfRight const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil)
     (real_plus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (Proper_HalfRight subtype "interval.HalfRight(interval.X)"
+    "ProperInterval")))
  (Strict_HalfRightt 0
   (Strict_HalfRightt-1 nil 3321037361 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9669,7 +10045,9 @@
     (HalfRight const-decl "Interval" interval nil)
     (StrictInterval? const-decl "bool" interval nil)
     (real_plus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (Strict_HalfRightt subtype "interval.HalfRight(interval.X)"
+    "StrictInterval")))
  (Zeroless_Precondition 0
   (Zeroless_Precondition-1 nil 3546810075 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9688,7 +10066,9 @@
     (<< const-decl "bool" interval nil)
     (Zeroless? const-decl "bool" interval nil)
     (Precondition? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Zeroless_Precondition subtype "interval.Zeroless?"
+    "(interval.Precondition?)")))
  (NonNeg_Precondition 0
   (NonNeg_Precondition-1 nil 3546810075 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9706,7 +10086,9 @@
     (Ge const-decl "bool" interval nil)
     (NonNeg? const-decl "bool" interval nil)
     (Precondition? const-decl "bool" interval nil))
-   nil))
+   nil
+   (NonNeg_Precondition subtype "interval.NonNeg?"
+    "(interval.Precondition?)")))
  (Pos_Precondition 0
   (Pos_Precondition-1 nil 3546810075 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9724,7 +10106,9 @@
     (Gt const-decl "bool" interval nil)
     (Pos? const-decl "bool" interval nil)
     (Precondition? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Pos_Precondition subtype "interval.Pos?"
+    "(interval.Precondition?)")))
  (Neg_Precondition 0
   (Neg_Precondition-1 nil 3546810075 ("" (judgement-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9742,26 +10126,34 @@
     (Lt const-decl "bool" interval nil)
     (Neg? const-decl "bool" interval nil)
     (Precondition? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Neg_Precondition subtype "interval.Neg?"
+    "(interval.Precondition?)")))
  (Any_Precondition 0
   (Any_Precondition-1 nil 3674979521 ("" (judgement-tcc) nil nil)
    ((<< const-decl "bool" interval nil)
     (Any? const-decl "bool" interval nil)
     (Precondition? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Any_Precondition subtype "interval.Any?"
+    "(interval.Precondition?)")))
  (Any2_Precondition2 0
   (Any2_Precondition2-1 nil 3699042469
    ("" (expand "Precondition2?")
     (("" (expand "Any2?") (("" (propax) nil nil)) nil)) nil)
    ((Any2? const-decl "bool" interval nil)
     (Precondition2? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Any2_Precondition2 subtype "interval.Any2?"
+    "(interval.Precondition2?)")))
  (Any3_Precondition3 0
   (Any3_Precondition3-1 nil 3684756056 ("" (judgement-tcc) nil nil)
    ((<< const-decl "bool" interval nil)
     (Any3? const-decl "bool" interval nil)
     (Precondition3? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Any3_Precondition3 subtype "interval.Any3?"
+    "(interval.Precondition3?)")))
  (Proper_Mod 0
   (Proper_Mod-1 nil 3674979521
    ("" (skeep :preds? t)
@@ -9772,7 +10164,9 @@
      nil)
     (Mod const-decl "Interval" interval nil)
     (Proper_Sub application-judgement "ProperInterval" interval nil))
-   nil))
+   nil
+   (Proper_Mod subtype "interval.Mod(interval.X, interval.Y)"
+    "ProperInterval")))
  (pre1to2b_TCC1 0
   (pre1to2b_TCC1-1 nil 3684756056
    ("" (skeep)
@@ -9797,7 +10191,10 @@
     (Interval type-eq-decl nil interval nil)
     (PRED type-eq-decl nil defined_types nil)
     (Precondition? const-decl "bool" interval nil))
-   nil))
+   nil
+   (pre1to2b subtype
+    "LAMBDA (X1, X2: interval.Interval): interval.P(X2)"
+    "(interval.Precondition2?)")))
  (pre1to4d_TCC1 0
   (pre1to4d_TCC1-1 nil 3684842143
    ("" (skeep)
@@ -9822,7 +10219,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (ProperInterval type-eq-decl nil interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (pre1to4d subtype
+    "LAMBDA (X1, X2, X3, X4: interval.Interval): interval.P(X4)"
+    "(interval.Precondition4?)")))
  (Proper_Min 0
   (Proper_Min-1 nil 3699896869 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9839,7 +10239,9 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Min const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Proper_Min subtype "interval.Min(interval.X, interval.Y)"
+    "ProperInterval")))
  (Proper_Max 0
   (Proper_Max-1 nil 3712260680 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9856,7 +10258,9 @@
     ([\|\|] const-decl "Interval" interval nil)
     (Max const-decl "Interval" interval nil)
     (Proper? const-decl "bool" interval nil))
-   nil))
+   nil
+   (Proper_Max subtype "interval.Max(interval.X, interval.Y)"
+    "ProperInterval")))
  (interval_as_absdif 0
   (interval_as_absdif-1 nil 3669632309 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)

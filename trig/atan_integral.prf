@@ -5,11 +5,10 @@
     (("1" (propax) nil nil)
      ("2" (lemma "connected_real") (("2" (propax) nil nil)) nil))
     nil)
-   ((connected_real formula-decl nil deriv_domain "analysis/")
-    (bool nonempty-type-eq-decl nil booleans nil)
+   ((bool nonempty-type-eq-decl nil booleans nil)
     (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
-    (connected? const-decl "bool" deriv_domain_def "analysis/")
-    (deriv_domain formula-decl nil fundamental_theorem "analysis/")
+    (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
+    (deriv_domain formula-decl nil derivatives_def "analysis/")
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -17,7 +16,9 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil))
-   nil))
+   nil
+   (IMP_nth_derivatives assuming "analysis@nth_derivatives[real]"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (IMP_nth_derivatives_TCC2 0
   (IMP_nth_derivatives_TCC2-1 nil 3514558647
    ("" (expand "not_one_element?")
@@ -35,10 +36,14 @@
     (number nonempty-type-decl nil numbers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (not_one_element? const-decl "bool" deriv_domain_def "analysis/"))
-   nil))
+   nil
+   (IMP_nth_derivatives assuming "analysis@nth_derivatives[real]"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (IMP_taylors_TCC1 0
   (IMP_taylors_TCC1-1 nil 3514558647 ("" (assuming-tcc) nil nil)
-   ((connected? const-decl "bool" deriv_domain_def "analysis/")) nil))
+   ((connected? const-decl "bool" deriv_domain_def "analysis/")) nil
+   (IMP_taylors assuming "analysis@taylors[real]"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (atan_deriv_fn_TCC1 0
   (atan_deriv_fn_TCC1-1 nil 3255851189
    ("" (skosimp*)
@@ -56,7 +61,10 @@
      real_props nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil))
-   shostak))
+   shostak
+   (atan_deriv_fn subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.x)))"
+    "nznum")))
  (atan_deriv_fn_TCC2 0
   (atan_deriv_fn_TCC2-1 nil 3255875082
    ("" (skosimp*)
@@ -96,7 +104,10 @@
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
     (sq const-decl "nonneg_real" sq "reals/"))
-   shostak))
+   shostak
+   (atan_deriv_fn subtype
+    "number_fields./(1, ((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.x))))"
+    "posreal")))
  (one_over_one_plus_t_sq_cont 0
   (one_over_one_plus_t_sq_cont-2 nil 3352177935
    ("" (expand "atan_deriv_fn")
@@ -187,9 +198,7 @@
     (sum_continuous formula-decl nil continuous_functions "analysis/")
     (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
     (I const-decl "(bijective?[T, T])" identity nil)
-    (atan_deriv_fn const-decl "posreal" atan_integral nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil))
+    (atan_deriv_fn const-decl "posreal" atan_integral nil))
    nil)
   (one_over_one_plus_t_sq_cont-1 nil 3255875106
    ("" (expand "atan_deriv_fn")
@@ -301,7 +310,9 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil))
-   nil)
+   nil
+   (atan_value subtype "atan_integral.atan_deriv_fn"
+    "integral_def[real].Integrable_funs(0, atan_integral.x)"))
   (atan_value_TCC1-1 nil 3255851329
    ("" (skolem 1 ("x"))
     (("" (lemma "one_over_one_plus_t_sq_cont")
@@ -320,7 +331,9 @@
       nil))
     nil)
    ((continuous_Integrable? formula-decl nil integral "analysis/"))
-   shostak))
+   shostak
+   (atan_value subtype "atan_integral.atan_deriv_fn"
+    "integral_def[real].Integrable_funs(0, atan_integral.x)")))
  (atan_value_0 0
   (atan_value_0-2 nil 3352180534
    ("" (expand "atan_value")
@@ -537,7 +550,7 @@
         nil))
       nil))
     nil)
-   ((not_one_element formula-decl nil taylors "analysis/")
+   ((not_one_element formula-decl nil nth_derivatives "analysis/")
     (deriv_id_fun formula-decl nil derivatives "analysis/")
     (deriv_neg_fun formula-decl nil derivatives "analysis/")
     (derivable? const-decl "bool" derivatives "analysis/")
@@ -551,7 +564,6 @@
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (+ const-decl "[T -> real]" real_fun_ops "reals/")
     (atan_value_0 formula-decl nil atan_integral nil)
-    (minus_even_is_even application-judgement "even_int" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
@@ -1401,7 +1413,7 @@
         nil))
       nil))
     nil)
-   ((not_one_element formula-decl nil taylors "analysis/")
+   ((not_one_element formula-decl nil nth_derivatives "analysis/")
     (restrict2_derivable formula-decl nil restrict2_deriv "analysis/")
     (derivable? const-decl "bool" derivatives "analysis/")
     (deriv_fun type-eq-decl nil derivatives "analysis/")
@@ -1425,7 +1437,7 @@
      real_types nil)
     (deriv_neg_fun formula-decl nil derivatives "analysis/")
     (O const-decl "T3" function_props nil)
-    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+    (nnreal_plus_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (extensionality_postulate formula-decl nil functions nil)
@@ -1437,10 +1449,9 @@
     (atan_neg_value formula-decl nil atan_integral nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (cross_mult formula-decl nil real_props nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
+    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (div_times formula-decl nil real_props nil)
     (negreal_times_negreal_is_posreal judgement-tcc nil real_types nil)
@@ -1902,21 +1913,179 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
     (nnreal_div_negreal_is_npreal application-judgement "npreal"
+     real_types nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (minus_real_is_real application-judgement "real" reals nil)
-    (minus_even_is_even application-judgement "even_int" integers nil)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (minus_even_is_even application-judgement "even_int" integers nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (atan_neg_value formula-decl nil atan_integral nil))
    shostak))
  (atan_value_strict_increasing 0
+  (atan_value_strict_increasing-4 "" 3754886498
+   ("" (lemma "positive_derivative[real]" ("g" "atan_value"))
+    (("1" (split -1)
+      (("1" (propax) nil nil)
+       ("2" (hide 2)
+        (("2" (skolem 1 ("x"))
+          (("2" (lemma "one_over_one_plus_t_sq_cont")
+            (("2"
+              (lemma "fundamental[real]"
+               ("f" "atan_deriv_fn" "F" "atan_value" "a" "0"))
+              (("2" (assert)
+                (("2" (split -1)
+                  (("1" (flatten)
+                    (("1" (expand "deriv" -2)
+                      (("1"
+                        (lemma "extensionality_postulate[real,real]"
+                         ("g" "atan_deriv_fn" "f"
+                          "LAMBDA (x: real): deriv(atan_value, x)"))
+                        (("1" (replace -1 -3 rl)
+                          (("1" (inst -3 "x")
+                            (("1" (replace -3 1)
+                              (("1"
+                                (typepred "atan_deriv_fn(x)")
+                                (("1" (propax) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (skosimp*)
+                          (("2" (assert)
+                            (("2" (expand "derivable?" -1)
+                              (("2" (inst?) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (expand "atan_value") (("2" (propax) nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("2" (hide 2)
+      (("2" (lemma "one_over_one_plus_t_sq_cont")
+        (("2"
+          (lemma "fundamental[real]"
+           ("f" "atan_deriv_fn" "F" "atan_value" "a" "0"))
+          (("1" (assert)
+            (("1" (expand "atan_value") (("1" (propax) nil nil)) nil))
+            nil)
+           ("2" (assert)
+            (("2" (expand "connected?") (("2" (propax) nil nil)) nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("3" (assert)
+      (("3" (expand "connected?") (("3" (propax) nil nil)) nil)) nil))
+    nil)
+   nil shostak)
+  (atan_value_strict_increasing-3 "" 3750520411
+   ("" (lemma "positive_derivative[real]" ("g" "atan_value"))
+    (("1" (split -1)
+      (("1" (propax) nil nil)
+       ("2" (hide 2)
+        (("2" (skolem 1 ("x"))
+          (("2" (lemma "one_over_one_plus_t_sq_cont")
+            (("2"
+              (lemma "fundamental[real]"
+               ("f" "atan_deriv_fn" "F" "atan_value" "a" "0"))
+              (("2" (assert)
+                (("2" (split -1)
+                  (("1" (flatten)
+                    (("1" (expand "deriv" -2)
+                      (("1"
+                        (lemma "extensionality_postulate"
+                         ("g" "atan_deriv_fn" "f"
+                          "LAMBDA (x: real): deriv(atan_value, x)"))
+                        (("1" (replace -1 -3 rl)
+                          (("1" (inst -3 "x")
+                            (("1" (replace -3 1)
+                              (("1"
+                                (typepred "atan_deriv_fn(x)")
+                                (("1" (propax) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil)
+                         ("2" (postpone) nil nil)
+                         ("3" (skosimp*)
+                          (("3" (assert)
+                            (("3" (expand "derivable?" -1)
+                              (("3" (inst?) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (expand "atan_value") (("2" (propax) nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("2" (hide 2)
+      (("2" (lemma "one_over_one_plus_t_sq_cont")
+        (("2"
+          (lemma "fundamental[real]"
+           ("f" "atan_deriv_fn" "F" "atan_value" "a" "0"))
+          (("1" (assert)
+            (("1" (expand "atan_value") (("1" (propax) nil nil)) nil))
+            nil)
+           ("2" (assert)
+            (("2" (expand "connected?") (("2" (propax) nil nil)) nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("3" (assert)
+      (("3" (expand "connected?") (("3" (propax) nil nil)) nil)) nil))
+    nil)
+   ((atan_deriv_fn const-decl "posreal" atan_integral nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (>= const-decl "bool" reals nil)
+    (fundamental formula-decl nil fundamental_theorem "analysis/")
+    (deriv const-decl "[T -> real]" derivatives "analysis/")
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
+    (extensionality_postulate formula-decl nil functions nil)
+    (derivable? const-decl "bool" derivatives_def "analysis/")
+    (deriv const-decl "real" derivatives_def "analysis/")
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (one_over_one_plus_t_sq_cont formula-decl nil atan_integral nil)
+    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
+    (connected? const-decl "bool" deriv_domain_def "analysis/")
+    (positive_derivative formula-decl nil derivative_props "analysis/")
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (derivable? const-decl "bool" derivatives "analysis/")
+    (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (atan_value const-decl "real" atan_integral nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil))
+   shostak)
   (atan_value_strict_increasing-2 nil 3477838347
    ("" (lemma "positive_derivative[real]" ("g" "atan_value"))
     (("1" (split -1)
@@ -2055,8 +2224,802 @@
      real_types nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   shostak))
+   shostak
+   (atan_value_minus_x1 subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.py)))"
+    "nznum")))
  (atan_value_minus_x1 0
+  (atan_value_minus_x1-3 "" 3744238673
+   ("" (skolem 1 ("z" "x"))
+    (("" (flatten)
+      (("" (typepred "z")
+        (("" (hide -1)
+          (("" (lemma "div_mult_pos_lt1" ("z" "-1" "py" "z" "x" "x"))
+            (("" (assert)
+              ((""
+                (lemma "fundamental[real]"
+                 ("f" "atan_deriv_fn" "F" "atan_value" "a" "0"))
+                (("1" (lemma "one_over_one_plus_t_sq_cont")
+                  (("1" (expand "atan_value" -2 1)
+                    (("1" (replace -1)
+                      (("1" (flatten -2)
+                        (("1"
+                          (lemma
+                           "identity_derivable_fun[{a:real| -1/z<a}]")
+                          (("1"
+                            (lemma "deriv_id_fun[{a:real| -1/z<a}]")
+                            (("1" (expand "I")
+                              (("1"
+                                (lemma
+                                 "deriv_const_fun[{a: real | -1 / z < a}]"
+                                 ("b" "1"))
+                                (("1"
+                                  (lemma
+                                   "const_derivable_fun[{a: real | -1 / z < a}]"
+                                   ("b" "1"))
+                                  (("1"
+                                    (lemma
+                                     "const_derivable_fun[{a: real | -1 / z < a}]"
+                                     ("b" "z"))
+                                    (("1"
+                                      (lemma
+                                       "deriv_const_fun[{a: real | -1 / z < a}]"
+                                       ("b" "z"))
+                                      (("1"
+                                        (lemma
+                                         "prod_derivable_fun[{a: real | -1 / z < a}]"
+                                         ("f1"
+                                          "LAMBDA (x: {a: real | -1 / z < a}): x"
+                                          "f2"
+                                          "LAMBDA (x: {a: real | -1 / z < a}): z"))
+                                        (("1"
+                                          (assert)
+                                          (("1"
+                                            (lemma
+                                             "deriv_prod_fun[{a: real | -1 / z < a}]"
+                                             ("ff1"
+                                              "LAMBDA (x: {a: real | -1 / z < a}): x"
+                                              "ff2"
+                                              "LAMBDA (x: {a: real | -1 / z < a}): z"))
+                                            (("1"
+                                              (expand "*")
+                                              (("1"
+                                                (expand "+")
+                                                (("1"
+                                                  (replace -3)
+                                                  (("1"
+                                                    (replace -7)
+                                                    (("1"
+                                                      (simplify -1)
+                                                      (("1"
+                                                        (lemma
+                                                         "deriv_sum_fun[{a: real | -1 / z < a}]"
+                                                         ("ff1"
+                                                          "LAMBDA (x: {a: real | -1 / z < a}): 1"
+                                                          "ff2"
+                                                          "LAMBDA (x_1: {a: real | -1 / z < a}): x_1 * z"))
+                                                        (("1"
+                                                          (lemma
+                                                           "sum_derivable_fun[{a: real | -1 / z < a}]"
+                                                           ("f1"
+                                                            "LAMBDA (x: {a: real | -1 / z < a}): 1"
+                                                            "f2"
+                                                            "LAMBDA (x_1: {a: real | -1 / z < a}): x_1 * z"))
+                                                          (("1"
+                                                            (assert)
+                                                            (("1"
+                                                              (replace
+                                                               -3)
+                                                              (("1"
+                                                                (replace
+                                                                 -8)
+                                                                (("1"
+                                                                  (expand
+                                                                   "+")
+                                                                  (("1"
+                                                                    (lemma
+                                                                     "diff_derivable_fun[{a: real | -1 / z < a}]"
+                                                                     ("f1"
+                                                                      "LAMBDA (x: {a: real | -1 / z < a}): x"
+                                                                      "f2"
+                                                                      "LAMBDA (x_1: {a: real | -1 / z < a}): z"))
+                                                                    (("1"
+                                                                      (assert)
+                                                                      (("1"
+                                                                        (lemma
+                                                                         "deriv_diff_fun[{a: real | -1 / z < a}]"
+                                                                         ("ff1"
+                                                                          "LAMBDA (x: {a: real | -1 / z < a}): x"
+                                                                          "ff2"
+                                                                          "LAMBDA (x_1: {a: real | -1 / z < a}): z"))
+                                                                        (("1"
+                                                                          (replace
+                                                                           -7)
+                                                                          (("1"
+                                                                            (replace
+                                                                             -11)
+                                                                            (("1"
+                                                                              (expand
+                                                                               "-")
+                                                                              (("1"
+                                                                                (lemma
+                                                                                 "div_derivable_fun[{a: real | -1 / z < a}]"
+                                                                                 ("f"
+                                                                                  "LAMBDA (x_1: {a: real | -1 / z < a}): x_1 - z"
+                                                                                  "g"
+                                                                                  "LAMBDA (x_1: {a: real | -1 / z < a}): 1 + x_1 * z"))
+                                                                                (("1"
+                                                                                  (assert)
+                                                                                  (("1"
+                                                                                    (lemma
+                                                                                     "deriv_div_fun[{a: real | -1 / z < a}]"
+                                                                                     ("ff"
+                                                                                      "LAMBDA (x_1: {a: real | -1 / z < a}): x_1 - z"
+                                                                                      "gg"
+                                                                                      "LAMBDA (x_1: {a: real | -1 / z < a}): 1 + x_1 * z"))
+                                                                                    (("1"
+                                                                                      (replace
+                                                                                       -3)
+                                                                                      (("1"
+                                                                                        (replace
+                                                                                         -6)
+                                                                                        (("1"
+                                                                                          (expand
+                                                                                           "/")
+                                                                                          (("1"
+                                                                                            (expand
+                                                                                             "-")
+                                                                                            (("1"
+                                                                                              (expand
+                                                                                               "*")
+                                                                                              (("1"
+                                                                                                (lemma
+                                                                                                 "composition_derivable_fun[{a: real | -1 / z < a},real]"
+                                                                                                 ("f"
+                                                                                                  "LAMBDA (x: {a: real | -1 / z < a}): x"
+                                                                                                  "g"
+                                                                                                  "atan_value"))
+                                                                                                (("1"
+                                                                                                  (lemma
+                                                                                                   "composition_derivable_fun[{a: real | -1 / z < a},real]"
+                                                                                                   ("f"
+                                                                                                    "LAMBDA (x: {a: real | -1 / z < a}): (x - z) / (1 + x * z)"
+                                                                                                    "g"
+                                                                                                    "atan_value"))
+                                                                                                  (("1"
+                                                                                                    (lemma
+                                                                                                     "deriv_comp_fun[{a: real | -1 / z < a},real]"
+                                                                                                     ("ff"
+                                                                                                      "LAMBDA (x: {a: real | -1 / z < a}): (x - z) / (1 + x * z)"
+                                                                                                      "gg"
+                                                                                                      "atan_value"))
+                                                                                                    (("1"
+                                                                                                      (lemma
+                                                                                                       "deriv_comp_fun[{a: real | -1 / z < a},real]"
+                                                                                                       ("ff"
+                                                                                                        "LAMBDA (x: {a: real | -1 / z < a}): x"
+                                                                                                        "gg"
+                                                                                                        "atan_value"))
+                                                                                                      (("1"
+                                                                                                        (assert)
+                                                                                                        (("1"
+                                                                                                          (expand
+                                                                                                           "o")
+                                                                                                          (("1"
+                                                                                                            (replace
+                                                                                                             -17)
+                                                                                                            (("1"
+                                                                                                              (replace
+                                                                                                               -21)
+                                                                                                              (("1"
+                                                                                                                (replace
+                                                                                                                 -5)
+                                                                                                                (("1"
+                                                                                                                  (expand
+                                                                                                                   "*")
+                                                                                                                  (("1"
+                                                                                                                    (lemma
+                                                                                                                     "derivs_eq[{a: real | -1 / z < a}]"
+                                                                                                                     ("F"
+                                                                                                                      "LAMBDA (x_1: {a: real | -1 / z < a}): atan_value((x_1 - z) / (1 + x_1 * z))"
+                                                                                                                      "G"
+                                                                                                                      "LAMBDA (x_1: {a: real | -1 / z < a}): atan_value(x_1)"))
+                                                                                                                    (("1"
+                                                                                                                      (assert)
+                                                                                                                      (("1"
+                                                                                                                        (replace
+                                                                                                                         -2)
+                                                                                                                        (("1"
+                                                                                                                          (replace
+                                                                                                                           -3)
+                                                                                                                          (("1"
+                                                                                                                            (hide
+                                                                                                                             -2
+                                                                                                                             -3
+                                                                                                                             -6
+                                                                                                                             -8
+                                                                                                                             -11)
+                                                                                                                            (("1"
+                                                                                                                              (lemma
+                                                                                                                               "extensionality_postulate"
+                                                                                                                               ("f"
+                                                                                                                                "LAMBDA (x_1: {a: real | -1 / z < a}): atan_deriv_fn((x_1 - z) / (1 + x_1 * z)) * ((1 + z * z) / (1 + 2 * (x_1 * z) + x_1 * x_1 * z * z))"
+                                                                                                                                "g"
+                                                                                                                                "LAMBDA (x_1: {a: real | -1 / z < a}): atan_deriv_fn(x_1)"))
+                                                                                                                              (("1"
+                                                                                                                                (replace
+                                                                                                                                 -1
+                                                                                                                                 -2
+                                                                                                                                 rl)
+                                                                                                                                (("1"
+                                                                                                                                  (hide
+                                                                                                                                   -1)
+                                                                                                                                  (("1"
+                                                                                                                                    (split
+                                                                                                                                     -1)
+                                                                                                                                    (("1"
+                                                                                                                                      (skolem
+                                                                                                                                       -1
+                                                                                                                                       ("c"))
+                                                                                                                                      (("1"
+                                                                                                                                        (expand
+                                                                                                                                         "const_fun")
+                                                                                                                                        (("1"
+                                                                                                                                          (expand
+                                                                                                                                           "+")
+                                                                                                                                          (("1"
+                                                                                                                                            (lemma
+                                                                                                                                             "extensionality_postulate"
+                                                                                                                                             ("f"
+                                                                                                                                              "LAMBDA (x_1: {a: real | -1 / z < a}): atan_value((x_1 - z) / (1 + x_1 * z))"
+                                                                                                                                              "g"
+                                                                                                                                              "LAMBDA (x_1: {a: real | -1 / z < a}): atan_value(x_1) + c"))
+                                                                                                                                            (("1"
+                                                                                                                                              (replace
+                                                                                                                                               -1
+                                                                                                                                               -2
+                                                                                                                                               rl)
+                                                                                                                                              (("1"
+                                                                                                                                                (hide
+                                                                                                                                                 -1)
+                                                                                                                                                (("1"
+                                                                                                                                                  (simplify
+                                                                                                                                                   -1)
+                                                                                                                                                  (("1"
+                                                                                                                                                    (inst-cp
+                                                                                                                                                     -1
+                                                                                                                                                     "0")
+                                                                                                                                                    (("1"
+                                                                                                                                                      (rewrite
+                                                                                                                                                       "atan_value_0"
+                                                                                                                                                       -2)
+                                                                                                                                                      (("1"
+                                                                                                                                                        (simplify
+                                                                                                                                                         -2)
+                                                                                                                                                        (("1"
+                                                                                                                                                          (lemma
+                                                                                                                                                           "atan_neg_value"
+                                                                                                                                                           ("x"
+                                                                                                                                                            "z"))
+                                                                                                                                                          (("1"
+                                                                                                                                                            (replace
+                                                                                                                                                             -1)
+                                                                                                                                                            (("1"
+                                                                                                                                                              (replace
+                                                                                                                                                               -3
+                                                                                                                                                               -2
+                                                                                                                                                               rl)
+                                                                                                                                                              (("1"
+                                                                                                                                                                (inst
+                                                                                                                                                                 -2
+                                                                                                                                                                 "x")
+                                                                                                                                                                (("1"
+                                                                                                                                                                  (assert)
+                                                                                                                                                                  nil
+                                                                                                                                                                  nil))
+                                                                                                                                                                nil))
+                                                                                                                                                              nil))
+                                                                                                                                                            nil))
+                                                                                                                                                          nil))
+                                                                                                                                                        nil))
+                                                                                                                                                      nil)
+                                                                                                                                                     ("2"
+                                                                                                                                                      (lemma
+                                                                                                                                                       "div_mult_pos_lt1"
+                                                                                                                                                       ("z"
+                                                                                                                                                        "-1"
+                                                                                                                                                        "py"
+                                                                                                                                                        "z"
+                                                                                                                                                        "x"
+                                                                                                                                                        "0"))
+                                                                                                                                                      (("2"
+                                                                                                                                                        (assert)
+                                                                                                                                                        nil
+                                                                                                                                                        nil))
+                                                                                                                                                      nil))
+                                                                                                                                                    nil))
+                                                                                                                                                  nil))
+                                                                                                                                                nil))
+                                                                                                                                              nil))
+                                                                                                                                            nil))
+                                                                                                                                          nil))
+                                                                                                                                        nil))
+                                                                                                                                      nil)
+                                                                                                                                     ("2"
+                                                                                                                                      (hide-all-but
+                                                                                                                                       (1
+                                                                                                                                        -18))
+                                                                                                                                      (("2"
+                                                                                                                                        (skosimp*)
+                                                                                                                                        (("2"
+                                                                                                                                          (typepred
+                                                                                                                                           "x!1")
+                                                                                                                                          (("2"
+                                                                                                                                            (lemma
+                                                                                                                                             "div_mult_pos_lt1"
+                                                                                                                                             ("z"
+                                                                                                                                              "-1"
+                                                                                                                                              "x"
+                                                                                                                                              "x!1"
+                                                                                                                                              "py"
+                                                                                                                                              "z"))
+                                                                                                                                            (("2"
+                                                                                                                                              (assert)
+                                                                                                                                              (("2"
+                                                                                                                                                (lemma
+                                                                                                                                                 "posreal_times_posreal_is_posreal"
+                                                                                                                                                 ("px"
+                                                                                                                                                  "1+x!1*z"
+                                                                                                                                                  "py"
+                                                                                                                                                  "1+x!1*z"))
+                                                                                                                                                (("2"
+                                                                                                                                                  (lemma
+                                                                                                                                                   "div_cancel3"
+                                                                                                                                                   ("x"
+                                                                                                                                                    "atan_deriv_fn((x!1 - z) / (1 + x!1 * z)) * (1 + z * z)"
+                                                                                                                                                    "n0z"
+                                                                                                                                                    "(1 + x!1 * z) * (1 + x!1 * z)"
+                                                                                                                                                    "y"
+                                                                                                                                                    "atan_deriv_fn(x!1)"))
+                                                                                                                                                  (("1"
+                                                                                                                                                    (replace
+                                                                                                                                                     -1
+                                                                                                                                                     1
+                                                                                                                                                     lr)
+                                                                                                                                                    (("1"
+                                                                                                                                                      (hide
+                                                                                                                                                       -1)
+                                                                                                                                                      (("1"
+                                                                                                                                                        (name
+                                                                                                                                                         "XMZ"
+                                                                                                                                                         "x!1-z")
+                                                                                                                                                        (("1"
+                                                                                                                                                          (replace
+                                                                                                                                                           -1)
+                                                                                                                                                          (("1"
+                                                                                                                                                            (name
+                                                                                                                                                             "XZP1"
+                                                                                                                                                             "1+x!1*z")
+                                                                                                                                                            (("1"
+                                                                                                                                                              (replace
+                                                                                                                                                               -1)
+                                                                                                                                                              (("1"
+                                                                                                                                                                (name
+                                                                                                                                                                 "ZSQP1"
+                                                                                                                                                                 "1+z*z")
+                                                                                                                                                                (("1"
+                                                                                                                                                                  (replace
+                                                                                                                                                                   -1)
+                                                                                                                                                                  (("1"
+                                                                                                                                                                    (expand
+                                                                                                                                                                     "atan_deriv_fn")
+                                                                                                                                                                    (("1"
+                                                                                                                                                                      (lemma
+                                                                                                                                                                       "sq_pos"
+                                                                                                                                                                       ("a"
+                                                                                                                                                                        "x!1"))
+                                                                                                                                                                      (("1"
+                                                                                                                                                                        (lemma
+                                                                                                                                                                         "sq_pos"
+                                                                                                                                                                         ("a"
+                                                                                                                                                                          "XMZ/XZP1"))
+                                                                                                                                                                        (("1"
+                                                                                                                                                                          (expand
+                                                                                                                                                                           "sq")
+                                                                                                                                                                          (("1"
+                                                                                                                                                                            (lemma
+                                                                                                                                                                             "cross_mult"
+                                                                                                                                                                             ("x"
+                                                                                                                                                                              "ZSQP1"
+                                                                                                                                                                              "n0x"
+                                                                                                                                                                              "1 + XMZ / XZP1 * (XMZ / XZP1)"
+                                                                                                                                                                              "y"
+                                                                                                                                                                              "XZP1 * XZP1"
+                                                                                                                                                                              "n0y"
+                                                                                                                                                                              "1 + x!1 * x!1"))
+                                                                                                                                                                            (("1"
+                                                                                                                                                                              (replace
+                                                                                                                                                                               -1
+                                                                                                                                                                               1)
+                                                                                                                                                                              (("1"
+                                                                                                                                                                                (hide
+                                                                                                                                                                                 -1)
+                                                                                                                                                                                (("1"
+                                                                                                                                                                                  (lemma
+                                                                                                                                                                                   "div_times"
+                                                                                                                                                                                   ("x"
+                                                                                                                                                                                    "XMZ"
+                                                                                                                                                                                    "n0x"
+                                                                                                                                                                                    "XZP1"
+                                                                                                                                                                                    "y"
+                                                                                                                                                                                    "XMZ"
+                                                                                                                                                                                    "n0y"
+                                                                                                                                                                                    "XZP1"))
+                                                                                                                                                                                  (("1"
+                                                                                                                                                                                    (replace
+                                                                                                                                                                                     -1
+                                                                                                                                                                                     1)
+                                                                                                                                                                                    (("1"
+                                                                                                                                                                                      (lemma
+                                                                                                                                                                                       "div_cancel1"
+                                                                                                                                                                                       ("n0z"
+                                                                                                                                                                                        "XZP1 * XZP1"
+                                                                                                                                                                                        "x"
+                                                                                                                                                                                        "XMZ * XMZ"))
+                                                                                                                                                                                      (("1"
+                                                                                                                                                                                        (simplify
+                                                                                                                                                                                         1)
+                                                                                                                                                                                        (("1"
+                                                                                                                                                                                          (replace
+                                                                                                                                                                                           -1
+                                                                                                                                                                                           1)
+                                                                                                                                                                                          (("1"
+                                                                                                                                                                                            (replace
+                                                                                                                                                                                             -7
+                                                                                                                                                                                             *
+                                                                                                                                                                                             rl)
+                                                                                                                                                                                            (("1"
+                                                                                                                                                                                              (replace
+                                                                                                                                                                                               -6
+                                                                                                                                                                                               *
+                                                                                                                                                                                               rl)
+                                                                                                                                                                                              (("1"
+                                                                                                                                                                                                (replace
+                                                                                                                                                                                                 -5
+                                                                                                                                                                                                 *
+                                                                                                                                                                                                 rl)
+                                                                                                                                                                                                (("1"
+                                                                                                                                                                                                  (assert)
+                                                                                                                                                                                                  nil
+                                                                                                                                                                                                  nil))
+                                                                                                                                                                                                nil))
+                                                                                                                                                                                              nil))
+                                                                                                                                                                                            nil))
+                                                                                                                                                                                          nil))
+                                                                                                                                                                                        nil))
+                                                                                                                                                                                      nil))
+                                                                                                                                                                                    nil))
+                                                                                                                                                                                  nil))
+                                                                                                                                                                                nil))
+                                                                                                                                                                              nil))
+                                                                                                                                                                            nil))
+                                                                                                                                                                          nil))
+                                                                                                                                                                        nil))
+                                                                                                                                                                      nil))
+                                                                                                                                                                    nil))
+                                                                                                                                                                  nil))
+                                                                                                                                                                nil))
+                                                                                                                                                              nil))
+                                                                                                                                                            nil))
+                                                                                                                                                          nil))
+                                                                                                                                                        nil))
+                                                                                                                                                      nil))
+                                                                                                                                                    nil)
+                                                                                                                                                   ("2"
+                                                                                                                                                    (assert)
+                                                                                                                                                    nil
+                                                                                                                                                    nil))
+                                                                                                                                                  nil))
+                                                                                                                                                nil))
+                                                                                                                                              nil))
+                                                                                                                                            nil))
+                                                                                                                                          nil))
+                                                                                                                                        nil))
+                                                                                                                                      nil))
+                                                                                                                                    nil))
+                                                                                                                                  nil))
+                                                                                                                                nil)
+                                                                                                                               ("2"
+                                                                                                                                (hide
+                                                                                                                                 -1
+                                                                                                                                 2)
+                                                                                                                                (("2"
+                                                                                                                                  (skosimp*)
+                                                                                                                                  (("2"
+                                                                                                                                    (typepred
+                                                                                                                                     "x!1")
+                                                                                                                                    (("2"
+                                                                                                                                      (lemma
+                                                                                                                                       "div_mult_pos_lt1"
+                                                                                                                                       ("z"
+                                                                                                                                        "-1"
+                                                                                                                                        "py"
+                                                                                                                                        "z"
+                                                                                                                                        "x"
+                                                                                                                                        "x!1"))
+                                                                                                                                      (("2"
+                                                                                                                                        (assert)
+                                                                                                                                        (("2"
+                                                                                                                                          (lemma
+                                                                                                                                           "posreal_times_posreal_is_posreal"
+                                                                                                                                           ("px"
+                                                                                                                                            "x!1*z+1"
+                                                                                                                                            "py"
+                                                                                                                                            "x!1*z+1"))
+                                                                                                                                          (("2"
+                                                                                                                                            (assert)
+                                                                                                                                            nil
+                                                                                                                                            nil))
+                                                                                                                                          nil))
+                                                                                                                                        nil))
+                                                                                                                                      nil))
+                                                                                                                                    nil))
+                                                                                                                                  nil))
+                                                                                                                                nil))
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("2"
+                                                                                                                      (assert)
+                                                                                                                      (("2"
+                                                                                                                        (expand
+                                                                                                                         "connected?")
+                                                                                                                        (("2"
+                                                                                                                          (skosimp*)
+                                                                                                                          (("2"
+                                                                                                                            (assert)
+                                                                                                                            nil
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("3"
+                                                                                                                      (assert)
+                                                                                                                      (("3"
+                                                                                                                        (hide-all-but
+                                                                                                                         1)
+                                                                                                                        (("3"
+                                                                                                                          (inst
+                                                                                                                           +
+                                                                                                                           "0")
+                                                                                                                          (("3"
+                                                                                                                            (cross-mult
+                                                                                                                             1)
+                                                                                                                            nil
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil)
+                                                                                                     ("2"
+                                                                                                      (propax)
+                                                                                                      nil
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil)
+                                                                                 ("2"
+                                                                                  (hide-all-but
+                                                                                   1)
+                                                                                  (("2"
+                                                                                    (skosimp*)
+                                                                                    (("2"
+                                                                                      (typepred
+                                                                                       "x!1")
+                                                                                      (("2"
+                                                                                        (cross-mult
+                                                                                         -1)
+                                                                                        (("2"
+                                                                                          (assert)
+                                                                                          nil
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (propax)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (assert)
+                            (("2" (expand "not_one_element?")
+                              (("2"
+                                (skosimp*)
+                                (("2"
+                                  (inst + "x!1+1")
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("3" (hide 2 -1 -2 -3)
+                            (("3" (expand "deriv_domain?")
+                              (("3"
+                                (skosimp*)
+                                (("3"
+                                  (inst + "e!1/2")
+                                  (("3" (grind) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (hide-all-but 1)
+                  (("2" (assert)
+                    (("2" (expand "connected?")
+                      (("2" (propax) nil nil)) nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((real_times_real_is_real application-judgement "real" reals nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (one_over_one_plus_t_sq_cont formula-decl nil atan_integral nil)
+    (identity_derivable_fun formula-decl nil derivatives "analysis/")
+    (< const-decl "bool" reals nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
+    (I const-decl "(bijective?[T, T])" identity nil)
+    (const_derivable_fun formula-decl nil derivatives "analysis/")
+    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (sum_derivable_fun formula-decl nil derivatives "analysis/")
+    (- const-decl "[T -> real]" real_fun_ops "reals/")
+    (/ const-decl "[T -> real]" real_fun_ops "reals/")
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (O const-decl "T3" function_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (nzreal_times_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (extensionality_postulate formula-decl nil functions nil)
+    (div_cancel3 formula-decl nil real_props nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (sq_pos formula-decl nil sq "reals/")
+    (sq const-decl "nonneg_real" sq "reals/")
+    (div_times formula-decl nil real_props nil)
+    (div_cancel1 formula-decl nil real_props nil)
+    (cross_mult formula-decl nil real_props nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posreal_times_posreal_is_posreal judgement-tcc nil real_types nil)
+    (atan_value_0 formula-decl nil atan_integral nil)
+    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (atan_neg_value formula-decl nil atan_integral nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (z skolem-const-decl "posreal" atan_integral nil)
+    (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
+    (TRUE const-decl "bool" booleans nil)
+    (derivs_eq formula-decl nil indefinite_integral "analysis/")
+    (nnreal_plus_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (deriv_comp_fun formula-decl nil chain_rule "analysis/")
+    (composition_derivable_fun formula-decl nil chain_rule "analysis/")
+    (nz_deriv_fun type-eq-decl nil derivatives "analysis/")
+    (deriv_div_fun formula-decl nil derivatives "analysis/")
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (div_derivable_fun formula-decl nil derivatives "analysis/")
+    (deriv_diff_fun formula-decl nil derivatives "analysis/")
+    (diff_derivable_fun formula-decl nil derivatives "analysis/")
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (deriv_sum_fun formula-decl nil derivatives "analysis/")
+    (+ const-decl "[T -> real]" real_fun_ops "reals/")
+    (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives "analysis/")
+    (deriv_prod_fun formula-decl nil derivatives "analysis/")
+    (prod_derivable_fun formula-decl nil derivatives "analysis/")
+    (deriv_const_fun formula-decl nil derivatives "analysis/")
+    (deriv_id_fun formula-decl nil derivatives "analysis/")
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nonzero_abs_is_pos application-judgement "{y: posreal | y >= x}"
+     real_defs nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
+    (connected? const-decl "bool" deriv_domain_def "analysis/")
+    (atan_deriv_fn const-decl "posreal" atan_integral nil)
+    (atan_value const-decl "real" atan_integral nil)
+    (fundamental formula-decl nil fundamental_theorem "analysis/")
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (div_mult_pos_lt1 formula-decl nil real_props nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (>= const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (posreal nonempty-type-eq-decl nil real_types nil))
+   shostak)
   (atan_value_minus_x1-2 nil 3352182175
    ("" (skolem 1 ("z" "x"))
     (("" (flatten)
@@ -2761,10 +3724,7 @@
     (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
     (I const-decl "(bijective?[T, T])" identity nil)
     (const_derivable_fun formula-decl nil derivatives "analysis/")
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
     (sum_derivable_fun formula-decl nil derivatives "analysis/")
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
-    (/ const-decl "[T -> real]" real_fun_ops "reals/")
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (O const-decl "T3" function_props nil)
@@ -2786,19 +3746,18 @@
      real_props nil)
     (posreal_times_posreal_is_posreal judgement-tcc nil real_types nil)
     (atan_value_0 formula-decl nil atan_integral nil)
+    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+     real_types nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (atan_neg_value formula-decl nil atan_integral nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil)
-    (z skolem-const-decl "posreal" atan_integral nil)
-    (npreal_div_posreal_is_npreal application-judgement "npreal"
-     real_types nil)
     (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
     (TRUE const-decl "bool" booleans nil)
     (derivs_eq formula-decl nil indefinite_integral "analysis/")
-    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+    (nnreal_plus_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (deriv_comp_fun formula-decl nil chain_rule "analysis/")
     (composition_derivable_fun formula-decl nil chain_rule "analysis/")
@@ -3529,7 +4488,10 @@
      real_types nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   shostak))
+   shostak
+   (atan_value_minus_x2 subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.py)))"
+    "nznum")))
  (atan_value_minus_x2 0
   (atan_value_minus_x2-1 nil 3256974044
    ("" (skolem 1 ("z" "x"))
@@ -3630,10 +4592,9 @@
     (div_cancel2 formula-decl nil real_props nil)
     (atan_neg_value formula-decl nil atan_integral nil)
     (minus_real_is_real application-judgement "real" reals nil)
+    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -3643,8 +4604,8 @@
     (nzreal_times_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (minus_even_is_even application-judgement "even_int" integers nil)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (minus_even_is_even application-judgement "even_int" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
@@ -3693,32 +4654,67 @@
      "(strict_total_order?[real])" real_props nil)
     (/= const-decl "boolean" notequal nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   shostak))
+   shostak
+   (atan_value_minus subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum")))
  (atan_value_minus_TCC2 0
+  (atan_value_minus_TCC2-2 "" 3744238717
+   ("" (skolem 1 ("x" "y"))
+    (("" (flatten) (("" (assert) nil nil)) nil)) nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_plus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_value_minus subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum"))
   (atan_value_minus_TCC2-1 nil 3257273262
    ("" (skolem 1 ("x" "y"))
     (("" (flatten) (("" (hide -1) (("" (assert) nil nil)) nil)) nil))
     nil)
-   ((real_plus_real_is_real application-judgement "real" reals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_lt_is_strict_total_order name-judgement
+   ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   shostak))
+     "(strict_total_order?[real])" real_props nil)
+    (real_plus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_value_minus subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum")))
  (atan_value_minus_TCC3 0
+  (atan_value_minus_TCC3-2 "" 3744238729
+   ("" (skolem 1 ("x" "y"))
+    (("" (flatten) (("" (assert) nil nil)) nil)) nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (real_plus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_value_minus subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum"))
   (atan_value_minus_TCC3-1 nil 3257273262
    ("" (skolem 1 ("x" "y"))
     (("" (flatten) (("" (hide -1 -2) (("" (assert) nil nil)) nil))
       nil))
     nil)
-   ((real_plus_real_is_real application-judgement "real" reals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   shostak))
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (real_plus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_value_minus subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum")))
  (atan_value_minus 0
   (atan_value_minus-1 nil 3255980971
    ("" (skolem 1 ("x" "y"))
@@ -3857,7 +4853,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (atan_value_strict_increasing formula-decl nil atan_integral nil))
-   shostak))
+   shostak
+   (pi subtype "number_fields.*(4, atan_integral.atan_value(1))"
+    "posreal")))
  (real_abs_lt_pi2_TCC1 0
   (real_abs_lt_pi2_TCC1-1 nil 3323022914
    ("" (typepred "pi")
@@ -3886,7 +4884,7 @@
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (pi const-decl "posreal" atan_integral nil))
-   nil))
+   nil (real_abs_lt_pi2 subtype "0" "real_abs_lt_pi2")))
  (atan_TCC1 0
   (atan_TCC1-1 nil 3256838147
    ("" (skolem 1 ("x"))
@@ -4026,11 +5024,13 @@
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+    (nnreal_plus_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (strict_increasing? const-decl "bool" real_fun_preds "reals/"))
-   shostak))
+   shostak
+   (atan subtype "atan_integral.atan_value(atan_integral.x)"
+         "real_abs_lt_pi2")))
  (pi_value 0
   (pi_value-1 nil 3408904315
    ("" (expand "atan")
@@ -4425,12 +5425,11 @@
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (atan_neg_value formula-decl nil atan_integral nil)
-    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (minus_even_is_even application-judgement "even_int" integers nil)
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (negreal nonempty-type-eq-decl nil real_types nil)
     (nonpos_real nonempty-type-eq-decl nil real_types nil)
     (atan_inv_neg_value formula-decl nil atan_integral nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (trichotomy formula-decl nil real_axioms nil)
     (atan_value_strict_increasing formula-decl nil atan_integral nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -4818,13 +5817,13 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (atan_inv_neg_value formula-decl nil atan_integral nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
     (nnreal_div_negreal_is_npreal application-judgement "npreal"
      real_types nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (minus_even_is_even application-judgement "even_int" integers nil)
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (atan const-decl "real_abs_lt_pi2" atan_integral nil))
    shostak))
@@ -4875,7 +5874,10 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil))
-   shostak))
+   shostak
+   (atan_def subtype
+    "(LAMBDA (x: reals.real): number_fields./(1, ((number_fields.+)(1, number_fields.*(x, x)))))"
+    "integral_def[real].Integrable_funs(0, atan_integral.x)")))
  (atan_def 0
   (atan_def-1 nil 3257226833
    ("" (skolem 1 ("x"))
@@ -4939,7 +5941,10 @@
     (/= const-decl "boolean" notequal nil)
     (nzreal nonempty-type-eq-decl nil reals nil)
     (atan_strict_increasing formula-decl nil atan_integral nil))
-   shostak))
+   shostak
+   (acot subtype
+    "atan_integral.atan(number_fields./(1, atan_integral.nzx))"
+    "nzreal")))
  (atan_neg 0
   (atan_neg-1 nil 3257226889
    ("" (lemma "atan_neg_value")
@@ -4976,30 +5981,62 @@
      nil))
    shostak))
  (atan_minus_TCC1 0
+  (atan_minus_TCC1-2 "" 3744239041
+   ("" (skolem 1 ("x" "y"))
+    (("" (flatten) (("" (assert) nil nil)) nil)) nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_plus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_minus subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum"))
   (atan_minus_TCC1-1 nil 3257273266
    ("" (skolem 1 ("x" "y"))
     (("" (flatten) (("" (hide -1) (("" (assert) nil nil)) nil)) nil))
     nil)
-   ((real_plus_real_is_real application-judgement "real" reals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_lt_is_strict_total_order name-judgement
+   ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   shostak))
+     "(strict_total_order?[real])" real_props nil)
+    (real_plus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_minus subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum")))
  (atan_minus_TCC2 0
+  (atan_minus_TCC2-2 "" 3744239052
+   ("" (skolem 1 ("x" "y"))
+    (("" (flatten) (("" (assert) nil nil)) nil)) nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (real_plus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_minus subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum"))
   (atan_minus_TCC2-1 nil 3257273266
    ("" (skolem 1 ("x" "y"))
     (("" (flatten) (("" (hide -1 -2) (("" (assert) nil nil)) nil))
       nil))
     nil)
-   ((real_plus_real_is_real application-judgement "real" reals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   shostak))
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (real_plus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_minus subtype
+    "((number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum")))
  (atan_minus 0
   (atan_minus-1 nil 3257227268
    ("" (skolem 1 ("x" "y"))
@@ -5028,7 +6065,6 @@
     (pi const-decl "posreal" atan_integral nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (atan const-decl "real_abs_lt_pi2" atan_integral nil))
@@ -5049,30 +6085,63 @@
      "(strict_total_order?[real])" real_props nil)
     (/= const-decl "boolean" notequal nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   shostak))
+   shostak
+   (atan_plus subtype
+    "((number_fields.-)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum")))
  (atan_plus_TCC2 0
+  (atan_plus_TCC2-2 "" 3744239065
+   ("" (skolem 1 ("x" "y"))
+    (("" (flatten) (("" (assert) nil nil)) nil)) nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_minus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_plus subtype
+    "((number_fields.-)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum"))
   (atan_plus_TCC2-1 nil 3257273266
    ("" (skolem 1 ("x" "y"))
     (("" (flatten) (("" (hide -1) (("" (assert) nil nil)) nil)) nil))
     nil)
-   ((real_minus_real_is_real application-judgement "real" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_lt_is_strict_total_order name-judgement
+   ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
     (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   shostak))
+     "(strict_total_order?[real])" real_props nil)
+    (real_minus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_plus subtype
+    "((number_fields.-)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum")))
  (atan_plus_TCC3 0
+  (atan_plus_TCC3-2 "" 3744239078
+   ("" (skolem 1 ("x" "y"))
+    (("" (flatten) (("" (assert) nil nil)) nil)) nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_minus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_plus subtype
+    "((number_fields.-)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum"))
   (atan_plus_TCC3-1 nil 3257275668
    ("" (skolem 1 ("x" "y"))
     (("" (flatten) (("" (hide -1 -2) (("" (assert) nil nil)) nil))
       nil))
     nil)
-   ((real_minus_real_is_real application-judgement "real" reals nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   shostak))
+    (real_minus_real_is_real application-judgement "real" reals nil))
+   shostak
+   (atan_plus subtype
+    "((number_fields.-)(1, number_fields.*(atan_integral.x, atan_integral.y)))"
+    "nznum")))
  (atan_plus 0
   (atan_plus-1 nil 3257227479
    ("" (skolem 1 ("x" "y"))
@@ -5141,8 +6210,6 @@
      "(strict_total_order?[real])" real_props nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (trichotomy formula-decl nil real_axioms nil)
@@ -5163,10 +6230,14 @@
    shostak))
  (atan_sub_swap_TCC1 0
   (atan_sub_swap_TCC1-1 nil 3514307078 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) nil))
+   ((/= const-decl "boolean" notequal nil)) nil
+   (atan_sub_swap subtype "2"
+    "{i: integers.int | booleans.OR(atan_integral.x /= 0, reals.>=(i, 0))}")))
  (atan_sub_swap_TCC2 0
   (atan_sub_swap_TCC2-1 nil 3514307078 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) nil))
+   ((/= const-decl "boolean" notequal nil)) nil
+   (atan_sub_swap subtype "2"
+    "{i: integers.int | booleans.OR(atan_integral.y /= 0, reals.>=(i, 0))}")))
  (atan_sub_swap_TCC3 0
   (atan_sub_swap_TCC3-1 nil 3514307078 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -5180,7 +6251,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (/= const-decl "boolean" notequal nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (atan_sub_swap subtype
+    "(number_fields.*(number_fields.*(2, atan_integral.x), atan_integral.y))"
+    "nznum")))
  (atan_sub_swap 0
   (atan_sub_swap-1 nil 3514307078
    ("" (skeep)
@@ -5240,6 +6314,66 @@
     (minus_odd_is_odd application-judgement "odd_int" integers nil))
    shostak))
  (deriv_atan_fun 0
+  (deriv_atan_fun-3 "" 3754883335
+   ("" (lemma "one_over_one_plus_t_sq_cont")
+    ((""
+      (lemma "extensionality_postulate"
+       ("f" "atan_deriv_fn" "g" "LAMBDA (x: real): 1 / (1 + x * x)"))
+      (("1" (flatten -1)
+        (("1" (hide -2)
+          (("1" (split -1)
+            (("1"
+              (lemma "fundamental[real]"
+               ("f" "atan_deriv_fn" "F" "atan" "a" "0"))
+              (("1" (split -1)
+                (("1" (replace -2 -1) (("1" (propax) nil nil)) nil)
+                 ("2" (propax) nil nil)
+                 ("3" (expand "atan" 1)
+                  (("3" (expand "atan_value" 1)
+                    (("3" (propax) nil nil)) nil))
+                  nil))
+                nil)
+               ("2" (assert)
+                (("2" (expand "connected?") (("2" (propax) nil nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (expand "atan_deriv_fn" 1) (("2" (propax) nil nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (hide-all-but 1)
+        (("2" (skosimp)
+          (("2" (assert)
+            (("2" (case "(1 + x!1 * x!1) > 0")
+              (("1" (assert)
+                (("1" (lemma "pos_div_gt")
+                  (("1" (inst?)
+                    (("1" (assert) nil nil)
+                     ("2" (lemma "sq_pos" ("a" "x!1"))
+                      (("2" (expand "sq") (("2" (assert) nil nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (assert) nil nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("3" (skosimp*)
+        (("3" (lemma "sq_pos" ("a" "x!1"))
+          (("3" (expand "sq")
+            (("3" (assert)
+              (("3" (hide -3 1) (("3" (grind) nil nil)) nil)) nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (deriv_atan_fun-2 nil 3352182759
    ("" (lemma "one_over_one_plus_t_sq_cont")
     ((""
@@ -5279,7 +6413,11 @@
         nil))
       nil))
     nil)
-   ((numfield nonempty-type-eq-decl nil number_fields nil)
+   ((posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
@@ -5292,31 +6430,32 @@
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
     (atan_deriv_fn const-decl "posreal" atan_integral nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
     (extensionality_postulate formula-decl nil functions nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
     (atan const-decl "real_abs_lt_pi2" atan_integral nil)
     (real_abs_lt_pi2 nonempty-type-eq-decl nil atan_integral nil)
     (pi const-decl "posreal" atan_integral nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (< const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
     (fundamental formula-decl nil fundamental_theorem "analysis/")
     (connected? const-decl "bool" deriv_domain_def "analysis/")
     (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
     (atan_value const-decl "real" atan_integral nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
+    (pos_div_gt formula-decl nil real_props nil)
     (sq_pos formula-decl nil sq "reals/")
+    (sq const-decl "nonneg_real" sq "reals/")
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (x!1 skolem-const-decl "real" atan_integral nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sq const-decl "nonneg_real" sq "reals/")
     (one_over_one_plus_t_sq_cont formula-decl nil atan_integral nil))
    nil)
   (deriv_atan_fun-1 nil 3257228288
@@ -5446,7 +6585,7 @@
       nil))
     nil)
    ((rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (posrat_plus_nnrat_is_posrat application-judgement "posrat"
+    (nnrat_plus_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
@@ -5460,7 +6599,6 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (atan_minus formula-decl nil atan_integral nil)
     (cross_mult formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
@@ -6104,6 +7242,8 @@
      nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
+    (nnreal_plus_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (real_lt_is_strict_total_order name-judgement
@@ -6150,10 +7290,9 @@
      real_props nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
+    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
     (I const-decl "(bijective?[T, T])" identity nil)
     (deriv_id_fun formula-decl nil derivatives "analysis/")
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
@@ -7517,7 +8656,7 @@
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (posrat_plus_nnrat_is_posrat application-judgement "posrat"
+    (nnrat_plus_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (posrat_times_posrat_is_posrat application-judgement "posrat"
      rationals nil)
@@ -7529,8 +8668,8 @@
     (nonpos_real nonempty-type-eq-decl nil real_types nil)
     (<= const-decl "bool" reals nil)
     (both_sides_times_neg_lt1 formula-decl nil real_props nil)
-    (minus_even_is_even application-judgement "even_int" integers nil)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (minus_even_is_even application-judgement "even_int" integers nil)
     (atan const-decl "real_abs_lt_pi2" atan_integral nil)
     (real_abs_lt_pi2 nonempty-type-eq-decl nil atan_integral nil)
     (pi const-decl "posreal" atan_integral nil)
@@ -7599,15 +8738,16 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (even_or_odd formula-decl nil naturalnumbers nil))
-   shostak))
+   shostak
+   (atanF subtype
+    "((number_fields.+)(number_fields./(atan_integral.i, 2), atan_integral.n))"
+    "{i: integers.int | booleans.TRUE}")))
  (atanF_TCC2 0
   (atanF_TCC2-1 nil 3261751675 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -7625,9 +8765,9 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
@@ -7637,11 +8777,11 @@
     (odd? const-decl "bool" integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   shostak))
+   shostak
+   (atanF subtype "atan_integral.i"
+    "{i: naturalnumbers.nat | reals.<=(i, (number_fields.+)(1, number_fields.*(2, atan_integral.n)))}")))
  (atanF_TCC3 0
   (atanF_TCC3-1 nil 3261751897
    ("" (skosimp*)
@@ -7679,9 +8819,9 @@
     (number nonempty-type-decl nil numbers nil)
     (atanF_TCC1 subtype-tcc nil atan_integral nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (int_times_int_is_int judgement-tcc nil integers nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
@@ -7704,12 +8844,10 @@
     (int_exp judgement-tcc nil exponentiation nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (rat_exp application-judgement "rat" exponentiation nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
@@ -7717,16 +8855,22 @@
      rationals nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
+    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil))
-   shostak))
+   shostak
+   (atanF subtype
+    "number_fields.*(number_fields.*(exponentiation.^(((number_fields.-)(1)), ((number_fields.+)(number_fields./(atan_integral.i, 2), atan_integral.n))), factorial.factorial(number_fields.*(2, atan_integral.n))), binomial.C((number_fields.+)(number_fields.*(2, atan_integral.n), 1), atan_integral.i))"
+    "int")))
  (atan_taylors_prep1_TCC1 0
   (atan_taylors_prep1_TCC1-1 nil 3260969908 ("" (grind) nil nil)
    ((real_times_real_is_real application-judgement "real" reals nil))
-   shostak))
+   shostak
+   (atan_taylors_prep1 subtype
+    "(number_fields.+)(1, number_fields.*(atan_integral.x, atan_integral.x))"
+    "nonneg_real")))
  (atan_taylors_prep1 0
   (atan_taylors_prep1-1 nil 3260969959
    ("" (expand "atanS")
@@ -7972,9 +9116,9 @@
     (sq const-decl "nonneg_real" sq "reals/")
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (sq_le formula-decl nil sq "reals/")
     (number nonempty-type-decl nil numbers nil)
@@ -8012,12 +9156,10 @@
     (sqrt const-decl "{nnz: nnreal | nnz * nnz = nnx}" sqrt "reals/")
     (atanS const-decl "real" atan_integral nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil))
+     integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil))
    shostak))
  (atan_taylors_prep2 0
   (atan_taylors_prep2-1 nil 3261752596
@@ -8279,13 +9421,11 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (extensionality_postulate formula-decl nil functions nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nzint_times_nzint_is_nzint application-judgement "nzint" integers
      nil)
     (polynomial const-decl "[real -> real]" polynomials "reals/")
@@ -8337,13 +9477,12 @@
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (int_exp application-judgement "int" exponentiation nil)
     (sigma def-decl "real" sigma "reals/")
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (harmonic_poly_real const-decl "real" harmonic_polynomials
      "reals/")
     (posrat_exp application-judgement "posrat" exponentiation nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
    shostak))
  (atan_taylors_prep3 0
@@ -8642,9 +9781,9 @@
     (polynomial const-decl "[real -> real]" polynomials "reals/")
     (even_plus_even_is_even application-judgement "even_int" integers
      nil)
-    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
+    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
@@ -8656,17 +9795,15 @@
     (/= const-decl "boolean" notequal nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (extensionality formula-decl nil functions nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (atanD const-decl "real" atan_integral nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (real_times_real_is_real application-judgement "real" reals nil))
    shostak))
  (atanN_derivable 0
@@ -8754,7 +9891,9 @@
     (number nonempty-type-decl nil numbers nil)
     (atan_taylors_prep3 formula-decl nil atan_integral nil)
     (derivable_n_times? def-decl "bool" nth_derivatives "analysis/"))
-   shostak))
+   shostak
+   (atan_taylors_prep4 subtype "atan_integral.atanN(atan_integral.n)"
+    "deriv_fun[real]")))
  (atan_taylors_prep4_TCC2 0
   (atan_taylors_prep4_TCC2-1 nil 3261752442 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -8776,13 +9915,14 @@
      nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
-   shostak))
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil))
+   shostak
+   (atan_taylors_prep4 subtype
+    "(number_fields.-)(number_fields.*(2, atan_integral.n), 1)"
+    "nat")))
  (atan_taylors_prep4 0
   (atan_taylors_prep4-1 nil 3261816998
    ("" (skolem 1 ("n"))
@@ -8800,13 +9940,12 @@
     (int_plus_int_is_int application-judgement "int" integers nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (deriv_polynomial formula-decl nil polynomial_deriv "analysis/")
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -8851,7 +9990,9 @@
     (number nonempty-type-decl nil numbers nil)
     (atan_taylors_prep3 formula-decl nil atan_integral nil)
     (derivable_n_times? def-decl "bool" nth_derivatives "analysis/"))
-   shostak))
+   shostak
+   (atan_taylors_prep5 subtype "atan_integral.atanD(atan_integral.n)"
+    "deriv_fun[real]")))
  (atan_taylors_prep5 0
   (atan_taylors_prep5-1 nil 3261817286
    ("" (skolem 1 ("n"))
@@ -9004,12 +10145,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (atan_taylors_prep3 formula-decl nil atan_integral nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (derivable_n_times? def-decl "bool" nth_derivatives "analysis/")
     (expt def-decl "real" exponentiation nil)
     (identity_derivable_fun formula-decl nil derivatives "analysis/")
@@ -9017,9 +10156,9 @@
     (I const-decl "(bijective?[T, T])" identity nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (+ const-decl "[T -> real]" real_fun_ops "reals/")
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (deriv_exp_fun formula-decl nil derivatives "analysis/")
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (* const-decl "[T -> real]" real_fun_ops "reals/")
@@ -9066,7 +10205,10 @@
     (number nonempty-type-decl nil numbers nil)
     (atan_taylors_prep3 formula-decl nil atan_integral nil)
     (derivable_n_times? def-decl "bool" nth_derivatives "analysis/"))
-   shostak))
+   shostak
+   (atan_taylors_prep6 subtype
+    "derivatives[real].deriv(atan_integral.atanN(atan_integral.n))"
+    "deriv_fun[real]")))
  (atan_taylors_prep6_TCC2 0
   (atan_taylors_prep6_TCC2-1 nil 3261752523 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -9088,13 +10230,14 @@
      nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
-   shostak))
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil))
+   shostak
+   (atan_taylors_prep6 subtype
+    "(number_fields.-)(number_fields.*(2, atan_integral.n), 2)"
+    "nat")))
  (atan_taylors_prep6 0
   (atan_taylors_prep6-1 nil 3261818017
    ("" (skolem 1 ("n"))
@@ -9190,16 +10333,16 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (nderiv_polynomial formula-decl nil polynomial_deriv "analysis/")
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
     (= const-decl "[T, T -> boolean]" equalities nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (extensionality formula-decl nil functions nil)
@@ -9227,8 +10370,6 @@
      integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (int_times_even_is_even application-judgement "even_int" integers
-     nil)
     (even_plus_even_is_even application-judgement "even_int" integers
      nil)
     (C_n formula-decl nil binomial "reals/")
@@ -9236,7 +10377,8 @@
      nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (nderiv def-decl "[T -> real]" nth_derivatives "analysis/")
-    (atanN const-decl "[real -> real]" atan_integral nil))
+    (atanN const-decl "[real -> real]" atan_integral nil)
+    (int_times_int_is_int application-judgement "int" integers nil))
    shostak))
  (atan_taylors_prep7_TCC1 0
   (atan_taylors_prep7_TCC1-1 nil 3261752531
@@ -9270,7 +10412,10 @@
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
     (nzreal nonempty-type-eq-decl nil reals nil))
-   shostak))
+   shostak
+   (atan_taylors_prep7 subtype
+    "real_fun_ops[real].^(atan_integral.g, atan_integral.pn)"
+    "[real -> nzreal]")))
  (atan_taylors_prep7_TCC2 0
   (atan_taylors_prep7_TCC2-1 nil 3261922791
    ("" (skosimp*)
@@ -9281,7 +10426,7 @@
     nil)
    ((^ const-decl "[T -> real]" real_fun_ops "reals/")
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (expt_nonzero formula-decl nil exponentiation nil)
     (number nonempty-type-decl nil numbers nil)
@@ -9304,7 +10449,10 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (/= const-decl "boolean" notequal nil)
     (nzreal nonempty-type-eq-decl nil reals nil))
-   shostak))
+   shostak
+   (atan_taylors_prep7 subtype
+    "(real_fun_ops[real].^(atan_integral.g, ((number_fields.+)(atan_integral.pn, 1))))"
+    "[real -> nzreal]")))
  (atan_taylors_prep7 0
   (atan_taylors_prep7-1 nil 3261830480
    ("" (skolem 1 ("pn" "ff" "gg"))
@@ -9481,7 +10629,7 @@
     (- const-decl "[T -> real]" real_fun_ops "reals/")
     (/ const-decl "[T -> real]" real_fun_ops "reals/")
     (extensionality formula-decl nil functions nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (deriv const-decl "[T -> real]" derivatives "analysis/")
@@ -9518,20 +10666,18 @@
       nil))
     nil)
    ((atanD const-decl "real" atan_integral nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (expt_pos formula-decl nil exponentiation nil)
@@ -9555,7 +10701,9 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil))
-   shostak))
+   shostak
+   (atan_taylors_prep8 subtype "atan_integral.atanD(atan_integral.n)"
+    "[real -> nzreal]")))
  (atan_taylors_prep8_TCC2 0
   (atan_taylors_prep8_TCC2-1 nil 3261922793
    ("" (skolem 1 ("n"))
@@ -9598,7 +10746,10 @@
     (atanN const-decl "[real -> real]" atan_integral nil)
     (div_derivable_fun formula-decl nil derivatives "analysis/")
     (derivable_n_times? def-decl "bool" nth_derivatives "analysis/"))
-   shostak))
+   shostak
+   (atan_taylors_prep8 subtype
+    "real_fun_ops[real]./(atan_integral.atanN(atan_integral.n), atan_integral.atanD(atan_integral.n))"
+    "deriv_fun[real]")))
  (atan_taylors_prep8_TCC3 0
   (atan_taylors_prep8_TCC3-1 nil 3261922793
    ("" (skolem 1 ("n"))
@@ -9689,7 +10840,10 @@
     (atanD const-decl "real" atan_integral nil)
     (derivable_n_times? def-decl "bool" nth_derivatives "analysis/")
     (atan_taylors_prep8_TCC2 subtype-tcc nil atan_integral nil))
-   shostak))
+   shostak
+   (atan_taylors_prep8 subtype
+    "derivatives[real].deriv(real_fun_ops[real]./(atan_integral.atanN(atan_integral.n), atan_integral.atanD(atan_integral.n)))"
+    "deriv_fun[real]")))
  (atan_taylors_prep8_TCC4 0
   (atan_taylors_prep8_TCC4-1 nil 3261922793
    ("" (skolem 1 ("n" "x"))
@@ -9715,7 +10869,10 @@
     (atan_taylors_prep8_TCC1 subtype-tcc nil atan_integral nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   shostak))
+   shostak
+   (atan_taylors_prep8 subtype
+    "atan_integral.atanD((number_fields.+)(atan_integral.n, 1))"
+    "[real -> nzreal]")))
  (atan_taylors_prep8 0
   (atan_taylors_prep8-2 nil 3352183671
    ("" (skolem 1 ("n"))
@@ -12858,12 +14015,10 @@
     (sum_derivable_fun formula-decl nil derivatives "analysis/")
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (atanD const-decl "real" atan_integral nil)
     (^ const-decl "[T -> real]" real_fun_ops "reals/")
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
@@ -12875,12 +14030,7 @@
     (deriv_diff_fun formula-decl nil derivatives "analysis/")
     (extensionality formula-decl nil functions nil)
     (atan_taylors_prep6 formula-decl nil atan_integral nil)
-    (derivable_const application-judgement "deriv_fun" derivatives
-     "analysis/")
-    (const_fun_continuous application-judgement "continuous_fun[T]"
-     indefinite_integral "analysis/")
-    (constant_seq1 application-judgement "(convergent?)"
-     convergence_ops "analysis/")
+    (int_times_int_is_int application-judgement "int" integers nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (sequence type-eq-decl nil sequences nil)
@@ -12891,10 +14041,14 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (expt_x3 formula-decl nil exponentiation nil)
+    (derivable_const application-judgement "deriv_fun" derivatives
+     "analysis/")
+    (constant_seq1 application-judgement "(convergent?)"
+     convergence_ops "analysis/")
     (odd_plus_odd_is_even application-judgement "even_int" integers
      nil)
-    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (minus_even_is_even application-judgement "even_int" integers nil)
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (extend_polynomial formula-decl nil polynomials "reals/")
     (poly_diff formula-decl nil poly_rew "reals/")
     (poly_scal formula-decl nil poly_rew "reals/")
@@ -12922,6 +14076,8 @@
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (nnrat_plus_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -12931,15 +14087,12 @@
      nil)
     (C_n_plus_1 formula-decl nil binomial "reals/")
     (C_k_minus_1 formula-decl nil binomial "reals/")
-    (posint nonempty-type-eq-decl nil integers nil)
     (even_int nonempty-type-eq-decl nil integers nil)
     (K54 skolem-const-decl "int" atan_integral nil)
-    (K51 skolem-const-decl "posint" atan_integral nil)
+    (K51 skolem-const-decl "even_int" atan_integral nil)
     (K50 skolem-const-decl "int" atan_integral nil)
     (K53 skolem-const-decl "even_int" atan_integral nil)
-    (K52 skolem-const-decl "(divides((2 * n - x!1)))" atan_integral
-     nil)
-    (divides const-decl "bool" divides nil)
+    (K52 skolem-const-decl "int" atan_integral nil)
     (div_cancel3 formula-decl nil real_props nil)
     (both_sides_times2 formula-decl nil real_props nil)
     (div_times formula-decl nil real_props nil)
@@ -12954,6 +14107,7 @@
     (even_or_odd formula-decl nil naturalnumbers nil)
     (nnrat_plus_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
@@ -12986,20 +14140,21 @@
     (expt_x2 formula-decl nil exponentiation nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (expt_x0 formula-decl nil exponentiation nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (rat_exp application-judgement "rat" exponentiation nil)
     (odd? const-decl "bool" integers nil)
     (factorial def-decl "posnat" factorial "ints/")
     (sigma_0_neg formula-decl nil sigma_nat "reals/")
     (factorial_0 formula-decl nil factorial "ints/")
+    (nzint_times_nzint_is_nzint application-judgement "nzint" integers
+     nil)
     (C_n_1 formula-decl nil binomial "reals/")
     (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
+    (negint_times_negint_is_posint application-judgement "posint"
+     integers nil)
     (C_0 formula-decl nil binomial "reals/")
     (atanF const-decl "int" atan_integral nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (nzint_times_nzint_is_nzint application-judgement "nzint" integers
-     nil)
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (int_exp application-judgement "int" exponentiation nil)
     (posint_times_posint_is_posint application-judgement "posint"
@@ -16893,17 +18048,18 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (/= const-decl "boolean" notequal nil)
     (atanD const-decl "real" atan_integral nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil))
    shostak))
  (atan_series_prep5_TCC1 0
   (atan_series_prep5_TCC1-1 nil 3258304941
    ("" (lemma "atan_series_prep4") (("" (propax) nil nil)) nil)
-   ((atan_series_prep4 formula-decl nil atan_integral nil)) shostak))
+   ((atan_series_prep4 formula-decl nil atan_integral nil)) shostak
+   (atan_series_prep5 subtype
+    "real_fun_ops[real]./(atan_integral.atanN(atan_integral.n), atan_integral.atanD(atan_integral.n))"
+    "nth_derivatives[real].nderiv_fun(number_fields.*(2, atan_integral.m))")))
  (atan_series_prep5_TCC2 0
   (atan_series_prep5_TCC2-1 nil 3258304866
    ("" (skolem 1 ("m" "n" "x"))
@@ -16913,20 +18069,18 @@
       nil))
     nil)
    ((atanD const-decl "real" atan_integral nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (expt_pos formula-decl nil exponentiation nil)
@@ -16950,7 +18104,10 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil))
-   shostak))
+   shostak
+   (atan_series_prep5 subtype
+    "atan_integral.atanD((number_fields.+)(atan_integral.n, atan_integral.m))"
+    "[real -> nzreal]")))
  (atan_series_prep5 0
   (atan_series_prep5-1 nil 3258303869
    ("" (induct "m")
@@ -17043,12 +18200,10 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (/= const-decl "boolean" notequal nil)
     (atanD const-decl "real" atan_integral nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
    shostak))
@@ -17144,18 +18299,15 @@
     (int_exp application-judgement "int" exponentiation nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (expt_x0 formula-decl nil exponentiation nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (sigma_0_neg formula-decl nil sigma_nat "reals/")
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
@@ -17238,12 +18390,10 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (derivable_n_times_lem formula-decl nil nth_derivatives
      "analysis/")
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -17261,7 +18411,9 @@
     (sq_pos formula-decl nil sq "reals/")
     (atan_series_prep6 formula-decl nil atan_integral nil)
     (deriv_atan_fun formula-decl nil atan_integral nil))
-   shostak))
+   shostak
+   (atan_nderiv subtype "atan_integral.atan"
+    "nth_derivatives[real].nderiv_fun(atan_integral.n)")))
  (atan_nderiv_TCC2 0
   (atan_nderiv_TCC2-1 nil 3260164836
    ("" (skolem 1 ("n"))
@@ -17271,7 +18423,33 @@
           (("" (typepred "n")
             (("" (lemma "div_cancel1" ("x" "j!1" "n0z" "2"))
               (("" (replace -3)
-                (("" (replace -1) (("" (assert) nil nil)) nil)) nil))
+                (("" (replace -1)
+                  (("" (assert)
+                    (("" (assert :flush? t)
+                      (("" (typepred "n")
+                        (("" (lemma "pos_times_ge")
+                          (("" (inst -1 "2" "j!1")
+                            (("" (replace -4)
+                              ((""
+                                (prop)
+                                (("1" (assert) nil nil)
+                                 ("2"
+                                  (assert :flush? t)
+                                  (("2"
+                                    (case-replace "j!1 = 0")
+                                    (("1" (assert :flush? t) nil nil)
+                                     ("2" (assert :flush? t) nil nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
               nil))
             nil))
           nil))
@@ -17283,8 +18461,12 @@
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (pos_times_ge formula-decl nil real_props nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -17308,7 +18490,10 @@
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (even? const-decl "bool" integers nil))
-   shostak))
+   shostak
+   (atan_nderiv subtype
+    "(number_fields.-)(number_fields./(atan_integral.n, 2), 1)"
+    "nat")))
  (atan_nderiv_TCC3 0
   (atan_nderiv_TCC3-1 nil 3260164922
    ("" (skosimp*)
@@ -17380,12 +18565,13 @@
      real_props nil)
     (derivable_n_times? def-decl "bool" nth_derivatives "analysis/")
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil))
-   shostak))
+   shostak
+   (atan_nderiv subtype
+    "atan_integral.atanN((number_fields.-)(number_fields./(atan_integral.n, 2), 1))"
+    "deriv_fun[real]")))
  (atan_nderiv_TCC4 0
   (atan_nderiv_TCC4-1 nil 3260165112
    ("" (expand "even?")
@@ -17451,8 +18637,6 @@
     (sq const-decl "nonneg_real" sq "reals/")
     (sq_pos formula-decl nil sq "reals/")
     (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (atanD const-decl "real" atan_integral nil)
@@ -17460,7 +18644,10 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil))
-   shostak))
+   shostak
+   (atan_nderiv subtype
+    "(real_fun_ops[real].*(atan_integral.atanD((number_fields.-)(number_fields./(atan_integral.n, 2), 1)), (LAMBDA (x: reals.real): ((number_fields.+)(1, number_fields.*(x, x))))))"
+    "[real -> nzreal]")))
  (atan_nderiv_TCC5 0
   (atan_nderiv_TCC5-1 nil 3260165355
    ("" (skolem 1 ("n"))
@@ -17499,22 +18686,20 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (odd? const-decl "bool" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (/= const-decl "boolean" notequal nil)
     (div_cancel1 formula-decl nil real_props nil))
-   shostak))
+   shostak
+   (atan_nderiv subtype
+    "number_fields./(((number_fields.-)(atan_integral.n, 1)), 2)"
+    "nat")))
  (atan_nderiv_TCC6 0
   (atan_nderiv_TCC6-1 nil 3260165510
    ("" (skolem 1 ("n"))
@@ -17556,8 +18741,6 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (odd? const-decl "bool" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
@@ -17583,7 +18766,10 @@
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (/= const-decl "boolean" notequal nil)
     (div_cancel1 formula-decl nil real_props nil))
-   shostak))
+   shostak
+   (atan_nderiv subtype
+    "atan_integral.atanD(number_fields./(((number_fields.-)(atan_integral.n, 1)), 2))"
+    "[real -> nzreal]")))
  (atan_nderiv 0
   (atan_nderiv-2 nil 3445345492
    ("" (skolem 1 ("n"))
@@ -18216,8 +19402,6 @@
     (nderiv_derivable formula-decl nil nth_derivatives "analysis/")
     (deriv_atan_fun formula-decl nil atan_integral nil)
     (nderiv def-decl "[T -> real]" nth_derivatives "analysis/")
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -18825,8 +20009,6 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (odd? const-decl "bool" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
@@ -18837,7 +20019,10 @@
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (/= const-decl "boolean" notequal nil)
     (div_cancel1 formula-decl nil real_props nil))
-   shostak))
+   shostak
+   (atan_nderiv_0 subtype
+    "(number_fields./(((number_fields.-)(atan_integral.n, 1)), 2))"
+    "{i: integers.int | booleans.TRUE}")))
  (atan_nderiv_0_TCC2 0
   (atan_nderiv_0_TCC2-1 nil 3258055983
    ("" (skosimp*)
@@ -18867,8 +20052,6 @@
     (boolean nonempty-type-decl nil booleans nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (odd? const-decl "bool" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -18876,7 +20059,9 @@
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (even_or_odd formula-decl nil naturalnumbers nil))
-   shostak))
+   shostak
+   (atan_nderiv_0 subtype "(number_fields.-)(atan_integral.n, 1)"
+    "nat")))
  (atan_nderiv_0 0
   (atan_nderiv_0-3 nil 3445345552
    ("" (skolem 1 ("n"))
@@ -19477,7 +20662,6 @@
     (rat_exp application-judgement "rat" exponentiation nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (deriv_atan_fun formula-decl nil atan_integral nil)
-    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -19520,6 +20704,10 @@
     (atanD const-decl "real" atan_integral nil)
     (deriv_div_fun formula-decl nil derivatives "analysis/")
     (nz_deriv_fun type-eq-decl nil derivatives "analysis/")
+    (constant_seq1 application-judgement "(convergent?)"
+     convergence_ops "analysis/")
+    (derivable_const application-judgement "deriv_fun" derivatives
+     "analysis/")
     (real_minus_real_is_real application-judgement "real" reals nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
@@ -19530,16 +20718,15 @@
      integers nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
     (^ const-decl "real" exponentiation nil)
     (expt def-decl "real" exponentiation nil)
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
+    (int_times_int_is_int application-judgement "int" integers nil)
     (posrat_times_posrat_is_posrat application-judgement "posrat"
      rationals nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (expt_1i formula-decl nil exponentiation nil)
     (atanF const-decl "int" atan_integral nil)
     (sequence type-eq-decl nil sequences nil)
@@ -19548,12 +20735,6 @@
      integers nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (constant_seq1 application-judgement "(convergent?)"
-     convergence_ops "analysis/")
-    (const_fun_continuous application-judgement "continuous_fun[T]"
-     indefinite_integral "analysis/")
-    (derivable_const application-judgement "deriv_fun" derivatives
-     "analysis/")
     (atan_taylors_prep8_TCC1 subtype-tcc nil atan_integral nil)
     (atan_taylors_prep5 formula-decl nil atan_integral nil)
     (/ const-decl "[T -> real]" real_fun_ops "reals/")
@@ -19573,8 +20754,6 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (atan_series_prep6 formula-decl nil atan_integral nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (even? const-decl "bool" integers nil)
@@ -20879,12 +22058,10 @@
     (/= const-decl "boolean" notequal nil)
     (derivable_n_times_lem formula-decl nil nth_derivatives
      "analysis/")
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (atan_series_prep6 formula-decl nil atan_integral nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -21267,12 +22444,10 @@
     (atan_taylors_prep2 formula-decl nil atan_integral nil)
     (int_exp application-judgement "int" exponentiation nil)
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (abs_mult formula-decl nil real_props nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -21319,7 +22494,8 @@
     (harmonic_poly_real const-decl "real" harmonic_polynomials
      "reals/")
     (posrat_exp application-judgement "posrat" exponentiation nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posint_times_posint_is_posint application-judgement "posint"
@@ -21329,10 +22505,8 @@
     (expt_x0 formula-decl nil exponentiation nil)
     (expt_plus formula-decl nil exponentiation nil)
     (nzreal nonempty-type-eq-decl nil reals nil)
-    (nzreal_expt application-judgement "nzreal" exponentiation nil)
     (int_expt application-judgement "int" exponentiation nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
-     nil)
+    (nzreal_expt application-judgement "nzreal" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (expt def-decl "real" exponentiation nil)
@@ -21351,9 +22525,9 @@
     (posreal nonempty-type-eq-decl nil real_types nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (both_sides_times_pos_le1 formula-decl nil real_props nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (atan_taylors_prep1 formula-decl nil atan_integral nil)
@@ -21383,10 +22557,13 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (atan_n_times_derivable formula-decl nil atan_integral nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil))
-   shostak))
+     integers nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers
+     nil))
+   shostak
+   (atan_series_prep8 subtype "atan_integral.atan"
+    "nth_derivatives[real].nderiv_fun((number_fields.+)(1, number_fields.*(2, atan_integral.n)))")))
  (atan_series_prep8 0
   (atan_series_prep8-1 nil 3260175607
    ("" (skolem 1 ("n" "x"))
@@ -21453,17 +22630,17 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (atan_nderiv formula-decl nil atan_integral nil)
-    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
+    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
@@ -21498,26 +22675,22 @@
     (/= const-decl "boolean" notequal nil)
     (div_cancel1 formula-decl nil real_props nil)
     (even? const-decl "bool" integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil))
+     integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil))
    shostak))
  (atan_series_term_TCC1 0
   (atan_series_term_TCC1-1 nil 3258433066 ("" (grind) nil nil)
-   ((nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
+   ((even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (/= const-decl "boolean" notequal nil))
-   shostak))
- (atan_series_n_TCC1 0
-  (atan_series_n_TCC1-1 nil 3374498147 ("" (subtype-tcc) nil nil) nil
-   nil))
+   shostak
+   (atan_series_term subtype
+    "((number_fields.+)(number_fields.*(2, atan_integral.n), 1))"
+    "{i: integers.int | booleans.OR(atan_integral.x /= 0, reals.>=(i, 0))}")))
  (atan_series_n_increasing 0
   (atan_series_n_increasing-1 nil 3559407868
    ("" (skeep)
@@ -22448,6 +23621,8 @@
     (number nonempty-type-decl nil numbers nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
+    (nzreal_exp application-judgement "nzreal" exponentiation nil)
+    (int_exp application-judgement "int" exponentiation nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -22473,6 +23648,8 @@
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (even? const-decl "bool" integers nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
     (even_minus_even_is_even application-judgement "even_int" integers
      nil)
     (nnreal_expt judgement-tcc nil exponentiation nil)
@@ -22525,18 +23702,14 @@
      rationals nil)
     (even_plus_even_is_even application-judgement "even_int" integers
      nil)
-    (int_exp application-judgement "int" exponentiation nil)
-    (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (aa skolem-const-decl "[nat -> rational]" atan_integral nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (polynomial const-decl "[real -> real]" polynomials "reals/")
     (sequence type-eq-decl nil sequences nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -22546,13 +23719,13 @@
     (T_low type-eq-decl nil sigma "reals/")
     (<= const-decl "bool" reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
+    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (atan_series_coef const-decl "rat" atan_integral nil)
     (atan_series_n const-decl "real" atan_integral nil))
    shostak))
@@ -22576,12 +23749,10 @@
    ((atan_series_n const-decl "real" atan_integral nil)
     (expt def-decl "real" exponentiation nil)
     (^ const-decl "real" exponentiation nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -22608,84 +23779,6 @@
     (sigma_restrict_eq_0 formula-decl nil sigma "reals/"))
    shostak))
  (atan_series_eqv_TCC1 0
-  (atan_series_eqv_TCC1-1 nil 3258433634
-   ("" (skosimp*)
-    (("" (expand "derivable_n_times?")
-      (("" (assert)
-        (("" (lemma "deriv_atan_fun")
-          (("" (flatten)
-            (("" (replace -2 3)
-              (("" (assert)
-                (("" (case "even?(nn!1-1)")
-                  (("1" (expand "even?")
-                    (("1" (skosimp*)
-                      (("1" (replace -1 3)
-                        (("1" (lemma "atan_series_prep6" ("n" "j!1"))
-                          (("1" (flatten) nil nil)
-                           ("2" (assert) nil nil))
-                          nil))
-                        nil))
-                      nil))
-                    nil)
-                   ("2" (rewrite "even_or_odd")
-                    (("2" (expand "odd?")
-                      (("2" (skosimp*)
-                        (("2" (replace -1 3)
-                          (("2"
-                            (lemma "atan_series_prep6" ("n" "j!1+1"))
-                            (("1" (flatten)
-                              (("1"
-                                (lemma
-                                 "derivable_n_times_lem"
-                                 ("f"
-                                  "(LAMBDA (x: real): 1 / (1 + x * x))"
-                                  "n"
-                                  "2*j!1+2"
-                                  "m"
-                                  "1+2*j!1"))
-                                (("1" (assert) nil nil)
-                                 ("2" (assert) nil nil)
-                                 ("3" (assert) nil nil)
-                                 ("4"
-                                  (skosimp*)
-                                  (("4"
-                                    (lemma "sq_pos" ("a" "x!1"))
-                                    (("4"
-                                      (hide-all-but (-1 -2))
-                                      (("4" (grind) nil nil))
-                                      nil))
-                                    nil))
-                                  nil))
-                                nil))
-                              nil)
-                             ("2" (assert) nil nil))
-                            nil))
-                          nil))
-                        nil))
-                      nil))
-                    nil))
-                  nil))
-                nil))
-              nil))
-            nil))
-          nil))
-        nil))
-      nil))
-    nil)
-   ((mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (even_plus_even_is_even application-judgement "even_int" integers
-     nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   shostak))
- (atan_series_eqv_TCC2 0
   (atan_series_eqv_TCC2-1 nil 3258434237
    ("" (skosimp*) (("" (rewrite "atan_n_times_derivable") nil nil))
     nil)
@@ -22704,17 +23797,19 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil))
-   shostak))
- (atan_series_eqv_TCC3 0
+   shostak
+   (atan_series_eqv subtype "atan_integral.atan"
+    "nth_derivatives[real].nderiv_fun(atan_integral.nn)")))
+ (atan_series_eqv_TCC2 0
   (atan_series_eqv_TCC3-1 nil 3374498147 ("" (subtype-tcc) nil nil)
-   ((nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
+   ((even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (atan_series_eqv subtype "atan_integral.nn"
+    "{i: integers.int | booleans.OR(atan_integral.x /= 0, reals.>=(i, 0))}")))
  (atan_series_eqv 0
   (atan_series_eqv-1 nil 3258434264
    ("" (skolem 1 ("_" "x"))
@@ -22900,17 +23995,15 @@
         nil))
       nil))
     nil)
-   ((mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
+   ((nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (even_plus_even_is_even application-judgement "even_int" integers
-     nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
+    (even_plus_even_is_even application-judgement "even_int" integers
+     nil)
     (atan const-decl "real_abs_lt_pi2" atan_integral nil)
     (real_abs_lt_pi2 nonempty-type-eq-decl nil atan_integral nil)
     (pi const-decl "posreal" atan_integral nil)
@@ -22962,18 +24055,17 @@
     (atan_series_term const-decl "[nat -> real]" atan_integral nil)
     (int_exp application-judgement "int" exponentiation nil)
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (expt_x0 formula-decl nil exponentiation nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (expt_x0 formula-decl nil exponentiation nil)
     (sigma_0_neg formula-decl nil sigma_nat "reals/")
     (even? const-decl "bool" integers nil)
     (factorial_0 formula-decl nil factorial "ints/")
-    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (atan_nderiv_0 formula-decl nil atan_integral nil)
     (atan_series_coef const-decl "rat" atan_integral nil)
@@ -23024,20 +24116,24 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (atan_n_times_derivable formula-decl nil atan_integral nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil))
-   shostak))
+     integers nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers
+     nil))
+   shostak
+   (atan_taylors subtype "atan_integral.atan"
+    "nth_derivatives[real].nderiv_fun((number_fields.+)(3, number_fields.*(2, atan_integral.n)))")))
  (atan_taylors_TCC2 0
   (atan_taylors_TCC2-1 nil 3260539208 ("" (grind) nil nil)
-   ((nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
+   ((even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (/= const-decl "boolean" notequal nil))
-   shostak))
+   shostak
+   (atan_taylors subtype
+    "((number_fields.+)(number_fields.*(2, atan_integral.n), 3))"
+    "{i: integers.int | booleans.OR(atan_integral.x /= 0, reals.>=(i, 0))}")))
  (atan_taylors 0
   (atan_taylors-1 nil 3258437940
    ("" (skolem 1 ("n" "x"))
@@ -23107,22 +24203,20 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (even_plus_even_is_even application-judgement "even_int" integers
+    (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
+    (even_plus_even_is_even application-judgement "even_int" integers
+     nil)
     (atan_0 formula-decl nil atan_integral nil)
     (between type-eq-decl nil taylors "analysis/")
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -23162,14 +24256,15 @@
    shostak))
  (atan_series_TCC1 0
   (atan_series_TCC1-1 nil 3260165696 ("" (grind) nil nil)
-   ((nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
+   ((even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (/= const-decl "boolean" notequal nil))
-   shostak))
+   shostak
+   (atan_series subtype
+    "((number_fields.+)(number_fields.*(2, atan_integral.n), 3))"
+    "{i: integers.int | booleans.OR(atan_integral.x /= 0, reals.>=(i, 0))}")))
  (atan_series 0
   (atan_series-1 nil 3260166047
    ("" (skolem 1 ("n" "x"))
@@ -23520,12 +24615,11 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (atan_taylors formula-decl nil atan_integral nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -23561,7 +24655,6 @@
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (minus_even_is_even application-judgement "even_int" integers nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (div_cancel1 formula-decl nil real_props nil)
     (even_plus_even_is_even application-judgement "even_int" integers
@@ -23593,23 +24686,21 @@
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (/= const-decl "boolean" notequal nil)
     (abs_div formula-decl nil real_props nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (between type-eq-decl nil taylors "analysis/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (< const-decl "bool" reals nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (atan_series_prep8 formula-decl nil atan_integral nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (< const-decl "bool" reals nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (between type-eq-decl nil taylors "analysis/")
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
    shostak)))
 

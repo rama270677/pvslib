@@ -1,6 +1,8 @@
 (float (vNum_TCC1 0
         (vNum_TCC1-1 nil 3321636413 ("" (subtype-tcc) nil nil)
-         ((/= const-decl "boolean" notequal nil)) nil))
+         ((/= const-decl "boolean" notequal nil)) nil
+         (vNum subtype "Prec(float.b)"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (radix_div_vNum 0
         (radix_div_vNum-1 nil 3319366647
          ("" (judgement-tcc)
@@ -75,9 +77,9 @@
           (TRUE const-decl "bool" booleans nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (nnint_plus_posint_is_posint application-judgement "posint"
-           integers nil)
           (even_plus_odd_is_odd application-judgement "odd_int"
+           integers nil)
+          (nnint_plus_posint_is_posint application-judgement "posint"
            integers nil)
           (expt_x1_aux formula-decl nil exponentiation nil)
           (Format type-eq-decl nil float nil)
@@ -121,7 +123,9 @@
          nil))
        (FtoR_TCC1 0
         (FtoR_TCC1-1 nil 3318615387 ("" (subtype-tcc) nil nil)
-         ((/= const-decl "boolean" notequal nil)) nil))
+         ((/= const-decl "boolean" notequal nil)) nil
+         (FtoR subtype "(Fexp(float.f))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (ftor_zero_fnum 0
         (ftor_zero_fnum-1 nil 3681143479
          ("" (skeep)
@@ -138,7 +142,6 @@
             nil))
           nil)
          ((FtoR const-decl "real" float nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (expt_nonzero formula-decl nil exponentiation nil)
@@ -178,13 +181,19 @@
          ((/= const-decl "boolean" notequal nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil))
-         nil))
+         nil
+         (Fplus subtype
+          "((number_fields.-)(Fexp(float.f), real_defs.min(Fexp(float.f), Fexp(float.g))))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (Fplus_TCC2 0
         (Fplus_TCC2-1 nil 3319889173 ("" (subtype-tcc) nil nil)
          ((/= const-decl "boolean" notequal nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil))
-         nil))
+         nil
+         (Fplus subtype
+          "((number_fields.-)(Fexp(float.g), real_defs.min(Fexp(float.f), Fexp(float.g))))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (Fplus_TCC3 0
         (Fplus_TCC3-1 nil 3319889173 ("" (subtype-tcc) nil nil)
          ((^ const-decl "real" exponentiation nil)
@@ -200,20 +209,20 @@
            real_props nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (rat_plus_rat_is_rat application-judgement "rat" rationals
            nil))
-         nil))
+         nil
+         (Fplus subtype
+          "(number_fields.+)(number_fields.*(Fnum(float.f), exponentiation.^(float.radix, ((number_fields.-)(Fexp(float.f), real_defs.min(Fexp(float.f), Fexp(float.g)))))), number_fields.*(Fnum(float.g), exponentiation.^(float.radix, ((number_fields.-)(Fexp(float.g), real_defs.min(Fexp(float.f), Fexp(float.g)))))))"
+          "int")))
        (Fminus_TCC1 0
         (Fminus_TCC1-1 nil 3319889173 ("" (subtype-tcc) nil nil)
          ((^ const-decl "real" exponentiation nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (posnat_expt application-judgement "posnat" exponentiation
            nil)
@@ -225,19 +234,19 @@
            real_props nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (rat_minus_rat_is_rat application-judgement "rat" rationals
            nil))
-         nil))
+         nil
+         (Fminus subtype
+          "(number_fields.-)(number_fields.*(Fnum(float.f), exponentiation.^(float.radix, ((number_fields.-)(Fexp(float.f), real_defs.min(Fexp(float.f), Fexp(float.g)))))), number_fields.*(Fnum(float.g), exponentiation.^(float.radix, ((number_fields.-)(Fexp(float.g), real_defs.min(Fexp(float.f), Fexp(float.g)))))))"
+          "int")))
        (sum_float_commutes 0
         (sum_float_commutes-1 nil 3545039871 ("" (grind) nil nil)
-         ((mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+         ((int_times_int_is_int application-judgement "int" integers
            nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
@@ -261,11 +270,12 @@
          shostak))
        (FexptCorrect_TCC1 0
         (FexptCorrect_TCC1-1 nil 3545396627 ("" (subtype-tcc) nil nil)
-         ((nnrat_exp application-judgement "nnrat" exponentiation nil)
+         ((FtoR const-decl "real" float nil)
           (posrat_exp application-judgement "posrat" exponentiation
-           nil)
-          (FtoR const-decl "real" float nil))
-         nil))
+           nil))
+         nil
+         (FexptCorrect subtype "float.n"
+          "{i: integers.int | booleans.OR(float.FtoR(float.f) /= 0, reals.>=(i, 0))}")))
        (FexptCorrect 0
         (FexptCorrect-1 nil 3545396632
          ("" (skeep)
@@ -333,22 +343,15 @@
            nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
+          (posnat_expt application-judgement "posnat" exponentiation
+           nil)
           (rat_expt application-judgement "rat" exponentiation nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (expt def-decl "real" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (int_expt application-judgement "int" exponentiation nil)
           (nzreal_exp application-judgement "nzreal" exponentiation
            nil)
@@ -360,6 +363,8 @@
           (int_minus_int_is_int application-judgement "int" integers
            nil)
           (expt_times formula-decl nil exponentiation nil)
+          (int_times_int_is_int application-judgement "int" integers
+           nil)
           (nzreal nonempty-type-eq-decl nil reals nil)
           (OR const-decl "[bool, bool -> bool]" booleans nil)
           (> const-decl "bool" reals nil)
@@ -396,10 +401,13 @@
            "(strict_total_order?[real])" real_props nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil (sigma subtype "(number_fields.-)(float.jj, 1)" "nat")))
        (sigma_TCC2 0
         (sigma_TCC2-1 nil 3544869888 ("" (termination-tcc) nil nil) nil
-         nil))
+         nil
+         (sigma termination
+                "float.sigma(float.ii, (number_fields.-)(float.jj, 1), float.FF)"
+                "nil")))
        (FDivInt_TCC1 0
         (FDivInt_TCC1-1 nil 3544783712
          ("" (skeep)
@@ -459,9 +467,7 @@
           (NOT const-decl "[bool -> bool]" booleans nil)
           (bool nonempty-type-eq-decl nil booleans nil)
           (boolean nonempty-type-decl nil booleans nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (float type-eq-decl nil float nil)
           (rat_div_nzrat_is_rat application-judgement "rat" rationals
@@ -482,7 +488,10 @@
           (nznum nonempty-type-eq-decl nil number_fields nil)
           (/ const-decl "[numfield, nznum -> numfield]" number_fields
              nil))
-         nil))
+         nil
+         (FDivInt subtype
+          "number_fields.*(Fnum(float.f), (number_fields./(float.radix, float.i)))"
+          "int")))
        (FDivInt_def 0
         (FDivInt_def-1 nil 3544783715
          ("" (skeep)
@@ -553,9 +562,7 @@
               nil))
             nil))
           nil)
-         ((mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+         ((int_times_int_is_int application-judgement "int" integers
            nil)
           (mod const-decl "{k | abs(k) < abs(j)}" mod nil)
           (expt_plus formula-decl nil exponentiation nil)
@@ -572,7 +579,6 @@
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (- const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
           (float type-eq-decl nil float nil)
@@ -652,7 +658,7 @@
           (TRUE const-decl "bool" booleans nil)
           (bool nonempty-type-eq-decl nil booleans nil)
           (boolean nonempty-type-decl nil booleans nil))
-         nil))
+         nil (hathatln subtype "ln_exp.ln(float.radix)" "nznum")))
        (hathatln_TCC2 0
         (hathatln_TCC2-1 nil 3318954543 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -676,7 +682,9 @@
           (ln const-decl "real" ln_exp "lnexp_fnd/")
           (real_div_nzreal_is_real application-judgement "real" reals
            nil))
-         nil))
+         nil
+         (hathatln subtype "()"
+          "{r: reals.real | booleans.OR(float.radix /= 0, r /= 0)}")))
        (hathatln 0
         (hathatln-1 nil 3318954554
          ("" (skeep)
@@ -754,7 +762,9 @@
                         nil)
           (int nonempty-type-eq-decl nil integers nil)
           (/= const-decl "boolean" notequal nil))
-         nil))
+         nil
+         (hathat_int subtype "float.e1"
+          "{r: reals.real | booleans.OR(float.radix /= 0, r /= 0)}")))
        (hathat_int_TCC2 0
         (hathat_int_TCC2-1 nil 3545651010 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -772,7 +782,9 @@
                         nil)
           (int nonempty-type-eq-decl nil integers nil)
           (/= const-decl "boolean" notequal nil))
-         nil))
+         nil
+         (hathat_int subtype "float.e1"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (hathat_int 0
         (hathat_int-1 nil 3319197088
          ("" (skeep)
@@ -832,7 +844,6 @@
            real_props nil)
           (posnat_expt application-judgement "posnat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -866,7 +877,9 @@
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
           (above nonempty-type-eq-decl nil integers nil)
           (Format type-eq-decl nil float nil))
-         nil))
+         nil
+         (Fsucc subtype
+          "number_fields./(float.vNum(float.b), float.radix)" "int")))
        (Fpred_TCC1 0
         (Fpred_TCC1-1 nil 3319211903
          ("" (skeep)
@@ -926,7 +939,7 @@
           (b skolem-const-decl "Format" float nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil))
-         nil))
+         nil (Fpred subtype "number_fields./(, float.radix)" "int")))
        (Fnormalize_TCC1 0
         (Fnormalize_TCC1-1 nil 3318871237 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -955,7 +968,10 @@
            "{j: nonneg_int | j >= i}" real_defs nil)
           (posint_exp application-judgement "posint" exponentiation
            nil))
-         nil))
+         nil
+         (Fnormalize subtype
+          "(number_fields.-)(float.vNum(float.b), real_defs.abs(Fnum(float.f)))"
+          "naturalnumber")))
        (Fnormalize_TCC2 0
         (Fnormalize_TCC2-1 nil 3318871237 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -988,10 +1004,11 @@
           (Fsubnormal? const-decl "bool" float nil)
           (Fcanonic? const-decl "bool" float nil)
           (FtoR const-decl "real" float nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil))
-         nil))
+         nil
+         (Fnormalize subtype "(# Fnum := 0, Fexp :=  #)"
+          "{x: (float.Fcanonic?(float.b)) | booleans.AND(float.FtoR(x) = float.FtoR(float.f), reals.<=(Fexp(x), Fexp(float.f)))}")))
        (Fnormalize_TCC3 0
         (Fnormalize_TCC3-1 nil 3318871237 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -1021,11 +1038,11 @@
           (Fnormal? const-decl "bool" float nil)
           (Fsubnormal? const-decl "bool" float nil)
           (Fcanonic? const-decl "bool" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (Fnormalize subtype "float.f"
+          "{x: (float.Fcanonic?(float.b)) | booleans.AND(float.FtoR(x) = float.FtoR(float.f), reals.<=(Fexp(x), Fexp(float.f)))}")))
        (Fnormalize_TCC4 0
         (Fnormalize_TCC4-1 nil 3318871237 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -1052,11 +1069,12 @@
           (^ const-decl "real" exponentiation nil)
           (vNum const-decl "posnat" float nil)
           (Fbounded? const-decl "bool" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (Fnormalize subtype
+          "(# Fnum := number_fields.*(float.radix, Fnum(float.f)), Fexp := (number_fields.-)(Fexp(float.f), 1) #)"
+          "(float.Fbounded?(float.b))")))
        (Fnormalize_TCC5 0
         (Fnormalize_TCC5-1 nil 3318871660
          ("" (skosimp)
@@ -1148,11 +1166,12 @@
           (= const-decl "[T, T -> boolean]" equalities nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (Fnormalize termination
+          "float.Fnormalize(float.b)((# Fnum := number_fields.*(float.radix, Fnum(float.f)), Fexp := (number_fields.-)(Fexp(float.f), 1) #))"
+          "nil")))
        (Fnormalize_TCC6 0
         (Fnormalize_TCC6-1 nil 3319287157
          ("" (skosimp)
@@ -1179,13 +1198,12 @@
           (nzreal nonempty-type-eq-decl nil reals nil)
           (/= const-decl "boolean" notequal nil)
           (expt_div formula-decl nil exponentiation nil)
-          (posrat_exp application-judgement "posrat" exponentiation
-           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (expt_x1 formula-decl nil exponentiation nil)
@@ -1233,13 +1251,14 @@
           (* const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
           (radix formal-const-decl "above(1)" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (int_abs_is_nonneg application-judgement
            "{j: nonneg_int | j >= i}" real_defs nil))
-         nil))
+         nil
+         (Fnormalize subtype
+          "float.Fnormalize(float.b)((# Fnum := number_fields.*(float.radix, Fnum(float.f)), Fexp := (number_fields.-)(Fexp(float.f), 1) #))"
+          "{x: (float.Fcanonic?(float.b)) | booleans.AND(float.FtoR(x) = float.FtoR(float.f), reals.<=(Fexp(x), Fexp(float.f)))}")))
        (Fulp_TCC1 0
         (Fulp_TCC1-1 nil 3318887371 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -1264,10 +1283,14 @@
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (/= const-decl "boolean" notequal nil))
-         nil))
+         nil
+         (Fulp subtype "(Fexp(float.Fnormalize(float.b)(float.f)))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (min_Fulp_TCC1 0
         (min_Fulp_TCC1-1 nil 3683129451 ("" (subtype-tcc) nil nil)
-         ((/= const-decl "boolean" notequal nil)) nil))
+         ((/= const-decl "boolean" notequal nil)) nil
+         (min_Fulp subtype "()"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (Fulp_posreal_j 0
         (Fulp_posreal_j-1 nil 3670176754 ("" (judgement-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -1296,15 +1319,18 @@
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (minus_int_is_int application-judgement "int" integers nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (Fulp const-decl "real" float nil))
-         nil))
+         nil
+         (Fulp_posreal_j subtype "float.Fulp(float.b)(float.f)"
+          "posreal")))
        (exact_rep_conservation_TCC1 0
         (exact_rep_conservation_TCC1-1 nil 3698090985
          ("" (subtype-tcc) nil nil)
-         ((/= const-decl "boolean" notequal nil)) nil))
+         ((/= const-decl "boolean" notequal nil)) nil
+         (exact_rep_conservation subtype "float.n"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (FcanonicOpp 0
         (FcanonicOpp-1 nil 3319221457
          ("" (skeep)
@@ -1548,9 +1574,7 @@
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
           (Fbounded? const-decl "bool" float nil)
           (minus_int_is_int application-judgement "int" integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
@@ -1590,9 +1614,7 @@
             nil))
           nil)
          ((Fnormal? const-decl "bool" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fsubnormal? const-decl "bool" float nil)
           (Fcanonic? const-decl "bool" float nil))
@@ -1611,7 +1633,9 @@
           (Format type-eq-decl nil float nil)
           (above nonempty-type-eq-decl nil integers nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil))
-         nil))
+         nil
+         (canonic_bounded_j subtype "float.x"
+          "(float.Fbounded?(float.b))")))
        (FpredCanonic 0
         (FpredCanonic-1 nil 3319212045
          ("" (skeep)
@@ -2108,7 +2132,7 @@
            "nonneg_rat" rationals nil)
           (<= const-decl "bool" reals nil)
           (IFF const-decl "[bool, bool -> bool]" booleans nil)
-          (posint_plus_nnint_is_posint application-judgement "posint"
+          (nnint_plus_posint_is_posint application-judgement "posint"
            integers nil)
           (div_simple formula-decl nil integer_props nil)
           (NOT const-decl "[bool -> bool]" booleans nil)
@@ -2174,10 +2198,10 @@
            nil)
           (rat_div_nzrat_is_rat application-judgement "rat" rationals
            nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (nzrat_times_nzrat_is_nzrat application-judgement "nzrat"
            rationals nil)
           (Fbounded? const-decl "bool" float nil)
@@ -2221,9 +2245,7 @@
            rationals nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
@@ -2238,7 +2260,9 @@
          ("" (subtype-tcc) nil nil)
          ((/= const-decl "boolean" notequal nil)
           (minus_int_is_int application-judgement "int" integers nil))
-         nil))
+         nil
+         (RND_log_compute subtype "((number_fields.-)(, 1))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_log_compute_TCC2 0
         (RND_log_compute_TCC2-1 nil 3543227658
          ("" (skeep)
@@ -2261,21 +2285,18 @@
           (minus_int_is_int application-judgement "int" integers nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (posreal_times_posreal_is_posreal judgement-tcc nil
            real_types nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (even_times_int_is_even application-judgement "even_int"
-           integers nil)
           (nnint_times_nnint_is_nnint application-judgement
            "nonneg_int" integers nil)
+          (even_times_int_is_even application-judgement "even_int"
+           integers nil)
           (posreal nonempty-type-eq-decl nil real_types nil)
           (nonneg_real nonempty-type-eq-decl nil real_types nil)
           (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
@@ -2310,19 +2331,26 @@
           (nonneg_int nonempty-type-eq-decl nil integers nil)
           (posnat nonempty-type-eq-decl nil integers nil)
           (vNum const-decl "posnat" float nil))
-         nil))
+         nil
+         (RND_log_compute subtype
+          "number_fields./(number_fields.*(float.x, float.radix), float.vNum(float.b))"
+          "posreal")))
        (RND_log_compute_TCC3 0
         (RND_log_compute_TCC3-1 nil 3543227658
          ("" (skosimp*) (("" (assert) nil nil)) nil)
          ((minus_int_is_int application-judgement "int" integers nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil
+         (RND_log_compute subtype
+          "((number_fields.-)((number_fields.+)(1, dExp(float.b)), Prec(float.b)))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_log_compute_TCC4 0
         (RND_log_compute_TCC4-1 nil 3543227658
          ("" (skeep)
@@ -2352,7 +2380,6 @@
           (+ const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
           (expt_x0 formula-decl nil exponentiation nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (int_plus_int_is_int application-judgement "int" integers
@@ -2389,7 +2416,10 @@
           (expt_plus formula-decl nil exponentiation nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (RND_log_compute subtype
+          "number_fields.*(float.x, exponentiation.^(float.radix, ((number_fields.-)((number_fields.+)(1, dExp(float.b)), Prec(float.b)))))"
+          "{x: reals.real | reals.>=(x, 1)}")))
        (RND_log_compute 0
         (RND_log_compute-1 nil 3543227662
          (""
@@ -2655,14 +2685,10 @@
             nil))
           nil)
          ((div_mult_pos_gt1 formula-decl nil extra_real_props nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (exp_0 formula-decl nil ln_exp "lnexp_fnd/")
           (exp_ln formula-decl nil ln_exp "lnexp_fnd/")
           (b skolem-const-decl "Format" float nil)
@@ -2671,8 +2697,6 @@
            nil)
           (expt def-decl "real" exponentiation nil)
           (ln_mult formula-decl nil ln_exp "lnexp_fnd/")
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (real_plus_real_is_real application-judgement "real" reals
            nil)
           (floor_plus_int formula-decl nil floor_ceil nil)
@@ -2695,6 +2719,7 @@
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (NOT const-decl "[bool -> bool]" booleans nil)
+          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (x skolem-const-decl "real" float nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
@@ -2703,7 +2728,6 @@
            real_types nil)
           (posint_plus_nnint_is_posint application-judgement "posint"
            integers nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (posint_exp application-judgement "posint" exponentiation
@@ -2785,10 +2809,6 @@
            "(strict_total_order?[real])" real_props nil)
           (nnint_times_nnint_is_nnint application-judgement
            "nonneg_int" integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
           (nat_exp application-judgement "nat" exponentiation nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
@@ -2798,12 +2818,13 @@
           (/= const-decl "boolean" notequal nil)
           (vNum const-decl "posnat" float nil)
           (minus_int_is_int application-judgement "int" integers nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (posint_exp application-judgement "posint" exponentiation
            nil))
-         nil))
+         nil
+         (RND_aux subtype "(dExp(float.b))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_aux_TCC2 0
         (RND_aux_TCC2-1 nil 3318940757
          ("" (skeep)
@@ -2959,15 +2980,12 @@
           (nznum nonempty-type-eq-decl nil number_fields nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
           (nnint_times_nnint_is_nnint application-judgement
            "nonneg_int" integers nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (real_lt_is_strict_total_order name-judgement
@@ -3015,19 +3033,26 @@
           (- const-decl "[numfield -> numfield]" number_fields nil)
           (posint_exp application-judgement "posint" exponentiation
            nil))
-         nil))
+         nil
+         (RND_aux subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(float.x, exponentiation.^(float.radix, (dExp(float.b))))), Fexp :=  #)"
+          "(float.Fcanonic?(float.b))")))
        (RND_aux_TCC3 0
         (RND_aux_TCC3-2 "" 3318950531
          ("" (skeep) (("" (assert) nil nil)) nil)
          ((minus_int_is_int application-judgement "int" integers nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil))
-         shostak)
+         shostak
+         (RND_aux subtype
+          "((number_fields.-)((number_fields.+)(1, dExp(float.b)), Prec(float.b)))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}"))
         (RND_aux_TCC3-1 nil 3318940757
          ("" (skeep)
           (("" (expand "Fcanonic?")
@@ -3121,7 +3146,10 @@
               nil))
             nil))
           nil)
-         nil nil))
+         nil nil
+         (RND_aux subtype
+          "((number_fields.-)((number_fields.+)(1, dExp(float.b)), Prec(float.b)))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_aux_TCC4 0
         (RND_aux_TCC4-1 nil 3318940757
          ("" (skeep)
@@ -3167,7 +3195,6 @@
            real_props nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (int_plus_int_is_int application-judgement "int" integers
@@ -3204,7 +3231,10 @@
           (expt_plus formula-decl nil exponentiation nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (RND_aux subtype
+          "number_fields.*(float.x, exponentiation.^(float.radix, ((number_fields.-)((number_fields.+)(1, dExp(float.b)), Prec(float.b)))))"
+          "{x: reals.real | reals.>=(x, 1)}")))
        (RND_aux_TCC5 0
         (RND_aux_TCC5-1 nil 3318940757
          ("" (skeep)
@@ -3270,12 +3300,13 @@
            nil)
           (posint_plus_nnint_is_posint application-judgement "posint"
            integers nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (posint_exp application-judgement "posint" exponentiation
            nil))
-         nil))
+         nil
+         (RND_aux subtype "()"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_aux_TCC6 0
         (owre "fix" 3399983082
          ("" (skeep)
@@ -4028,9 +4059,9 @@
           (radix_div_vNum formula-decl nil float nil)
           (nzint nonempty-type-eq-decl nil integers nil)
           (div_simple formula-decl nil integer_props nil)
-          (cross_mult formula-decl nil real_props nil)
-          (pos_times_ge formula-decl nil real_props nil)
           (neg_ge formula-decl nil real_props nil)
+          (pos_times_ge formula-decl nil real_props nil)
+          (cross_mult formula-decl nil real_props nil)
           (negreal nonempty-type-eq-decl nil real_types nil)
           (nonpos_real nonempty-type-eq-decl nil real_types nil)
           (both_sides_div_neg_le1 formula-decl nil real_props nil)
@@ -4058,6 +4089,8 @@
           (posnat_expt application-judgement "posnat" exponentiation
            nil)
           (expt_x1_aux formula-decl nil exponentiation nil)
+          (minus_odd_is_odd application-judgement "odd_int" integers
+           nil)
           (times_div2 formula-decl nil real_props nil)
           (both_sides_times2 formula-decl nil real_props nil)
           (int_plus_int_is_int application-judgement "int" integers
@@ -4076,6 +4109,8 @@
            real_props nil)
           (hathat_int formula-decl nil float nil)
           (exp_strict_increasing formula-decl nil ln_exp "lnexp_fnd/")
+          (int_times_int_is_int application-judgement "int" integers
+           nil)
           (div_cancel1 formula-decl nil real_props nil)
           (ln_1 formula-decl nil ln_exp "lnexp_fnd/")
           (ln_strict_increasing formula-decl nil ln_exp "lnexp_fnd/")
@@ -4103,8 +4138,6 @@
           (pos_times_gt formula-decl nil real_props nil)
           (ln_div formula-decl nil ln_exp "lnexp_fnd/")
           (ln_mult formula-decl nil ln_exp "lnexp_fnd/")
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (real_plus_real_is_real application-judgement "real" reals
            nil)
           (div_cancel4 formula-decl nil real_props nil)
@@ -4118,10 +4151,6 @@
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
           (Fnormal? const-decl "bool" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
           (nnint_times_nnint_is_nnint application-judgement
            "nonneg_int" integers nil)
           (= const-decl "[T, T -> boolean]" equalities nil)
@@ -4178,12 +4207,14 @@
            real_types nil)
           (posint_plus_nnint_is_posint application-judgement "posint"
            integers nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (posint_exp application-judgement "posint" exponentiation
            nil))
-         shostak)
+         shostak
+         (RND_aux subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(float.x, exponentiation.^(float.radix, ()))), Fexp := float.e #)"
+          "(float.Fcanonic?(float.b))"))
         (RND_aux_TCC6-2 nil 3399983047
          (";;; Proof RND_aux_TCC6-2 for formula float.RND_aux_TCC6"
           (skeep)
@@ -4656,7 +4687,10 @@
          ((increasing? const-decl "bool" real_fun_preds "reals/")
           (strict_increasing? const-decl "bool" real_fun_preds
            "reals/"))
-         nil)
+         nil
+         (RND_aux subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(float.x, exponentiation.^(float.radix, ()))), Fexp := float.e #)"
+          "(float.Fcanonic?(float.b))"))
         (RND_aux_TCC6-1 nil 3318940757
          ("" (skeep)
           ((""
@@ -5205,7 +5239,10 @@
          ((increasing? const-decl "bool" real_fun_preds "reals/")
           (strict_increasing? const-decl "bool" real_fun_preds
            "reals/"))
-         nil))
+         nil
+         (RND_aux subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(float.x, exponentiation.^(float.radix, ()))), Fexp := float.e #)"
+          "(float.Fcanonic?(float.b))")))
        (RND_aux_alt_TCC1 0
         (RND_aux_alt_TCC1-1 nil 3544343150
          ("" (skeep)
@@ -5230,7 +5267,8 @@
            "(strict_total_order?[real])" real_props nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
@@ -5240,7 +5278,10 @@
            real_types nil)
           (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
            real_types nil))
-         nil))
+         nil
+         (RND_aux_alt subtype
+          "number_fields./(number_fields.*(float.x, float.radix), float.vNum(float.b))"
+          "posreal")))
        (RND_aux_alt_TCC2 0
         (RND_aux_alt_TCC2-1 nil 3544343150
          ("" (skosimp*)
@@ -5271,7 +5312,6 @@
           (number nonempty-type-decl nil numbers nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
@@ -5285,7 +5325,9 @@
            real_types nil)
           (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
            real_types nil))
-         nil))
+         nil
+         (RND_aux_alt subtype "()"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_aux_alt_TCC3 0
         (RND_aux_alt_TCC3-1 nil 3544343150
          ("" (skeep)
@@ -5346,6 +5388,7 @@
            real_types nil)
           (real_div_nzreal_is_real application-judgement "real" reals
            nil)
+          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (nonneg_real nonempty-type-eq-decl nil real_types nil)
           (>= const-decl "bool" reals nil)
           (bool nonempty-type-eq-decl nil booleans nil)
@@ -5366,10 +5409,12 @@
            nil)
           (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
            real_types nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil))
-         nil))
+         nil
+         (RND_aux_alt subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(float.x, exponentiation.^(float.radix, ()))), Fexp := float.e #)"
+          "(float.Fcanonic?(float.b))")))
        (RND_aux_alt_def 0
         (RND_aux_alt_def-1 nil 3544343151
          ("" (decompose-equality)
@@ -5396,6 +5441,7 @@
            rationals nil)
           (nonneg_floor_is_nat application-judgement "nat" floor_ceil
            nil)
+          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (real_div_nzreal_is_real application-judgement "real" reals
            nil)
           (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
@@ -5408,7 +5454,6 @@
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posint_plus_nnint_is_posint application-judgement "posint"
            integers nil)
           (posint_exp application-judgement "posint" exponentiation
@@ -5447,7 +5492,7 @@
            real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil (RND_Min subtype "float.x" "nonneg_real")))
        (RND_Min_TCC2 0
         (RND_Min_TCC2-1 nil 3319384410 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -5464,7 +5509,7 @@
            real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil (RND_Min subtype "" "nonneg_real")))
        (RND_Min_TCC3 0
         (RND_Min_TCC3-1 nil 3319384410
          ("" (skeep*)
@@ -5504,7 +5549,8 @@
           (boolean nonempty-type-decl nil booleans nil)
           (bool nonempty-type-eq-decl nil booleans nil)
           (TRUE const-decl "bool" booleans nil))
-         nil))
+         nil
+         (RND_Min subtype "float.ofmx" "(float.Fcanonic?(float.b))")))
        (RND_Min_TCC4 0
         (RND_Min_TCC4-1 nil 3319384410
          ("" (skeep*)
@@ -5544,7 +5590,9 @@
           (boolean nonempty-type-decl nil booleans nil)
           (bool nonempty-type-eq-decl nil booleans nil)
           (TRUE const-decl "bool" booleans nil))
-         nil))
+         nil
+         (RND_Min subtype "float.Fpred(float.b)(float.ofmx)"
+          "(float.Fcanonic?(float.b))")))
        (RND_Max_TCC1 0
         (RND_Max_TCC1-1 nil 3319894713
          ("" (skeep)
@@ -5572,7 +5620,9 @@
           (above nonempty-type-eq-decl nil integers nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
           (minus_real_is_real application-judgement "real" reals nil))
-         nil))
+         nil
+         (RND_Max subtype "float.Fopp(float.RND_Min(float.b)())"
+          "(float.Fcanonic?(float.b))")))
        (Exp_incr_1_TCC1 0
         (Exp_incr_1_TCC1-1 nil 3318763952 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -5592,7 +5642,9 @@
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (/= const-decl "boolean" notequal nil))
-         nil))
+         nil
+         (Exp_incr_1 subtype "float.e2"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (Exp_incr_1 0
         (Exp_incr_1-1 nil 3318763991
          ("" (skeep)
@@ -5623,7 +5675,6 @@
            "(strict_total_order?[real])" real_props nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil))
          shostak))
@@ -5657,7 +5708,6 @@
            "(strict_total_order?[real])" real_props nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil))
          shostak))
@@ -5680,7 +5730,9 @@
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (/= const-decl "boolean" notequal nil))
-         nil))
+         nil
+         (Exp_increq_1 subtype "float.e2"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (Exp_increq_1 0
         (Exp_increq_1-1 nil 3318865769
          ("" (skeep)
@@ -5711,7 +5763,6 @@
            "(strict_total_order?[real])" real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil))
          shostak))
@@ -5745,7 +5796,6 @@
            "(strict_total_order?[real])" real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil))
          shostak))
@@ -5785,15 +5835,12 @@
           (Exp_increq_2 formula-decl nil float nil)
           (expt def-decl "real" exponentiation nil)
           (^ const-decl "real" exponentiation nil)
-          (real_ge_is_total_order name-judgement "(total_order?[real])"
-           real_props nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (posnat_expt application-judgement "posnat" exponentiation
            nil)
+          (real_ge_is_total_order name-judgement "(total_order?[real])"
+           real_props nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
          shostak))
@@ -5828,19 +5875,16 @@
           (minus_int_is_int application-judgement "int" integers nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
          shostak))
        (expt_odd_TCC1 0
         (expt_odd_TCC1-1 nil 3319544683 ("" (subtype-tcc) nil nil)
-         ((/= const-decl "boolean" notequal nil)) nil))
+         ((/= const-decl "boolean" notequal nil)) nil
+         (expt_odd subtype "((number_fields.+)(float.n, 1))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (expt_odd 0
         (expt_odd-1 nil 3319544683
          ("" (induct "n")
@@ -5910,10 +5954,6 @@
           (odd_int nonempty-type-eq-decl nil integers nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
           (expt_plus formula-decl nil exponentiation nil)
@@ -6063,10 +6103,6 @@
           nil)
          ((nzreal nonempty-type-eq-decl nil reals nil)
           (expt_plus formula-decl nil exponentiation nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
           (odd_or_even_int formula-decl nil naturalnumbers nil)
@@ -6082,10 +6118,10 @@
           (= const-decl "[T, T -> boolean]" equalities nil)
           (even_int nonempty-type-eq-decl nil integers nil)
           (even_times_int_is_even judgement-tcc nil integers nil)
-          (int_minus_int_is_int application-judgement "int" integers
-           nil)
           (posint_plus_nnint_is_posint application-judgement "posint"
            integers nil)
+          (int_minus_int_is_int application-judgement "int" integers
+           nil)
           (expt_x1 formula-decl nil exponentiation nil)
           (even_plus_odd_is_odd application-judgement "odd_int"
            integers nil)
@@ -6133,7 +6169,8 @@
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (minus_rat_is_rat application-judgement "rat" rationals nil))
          shostak))
        (FoppFopp 0
@@ -6161,9 +6198,7 @@
         (Fopp_mult_left-1 nil 3545043536
          ("" (skeep) (("" (grind) nil nil)) nil)
          ((minus_int_is_int application-judgement "int" integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
@@ -6178,9 +6213,7 @@
           (- const-decl "float" float nil)
           (Fmult const-decl "float" float nil)
           (* const-decl "float" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (minus_int_is_int application-judgement "int" integers nil))
          shostak))
@@ -6198,7 +6231,6 @@
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (Fabs const-decl "float" float nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
@@ -6246,7 +6278,6 @@
            nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (Fplus const-decl "float" float nil)
@@ -6258,8 +6289,6 @@
           (TRUE const-decl "bool" booleans nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (radix formal-const-decl "above(1)" float nil)
           (above nonempty-type-eq-decl nil integers nil)
           (> const-decl "bool" reals nil)
@@ -6526,6 +6555,7 @@
            "(strict_total_order?[real])" real_props nil)
           (real_minus_real_is_real application-judgement "real" reals
            nil)
+          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (expt_x0 formula-decl nil exponentiation nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
@@ -6556,30 +6586,25 @@
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (expt_plus formula-decl nil exponentiation nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (min const-decl "{p: real | p <= m AND p <= n}" real_defs
                nil)
           (Fplus const-decl "float" float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil)
           (associative? const-decl "bool" operator_defs nil))
          shostak))
        (FmultAssociative 0
         (FmultAssociative-1 nil 3545572260 ("" (grind) nil nil)
-         ((mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+         ((Fmult const-decl "float" float nil)
+          (associative? const-decl "bool" operator_defs nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (associative? const-decl "bool" operator_defs nil)
-          (Fmult const-decl "float" float nil))
+          (int_times_int_is_int application-judgement "int" integers
+           nil))
          shostak))
        (FminusCorrect 0
         (FminusCorrect-1 nil 3319889348
@@ -6594,7 +6619,6 @@
          ((FtoR const-decl "real" float nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
@@ -6608,8 +6632,6 @@
           (TRUE const-decl "bool" booleans nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (radix formal-const-decl "above(1)" float nil)
           (above nonempty-type-eq-decl nil integers nil)
           (> const-decl "bool" reals nil)
@@ -6650,14 +6672,11 @@
           (NOT const-decl "[bool -> bool]" booleans nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
-          (rat_times_rat_is_rat application-judgement "rat" rationals
-           nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (radix formal-const-decl "above(1)" float nil)
           (above nonempty-type-eq-decl nil integers nil)
@@ -6690,11 +6709,7 @@
               nil))
             nil))
           nil)
-         ((f!1 skolem-const-decl "float" float nil)
-          (float type-eq-decl nil float nil)
-          (divides const-decl "bool" divides nil)
-          (bool nonempty-type-eq-decl nil booleans nil)
-          (int nonempty-type-eq-decl nil integers nil)
+         ((int nonempty-type-eq-decl nil integers nil)
           (integer_pred const-decl "[rational -> boolean]" integers
                         nil)
           (rational nonempty-type-from-decl nil rationals nil)
@@ -6706,11 +6721,7 @@
            number_fields nil)
           (boolean nonempty-type-decl nil booleans nil)
           (number nonempty-type-decl nil numbers nil)
-          (divides const-decl "bool" divides nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
+          (float type-eq-decl nil float nil)
           (* const-decl "float" float nil)
           (Fmult const-decl "float" float nil)
           (float_int const-decl "float" float nil))
@@ -6718,9 +6729,7 @@
        (Fmult_1_l 0
         (Fmult_1_l-1 nil 3545401264
          ("" (grind) (("" (decompose-equality) nil nil)) nil)
-         ((divides const-decl "bool" divides nil)
-          (bool nonempty-type-eq-decl nil booleans nil)
-          (int nonempty-type-eq-decl nil integers nil)
+         ((int nonempty-type-eq-decl nil integers nil)
           (integer_pred const-decl "[rational -> boolean]" integers
                         nil)
           (rational nonempty-type-from-decl nil rationals nil)
@@ -6736,9 +6745,7 @@
           (* const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
           (float type-eq-decl nil float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (* const-decl "float" float nil)
           (Fmult const-decl "float" float nil)
@@ -6770,10 +6777,14 @@
          shostak))
        (FDivKexpt_TCC1 0
         (FDivKexpt_TCC1-1 nil 3545654182 ("" (subtype-tcc) nil nil)
-         ((/= const-decl "boolean" notequal nil)) nil))
+         ((/= const-decl "boolean" notequal nil)) nil
+         (FDivKexpt subtype "float.i"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (FDivKexpt_TCC2 0
         (FDivKexpt_TCC2-1 nil 3545654182 ("" (subtype-tcc) nil nil) nil
-         nil))
+         nil
+         (FDivKexpt subtype "float.i"
+          "{i: integers.int | booleans.OR(float.k /= 0, reals.>=(i, 0))}")))
        (FDivKexpt_TCC3 0
         (FDivKexpt_TCC3-2 nil 3697725215
          ("" (skeep)
@@ -6851,9 +6862,7 @@
            number_fields nil)
           (boolean nonempty-type-decl nil booleans nil)
           (number nonempty-type-decl nil numbers nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (nzrat_times_nzrat_is_nzrat application-judgement "nzrat"
            rationals nil)
@@ -6874,15 +6883,13 @@
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
           (expt def-decl "real" exponentiation nil)
-          (int_expt application-judgement "int" exponentiation nil)
           (nzreal_expt application-judgement "nzreal" exponentiation
+           nil)
+          (int_expt application-judgement "int" exponentiation nil)
+          (posnat_expt application-judgement "posnat" exponentiation
            nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
           (nat_induction formula-decl nil naturalnumbers nil)
           (pred type-eq-decl nil defined_types nil)
           (i skolem-const-decl "nat" float nil)
@@ -6914,13 +6921,19 @@
           (int_exp application-judgement "int" exponentiation nil)
           (nzreal_exp application-judgement "nzreal" exponentiation
            nil)
-          (nzrat_div_nzrat_is_nzrat application-judgement "nzrat"
-           rationals nil)
           (posint_exp application-judgement "posint" exponentiation
-           nil))
-         nil)
+           nil)
+          (nzrat_div_nzrat_is_nzrat application-judgement "nzrat"
+           rationals nil))
+         nil
+         (FDivKexpt subtype
+          "number_fields.*(Fnum(float.f), (number_fields./((exponentiation.^(float.radix, float.i)), (exponentiation.^(float.k, float.i)))))"
+          "int"))
         (FDivKexpt_TCC3-1 nil 3697724945 ("" (subtype-tcc) nil nil) nil
-         nil))
+         nil
+         (FDivKexpt subtype
+          "number_fields.*(Fnum(float.f), (number_fields./((exponentiation.^(float.radix, float.i)), (exponentiation.^(float.k, float.i)))))"
+          "int")))
        (FDivKexpt_def 0
         (FDivKexpt_def-1 nil 3545651846
          ("" (induct "i")
@@ -7228,15 +7241,13 @@
             nil))
           nil)
          ((NOT const-decl "[bool -> bool]" booleans nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (nzreal_expt application-judgement "nzreal" exponentiation
+          (posnat_expt application-judgement "posnat" exponentiation
            nil)
           (int_expt application-judgement "int" exponentiation nil)
+          (nzreal_expt application-judgement "nzreal" exponentiation
+           nil)
           (expt def-decl "real" exponentiation nil)
           (rk skolem-const-decl "nat" float nil)
           (k skolem-const-decl "{k: nzint | mod(radix, k) = 0}" float
@@ -7254,9 +7265,7 @@
           (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (real_times_real_is_real application-judgement "real" reals
            nil)
@@ -7264,8 +7273,6 @@
           (cross_mult formula-decl nil real_props nil)
           (times_div1 formula-decl nil real_props nil)
           (TRUE const-decl "bool" booleans nil)
-          (posrat_exp application-judgement "posrat" exponentiation
-           nil)
           (expt_plus formula-decl nil exponentiation nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
@@ -7286,7 +7293,8 @@
           (both_sides_times1 formula-decl nil real_props nil)
           (expt_x0 formula-decl nil exponentiation nil)
           (rat_exp application-judgement "rat" exponentiation nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_div_nzrat_is_rat application-judgement "rat" rationals
            nil)
           (* const-decl "[numfield, numfield -> numfield]"
@@ -7437,9 +7445,7 @@
           (Format type-eq-decl nil float nil)
           (above nonempty-type-eq-decl nil integers nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (FabsBounded formula-decl nil float nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
@@ -7460,7 +7466,8 @@
          ("" (skeep)
           (("" (expand "FtoR") (("" (grind-reals) nil nil)) nil)) nil)
          ((FtoR const-decl "real" float nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -7472,7 +7479,8 @@
          ("" (skosimp*)
           (("" (expand "FtoR") (("" (grind-reals) nil nil)) nil)) nil)
          ((FtoR const-decl "real" float nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -7508,12 +7516,11 @@
           nil)
          ((Fle? const-decl "bool" float nil)
           (FminusCorrect formula-decl nil float nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (neg_times_le formula-decl nil real_props nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (real_minus_real_is_real application-judgement "real" reals
@@ -7578,19 +7585,18 @@
           (Fminus const-decl "float" float nil)
           (Fle? const-decl "bool" float nil)
           (<= const-decl "bool" float nil)
-          (real_ge_is_total_order name-judgement "(total_order?[real])"
-           real_props nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (posnat_expt application-judgement "posnat" exponentiation
            nil)
+          (real_ge_is_total_order name-judgement "(total_order?[real])"
+           real_props nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (rat_minus_rat_is_rat application-judgement "rat" rationals
@@ -7642,7 +7648,8 @@
          ((Flt? const-decl "bool" float nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (neg_times_lt formula-decl nil real_props nil)
@@ -7725,8 +7732,6 @@
             nil))
           nil)
          ((FtoR const-decl "real" float nil)
-          (posrat_exp application-judgement "posrat" exponentiation
-           nil)
           (both_sides_times1 formula-decl nil real_props nil)
           (abs_mult formula-decl nil real_props nil)
           (nnint_times_nnint_is_nnint application-judgement
@@ -7742,11 +7747,10 @@
            "{j: nonneg_int | j >= i}" real_defs nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
-          (Fsubnormal? const-decl "bool" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (Fsubnormal? const-decl "bool" float nil)
+          (int_times_int_is_int application-judgement "int" integers
            nil))
          shostak))
        (FnormalUnique 0
@@ -7853,9 +7857,7 @@
           nil)
          ((Fbounded? const-decl "bool" float nil)
           (FtoR const-decl "real" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fnormal? const-decl "bool" float nil)
           (number nonempty-type-decl nil numbers nil)
@@ -7865,7 +7867,6 @@
           (float type-eq-decl nil float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (abs_mult formula-decl nil real_props nil)
           (both_sides_times1 formula-decl nil real_props nil)
           (nzint_abs_is_pos application-judgement
@@ -7881,18 +7882,18 @@
           (minus_int_is_int application-judgement "int" integers nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (int_plus_int_is_int application-judgement "int" integers
-           nil)
-          (number_field_pred const-decl "[number -> boolean]"
-           number_fields nil)
-          (number_field nonempty-type-from-decl nil number_fields nil)
-          (real_pred const-decl "[number_field -> boolean]" reals nil)
-          (real nonempty-type-from-decl nil reals nil)
-          (bool nonempty-type-eq-decl nil booleans nil)
-          (< const-decl "bool" reals nil)
-          (numfield nonempty-type-eq-decl nil number_fields nil)
           (+ const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
+          (numfield nonempty-type-eq-decl nil number_fields nil)
+          (< const-decl "bool" reals nil)
+          (bool nonempty-type-eq-decl nil booleans nil)
+          (real nonempty-type-from-decl nil reals nil)
+          (real_pred const-decl "[number_field -> boolean]" reals nil)
+          (number_field nonempty-type-from-decl nil number_fields nil)
+          (number_field_pred const-decl "[number -> boolean]"
+           number_fields nil)
+          (int_plus_int_is_int application-judgement "int" integers
+           nil)
           (TRUE const-decl "bool" booleans nil)
           (NOT const-decl "[bool -> bool]" booleans nil)
           (posrat nonempty-type-eq-decl nil rationals nil)
@@ -8082,11 +8083,8 @@
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (Fsubnormal? const-decl "bool" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fnormal? const-decl "bool" float nil))
          shostak))
@@ -8137,11 +8135,11 @@
          ((Fcanonic? const-decl "bool" float nil)
           (Fsubnormal? const-decl "bool" float nil)
           (Fnormal? const-decl "bool" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (FnormalizeCanonicFnum subtype "float.p"
+          "(float.Fbounded?(float.b))")))
        (FnormalizeCanonicFnum 0
         (FnormalizeCanonicFnum-1 nil 3675512267
          ("" (skeep)
@@ -8164,9 +8162,7 @@
           nil)
          ((Fcanonic? const-decl "bool" float nil)
           (Fsubnormal? const-decl "bool" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fnormal? const-decl "bool" float nil)
           (Fnormalize def-decl
@@ -8176,14 +8172,12 @@
            nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
+          (posnat_expt application-judgement "posnat" exponentiation
+           nil)
           (minus_nzint_is_nzint application-judgement "nzint" integers
            nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
@@ -8264,22 +8258,21 @@
          ((Fulp const-decl "real" float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (min_Fulp const-decl "nonneg_real" float nil)
           (both_sides_expt_gt1_le formula-decl nil exponentiation nil)
-          (>= const-decl "bool" reals nil)
-          (nonneg_real nonempty-type-eq-decl nil real_types nil)
-          (> const-decl "bool" reals nil)
-          (posreal nonempty-type-eq-decl nil real_types nil)
-          (rational_pred const-decl "[real -> boolean]" rationals nil)
-          (rational nonempty-type-from-decl nil rationals nil)
+          (- const-decl "[numfield -> numfield]" number_fields nil)
+          (numfield nonempty-type-eq-decl nil number_fields nil)
+          (radix formal-const-decl "above(1)" float nil)
           (integer_pred const-decl "[rational -> boolean]" integers
                         nil)
-          (radix formal-const-decl "above(1)" float nil)
-          (numfield nonempty-type-eq-decl nil number_fields nil)
-          (- const-decl "[numfield -> numfield]" number_fields nil)
+          (rational nonempty-type-from-decl nil rationals nil)
+          (rational_pred const-decl "[real -> boolean]" rationals nil)
+          (posreal nonempty-type-eq-decl nil real_types nil)
+          (> const-decl "bool" reals nil)
+          (nonneg_real nonempty-type-eq-decl nil real_types nil)
+          (>= const-decl "bool" reals nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
@@ -8569,16 +8562,13 @@
           (>= const-decl "bool" reals nil)
           (both_sides_times_pos_ge1_imp formula-decl nil
            extra_real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (Exp_incr_2 formula-decl nil float nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
           (Fnormal? const-decl "bool" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fbounded? const-decl "bool" float nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -8712,9 +8702,7 @@
              number_fields nil)
           (radix formal-const-decl "above(1)" float nil)
           (float type-eq-decl nil float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil))
          shostak))
        (FulpOpp_TCC1 0
@@ -8726,7 +8714,9 @@
           (Format type-eq-decl nil float nil)
           (int nonempty-type-eq-decl nil integers nil)
           (float type-eq-decl nil float nil))
-         nil))
+         nil
+         (FulpOpp subtype "float.Fopp(float.f)"
+          "(float.Fbounded?(float.b))")))
        (FulpOpp 0
         (FulpOpp-1 nil 3319817880
          ("" (skeep)
@@ -8758,7 +8748,6 @@
           (FcanonicUnique formula-decl nil float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (minus_real_is_real application-judgement "real" reals nil)
           (FoppCorrect formula-decl nil float nil)
           (FcanonicOpp formula-decl nil float nil)
@@ -8795,7 +8784,9 @@
           (Format type-eq-decl nil float nil)
           (int nonempty-type-eq-decl nil integers nil)
           (float type-eq-decl nil float nil))
-         nil))
+         nil
+         (FulpAbs subtype "float.Fabs(float.f)"
+          "(float.Fbounded?(float.b))")))
        (FulpAbs 0
         (FulpAbs-1 nil 3320082088
          ("" (skeep)
@@ -8831,8 +8822,8 @@
           (Fopp const-decl "float" float nil)
           (float type-eq-decl nil float nil)
           (- const-decl "[numfield -> numfield]" number_fields nil)
-          (= const-decl "[T, T -> boolean]" equalities nil)
           (numfield nonempty-type-eq-decl nil number_fields nil)
+          (= const-decl "[T, T -> boolean]" equalities nil)
           (int nonempty-type-eq-decl nil integers nil)
           (integer_pred const-decl "[rational -> boolean]" integers
                         nil)
@@ -8859,7 +8850,6 @@
           (Lexico formula-decl nil float nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (Fnormalize def-decl
@@ -9080,16 +9070,10 @@
           (minus_int_is_int application-judgement "int" integers nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (minus_nzrat_is_nzrat application-judgement "nzrat" rationals
-           nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
           (times_div_cancel1 formula-decl nil extra_real_props nil)
@@ -9105,7 +9089,6 @@
           (FulpCanonic formula-decl nil float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (nzreal nonempty-type-eq-decl nil reals nil)
           (expt_plus formula-decl nil exponentiation nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
@@ -9119,9 +9102,9 @@
           (rat_plus_rat_is_rat application-judgement "rat" rationals
            nil)
           (TRUE const-decl "bool" booleans nil)
-          (^ const-decl "real" exponentiation nil)
           (* const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
+          (^ const-decl "real" exponentiation nil)
           (p!1 skolem-const-decl "float" float nil)
           (radix formal-const-decl "above(1)" float nil)
           (b!1 skolem-const-decl "Format" float nil)
@@ -9278,13 +9261,9 @@
            nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (minus_nzrat_is_nzrat application-judgement "nzrat" rationals
-           nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (div_cancel4 formula-decl nil real_props nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil))
@@ -9306,13 +9285,9 @@
            nil)
           (nzrat_div_nzrat_is_nzrat application-judgement "nzrat"
            rationals nil)
-          (minus_nzrat_is_nzrat application-judgement "nzrat" rationals
-           nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (div_cancel4 formula-decl nil real_props nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil))
@@ -9383,8 +9358,6 @@
           (rat_minus_rat_is_rat application-judgement "rat" rationals
            nil)
           (= const-decl "[T, T -> boolean]" equalities nil)
-          (posrat_times_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (abs_mult formula-decl nil real_props nil)
           (rat_abs_is_nonneg application-judgement
            "{r: nonneg_rat | r >= q}" real_defs nil)
@@ -9396,6 +9369,8 @@
           (div_cancel2 formula-decl nil real_props nil)
           (nzint_abs_is_pos application-judgement
            "{j: posint | j >= i}" real_defs nil)
+          (posrat_times_posrat_is_posrat application-judgement "posrat"
+           rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -9460,9 +9435,7 @@
            "(strict_total_order?[real])" real_props nil)
           (nzrat_div_nzrat_is_nzrat application-judgement "nzrat"
            rationals nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
@@ -9577,15 +9550,11 @@
            integers nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (nzint_abs_is_pos application-judgement
            "{j: posint | j >= i}" real_defs nil)
           (div_mult_pos_lt1 formula-decl nil real_props nil)
-          (nzrat_abs_is_pos application-judgement
-           "{r: posrat | r >= q}" real_defs nil)
           (abs_div formula-decl nil real_props nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
@@ -9706,17 +9675,13 @@
           (int_plus_int_is_int application-judgement "int" integers
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
-          (nzrat_div_nzrat_is_nzrat application-judgement "nzrat"
-           rationals nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (div_cancel4 formula-decl nil real_props nil)
           (pos_times_le formula-decl nil real_props nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
@@ -9751,7 +9716,6 @@
           (* const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
           (both_sides_div_pos_lt1 formula-decl nil real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil))
          shostak))
@@ -9811,10 +9775,6 @@
            rationals nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (real_gt_is_strict_total_order name-judgement
@@ -9822,8 +9782,12 @@
           (minus_int_is_int application-judgement "int" integers nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
+          (posnat_expt application-judgement "posnat" exponentiation
+           nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
+          (int_times_int_is_int application-judgement "int" integers
+           nil)
           (int_abs_is_nonneg application-judgement
            "{j: nonneg_int | j >= i}" real_defs nil)
           (>= const-decl "bool" reals nil)
@@ -9838,20 +9802,17 @@
           (nonneg_int nonempty-type-eq-decl nil integers nil)
           (posnat nonempty-type-eq-decl nil integers nil)
           (vNum const-decl "posnat" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (even_times_int_is_even application-judgement "even_int"
-           integers nil)
           (nnint_times_nnint_is_nnint application-judgement
            "nonneg_int" integers nil)
+          (even_times_int_is_even application-judgement "even_int"
+           integers nil)
           (div_mult_pos_lt2 formula-decl nil real_props nil)
           (minus_nzint_is_nzint application-judgement "nzint" integers
            nil)
           (FtoR const-decl "real" float nil)
           (pos_times_lt formula-decl nil real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -9881,7 +9842,9 @@
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (FpredCanonic formula-decl nil float nil))
-         nil))
+         nil
+         (FpredDiff subtype "float.Fpred(float.b)(float.f)"
+          "(float.Fbounded?(float.b))")))
        (FpredDiff 0
         (FpredDiff-1 nil 3319375376
          ("" (skeep)
@@ -9906,7 +9869,6 @@
           (Fpred const-decl "float" float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (Fulp_posreal_j application-judgement "posreal" float nil)
           (real_minus_real_is_real application-judgement "real" reals
            nil)
@@ -9922,9 +9884,7 @@
           (minus_int_is_int application-judgement "int" integers nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
@@ -9960,8 +9920,6 @@
            nil)
           (minus_nzint_is_nzint application-judgement "nzint" integers
            nil)
-          (nzrat_div_nzrat_is_nzrat application-judgement "nzrat"
-           rationals nil)
           (FpredCanonic formula-decl nil float nil))
          shostak))
        (FsuccDiff 0
@@ -10064,10 +10022,10 @@
           (expt_div formula-decl nil exponentiation nil)
           (rat_minus_rat_is_rat application-judgement "rat" rationals
            nil)
-          (times_div1 formula-decl nil real_props nil)
-          (div_distributes_minus formula-decl nil real_props nil)
           (rat_div_nzrat_is_rat application-judgement "rat" rationals
            nil)
+          (div_distributes_minus formula-decl nil real_props nil)
+          (times_div1 formula-decl nil real_props nil)
           (/ const-decl "[numfield, nznum -> numfield]" number_fields
              nil)
           (nznum nonempty-type-eq-decl nil number_fields nil)
@@ -10086,16 +10044,15 @@
           (NOT const-decl "[bool -> bool]" booleans nil)
           (OR const-decl "[bool, bool -> bool]" booleans nil)
           (>= const-decl "bool" reals nil)
-          (times_div2 formula-decl nil real_props nil)
-          (div_mult_pos_lt1 formula-decl nil real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
+          (div_mult_pos_lt1 formula-decl nil real_props nil)
+          (times_div2 formula-decl nil real_props nil)
           (expt_x1 formula-decl nil exponentiation nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (radix formal-const-decl "above(1)" float nil)
@@ -10124,9 +10081,7 @@
            rationals nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (real_lt_is_strict_total_order name-judgement
@@ -11429,7 +11384,6 @@
           (FulpCanonic formula-decl nil float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (real_lt_is_strict_total_order name-judgement
@@ -11440,7 +11394,7 @@
            nil)
           (times_div2 formula-decl nil real_props nil)
           (pos_times_lt formula-decl nil real_props nil)
-          (posrat_plus_nnrat_is_posrat application-judgement "posrat"
+          (nnrat_plus_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (+ const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
@@ -11454,8 +11408,8 @@
           (times_div_cancel2 formula-decl nil extra_real_props nil)
           (AND const-decl "[bool, bool -> bool]" booleans nil)
           (le_times_le_pos formula-decl nil real_props nil)
-          (div_mult_pos_le1 formula-decl nil real_props nil)
           (times_div1 formula-decl nil real_props nil)
+          (div_mult_pos_le1 formula-decl nil real_props nil)
           (- const-decl "[numfield -> numfield]" number_fields nil)
           (FcanonicBounded formula-decl nil float nil)
           (Fsubnormal? const-decl "bool" float nil)
@@ -11489,8 +11443,8 @@
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
           (Exp_increq_1 formula-decl nil float nil)
-          (both_sides_times1 formula-decl nil real_props nil)
           (nonzero_real nonempty-type-eq-decl nil reals nil)
+          (both_sides_times1 formula-decl nil real_props nil)
           (rat_div_nzrat_is_rat application-judgement "rat" rationals
            nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
@@ -11501,8 +11455,6 @@
           (posreal nonempty-type-eq-decl nil real_types nil)
           (nonneg_real nonempty-type-eq-decl nil real_types nil)
           (both_sides_times_pos_le1 formula-decl nil real_props nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (* const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
           (nznum nonempty-type-eq-decl nil number_fields nil)
@@ -11533,9 +11485,7 @@
           (radix formal-const-decl "above(1)" float nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (int_plus_int_is_int application-judgement "int" integers
@@ -11608,7 +11558,6 @@
           (FulpCanonic formula-decl nil float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (integer_pred const-decl "[rational -> boolean]" integers
                         nil)
           (rational nonempty-type-from-decl nil rationals nil)
@@ -12258,9 +12207,9 @@
           (id const-decl "(bijective?[T, T])" identity nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (cross_mult formula-decl nil real_props nil)
-          (div_div2 formula-decl nil real_props nil)
           (div_distributes_minus formula-decl nil real_props nil)
+          (div_div2 formula-decl nil real_props nil)
+          (cross_mult formula-decl nil real_props nil)
           (Fcanonic? const-decl "bool" float nil)
           (Fsubnormal? const-decl "bool" float nil)
           (Fnormal? const-decl "bool" float nil)
@@ -12322,9 +12271,7 @@
           (nzreal nonempty-type-eq-decl nil reals nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (div_cancel4 formula-decl nil real_props nil)
@@ -12351,7 +12298,6 @@
           (- const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
           (<= const-decl "bool" reals nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (Lexico formula-decl nil float nil))
@@ -12812,12 +12758,10 @@
           (Fsucc const-decl "float" float nil)
           (rat_plus_rat_is_rat application-judgement "rat" rationals
            nil)
-          (posrat_exp application-judgement "posrat" exponentiation
-           nil)
           (- const-decl "[numfield -> numfield]" number_fields nil)
+          (cross_mult formula-decl nil real_props nil)
           (nzrat_times_nzrat_is_nzrat application-judgement "nzrat"
            rationals nil)
-          (cross_mult formula-decl nil real_props nil)
           (< const-decl "bool" reals nil)
           (both_sides_times_pos_ge1_imp formula-decl nil
            extra_real_props nil)
@@ -12832,12 +12776,10 @@
            nil)
           (expt_x1 formula-decl nil exponentiation nil)
           (expt_div formula-decl nil exponentiation nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (times_div1 formula-decl nil real_props nil)
-          (div_cancel3 formula-decl nil real_props nil)
-          (div_div2 formula-decl nil real_props nil)
           (times_div2 formula-decl nil real_props nil)
+          (div_div2 formula-decl nil real_props nil)
+          (div_cancel3 formula-decl nil real_props nil)
           (NOT const-decl "[bool -> bool]" booleans nil)
           (int_expt judgement-tcc nil exponentiation nil)
           (FsuccZleEq_aux formula-decl nil float nil)
@@ -12888,7 +12830,8 @@
           (both_sides_div1 formula-decl nil real_props nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (minus_int_is_int application-judgement "int" integers nil)
@@ -12896,9 +12839,7 @@
            "(strict_total_order?[real])" real_props nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
@@ -12920,7 +12861,9 @@
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
           (above nonempty-type-eq-decl nil integers nil)
           (Format type-eq-decl nil float nil))
-         nil))
+         nil
+         (EvenFsuccOdd_aux subtype
+          "number_fields./(float.vNum(float.b), float.radix)" "int")))
        (EvenFsuccOdd_aux 0
         (EvenFsuccOdd_aux-1 nil 3319547273
          ("" (skeep)
@@ -13002,7 +12945,6 @@
           (even_iff_odd_succ formula-decl nil naturalnumbers nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (int_plus_int_is_int application-judgement "int" integers
@@ -13115,11 +13057,6 @@
           nil)
          ((minus_nzint_is_nzint application-judgement "nzint" integers
            nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
-          (minus_int_is_int application-judgement "int" integers nil)
-          (int_plus_int_is_int application-judgement "int" integers
-           nil)
           (Fsucc const-decl "float" float nil)
           (even_iff_odd_succ formula-decl nil naturalnumbers nil)
           (minus_odd_is_odd judgement-tcc nil integers nil)
@@ -13176,11 +13113,14 @@
           (above nonempty-type-eq-decl nil integers nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
           (EvenFsuccOdd_aux formula-decl nil float nil)
+          (posrat_div_posrat_is_posrat application-judgement "posrat"
+           rationals nil)
+          (minus_int_is_int application-judgement "int" integers nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (nzrat_div_nzrat_is_nzrat application-judgement "nzrat"
            rationals nil)
@@ -13200,7 +13140,9 @@
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
           (above nonempty-type-eq-decl nil integers nil)
           (Format type-eq-decl nil float nil))
-         nil))
+         nil
+         (OddFsuccEven_aux subtype
+          "number_fields./(float.vNum(float.b), float.radix)" "int")))
        (OddFsuccEven_aux 0
         (OddFsuccEven_aux-1 nil 3319564626
          ("" (skeep)
@@ -13259,8 +13201,8 @@
                         nil)
           (rational nonempty-type-from-decl nil rationals nil)
           (rational_pred const-decl "[real -> boolean]" rationals nil)
-          (real_pred const-decl "[number_field -> boolean]" reals nil)
           (real nonempty-type-from-decl nil reals nil)
+          (real_pred const-decl "[number_field -> boolean]" reals nil)
           (/ const-decl "[numfield, nznum -> numfield]" number_fields
              nil)
           (nznum nonempty-type-eq-decl nil number_fields nil)
@@ -13276,7 +13218,6 @@
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
          shostak))
@@ -13342,11 +13283,6 @@
           nil)
          ((minus_nzint_is_nzint application-judgement "nzint" integers
            nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
-          (minus_int_is_int application-judgement "int" integers nil)
-          (int_plus_int_is_int application-judgement "int" integers
-           nil)
           (Fsucc const-decl "float" float nil)
           (odd_iff_even_succ formula-decl nil naturalnumbers nil)
           (odd? const-decl "bool" integers nil)
@@ -13402,11 +13338,14 @@
           (above nonempty-type-eq-decl nil integers nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
           (OddFsuccEven_aux formula-decl nil float nil)
+          (posrat_div_posrat_is_posrat application-judgement "posrat"
+           rationals nil)
+          (minus_int_is_int application-judgement "int" integers nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (nzrat_div_nzrat_is_nzrat application-judgement "nzrat"
            rationals nil)
@@ -13556,8 +13495,6 @@
            "(strict_total_order?[real])" real_props nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (FoppCorrect formula-decl nil float nil)
           (FoppBounded formula-decl nil float nil))
          shostak))
@@ -13579,7 +13516,9 @@
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
           (FcanonicBounded formula-decl nil float nil)
           (Fopp const-decl "float" float nil))
-         nil))
+         nil
+         (EvenClosestFopp subtype "float.Fopp(float.p)"
+          "(float.Fbounded?(float.b))")))
        (EvenClosestFopp 0
         (EvenClosestFopp-1 nil 3675497929
          ("" (skeep)
@@ -13730,8 +13669,6 @@
          ((EvenClosest? const-decl "bool" float nil)
           (b skolem-const-decl "Format" float nil)
           (f skolem-const-decl "(Fbounded?(b))" float nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (FoppBounded formula-decl nil float nil)
           (>= const-decl "bool" reals nil)
           (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -13788,9 +13725,7 @@
           (Fcanonic? const-decl "bool" float nil)
           (Fsubnormal? const-decl "bool" float nil)
           (Fnormal? const-decl "bool" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil))
          shostak))
        (RleRoundedR0 0
@@ -13825,6 +13760,7 @@
             nil))
           nil)
          ((RoundedMode? const-decl "bool" float nil)
+          (zero_is_neg_zero formula-decl nil real_props nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (minus_int_is_int application-judgement "int" integers nil)
@@ -13832,7 +13768,6 @@
                real_defs nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (FtoR const-decl "real" float nil)
@@ -13840,14 +13775,10 @@
            real_props nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (expt_x0 formula-decl nil exponentiation nil)
           (b!1 skolem-const-decl "Format" float nil)
           (isMin? const-decl "bool" float nil)
@@ -13900,6 +13831,7 @@
             nil))
           nil)
          ((rounded_mode? const-decl "bool" float nil)
+          (zero_is_neg_zero formula-decl nil real_props nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (minus_int_is_int application-judgement "int" integers nil)
@@ -13907,7 +13839,6 @@
                real_defs nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (FtoR const-decl "real" float nil)
@@ -13915,14 +13846,10 @@
            real_props nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (expt_x0 formula-decl nil exponentiation nil)
           (b skolem-const-decl "Format" float nil)
           (isMin? const-decl "bool" float nil)
@@ -13978,6 +13905,7 @@
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (isMin? const-decl "bool" float nil)
+          (zero_is_neg_zero formula-decl nil real_props nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (minus_int_is_int application-judgement "int" integers nil)
@@ -13985,20 +13913,15 @@
                real_defs nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (FtoR const-decl "real" float nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (expt_x0 formula-decl nil exponentiation nil)
           (b!1 skolem-const-decl "Format" float nil)
           (isMax? const-decl "bool" float nil)
@@ -14227,8 +14150,8 @@
           (times_div_cancel2 formula-decl nil extra_real_props nil)
           (nonzero_real nonempty-type-eq-decl nil reals nil)
           (FtoR const-decl "real" float nil)
-          (times_div1 formula-decl nil real_props nil)
           (div_cancel2 formula-decl nil real_props nil)
+          (times_div1 formula-decl nil real_props nil)
           (ln const-decl "real" ln_exp "lnexp_fnd/")
           (/ const-decl "[numfield, nznum -> numfield]" number_fields
              nil)
@@ -14244,7 +14167,6 @@
           (minus_int_is_int application-judgement "int" integers nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
            real_types nil)
           (posint_exp application-judgement "posint" exponentiation
@@ -14412,39 +14334,35 @@
           (expt_plus formula-decl nil exponentiation nil)
           (ln const-decl "real" ln_exp "lnexp_fnd/")
           (div_cancel4 formula-decl nil real_props nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
           (nnint_times_nnint_is_nnint application-judgement
            "nonneg_int" integers nil)
           (nzrat_div_nzrat_is_nzrat application-judgement "nzrat"
            rationals nil)
           (nnint_plus_posint_is_posint application-judgement "posint"
            integers nil)
-          (nonneg_rat nonempty-type-eq-decl nil rationals nil)
           (posrat nonempty-type-eq-decl nil rationals nil)
+          (nonneg_rat nonempty-type-eq-decl nil rationals nil)
           (nnrat_times_nnrat_is_nnrat application-judgement
            "nonneg_rat" rationals nil)
           (posrat_plus_nnrat_is_posrat application-judgement "posrat"
            rationals nil)
           (NOT const-decl "[bool -> bool]" booleans nil)
           (TRUE const-decl "bool" booleans nil)
-          (posint nonempty-type-eq-decl nil integers nil)
-          (id const-decl "(bijective?[T, T])" identity nil)
-          (bijective? const-decl "bool" functions nil)
-          (real_gt_is_strict_total_order name-judgement
-           "(strict_total_order?[real])" real_props nil)
-          (both_sides_times_pos_ge1_imp formula-decl nil
-           extra_real_props nil)
-          (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
-          (+ const-decl "[numfield, numfield -> numfield]"
-             number_fields nil)
-          (< const-decl "bool" reals nil)
-          (AND const-decl "[bool, bool -> bool]" booleans nil)
-          (integer nonempty-type-from-decl nil integers nil)
           (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
            rationals nil)
+          (integer nonempty-type-from-decl nil integers nil)
+          (AND const-decl "[bool, bool -> bool]" booleans nil)
+          (< const-decl "bool" reals nil)
+          (+ const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
+          (both_sides_times_pos_ge1_imp formula-decl nil
+           extra_real_props nil)
+          (real_gt_is_strict_total_order name-judgement
+           "(strict_total_order?[real])" real_props nil)
+          (bijective? const-decl "bool" functions nil)
+          (id const-decl "(bijective?[T, T])" identity nil)
+          (posint nonempty-type-eq-decl nil integers nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
@@ -14515,7 +14433,6 @@
           (minus_int_is_int application-judgement "int" integers nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
            real_types nil)
           (posint_exp application-judgement "posint" exponentiation
@@ -14737,7 +14654,10 @@
           (/= const-decl "boolean" notequal nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (RND_aux_float subtype
+          "((number_fields.-)((number_fields.-)((number_fields.-)(Prec(float.b), Fexp(float.f)), dExp(float.b)), 1))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_aux_float_TCC2 0
         (RND_aux_float_TCC2-1 nil 3544890397 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -14762,7 +14682,10 @@
           (/= const-decl "boolean" notequal nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (RND_aux_float subtype
+          "((number_fields.+)(dExp(float.b), Fexp(float.f)))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_aux_float_TCC3 0
         (RND_aux_float_TCC3-2 nil 3544978082
          ("" (skeep)
@@ -15002,8 +14925,6 @@
           (neg_times_le formula-decl nil real_props nil)
           (div_div2 formula-decl nil real_props nil)
           (times_div1 formula-decl nil real_props nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (expt_plus formula-decl nil exponentiation nil)
           (expt_inverse formula-decl nil exponentiation nil)
           (nzreal_exp application-judgement "nzreal" exponentiation
@@ -15012,9 +14933,7 @@
           (nzreal nonempty-type-eq-decl nil reals nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
@@ -15060,12 +14979,17 @@
           (> const-decl "bool" reals nil)
           (radix formal-const-decl "above(1)" float nil)
           (- const-decl "[numfield -> numfield]" number_fields nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil))
-         nil)
+         nil
+         (RND_aux_float subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(Fnum(float.f), exponentiation.^(float.radix, ((number_fields.+)(dExp(float.b), Fexp(float.f)))))), Fexp :=  #)"
+          "(float.Fcanonic?(float.b))"))
         (RND_aux_float_TCC3-1 nil 3544890397 ("" (subtype-tcc) nil nil)
-         nil nil))
+         nil nil
+         (RND_aux_float subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(Fnum(float.f), exponentiation.^(float.radix, ((number_fields.+)(dExp(float.b), Fexp(float.f)))))), Fexp :=  #)"
+          "(float.Fcanonic?(float.b))")))
        (RND_aux_float_TCC4 0
         (RND_aux_float_TCC4-1 nil 3544890397 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -15094,7 +15018,10 @@
            integers nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (RND_aux_float subtype
+          "((number_fields.-)((number_fields.+)((number_fields.+)(Fexp(float.f), 1), dExp(float.b)), Prec(float.b)))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_aux_float_TCC5 0
         (RND_aux_float_TCC5-1 nil 3544890397
          ("" (skeep)
@@ -15105,7 +15032,6 @@
           nil)
          ((posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (both_sides_times_pos_ge1_imp formula-decl nil
            extra_real_props nil)
           (Format type-eq-decl nil float nil)
@@ -15158,7 +15084,10 @@
           (expt_x0 formula-decl nil exponentiation nil)
           (expt_plus formula-decl nil exponentiation nil)
           (nzreal nonempty-type-eq-decl nil reals nil))
-         nil))
+         nil
+         (RND_aux_float subtype
+          "number_fields.*(Fnum(float.f), exponentiation.^(float.radix, ((number_fields.-)((number_fields.+)((number_fields.+)(Fexp(float.f), 1), dExp(float.b)), Prec(float.b)))))"
+          "{x: reals.real | reals.>=(x, 1)}")))
        (RND_aux_float_TCC6 0
         (RND_aux_float_TCC6-1 nil 3544890397
          ("" (skeep) (("" (assert) nil nil)) nil)
@@ -15170,12 +15099,14 @@
            integers nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (posint_exp application-judgement "posint" exponentiation
            nil))
-         nil))
+         nil
+         (RND_aux_float subtype
+          "((number_fields.-)(Fexp(float.f), float.e))"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (RND_aux_float_TCC7 0
         (RND_aux_float_TCC7-3 nil 3544978679
          ("" (skeep)
@@ -15378,8 +15309,6 @@
            integers nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
@@ -15416,22 +15345,19 @@
            real_props nil)
           (f skolem-const-decl "{f | Fnum(f) >= 0}" float nil)
           (nonneg_real nonempty-type-eq-decl nil real_types nil)
+          (expt def-decl "real" exponentiation nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
-          (expt def-decl "real" exponentiation nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
+          (posnat_expt application-judgement "posnat" exponentiation
+           nil)
           (< const-decl "bool" reals nil)
           (both_sides_times_pos_ge1_imp formula-decl nil
            extra_real_props nil)
           (rat_div_nzrat_is_rat application-judgement "rat" rationals
            nil)
+          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (nnrat_times_nnrat_is_nnrat application-judgement
@@ -15451,12 +15377,14 @@
            integers nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (posint_exp application-judgement "posint" exponentiation
            nil))
-         nil)
+         nil
+         (RND_aux_float subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(Fnum(float.f), exponentiation.^(float.radix, ((number_fields.-)(Fexp(float.f), float.e))))), Fexp := float.e #)"
+          "(float.Fcanonic?(float.b))"))
         (RND_aux_float_TCC7-2 nil 3544978645
          ("" (skeep)
           (("" (lemma "RND_log_compute")
@@ -16001,9 +15929,15 @@
                                                               (field)
                                                               nil))))))))))))))))))))))))))))))))))))))))))))))))))))
           nil)
-         nil nil)
+         nil nil
+         (RND_aux_float subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(Fnum(float.f), exponentiation.^(float.radix, ((number_fields.-)(Fexp(float.f), float.e))))), Fexp := float.e #)"
+          "(float.Fcanonic?(float.b))"))
         (RND_aux_float_TCC7-1 nil 3544890397 ("" (subtype-tcc) nil nil)
-         nil nil))
+         nil nil
+         (RND_aux_float subtype
+          "(# Fnum := floor_ceil.floor(number_fields.*(Fnum(float.f), exponentiation.^(float.radix, ((number_fields.-)(Fexp(float.f), float.e))))), Fexp := float.e #)"
+          "(float.Fcanonic?(float.b))")))
        (RND_aux_float_def_TCC1 0
         (RND_aux_float_def_TCC1-1 nil 3544890397
          ("" (skeep)
@@ -16043,10 +15977,11 @@
           (float type-eq-decl nil float nil)
           (both_sides_times_pos_ge1_imp formula-decl nil
            extra_real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil))
-         nil))
+         nil
+         (RND_aux_float_def subtype "float.FtoR(float.f)"
+          "nonneg_real")))
        (RND_aux_float_def 0
         (RND_aux_float_def-1 nil 3544890402
          ("" (skeep)
@@ -16211,8 +16146,7 @@
               nil))
             nil))
           nil)
-         ((nnrat_exp application-judgement "nnrat" exponentiation nil)
-          (posrat_exp application-judgement "posrat" exponentiation
+         ((posrat_exp application-judgement "posrat" exponentiation
            nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
@@ -16223,6 +16157,7 @@
           (int_minus_int_is_int application-judgement "int" integers
            nil)
           (RND_aux_float const-decl "(Fcanonic?(b))" float nil)
+          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (real_times_real_is_real application-judgement "real" reals
@@ -16252,11 +16187,7 @@
           (boolean nonempty-type-decl nil booleans nil)
           (number nonempty-type-decl nil numbers nil)
           (FtoR const-decl "real" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (- const-decl "[numfield -> numfield]" number_fields nil)
           (vNum const-decl "posnat" float nil)
@@ -16297,7 +16228,9 @@
            real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil
+         (RND_float_Min subtype "float.f"
+          "{f | reals.>=(Fnum(float.f), 0)}")))
        (RND_float_Min_TCC2 0
         (RND_float_Min_TCC2-1 nil 3544890397 ("" (subtype-tcc) nil nil)
          ((minus_int_is_int application-judgement "int" integers nil)
@@ -16307,7 +16240,9 @@
            real_props nil)
           (Fopp const-decl "float" float nil)
           (- const-decl "float" float nil))
-         nil))
+         nil
+         (RND_float_Min subtype ""
+          "{f | reals.>=(Fnum(float.f), 0)}")))
        (RND_float_Min_TCC3 0
         (RND_float_Min_TCC3-1 nil 3544890397
          ("" (skeep)
@@ -16347,7 +16282,10 @@
           (f skolem-const-decl "float" float nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil
+         (RND_float_Min subtype
+          "float.Fopp(float.RND_aux_float(float.b)())"
+          "(float.Fcanonic?(float.b))")))
        (RND_float_Min_TCC4 0
         (RND_float_Min_TCC4-2 nil 3545038497
          ("" (skeep)
@@ -16399,9 +16337,15 @@
           (f skolem-const-decl "float" float nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (FcanonicOpp formula-decl nil float nil))
-         nil)
+         nil
+         (RND_float_Min subtype
+          "float.Fpred(float.b)(float.Fopp(float.RND_aux_float(float.b)()))"
+          "(float.Fcanonic?(float.b))"))
         (RND_float_Min_TCC4-1 nil 3544890397 ("" (subtype-tcc) nil nil)
-         nil nil))
+         nil nil
+         (RND_float_Min subtype
+          "float.Fpred(float.b)(float.Fopp(float.RND_aux_float(float.b)()))"
+          "(float.Fcanonic?(float.b))")))
        (RND_float_Min_def 0
         (RND_float_Min_def-1 nil 3544891290
          ("" (skeep)
@@ -16519,16 +16463,14 @@
           (= const-decl "[T, T -> boolean]" equalities nil)
           (Fopp const-decl "float" float nil)
           (minus_int_is_int application-judgement "int" integers nil)
+          (expt def-decl "real" exponentiation nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
-          (expt def-decl "real" exponentiation nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (posnat_expt application-judgement "posnat" exponentiation
            nil)
           (posreal nonempty-type-eq-decl nil real_types nil)
           (both_sides_times_pos_le1 formula-decl nil real_props nil)
@@ -16559,7 +16501,6 @@
           (radix formal-const-decl "above(1)" float nil)
           (both_sides_times_pos_le1_imp formula-decl nil
            extra_real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -16592,9 +16533,15 @@
           (Format type-eq-decl nil float nil)
           (above nonempty-type-eq-decl nil integers nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil))
-         nil)
+         nil
+         (RND_float_Max subtype
+          "float.Fopp(float.RND_float_Min(float.b)())"
+          "(float.Fcanonic?(float.b))"))
         (RND_float_Max_TCC1-1 nil 3544891797 ("" (subtype-tcc) nil nil)
-         nil nil))
+         nil nil
+         (RND_float_Max subtype
+          "float.Fopp(float.RND_float_Min(float.b)())"
+          "(float.Fcanonic?(float.b))")))
        (RND_float_Max_def 0
         (RND_float_Max_def-1 nil 3544891798
          ("" (skeep)
@@ -16617,22 +16564,21 @@
           (int nonempty-type-eq-decl nil integers nil)
           (float type-eq-decl nil float nil)
           (- const-decl "float" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (posnat_expt application-judgement "posnat" exponentiation
            nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
+          (posrat_div_posrat_is_posrat application-judgement "posrat"
+           rationals nil)
           (Fopp const-decl "float" float nil)
           (^ const-decl "real" exponentiation nil)
           (expt def-decl "real" exponentiation nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
-          (posnat_expt application-judgement "posnat" exponentiation
+          (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (minus_int_is_int application-judgement "int" integers nil)
@@ -16731,9 +16677,7 @@
           (RND_float_Min_def formula-decl nil float nil)
           (>= const-decl "bool" float nil)
           (Fsubnormal? const-decl "bool" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fnormal? const-decl "bool" float nil)
           (g skolem-const-decl "float" float nil)
@@ -16821,9 +16765,7 @@
           (RND_float_Max_def formula-decl nil float nil)
           (<= const-decl "bool" float nil)
           (Fsubnormal? const-decl "bool" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fnormal? const-decl "bool" float nil)
           (g skolem-const-decl "float" float nil)
@@ -17159,9 +17101,7 @@
           (expt def-decl "real" exponentiation nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fle? const-decl "bool" float nil)
           (Fminus const-decl "float" float nil)
@@ -17173,20 +17113,19 @@
            nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (real_minus_real_is_real application-judgement "real" reals
+           nil)
+          (posnat_expt application-judgement "posnat" exponentiation
            nil)
           (<= const-decl "bool" float nil)
           (FleCorrect formula-decl nil float nil)
@@ -17241,9 +17180,7 @@
           (expt def-decl "real" exponentiation nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fle? const-decl "bool" float nil)
           (Fminus const-decl "float" float nil)
@@ -17255,20 +17192,19 @@
            nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (real_minus_real_is_real application-judgement "real" reals
+           nil)
+          (posnat_expt application-judgement "posnat" exponentiation
            nil)
           (<= const-decl "bool" float nil)
           (FleCorrect formula-decl nil float nil)
@@ -17385,9 +17321,7 @@
           (RND_float_Min_def formula-decl nil float nil)
           (Fsubnormal? const-decl "bool" float nil)
           (Fnormal? const-decl "bool" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (g skolem-const-decl "float" float nil)
           (b skolem-const-decl "Format" float nil)
@@ -17497,9 +17431,7 @@
           (RND_float_Max_def formula-decl nil float nil)
           (Fsubnormal? const-decl "bool" float nil)
           (Fnormal? const-decl "bool" float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (g skolem-const-decl "float" float nil)
           (b skolem-const-decl "Format" float nil)
@@ -17662,7 +17594,6 @@
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (>= const-decl "bool" float nil)
           (>= const-decl "bool" float nil)
           (FleCorrect formula-decl nil float nil)
@@ -17681,14 +17612,10 @@
            "(strict_total_order?[real])" real_props nil)
           (int_abs_is_nonneg application-judgement
            "{j: nonneg_int | j >= i}" real_defs nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
           (expt_x0 formula-decl nil exponentiation nil)
@@ -17789,26 +17716,20 @@
           (= const-decl "[T, T -> boolean]" equalities nil)
           (FtoR const-decl "real" float nil)
           (RND_float_Min_def formula-decl nil float nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
+          (posnat_expt application-judgement "posnat" exponentiation
+           nil)
           (expt def-decl "real" exponentiation nil)
           (RND_Min const-decl "(Fcanonic?(b))" float nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (nonneg_floor_is_nat application-judgement "nat" floor_ceil
            nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (floor_int formula-decl nil floor_ceil nil)
           (integer nonempty-type-from-decl nil integers nil)
           (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -17826,7 +17747,6 @@
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posint_plus_nnint_is_posint application-judgement "posint"
            integers nil)
           (posint_exp application-judgement "posint" exponentiation
@@ -18065,11 +17985,12 @@
           (- const-decl "float" float nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
+          (posrat_div_posrat_is_posrat application-judgement "posrat"
+           rationals nil)
           (expt def-decl "real" exponentiation nil)
           (posnat_expt application-judgement "posnat" exponentiation
            nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
+          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (RND_aux_float const-decl "(Fcanonic?(b))" float nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
@@ -18094,15 +18015,12 @@
           (NOT const-decl "[bool -> bool]" booleans nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (even_times_int_is_even application-judgement "even_int"
-           integers nil)
           (nnint_times_nnint_is_nnint application-judgement
            "nonneg_int" integers nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (even_times_int_is_even application-judgement "even_int"
+           integers nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (expt_x0 formula-decl nil exponentiation nil)
@@ -18112,6 +18030,8 @@
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (Fopp const-decl "float" float nil)
+          (minus_even_is_even application-judgement "even_int" integers
+           nil)
           (floor_int formula-decl nil floor_ceil nil)
           (integer nonempty-type-from-decl nil integers nil)
           (* const-decl "[numfield, numfield -> numfield]"
@@ -18121,13 +18041,11 @@
           (^ const-decl "real" exponentiation nil)
           (> const-decl "bool" reals nil)
           (radix formal-const-decl "above(1)" float nil)
+          (nonneg_floor_is_nat application-judgement "nat" floor_ceil
+           nil)
           (RND_aux const-decl "(Fcanonic?(b))" float nil)
           (minus_int_is_int application-judgement "int" integers nil)
-          (minus_even_is_even application-judgement "even_int" integers
-           nil)
           (int_minus_int_is_int application-judgement "int" integers
-           nil)
-          (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (posint_plus_nnint_is_posint application-judgement "posint"
            integers nil)
@@ -18554,26 +18472,20 @@
            "(strict_total_order?[real])" real_props nil)
           (TRUE const-decl "bool" booleans nil)
           (RND_float_Min_def formula-decl nil float nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
+          (posnat_expt application-judgement "posnat" exponentiation
+           nil)
           (expt def-decl "real" exponentiation nil)
           (RND_Min const-decl "(Fcanonic?(b))" float nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
            rationals nil)
           (nonneg_floor_is_nat application-judgement "nat" floor_ceil
            nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (floor_int formula-decl nil floor_ceil nil)
           (integer nonempty-type-from-decl nil integers nil)
           (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -18591,7 +18503,6 @@
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posint_plus_nnint_is_posint application-judgement "posint"
            integers nil)
           (posint_exp application-judgement "posint" exponentiation
@@ -18690,16 +18601,18 @@
            real_props nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (nzint_abs_is_pos application-judgement
-           "{j: posint | j >= i}" real_defs nil)
           (int_abs_is_nonneg application-judgement
            "{j: nonneg_int | j >= i}" real_defs nil)
+          (nzint_abs_is_pos application-judgement
+           "{j: posint | j >= i}" real_defs nil)
           (nzrat_abs_is_pos application-judgement
            "{r: posrat | r >= q}" real_defs nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
           (Fbounded? const-decl "bool" float nil))
-         nil))
+         nil
+         (Fmult_canonic_id_Min subtype "float.float_int(1)"
+          "(float.Fbounded?(float.b))")))
        (Fmult_canonic_id_Min 0
         (Fmult_canonic_id_Min-1 nil 3545491201
          ("" (lemma "FcanonicUnique")
@@ -18891,11 +18804,11 @@
           (float_int const-decl "float" float nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (Fplus_canonic_id_Min subtype "float.float_int(0)"
+          "(float.Fbounded?(float.b))")))
        (Fplus_canonic_id_Min 0
         (Fplus_canonic_id_Min-1 nil 3545563553
          ("" (lemma "FcanonicUnique")
@@ -19071,7 +18984,8 @@
           (Format type-eq-decl nil float nil)
           (int nonempty-type-eq-decl nil integers nil)
           (float type-eq-decl nil float nil))
-         nil))
+         nil
+         (MaxSuccMin subtype "float.q" "(float.Fbounded?(float.b))")))
        (MaxSuccMin 0
         (MaxSuccMin-1 nil 3319555553
          ("" (skeep)
@@ -19302,8 +19216,6 @@
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
           (both_sides_minus_le1 formula-decl nil real_props nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (isMax? const-decl "bool" float nil)
           (isMin? const-decl "bool" float nil)
           (Fbounded? const-decl "bool" float nil)
@@ -19803,22 +19715,18 @@
           (pos_times_le formula-decl nil real_props nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
           (int_abs_is_nonneg application-judgement
            "{j: nonneg_int | j >= i}" real_defs nil)
+          (zero_is_neg_zero formula-decl nil real_props nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
           (<= const-decl "bool" reals nil)
@@ -20003,8 +19911,6 @@
            real_props nil)
           (minus_real_is_real application-judgement "real" reals nil)
           (both_sides_minus_le1 formula-decl nil real_props nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (isMin? const-decl "bool" float nil)
           (isMax? const-decl "bool" float nil)
           (Closest? const-decl "bool" float nil)
@@ -20125,8 +20031,6 @@
           (Closest? const-decl "bool" float nil)
           (isMax? const-decl "bool" float nil)
           (isMin? const-decl "bool" float nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (both_sides_minus_le1 formula-decl nil real_props nil)
           (minus_real_is_real application-judgement "real" reals nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -20268,9 +20172,9 @@
                real_defs nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
+          (minus_real_is_real application-judgement "real" reals nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (minus_real_is_real application-judgement "real" reals nil)
           (isMin? const-decl "bool" float nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
@@ -20339,9 +20243,9 @@
                real_defs nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
+          (minus_real_is_real application-judgement "real" reals nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (minus_real_is_real application-judgement "real" reals nil)
           (isMin? const-decl "bool" float nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
@@ -20961,13 +20865,11 @@
           (Closest? const-decl "bool" float nil)
           (Fcanonic? const-decl "bool" float nil)
           (RND_Min const-decl "(Fcanonic?(b))" float nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (boolean nonempty-type-decl nil booleans nil)
+          (TRUE const-decl "bool" booleans nil)
           (bool nonempty-type-eq-decl nil booleans nil)
-          (TRUE const-decl "bool" booleans nil))
+          (boolean nonempty-type-decl nil booleans nil))
          shostak))
        (Closest_bounded_exact_rep_TCC1 0
         (Closest_bounded_exact_rep_TCC1-1 nil 3698163284
@@ -21007,7 +20909,9 @@
           (hat_02n formula-decl nil power_series "series/")
           (vNum const-decl "posnat" float nil)
           (/= const-decl "boolean" notequal nil))
-         nil))
+         nil
+         (Closest_bounded_exact_rep subtype "float.exp"
+          "{i: integers.int | booleans.OR(float.radix /= 0, reals.>=(i, 0))}")))
        (Closest_bounded_exact_rep 0
         (Closest_bounded_exact_rep-1 nil 3698163434
          ("" (skeep*)
@@ -21051,16 +20955,15 @@
           (rational nonempty-type-from-decl nil rationals nil)
           (rational_pred const-decl "[real -> boolean]" rationals nil)
           (b skolem-const-decl "Format" float nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (FtoR const-decl "real" float nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
+          (minus_even_is_even application-judgement "even_int" integers
+           nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (real_lt_is_strict_total_order name-judgement
@@ -21178,7 +21081,6 @@
              number_fields nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (boolean nonempty-type-decl nil booleans nil)
@@ -21424,18 +21326,16 @@
            "{r: posrat | r >= q}" real_defs nil)
           (rat_div_nzrat_is_rat application-judgement "rat" rationals
            nil)
-          (posrat_exp application-judgement "posrat" exponentiation
-           nil)
           (- const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
           (nzreal nonempty-type-eq-decl nil reals nil)
           (expt_div formula-decl nil exponentiation nil)
           (expt_x1 formula-decl nil exponentiation nil)
           (OR const-decl "[bool, bool -> bool]" booleans nil)
-          (nnint_times_nnint_is_nnint application-judgement
-           "nonneg_int" integers nil)
           (even_times_int_is_even application-judgement "even_int"
            integers nil)
+          (nnint_times_nnint_is_nnint application-judgement
+           "nonneg_int" integers nil)
           (div_mult_pos_lt1 formula-decl nil real_props nil)
           (zero_times1 formula-decl nil real_props nil)
           (lt_div_lt_pos1 formula-decl nil real_props nil)
@@ -21450,17 +21350,14 @@
            rationals nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
           (posint_times_posint_is_posint application-judgement "posint"
            integers nil)
           (posnat_expt application-judgement "posnat" exponentiation
            nil)
           (rat_minus_rat_is_rat application-judgement "rat" rationals
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -21491,6 +21388,8 @@
           (minus_nzint_is_nzint application-judgement "nzint" integers
            nil)
           (exactly_representable const-decl "bool" float nil)
+          (int_times_int_is_int application-judgement "int" integers
+           nil)
           (expt_x0 formula-decl nil exponentiation nil)
           (Closest_bounded_exact_rep formula-decl nil float nil)
           (boolean nonempty-type-decl nil booleans nil)
@@ -21564,6 +21463,8 @@
           (NOT const-decl "[bool -> bool]" booleans nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
+          (minus_even_is_even application-judgement "even_int" integers
+           nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (real_minus_real_is_real application-judgement "real" reals
@@ -22592,8 +22493,6 @@
           (Closest? const-decl "bool" float nil)
           (MinOrMax? const-decl "bool" float nil)
           (= const-decl "[T, T -> boolean]" equalities nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (Unique? const-decl "bool" float nil)
@@ -23381,7 +23280,8 @@
           (rational nonempty-type-from-decl nil rationals nil)
           (integer_pred const-decl "[rational -> boolean]" integers
                         nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (int_minus_int_is_int application-judgement "int" integers
@@ -23400,14 +23300,10 @@
           (NOT const-decl "[bool -> bool]" booleans nil)
           (posrat_div_posrat_is_posrat application-judgement "posrat"
            rationals nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (expt_div formula-decl nil exponentiation nil)
           (nzreal nonempty-type-eq-decl nil reals nil)
           (FnormalizeCorrect formula-decl nil float nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (posnat_expt application-judgement "posnat" exponentiation
            nil))
@@ -23472,7 +23368,8 @@
                         nil)
           (rational nonempty-type-from-decl nil rationals nil)
           (rational_pred const-decl "[real -> boolean]" rationals nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (MaxOppMin formula-decl nil float nil)
@@ -23602,7 +23499,8 @@
            "(strict_total_order?[real])" real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (Fulp const-decl "real" float nil)
           (Fulp_posreal_j application-judgement "posreal" float nil)
           (real_plus_real_is_real application-judgement "real" reals
@@ -23831,16 +23729,14 @@
           (ClosestFopp formula-decl nil float nil)
           (FulpOpp formula-decl nil float nil)
           (FoppCorrect formula-decl nil float nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (= const-decl "[T, T -> boolean]" equalities nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (Fulp_posreal_j application-judgement "posreal" float nil)
           (real_minus_real_is_real application-judgement "real" reals
            nil)
+          (Fulp_posreal_j application-judgement "posreal" float nil)
           (posreal_div_posreal_is_posreal application-judgement
            "posreal" real_types nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -24005,8 +23901,166 @@
           (Fabs const-decl "float" float nil)
           (FcanonicBounded formula-decl nil float nil)
           (FabsBounded formula-decl nil float nil))
-         nil))
+         nil
+         (ClosestUlp2 subtype
+          "float.Fpred(float.b)(float.Fabs(float.p))"
+          "(float.Fbounded?(float.b))")))
        (ClosestUlp2 0
+        (ClosestUlp2-2 "" 3744431413
+         (""
+          (case "FORALL (b: Format, p: float, r: real):
+                             Fcanonic?(b)(p) =>
+                              Closest?(b)(r, p) => 0 <= r =>
+                               r <= FtoR(p) + Fulp(b)(Fpred(b)(p)) / 2 =>
+                                abs(FtoR(p) - r) <= Fulp(b)(Fpred(b)(p)) / 2")
+          (("1" (skeep)
+            (("1" (case "0<=r")
+              (("1" (inst -2 "b" "p" "r")
+                (("1" (case "0<= FtoR(p)")
+                  (("1" (case "Fabs(p)=p")
+                    (("1" (split)
+                      (("1" (assert) nil nil)
+                       ("2" (expand "abs" -6)
+                        (("2" (grind-reals) nil nil)) nil)
+                       ("3" (propax) nil nil) ("4" (propax) nil nil)
+                       ("5" (propax) nil nil))
+                      nil)
+                     ("2" (hide-all-but (1 -1))
+                      (("2" (expand* "Fabs" "abs" "FtoR")
+                        (("2" (grind-reals)
+                          (("2" (decompose-equality 1) nil nil)) nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2"
+                    (rewrite "RleRoundedR0" :subst
+                     ("b" "b" "P" "Closest?" "r" "r"))
+                    (("1" (rewrite "Closest_RoundedMode") nil nil)
+                     ("2" (rewrite "FcanonicBounded") nil nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (flip-ineq 1)
+                (("2" (inst -2 "b" "Fopp(p)" "-r")
+                  (("2" (case "FtoR(p) <= 0")
+                    (("1" (case "Fabs(p)=Fopp(p)")
+                      (("1" (split)
+                        (("1"
+                          (case-replace
+                           "abs(FtoR(Fopp(p)) - -r)=abs(FtoR(p) - r)")
+                          (("1" (assert) nil nil)
+                           ("2" (rewrite "FoppCorrect")
+                            (("2" (expand "abs" 1)
+                              (("2" (grind-reals) nil nil)) nil))
+                            nil))
+                          nil)
+                         ("2" (expand "abs" -6)
+                          (("2" (grind-reals)
+                            (("1" (rewrite "FoppCorrect")
+                              (("1" (assert) nil nil)) nil)
+                             ("2" (rewrite "FoppCorrect")
+                              (("2" (assert) nil nil)) nil))
+                            nil))
+                          nil)
+                         ("3" (assert) nil nil)
+                         ("4" (rewrite "ClosestFopp")
+                          (("4" (rewrite "FcanonicBounded") nil nil))
+                          nil)
+                         ("5" (lemma "FcanonicOpp")
+                          (("5" (inst -1 "b" "p")
+                            (("5" (assert) nil nil)) nil))
+                          nil))
+                        nil)
+                       ("2" (hide-all-but (1 -1))
+                        (("2" (expand* "Fabs" "Fopp" "abs" "FtoR")
+                          (("2" (grind-reals) nil nil)) nil))
+                        nil))
+                      nil)
+                     ("2"
+                      (rewrite "RleRoundedLessR0" :subst
+                       ("b" "b" "P" "Closest?" "r" "r"))
+                      (("1" (rewrite "Closest_RoundedMode") nil nil)
+                       ("2" (rewrite "FcanonicBounded") nil nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (hide 2)
+            (("2" (skeep)
+              (("2" (expand "abs" 1)
+                (("2" (grind-reals)
+                  (("2" (flip-ineq 1)
+                    (("2" (copy -3)
+                      (("2" (expand "Closest?" -1)
+                        (("2" (inst -1 "Fpred(b)(p)")
+                          (("2" (case "FtoR(Fpred(b)(p)) - r <= 0")
+                            (("1" (expand "abs" -2)
+                              (("1"
+                                (grind-reals)
+                                (("1"
+                                  (case
+                                   " FtoR(p) - r -(FtoR(Fpred(b)(p)) - r) <= Fulp(b)(Fpred(b)(p))")
+                                  (("1" (grind-reals) nil nil)
+                                   ("2"
+                                    (assert)
+                                    (("2"
+                                      (rewrite "FpredDiff")
+                                      (("2" (assert) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (hide 2)
+                              (("2"
+                                (flip-ineq 1)
+                                (("2"
+                                  (flip-ineq -2)
+                                  (("2"
+                                    (expand "abs" 1)
+                                    (("2"
+                                      (grind-reals)
+                                      (("2"
+                                        (lemma "FpredLt")
+                                        (("2"
+                                          (inst -1 "b" "p")
+                                          (("2" (assert) nil nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("3" (hide 2)
+            (("3" (skeep)
+              (("3" (rewrite "FpredBounded")
+                (("3" (rewrite "FcanonicBounded") nil nil)) nil))
+              nil))
+            nil)
+           ("4" (hide 2)
+            (("4" (skeep)
+              (("4" (rewrite "FpredBounded")
+                (("4" (rewrite "FcanonicBounded") nil nil)) nil))
+              nil))
+            nil)
+           ("5" (hide 2)
+            (("5" (skeep) (("5" (rewrite "FcanonicBounded") nil nil))
+              nil))
+            nil))
+          nil)
+         nil shostak)
         (ClosestUlp2-1 nil 3320428698
          (""
           (case "FORALL (b: Format, p: float, r: real):
@@ -24172,8 +24226,6 @@
            "(strict_total_order?[real])" real_props nil)
           (neg_times_le formula-decl nil real_props nil)
           (FoppCorrect formula-decl nil float nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (div_mult_pos_le2 formula-decl nil real_props nil)
           (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
            real_types nil)
@@ -24201,14 +24253,15 @@
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (minus_int_is_int application-judgement "int" integers nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (pos_times_le formula-decl nil real_props nil)
           (TRUE const-decl "bool" booleans nil)
-          (Fulp_posreal_j application-judgement "posreal" float nil)
           (real_minus_real_is_real application-judgement "real" reals
            nil)
+          (Fulp_posreal_j application-judgement "posreal" float nil)
           (real_plus_real_is_real application-judgement "real" reals
            nil)
           (posreal_div_posreal_is_posreal application-judgement
@@ -24435,7 +24488,6 @@
           (minus_int_is_int application-judgement "int" integers nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (int_abs_is_nonneg application-judgement
            "{j: nonneg_int | j >= i}" real_defs nil)
           (both_sides_times_pos_ge1_imp formula-decl nil
@@ -24493,10 +24545,9 @@
           (nzrat_abs_is_pos application-judgement
            "{r: posrat | r >= q}" real_defs nil)
           (abs_mult formula-decl nil real_props nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (FminusCorrect formula-decl nil float nil)
           (TRUE const-decl "bool" booleans nil)
+          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (both_sides_times_pos_lt1 formula-decl nil real_props nil)
@@ -24566,7 +24617,6 @@
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (int_min application-judgement "{k: int | k <= i AND k <= j}"
            real_defs nil)
           (rat_minus_rat_is_rat application-judgement "rat" rationals
@@ -24810,7 +24860,7 @@
            "{r: nonneg_rat | r >= q}" real_defs nil)
           (nzint_abs_is_pos application-judgement
            "{j: posint | j >= i}" real_defs nil)
-          (minus_nzint_is_nzint application-judgement "nzint" integers
+          (minus_odd_is_odd application-judgement "odd_int" integers
            nil)
           (lt_times_lt_pos2 formula-decl nil real_props nil)
           (TRUE const-decl "bool" booleans nil)
@@ -24818,8 +24868,6 @@
           (nzrat_abs_is_pos application-judgement
            "{r: posrat | r >= q}" real_defs nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
-           nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
            nil)
           (nnrat_times_nnrat_is_nnrat application-judgement
            "nonneg_rat" rationals nil)
@@ -24849,7 +24897,6 @@
            extra_real_props nil)
           (int_abs_is_nonneg application-judgement
            "{j: nonneg_int | j >= i}" real_defs nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (FminusCorrect formula-decl nil float nil)
@@ -25349,9 +25396,7 @@
           (Fulp_posreal_j application-judgement "posreal" float nil)
           (posint_exp application-judgement "posint" exponentiation
            nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
@@ -25372,13 +25417,13 @@
           (pos_times_le formula-decl nil real_props nil)
           (TRUE const-decl "bool" booleans nil)
           (NOT const-decl "[bool -> bool]" booleans nil)
-          (div_cancel2 formula-decl nil real_props nil)
-          (both_sides_times1 formula-decl nil real_props nil)
-          (id const-decl "(bijective?[T, T])" identity nil)
-          (bijective? const-decl "bool" functions nil)
-          (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-          (nonneg_rat nonempty-type-eq-decl nil rationals nil)
           (posrat nonempty-type-eq-decl nil rationals nil)
+          (nonneg_rat nonempty-type-eq-decl nil rationals nil)
+          (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+          (bijective? const-decl "bool" functions nil)
+          (id const-decl "(bijective?[T, T])" identity nil)
+          (both_sides_times1 formula-decl nil real_props nil)
+          (div_cancel2 formula-decl nil real_props nil)
           (rat_minus_rat_is_rat application-judgement "rat" rationals
            nil)
           (posreal nonempty-type-eq-decl nil real_types nil)
@@ -25399,8 +25444,6 @@
           (abs_mult formula-decl nil real_props nil)
           (nzrat_abs_is_pos application-judgement
            "{r: posrat | r >= q}" real_defs nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (nnrat_times_nnrat_is_nnrat application-judgement
            "nonneg_rat" rationals nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
@@ -25433,7 +25476,6 @@
            extra_real_props nil)
           (int_abs_is_nonneg application-judgement
            "{j: nonneg_int | j >= i}" real_defs nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (+ const-decl "[numfield, numfield -> numfield]"
@@ -25904,9 +25946,7 @@
            nil)
           (nzreal nonempty-type-eq-decl nil reals nil)
           (expt_plus formula-decl nil exponentiation nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
@@ -25915,12 +25955,12 @@
           (nznum nonempty-type-eq-decl nil number_fields nil)
           (rat_div_nzrat_is_rat application-judgement "rat" rationals
            nil)
-          (posrat nonempty-type-eq-decl nil rationals nil)
-          (nonneg_rat nonempty-type-eq-decl nil rationals nil)
-          (both_sides_times1 formula-decl nil real_props nil)
-          (div_cancel2 formula-decl nil real_props nil)
-          (bijective? const-decl "bool" functions nil)
           (id const-decl "(bijective?[T, T])" identity nil)
+          (bijective? const-decl "bool" functions nil)
+          (div_cancel2 formula-decl nil real_props nil)
+          (both_sides_times1 formula-decl nil real_props nil)
+          (nonneg_rat nonempty-type-eq-decl nil rationals nil)
+          (posrat nonempty-type-eq-decl nil rationals nil)
           (NOT const-decl "[bool -> bool]" booleans nil)
           (TRUE const-decl "bool" booleans nil)
           (pos_times_le formula-decl nil real_props nil)
@@ -25951,8 +25991,6 @@
           (abs_mult formula-decl nil real_props nil)
           (nzrat_abs_is_pos application-judgement
            "{r: posrat | r >= q}" real_defs nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (nnrat_times_nnrat_is_nnrat application-judgement
            "nonneg_rat" rationals nil)
           (posrat_times_posrat_is_posrat application-judgement "posrat"
@@ -25985,7 +26023,6 @@
            extra_real_props nil)
           (int_abs_is_nonneg application-judgement
            "{j: nonneg_int | j >= i}" real_defs nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (+ const-decl "[numfield, numfield -> numfield]"
@@ -26457,20 +26494,16 @@
           (e!1 skolem-const-decl "(Fbounded?(b))" float nil)
           (e!1 skolem-const-decl "(Fbounded?(b))" float nil)
           (+ const-decl "[numfield, numfield -> numfield]"
-             number_fields nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil))
+             number_fields nil))
          shostak))
        (FulpLeN_TCC1 0
         (FulpLeN_TCC1-1 nil 3698095010 ("" (subtype-tcc) nil nil)
          ((vNum const-decl "posnat" float nil)
           (Fbounded? const-decl "bool" float nil)
           (Fnormal? const-decl "bool" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil (FulpLeN subtype "float.p" "(float.Fbounded?(float.b))")))
        (FulpLeN 0
         (FulpLeN-1 nil 3320431414
          ("" (skeep)
@@ -26502,7 +26535,6 @@
           (float type-eq-decl nil float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
            real_types nil)
           (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
@@ -26537,9 +26569,7 @@
            "{j: nonneg_int | j >= i}" real_defs nil)
           (nnrat_times_nnrat_is_nnrat application-judgement
            "nonneg_rat" rationals nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fnormal? const-decl "bool" float nil)
           (nzint_abs_is_pos application-judgement
@@ -26566,13 +26596,13 @@
           (nonzero_real nonempty-type-eq-decl nil reals nil)
           (NOT const-decl "[bool -> bool]" booleans nil)
           (TRUE const-decl "bool" booleans nil)
-          (both_sides_times_pos_le1 formula-decl nil real_props nil)
-          (div_cancel2 formula-decl nil real_props nil)
-          (bijective? const-decl "bool" functions nil)
-          (id const-decl "(bijective?[T, T])" identity nil)
+          (= const-decl "[T, T -> boolean]" equalities nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
-          (= const-decl "[T, T -> boolean]" equalities nil)
+          (id const-decl "(bijective?[T, T])" identity nil)
+          (bijective? const-decl "bool" functions nil)
+          (div_cancel2 formula-decl nil real_props nil)
+          (both_sides_times_pos_le1 formula-decl nil real_props nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
           (FtoR const-decl "real" float nil)
@@ -26594,7 +26624,9 @@
           (Format type-eq-decl nil float nil)
           (above nonempty-type-eq-decl nil integers nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil))
-         nil))
+         nil
+         (FulpGe subtype "((number_fields.-)(float.vNum(float.b), 1))"
+          "nznum")))
        (FulpGe 0
         (FulpGe-1 nil 3320431633
          ("" (skeep)
@@ -26709,20 +26741,20 @@
           (div_cancel4 formula-decl nil real_props nil)
           (nonzero_real nonempty-type-eq-decl nil reals nil)
           (div_simp formula-decl nil real_props nil)
-          (vNum const-decl "posnat" float nil)
-          (posnat nonempty-type-eq-decl nil integers nil)
-          (nonneg_int nonempty-type-eq-decl nil integers nil)
-          (- const-decl "[numfield, numfield -> numfield]"
-             number_fields nil)
-          (- const-decl "[numfield -> numfield]" number_fields nil)
-          (* const-decl "[numfield, numfield -> numfield]"
-             number_fields nil)
+          (nonneg_real nonempty-type-eq-decl nil real_types nil)
+          (posreal nonempty-type-eq-decl nil real_types nil)
+          (numfield nonempty-type-eq-decl nil number_fields nil)
+          (nznum nonempty-type-eq-decl nil number_fields nil)
           (/ const-decl "[numfield, nznum -> numfield]" number_fields
              nil)
-          (nznum nonempty-type-eq-decl nil number_fields nil)
-          (numfield nonempty-type-eq-decl nil number_fields nil)
-          (posreal nonempty-type-eq-decl nil real_types nil)
-          (nonneg_real nonempty-type-eq-decl nil real_types nil)
+          (* const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (- const-decl "[numfield -> numfield]" number_fields nil)
+          (- const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (nonneg_int nonempty-type-eq-decl nil integers nil)
+          (posnat nonempty-type-eq-decl nil integers nil)
+          (vNum const-decl "posnat" float nil)
           (both_sides_div_pos_le1 formula-decl nil real_props nil)
           (rat_div_nzrat_is_rat application-judgement "rat" rationals
            nil)
@@ -26731,8 +26763,7 @@
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (posrat_exp application-judgement "posrat" exponentiation
-           nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil))
+           nil))
          shostak))
        (FulpLe 0
         (FulpLe-1 nil 3320432430
@@ -26802,7 +26833,8 @@
           (FulpLeN formula-decl nil float nil)
           (FcanonicUnique formula-decl nil float nil)
           (minus_int_is_int application-judgement "int" integers nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
+          (posrat_exp application-judgement "posrat" exponentiation
+           nil)
           (nonneg_real_max application-judgement
            "{z: nonneg_real | z >= x AND z >= y}" real_defs nil)
           (Fulp_posreal_j application-judgement "posreal" float nil)
@@ -26832,11 +26864,7 @@
           (nonneg_int nonempty-type-eq-decl nil integers nil)
           (posnat nonempty-type-eq-decl nil integers nil)
           (vNum const-decl "posnat" float nil)
-          (posrat_exp application-judgement "posrat" exponentiation
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fsubnormal? const-decl "bool" float nil)
           (OR const-decl "[bool, bool -> bool]" booleans nil)
@@ -26859,7 +26887,9 @@
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (FcanonicBounded formula-decl nil float nil))
-         nil))
+         nil
+         (FulpFpred1 subtype "float.Fpred(float.b)(float.p)"
+          "(float.Fbounded?(float.b))")))
        (FulpFpred1 0
         (FulpFpred1-1 nil 3320490788
          ("" (skeep)
@@ -26918,7 +26948,6 @@
           (Fpred const-decl "float" float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (Fulp_posreal_j application-judgement "posreal" float nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
@@ -26943,6 +26972,7 @@
           (Fsubnormal? const-decl "bool" float nil)
           (Fbounded? const-decl "bool" float nil)
           (Fcanonic? const-decl "bool" float nil)
+          (zero_is_neg_zero formula-decl nil real_props nil)
           (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
                real_defs nil)
           (TRUE const-decl "bool" booleans nil)
@@ -26991,7 +27021,6 @@
           (Fulp_posreal_j application-judgement "posreal" float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (FpredCanonic formula-decl nil float nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
@@ -27283,7 +27312,6 @@
           (Fopp_RtoF formula-decl nil float nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (real_lt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (= const-decl "[T, T -> boolean]" equalities nil)
@@ -27343,9 +27371,7 @@
           (b skolem-const-decl "Format" float nil)
           (f skolem-const-decl "(Fbounded?(b))" float nil)
           (Fulp_posreal_j application-judgement "posreal" float nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (mult_divides2 application-judgement "(divides(m))" divides
+          (int_times_int_is_int application-judgement "int" integers
            nil)
           (Fnormalize def-decl
            "{x: (Fcanonic?(b)) | FtoR(x) = FtoR(f):: real AND Fexp(x) <= Fexp(f)}"
@@ -27355,14 +27381,9 @@
           (^ const-decl "real" exponentiation nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (posrat_div_posrat_is_posrat application-judgement "posrat"
-           rationals nil)
-          (posnat_expt application-judgement "posnat" exponentiation
-           nil)
           (rat_times_rat_is_rat application-judgement "rat" rationals
            nil)
           (= const-decl "[T, T -> boolean]" equalities nil)
-          (nnrat_exp application-judgement "nnrat" exponentiation nil)
           (posrat_exp application-judgement "posrat" exponentiation
            nil)
           (minus_int_is_int application-judgement "int" integers nil)
@@ -27500,7 +27521,9 @@
           (float type-eq-decl nil float nil)
           (Fcanonic? const-decl "bool" float nil)
           (RND_Max const-decl "(Fcanonic?(b))" float nil))
-         nil))
+         nil
+         (rndmaxismax_j subtype "float.RND_Max(float.b)"
+          "float.CanonicRoundingFun(float.b, float.isMax?(float.b))")))
        (rndminismin_j 0
         (rndminismin_j-1 nil 3699182647
          ("" (skeep)
@@ -27527,7 +27550,9 @@
           (float type-eq-decl nil float nil)
           (Fcanonic? const-decl "bool" float nil)
           (RND_Min const-decl "(Fcanonic?(b))" float nil))
-         nil))
+         nil
+         (rndminismin_j subtype "float.RND_Min(float.b)"
+          "float.CanonicRoundingFun(float.b, float.isMin?(float.b))")))
        (rndeclosest_j 0
         (rndeclosest_j-1 nil 3681830290
          ("" (skeep)
@@ -27548,5 +27573,7 @@
           (above nonempty-type-eq-decl nil integers nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil)
           (RND_EClosest_isEclosest formula-decl nil float nil))
-         nil)))
+         nil
+         (rndeclosest_j subtype "float.RND_EClosest(float.b)"
+          "float.CanonicRoundingFun(float.b, float.EvenClosest?(float.b))"))))
 
