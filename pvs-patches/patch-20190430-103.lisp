@@ -1,6 +1,6 @@
 ;;
 ;; prooflite.lisp
-;; Release: ProofLite-6.0.10 (xx/xx/xx)
+;; Release: ProofLite-7.0.0 (04/30/19)
 ;;
 ;; Contact: Cesar Munoz (cesar.a.munoz@nasa.gov)
 ;; NASA Langley Research Center
@@ -44,12 +44,12 @@
            (match  (pregexp-match regexp (format nil "~a" (id fdecl))))
            (script (instantiate-script strategy match 0 "\\$")))
       (multiple-value-bind (strat err)
-	  #+(and allegro (not pvs6))
+	  #+(and allegro (not pvs6) (not pvs7))
 	  (unwind-protect
 	      (progn (excl:set-case-mode :case-insensitive-lower)
 		     (ignore-errors (values (read-from-string script))))
 	    (excl:set-case-mode :case-sensitive-lower))
-	  #-(and allegro (not pvs6))
+	  #-(and allegro (not pvs6) (not pvs7))
 	  (ignore-errors (values (read-from-string script)))
 	(let ((just (unless err
 		      (or (revert-justification strat)

@@ -1,6 +1,6 @@
 ;;
 ;; extrategies.lisp
-;; Release: Extrategies-6.0.10 (xx/xx/xx)
+;; Release: Extrategies-7.0.0 (04/30/19)
 ;;
 ;; Contact: Cesar Munoz (cesar.a.munoz@nasa.gov)
 ;; NASA Langley Research Center
@@ -28,7 +28,7 @@
 %  TCCs: tccs-expression, tccs-formula, tccs-formula*, tccs-step, with-tccs
 %  Miscellaneous: splash, replaces, rewrites, rewrite*, suffices")
 
-(defparameter *extrategies-version* "Extrategies-6.0.10 (xx/xx/xx)")
+(defparameter *extrategies-version* "Extrategies-7.0.0 (04/30/19)")
 (defstruct (TrustedOracle (:conc-name get-))
   (name nil :read-only t)      ; Oracle name 
   (internal nil :read-only t)  ; Internal oracle
