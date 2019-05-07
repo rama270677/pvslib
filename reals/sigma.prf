@@ -91,7 +91,7 @@
            real_props nil)
           (T_low type-eq-decl nil sigma nil)
           (T_pred_lem formula-decl nil sigma nil))
-         nil))
+         nil (high_low_rewrite subtype "sigma.n" "T_high")))
        (high_low_rewrite 0
         (high_low_rewrite-1 nil 3352228842
          ("" (skosimp*)
@@ -180,11 +180,11 @@
           (<= const-decl "bool" reals nil)
           (T_low type-eq-decl nil sigma nil)
           (T_high type-eq-decl nil sigma nil))
-         nil)
+         nil (sigma subtype "sigma.high" "T"))
         (sigma_TCC1-1 nil 3255975799
          ("" (skosimp*)
           (("" (use "T_pred_lem") (("" (assert) nil nil)) nil)) nil)
-         nil nil))
+         nil nil (sigma subtype "sigma.high" "T")))
        (sigma_TCC2 0
         (sigma_TCC2-2 nil 3403452083
          ("" (skosimp*)
@@ -227,7 +227,8 @@
            "(strict_total_order?[real])" real_props nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil))
-         nil)
+         nil
+         (sigma subtype "(number_fields.-)(sigma.high, 1)" "T_high"))
         (sigma_TCC2-1 nil 3255975799
          ("" (skosimp* t)
           (("" (assert)
@@ -252,7 +253,8 @@
               nil))
             nil))
           nil)
-         nil nil))
+         nil nil
+         (sigma subtype "(number_fields.-)(sigma.high, 1)" "T_high")))
        (sigma_TCC3 0
         (sigma_TCC3-1 nil 3255975799
          ("" (skosimp*) (("" (grind) nil nil)) nil)
@@ -269,7 +271,10 @@
            nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (sigma termination
+                "sigma.sigma(sigma.low, (number_fields.-)(sigma.high, 1), sigma.F)"
+                "nil")))
        (old_sigma_TCC1 0
         (old_sigma_TCC1-1 nil 3403451849
          ("" (skosimp*)
@@ -320,7 +325,7 @@
           (T_high type-eq-decl nil sigma nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil))
-         nil))
+         nil (old_sigma subtype "sigma.low" "T")))
        (sigma_rew 0
         (sigma_rew-1 nil 3352522445
          ("" (skosimp*)
@@ -526,7 +531,10 @@
           (("" (inst + "low!1 + nn!1 + rng!1") (("" (assert) nil nil))
             nil))
           nil)
-         nil nil))
+         nil nil
+         (sigma_spl subtype
+          "(number_fields.+)((number_fields.+)(sigma.low, sigma.nn), sigma.rng)"
+          "T_high")))
        (sigma_spl_TCC2 0
         (sigma_spl_TCC2-1 nil 3255975799
          ("" (skosimp*)
@@ -563,7 +571,9 @@
           (number nonempty-type-decl nil numbers nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil
+         (sigma_spl subtype "(number_fields.+)(sigma.low, sigma.nn)"
+          "T_high")))
        (sigma_spl_TCC3 0
         (sigma_spl_TCC3-1 nil 3351939915
          ("" (skosimp* t)
@@ -602,7 +612,10 @@
           (T_low type-eq-decl nil sigma nil)
           (>= const-decl "bool" reals nil)
           (nat nonempty-type-eq-decl nil naturalnumbers nil))
-         nil))
+         nil
+         (sigma_spl subtype
+          "(number_fields.+)((number_fields.+)(sigma.low, sigma.nn), 1)"
+          "T_low")))
        (sigma_spl 0
         (sigma_spl-1 nil 3255975799
          ("" (induct "rng")
@@ -728,7 +741,7 @@
           (<= const-decl "bool" reals nil)
           (T_high type-eq-decl nil sigma nil)
           (T_low type-eq-decl nil sigma nil))
-         nil))
+         nil (sigma_split subtype "sigma.z" "T_high")))
        (sigma_split_TCC2 0
         (sigma_split_TCC2-1 nil 3351939915
          ("" (skosimp* t)
@@ -774,7 +787,9 @@
           (<= const-decl "bool" reals nil)
           (T_high type-eq-decl nil sigma nil)
           (T_low type-eq-decl nil sigma nil))
-         nil))
+         nil
+         (sigma_split subtype "(number_fields.+)(sigma.z, 1)"
+          "T_low")))
        (sigma_split 0
         (sigma_split-1 nil 3255975799
          ("" (skosimp*)
@@ -955,7 +970,7 @@
            real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil (sigma_first subtype "sigma.low" "T")))
        (sigma_first_TCC2 0
         (sigma_first_TCC2-1 nil 3352113941
          ("" (skosimp* t)
@@ -995,7 +1010,9 @@
           (<= const-decl "bool" reals nil)
           (T_high type-eq-decl nil sigma nil)
           (T_low type-eq-decl nil sigma nil))
-         nil))
+         nil
+         (sigma_first subtype "(number_fields.+)(sigma.low, 1)"
+          "T_low")))
        (sigma_first 0
         (sigma_first-1 nil 3255975799
          ("" (skosimp*)
@@ -1081,7 +1098,9 @@
           (<= const-decl "bool" reals nil)
           (T_high type-eq-decl nil sigma nil)
           (T_low type-eq-decl nil sigma nil))
-         nil)
+         nil
+         (sigma_last subtype "(number_fields.-)(sigma.high, 1)"
+          "T_high"))
         (sigma_last_TCC1-1 nil 3255975799
          ("" (skosimp*)
           (("" (typepred "high!1")
@@ -1089,7 +1108,9 @@
               (("" (inst + "j!1") (("" (assert) nil nil)) nil)) nil))
             nil))
           nil)
-         nil nil))
+         nil nil
+         (sigma_last subtype "(number_fields.-)(sigma.high, 1)"
+          "T_high")))
        (sigma_last_TCC2 0
         (sigma_last_TCC2-1 nil 3351939915
          ("" (skosimp*)
@@ -1118,7 +1139,7 @@
            real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil (sigma_last subtype "sigma.high" "T")))
        (sigma_last 0
         (sigma_last-1 nil 3255975799
          ("" (skosimp*)
@@ -1202,7 +1223,9 @@
           (<= const-decl "bool" reals nil)
           (T_high type-eq-decl nil sigma nil)
           (T_low type-eq-decl nil sigma nil))
-         shostak))
+         shostak
+         (sigma_middle subtype "(number_fields.-)(sigma.i, 1)"
+          "T_high")))
        (sigma_middle_TCC2 0
         (sigma_middle_TCC2-1 nil 3256039673
          ("" (skosimp*)
@@ -1227,7 +1250,9 @@
            nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         shostak))
+         shostak
+         (sigma_middle subtype "(number_fields.+)(sigma.i, 1)"
+          "T_low")))
        (sigma_middle 0
         (sigma_middle-1 nil 3256032001
          ("" (skosimp*)
@@ -1390,13 +1415,7 @@
        (sigma_zero 0
         (sigma_zero-1 nil 3255975799
          ("" (skosimp*) (("" (rewrite "sigma_const") nil nil)) nil)
-         ((mult_divides2 application-judgement "(divides(m))" divides
-           nil)
-          (mult_divides1 application-judgement "(divides(n))" divides
-           nil)
-          (int_times_even_is_even application-judgement "even_int"
-           integers nil)
-          (real_ge_is_total_order name-judgement "(total_order?[real])"
+         ((real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
           (sigma_const formula-decl nil sigma nil)
           (number nonempty-type-decl nil numbers nil)
@@ -1781,6 +1800,8 @@
            nil)
           (real_plus_real_is_real application-judgement "real" reals
            nil)
+          (minus_even_is_even application-judgement "even_int" integers
+           nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -1823,7 +1844,7 @@
           (T_low type-eq-decl nil sigma nil)
           (AND const-decl "[bool, bool -> bool]" booleans nil)
           (subrange type-eq-decl nil integers nil))
-         nil))
+         nil (sigma_ge_0 subtype "sigma.n" "T")))
        (sigma_ge_0 0
         (sigma_ge_0-1 nil 3255975799
          ("" (skolem 1 ("F" _ _))
@@ -2090,7 +2111,9 @@
           (T formal-subtype-decl nil sigma nil)
           (<= const-decl "bool" reals nil)
           (T_low type-eq-decl nil sigma nil))
-         nil))
+         nil
+         (sigma_shift_T subtype "(number_fields.+)(sigma.low, sigma.z)"
+          "T_low")))
        (sigma_shift_T_TCC2 0
         (sigma_shift_T_TCC2-1 nil 3351939915
          ("" (skosimp* t)
@@ -2133,7 +2156,9 @@
           (T formal-subtype-decl nil sigma nil)
           (<= const-decl "bool" reals nil)
           (T_high type-eq-decl nil sigma nil))
-         nil))
+         nil
+         (sigma_shift_T subtype
+          "(number_fields.+)(sigma.high, sigma.z)" "T_high")))
        (sigma_shift_T_TCC3 0
         (sigma_shift_T_TCC3-1 nil 3352113941 ("" (subtype-tcc) nil nil)
          ((boolean nonempty-type-decl nil booleans nil)
@@ -2152,7 +2177,9 @@
           (int nonempty-type-eq-decl nil integers nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (sigma_shift_T subtype "(number_fields.+)(sigma.i, sigma.z)"
+          "T")))
        (sigma_shift_T 0
         (sigma_shift_T-1 nil 3255975799
          ("" (skolem 1 ("F" _ _ "z"))
@@ -2360,7 +2387,9 @@
         (sigma_shift_T2_TCC1-2 nil 3351941788
          ("" (skosimp*)
           (("" (inst + "low!1+z!1") (("" (assert) nil nil)) nil)) nil)
-         nil nil)
+         nil nil
+         (sigma_shift_T2 subtype
+          "(number_fields.+)(sigma.low, sigma.z)" "T_low"))
         (sigma_shift_T2_TCC1-1 nil 3351939915
          ("" (skosimp*)
           (("" (typepred "high!1")
@@ -2369,12 +2398,16 @@
               nil))
             nil))
           nil)
-         nil nil))
+         nil nil
+         (sigma_shift_T2 subtype
+          "(number_fields.+)(sigma.low, sigma.z)" "T_low")))
        (sigma_shift_T2_TCC2 0
         (sigma_shift_T2_TCC2-1 nil 3352113941
          ("" (skosimp*)
           (("" (inst + "high!1+z!1") (("" (assert) nil nil)) nil)) nil)
-         nil nil))
+         nil nil
+         (sigma_shift_T2 subtype
+          "(number_fields.+)(sigma.high, sigma.z)" "T_high")))
        (sigma_shift_T2 0
         (sigma_shift_T2-1 nil 3304414785
          ("" (skolem 1 ("F" _ _ "z"))
@@ -2681,8 +2714,6 @@
           (T_pred_lem formula-decl nil sigma nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (sigma_eq_arg formula-decl nil sigma nil)
           (NOT const-decl "[bool -> bool]" booleans nil)
           (real_lt_is_strict_total_order name-judgement
@@ -3120,7 +3151,9 @@
           (T formal-subtype-decl nil sigma nil)
           (<= const-decl "bool" reals nil)
           (T_low type-eq-decl nil sigma nil))
-         nil))
+         nil
+         (sigma_shift_fun_eq subtype
+          "(number_fields.+)(sigma.low1, sigma.i)" "T")))
        (sigma_shift_fun_eq_TCC2 0
         (sigma_shift_fun_eq_TCC2-1 nil 3500813619
          ("" (skeep)
@@ -3196,7 +3229,9 @@ AND (EXISTS (j: T): j <= low2)")
           (T formal-subtype-decl nil sigma nil)
           (<= const-decl "bool" reals nil)
           (T_low type-eq-decl nil sigma nil))
-         nil))
+         nil
+         (sigma_shift_fun_eq subtype
+          "(number_fields.+)(sigma.low2, sigma.i)" "T")))
        (sigma_shift_fun_eq 0
         (sigma_shift_fun_eq-1 nil 3500813619
          ("" (skeep)
@@ -3699,7 +3734,7 @@ AND (EXISTS (j: T): high <= j)")
           (high skolem-const-decl "T_high" sigma nil)
           (low skolem-const-decl "T_low" sigma nil)
           (T_low type-eq-decl nil sigma nil))
-         nil))
+         nil (sigma_eq_one_arg subtype "sigma.i" "T")))
        (sigma_eq_one_arg_TCC2 0
         (sigma_eq_one_arg_TCC2-2 nil 3497781196
          ("" (skeep)
@@ -3771,9 +3806,10 @@ AND (EXISTS (j: T): high <= j)")
           (high skolem-const-decl "T_high" sigma nil)
           (low skolem-const-decl "T_low" sigma nil)
           (T_low type-eq-decl nil sigma nil))
-         nil)
+         nil (sigma_eq_one_arg subtype "sigma.i" "T"))
         (sigma_eq_one_arg_TCC2-1 nil 3497780826
-         ("" (subtype-tcc) nil nil) nil nil))
+         ("" (subtype-tcc) nil nil) nil nil
+         (sigma_eq_one_arg subtype "sigma.i" "T")))
        (sigma_eq_one_arg_TCC3 0
         (sigma_eq_one_arg_TCC3-3 nil 3497781273
          ("" (skeep)
@@ -3841,7 +3877,7 @@ AND (EXISTS (j: T): high <= j)")
           (high skolem-const-decl "T_high" sigma nil)
           (low skolem-const-decl "T_low" sigma nil)
           (T_low type-eq-decl nil sigma nil))
-         nil)
+         nil (sigma_eq_one_arg subtype "sigma.z" "T"))
         (sigma_eq_one_arg_TCC3-2 nil 3497781249
          (";;; Proof sigma_eq_one_arg_TCC2-2 for formula sigma.sigma_eq_one_arg_TCC2"
           (skeep)
@@ -3869,9 +3905,10 @@ AND (EXISTS (j: T): high <= j)")
                       (("1" (inst + "high") (("1" (assert) nil)))
                        ("2" (propax) nil))))))))))))))
           ";;; developed with shostak decision procedures")
-         nil nil)
+         nil nil (sigma_eq_one_arg subtype "sigma.z" "T"))
         (sigma_eq_one_arg_TCC3-1 nil 3497780826
-         ("" (subtype-tcc) nil nil) nil nil))
+         ("" (subtype-tcc) nil nil) nil nil
+         (sigma_eq_one_arg subtype "sigma.z" "T")))
        (sigma_eq_one_arg 0
         (sigma_eq_one_arg-1 nil 3497780826
          ("" (skeep)
@@ -4010,7 +4047,7 @@ AND (EXISTS (j: T): high <= j)")
           (T formal-subtype-decl nil sigma nil)
           (<= const-decl "bool" reals nil)
           (T_low type-eq-decl nil sigma nil))
-         nil))
+         nil (sigma_eq_one_arg2 subtype "sigma.z" "T")))
        (sigma_eq_one_arg2 0
         (sigma_eq_one_arg2-1 nil 3615045478
          ("" (skeep)
@@ -4111,7 +4148,7 @@ AND (EXISTS (j: T): high <= j)")
           (T formal-subtype-decl nil sigma nil)
           (<= const-decl "bool" reals nil)
           (T_low type-eq-decl nil sigma nil))
-         nil)
+         nil (sigma_eq_two_args subtype "sigma.z1" "T"))
         (sigma_eq_two_args_TCC1-3 nil 3615045684
          ("" (skeep)
           (("" (skosimp*)
@@ -4131,7 +4168,7 @@ AND (EXISTS (j: T): high <= j)")
                       (("4" (inst - "j!1" "j!2" "z2")
                         (("4" (assert) nil))))))))))))))))
           nil)
-         nil nil)
+         nil nil (sigma_eq_two_args subtype "sigma.z1" "T"))
         (sigma_eq_two_args_TCC1-2 nil 3615045631
          ("" (skeep)
           (("" (lemma "connected_domain")
@@ -4157,9 +4194,10 @@ AND (EXISTS (j: T): high <= j)")
               nil))
             nil))
           nil)
-         nil nil)
+         nil nil (sigma_eq_two_args subtype "sigma.z1" "T"))
         (sigma_eq_two_args_TCC1-1 nil 3615043942
-         ("" (subtype-tcc) nil nil) nil nil))
+         ("" (subtype-tcc) nil nil) nil nil
+         (sigma_eq_two_args subtype "sigma.z1" "T")))
        (sigma_eq_two_args_TCC2 0
         (sigma_eq_two_args_TCC2-3 nil 3615045702
          ("" (skeep)
@@ -4210,7 +4248,7 @@ AND (EXISTS (j: T): high <= j)")
           (T formal-subtype-decl nil sigma nil)
           (<= const-decl "bool" reals nil)
           (T_low type-eq-decl nil sigma nil))
-         nil)
+         nil (sigma_eq_two_args subtype "sigma.z2" "T"))
         (sigma_eq_two_args_TCC2-2 nil 3615045619
          ("" (skeep)
           (("" (skosimp*)
@@ -4230,9 +4268,10 @@ AND (EXISTS (j: T): high <= j)")
                       (("4" (inst - "j!1" "j!2" "z")
                         (("4" (assert) nil))))))))))))))))
           nil)
-         nil nil)
+         nil nil (sigma_eq_two_args subtype "sigma.z2" "T"))
         (sigma_eq_two_args_TCC2-1 nil 3615043942
-         ("" (subtype-tcc) nil nil) nil nil))
+         ("" (subtype-tcc) nil nil) nil nil
+         (sigma_eq_two_args subtype "sigma.z2" "T")))
        (sigma_eq_two_args 0
         (sigma_eq_two_args-1 nil 3615043943
          (""
@@ -4887,8 +4926,6 @@ AND (EXISTS (j: T): high <= j)")
           (= const-decl "[T, T -> boolean]" equalities nil)
           (boolean nonempty-type-decl nil booleans nil)
           (number nonempty-type-decl nil numbers nil)
-          (minus_odd_is_odd application-judgement "odd_int" integers
-           nil)
           (+ const-decl "[numfield, numfield -> numfield]"
              number_fields nil)
           (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -4941,7 +4978,10 @@ AND (EXISTS (j: T): high <= j)")
            nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (sigma_le_scal subtype
+          "((number_fields.+)((number_fields.-)(sigma.high, sigma.low), 1))"
+          "nznum")))
        (sigma_le_scal 0
         (sigma_le_scal-1 nil 3496049376
          ("" (skeep)
@@ -5084,6 +5124,392 @@ AND (EXISTS (j: T): high <= j)")
            nil)
           (int_minus_int_is_int application-judgement "int" integers
            nil))
+         shostak))
+       (sigma_downwards_TCC1 0
+        (sigma_downwards_TCC1-1 nil 3766165883
+         ("" (skeep :preds? t)
+          (("" (lemma "T_pred_lem")
+            (("" (inst -1 "high" "low" "low+k") (("" (assert) nil nil))
+              nil))
+            nil))
+          nil)
+         ((T_pred_lem formula-decl nil sigma nil)
+          (int_minus_int_is_int application-judgement "int" integers
+           nil)
+          (real_le_is_total_order name-judgement "(total_order?[real])"
+           real_props nil)
+          (upto nonempty-type-eq-decl nil naturalnumbers nil)
+          (- const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (nat nonempty-type-eq-decl nil naturalnumbers nil)
+          (>= const-decl "bool" reals nil)
+          (+ const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (numfield nonempty-type-eq-decl nil number_fields nil)
+          (T_low type-eq-decl nil sigma nil)
+          (T_high type-eq-decl nil sigma nil)
+          (<= const-decl "bool" reals nil)
+          (T formal-subtype-decl nil sigma nil)
+          (T_pred const-decl "[int -> boolean]" sigma nil)
+          (OR const-decl "[bool, bool -> bool]" booleans nil)
+          (bool nonempty-type-eq-decl nil booleans nil)
+          (int nonempty-type-eq-decl nil integers nil)
+          (integer_pred const-decl "[rational -> boolean]" integers
+                        nil)
+          (rational nonempty-type-from-decl nil rationals nil)
+          (rational_pred const-decl "[real -> boolean]" rationals nil)
+          (real nonempty-type-from-decl nil reals nil)
+          (real_pred const-decl "[number_field -> boolean]" reals nil)
+          (number_field nonempty-type-from-decl nil number_fields nil)
+          (number_field_pred const-decl "[number -> boolean]"
+           number_fields nil)
+          (boolean nonempty-type-decl nil booleans nil)
+          (number nonempty-type-decl nil numbers nil)
+          (int_plus_int_is_int application-judgement "int" integers
+           nil))
+         nil
+         (sigma_downwards subtype
+          "(number_fields.+)(sigma.low, sigma.k)" "T_high")))
+       (sigma_downwards_TCC2 0
+        (sigma_downwards_TCC2-1 nil 3766165883
+         ("" (skeep)
+          (("" (lemma "T_pred_lem")
+            (("" (inst? -1 :where 1)
+              (("" (inst -1 "high" "low") (("" (assert) nil nil)) nil))
+              nil))
+            nil))
+          nil)
+         ((T_pred_lem formula-decl nil sigma nil)
+          (real_le_is_total_order name-judgement "(total_order?[real])"
+           real_props nil)
+          (upto nonempty-type-eq-decl nil naturalnumbers nil)
+          (T_low type-eq-decl nil sigma nil)
+          (nat nonempty-type-eq-decl nil naturalnumbers nil)
+          (>= const-decl "bool" reals nil)
+          (T_high type-eq-decl nil sigma nil)
+          (<= const-decl "bool" reals nil)
+          (T formal-subtype-decl nil sigma nil)
+          (T_pred const-decl "[int -> boolean]" sigma nil)
+          (OR const-decl "[bool, bool -> bool]" booleans nil)
+          (bool nonempty-type-eq-decl nil booleans nil)
+          (- const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (numfield nonempty-type-eq-decl nil number_fields nil)
+          (int nonempty-type-eq-decl nil integers nil)
+          (integer_pred const-decl "[rational -> boolean]" integers
+                        nil)
+          (rational nonempty-type-from-decl nil rationals nil)
+          (rational_pred const-decl "[real -> boolean]" rationals nil)
+          (real nonempty-type-from-decl nil reals nil)
+          (real_pred const-decl "[number_field -> boolean]" reals nil)
+          (number_field nonempty-type-from-decl nil number_fields nil)
+          (number_field_pred const-decl "[number -> boolean]"
+           number_fields nil)
+          (boolean nonempty-type-decl nil booleans nil)
+          (number nonempty-type-decl nil numbers nil)
+          (int_minus_int_is_int application-judgement "int" integers
+           nil))
+         nil
+         (sigma_downwards subtype
+          "(number_fields.-)(sigma.high, sigma.k)" "T_low")))
+       (sigma_downwards_TCC3 0
+        (sigma_downwards_TCC3-1 nil 3766165883
+         ("" (skeep)
+          (("" (lemma "T_pred_lem")
+            (("" (inst? -1 :where 1)
+              (("" (inst -1 "high" "low") (("" (assert) nil nil)) nil))
+              nil))
+            nil))
+          nil)
+         ((T_pred_lem formula-decl nil sigma nil)
+          (real_le_is_total_order name-judgement "(total_order?[real])"
+           real_props nil)
+          (int_minus_int_is_int application-judgement "int" integers
+           nil)
+          (T_high type-eq-decl nil sigma nil)
+          (- const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (T_low type-eq-decl nil sigma nil)
+          (<= const-decl "bool" reals nil)
+          (T formal-subtype-decl nil sigma nil)
+          (T_pred const-decl "[int -> boolean]" sigma nil)
+          (OR const-decl "[bool, bool -> bool]" booleans nil)
+          (bool nonempty-type-eq-decl nil booleans nil)
+          (+ const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (numfield nonempty-type-eq-decl nil number_fields nil)
+          (int nonempty-type-eq-decl nil integers nil)
+          (integer_pred const-decl "[rational -> boolean]" integers
+                        nil)
+          (rational nonempty-type-from-decl nil rationals nil)
+          (rational_pred const-decl "[real -> boolean]" rationals nil)
+          (real nonempty-type-from-decl nil reals nil)
+          (real_pred const-decl "[number_field -> boolean]" reals nil)
+          (number_field nonempty-type-from-decl nil number_fields nil)
+          (number_field_pred const-decl "[number -> boolean]"
+           number_fields nil)
+          (boolean nonempty-type-decl nil booleans nil)
+          (number nonempty-type-decl nil numbers nil)
+          (int_plus_int_is_int application-judgement "int" integers
+           nil))
+         nil
+         (sigma_downwards subtype
+          "(number_fields.+)(sigma.low, ((number_fields.-)(sigma.high, sigma.i)))"
+          "T")))
+       (sigma_downwards 0
+        (sigma_downwards-1 nil 3766165888
+         ("" (skeep :but "k")
+          (("" (induct "k")
+            (("1" (assert) (("1" (grind) nil nil)) nil)
+             ("2" (skeep 1 :preds? t)
+              (("2" (assert)
+                (("2" (lemma "sigma_last")
+                  (("2" (inst? -1 :where 1)
+                    (("2" (assert)
+                      (("2" (replace -1 :hide? t)
+                        (("2" (lemma "sigma_first")
+                          (("2"
+                            (inst -1 "LAMBDA (i: T):
+               IF -1 - jt + high <= i AND i <= high THEN F(high - i + low)
+               ELSE 0
+               ENDIF" "high" "-1 - jt + high")
+                            (("1" (assert)
+                              (("1"
+                                (replace -1 :hide? t)
+                                (("1"
+                                  (replace -3 :hide? t)
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (case
+                                       "FORALL(low: T_low, high: T_high, F,G: [T->real]): (FORALL (n: subrange(low,high)): F(n) = G(n))
+                                IMPLIES sigma(low,high,F) = sigma(low,high,G)")
+                                      (("1"
+                                        (inst
+                                         -1
+                                         "high - jt"
+                                         "high"
+                                         "LAMBDA (i: T):
+              IF high - jt <= i AND i <= high THEN F(high - i + low)
+              ELSE 0
+              ENDIF"
+                                         "LAMBDA (i: T):
+               IF -1 - jt + high <= i AND i <= high THEN F(high - i + low)
+               ELSE 0
+               ENDIF")
+                                        (("1"
+                                          (split -1)
+                                          (("1" (propax) nil nil)
+                                           ("2"
+                                            (hide 2)
+                                            (("2"
+                                              (skeep 1 :preds? t)
+                                              (("2" (assert) nil nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2"
+                                          (skeep 1 :preds? t)
+                                          (("2"
+                                            (hide 2)
+                                            (("2"
+                                              (lemma "T_pred_lem")
+                                              (("2"
+                                                (inst? -1 :where 1)
+                                                (("2"
+                                                  (inst
+                                                   -1
+                                                   "high"
+                                                   "low")
+                                                  (("2"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("3"
+                                          (hide 2)
+                                          (("3"
+                                            (skeep 1 :preds? t)
+                                            (("3"
+                                              (lemma "T_pred_lem")
+                                              (("3"
+                                                (inst? -1 :where 1)
+                                                (("3"
+                                                  (inst
+                                                   -1
+                                                   "high"
+                                                   "low")
+                                                  (("3"
+                                                    (assert)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil)
+                                       ("2"
+                                        (hide 2)
+                                        (("2"
+                                          (lemma "sigma_eq")
+                                          (("2"
+                                            (skeep 1)
+                                            (("2"
+                                              (inst? -1 :where 1)
+                                              (("2"
+                                                (split -1)
+                                                (("1" (propax) nil nil)
+                                                 ("2"
+                                                  (propax)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil)
+                                       ("3"
+                                        (hide 2)
+                                        (("3"
+                                          (skeep 1 :preds? t)
+                                          (("3"
+                                            (use "T_pred_lem")
+                                            (("3" (assert) nil nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (hide 2)
+                              (("2"
+                                (skeep 1 :preds? t)
+                                (("2"
+                                  (lemma "T_pred_lem")
+                                  (("2"
+                                    (inst? -1 :where 1)
+                                    (("2"
+                                      (inst -1 "high" "low")
+                                      (("2" (assert) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("3" (hide 2)
+              (("3" (skeep :preds? t)
+                (("3" (lemma "T_pred_lem")
+                  (("3" (inst? -1 :where 1)
+                    (("3" (inst -1 "high" "low")
+                      (("3" (assert) nil nil)) nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("4" (hide 2)
+              (("4" (skeep :preds? t)
+                (("4" (typepred "low")
+                  (("4" (split -)
+                    (("1" (inst 2 "low") (("1" (assert) nil nil)) nil)
+                     ("2" (skeep -1)
+                      (("2" (inst 2 "j") (("2" (assert) nil nil)) nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("5" (hide 2)
+              (("5" (skeep :preds? t)
+                (("5" (typepred "high")
+                  (("5" (split -1)
+                    (("1" (inst 2 "high") (("1" (assert) nil nil)) nil)
+                     ("2" (skeep -1)
+                      (("2" (inst 2 "j") (("2" (assert) nil nil)) nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("6" (assert) nil nil))
+            nil))
+          nil)
+         ((int_plus_int_is_int application-judgement "int" integers
+           nil)
+          (+ const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (upto nonempty-type-eq-decl nil naturalnumbers nil)
+          (low skolem-const-decl "T_low" sigma nil)
+          (high skolem-const-decl "T_high" sigma nil)
+          (nat nonempty-type-eq-decl nil naturalnumbers nil)
+          (AND const-decl "[bool, bool -> bool]" booleans nil)
+          (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+          (pred type-eq-decl nil defined_types nil)
+          (= const-decl "[T, T -> boolean]" equalities nil)
+          (sigma def-decl "real" sigma nil)
+          (IF const-decl "[boolean, T, T -> T]" if_def nil)
+          (T_low type-eq-decl nil sigma nil)
+          (T_high type-eq-decl nil sigma nil)
+          (<= const-decl "bool" reals nil)
+          (T formal-subtype-decl nil sigma nil)
+          (T_pred const-decl "[int -> boolean]" sigma nil)
+          (OR const-decl "[bool, bool -> bool]" booleans nil)
+          (bool nonempty-type-eq-decl nil booleans nil)
+          (int nonempty-type-eq-decl nil integers nil)
+          (integer_pred const-decl "[rational -> boolean]" integers
+                        nil)
+          (rational nonempty-type-from-decl nil rationals nil)
+          (rational_pred const-decl "[real -> boolean]" rationals nil)
+          (real nonempty-type-from-decl nil reals nil)
+          (real_pred const-decl "[number_field -> boolean]" reals nil)
+          (number_field nonempty-type-from-decl nil number_fields nil)
+          (- const-decl "[numfield, numfield -> numfield]"
+             number_fields nil)
+          (numfield nonempty-type-eq-decl nil number_fields nil)
+          (number_field_pred const-decl "[number -> boolean]"
+           number_fields nil)
+          (boolean nonempty-type-decl nil booleans nil)
+          (number nonempty-type-decl nil numbers nil)
+          (upto_induction formula-decl nil bounded_nat_inductions nil)
+          (int_minus_int_is_int application-judgement "int" integers
+           nil)
+          (real_ge_is_total_order name-judgement "(total_order?[real])"
+           real_props nil)
+          (>= const-decl "bool" reals nil)
+          (real_le_is_total_order name-judgement "(total_order?[real])"
+           real_props nil)
+          (real_plus_real_is_real application-judgement "real" reals
+           nil)
+          (real_gt_is_strict_total_order name-judgement
+           "(strict_total_order?[real])" real_props nil)
+          (posint_plus_nnint_is_posint application-judgement "posint"
+           integers nil)
+          (nnint_plus_posint_is_posint application-judgement "posint"
+           integers nil)
+          (real_lt_is_strict_total_order name-judgement
+           "(strict_total_order?[real])" real_props nil)
+          (- const-decl "[numfield -> numfield]" number_fields nil)
+          (jt skolem-const-decl "upto(high - low)" sigma nil)
+          (sigma_eq formula-decl nil sigma nil)
+          (T_pred_lem formula-decl nil sigma nil)
+          (subrange type-eq-decl nil integers nil)
+          (sigma_first formula-decl nil sigma nil)
+          (sigma_last formula-decl nil sigma nil)
+          (NOT const-decl "[bool -> bool]" booleans nil))
          shostak))
        (sigma_nonneg 0
         (sigma_nonneg-1 nil 3255975799
@@ -5389,9 +5815,13 @@ AND (EXISTS (j: T): high <= j)")
           (T_low type-eq-decl nil sigma nil)
           (real_ge_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil)
+         nil
+         (sigma_nnreal subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Fnnr)" "nnreal"))
         (sigma_nnreal-1 nil 3501424319 ("" (judgement-tcc) nil nil) nil
-         nil))
+         nil
+         (sigma_nnreal subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Fnnr)" "nnreal")))
        (sigma_nonpos_real 0
         (sigma_nonpos_real-1 nil 3411475728
          ("" (skosimp*)
@@ -5421,7 +5851,10 @@ AND (EXISTS (j: T): high <= j)")
           (T_low type-eq-decl nil sigma nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil
+         (sigma_nonpos_real subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Fnpr)"
+          "nonpos_real")))
        (sigma_nat 0
         (sigma_nat-3 nil 3411475912
          ("" (auto-rewrite-theory "integers")
@@ -5544,7 +5977,9 @@ AND (EXISTS (j: T): high <= j)")
            integers nil)
           (closed_plus formula-decl nil integers nil)
           (closed_plus formula-decl nil rationals nil))
-         nil)
+         nil
+         (sigma_nat subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Fnat)" "nat"))
         (sigma_nat-2 nil 3411475883
          (";;; Proof for formula sigma.sigma_TCC5" (skosimp*)
           ((";;; Proof for formula sigma.sigma_TCC5"
@@ -5553,9 +5988,13 @@ AND (EXISTS (j: T): high <= j)")
               ((";;; Proof for formula sigma.sigma_TCC5" (assert)
                 nil))))))
           "")
-         nil nil)
+         nil nil
+         (sigma_nat subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Fnat)" "nat"))
         (sigma_nat-1 nil 3411475728 ("" (judgement-tcc) nil nil) nil
-         nil))
+         nil
+         (sigma_nat subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Fnat)" "nat")))
        (sigma_nonpos_int 0
         (sigma_nonpos_int-2 nil 3411475945
          ("" (auto-rewrite-theory "integers")
@@ -5684,9 +6123,15 @@ AND (EXISTS (j: T): high <= j)")
           (nonpos_int nonempty-type-eq-decl nil integers nil)
           (real_gt_is_strict_total_order name-judgement
            "(strict_total_order?[real])" real_props nil))
-         nil)
+         nil
+         (sigma_nonpos_int subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Fnpi)"
+          "nonpos_int"))
         (sigma_nonpos_int-1 nil 3411475728 ("" (judgement-tcc) nil nil)
-         nil nil))
+         nil nil
+         (sigma_nonpos_int subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Fnpi)"
+          "nonpos_int")))
        (sigma_posnat 0
         (sigma_posnat-1 nil 3410183521
          ("" (skolem 1 ("FF" _ _))
@@ -6063,7 +6508,10 @@ AND (EXISTS (j: T): high <= j)")
           (T_low type-eq-decl nil sigma nil)
           (T_high type-eq-decl nil sigma nil)
           (sigma def-decl "real" sigma nil))
-         nil))
+         nil
+         (sigma_rat subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Frat)"
+          "rational")))
        (sigma_int 0
         (sigma_int-1 nil 3709915286
          ("" (auto-rewrite-theory "integers")
@@ -6169,7 +6617,9 @@ AND (EXISTS (j: T): high <= j)")
           (T_low type-eq-decl nil sigma nil)
           (T_high type-eq-decl nil sigma nil)
           (sigma def-decl "real" sigma nil))
-         nil))
+         nil
+         (sigma_int subtype
+          "sigma.sigma(sigma.low, sigma.high, sigma.Fint)" "int")))
        (sum_it_def_TCC1 0
         (sum_it_def_TCC1-1 nil 3255975799
          ("" (skosimp*)
@@ -6205,7 +6655,9 @@ AND (EXISTS (j: T): high <= j)")
            real_props nil)
           (T_high type-eq-decl nil sigma nil)
           (T_pred_lem formula-decl nil sigma nil))
-         nil))
+         nil
+         (sum_it_def subtype "(number_fields.+)(sigma.low, 1)"
+          "T_low")))
        (sum_it_def_TCC2 0
         (sum_it_def_TCC2-1 nil 3255975799
          ("" (skosimp*)
@@ -6234,7 +6686,7 @@ AND (EXISTS (j: T): high <= j)")
            "(strict_total_order?[real])" real_props nil)
           (real_le_is_total_order name-judgement "(total_order?[real])"
            real_props nil))
-         nil))
+         nil (sum_it_def subtype "sigma.low" "T")))
        (sum_it_def_TCC3 0
         (sum_it_def_TCC3-1 nil 3352118808 ("" (subtype-tcc) nil nil)
          ((int_minus_int_is_int application-judgement "int" integers
@@ -6269,7 +6721,10 @@ AND (EXISTS (j: T): high <= j)")
            "(strict_total_order?[real])" real_props nil)
           (int_plus_int_is_int application-judgement "int" integers
            nil))
-         nil))
+         nil
+         (sum_it_def termination
+          "sigma.sum_it_def((number_fields.+)(sigma.low, 1), sigma.high, sigma.F, (number_fields.+)(sigma.a, sigma.F(sigma.low)))"
+          "nil")))
        (sum_it_prop_TCC1 0
         (sum_it_prop_TCC1-1 nil 3352142246
          ("" (skosimp* t)
@@ -6311,7 +6766,9 @@ AND (EXISTS (j: T): high <= j)")
           (<= const-decl "bool" reals nil)
           (T_high type-eq-decl nil sigma nil)
           (T_low type-eq-decl nil sigma nil))
-         nil))
+         nil
+         (sum_it_prop subtype "(number_fields.+)(sigma.i, 1)"
+          "T_low")))
        (sum_it_prop 0
         (sum_it_prop-1 nil 3255975799
          ("" (skosimp*)
