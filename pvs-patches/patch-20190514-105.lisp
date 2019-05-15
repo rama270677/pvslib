@@ -22,43 +22,36 @@
 (pushnew "eval-expr"    *pvsio-strategies* :test #'string=)
 (pushnew "eval"         *pvsio-strategies* :test #'string=)
 
+(define-condition eval-error (simple-condition) ())
+
+(define-condition pvsio-inprover (simple-condition) ())
+
 ;; Evaluates ground expression expr.
 ;; When safe is t, evaluation doesn't proceed when there are TCCs.
 ;; When timing is t, timing information of the ground evaluation is printed.
 (defun evalexpr (expr &optional safe timing)
   (when expr
-    (catch '*eval-error*
-      (catch '*pvsio-inprover*
-	(catch 'tcerror
-	  (let* ((pr-input (extra-get-expr expr))
-		 (*tccforms* nil)
-		 (*generate-tccs* 'all)
-		 (tc-input (pc-typecheck pr-input)))
-	    (when (and *tccforms* safe)
-	      (format t "~%Typechecking ~s produced TCCs:~%" expr)
-	      (evaluator-print-tccs *tccforms*)
-	      (throw '*eval-error* 
-		     (format nil 
-			     "Use option :safe? nil if TCCs are provable")))
-	    (let ((cl-input (pvs2cl tc-input)))
-	      (multiple-value-bind 
-		  (cl-eval err)
-		  (catch 'undefined (ignore-errors
-				      (if timing
-					  (time (eval cl-input))
-					(eval cl-input))))
-		(cond (err 
-		       (throw '*eval-error* (format nil "~a" err)))
-		      ((and (null err) (eq cl-eval 'cant-translate))
-		       (throw '*eval-error* (format nil "Expression doesn't appear to be ground")))
-		      (t 
-		       (multiple-value-bind 
-			   (pvs-val err)
-			   (ignore-errors 
-			     (cl2pvs cl-eval (type tc-input)))
-			 (if (expr? pvs-val) pvs-val
-			   (throw '*eval-error*
-				  (format nil "Result ~a is not ground" cl-eval))))))))))))))
+    (handler-case
+	(let* ((pr-input (extra-get-expr expr))
+	       (*tccforms* nil)
+	       (*generate-tccs* 'all)
+	       (tc-input (pc-typecheck pr-input)))
+	  (when (and *tccforms* safe)
+	    (format t "~%Typechecking ~s produced TCCs:~%" expr)
+	    (evaluator-print-tccs *tccforms*)
+	    (error 'eval-error
+		   :format-control "Use option :safe? nil if TCCs are provable"))
+	  (let* ((cl-input (handler-case (pvs2cl tc-input)
+			     (pvseval-error (condition) nil)))
+		 (cl-eval (if timing
+			      (time (eval cl-input))
+			      (eval cl-input)))
+		 (pvs-val (cl2pvs cl-eval (type tc-input))))
+	    (assert (expr? pvs-val))
+	    pvs-val))
+      ;; At the moment, all errors simply print the condition, and evalexpr returns nil
+      (groundeval-error (condition) (when *eval-verbose* (format t "~%~a" condition)))
+      (pvsio-inprover (condition) (format t "~%error2: ~a" condition)))))
 
 (defrule eval-expr (expr &optional safe? (auto? t) quiet? timing?)
   (let ((e (extra-get-expr expr)))
