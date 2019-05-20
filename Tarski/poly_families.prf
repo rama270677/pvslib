@@ -60,20 +60,18 @@
         nil))
       nil))
     nil)
-   ((sigma_rat application-judgement "rational" sigma_nat "reals/")
-    (sigma_int application-judgement "int" sigma_nat "reals/")
+   ((sigma_int application-judgement "int" sigma_nat "reals/")
     (polynomial_prod const-decl "real" polynomials "reals/"))
    shostak))
- (prod_polynomials_TCC1 0
-  (prod_polynomials_TCC1-1 nil 3619793663
-   ("" (skeep) (("" (assert) nil nil)) nil)
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
- (prod_polynomials_TCC2 0
-  (prod_polynomials_TCC2-1 nil 3619793663
+ (sigma_j 0
+  (sigma_j-2 nil 3767371727
    ("" (induct "k")
-    (("1" (grind) nil nil)
+    (("1" (skeep)
+      (("1" (expand "sigma")
+        (("1" (expand "sigma")
+          (("1" (expand "*") (("1" (assert) nil nil)) nil)) nil))
+        nil))
+      nil)
      ("2" (skeep)
       (("2" (skeep)
         (("2" (inst - "GP" "KF")
@@ -114,13 +112,11 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (rat nonempty-type-eq-decl nil rationals nil)
     (closed_plus formula-decl nil rationals nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (sigma def-decl "real" sigma "reals/")
@@ -145,13 +141,40 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   nil))
+   nil)
+  (sigma_j-1 nil 3767371722 ("" (postpone) nil nil) nil shostak))
+ (prod_polynomials_TCC1 0
+  (prod_polynomials_TCC1-2 nil 3767371356 ("" (use "sigma_j") nil nil)
+   ((sigma_j formula-decl nil poly_families nil)) nil
+   (prod_polynomials subtype
+    "sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP))"
+    "nat"))
+  (prod_polynomials_TCC1-1 nil 3619793663
+   ("" (skeep) (("" (assert) nil nil)) nil)
+   ((real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil))
+   nil
+   (prod_polynomials subtype
+    "sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP))"
+    "nat")))
+ (prod_polynomials_TCC2 0
+  (prod_polynomials_TCC2-1 nil 3619793663
+   ("" (skeep) (("" (assert) nil nil)) nil)
+   ((real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil))
+   nil
+   (prod_polynomials subtype "poly_families.GP(poly_families.j)"
+    "{i: integers.int | booleans.OR(polynomials.polynomial(poly_families.GF(poly_families.j), poly_families.KF(poly_families.j))(poly_families.x) /= 0, reals.>=(i, 0))}")))
  (prod_polynomials_TCC3 0
   (prod_polynomials_TCC3-1 nil 3619793663
    ("" (skeep) (("" (assert) nil nil)) nil)
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (prod_polynomials assuming "reals@product[nat]"
+    "connected_domain: ASSUMPTION (FORALL (x, y: product.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), product.T_pred(z)))")))
  (prod_polynomials_TCC4 0
   (prod_polynomials_TCC4-1 nil 3619793663 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -169,34 +192,30 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (integer nonempty-type-from-decl nil integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (prod_polynomials subtype "(number_fields.-)(poly_families.k, 1)"
+    "nat")))
  (prod_polynomials_TCC5 0
   (prod_polynomials_TCC5-1 nil 3619793663
    ("" (skosimp*) (("" (assert) nil nil)) nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil))
+   nil
+   (prod_polynomials termination
+    "poly_families.prod_polynomials(poly_families.GF, poly_families.KF, poly_families.GP, (number_fields.-)(poly_families.k, 1))"
+    "nil")))
  (prod_polynomials_TCC6 0
-  (prod_polynomials_TCC6-1 nil 3619793663
-   ("" (skeep) (("" (skeep) (("" (assert) nil nil)) nil)) nil)
-   ((real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
- (prod_polynomials_TCC7 0
-  (prod_polynomials_TCC7-1 nil 3619793663
+  (prod_polynomials_TCC6-3 nil 3767371921
    ("" (skeep)
     (("" (skeep)
       (("" (skeep)
         (("" (skeep)
           (("" (assert)
-            (("" (lemma "prod_polynomials_TCC2")
+            (("" (lemma "sigma_j")
               (("" (inst?) (("" (flatten) (("" (assert) nil nil)) nil))
                 nil))
               nil))
@@ -205,7 +224,7 @@
         nil))
       nil))
     nil)
-   ((prod_polynomials_TCC2 subtype-tcc nil poly_families nil)
+   ((sigma_j formula-decl nil poly_families nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (subrange type-eq-decl nil integers nil)
@@ -227,19 +246,38 @@
     (number nonempty-type-decl nil numbers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
- (prod_polynomials_TCC8 0
-  (prod_polynomials_TCC8-1 nil 3619793663
+   nil (prod_polynomials subtype "poly_families.bdeg" "nat"))
+  (prod_polynomials_TCC6-2 nil 3767371410
+   ("" (skeep)
+    (("" (skeep)
+      (("" (skeep)
+        (("" (skeep)
+          (("" (assert)
+            (("" (lemma "prod_polynomials_TCC2")
+              (("" (inst?)
+                (("" (flatten) (("" (assert) nil))))))))))))))))
+    nil)
+   nil nil (prod_polynomials subtype "poly_families.bdeg" "nat"))
+  (prod_polynomials_TCC6-1 nil 3619793663
+   ("" (skeep) (("" (skeep) (("" (assert) nil nil)) nil)) nil)
+   ((real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil))
+   nil (prod_polynomials subtype "poly_families.bdeg" "nat")))
+ (prod_polynomials_TCC7 0
+  (prod_polynomials_TCC7-2 nil 3767374086
    ("" (skeep*)
     ((""
       (case "FORALL (dd:nat): rational_pred(sigma(0, dd, KF * GP)) AND
-                                                         integer_pred(sigma(0, dd, KF * GP)) AND
-                                                          sigma(0, dd, KF * GP) >= 0")
+                                                                integer_pred(sigma(0, dd, KF * GP)) AND
+                                                                 sigma(0, dd, KF * GP) >= 0")
       (("1" (label "dd65" -1)
         (("1" (copy -1)
           (("1" (label "dd64" -1)
@@ -729,11 +767,11 @@
                                                                       (("1"
                                                                         (case
                                                                          "polynomial(LAMBDA (i: nat):
-                                       IF i <= KF(k) THEN GF(k)(i) ELSE 0 ENDIF,
-                                     KF(k))
-                                    (x)
-                          =
-                          polynomial(GF(k), KF(k))(x) ^ 1")
+                                                          IF i <= KF(k) THEN GF(k)(i) ELSE 0 ENDIF,
+                                                        KF(k))
+                                                       (x)
+                                             =
+                                             polynomial(GF(k), KF(k))(x) ^ 1")
                                                                         (("1"
                                                                           (assert)
                                                                           nil
@@ -1245,16 +1283,134 @@
         nil))
       nil))
     nil)
-   ((subrange type-eq-decl nil integers nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (sigma def-decl "real" sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
-    (<= const-decl "bool" reals nil)
+   ((TRUE const-decl "bool" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (pred type-eq-decl nil defined_types nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (product def-decl "real" product "reals/")
+    (sigma_nat application-judgement "nat" sigma_nat "reals/")
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (polynomial const-decl "[real -> real]" polynomials "reals/")
+    (^ const-decl "real" exponentiation nil)
+    (expt def-decl "real" exponentiation nil)
+    (poly1 const-decl "nat" poly_families nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (sigma_int application-judgement "int" sigma_nat "reals/")
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
+    (nzreal_times_nzreal_is_nzreal judgement-tcc nil real_types nil)
+    (/= const-decl "boolean" notequal nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (polynomial_prod const-decl "real" polynomials "reals/")
+    (polynomial_prod_def formula-decl nil polynomials "reals/")
+    (polynomial_prod_int formula-decl nil poly_families nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (sequence type-eq-decl nil sequences nil)
+    (poly_eq formula-decl nil polynomials "reals/")
+    (min_id formula-decl nil min_max "reals/")
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (> const-decl "bool" reals nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (T_high type-eq-decl nil product "reals/")
+    (T_low type-eq-decl nil product "reals/")
+    (< const-decl "bool" reals nil)
+    (KF skolem-const-decl "[nat -> nat]" poly_families nil)
+    (k skolem-const-decl "nat" poly_families nil)
+    (GF skolem-const-decl "[nat -> [nat -> int]]" poly_families nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (GP skolem-const-decl "[nat -> subrange(0, 2)]" poly_families nil)
+    (Y skolem-const-decl "{a |
+   (FORALL (x):
+      polynomial(a, sigma(0, k - 1, KF * GP))(x) =
+       product(0, k - 1, LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
+    AND
+    ((FORALL (i): i <= k - 1 AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
+      IMPLIES a(sigma(0, k - 1, KF * GP)) /= 0)
+     AND FORALL (i): i > sigma(0, k - 1, KF * GP) IMPLIES a(i) = 0}"
+     poly_families nil)
+    (nat_max application-judgement "{k: nat | i <= k AND j <= k}"
+     real_defs nil)
+    (nonneg_rat_max application-judgement
+     "{s: nonneg_rat | s >= q AND s >= r}" real_defs nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (bdeg skolem-const-decl "real" poly_families nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (rat_max application-judgement "{s: rat | s >= q AND s >= r}"
+     real_defs nil)
+    (int_max application-judgement "{k: int | i <= k AND j <= k}"
+     real_defs nil)
+    (max_nnreal_0 formula-decl nil min_max "reals/")
+    (expt_x0 formula-decl nil exponentiation nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil)
+    (T_low type-eq-decl nil sigma "reals/")
+    (T_high type-eq-decl nil sigma "reals/")
+    (sigma def-decl "real" sigma "reals/")
+    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (subrange type-eq-decl nil integers nil))
+   nil
+   (prod_polynomials subtype "poly_families.anspoly"
+    "{a | booleans.AND((FORALL (x): polynomials.polynomial(poly_families.a, sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP)))(poly_families.x) = product[nat].product(0, poly_families.k, LAMBDA (j): exponentiation.^(polynomials.polynomial(poly_families.GF(poly_families.j), poly_families.KF(poly_families.j))(poly_families.x), poly_families.GP(poly_families.j)))), booleans.AND((booleans.IMPLIES((FORALL (i): booleans.IMPLIES(booleans.AND(reals.<=(poly_families.i, poly_families.k), poly_families.GP(poly_families.i) /= 0), poly_families.GF(poly_families.i)(poly_families.KF(poly_families.i)) /= 0)), poly_families.a(sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP))) /= 0)), (FORALL (i): booleans.IMPLIES(reals.>(poly_families.i, sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP))), poly_families.a(poly_families.i) = 0))))}"))
+  (prod_polynomials_TCC7-1 nil 3619793663
+   ("" (skeep)
+    (("" (skeep)
+      (("" (skeep)
+        (("" (skeep)
+          (("" (assert)
+            (("" (lemma "prod_polynomials_TCC2")
+              (("" (inst?) (("" (flatten) (("" (assert) nil nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((prod_polynomials_TCC2 subtype-tcc nil poly_families nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (subrange type-eq-decl nil integers nil)
+    (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
@@ -1264,94 +1420,18 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (expt_x0 formula-decl nil exponentiation nil)
-    (max_nnreal_0 formula-decl nil min_max "reals/")
-    (int_max application-judgement "{k: int | i <= k AND j <= k}"
-     real_defs nil)
-    (rat_max application-judgement "{s: rat | s >= q AND s >= r}"
-     real_defs nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (bdeg skolem-const-decl "real" poly_families nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (nonneg_rat_max application-judgement
-     "{s: nonneg_rat | s >= q AND s >= r}" real_defs nil)
-    (nat_max application-judgement "{k: nat | i <= k AND j <= k}"
-     real_defs nil)
-    (Y skolem-const-decl "{a |
-         (FORALL (x):
-            polynomial(a, sigma(0, k - 1, KF * GP))(x) =
-             product(0, k - 1,
-                     LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
-          AND
-          ((FORALL (i):
-              i <= k - 1 AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
-            IMPLIES a(sigma(0, k - 1, KF * GP)) /= 0)
-           AND (FORALL (i): i > sigma(0, k - 1, KF * GP) IMPLIES a(i) = 0)}"
-     poly_families nil)
-    (GP skolem-const-decl "[nat -> subrange(0, 2)]" poly_families nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (GF skolem-const-decl "[nat -> [nat -> int]]" poly_families nil)
-    (k skolem-const-decl "nat" poly_families nil)
-    (KF skolem-const-decl "[nat -> nat]" poly_families nil)
-    (< const-decl "bool" reals nil)
-    (T_low type-eq-decl nil product "reals/")
-    (T_high type-eq-decl nil product "reals/")
-    (> const-decl "bool" reals nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (min_id formula-decl nil min_max "reals/")
-    (poly_eq formula-decl nil polynomials "reals/")
-    (sequence type-eq-decl nil sequences nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (polynomial_prod_int formula-decl nil poly_families nil)
-    (polynomial_prod_def formula-decl nil polynomials "reals/")
-    (polynomial_prod const-decl "real" polynomials "reals/")
-    (nzreal nonempty-type-eq-decl nil reals nil)
-    (/= const-decl "boolean" notequal nil)
-    (nzreal_times_nzreal_is_nzreal judgement-tcc nil real_types nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (int_times_even_is_even application-judgement "even_int" integers
-     nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
-    (sigma_int application-judgement "int" sigma_nat "reals/")
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (poly1 const-decl "nat" poly_families nil)
-    (expt def-decl "real" exponentiation nil)
-    (^ const-decl "real" exponentiation nil)
-    (polynomial const-decl "[real -> real]" polynomials "reals/")
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
-    (product def-decl "real" product "reals/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (pred type-eq-decl nil defined_types nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (TRUE const-decl "bool" booleans nil))
-   nil))
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil))
+   nil
+   (prod_polynomials subtype "poly_families.anspoly"
+    "{a | booleans.AND((FORALL (x): polynomials.polynomial(poly_families.a, sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP)))(poly_families.x) = product[nat].product(0, poly_families.k, LAMBDA (j): exponentiation.^(polynomials.polynomial(poly_families.GF(poly_families.j), poly_families.KF(poly_families.j))(poly_families.x), poly_families.GP(poly_families.j)))), booleans.AND((booleans.IMPLIES((FORALL (i): booleans.IMPLIES(booleans.AND(reals.<=(poly_families.i, poly_families.k), poly_families.GP(poly_families.i) /= 0), poly_families.GF(poly_families.i)(poly_families.KF(poly_families.i)) /= 0)), poly_families.a(sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP))) /= 0)), (FORALL (i): booleans.IMPLIES(reals.>(poly_families.i, sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP))), poly_families.a(poly_families.i) = 0))))}")))
  (prod_polynomials_list_TCC1 0
   (prod_polynomials_list_TCC1-1 nil 3619793663
    ("" (skeep)
@@ -1388,7 +1468,9 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (polynomial_prod_int formula-decl nil poly_families nil))
-   nil))
+   nil
+   (prod_polynomials_list subtype "poly_families.tpolyinit"
+    "[nat -> int]")))
  (prod_polynomials_list_TCC2 0
   (prod_polynomials_list_TCC2-1 nil 3619793663
    ("" (subtype-tcc) nil nil)
@@ -1408,8 +1490,6 @@
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/")
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
     (every adt-def-decl "boolean" list_adt nil)
@@ -1428,11 +1508,12 @@
      real_props nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (naturalnumber type-eq-decl nil naturalnumbers nil)
     (array2list const-decl
      "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
      array2list "structures/"))
-   nil))
+   nil
+   (prod_polynomials_list subtype
+    "(number_fields.-)(poly_families.k, 1)" "nat")))
  (prod_polynomials_list_TCC3 0
   (prod_polynomials_list_TCC3-1 nil 3619793663
    ("" (skeep)
@@ -1529,7 +1610,6 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (closed_plus formula-decl nil integers nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (closed_plus formula-decl nil rationals nil)
@@ -1549,9 +1629,6 @@
      "(strict_total_order?[real])" real_props nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
@@ -1561,10 +1638,10 @@
      integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/"))
-   nil))
+   nil
+   (prod_polynomials_list subtype
+    "(number_fields.+)(poly_families.bdeg, 1)" "nat")))
  (prod_polynomials_list_TCC4 0
   (prod_polynomials_list_TCC4-1 nil 3619793663
    ("" (subtype-tcc) nil nil)
@@ -1572,7 +1649,10 @@
      "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
      array2list "structures/")
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (prod_polynomials_list termination
+    "poly_families.prod_polynomials_list(poly_families.GF, poly_families.KF, poly_families.GP, (number_fields.-)(poly_families.k, 1))"
+    "nil")))
  (prod_polynomials_list_TCC5 0
   (prod_polynomials_list_TCC5-1 nil 3619793663
    ("" (skeep)
@@ -1622,10 +1702,11 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (number nonempty-type-decl nil numbers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -1638,21 +1719,14 @@
     (nat_induction formula-decl nil naturalnumbers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil)
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/"))
-   nil))
+   nil (prod_polynomials_list subtype "poly_families.bdeg" "nat")))
  (prod_polynomials_list_TCC6 0
   (prod_polynomials_list_TCC6-1 nil 3619793663
    ("" (skeep*)
@@ -1687,16 +1761,13 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1706,7 +1777,6 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (subrange type-eq-decl nil integers nil)
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (sigma def-decl "real" sigma "reals/")
@@ -1716,7 +1786,6 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (bdeg skolem-const-decl "real" poly_families nil)
-    (naturalnumber type-eq-decl nil naturalnumbers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (int nonempty-type-eq-decl nil integers nil)
@@ -1734,10 +1803,11 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil)
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/"))
-   nil))
+   nil
+   (prod_polynomials_list subtype
+    "polynomials.polynomial_prod(poly_families.bpolyinit, poly_families.bdeg, poly_families.tpolyinit, poly_families.tdeg)"
+    "[nat -> int]")))
  (prod_polynomials_list_TCC7 0
   (prod_polynomials_list_TCC7-1 nil 3619802353
    ("" (skeep*)
@@ -1778,8 +1848,14 @@
           nil)
          ("2" (hide-all-but 1)
           (("2" (induct "dd")
-            (("1" (grind) nil nil) ("2" (grind) nil nil)
-             ("3" (grind) nil nil)
+            (("1" (expand "sigma")
+              (("1" (expand "*") (("1" (propax) nil nil)) nil)) nil)
+             ("2" (expand "*") (("2" (propax) nil nil)) nil)
+             ("3" (expand "sigma")
+              (("3" (expand "*")
+                (("3" (expand "sigma") (("3" (assert) nil nil)) nil))
+                nil))
+              nil)
              ("4" (skeep)
               (("4" (expand "sigma" +)
                 (("4" (expand "*") (("4" (assert) nil nil)) nil)) nil))
@@ -1794,15 +1870,14 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -1813,19 +1888,13 @@
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (naturalnumber type-eq-decl nil naturalnumbers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (rat nonempty-type-eq-decl nil rationals nil)
     (closed_plus formula-decl nil rationals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -1849,10 +1918,11 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil)
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/"))
-   nil))
+   nil
+   (prod_polynomials_list subtype
+    "(number_fields.+)((number_fields.+)(poly_families.tdeg, poly_families.bdeg), 1)"
+    "nat")))
  (prod_polynomials_list_TCC8 0
   (prod_polynomials_list_TCC8-1 nil 3619802353
    ("" (skeep*)
@@ -2412,7 +2482,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (number nonempty-type-decl nil numbers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
@@ -2420,22 +2489,18 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (length def-decl "nat" list_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
+    (every adt-def-decl "boolean" list_adt nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (list type-decl nil list_adt nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
     (sequence type-eq-decl nil sequences nil)
@@ -2445,16 +2510,16 @@
     (product def-decl "real" product "reals/")
     (/= const-decl "boolean" notequal nil)
     (^ const-decl "real" exponentiation nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (> const-decl "bool" reals nil)
     (prod_polynomials def-decl "{a |
-         (FORALL (x):
-            polynomial(a, sigma(0, k, KF * GP))(x) =
-             product(0, k,
-                     LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
-          AND
-          ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
-            IMPLIES a(sigma(0, k, KF * GP)) /= 0)
-           AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
+   (FORALL (x):
+      polynomial(a, sigma(0, k, KF * GP))(x) =
+       product(0, k, LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
+    AND
+    ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0) IMPLIES
+      a(sigma(0, k, KF * GP)) /= 0)
+     AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
      poly_families nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (< const-decl "bool" reals nil)
@@ -2462,23 +2527,24 @@
     (nth def-decl "T" list_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (listn type-eq-decl nil listn "structures/")
     (below type-eq-decl nil naturalnumbers nil)
     (array2list const-decl
      "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
      array2list "structures/")
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (naturalnumber type-eq-decl nil naturalnumbers nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (sigma_eq formula-decl nil sigma "reals/")
-    (rat_max application-judgement "{s: rat | s >= q AND s >= r}"
-     real_defs nil)
+    (sigma_int application-judgement "int" sigma_nat "reals/")
+    (int_times_int_is_int application-judgement "int" integers nil)
     (int_max application-judgement "{k: int | i <= k AND j <= k}"
      real_defs nil)
-    (sigma_int application-judgement "int" sigma_nat "reals/")
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
+    (rat_max application-judgement "{s: rat | s >= q AND s >= r}"
+     real_defs nil)
+    (sigma_eq formula-decl nil sigma "reals/")
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (polynomial_prod const-decl "real" polynomials "reals/")
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
@@ -2487,20 +2553,17 @@
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/"))
-   nil))
+   nil
+   (prod_polynomials_list subtype "poly_families.anspoly"
+    "{ll | booleans.AND((number_fields.-)(list_props[int].length(poly_families.ll), 1) = sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP)), poly_families.prod_polynomials(poly_families.GF, poly_families.KF, poly_families.GP, poly_families.k) = (LAMBDA (i): IF reals.<(poly_families.i, list_props[int].length(poly_families.ll)) THEN list_props[int].nth(poly_families.ll, poly_families.i) ELSE 0 ENDIF))}")))
  (TQ_fam_TCC1 0
   (TQ_fam_TCC1-1 nil 3619866882 ("" (subtype-tcc) nil nil)
    ((listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/")
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -2544,14 +2607,13 @@
     (^ const-decl "real" exponentiation nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (prod_polynomials def-decl "{a |
-         (FORALL (x):
-            polynomial(a, sigma(0, k, KF * GP))(x) =
-             product(0, k,
-                     LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
-          AND
-          ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
-            IMPLIES a(sigma(0, k, KF * GP)) /= 0)
-           AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
+   (FORALL (x):
+      polynomial(a, sigma(0, k, KF * GP))(x) =
+       product(0, k, LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
+    AND
+    ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0) IMPLIES
+      a(sigma(0, k, KF * GP)) /= 0)
+     AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
      poly_families nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (< const-decl "bool" reals nil)
@@ -2566,7 +2628,7 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil (TQ_fam subtype "poly_families.i" "below[length[int](ll)]")))
  (TQ_fam_TCC2 0
   (TQ_fam_TCC2-1 nil 3619866882
    ("" (skeep)
@@ -2635,14 +2697,11 @@
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -2697,23 +2756,22 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (> const-decl "bool" reals nil)
     (prod_polynomials def-decl "{a |
-         (FORALL (x):
-            polynomial(a, sigma(0, k, KF * GP))(x) =
-             product(0, k,
-                     LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
-          AND
-          ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
-            IMPLIES a(sigma(0, k, KF * GP)) /= 0)
-           AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
+   (FORALL (x):
+      polynomial(a, sigma(0, k, KF * GP))(x) =
+       product(0, k, LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
+    AND
+    ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0) IMPLIES
+      a(sigma(0, k, KF * GP)) /= 0)
+     AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
      poly_families nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil nat_types nil)
     (nth def-decl "T" list_props nil)
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/"))
-   nil))
+   nil
+   (TQ_fam subtype "poly_families.d"
+    "{k | poly_families.g(compute_sturm_tarski.k) /= 0}")))
  (TQ_fam_def_TCC1 0
   (TQ_fam_def_TCC1-1 nil 3620146927
    ("" (induct "k")
@@ -2926,14 +2984,12 @@
     (int_max application-judgement "{k: int | i <= k AND j <= k}"
      real_defs nil)
     (sigma_int application-judgement "int" sigma_nat "reals/")
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
     (max_nnreal_0 formula-decl nil min_max "reals/")
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -2941,6 +2997,7 @@
      integers nil)
     (poly1 const-decl "nat" poly_families nil)
     (polynomial_prod const-decl "real" polynomials "reals/")
+    (int_times_int_is_int application-judgement "int" integers nil)
     (nonzero_times3 formula-decl nil real_props nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (int_times_even_is_even application-judgement "even_int" integers
@@ -2950,22 +3007,19 @@
      real_props nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (prod_polynomials def-decl "{a |
-         (FORALL (x):
-            polynomial(a, sigma(0, k, KF * GP))(x) =
-             product(0, k,
-                     LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
-          AND
-          ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
-            IMPLIES a(sigma(0, k, KF * GP)) /= 0)
-           AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
+   (FORALL (x):
+      polynomial(a, sigma(0, k, KF * GP))(x) =
+       product(0, k, LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
+    AND
+    ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0) IMPLIES
+      a(sigma(0, k, KF * GP)) /= 0)
+     AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
      poly_families nil)
     (^ const-decl "real" exponentiation nil)
     (product def-decl "real" product "reals/")
@@ -2979,8 +3033,8 @@
     (T_high type-eq-decl nil sigma "reals/")
     (T_low type-eq-decl nil sigma "reals/")
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (/= const-decl "boolean" notequal nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (/= const-decl "boolean" notequal nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
@@ -3003,7 +3057,10 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   nil))
+   nil
+   (TQ_fam_def subtype
+    "sigma[nat].sigma(0, poly_families.k, real_fun_ops[nat].*(poly_families.KF, poly_families.GP))"
+    "{k_1 | poly_families.prod_polynomials(poly_families.GF, poly_families.KF, poly_families.GP, poly_families.k)(k_1) /= 0}")))
  (TQ_fam_def 0
   (TQ_fam_def-1 nil 3620146928
    ("" (skeep)
@@ -3052,23 +3109,22 @@
     nil)
    ((TQ_fam const-decl "int" poly_families nil)
     (prod_polynomials_list def-decl "{ll |
-         length(ll) - 1 = sigma(0, k, KF * GP) AND
-          prod_polynomials(GF, KF, GP, k) =
-           (LAMBDA (i): IF i < length(ll) THEN nth(ll, i) ELSE 0 ENDIF)}"
+   length(ll) - 1 = sigma(0, k, KF * GP) AND
+    prod_polynomials(GF, KF, GP, k) =
+     (LAMBDA (i): IF i < length(ll) THEN nth(ll, i) ELSE 0 ENDIF)}"
      poly_families nil)
     (nth def-decl "T" list_props nil)
     (below type-eq-decl nil nat_types nil)
     (< const-decl "bool" reals nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (prod_polynomials def-decl "{a |
-         (FORALL (x):
-            polynomial(a, sigma(0, k, KF * GP))(x) =
-             product(0, k,
-                     LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
-          AND
-          ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
-            IMPLIES a(sigma(0, k, KF * GP)) /= 0)
-           AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
+   (FORALL (x):
+      polynomial(a, sigma(0, k, KF * GP))(x) =
+       product(0, k, LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
+    AND
+    ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0) IMPLIES
+      a(sigma(0, k, KF * GP)) /= 0)
+     AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
      poly_families nil)
     (> const-decl "bool" reals nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -3117,8 +3173,6 @@
     (KF skolem-const-decl "[nat -> nat]" poly_families nil)
     (GF skolem-const-decl "[nat -> [nat -> int]]" poly_families nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/")
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -3211,7 +3265,10 @@
     (Sol const-decl "finite_set[real]" sturmtarski nil)
     (poly1 const-decl "nat" poly_families nil)
     (FALSE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (Sol subtype
+    "{r: reals.real | booleans.AND(polynomials.polynomial(poly_families.a, poly_families.n)(r) = 0, FORALL (i): booleans.IMPLIES(reals.<=(poly_families.i, poly_families.k), (IF poly_families.RelF(poly_families.i) = (number_fields.-)(1) THEN reals.<(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSIF poly_families.RelF(poly_families.i) = 1 THEN reals.>(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSIF poly_families.RelF(poly_families.i) = 0 THEN polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r) = 0 ELSE booleans.TRUE ENDIF)))}"
+    "finite_set[real]")))
  (Sol_all_TCC1 0
   (Sol_all_TCC1-2 nil 3620137188
    ("" (skeep)
@@ -3295,8 +3352,14 @@
     (Sol const-decl "finite_set[real]" sturmtarski nil)
     (poly1 const-decl "nat" poly_families nil)
     (FALSE const-decl "bool" booleans nil))
-   nil)
-  (Sol_all_TCC1-1 nil 3620137111 ("" (subtype-tcc) nil nil) nil nil))
+   nil
+   (Sol_all subtype
+    "{r: reals.real | booleans.AND(polynomials.polynomial(poly_families.a, poly_families.n)(r) = 0, FORALL (i): booleans.IMPLIES(reals.<=(poly_families.i, poly_families.k), (IF poly_families.RelF6(poly_families.i) = 0 THEN polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r) = 0 ELSIF poly_families.RelF6(poly_families.i) = 1 THEN reals.>(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSIF poly_families.RelF6(poly_families.i) = 2 THEN reals.<(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSIF poly_families.RelF6(poly_families.i) = 3 THEN polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r) /= 0 ELSIF poly_families.RelF6(poly_families.i) = 4 THEN reals.>=(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSIF poly_families.RelF6(poly_families.i) = 5 THEN reals.<=(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSE booleans.TRUE ENDIF)))}"
+    "finite_set[real]"))
+  (Sol_all_TCC1-1 nil 3620137111 ("" (subtype-tcc) nil nil) nil nil
+   (Sol_all subtype
+    "{r: reals.real | booleans.AND(polynomials.polynomial(poly_families.a, poly_families.n)(r) = 0, FORALL (i): booleans.IMPLIES(reals.<=(poly_families.i, poly_families.k), (IF poly_families.RelF6(poly_families.i) = 0 THEN polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r) = 0 ELSIF poly_families.RelF6(poly_families.i) = 1 THEN reals.>(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSIF poly_families.RelF6(poly_families.i) = 2 THEN reals.<(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSIF poly_families.RelF6(poly_families.i) = 3 THEN polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r) /= 0 ELSIF poly_families.RelF6(poly_families.i) = 4 THEN reals.>=(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSIF poly_families.RelF6(poly_families.i) = 5 THEN reals.<=(polynomials.polynomial(poly_families.GF(poly_families.i), poly_families.KF(poly_families.i))(r), 0) ELSE booleans.TRUE ENDIF)))}"
+    "finite_set[real]")))
  (sign_prod_TCC1 0
   (sign_prod_TCC1-1 nil 3619945580 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -3317,7 +3380,9 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (sign_prod subtype "poly_families.GP(poly_families.i)"
+    "{i_1: integers.int | booleans.OR(poly_families.RelF(poly_families.i) /= 0, reals.>=(i_1, 0))}")))
  (sign_prod_TCC2 0
   (sign_prod_TCC2-1 nil 3619945580
    ("" (case "NOT FORALL (GP,k): GP(k)=0 OR GP(k)=1 OR GP(k)=2")
@@ -3381,15 +3446,12 @@
     (rat nonempty-type-eq-decl nil rationals nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (nzreal_expt application-judgement "nzreal" exponentiation nil)
     (nzint_times_nzint_is_nzint application-judgement "nzint" integers
      nil)
-    (int_expt application-judgement "int" exponentiation nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -3398,15 +3460,13 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (expt def-decl "real" exponentiation nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
-     nil)
     (nat_expt application-judgement "nat" exponentiation nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (int_expt application-judgement "int" exponentiation nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -3437,7 +3497,10 @@
     (subrange type-eq-decl nil integers nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil))
-   nil))
+   nil
+   (sign_prod subtype
+    "product[nat].product(0, poly_families.k, LAMBDA (i: naturalnumbers.nat): exponentiation.^(poly_families.RelF(i), poly_families.GP(i)))"
+    "integers.subrange((number_fields.-)(1), 1)")))
  (sign_prod_eq 0
   (sign_prod_eq-1 nil 3619967965
    ("" (induct "k")
@@ -3508,10 +3571,14 @@
    shostak))
  (sign_ext_pow_TCC1 0
   (sign_ext_pow_TCC1-1 nil 3619947472 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) nil))
+   ((/= const-decl "boolean" notequal nil)) nil
+   (sign_ext_pow subtype "poly_families.k"
+    "{i: integers.int | booleans.OR(poly_families.x /= 0, reals.>=(i, 0))}")))
  (sign_ext_pow_TCC2 0
   (sign_ext_pow_TCC2-1 nil 3619947472 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) nil))
+   ((/= const-decl "boolean" notequal nil)) nil
+   (sign_ext_pow subtype "poly_families.k"
+    "{i: integers.int | booleans.OR(sign.sign_ext(poly_families.x) /= 0, reals.>=(i, 0))}")))
  (sign_ext_pow 0
   (sign_ext_pow-1 nil 3619947473
    ("" (induct "k")
@@ -3592,7 +3659,9 @@
      nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (sign_ext_prod_polynomials subtype "poly_families.RelFF"
+    "[nat -> integers.subrange((number_fields.-)(1), 1)]")))
  (sign_ext_prod_polynomials 0
   (sign_ext_prod_polynomials-1 nil 3619947255
    ("" (induct "k")
@@ -3702,10 +3771,7 @@
    ((nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (expt def-decl "real" exponentiation nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -3721,21 +3787,20 @@
     (TRUE const-decl "bool" booleans nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (sign_ext_pow formula-decl nil poly_families nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (sign_prod const-decl "subrange(-1, 1)" poly_families nil)
     (prod_polynomials def-decl "{a |
-         (FORALL (x):
-            polynomial(a, sigma(0, k, KF * GP))(x) =
-             product(0, k,
-                     LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
-          AND
-          ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
-            IMPLIES a(sigma(0, k, KF * GP)) /= 0)
-           AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
+   (FORALL (x):
+      polynomial(a, sigma(0, k, KF * GP))(x) =
+       product(0, k, LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
+    AND
+    ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0) IMPLIES
+      a(sigma(0, k, KF * GP)) /= 0)
+     AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
      poly_families nil)
     (> const-decl "bool" reals nil)
     (^ const-decl "real" exponentiation nil)
@@ -3806,9 +3871,10 @@
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (mod const-decl "{k | abs(k) < abs(j)}" mod nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
-   nil))
+    (int_times_int_is_int application-judgement "int" integers nil))
+   nil
+   (unsig subtype "mod.mod(poly_families.ii, 3)"
+    "integers.subrange(0, 2)")))
  (sig_unsig 0
   (sig_unsig-1 nil 3619966613 ("" (grind) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -3837,8 +3903,7 @@
     (unsig const-decl "subrange(0, 2)" poly_families nil)
     (sig const-decl "subrange(-1, 1)" poly_families nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
+    (int_times_int_is_int application-judgement "int" integers nil))
    shostak))
  (sig_seq_unsig_seq 0
   (sig_seq_unsig_seq-1 nil 3619966724
@@ -3871,8 +3936,7 @@
     (nil application-judgement "below(m)" mod nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil))
    shostak))
  (base_3_seq_TCC1 0
@@ -3897,7 +3961,9 @@
      real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (base_3_seq subtype
+    "(number_fields.-)(poly_families.k, poly_families.p)" "nat")))
  (base_3_seq_TCC2 0
   (base_3_seq_TCC2-1 nil 3619954020
    (""
@@ -3970,8 +4036,6 @@
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
@@ -4023,7 +4087,10 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields
        nil))
-   nil))
+   nil
+   (base_3_seq subtype
+    "base_repr.base_n(3, poly_families.i)((number_fields.-)(poly_families.k, poly_families.p))"
+    "integers.subrange(0, 2)")))
  (base_6_seq_TCC1 0
   (base_6_seq_TCC1-1 nil 3620137858
    ("" (skeep)
@@ -4061,7 +4128,10 @@
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (base_6_seq subtype
+    "base_repr.base_n(6, poly_families.i)((number_fields.-)(poly_families.k, poly_families.p))"
+    "integers.subrange(0, 5)")))
  (sig_seq_base_3_onto 0
   (sig_seq_base_3_onto-1 nil 3619971481
    (""
@@ -4364,6 +4434,7 @@
     (/= const-decl "boolean" notequal nil)
     (< const-decl "bool" reals nil)
     (subrange type-eq-decl nil integers nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (RelF skolem-const-decl "[nat -> subrange(-1, 1)]" poly_families
      nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -4380,10 +4451,10 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posint nonempty-type-eq-decl nil integers nil)
-    (int_times_even_is_even application-judgement "even_int" integers
-     nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
     (sigma_geometric formula-decl nil sigma_nat "reals/")
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
@@ -4394,7 +4465,6 @@
     (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
      nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (sigma_le formula-decl nil sigma "reals/")
     (posint_plus_nnint_is_posint application-judgement "posint"
@@ -4408,10 +4478,8 @@
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (FG skolem-const-decl "[nat -> real]" poly_families nil)
     (zizzy skolem-const-decl "[nat -> posint]" poly_families nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
     (sigma_int application-judgement "int" sigma_nat "reals/")
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (base_n_unique formula-decl nil base_repr "reals/")
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
@@ -4422,8 +4490,6 @@
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -4480,7 +4546,10 @@
     (number nonempty-type-decl nil numbers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (sig_seq_base_3_onto_2 subtype
+    "base_repr.base_n(3, poly_families.i)"
+    "[nat -> integers.subrange(0, 2)]")))
  (sig_seq_base_3_onto_2 0
   (sig_seq_base_3_onto_2-1 nil 3621093022
    ("" (skeep)
@@ -4693,7 +4762,10 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (sig_seq_base_6_onto subtype
+    "poly_families.base_6_seq(poly_families.k, poly_families.i)"
+    "[nat -> integers.subrange(0, 2)]")))
  (sig_seq_base_6_onto 0
   (sig_seq_base_6_onto-1 nil 3620641563
    (""
@@ -5102,6 +5174,7 @@
     (/= const-decl "boolean" notequal nil)
     (< const-decl "bool" reals nil)
     (subrange type-eq-decl nil integers nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (RelF skolem-const-decl "[nat -> subrange(-1, 1)]" poly_families
      nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -5133,7 +5206,6 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
      nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (sigma_le formula-decl nil sigma "reals/")
     (posint_plus_nnint_is_posint application-judgement "posint"
@@ -5146,12 +5218,10 @@
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (expt def-decl "real" exponentiation nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
@@ -5160,18 +5230,14 @@
     (j skolem-const-decl "nat" poly_families nil)
     (FG skolem-const-decl "[nat -> real]" poly_families nil)
     (zizzy skolem-const-decl "[nat -> posint]" poly_families nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
     (sigma_int application-judgement "int" sigma_nat "reals/")
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (base_n_unique formula-decl nil base_repr "reals/")
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (* const-decl "[T -> real]" real_fun_ops "reals/")
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -5229,7 +5295,10 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (sig_seq_base_6_onto_2 subtype
+    "base_repr.base_n(6, poly_families.i)"
+    "[nat -> integers.subrange(0, 2)]")))
  (sig_seq_base_6_onto_2 0
   (sig_seq_base_6_onto_2-2 nil 3621095998
    ("" (skeep)
@@ -5641,12 +5710,9 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (> const-decl "bool" reals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (sigma_eq formula-decl nil sigma "reals/")
     (sigma_split formula-decl nil sigma "reals/")
@@ -5659,7 +5725,6 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (upper_is_bound formula-decl nil base_repr "reals/")
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (sigma_restrict_eq_0 formula-decl nil sigma "reals/")
     (even_minus_odd_is_odd application-judgement "odd_int" integers
@@ -5671,14 +5736,13 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (above nonempty-type-eq-decl nil integers nil)
     (both_sides_expt_gt1_lt_aux formula-decl nil exponentiation nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (rp skolem-const-decl "nat" poly_families nil)
@@ -5775,7 +5839,9 @@
     (<= const-decl "bool" reals nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (union_upto subtype "poly_families.setseq(0)"
+    "{Aset: sets[real].set | FORALL (x): booleans.IFF(Aset(poly_families.x), EXISTS (i: naturalnumbers.upto(poly_families.k)): poly_families.setseq(i)(poly_families.x))}")))
  (union_upto_TCC2 0
   (union_upto_TCC2-1 nil 3619955417 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -5796,10 +5862,14 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (union_upto subtype "(number_fields.-)(poly_families.k, 1)" "nat")))
  (union_upto_TCC3 0
   (union_upto_TCC3-1 nil 3619955417 ("" (termination-tcc) nil nil) nil
-   nil))
+   nil
+   (union_upto termination
+    "poly_families.union_upto((number_fields.-)(poly_families.k, 1), poly_families.setseq)"
+    "nil")))
  (union_upto_TCC4 0
   (union_upto_TCC4-1 nil 3619955417
    ("" (skeep)
@@ -5854,7 +5924,10 @@
     (i skolem-const-decl "upto(k)" poly_families nil)
     (union const-decl "set" sets nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (union_upto subtype
+    "sets[real].union(poly_families.union_upto((number_fields.-)(poly_families.k, 1), poly_families.setseq), poly_families.setseq(poly_families.k))"
+    "{Aset: sets[real].set | FORALL (x): booleans.IFF(Aset(poly_families.x), EXISTS (i: naturalnumbers.upto(poly_families.k)): poly_families.setseq(i)(poly_families.x))}")))
  (union_upto_finite 0
   (union_upto_finite-1 nil 3619968420
    ("" (induct "k")
@@ -5892,7 +5965,7 @@
      integers nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (union_upto def-decl "{Aset: set[real] |
-         FORALL (x): Aset(x) IFF (EXISTS (i: upto(k)): setseq(i)(x))}"
+   FORALL (x): Aset(x) IFF EXISTS (i: upto(k)): setseq(i)(x)}"
      poly_families nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5941,7 +6014,9 @@
     (intersection const-decl "set" sets nil)
     (empty? const-decl "bool" sets nil)
     (disjoint? const-decl "bool" sets nil))
-   nil))
+   nil
+   (real_set_disj_union_cards subtype
+    "poly_families.setseq(poly_families.i)" "finite_set[real]")))
  (real_set_disj_union_cards 0
   (real_set_disj_union_cards-1 nil 3619956096
    ("" (induct "k")
@@ -6059,7 +6134,6 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -6108,12 +6182,47 @@
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (union_upto def-decl "{Aset: set[real] |
-         FORALL (x): Aset(x) IFF (EXISTS (i: upto(k)): setseq(i)(x))}"
+   FORALL (x): Aset(x) IFF EXISTS (i: upto(k)): setseq(i)(x)}"
      poly_families nil)
     (/= const-decl "boolean" notequal nil)
     (disjoint? const-decl "bool" sets nil))
    shostak))
  (mult_tarski_query_simple_TCC1 0
+  (mult_tarski_query_simple_TCC1-2 nil 3767374187
+   ("" (skeep)
+    (("" (skeep)
+      (("" (skeep)
+        (("" (lemma "base_n_lt_n")
+          (("" (inst?) (("" (assert) nil nil)) nil)) nil))
+        nil))
+      nil))
+    nil)
+   ((real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (> const-decl "bool" reals nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (base_n_lt_n formula-decl nil base_repr "reals/"))
+   nil
+   (mult_tarski_query_simple subtype
+    "base_repr.base_n(3, poly_families.i)"
+    "[nat -> integers.subrange(0, 2)]"))
   (mult_tarski_query_simple_TCC1-1 nil 3619954020
    ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -6144,40 +6253,10 @@
     (/= const-decl "boolean" notequal nil)
     (^ const-decl "real" exponentiation nil)
     (posnat_expt application-judgement "posnat" exponentiation nil))
-   nil))
- (mult_tarski_query_simple_TCC2 0
-  (mult_tarski_query_simple_TCC2-1 nil 3621083447
-   ("" (skeep)
-    (("" (skeep)
-      (("" (skeep)
-        (("" (lemma "base_n_lt_n")
-          (("" (inst?) (("" (assert) nil nil)) nil)) nil))
-        nil))
-      nil))
-    nil)
-   ((base_n_lt_n formula-decl nil base_repr "reals/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (> const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (mult_tarski_query_simple subtype
+    "base_repr.base_n(3, poly_families.i)"
+    "[nat -> integers.subrange(0, 2)]")))
  (mult_tarski_query_simple 0
   (mult_tarski_query_simple-1 nil 3619956643
    ("" (skeep)
@@ -8167,10 +8246,8 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (Card const-decl "nat" finite_sets nil)
     (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
     (sigma_int application-judgement "int" sigma_nat "reals/")
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (T_low type-eq-decl nil sigma "reals/")
     (T_high type-eq-decl nil sigma "reals/")
@@ -8188,10 +8265,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (TRUE const-decl "bool" booleans nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (FF2 skolem-const-decl "[i: nat -> {n: nat | n = Card(SS2(i))}]"
      poly_families nil)
     (SS2 skolem-const-decl "[nat -> finite_set[real]]" poly_families
@@ -8212,37 +8289,35 @@
     (T_high type-eq-decl nil product "reals/")
     (product def-decl "real" product "reals/")
     (prod_polynomials def-decl "{a |
-         (FORALL (x):
-            polynomial(a, sigma(0, k, KF * GP))(x) =
-             product(0, k,
-                     LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
-          AND
-          ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
-            IMPLIES a(sigma(0, k, KF * GP)) /= 0)
-           AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
+   (FORALL (x):
+      polynomial(a, sigma(0, k, KF * GP))(x) =
+       product(0, k, LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
+    AND
+    ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0) IMPLIES
+      a(sigma(0, k, KF * GP)) /= 0)
+     AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
      poly_families nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil nat_types nil)
     (nth def-decl "T" list_props nil)
     (prod_polynomials_list def-decl "{ll |
-         length(ll) - 1 = sigma(0, k, KF * GP) AND
-          prod_polynomials(GF, KF, GP, k) =
-           (LAMBDA (i): IF i < length(ll) THEN nth(ll, i) ELSE 0 ENDIF)}"
+   length(ll) - 1 = sigma(0, k, KF * GP) AND
+    prod_polynomials(GF, KF, GP, k) =
+     (LAMBDA (i): IF i < length(ll) THEN nth(ll, i) ELSE 0 ENDIF)}"
      poly_families nil)
     (TQ_def formula-decl nil compute_sturm_tarski nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (sigma_minus formula-decl nil sigma "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
+    (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (real_minus_real_is_real application-judgement "real" reals nil)
     (x!1 skolem-const-decl "real" poly_families nil)
     (RelFF skolem-const-decl "[i: nat ->
    {sig: real |
-            (sig = -1 OR sig = 1 OR sig = 0) AND
-             sig * polynomial(GF(i), KF(i))(x!1) =
-              abs(polynomial(GF(i), KF(i))(x!1))}]" poly_families nil)
+      (sig = -1 OR sig = 1 OR sig = 0) AND
+       sig * polynomial(GF(i), KF(i))(x!1) =
+        abs(polynomial(GF(i), KF(i))(x!1))}]" poly_families nil)
     (i skolem-const-decl "below(3 ^ (1 + k))" poly_families nil)
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (intersection const-decl "set" sets nil)
     (member const-decl "bool" sets nil)
     (base_n_3_seq_unique formula-decl nil poly_families nil)
@@ -8260,7 +8335,7 @@
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (union_upto def-decl "{Aset: set[real] |
-         FORALL (x): Aset(x) IFF (EXISTS (i: upto(k)): setseq(i)(x))}"
+   FORALL (x): Aset(x) IFF EXISTS (i: upto(k)): setseq(i)(x)}"
      poly_families nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
@@ -8272,12 +8347,11 @@
     (x!1 skolem-const-decl "real" poly_families nil)
     (RelFF skolem-const-decl "[i: nat ->
    {sig: real |
-            (sig = -1 OR sig = 1 OR sig = 0) AND
-             sig * polynomial(GF(i), KF(i))(x!1) =
-              abs(polynomial(GF(i), KF(i))(x!1))}]" poly_families nil)
-    (id const-decl "(bijective?[T, T])" identity nil)
+      (sig = -1 OR sig = 1 OR sig = 0) AND
+       sig * polynomial(GF(i), KF(i))(x!1) =
+        abs(polynomial(GF(i), KF(i))(x!1))}]" poly_families nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (int_exp application-judgement "int" exponentiation nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
     (sign_prod_eq formula-decl nil poly_families nil)
     (i skolem-const-decl "below(3 ^ (1 + k))" poly_families nil)
     (sign_ext const-decl
@@ -8292,12 +8366,10 @@
     (Sol const-decl "finite_set[real]" sturmtarski nil)
     (bijective? const-decl "bool" functions nil)
     (NSol const-decl "{d: nat |
-         EXISTS (enumsol: [below(d) -> (Sol(a, m, g, k, rel))]):
-           bijective?(enumsol)}" sturmtarski nil)
+   EXISTS (enumsol: [below(d) -> (Sol(a, m, g, k, rel))]):
+     bijective?(enumsol)}" sturmtarski nil)
     (i skolem-const-decl "nat" poly_families nil)
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/")
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (k skolem-const-decl "nat" poly_families nil)
     (KF skolem-const-decl "[nat -> nat]" poly_families nil)
     (GP skolem-const-decl "[nat -> subrange(0, 2)]" poly_families nil)
@@ -8339,7 +8411,10 @@
      "(strict_total_order?[real])" real_props nil)
     (split_index_fun_entry const-decl "[nat -> [nat, nat]]"
      poly_families nil))
-   nil))
+   nil
+   (split_index_fun subtype
+    "poly_families.split_index_fun_entry(poly_families.F, poly_families.n)"
+    "{G: [naturalnumbers.nat -> [naturalnumbers.nat, naturalnumbers.nat]] | booleans.AND(FORALL (i: naturalnumbers.upto(poly_families.n)): G(i) = poly_families.split_index_fun_entry(poly_families.F, i)(i), FORALL (i: integers.above(poly_families.n)): G(i) = poly_families.F(i))}")))
  (split_index_fun_TCC2 0
   (split_index_fun_TCC2-1 nil 3620392262
    ("" (skeep)
@@ -8417,10 +8492,14 @@
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (split_index_fun subtype
+    "poly_families.split_index_fun(poly_families.split_index_fun_entry(poly_families.F, poly_families.n), (number_fields.-)(poly_families.n, 1))"
+    "{G: [naturalnumbers.nat -> [naturalnumbers.nat, naturalnumbers.nat]] | booleans.AND(FORALL (i: naturalnumbers.upto(poly_families.n)): G(i) = poly_families.split_index_fun_entry(poly_families.F, i)(i), FORALL (i: integers.above(poly_families.n)): G(i) = poly_families.F(i))}")))
  (split_base6_TCC1 0
-  (split_base6_TCC1-1 nil 3620391252 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (split_base6_TCC1-1 nil 3620391252 ("" (subtype-tcc) nil nil) nil nil
+   (split_base6 subtype "(number_fields.-)(poly_families.n, 1)"
+    "nat")))
  (splits_to_base3 0
   (splits_to_base3-1 nil 3620391548
    ("" (skeep)
@@ -8477,8 +8556,8 @@
      poly_families nil)
     (above nonempty-type-eq-decl nil integers nil)
     (split_index_fun def-decl "{G: [nat -> [nat, nat]] |
-         (FORALL (i: upto(n)): G(i) = split_index_fun_entry(F, i)(i)) AND
-          (FORALL (i: above(n)): G(i) = F(i))}" poly_families nil)
+   (FORALL (i: upto(n)): G(i) = split_index_fun_entry(F, i)(i)) AND
+    (FORALL (i: above(n)): G(i) = F(i))}" poly_families nil)
     (base6_pairs const-decl "[nat, nat]" poly_families nil))
    shostak))
  (sign_prod_coeff6_TCC1 0
@@ -8545,7 +8624,9 @@
     (> const-decl "bool" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (sign_prod_coeff6 subtype "base_repr.base_n(6, poly_families.i)"
+    "[nat -> integers.subrange(0, 2)]")))
  (NSol_seq6_TCC1 0
   (NSol_seq6_TCC1-1 nil 3620638636
    ("" (skosimp*)
@@ -8610,39 +8691,9 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (base_n_0 formula-decl nil base_repr "reals/"))
-   nil))
- (mult_tarski_query_simple_6_0_to_3_TCC1 0
-  (mult_tarski_query_simple_6_0_to_3_TCC1-1 nil 3620638636
-   ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (/= const-decl "boolean" notequal nil)
-    (^ const-decl "real" exponentiation nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil))
-   nil))
+   nil
+   (NSol_seq6 subtype "base_repr.base_n(6, poly_families.i)"
+    "[nat -> integers.subrange(0, 2)]")))
  (mult_tarski_query_simple_6_0_to_3 0
   (mult_tarski_query_simple_6_0_to_3-1 nil 3620639331
    ("" (skeep)
@@ -10541,10 +10592,8 @@
     (base_n_0 formula-decl nil base_repr "reals/")
     (Card const-decl "nat" finite_sets nil)
     (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
     (sigma_int application-judgement "int" sigma_nat "reals/")
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (T_low type-eq-decl nil sigma "reals/")
     (T_high type-eq-decl nil sigma "reals/")
@@ -10564,10 +10613,10 @@
     (TRUE const-decl "bool" booleans nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (FF2 skolem-const-decl "[i: nat -> {n: nat | n = Card(SS2(i))}]"
      poly_families nil)
     (SS1 skolem-const-decl "[nat -> finite_set[real]]" poly_families
@@ -10589,42 +10638,39 @@
     (T_high type-eq-decl nil product "reals/")
     (product def-decl "real" product "reals/")
     (prod_polynomials def-decl "{a |
-         (FORALL (x):
-            polynomial(a, sigma(0, k, KF * GP))(x) =
-             product(0, k,
-                     LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
-          AND
-          ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0)
-            IMPLIES a(sigma(0, k, KF * GP)) /= 0)
-           AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
+   (FORALL (x):
+      polynomial(a, sigma(0, k, KF * GP))(x) =
+       product(0, k, LAMBDA (j): polynomial(GF(j), KF(j))(x) ^ GP(j)))
+    AND
+    ((FORALL (i): i <= k AND GP(i) /= 0 IMPLIES GF(i)(KF(i)) /= 0) IMPLIES
+      a(sigma(0, k, KF * GP)) /= 0)
+     AND (FORALL (i): i > sigma(0, k, KF * GP) IMPLIES a(i) = 0)}"
      poly_families nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil nat_types nil)
     (nth def-decl "T" list_props nil)
     (prod_polynomials_list def-decl "{ll |
-         length(ll) - 1 = sigma(0, k, KF * GP) AND
-          prod_polynomials(GF, KF, GP, k) =
-           (LAMBDA (i): IF i < length(ll) THEN nth(ll, i) ELSE 0 ENDIF)}"
+   length(ll) - 1 = sigma(0, k, KF * GP) AND
+    prod_polynomials(GF, KF, GP, k) =
+     (LAMBDA (i): IF i < length(ll) THEN nth(ll, i) ELSE 0 ENDIF)}"
      poly_families nil)
     (TQ_def formula-decl nil compute_sturm_tarski nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (sigma_minus formula-decl nil sigma "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
+    (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (real_minus_real_is_real application-judgement "real" reals nil)
     (x!1 skolem-const-decl "real" poly_families nil)
     (RelFF skolem-const-decl "[i: nat ->
    {sig: real |
-            (sig = -1 OR sig = 1 OR sig = 0) AND
-             sig * polynomial(GF(i), KF(i))(x!1) =
-              abs(polynomial(GF(i), KF(i))(x!1))}]" poly_families nil)
+      (sig = -1 OR sig = 1 OR sig = 0) AND
+       sig * polynomial(GF(i), KF(i))(x!1) =
+        abs(polynomial(GF(i), KF(i))(x!1))}]" poly_families nil)
     (i skolem-const-decl "below(6 ^ (1 + k))" poly_families nil)
-    (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (intersection const-decl "set" sets nil)
     (member const-decl "bool" sets nil)
     (base_n_is_n_alt formula-decl nil base_repr "reals/")
     (posrat_exp application-judgement "posrat" exponentiation nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (sig const-decl "subrange(-1, 1)" poly_families nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -10638,7 +10684,7 @@
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (union_upto def-decl "{Aset: set[real] |
-         FORALL (x): Aset(x) IFF (EXISTS (i: upto(k)): setseq(i)(x))}"
+   FORALL (x): Aset(x) IFF EXISTS (i: upto(k)): setseq(i)(x)}"
      poly_families nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
@@ -10653,13 +10699,12 @@
     (x!1 skolem-const-decl "real" poly_families nil)
     (RelFF skolem-const-decl "[i: nat ->
    {sig: real |
-            (sig = -1 OR sig = 1 OR sig = 0) AND
-             sig * polynomial(GF(i), KF(i))(x!1) =
-              abs(polynomial(GF(i), KF(i))(x!1))}]" poly_families nil)
-    (id const-decl "(bijective?[T, T])" identity nil)
+      (sig = -1 OR sig = 1 OR sig = 0) AND
+       sig * polynomial(GF(i), KF(i))(x!1) =
+        abs(polynomial(GF(i), KF(i))(x!1))}]" poly_families nil)
     (real_times_real_is_real application-judgement "real" reals nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
     (sign_prod const-decl "subrange(-1, 1)" poly_families nil)
-    (int_exp application-judgement "int" exponentiation nil)
     (sign_prod_eq formula-decl nil poly_families nil)
     (i skolem-const-decl "below(6 ^ (1 + k))" poly_families nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
@@ -10671,12 +10716,10 @@
     (Sol const-decl "finite_set[real]" sturmtarski nil)
     (bijective? const-decl "bool" functions nil)
     (NSol const-decl "{d: nat |
-         EXISTS (enumsol: [below(d) -> (Sol(a, m, g, k, rel))]):
-           bijective?(enumsol)}" sturmtarski nil)
+   EXISTS (enumsol: [below(d) -> (Sol(a, m, g, k, rel))]):
+     bijective?(enumsol)}" sturmtarski nil)
     (i skolem-const-decl "nat" poly_families nil)
     (listn_0 name-judgement "listn[int](0)" gcd_coeff "Sturm/")
-    (listn_0 name-judgement "listn[real](0)" polynomial_division
-     "Sturm/")
     (k skolem-const-decl "nat" poly_families nil)
     (KF skolem-const-decl "[nat -> nat]" poly_families nil)
     (GP skolem-const-decl "[nat -> subrange(0, 2)]" poly_families nil)
@@ -10787,35 +10830,10 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   nil))
- (sigma_disjoinction_6_TCC1 0
-  (sigma_disjoinction_6_TCC1-1 nil 3620731460
-   ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (^ const-decl "real" exponentiation nil)
-    (in6? const-decl "bool" poly_families nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil)
-    (int_plus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (sign_coeff6_zero subtype
+    "product[nat].product(0, poly_families.k, LAMBDA (j): poly_families.sign_coeff6_zero_entry(poly_families.k, poly_families.TQRow, poly_families.i, poly_families.j))"
+    "integers.subrange((number_fields.-)(1), 1)")))
  (sigma_disjoinction_6 0
   (sigma_disjoinction_6-1 nil 3620731798
    ("" (skeep)
@@ -12292,18 +12310,16 @@
    ((floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (< const-decl "bool" reals nil)
+    (< const-decl "bool" reals nil) (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (integer nonempty-type-from-decl nil integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
+    (integer nonempty-type-from-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
@@ -12314,6 +12330,7 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -12325,10 +12342,10 @@
      integers nil)
     (^ const-decl "real" exponentiation nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (T_low type-eq-decl nil sigma "reals/")
@@ -12377,18 +12394,15 @@
      rationals nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (i skolem-const-decl "subrange(0, 6 ^ (1 + k) - 1)" poly_families
-     nil)
+       nil)
     (K skolem-const-decl "int" poly_families nil)
     (in6? const-decl "bool" poly_families nil)
     (j skolem-const-decl "subrange(0, 6 ^ (1 + k) - 1)" poly_families
      nil)
     (i skolem-const-decl "subrange(0, 6 ^ (1 + k) - 1)" poly_families
-     nil)
+       nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
     (sigma_int application-judgement "int" sigma_nat "reals/")
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -12430,7 +12444,10 @@
     (number nonempty-type-decl nil numbers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (mult_tarski_query_simple_6_above_2 subtype
+    "base_repr.base_n(6, poly_families.i)"
+    "[nat -> integers.subrange(0, 5)]")))
  (mult_tarski_query_simple_6_above_2 0
   (mult_tarski_query_simple_6_above_2-1 nil 3620660070
    ("" (skeep)
@@ -18251,7 +18268,6 @@
      integers nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (sigma_int application-judgement "int" sigma_nat "reals/")
-    (sigma_rat application-judgement "rational" sigma_nat "reals/")
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -18283,7 +18299,6 @@
      nil)
     (T_high type-eq-decl nil sigma "reals/")
     (T_low type-eq-decl nil sigma "reals/")
-    (sigma_nnreal application-judgement "nnreal" sigma_nat "reals/")
     (sigma_nat application-judgement "nat" sigma_nat "reals/")
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
@@ -18314,7 +18329,6 @@
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (base_n_to_nat_unique formula-decl nil base_repr "reals/")
     (vv skolem-const-decl "[nat -> [nat, nat, nat, nat, nat, nat]]"
      poly_families nil)
@@ -18327,17 +18341,16 @@
     (subrange type-eq-decl nil integers nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (base_n def-decl "nat" base_repr "reals/")
-    (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil)
+    (base_n def-decl "nat" base_repr "reals/")
     (/= const-decl "boolean" notequal nil)
     (a skolem-const-decl "[nat -> int]" poly_families nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (n skolem-const-decl "posnat" poly_families nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (bijective? const-decl "bool" functions nil)
