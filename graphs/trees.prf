@@ -26,7 +26,10 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (del_vert const-decl "graph[T]" graph_ops nil))
-   nil))
+   nil
+   (tree? termination
+    "trees.tree?(graph_ops[trees.T].del_vert(trees.G, trees.v))"
+    "nil")))
  (tree_nonempty 0
   (tree_nonempty-1 nil 3262616780
    ("" (skosimp*)
@@ -325,9 +328,7 @@
     (del_vert const-decl "graph[T]" graph_ops nil)
     (incident_edges const-decl "finite_set[doubleton[T]]" graph_deg
      nil)
-    (G!1 skolem-const-decl "graph[T]" trees nil)
-    (v!1 skolem-const-decl "(vert(G!1))" trees nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
+    nil nil (NOT const-decl "[bool -> bool]" booleans nil)
     (intersection const-decl "set" sets nil)
     (empty? const-decl "bool" sets nil)
     (disjoint? const-decl "bool" sets nil)
@@ -453,8 +454,7 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (size const-decl "nat" graphs nil)
-    (G!1 skolem-const-decl "graph[T]" trees nil)
+    (size const-decl "nat" graphs nil) nil
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
@@ -591,103 +591,91 @@
                                                                                                          " ({y: T | v!2 /= y AND member(y, vert(G!1))})(v!2) = singleton(x!1)(v!2)")
                                                                                                         (("1"
                                                                                                           (beta
-                                                                                                           -1
-                                                                                                           -2
-                                                                                                           -3
-                                                                                                           -4)
+                                                                                                           (-1
+                                                                                                            -2
+                                                                                                            -3
+                                                                                                            -4))
                                                                                                           (("1"
-                                                                                                            (beta
-                                                                                                             -2)
+                                                                                                            (hide
+                                                                                                             -8)
                                                                                                             (("1"
-                                                                                                              (beta
-                                                                                                               -3)
+                                                                                                              (expand
+                                                                                                               "member"
+                                                                                                               -)
                                                                                                               (("1"
-                                                                                                                (beta
-                                                                                                                 -4)
+                                                                                                                (expand
+                                                                                                                 "singleton"
+                                                                                                                 *)
                                                                                                                 (("1"
-                                                                                                                  (hide
-                                                                                                                   -8)
+                                                                                                                  (iff
+                                                                                                                   *)
                                                                                                                   (("1"
-                                                                                                                    (expand
-                                                                                                                     "member"
-                                                                                                                     -)
+                                                                                                                    (bddsimp)
                                                                                                                     (("1"
-                                                                                                                      (expand
-                                                                                                                       "singleton"
-                                                                                                                       *)
+                                                                                                                      (assert)
                                                                                                                       (("1"
-                                                                                                                        (iff
-                                                                                                                         *)
+                                                                                                                        (replace
+                                                                                                                         -3
+                                                                                                                         (-6
+                                                                                                                          -7
+                                                                                                                          -8
+                                                                                                                          1)
+                                                                                                                         rl)
                                                                                                                         (("1"
-                                                                                                                          (bddsimp)
+                                                                                                                          (hide
+                                                                                                                           -3)
                                                                                                                           (("1"
-                                                                                                                            (assert)
+                                                                                                                            (replace
+                                                                                                                             -5
+                                                                                                                             -9)
                                                                                                                             (("1"
-                                                                                                                              (replace
-                                                                                                                               -3
-                                                                                                                               (-6
-                                                                                                                                -7
-                                                                                                                                -8
-                                                                                                                                1)
-                                                                                                                               rl)
+                                                                                                                              (reveal
+                                                                                                                               -3)
                                                                                                                               (("1"
                                                                                                                                 (hide
-                                                                                                                                 -3)
+                                                                                                                                 -2
+                                                                                                                                 -3
+                                                                                                                                 -4
+                                                                                                                                 -5
+                                                                                                                                 -6
+                                                                                                                                 -7
+                                                                                                                                 2
+                                                                                                                                 3)
                                                                                                                                 (("1"
-                                                                                                                                  (replace
-                                                                                                                                   -5
-                                                                                                                                   -9)
+                                                                                                                                  (expand
+                                                                                                                                   "deg"
+                                                                                                                                   2)
                                                                                                                                   (("1"
-                                                                                                                                    (reveal
-                                                                                                                                     -3)
+                                                                                                                                    (lemma
+                                                                                                                                     "finite_sets[doubleton[T]].nonempty_card")
                                                                                                                                     (("1"
-                                                                                                                                      (hide
-                                                                                                                                       -2
-                                                                                                                                       -3
-                                                                                                                                       -4
-                                                                                                                                       -5
-                                                                                                                                       -6
-                                                                                                                                       -7
-                                                                                                                                       2
-                                                                                                                                       3)
+                                                                                                                                      (inst
+                                                                                                                                       -1
+                                                                                                                                       "incident_edges(v!1, G!1)")
                                                                                                                                       (("1"
-                                                                                                                                        (expand
-                                                                                                                                         "deg"
-                                                                                                                                         2)
+                                                                                                                                        (bddsimp)
                                                                                                                                         (("1"
-                                                                                                                                          (lemma
-                                                                                                                                           "finite_sets[doubleton[T]].nonempty_card")
+                                                                                                                                          (expand
+                                                                                                                                           "nonempty?"
+                                                                                                                                           1)
                                                                                                                                           (("1"
-                                                                                                                                            (inst
-                                                                                                                                             -1
-                                                                                                                                             "incident_edges(v!1, G!1)")
+                                                                                                                                            (expand
+                                                                                                                                             "empty?"
+                                                                                                                                             -1)
                                                                                                                                             (("1"
-                                                                                                                                              (bddsimp)
+                                                                                                                                              (inst
+                                                                                                                                               -1
+                                                                                                                                               "x!2")
                                                                                                                                               (("1"
-                                                                                                                                                (expand
-                                                                                                                                                 "nonempty?"
-                                                                                                                                                 1)
+                                                                                                                                                (hide
+                                                                                                                                                 2)
                                                                                                                                                 (("1"
                                                                                                                                                   (expand
-                                                                                                                                                   "empty?"
-                                                                                                                                                   -1)
+                                                                                                                                                   "member"
+                                                                                                                                                   1)
                                                                                                                                                   (("1"
-                                                                                                                                                    (inst
-                                                                                                                                                     -1
-                                                                                                                                                     "x!2")
-                                                                                                                                                    (("1"
-                                                                                                                                                      (hide
-                                                                                                                                                       2)
-                                                                                                                                                      (("1"
-                                                                                                                                                        (expand
-                                                                                                                                                         "member"
-                                                                                                                                                         1)
-                                                                                                                                                        (("1"
-                                                                                                                                                          (grind)
-                                                                                                                                                          nil
-                                                                                                                                                          nil))
-                                                                                                                                                        nil))
-                                                                                                                                                      nil))
+                                                                                                                                                    (grind)
+                                                                                                                                                    nil
                                                                                                                                                     nil))
                                                                                                                                                   nil))
                                                                                                                                                 nil))
@@ -700,21 +688,21 @@
                                                                                                                                   nil))
                                                                                                                                 nil))
                                                                                                                               nil))
-                                                                                                                            nil)
-                                                                                                                           ("2"
-                                                                                                                            (grind)
-                                                                                                                            nil
-                                                                                                                            nil)
-                                                                                                                           ("3"
-                                                                                                                            (grind)
-                                                                                                                            nil
-                                                                                                                            nil)
-                                                                                                                           ("4"
-                                                                                                                            (grind)
-                                                                                                                            nil
                                                                                                                             nil))
                                                                                                                           nil))
                                                                                                                         nil))
+                                                                                                                      nil)
+                                                                                                                     ("2"
+                                                                                                                      (grind)
+                                                                                                                      nil
+                                                                                                                      nil)
+                                                                                                                     ("3"
+                                                                                                                      (grind)
+                                                                                                                      nil
+                                                                                                                      nil)
+                                                                                                                     ("4"
+                                                                                                                      (grind)
+                                                                                                                      nil
                                                                                                                       nil))
                                                                                                                     nil))
                                                                                                                   nil))
@@ -1672,73 +1660,73 @@ singleton(x!2)(x!2)")
         nil))
       nil))
     nil)
-   ((int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (del_vert const-decl "graph[T]" graph_ops nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (finite_remove application-judgement "finite_set" finite_sets nil)
-    (remove const-decl "set" sets nil)
-    (incident_edges const-decl "finite_set[doubleton[T]]" graph_deg
+   ((number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (member const-decl "bool" sets nil)
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set" finite_sets nil)
-    (nonempty_card formula-decl nil finite_sets nil)
-    (empty? const-decl "bool" sets nil)
-    (nonempty? const-decl "bool" sets nil)
-    (nil application-judgement "finite_set[T]" trees nil)
-    (other_vert formula-decl nil graphs nil)
-    (singleton const-decl "(singleton?)" sets nil)
-    (singleton? const-decl "bool" sets nil)
-    (card_one formula-decl nil finite_sets nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
-     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (pred type-eq-decl nil defined_types nil)
+    (T formal-type-decl nil trees nil) (set type-eq-decl nil sets nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (/= const-decl "boolean" notequal nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (dbl const-decl "set[T]" doubletons "structures/")
+    (doubleton type-eq-decl nil doubletons "structures/")
+    (finite_set type-eq-decl nil finite_sets nil)
+    (pregraph type-eq-decl nil graphs nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (graph type-eq-decl nil graphs nil)
+    (tree? def-decl "bool" trees nil)
+    (size const-decl "nat" graphs nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (> const-decl "bool" reals nil)
+    (deg const-decl "nat" graph_deg nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (Card const-decl "nat" finite_sets nil)
+    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (size_del_vert formula-decl nil graph_ops nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (even_plus_even_is_even application-judgement "even_int" integers
      nil)
-    (size_del_vert formula-decl nil graph_ops nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (Card const-decl "nat" finite_sets nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (deg const-decl "nat" graph_deg nil)
-    (> const-decl "bool" reals nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (size const-decl "nat" graphs nil)
-    (tree? def-decl "bool" trees nil)
-    (graph type-eq-decl nil graphs nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (pregraph type-eq-decl nil graphs nil)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (doubleton type-eq-decl nil doubletons "structures/")
-    (dbl const-decl "set[T]" doubletons "structures/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (/= const-decl "boolean" notequal nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (set type-eq-decl nil sets nil) (T formal-type-decl nil trees nil)
-    (pred type-eq-decl nil defined_types nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
+    (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil))
+    (card_one formula-decl nil finite_sets nil)
+    (singleton? const-decl "bool" sets nil)
+    (singleton const-decl "(singleton?)" sets nil)
+    (other_vert formula-decl nil graphs nil)
+    (nonempty_card formula-decl nil finite_sets nil)
+    (empty? const-decl "bool" sets nil)
+    (nonempty? const-decl "bool" sets nil)
+    (nil application-judgement "finite_set[T]" trees nil)
+    (nonempty_singleton_finite application-judgement
+     "non_empty_finite_set" finite_sets nil)
+    (member const-decl "bool" sets nil)
+    (incident_edges const-decl "finite_set[doubleton[T]]" graph_deg
+     nil)
+    (remove const-decl "set" sets nil)
+    (finite_remove application-judgement "finite_set" finite_sets nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (del_vert const-decl "graph[T]" graph_ops nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil))
    nil))
  (tree_edge_all 0
   (tree_edge_all-1 nil 3262616780
@@ -1816,8 +1804,7 @@ singleton(x!2)(x!2)")
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (size const-decl "nat" graphs nil)
-    (G!1 skolem-const-decl "graph[T]" trees nil)
+    (size const-decl "nat" graphs nil) nil
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
@@ -2596,10 +2583,7 @@ singleton(x!2)(x!2)")
                                                                        -6)
                                                                       (("1"
                                                                         (bddsimp
-                                                                         -1
-                                                                         -6
-                                                                         -9
-                                                                         -12)
+                                                                         -1)
                                                                         (("1"
                                                                           (simplify)
                                                                           (("1"
@@ -2607,8 +2591,7 @@ singleton(x!2)(x!2)")
                                                                              "tree?(W!1) AND vert(W!1)(v!1) AND deg(v!1, W!1) = 1")
                                                                             (("1"
                                                                               (bddsimp
-                                                                               -1
-                                                                               -14)
+                                                                               -1)
                                                                               (("1"
                                                                                 (case
                                                                                  "tree?(del_vert(W!1, v!1))")
@@ -2855,7 +2838,7 @@ singleton(x!2)(x!2)")
                                                                                                                                               (("1"
                                                                                                                                                 (case
                                                                                                                                                  " ({e: doubleton[T] | edges(G!1)(e) AND e(v!2)})(x!2)
-                                                                       = singleton(x!1)(x!2)")
+                                                                                                       = singleton(x!1)(x!2)")
                                                                                                                                                 (("1"
                                                                                                                                                   (beta
                                                                                                                                                    -1)
@@ -2965,11 +2948,11 @@ singleton(x!2)(x!2)")
                                                                                                                                                                                                                 (("1"
                                                                                                                                                                                                                   (case
                                                                                                                                                                                                                    " ({e: doubleton[T] | edges(G!1)(e) AND e(v!1)})(x!2)
-                                                                                       = singleton(x!4)(x!2)")
+                                                                                                                               = singleton(x!4)(x!2)")
                                                                                                                                                                                                                   (("1"
                                                                                                                                                                                                                     (case
                                                                                                                                                                                                                      " ({e: doubleton[T] | edges(G!1)(e) AND e(v!1)})(x!3)
-                                                                                           = singleton(x!4)(x!3)")
+                                                                                                                                     = singleton(x!4)(x!3)")
                                                                                                                                                                                                                     (("1"
                                                                                                                                                                                                                       (hide
                                                                                                                                                                                                                        -4)
@@ -4166,80 +4149,80 @@ singleton(x!2)(x!2)")
         nil))
       nil))
     nil)
-   ((del_vert_comm formula-decl nil graph_ops nil)
-    (size_del_vert formula-decl nil graph_ops nil)
-    (W!1 skolem-const-decl "graph[T]" trees nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (finite_remove application-judgement "finite_set" finite_sets nil)
-    (remove const-decl "set" sets nil)
-    (member const-decl "bool" sets nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (even_plus_even_is_even application-judgement "even_int" integers
+   ((number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (pred type-eq-decl nil defined_types nil)
+    (T formal-type-decl nil trees nil) (set type-eq-decl nil sets nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (/= const-decl "boolean" notequal nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (dbl const-decl "set[T]" doubletons "structures/")
+    (doubleton type-eq-decl nil doubletons "structures/")
+    (finite_set type-eq-decl nil finite_sets nil)
+    (pregraph type-eq-decl nil graphs nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (graph type-eq-decl nil graphs nil)
+    (tree? def-decl "bool" trees nil)
+    (size const-decl "nat" graphs nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (deg const-decl "nat" graph_deg nil)
+    (del_vert const-decl "graph[T]" graph_ops nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (incident_edges const-decl "finite_set[doubleton[T]]" graph_deg
      nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (> const-decl "bool" reals nil)
-    (tree_edge_all formula-decl nil trees nil)
-    (nonempty_card formula-decl nil finite_sets nil)
-    (empty? const-decl "bool" sets nil)
-    (nonempty? const-decl "bool" sets nil)
-    (v!2 skolem-const-decl "(vert(G!1))" trees nil)
-    (H!1 skolem-const-decl "graph[T]" trees nil)
-    (v!1 skolem-const-decl "T" trees nil)
-    (G!1 skolem-const-decl "graph[T]" trees nil)
-    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (Card const-decl "nat" finite_sets nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nil application-judgement "finite_set[T]" trees nil)
+    (nonempty_singleton_finite application-judgement
+     "non_empty_finite_set" finite_sets nil)
+    (extensionality_postulate formula-decl nil functions nil)
+    (singleton const-decl "(singleton?)" sets nil)
+    (singleton? const-decl "bool" sets nil)
+    (card_one formula-decl nil finite_sets nil)
     (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (card_one formula-decl nil finite_sets nil)
-    (singleton? const-decl "bool" sets nil)
-    (singleton const-decl "(singleton?)" sets nil)
-    (extensionality_postulate formula-decl nil functions nil)
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set" finite_sets nil)
-    (nil application-judgement "finite_set[T]" trees nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (incident_edges const-decl "finite_set[doubleton[T]]" graph_deg
+    (Card const-decl "nat" finite_sets nil)
+    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
+    (G!1 skolem-const-decl "graph[T]" trees nil)
+    (v!1 skolem-const-decl "T" trees nil)
+    (H!1 skolem-const-decl "graph[T]" trees nil)
+    (v!2 skolem-const-decl "(vert(G!1))" trees nil)
+    (nonempty? const-decl "bool" sets nil)
+    (empty? const-decl "bool" sets nil)
+    (nonempty_card formula-decl nil finite_sets nil)
+    (tree_edge_all formula-decl nil trees nil)
+    (> const-decl "bool" reals nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (del_vert const-decl "graph[T]" graph_ops nil)
-    (deg const-decl "nat" graph_deg nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (size const-decl "nat" graphs nil)
-    (tree? def-decl "bool" trees nil)
-    (graph type-eq-decl nil graphs nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (pregraph type-eq-decl nil graphs nil)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (doubleton type-eq-decl nil doubletons "structures/")
-    (dbl const-decl "set[T]" doubletons "structures/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (/= const-decl "boolean" notequal nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (set type-eq-decl nil sets nil) (T formal-type-decl nil trees nil)
-    (pred type-eq-decl nil defined_types nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
+    (even_plus_even_is_even application-judgement "even_int" integers
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil))
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (member const-decl "bool" sets nil)
+    (remove const-decl "set" sets nil)
+    (finite_remove application-judgement "finite_set" finite_sets nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (W!1 skolem-const-decl "graph[T]" trees nil)
+    (size_del_vert formula-decl nil graph_ops nil)
+    (del_vert_comm formula-decl nil graph_ops nil))
    nil)
   (del_tree-2 nil 3312294198
    ("" (induct "k" 1 "nat_induction")
