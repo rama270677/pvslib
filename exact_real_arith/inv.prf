@@ -1,18 +1,22 @@
 (inv
  (expt_x2_TCC1 0
   (expt_x2_TCC1-1 nil 3250067368 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) nil))
+   ((/= const-decl "boolean" notequal nil)) nil
+   (expt_x2 subtype "2"
+    "{i: integers.int | booleans.OR(inv.x /= 0, reals.>=(i, 0))}")))
  (expt_x2 0
   (expt_x2-1 nil 3250067368 ("" (grind) nil nil)
    ((expt def-decl "real" exponentiation nil)
     (^ const-decl "real" exponentiation nil))
    nil))
  (expt_times2_TCC1 0
-  (expt_times2_TCC1-1 nil 3250067368 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (expt_times2_TCC1-1 nil 3250067368 ("" (subtype-tcc) nil nil) nil nil
+   (expt_times2 subtype "(number_fields.*(2, inv.s))"
+    "{i: integers.int | booleans.OR(inv.nzx /= 0, reals.>=(i, 0))}")))
  (expt_times2_TCC2 0
-  (expt_times2_TCC2-1 nil 3250067368 ("" (subtype-tcc) nil nil) nil
-   nil))
+  (expt_times2_TCC2-1 nil 3250067368 ("" (subtype-tcc) nil nil) nil nil
+   (expt_times2 subtype "inv.s"
+    "{i: integers.int | booleans.OR(inv.nzx /= 0, reals.>=(i, 0))}")))
  (expt_times2 0
   (expt_times2-1 nil 3250067368
    ("" (skosimp*)
@@ -321,7 +325,10 @@
  (minimum_inv_TCC1 0
   (minimum_inv_TCC1-1 nil 3250067368
    ("" (lemma "minimum_inv_exists") (("" (propax) nil nil)) nil)
-   ((minimum_inv_exists formula-decl nil inv nil)) nil))
+   ((minimum_inv_exists formula-decl nil inv nil)) nil
+   (minimum_inv subtype
+    "{s | reals.<=(3, real_defs.abs(inv.nzcx(inv.s)))}"
+    "(sets[nat].nonempty?)")))
  (minimum_inv_prop0 0
   (minimum_inv_prop0-1 nil 3250067368
    ("" (skosimp*)
@@ -740,7 +747,10 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (minimum_inv_aux subtype
+    "(number_fields.-)(inv.minimum_inv(inv.nzcx), inv.s)"
+    "naturalnumber")))
  (minimum_inv_aux_TCC2 0
   (minimum_inv_aux_TCC2-1 nil 3392691345
    ("" (skosimp)
@@ -796,7 +806,9 @@
     (cauchy_nzreal? const-decl "bool" cauchy nil)
     (cauchy_nzreal nonempty-type-eq-decl nil cauchy nil)
     (minimum_inv const-decl "nat" inv nil))
-   nil))
+   nil
+   (minimum_inv_aux subtype "(number_fields.+)(inv.s, 1)"
+    "{n: naturalnumbers.nat | reals.<=(n, inv.minimum_inv(inv.nzcx))}")))
  (minimum_inv_aux_TCC3 0
   (minimum_inv_aux_TCC3-1 nil 3392691816
    ("" (skosimp*)
@@ -895,13 +907,18 @@
     (minimum_inv_exists formula-decl nil inv nil)
     (cauchy_prop const-decl "bool" cauchy nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (minimum_inv_aux termination
+    "inv.minimum_inv_aux(inv.nzcx, (number_fields.+)(inv.s, 1))"
+    "nil")))
  (minimum_inv_impl_TCC1 0
   (minimum_inv_impl_TCC1-1 nil 3392691816
    ("" (skosimp) (("" (assert) nil nil)) nil)
    ((real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (minimum_inv_impl subtype "0"
+    "{n: naturalnumbers.nat | reals.<=(n, inv.minimum_inv(inv.nzcx))}")))
  (minimum_inv_impl_def 0
   (minimum_inv_impl_def-1 nil 3392693652
    ("" (skosimp)
@@ -1026,13 +1043,8 @@
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (j!1 skolem-const-decl "nat" inv nil)
-    (MIN skolem-const-decl "{a |
-         3 <= abs(nzcx!1(a)) AND
-          (FORALL (x: nat): 3 <= abs(nzcx!1(x)) IMPLIES a <= x)}" inv
-     nil)
-    (minimum_inv_exists formula-decl nil inv nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil) nil
+    nil (minimum_inv_exists formula-decl nil inv nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
@@ -1047,8 +1059,7 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nat_induction formula-decl nil naturalnumbers nil)
-    (pred type-eq-decl nil defined_types nil)
-    (nzcx!1 skolem-const-decl "cauchy_nzreal" inv nil)
+    (pred type-eq-decl nil defined_types nil) nil
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -2167,21 +2178,14 @@ p!1 + s!1)"))
   (inv_p7_TCC1-1 nil 3250067368
    ("" (skosimp*)
     (("" (lemma "expt_plus" ("n0x" "2" "i" "p!1 + s!1" "j" "3"))
-      (("" (replace -1 -2)
+      (("" (replace -1)
         (("" (hide -1)
-          (("" (expand "^" -1 2)
-            (("" (expand "expt")
-              (("" (expand "expt")
-                (("" (expand "expt")
-                  (("" (expand "expt")
-                    (("" (lemma "expt_ge1" ("b" "2" "n" "p!1+s!1"))
-                      (("" (name "t" "2^(p!1+s!1)")
-                        (("" (replace -1)
-                          (("" (hide -1) (("" (grind) nil nil)) nil))
-                          nil))
-                        nil))
-                      nil))
-                    nil))
+          (("" (eval-expr "2 ^ 3")
+            (("" (replace -1 :hide? t)
+              (("" (lemma "expt_ge1" ("b" "2" "n" "p!1+s!1"))
+                (("" (name "t" "2^(p!1+s!1)")
+                  (("" (replace -1)
+                    (("" (hide -1) (("" (grind) nil nil)) nil)) nil))
                   nil))
                 nil))
               nil))
@@ -2211,50 +2215,52 @@ p!1 + s!1)"))
     (expt_plus formula-decl nil exponentiation nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (int_times_int_is_int application-judgement "int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (expt def-decl "real" exponentiation nil)
-    (expt_ge1 formula-decl nil exponentiation nil)
-    (> const-decl "bool" reals nil)
-    (above nonempty-type-eq-decl nil integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posint nonempty-type-eq-decl nil integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
+    (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nnrat_plus_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (round const-decl "int" prelude_aux nil)
+    (expt def-decl "real" exponentiation nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
+    (above nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (expt_ge1 formula-decl nil exponentiation nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (even_plus_even_is_even application-judgement "even_int" integers
      nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (round const-decl "int" prelude_aux nil)
-    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (posrat_plus_nnrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
-     nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posint nonempty-type-eq-decl nil integers nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (^ const-decl "real" exponentiation nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil)
-    (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (int_minus_int_is_int application-judgement "int" integers nil))
+   nil (inv_p7 subtype "((number_fields.-)(inv.pn, 1))" "nznum")))
  (inv_p7 0
   (inv_p7-1 nil 3250067368
    ("" (skosimp*)
@@ -3448,7 +3454,7 @@ p!1 + s!1)"))
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (int_plus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil (inv_n5 subtype "((number_fields.+)(inv.nn, 1))" "nznum")))
  (inv_n5 0
   (inv_n5-1 nil 3250067368
    ("" (skosimp*)
@@ -3756,7 +3762,7 @@ p!1 + s!1)"))
      nil)
     (round const-decl "int" prelude_aux nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil (inv_n6 subtype "((number_fields.-)(inv.nn, 1))" "nznum")))
  (inv_n6 0
   (inv_n6-1 nil 3250067368
    ("" (skosimp*)
@@ -4046,42 +4052,37 @@ p!1 + s!1)"))
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (inv_p0 formula-decl nil inv nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nzint_times_nzint_is_nzint application-judgement "nzint" integers
      nil)
-    (int_times_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (negint_times_negint_is_posint application-judgement "posint"
-     integers nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nnrrat_div_negrat_is_nprat application-judgement "nprat" rationals
+     nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
     (posint_exp application-judgement "posint" exponentiation nil)
+    (even_plus_even_is_even application-judgement "even_int" integers
+     nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
-     nil)
-    (nnrrat_div_negrat_is_nprat application-judgement "nprat" rationals
-     nil)
-    (even_plus_even_is_even application-judgement "even_int" integers
+    (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil))
-   nil))
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (int_plus_int_is_int application-judgement "int" integers nil))
+   nil (inv_n7 subtype "((number_fields.+)(inv.nn, 1))" "nznum")))
  (inv_n7_TCC2 0
   (inv_n7_TCC2-1 nil 3250067368 ("" (subtype-tcc) nil nil)
    ((posint_plus_nnint_is_posint application-judgement "posint"
@@ -4104,7 +4105,7 @@ p!1 + s!1)"))
     (int_plus_int_is_int application-judgement "int" integers nil)
     (round const-decl "int" prelude_aux nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil (inv_n7 subtype "((number_fields.-)(inv.nn, 1))" "nznum")))
  (inv_n7 0
   (inv_n7-1 nil 3250067368
    ("" (skosimp*)
@@ -5332,7 +5333,10 @@ p!1 + s!1)"))
      integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (minimum_inv_prop3 subtype
+    "inv.nzcx((number_fields.+)((number_fields.+)(inv.p, number_fields.*(2, inv.s)), 2))"
+    "nznum")))
  (minimum_inv_prop3 0
   (minimum_inv_prop3-1 nil 3250067368
    ("" (skosimp*)
@@ -5791,7 +5795,10 @@ p!1 + s!1)"))
     (posint_exp application-judgement "posint" exponentiation nil)
     (minimum_inv_exists formula-decl nil inv nil)
     (minimum_inv const-decl "nat" inv nil))
-   nil))
+   nil
+   (cauchy_nz_inv subtype
+    "inv.nzcx((number_fields.+)((number_fields.+)(inv.p, number_fields.*(2, inv.s)), 2))"
+    "nznum")))
  (cauchy_nz_inv_TCC2 0
   (cauchy_nz_inv_TCC2-1 nil 3250067368
    ("" (skosimp)
@@ -5849,7 +5856,10 @@ p!1 + s!1)"))
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (int_times_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (cauchy_nz_inv subtype
+    "(LAMBDA p: LET s = inv.minimum_inv_impl(inv.nzcx) IN prelude_aux.round(number_fields./(exponentiation.^(2, ((number_fields.+)((number_fields.+)(number_fields.*(2, inv.p), number_fields.*(2, inv.s)), 2))), inv.nzcx((number_fields.+)((number_fields.+)(inv.p, number_fields.*(2, inv.s)), 2)))))"
+    "cauchy_nzreal")))
  (inv_nz_lemma 0
   (inv_nz_lemma-1 nil 3250067368
    ("" (skosimp)
