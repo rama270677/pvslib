@@ -13,8 +13,7 @@
     (real_minus_real_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (v skolem-const-decl "Vect3" cd3d nil)
-    (Vect3 type-eq-decl nil vectors_3D_def "vectors/")
+    nil (Vect3 type-eq-decl nil vectors_3D_def "vectors/")
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
@@ -40,7 +39,9 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil))
-   nil))
+   nil
+   (conflict_3D_2D_stable subtype
+    "number_fields.*(cd3d.D, real_defs.abs(cd3d.v`z))" "posreal")))
  (conflict_3D_2D_stable_TCC2 0
   (conflict_3D_2D_stable_TCC2-1 nil 3476708029
    ("" (skeep)
@@ -91,7 +92,10 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil))
-   nil))
+   nil
+   (conflict_3D_2D_stable subtype
+    "real_defs.max((number_fields.-)((number_fields.-)(cd3d.H), number_fields.*(sign.sign(cd3d.v`z), cd3d.s`z)), number_fields.*(cd3d.B, real_defs.abs(cd3d.v`z)))"
+    "nnreal")))
  (conflict_3D_2D_stable_TCC3 0
   (conflict_3D_2D_stable_TCC3-1 nil 3476708029
    ("" (skeep)
@@ -163,7 +167,10 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil))
-   nil))
+   nil
+   (conflict_3D_2D_stable subtype
+    "real_defs.min((number_fields.-)(cd3d.H, number_fields.*(sign.sign(cd3d.v`z), cd3d.s`z)), number_fields.*(cd3d.T, real_defs.abs(cd3d.v`z)))"
+    "{AB: real_types.posreal | reals.>(AB, real_defs.max((number_fields.-)((number_fields.-)(cd3d.H), number_fields.*(sign.sign(cd3d.v`z), cd3d.s`z)), number_fields.*(cd3d.B, real_defs.abs(cd3d.v`z))))}")))
  (conflict_3D_2D_stable 0
   (conflict_3D_2D_stable-1 nil 3476708029
    ("" (skeep)
@@ -558,10 +565,8 @@
     (div_mult_pos_lt2 formula-decl nil real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (s skolem-const-decl "Vect3" cd3d nil)
-    (t!1 skolem-const-decl "Lookahead[B, T]" cd3d nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil) nil
+    nil (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (Vector type-eq-decl nil vectors_2D "vectors/")
     (+ const-decl "Vector" vectors_2D "vectors/")
     (* const-decl "Vector" vectors_2D "vectors/")
@@ -603,8 +608,7 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (nzreal nonempty-type-eq-decl nil reals nil)
-    (v skolem-const-decl "Vect3" cd3d nil)
+    (nzreal nonempty-type-eq-decl nil reals nil) nil
     (Vect3 type-eq-decl nil vectors_3D_def "vectors/")
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -626,8 +630,7 @@
     (div_mult_pos_neg_lt2 formula-decl nil extra_real_props nil)
     (nneg_mult_min formula-decl nil min_max "reals/")
     (min_0_npreal formula-decl nil min_max "reals/")
-    (div_mult_pos_neg_lt1 formula-decl nil extra_real_props nil)
-    (t!2 skolem-const-decl "real" cd3d nil)
+    (div_mult_pos_neg_lt1 formula-decl nil extra_real_props nil) nil
     (< const-decl "bool" reals nil)
     (Vector type-eq-decl nil vectors_3D "vectors/")
     (* const-decl "Vector" vectors_3D "vectors/")
@@ -1044,18 +1047,12 @@
      "{z: posreal | z <= x AND z <= y}" real_defs nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (newt skolem-const-decl
-     "{p: real | p <= (T - B) / 2 AND p <= min(epD / 2, epH / 2)}" cd3d
-     nil)
-    (epH skolem-const-decl "posreal" cd3d nil)
-    (epD skolem-const-decl "posreal" cd3d nil)
+    nil nil nil
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (continuous_vr? const-decl "bool" cont_vect2_real "vect_analysis/")
-    (continuous_vr? const-decl "bool" cont_vect2_real "vect_analysis/")
+    (minus_real_is_real application-judgement "real" reals nil) nil nil
     (posreal_div_posreal_is_posreal judgement-tcc nil real_types nil)
     (norm_eq_0 formula-decl nil vectors_2D "vectors/")
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
@@ -1064,15 +1061,11 @@
     (div_mult_pos_lt2 formula-decl nil real_props nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
-    (norm_scal formula-decl nil vectors_2D "vectors/")
-    (- const-decl "Vector" vectors_2D "vectors/")
-    (delta!1 skolem-const-decl "posreal" cd3d nil)
+    (norm_scal formula-decl nil vectors_2D "vectors/") nil nil
     (norm const-decl "nnreal" vectors_2D "vectors/")
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
-    (v skolem-const-decl "Vect3" cd3d nil)
-    (t!1 skolem-const-decl "Lookahead[B, T]" cd3d nil)
-    (s skolem-const-decl "Vect3" cd3d nil)
+    nil nil nil
     (sqv_cont judgement-tcc nil vect_cont_2D "vect_analysis/")
     (add_zero_right formula-decl nil vectors_2D "vectors/")
     (scal_zero formula-decl nil vectors_2D "vectors/")
@@ -1102,22 +1095,41 @@
      real_props nil)
     (vect2 const-decl "Vect2" vect_3D_2D "vectors/")
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil))
-   nil))
+   nil
+   (conflict_3D_vertical subtype
+    "real_defs.max(horizontal[cd3d.D].Theta_D(vect_3D_2D.vect2(cd3d.s), vect_3D_2D.vect2(cd3d.v), (number_fields.-)(1)), cd3d.B)"
+    "nnreal")))
  (conflict_3D_vertical_TCC2 0
   (conflict_3D_vertical_TCC2-1 nil 3477135982
-   ("" (skeep)
-    (("" (hide -2) (("" (grind :exclude "Theta_D") nil nil)) nil)) nil)
-   ((vect2 const-decl "Vect2" vect_3D_2D "vectors/")
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+   ("" (skeep) (("" (grind :exclude "Theta_D") nil nil)) nil)
+   ((real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (sqv_cont name-judgement "continuous_vr_fun" vect_cont_2D
+     "vect_analysis/")
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (sq_nz_pos application-judgement "posreal" sq "reals/")
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+     real_props nil)
+    (vect2 const-decl "Vect2" vect_3D_2D "vectors/")
+    (sq const-decl "nonneg_real" sq "reals/")
+    (* const-decl "real" vectors_2D "vectors/")
+    (sqv const-decl "nnreal" vectors_2D "vectors/")
+    (det const-decl "real" det_2D "vectors/")
+    (Delta const-decl "real" horizontal nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil))
+   nil
+   (conflict_3D_vertical subtype
+    "real_defs.min(horizontal[cd3d.D].Theta_D(vect_3D_2D.vect2(cd3d.s), vect_3D_2D.vect2(cd3d.v), 1), cd3d.T)"
+    "{AB: real_types.posreal | reals.>(AB, real_defs.max(horizontal[cd3d.D].Theta_D(vect_3D_2D.vect2(cd3d.s), vect_3D_2D.vect2(cd3d.v), (number_fields.-)(1)), cd3d.B))}")))
  (conflict_3D_vertical 0
   (conflict_3D_vertical-1 nil 3477135983
    ("" (skeep)
@@ -1197,10 +1209,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (s skolem-const-decl "Vect3" cd3d nil)
-    (v skolem-const-decl "Vect3" cd3d nil)
-    (t!1 skolem-const-decl "Lookahead[B, T]" cd3d nil)
-    (Lookahead type-eq-decl nil Lookahead nil)
+    nil nil nil (Lookahead type-eq-decl nil Lookahead nil)
     (T formal-const-decl "{AB: posreal | AB > B}" cd3d nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (B formal-const-decl "nnreal" cd3d nil)
@@ -1271,7 +1280,10 @@
     (sq const-decl "nonneg_real" sq "reals/")
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil))
-   nil))
+   nil
+   (detection subtype
+    "real_defs.min(real_defs.max(vertical[cd3d.H].Theta_H(cd3d.s`z, cd3d.v`z, (number_fields.-)(1)), cd3d.B), cd3d.T)"
+    "Lookahead[B, T]")))
  (detection_TCC2 0
   (detection_TCC2-1 nil 3460477145
    ("" (grind :exclude "Theta_H") nil nil)
@@ -1294,7 +1306,10 @@
      real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (detection subtype
+    "real_defs.max(real_defs.min(vertical[cd3d.H].Theta_H(cd3d.s`z, cd3d.v`z, 1), cd3d.T), cd3d.B)"
+    "Lookahead[B, T]")))
  (detection_TCC3 0
   (detection_TCC3-1 nil 3460477145
    ("" (skeep) (("" (assert) (("" (assert) nil nil)) nil)) nil)
@@ -1307,7 +1322,7 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (detection subtype "cd3d.B" "Lookahead[B, T]")))
  (detection_TCC4 0
   (detection_TCC4-1 nil 3460477145
    ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -1320,7 +1335,7 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (detection subtype "cd3d.T" "Lookahead[B, T]")))
  (detection_TCC5 0
   (detection_TCC5-2 nil 3461663865
    ("" (skeep)
@@ -1342,13 +1357,13 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil)
+   nil (detection subtype "cd3d.B" "Lookahead[B, T]"))
   (detection_TCC5-1 nil 3460477145
    ("" (skeep) (("" (assert) nil nil)) nil)
    ((sq_nz_pos application-judgement "posreal" sq "reals/")
     (sqv_cont name-judgement "continuous_vr_fun" vect_cont_2D
      "vect_analysis/"))
-   nil))
+   nil (detection subtype "cd3d.B" "Lookahead[B, T]")))
  (detection_TCC6 0
   (detection_TCC6-2 nil 3461663954
    ("" (skeep)
@@ -1383,7 +1398,9 @@
     (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
     (Vect3 type-eq-decl nil vectors_3D_def "vectors/")
     (vect2 const-decl "Vect2" vect_3D_2D "vectors/"))
-   nil)
+   nil
+   (detection subtype "vect_3D_2D.vect2(cd3d.v)"
+    "{nzv | reals.>=(horizontal[cd3d.D].Delta(vect_3D_2D.vect2(cd3d.s), horizontal.nzv), 0)}"))
   (detection_TCC6-1 nil 3460477145
    ("" (skeep)
     (("" (assert)
@@ -1400,7 +1417,9 @@
     (sqv_cont name-judgement "continuous_vr_fun" vect_cont_2D
      "vect_analysis/")
     (sqv_zero formula-decl nil vectors_2D "vectors/"))
-   nil))
+   nil
+   (detection subtype "vect_3D_2D.vect2(cd3d.v)"
+    "{nzv | reals.>=(horizontal[cd3d.D].Delta(vect_3D_2D.vect2(cd3d.s), horizontal.nzv), 0)}")))
  (detection_TCC7 0
   (detection_TCC7-1 nil 3460477145
    ("" (skosimp*) (("" (hide-all-but 3) (("" (grind) nil nil)) nil))
@@ -1415,7 +1434,10 @@
      real_props nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil))
-   nil))
+   nil
+   (detection subtype
+    "real_defs.min(real_defs.max(cd3d.tin, cd3d.B), cd3d.T)"
+    "Lookahead[B, T]")))
  (detection_TCC8 0
   (detection_TCC8-1 nil 3460477145
    ("" (skosimp*) (("" (hide-all-but 3) (("" (grind) nil nil)) nil))
@@ -1430,7 +1452,10 @@
      real_props nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil))
-   nil))
+   nil
+   (detection subtype
+    "real_defs.max(real_defs.min(cd3d.tout, cd3d.T), cd3d.B)"
+    "Lookahead[B, T]")))
  (detection_TCC9 0
   (detection_TCC9-1 nil 3460477145
    ("" (skosimp*) (("" (hide-all-but 2) (("" (grind) nil nil)) nil))
@@ -1445,7 +1470,10 @@
      real_props nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil))
-   nil))
+   nil
+   (detection subtype
+    "real_defs.min(real_defs.max(cd3d.td1, cd3d.B), cd3d.T)"
+    "Lookahead[B, T]")))
  (detection_TCC10 0
   (detection_TCC10-1 nil 3476701288
    ("" (skosimp*) (("" (hide-all-but 2) (("" (grind) nil nil)) nil))
@@ -1460,7 +1488,10 @@
      real_props nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil))
-   nil))
+   nil
+   (detection subtype
+    "real_defs.max(real_defs.min(cd3d.td2, cd3d.T), cd3d.B)"
+    "Lookahead[B, T]")))
  (detection_TCC11 0
   (detection_TCC11-1 nil 3476701288 ("" (subtype-tcc) nil nil)
    ((real nonempty-type-from-decl nil reals nil)
@@ -1500,7 +1531,7 @@
     (minus_real_is_real application-judgement "real" reals nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil))
-   nil))
+   nil (detection subtype "cd3d.B" "Lookahead[B, T]")))
  (detection_TCC12 0
   (detection_TCC12-1 nil 3476701288 ("" (subtype-tcc) nil nil)
    ((real_gt_is_strict_total_order name-judgement
@@ -1516,7 +1547,7 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil (detection subtype "cd3d.B" "Lookahead[B, T]")))
  (detection_correct 0
   (detection_correct-1 nil 3460479794
    ("" (skeep)
@@ -2012,9 +2043,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (detection_correct formula-decl nil cd3d nil)
-    (tout skolem-const-decl "Lookahead[B, T]" cd3d nil)
-    (tin skolem-const-decl "Lookahead[B, T]" cd3d nil)
+    (detection_correct formula-decl nil cd3d nil) nil nil
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
@@ -2043,7 +2072,10 @@
      "(strict_total_order?[real])" real_props nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil))
-   nil))
+   nil
+   (cd3d_rewrite subtype
+    "real_defs.max(vertical[cd3d.H].Theta_H(cd3d.s`z, cd3d.v`z, (number_fields.-)(1)), cd3d.B)"
+    "nnreal")))
  (cd3d_rewrite_TCC2 0
   (cd3d_rewrite_TCC2-1 nil 3476725629
    ("" (skeep) (("" (grind :exclude ("Theta_H")) nil nil)) nil)
@@ -2056,7 +2088,10 @@
      "(strict_total_order?[real])" real_props nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil))
-   nil))
+   nil
+   (cd3d_rewrite subtype
+    "real_defs.min(vertical[cd3d.H].Theta_H(cd3d.s`z, cd3d.v`z, 1), cd3d.T)"
+    "{AB: real_types.posreal | reals.>(AB, real_defs.max(vertical[cd3d.H].Theta_H(cd3d.s`z, cd3d.v`z, (number_fields.-)(1)), cd3d.B))}")))
  (cd3d_rewrite 0
   (cd3d_rewrite-1 nil 3476725629
    ("" (skeep)
@@ -2376,10 +2411,7 @@
      nil)
     (cd3d? const-decl "bool" cd3d nil)
     (nneg_mult_max formula-decl nil min_max "reals/")
-    (nneg_mult_min formula-decl nil min_max "reals/")
-    (t!1 skolem-const-decl
-     "Lookahead[max(Theta_H(s`z, v`z, -1), B), min(Theta_H(s`z, v`z, 1), T)]"
-     cd3d nil)
+    (nneg_mult_min formula-decl nil min_max "reals/") nil
     (sq_eq_0 formula-decl nil sq "reals/")
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
@@ -2404,12 +2436,7 @@
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (v skolem-const-decl "Vect3" cd3d nil)
-    (s skolem-const-decl "Vect3" cd3d nil)
-    (Lookahead type-eq-decl nil Lookahead nil)
-    (t!1 skolem-const-decl "Lookahead
-    [max(-H - sign(v`z) * s`z, B * abs(v`z)),
-     min(H - sign(v`z) * s`z, T * abs(v`z))]" cd3d nil)
+    nil nil (Lookahead type-eq-decl nil Lookahead nil) nil
     (sqv_scal formula-decl nil vectors_2D "vectors/")
     (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props
      nil)
@@ -2560,8 +2587,7 @@
     (vect2 const-decl "Vect2" vect_3D_2D "vectors/")
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (- const-decl "Vector" vectors_3D "vectors/")
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    nil (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (tau_vv const-decl "real" cd2d nil)
     (cd2d? const-decl "bool" cd2d nil))
    shostak))
@@ -2942,7 +2968,9 @@
     (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
     (Vect3 type-eq-decl nil vectors_3D_def "vectors/")
     (vect2 const-decl "Vect2" vect_3D_2D "vectors/"))
-   nil))
+   nil
+   (cd3d_rewrite_vertical subtype "vect_3D_2D.vect2(cd3d.v)"
+    "{nzv | reals.>=(horizontal[cd3d.D].Delta(vect_3D_2D.vect2(cd3d.s), horizontal.nzv), 0)}")))
  (cd3d_rewrite_vertical_TCC2 0
   (cd3d_rewrite_vertical_TCC2-1 nil 3477138052
    ("" (skeep)
@@ -2956,25 +2984,50 @@
      real_props nil)
     (vect2 const-decl "Vect2" vect_3D_2D "vectors/")
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil))
-   nil))
+   nil
+   (cd3d_rewrite_vertical subtype
+    "real_defs.max(horizontal[cd3d.D].Theta_D(vect_3D_2D.vect2(cd3d.s), vect_3D_2D.vect2(cd3d.v), (number_fields.-)(1)), cd3d.B)"
+    "nnreal")))
  (cd3d_rewrite_vertical_TCC3 0
   (cd3d_rewrite_vertical_TCC3-1 nil 3477138052
-   ("" (skeep)
-    (("" (hide -1)
-      (("" (hide 1) (("" (grind :exclude "Theta_D") nil nil)) nil))
-      nil))
-    nil)
+   ("" (skeep) (("" (grind :exclude "Theta_D") nil nil)) nil)
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (sqv_cont name-judgement "continuous_vr_fun" vect_cont_2D
+     "vect_analysis/")
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (sq_nz_pos application-judgement "posreal" sq "reals/")
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (cd_vertical? const-decl "bool" cd_vertical nil)
+    (sign const-decl "Sign" sign "reals/")
+    (/= const-decl "boolean" notequal nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (Delta const-decl "real" horizontal nil)
+    (det const-decl "real" det_2D "vectors/")
+    (sqv const-decl "nnreal" vectors_2D "vectors/")
+    (* const-decl "real" vectors_2D "vectors/")
+    (sq const-decl "nonneg_real" sq "reals/")
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (vect2 const-decl "Vect2" vect_3D_2D "vectors/"))
-   nil))
+    (vect2 const-decl "Vect2" vect_3D_2D "vectors/")
+    (minus_real_is_real application-judgement "real" reals nil))
+   nil
+   (cd3d_rewrite_vertical subtype
+    "real_defs.min(horizontal[cd3d.D].Theta_D(vect_3D_2D.vect2(cd3d.s), vect_3D_2D.vect2(cd3d.v), 1), cd3d.T)"
+    "{AB: real_types.posreal | reals.>(AB, real_defs.max(horizontal[cd3d.D].Theta_D(vect_3D_2D.vect2(cd3d.s), vect_3D_2D.vect2(cd3d.v), (number_fields.-)(1)), cd3d.B))}")))
  (cd3d_rewrite_vertical 0
   (cd3d_rewrite_vertical-1 nil 3477138052
    ("" (skeep)

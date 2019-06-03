@@ -119,15 +119,14 @@
     (sq const-decl "nonneg_real" sq "reals/")
     (sqv const-decl "nnreal" vectors_2D "vectors/")
     (nnreal type-eq-decl nil real_types nil)
-    (trk_only_line const-decl "{k: real, nvo: Vect2 |
-         nvo /= zero => trk_only?(vo)(nvo) AND k * vnz = nvo - vi}"
-     trk_only nil)
+    (trk_only_line const-decl "{(k: real, nvo: Vect2) |
+   nvo /= zero => trk_only?(vo)(nvo) AND k * vnz = nvo - vi}" trk_only
+     nil)
     (D formal-const-decl "posreal" trk_bands_2D nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (>= const-decl "bool" reals nil) nil
     (* const-decl "Vector" vectors_2D "vectors/")
     (trk_only? const-decl "bool" definitions nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -154,8 +153,7 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (Qs_nzv application-judgement "Nz_vect2" trk_bands_2D nil)
+    (number nonempty-type-decl nil numbers nil) nil
     (tangent_line const-decl "Nz_vect2" tangent_line nil))
    nil))
  (trk2v2_continuous 0
@@ -178,8 +176,7 @@
     (scal_scal_cont_rv formula-decl nil vect2_cont_dot
      "vect_analysis/")
     (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (continuous_rv? const-decl "bool" cont_real_vect2 "vect_analysis/")
+    (bool nonempty-type-eq-decl nil booleans nil) nil
     (sin const-decl "real" sincos_def "trig/")
     (cos const-decl "real" sincos_def "trig/")
     (Vector type-eq-decl nil vectors_2D "vectors/")
@@ -198,14 +195,17 @@
     (real nonempty-type-from-decl nil reals nil)
     (continuous_fun nonempty-type-eq-decl nil continuous_functions
      "analysis/")
-    (continuous? const-decl "bool" continuous_functions "analysis/")
-    (pair_cont_rv formula-decl nil vect_cont_2D "vect_analysis/")
+    nil (pair_cont_rv formula-decl nil vect_cont_2D "vect_analysis/")
     (cos_cont_fun formula-decl nil sincos "trig/")
     (sin_cont_fun formula-decl nil sincos "trig/")
     (trkgs2vect const-decl "Nz_vect2" track nil))
-   nil)
+   nil
+   (trk2v2_continuous subtype "bands_util.trk2v2(trk_bands_2D.vo)"
+    "continuous_rv_fun[real]"))
   (trk2v2_continuous-1 nil 3459317725 ("" (judgement-tcc) nil nil) nil
-   nil))
+   nil
+   (trk2v2_continuous subtype "bands_util.trk2v2(trk_bands_2D.vo)"
+    "continuous_rv_fun[real]")))
  (Vtrk_continuous 0
   (Vtrk_continuous-1 nil 3443464664
    ("" (skeep)
@@ -236,8 +236,7 @@
     (Vector type-eq-decl nil vectors_2D "vectors/")
     (continuous_rv_fun nonempty-type-eq-decl nil cont_real_vect2
      "vect_analysis/")
-    (continuous_rv? const-decl "bool" cont_real_vect2 "vect_analysis/")
-    (bool nonempty-type-eq-decl nil booleans nil)
+    nil (bool nonempty-type-eq-decl nil booleans nil)
     (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
@@ -248,7 +247,10 @@
     (number nonempty-type-decl nil numbers nil)
     (sub_cont_rv formula-decl nil vect_cont_2D "vect_analysis/")
     (trk2v2_Nzv application-judgement "Nz_vect2" bands_util nil))
-   shostak))
+   shostak
+   (Vtrk_continuous subtype
+    "bands_util.Vtrk(trk_bands_2D.vo, trk_bands_2D.vi)"
+    "continuous_rv_fun[real]")))
  (Omega_trk_spc 0
   (Omega_trk_spc-2 nil 3459203874
    ("" (skeep)
@@ -269,15 +271,13 @@
    ((sq_nz_pos application-judgement "posreal" sq "reals/")
     (real_minus_real_is_real application-judgement "real" reals nil)
     (Omega_trk_spc const-decl "real" trk_bands_2D nil)
-    (trk2v2_Nzv application-judgement "Nz_vect2" bands_util nil)
-    (continuous_rv? const-decl "bool" cont_real_vect2 "vect_analysis/")
+    (trk2v2_Nzv application-judgement "Nz_vect2" bands_util nil) nil
     (dot_cont_rr formula-decl nil vect2_cont_dot "vect_analysis/")
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (trk2v2_continuous application-judgement "continuous_rv_fun"
      trk_bands_2D nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (const_cont_rv formula-decl nil vect_cont_2D "vect_analysis/")
-    (const_cont formula-decl nil continuous_lambda "analysis/")
+    (const_cont_rv formula-decl nil vect_cont_2D "vect_analysis/") nil
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
@@ -304,14 +304,17 @@
     (Vector type-eq-decl nil vectors_2D "vectors/")
     (continuous_fun nonempty-type-eq-decl nil continuous_functions
      "analysis/")
-    (continuous? const-decl "bool" continuous_functions "analysis/")
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (sub_cont formula-decl nil continuous_lambda "analysis/")
+    nil (bool nonempty-type-eq-decl nil booleans nil) nil
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil))
-   nil)
-  (Omega_trk_spc-1 nil 3459203808 ("" (judgement-tcc) nil nil) nil
-   nil))
+   nil
+   (Omega_trk_spc subtype
+    "trk_bands_2D.Omega_trk_spc(trk_bands_2D.vo, trk_bands_2D.vi, trk_bands_2D.t)"
+    "(LAMBDA (frr: [real -> real]): continuous_functions[real].continuous?(trk_bands_2D.frr))"))
+  (Omega_trk_spc-1 nil 3459203808 ("" (judgement-tcc) nil nil) nil nil
+   (Omega_trk_spc subtype
+    "trk_bands_2D.Omega_trk_spc(trk_bands_2D.vo, trk_bands_2D.vi, trk_bands_2D.t)"
+    "(LAMBDA (frr: [real -> real]): continuous_functions[real].continuous?(trk_bands_2D.frr))")))
  (trk_special_case_invariant 0
   (trk_special_case_invariant-1 nil 3467987873
    ("" (skeep)
@@ -574,8 +577,9 @@
     (both_sides_times1_imp formula-decl nil extra_real_props nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (trk_special_case? const-decl "bool" trk_only nil)
-    (Omega_trk_spc application-judgement "({f | continuous?(f)})"
-     trk_bands_2D nil))
+    (Omega_trk_spc application-judgement
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil))
    shostak)
   (Omega_trk_spc_separated-1 nil 3476810585
    ("" (skeep)
@@ -738,18 +742,23 @@
   (Omega_trk_spc_critical_TCC1-1 nil 3476809011
    ("" (skeep)
     (("" (lemma "Omega_trk_spc_separated")
-      (("" (inst - "s" "t" "trk" "vi" "vo") (("" (assert) nil nil))
+      (("" (inst - "s" "t" "trk" "vi" "vo")
+        (("" (split -1)
+          (("1" (assert) nil nil) ("2" (propax) nil nil)
+           ("3" (propax) nil nil))
+          nil))
         nil))
       nil))
     nil)
    ((Omega_trk_spc_separated formula-decl nil trk_bands_2D nil)
-    (sq_nz_pos application-judgement "posreal" sq "reals/")
-    (sqv_cont name-judgement "continuous_vr_fun" vect_cont_2D
-     "vect_analysis/")
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (Omega_trk_spc application-judgement "({f | continuous?(f)})"
-     trk_bands_2D nil)
+    (sqv_cont name-judgement "continuous_vr_fun" vect_cont_2D
+     "vect_analysis/")
+    (sq_nz_pos application-judgement "posreal" sq "reals/")
+    (Omega_trk_spc application-judgement
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil)
     (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
     (zero const-decl "Vector" vectors_2D "vectors/")
     (/= const-decl "boolean" notequal nil)
@@ -767,7 +776,8 @@
     (number nonempty-type-decl nil numbers nil)
     (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
     (real nonempty-type-from-decl nil reals nil))
-   nil))
+   nil
+   (Omega_trk_spc_critical subtype "trk_bands_2D.s" "Sp_vect2[D]")))
  (Omega_trk_spc_critical 0
   (Omega_trk_spc_critical-2 nil 3467987851
    ("" (skeep)
@@ -796,8 +806,9 @@
       nil))
     nil)
    ((Omega_trk_spc_separated formula-decl nil trk_bands_2D nil)
-    (Omega_trk_spc application-judgement "({f | continuous?(f)})"
-     trk_bands_2D nil)
+    (Omega_trk_spc application-judgement
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil)
     (sq_nz_pos application-judgement "posreal" sq "reals/")
     (sqv_cont name-judgement "continuous_vr_fun" vect_cont_2D
      "vect_analysis/")
@@ -1018,8 +1029,7 @@
     (horizontal_entry_le formula-decl nil horizontal nil)
     (dot_zero_right formula-decl nil vectors_2D "vectors/")
     (add_zero_right formula-decl nil vectors_2D "vectors/")
-    (scal_zero formula-decl nil vectors_2D "vectors/")
-    (v skolem-const-decl "Vect2" trk_bands_2D nil)
+    (scal_zero formula-decl nil vectors_2D "vectors/") nil
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (horiz_dist_strictly_convex_scaf formula-decl nil
@@ -1027,10 +1037,7 @@
     (horiz_dist_scaf const-decl "real" horizontal_dist_convexity nil)
     (strictly_convex_btw_pt_lt formula-decl nil convex_functions
      "reals/")
-    (t1 skolem-const-decl
-     "{p: real | p >= 0 AND p >= horizontal_tca(s, v)}" trk_bands_2D
-     nil)
-    (s skolem-const-decl "Vect2" trk_bands_2D nil)
+    nil nil
     (nonneg_real_max application-judgement
      "{z: nonneg_real | z >= x AND z >= y}" real_defs nil)
     (< const-decl "bool" reals nil)
@@ -1268,8 +1275,9 @@
    ((trk_special_case_conflict_T formula-decl nil trk_bands_2D nil)
     (Vtrk_continuous application-judgement "continuous_rv_fun"
      trk_bands_2D nil)
-    (Omega_trk_spc application-judgement "({f | continuous?(f)})"
-     trk_bands_2D nil)
+    (Omega_trk_spc application-judgement
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
@@ -1304,8 +1312,7 @@
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (nz_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (+ const-decl "Vector" vectors_2D "vectors/")
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (+ const-decl "Vector" vectors_2D "vectors/") nil
     (* const-decl "Vector" vectors_2D "vectors/")
     (trk2v2_continuous application-judgement "continuous_rv_fun"
      trk_bands_2D nil)
@@ -1484,8 +1491,9 @@
    ((trk_special_case_conflict_B formula-decl nil trk_bands_2D nil)
     (Vtrk_continuous application-judgement "continuous_rv_fun"
      trk_bands_2D nil)
-    (Omega_trk_spc application-judgement "({f | continuous?(f)})"
-     trk_bands_2D nil)
+    (Omega_trk_spc application-judgement
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1503,8 +1511,7 @@
      "vectors/")
     (trk2v2_continuous application-judgement "continuous_rv_fun"
      trk_bands_2D nil)
-    (* const-decl "Vector" vectors_2D "vectors/")
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (* const-decl "Vector" vectors_2D "vectors/") nil
     (+ const-decl "Vector" vectors_2D "vectors/")
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
@@ -1639,14 +1646,12 @@
      trk_bands_2D nil)
     (comp_vr_rv_cont formula-decl nil vect2_cont_comp "vect_analysis/")
     (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (continuous_rv? const-decl "bool" cont_real_vect2 "vect_analysis/")
+    (bool nonempty-type-eq-decl nil booleans nil) nil
     (Vector type-eq-decl nil vectors_2D "vectors/")
     (/= const-decl "boolean" notequal nil)
     (zero const-decl "Vector" vectors_2D "vectors/")
     (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (Vtrk const-decl "Vect2" bands_util nil)
-    (continuous_vr? const-decl "bool" cont_vect2_real "vect_analysis/")
+    (Vtrk const-decl "Vect2" bands_util nil) nil
     (>= const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
@@ -1662,13 +1667,10 @@
      nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (continuous? const-decl "bool" continuity_ms_def "analysis/")
+    (real nonempty-type-from-decl nil reals nil) nil
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (continuous_vr? const-decl "bool" cont_vect2_real "vect_analysis/")
-    (set type-eq-decl nil sets nil) (fullset const-decl "set" sets nil)
-    (x0 skolem-const-decl "Vect2" trk_bands_2D nil)
-    (x!1 skolem-const-decl "Vect2" trk_bands_2D nil)
+    nil (set type-eq-decl nil sets nil)
+    (fullset const-decl "set" sets nil) nil nil
     (ball const-decl "set[T]" metric_spaces "analysis/")
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1680,18 +1682,21 @@
     (* const-decl "real" vectors_2D "vectors/")
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (minus_real_is_real application-judgement "real" reals nil) nil
     (norm const-decl "nnreal" vectors_2D "vectors/")
     (= const-decl "[T, T -> boolean]" equalities nil)
     (dist_norm formula-decl nil distance_2D "vectors/")
     (real_dist const-decl "nnreal" real_metric_space "analysis/")
-    (member const-decl "bool" sets nil)
-    (continuous_at? const-decl "bool" continuity_ms_def "analysis/")
-    (continuous? const-decl "bool" continuity_ms_def "analysis/")
+    (member const-decl "bool" sets nil) nil nil
     (omega_v2_continuous formula-decl nil omega_v2 nil))
-   nil)
-  (Omega_trk_TCC1-1 nil 3444143969 ("" (subtype-tcc) nil nil) nil nil))
+   nil
+   (Omega_trk subtype
+    "vect2_cont_comp[real].o(omega_v2[trk_bands_2D.D, trk_bands_2D.B, trk_bands_2D.T].omega_v2(trk_bands_2D.s), bands_util.Vtrk(trk_bands_2D.vo, trk_bands_2D.vi))"
+    "(LAMBDA (frr: [real -> real]): continuous_functions[real].continuous?(trk_bands_2D.frr))"))
+  (Omega_trk_TCC1-1 nil 3444143969 ("" (subtype-tcc) nil nil) nil nil
+   (Omega_trk subtype
+    "vect2_cont_comp[real].o(omega_v2[trk_bands_2D.D, trk_bands_2D.B, trk_bands_2D.T].omega_v2(trk_bands_2D.s), bands_util.Vtrk(trk_bands_2D.vo, trk_bands_2D.vi))"
+    "(LAMBDA (frr: [real -> real]): continuous_functions[real].continuous?(trk_bands_2D.frr))")))
  (Omega_trk_critical 0
   (Omega_trk_critical-1 nil 3443205728
    ("" (skeep)
@@ -1742,14 +1747,15 @@
         nil))
       nil))
     nil)
-   ((Omega_trk const-decl "({f | continuous?(f)})" trk_bands_2D nil)
+   ((Omega_trk const-decl
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil)
     (Vtrk const-decl "Vect2" bands_util nil)
     (trk2v2 const-decl "(trk_only?(vo2))" bands_util nil)
     (trk_only? const-decl "bool" definitions nil)
     (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
     (zero const-decl "Vector" vectors_2D "vectors/")
-    (/= const-decl "boolean" notequal nil)
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (/= const-decl "boolean" notequal nil) nil
     (Vector type-eq-decl nil vectors_2D "vectors/")
     (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
     (trk_critical? const-decl "bool" trk_bands_2D nil)
@@ -1871,8 +1877,7 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (tangent_line const-decl "Nz_vect2" tangent_line nil)
-    (* const-decl "Vector" vectors_2D "vectors/")
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (* const-decl "Vector" vectors_2D "vectors/") nil
     (det const-decl "real" det_2D "vectors/")
     (det_sub_left formula-decl nil det_2D "vectors/")
     (real_minus_real_is_real application-judgement "real" reals nil)
@@ -1881,8 +1886,7 @@
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (pos_times_gt formula-decl nil real_props nil)
     (Qs const-decl "Vect2" tangent_line nil)
-    (det_asym formula-decl nil det_2D "vectors/")
-    (Qs_nzv application-judgement "Nz_vect2" trk_bands_2D nil)
+    (det_asym formula-decl nil det_2D "vectors/") nil
     (minus_real_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1975,7 +1979,10 @@
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (trk_line_sort_eps_angle subtype
+    "number_fields./(det_2D.det(trk_bands_2D.vi, trk_bands_2D.ss), (number_fields.*(vectors_2D.norm(trk_bands_2D.vo), vectors_2D.norm(trk_bands_2D.ss))))"
+    "real_abs_le1")))
  (trk_line_sort_eps_angle_TCC2 0
   (trk_line_sort_eps_angle_TCC2-1 nil 3460995654
    ("" (skosimp*)
@@ -1996,7 +2003,8 @@
      real_types nil)
     (nz_norm_gt_0 application-judgement "posreal" vectors_2D
      "vectors/"))
-   nil))
+   nil
+   (trk_line_sort_eps_angle subtype "trk_bands_2D.nvo1" "Nz_vect2")))
  (trk_line_sort_eps_angle_TCC3 0
   (trk_line_sort_eps_angle_TCC3-1 nil 3460995654
    ("" (skosimp*)
@@ -2017,7 +2025,8 @@
      real_types nil)
     (nz_norm_gt_0 application-judgement "posreal" vectors_2D
      "vectors/"))
-   nil))
+   nil
+   (trk_line_sort_eps_angle subtype "trk_bands_2D.nvo2" "Nz_vect2")))
  (trk_line_sort_eps_angle 0
   (trk_line_sort_eps_angle-1 nil 3460995873
    ("" (skeep)
@@ -2160,7 +2169,9 @@
      real_types nil)
     (nz_norm_gt_0 application-judgement "posreal" vectors_2D
      "vectors/"))
-   nil))
+   nil
+   (trk_line_sort_eps_1_angle_case1 subtype "trk_bands_2D.nvo1"
+    "Nz_vect2")))
  (trk_line_sort_eps_1_angle_case1_TCC2 0
   (trk_line_sort_eps_1_angle_case1_TCC2-1 nil 3461083409
    ("" (skosimp*)
@@ -2176,7 +2187,9 @@
      real_types nil)
     (nz_norm_gt_0 application-judgement "posreal" vectors_2D
      "vectors/"))
-   nil))
+   nil
+   (trk_line_sort_eps_1_angle_case1 subtype "trk_bands_2D.nvo2"
+    "Nz_vect2")))
  (trk_line_sort_eps_1_angle_case1 0
   (trk_line_sort_eps_1_angle_case1-1 nil 3461083490
    ("" (skeep)
@@ -2347,7 +2360,9 @@
      real_types nil)
     (nz_norm_gt_0 application-judgement "posreal" vectors_2D
      "vectors/"))
-   nil))
+   nil
+   (trk_line_sort_eps_1_angle_case2 subtype "trk_bands_2D.nvo1"
+    "Nz_vect2")))
  (trk_line_sort_eps_1_angle_case2_TCC2 0
   (trk_line_sort_eps_1_angle_case2_TCC2-1 nil 3461087210
    ("" (skosimp*)
@@ -2363,7 +2378,9 @@
      real_types nil)
     (nz_norm_gt_0 application-judgement "posreal" vectors_2D
      "vectors/"))
-   nil))
+   nil
+   (trk_line_sort_eps_1_angle_case2 subtype "trk_bands_2D.nvo2"
+    "Nz_vect2")))
  (trk_line_sort_eps_1_angle_case2 0
   (trk_line_sort_eps_1_angle_case2-1 nil 3461087322
    ("" (skeep)
@@ -3152,16 +3169,15 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (trk_only? const-decl "bool" definitions nil)
-    (* const-decl "Vector" vectors_2D "vectors/")
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (* const-decl "Vector" vectors_2D "vectors/") nil
     (>= const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (D formal-const-decl "posreal" trk_bands_2D nil)
-    (trk_only_line const-decl "{k: real, nvo: Vect2 |
-         nvo /= zero => trk_only?(vo)(nvo) AND k * vnz = nvo - vi}"
-     trk_only nil)
+    (trk_only_line const-decl "{(k: real, nvo: Vect2) |
+   nvo /= zero => trk_only?(vo)(nvo) AND k * vnz = nvo - vi}" trk_only
+     nil)
     (nnreal type-eq-decl nil real_types nil)
     (sqv const-decl "nnreal" vectors_2D "vectors/")
     (sq const-decl "nonneg_real" sq "reals/")
@@ -3191,13 +3207,11 @@
     (nonzero_times3 formula-decl nil real_props nil)
     (minus_div1 formula-decl nil real_props nil)
     (times_div2 formula-decl nil real_props nil)
-    (times_div1 formula-decl nil real_props nil)
-    (epsirt skolem-const-decl "Sign" trk_bands_2D nil)
+    (times_div1 formula-decl nil real_props nil) nil
     (dot_comm formula-decl nil vectors_2D "vectors/")
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (< const-decl "bool" reals nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (sD2 skolem-const-decl "real" trk_bands_2D nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil) nil
     (neg_times_lt formula-decl nil real_props nil)
     (pos_times_lt formula-decl nil real_props nil)
     (sq_sqrt formula-decl nil sqrt "reals/")
@@ -3230,7 +3244,7 @@
     (+ const-decl "Vector" vectors_2D "vectors/")
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (Qs_nzv application-judgement "Nz_vect2" trk_bands_2D nil)
+    nil
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (nz_sqv_gt_0 application-judgement "posreal" vectors_2D "vectors/")
@@ -3663,9 +3677,10 @@
     (trk_special_case_conflict_B formula-decl nil trk_bands_2D nil)
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
-    (Omega_trk const-decl "({f | continuous?(f)})" trk_bands_2D nil)
-    (continuous? const-decl "bool" continuous_functions "analysis/")
-    (omega_v2 const-decl "real" omega_v2 nil)
+    (Omega_trk const-decl
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil)
+    nil (omega_v2 const-decl "real" omega_v2 nil)
     (O const-decl "[T -> real]" vect2_cont_comp "vect_analysis/")
     (Omega_trk_critical formula-decl nil trk_bands_2D nil)
     (real_lt_is_strict_total_order name-judgement
@@ -3676,8 +3691,9 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (IntermediateValue formula-decl nil interm_value_thm "analysis/")
-    (Omega_trk_spc application-judgement "({f | continuous?(f)})"
-     trk_bands_2D nil)
+    (Omega_trk_spc application-judgement
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil)
     (Omega_trk_spc_critical formula-decl nil trk_bands_2D nil)
     (trk_critical? const-decl "bool" trk_bands_2D nil)
     (Omega_trk_spc_separated formula-decl nil trk_bands_2D nil)
@@ -4273,9 +4289,10 @@
     (trk_special_case_conflict_B formula-decl nil trk_bands_2D nil)
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
-    (Omega_trk const-decl "({f | continuous?(f)})" trk_bands_2D nil)
-    (continuous? const-decl "bool" continuous_functions "analysis/")
-    (omega_v2 const-decl "real" omega_v2 nil)
+    (Omega_trk const-decl
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil)
+    nil (omega_v2 const-decl "real" omega_v2 nil)
     (O const-decl "[T -> real]" vect2_cont_comp "vect_analysis/")
     (Omega_trk_critical formula-decl nil trk_bands_2D nil)
     (real_lt_is_strict_total_order name-judgement
@@ -4286,8 +4303,9 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (IntermediateValue formula-decl nil interm_value_thm "analysis/")
-    (Omega_trk_spc application-judgement "({f | continuous?(f)})"
-     trk_bands_2D nil)
+    (Omega_trk_spc application-judgement
+     "(LAMBDA (frr: [real -> real]): continuous?(frr))" trk_bands_2D
+     nil)
     (Omega_trk_spc_critical formula-decl nil trk_bands_2D nil)
     (trk_critical? const-decl "bool" trk_bands_2D nil)
     (trk_line_complete formula-decl nil trk_line nil)

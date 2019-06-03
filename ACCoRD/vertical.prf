@@ -28,7 +28,7 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil (nz_spz subtype "vertical.x" "nzreal")))
  (neg_spz 0
   (neg_spz-1 nil 3432031751
    ("" (skeep :preds? t) (("" (rewrite "abs_neg") nil nil)) nil)
@@ -58,7 +58,7 @@
     (Spz type-eq-decl nil vertical nil)
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
      nil))
-   nil))
+   nil (neg_spz subtype "(number_fields.-)(vertical.spz)" "Spz")))
  (on_signed_H 0
   (on_signed_H-1 nil 3432556510
    ("" (skeep) (("" (typepred "eps") (("" (grind) nil nil)) nil)) nil)
@@ -410,8 +410,7 @@
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (nzvz skolem-const-decl "nzreal" vertical nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil) nil
     (>= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
@@ -748,8 +747,7 @@
     (sq_abs formula-decl nil sq "reals/")
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnt skolem-const-decl "nnreal" vertical nil)
-    (both_sides_times_pos_ge1 formula-decl nil real_props nil)
+    nil (both_sides_times_pos_ge1 formula-decl nil real_props nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (bijective? const-decl "bool" functions nil)
@@ -798,9 +796,7 @@
     (nzreal_times_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (sign const-decl "Sign" sign "reals/")
-    (t2 skolem-const-decl "real" vertical nil)
-    (t1 skolem-const-decl "real" vertical nil)
+    (sign const-decl "Sign" sign "reals/") nil nil
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
@@ -1031,14 +1027,61 @@
     (TRUE const-decl "bool" booleans nil))
    nil))
  (vertical_tau_entry_exit 0
+  (vertical_tau_entry_exit-4 "" 3768313012
+   ("" (skeep)
+    (("" (grind)
+      (("1"
+        (try (try (grind-reals) (fail) (skip)) (fail)
+         (then (auto-rewrite "both_sides_div_pos_lt1") (assert)))
+        nil)
+       ("2"
+        (try (try (grind-reals) (fail) (skip)) (fail)
+         (then (auto-rewrite "both_sides_div_neg_lt1") (assert)))
+        nil)
+       ("3"
+        (try (try (grind-reals) (fail) (skip)) (fail)
+         (then (auto-rewrite "both_sides_div_pos_gt1") (assert)))
+        nil)
+       ("4"
+        (try (try (grind-reals) (fail) (skip)) (fail)
+         (then (auto-rewrite "both_sides_div_neg_gt1") (assert)))
+        nil))))
+    nil)
+   ((both_sides_div_neg_gt1 formula-decl nil real_props nil)
+    (both_sides_div_pos_gt1 formula-decl nil real_props nil)
+    (both_sides_div_neg_lt1 formula-decl nil real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (both_sides_div_pos_lt1 formula-decl nil real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (nzint_times_nzint_is_nzint application-judgement "nzint" integers
+     nil)
+    (nzreal_times_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (vertical_tau const-decl "real" definitions nil)
+    (sign const-decl "Sign" sign "reals/")
+    (Theta_H const-decl "real" vertical nil))
+   nil)
   (vertical_tau_entry_exit-3 "" 3504843925
    ("" (skeep)
     (("" (grind)
-      (("1" (grind-reals) nil nil) ("2" (grind-reals) nil nil)
-       ("3" (lemma "both_sides_div_pos_gt1")
-        (("3" (inst?) (("3" (assert) nil nil)) nil)) nil)
-       ("4" (lemma "both_sides_div_neg_gt1")
-        (("4" (inst?) (("4" (assert) nil nil)) nil)) nil))
+      (("1" (auto-rewrite "both_sides_div_pos_lt1")
+        (("1" (assert) nil nil)) nil)
+       ("2" (auto-rewrite "both_sides_div_neg_lt1")
+        (("2" (assert) nil nil)) nil)
+       ("3" (auto-rewrite "both_sides_div_pos_gt1")
+        (("3" (assert) nil nil)) nil)
+       ("4" (auto-rewrite "both_sides_div_neg_gt1")
+        (("4" (assert) nil nil)) nil))
       nil))
     nil)
    ((Theta_H const-decl "real" vertical nil)
@@ -1054,8 +1097,6 @@
      real_types nil)
     (nzint_times_nzint_is_nzint application-judgement "nzint" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1064,30 +1105,7 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (both_sides_div_neg_lt1 formula-decl nil real_props nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (/= const-decl "boolean" notequal nil)
-    (nzreal nonempty-type-eq-decl nil reals nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (H formal-const-decl "posreal" vertical nil)
     (both_sides_div_pos_gt1 formula-decl nil real_props nil)
-    (<= const-decl "bool" reals nil)
-    (nonpos_real nonempty-type-eq-decl nil real_types nil)
-    (< const-decl "bool" reals nil)
-    (negreal nonempty-type-eq-decl nil real_types nil)
     (both_sides_div_neg_gt1 formula-decl nil real_props nil))
    shostak)
   (vertical_tau_entry_exit-2 nil 3465922252
@@ -1264,14 +1282,12 @@
    ((neg_spz application-judgement "Spz" vertical nil)
     (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
-    (vz skolem-const-decl "real" vertical nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
+    nil (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (pos_times_ge formula-decl nil real_props nil)
     (neg_times_ge formula-decl nil real_props nil)
     (zero_times1 formula-decl nil real_props nil)
-    (both_sides_times_pos_ge1 formula-decl nil real_props nil)
-    (FDX_46 skolem-const-decl "real" vertical nil)
+    (both_sides_times_pos_ge1 formula-decl nil real_props nil) nil
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (div_cancel2 formula-decl nil real_props nil)
@@ -1483,17 +1499,14 @@
      real_types nil)
     (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props
      nil)
-    (CBD_47 skolem-const-decl "Spz" vertical nil)
+    nil
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (one_times formula-decl nil extra_tegies nil)
     (neg_neg formula-decl nil extra_tegies nil)
-    (div_mult_neg_le1 formula-decl nil real_props nil)
-    (CBD_48 skolem-const-decl "Spz" vertical nil)
-    (CBD_49 skolem-const-decl "Spz" vertical nil)
-    (CBD_50 skolem-const-decl "Spz" vertical nil)
+    (div_mult_neg_le1 formula-decl nil real_props nil) nil nil nil
     (TRUE const-decl "bool" booleans nil)
     (nzreal_times_nzreal_is_nzreal application-judgement "nzreal"
      real_types nil)
@@ -1555,10 +1568,7 @@
      real_props nil)
     (H formal-const-decl "posreal" vertical nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (sz skolem-const-decl "real" vertical nil)
-    (vz skolem-const-decl "real" vertical nil)
-    (t skolem-const-decl "real" vertical nil)
+    (> const-decl "bool" reals nil) nil nil nil
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
@@ -1714,9 +1724,7 @@
     (Sign type-eq-decl nil sign "reals/")
     (Spz type-eq-decl nil vertical nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (sz skolem-const-decl "real" vertical nil)
-    (nzvz skolem-const-decl "nzreal" vertical nil)
-    (t skolem-const-decl "real" vertical nil)
+    nil nil nil
     (real_minus_real_is_real application-judgement "real" reals nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -1937,10 +1945,7 @@
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (pt skolem-const-decl "posreal" vertical nil)
-    (vz skolem-const-decl "real" vertical nil)
-    (sz skolem-const-decl "real" vertical nil)
+    (posreal nonempty-type-eq-decl nil real_types nil) nil nil nil
     (H formal-const-decl "posreal" vertical nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
@@ -2002,8 +2007,7 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (vertical_solution? const-decl "bool" vertical nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (vz skolem-const-decl "real" vertical nil)
+    (real_plus_real_is_real application-judgement "real" reals nil) nil
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -2270,10 +2274,8 @@
     (Theta_H const-decl "real" vertical nil)
     (sign_neg_clos application-judgement "Sign" sign "reals/")
     (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (nzvz skolem-const-decl "nzreal" vertical nil)
-    (pt skolem-const-decl "posreal" vertical nil)
-    (sz skolem-const-decl "real" vertical nil)
+    (minus_real_is_real application-judgement "real" reals nil) nil nil
+    nil
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
@@ -2467,7 +2469,7 @@
     (real_minus_real_is_real application-judgement "real" reals nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil (vs_circle_at? subtype "vertical.t" "posreal")))
  (vs_circle_at_complete_TCC1 0
   (vs_circle_at_complete_TCC1-1 nil 3482352162
    ("" (subtype-tcc) nil nil)
@@ -2487,7 +2489,7 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil (vs_circle_at_complete subtype "vertical.t" "nzreal")))
  (vs_circle_at_complete_TCC2 0
   (vs_circle_at_complete_TCC2-1 nil 3482352162
    ("" (subtype-tcc) nil nil)
@@ -2516,7 +2518,7 @@
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil (vs_circle_at_complete subtype "vertical.b" "nzreal")))
  (vs_circle_at_complete 0
   (vs_circle_at_complete-1 nil 3482352192
    ("" (skeep)
