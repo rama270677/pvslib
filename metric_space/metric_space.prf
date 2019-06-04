@@ -170,9 +170,6 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (r!1 skolem-const-decl "posreal" metric_space nil)
-    (x!1 skolem-const-decl "T" metric_space nil)
-    (x!2 skolem-const-decl "T" metric_space nil)
     (member const-decl "bool" sets nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -225,10 +222,9 @@
     (T formal-type-decl nil metric_space nil)
     (metric_open? const-decl "bool" metric_space_def nil)
     (metric_open_set const-decl "set[T]" metric_space nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
     (finite_emptyset name-judgement "finite_set" finite_sets nil))
-   shostak))
+   shostak
+   (metric_open subtype "metric_space.metric_open_set" "metric_open")))
  (metric_closed_TCC1 0
   (metric_closed_TCC1-1 nil 3359138684
    ("" (expand "metric_closed_set")
@@ -246,7 +242,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (complement_complement formula-decl nil sets_lemmas nil)
     (metric_closed_set const-decl "set[T]" metric_space nil))
-   shostak))
+   shostak
+   (metric_closed subtype "metric_space.metric_closed_set"
+    "metric_closed")))
  (ball_is_metric_open 0
   (ball_is_metric_open-1 nil 3359138684
    ("" (skosimp)
@@ -325,9 +323,6 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (r!1 skolem-const-decl "posreal" metric_space nil)
-    (x!1 skolem-const-decl "T" metric_space nil)
-    (x!2 skolem-const-decl "T" metric_space nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
@@ -342,7 +337,10 @@
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (metric_zero formula-decl nil metric_space nil)
     (ball_centre formula-decl nil metric_space nil))
-   shostak))
+   shostak
+   (ball_is_metric_open subtype
+    "metric_space_def[metric_space.T, metric_space.d].ball(metric_space.x, metric_space.r)"
+    "metric_open")))
  (metric_space_is_topology? 0
   (metric_space_is_topology?-1 nil 3382769693
    ("" (expand "metric_induced_topology")
@@ -600,12 +598,13 @@
     (ball const-decl "set[T]" metric_space_def nil)
     (T formal-type-decl nil metric_space nil)
     (member const-decl "bool" sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
      nil))
-   nil))
+   nil
+   (metric_space_is_topology? subtype
+    "metric_space_def[metric_space.T, metric_space.d].metric_induced_topology"
+    "(topology_prelim[metric_space.T].topology?)")))
  (metric_space_is_hausdorff? 0
   (metric_space_is_hausdorff?-1 nil 3359138686
    ("" (expand "hausdorff?")
@@ -695,8 +694,6 @@
     (empty? const-decl "bool" sets nil)
     (disjoint? const-decl "bool" sets nil)
     (ball_centre formula-decl nil metric_space nil)
-    (y!1 skolem-const-decl "T" metric_space nil)
-    (x!1 skolem-const-decl "T" metric_space nil)
     (ball const-decl "set[T]" metric_space_def nil)
     (set type-eq-decl nil sets nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
@@ -705,7 +702,6 @@
      nil)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
-    (R skolem-const-decl "nnreal" metric_space nil)
     (> const-decl "bool" reals nil)
     (ball_is_metric_open application-judgement "metric_open"
      metric_space nil)
@@ -715,7 +711,10 @@
     (hausdorff? const-decl "bool" topology_prelim "topology/")
     (metric_space_is_topology? name-judgement "(topology?)"
      metric_space nil))
-   shostak))
+   shostak
+   (metric_space_is_hausdorff? subtype
+    "metric_space_def[metric_space.T, metric_space.d].metric_induced_topology"
+    "(topology_prelim[metric_space.T].hausdorff?)")))
  (metric_space_is_hausdorff 0
   (metric_space_is_hausdorff-1 nil 3384417346
    ("" (judgement-tcc) nil nil)
@@ -725,7 +724,10 @@
      metric_space nil)
     (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
      metric_space nil))
-   nil))
+   nil
+   (metric_space_is_hausdorff subtype
+    "metric_space_def[metric_space.T, metric_space.d].metric_induced_topology"
+    "hausdorff[T]")))
  (metric_open_def 0
   (metric_open_def-1 nil 3359138576
    ("" (skosimp)
@@ -779,7 +781,9 @@
     (d formal-const-decl "metric" metric_space nil)
     (metric_open? const-decl "bool" metric_space_def nil)
     (metric_open nonempty-type-eq-decl nil metric_space nil))
-   shostak))
+   shostak
+   (metric_open_is_open subtype "metric_space.x"
+    "open[T, (metric_induced_topology[T, d])]")))
  (open_is_metric_open 0
   (open_is_metric_open-1 nil 3359138648
    ("" (skosimp) (("" (rewrite "metric_open_def") nil nil)) nil)
@@ -805,7 +809,8 @@
      nil)
     (open? const-decl "bool" topology "topology/")
     (open nonempty-type-eq-decl nil topology "topology/"))
-   shostak))
+   shostak
+   (open_is_metric_open subtype "metric_space.x" "metric_open")))
  (metric_closed_is_closed 0
   (metric_closed_is_closed-1 nil 3359138658
    ("" (skosimp) (("" (rewrite "metric_closed_def" 1 :dir rl) nil nil))
@@ -828,7 +833,9 @@
     (d formal-const-decl "metric" metric_space nil)
     (metric_closed? const-decl "bool" metric_space_def nil)
     (metric_closed nonempty-type-eq-decl nil metric_space nil))
-   shostak))
+   shostak
+   (metric_closed_is_closed subtype "metric_space.x"
+    "closed[T, (metric_induced_topology[T, d])]")))
  (closed_is_metric_closed 0
   (closed_is_metric_closed-1 nil 3359138674
    ("" (skosimp) (("" (rewrite "metric_closed_def") nil nil)) nil)
@@ -854,7 +861,8 @@
      nil)
     (closed? const-decl "bool" topology "topology/")
     (closed nonempty-type-eq-decl nil topology "topology/"))
-   shostak))
+   shostak
+   (closed_is_metric_closed subtype "metric_space.x" "metric_closed")))
  (metric_adherent_iff_adherent 0
   (metric_adherent_iff_adherent-1 nil 3406977548
    ("" (skosimp)
@@ -1060,8 +1068,6 @@
      nil)
     (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
      metric_space nil)
-    (Cl_is_closed application-judgement
-     "closed[T, (metric_induced_topology)]" metric_space nil)
     (metric_adherent_iff_adherent formula-decl nil metric_space nil))
    shostak))
  (metric_convergence_def 0
@@ -2576,7 +2582,7 @@
                         (("1" (replace -2)
                           (("1" (typepred "metric_induced_topology")
                             (("1" (expand "hausdorff_space?")
-                              (("1" (propax) nil nil)) nil))
+                              (("1" (flatten) nil nil)) nil))
                             nil))
                           nil))
                         nil))
@@ -2626,160 +2632,130 @@
         nil))
       nil))
     nil)
-   ((metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     nil)
-    (d formal-const-decl "metric" metric_space nil)
-    (metric nonempty-type-eq-decl nil metric_def nil)
-    (metric? const-decl "bool" metric_def nil)
-    (nnreal type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (setofsets type-eq-decl nil sets nil)
-    (setof type-eq-decl nil defined_types nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (T formal-type-decl nil metric_space nil)
-    (compact_def formula-decl nil topology "topology/")
-    (compact? const-decl "bool" topology "topology/")
-    (x!1 skolem-const-decl "T" metric_space nil)
-    (metric_zero? const-decl "bool" metric_def nil)
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
-    (hausdorff? const-decl "bool" topology_prelim "topology/")
-    (hausdorff_space? const-decl "bool" topology_prelim "topology/")
-    (fullset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" metric_space nil)
-    (Union const-decl "set" sets nil)
-    (compact_space? const-decl "bool" topology_prelim "topology/")
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     metric_space nil)
-    (metric_space_is_hausdorff name-judgement "hausdorff" metric_space
-     nil)
-    (weierstrass_bolzano? const-decl "bool" metric_space nil)
-    (sequence type-eq-decl nil sequences nil)
-    (> const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (metric_closure const-decl "set[T]" metric_space_def nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (set type-eq-decl nil sets nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (ball_is_metric_open application-judgement "metric_open"
-     metric_space nil)
-    (fullset const-decl "set" sets nil)
-    (image const-decl "set[R]" function_image nil)
-    (nonempty? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
-    (intersection const-decl "set" sets nil)
-    (ball const-decl "set[T]" metric_space_def nil)
-    (iterate def-decl "T" function_iterate nil)
-    (SEQ skolem-const-decl "[nat -> T]" metric_space nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (iterate_add_applied formula-decl nil function_iterate nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (choose_member formula-decl nil sets_lemmas nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (pred type-eq-decl nil defined_types nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
-    (NEXT skolem-const-decl "[d1: [nat, posnat] ->
-   [({j: nat | j > d1`1 & d(x!1, u!1(j)) < 1 / d1`2}), numfield]]"
-     metric_space nil)
-    (u!1 skolem-const-decl "sequence[T]" metric_space nil)
-    (x!1 skolem-const-decl "T" metric_space nil)
-    (subseq? const-decl "bool" subseq "topology/")
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
-     nil)
-    (both_sides_div_pos_lt2 formula-decl nil real_props nil)
-    (i!1 skolem-const-decl "nat" metric_space nil)
-    (archimedean formula-decl nil real_props nil)
-    (metric_converges_to const-decl "bool" metric_space_def nil)
-    (metric_convergent? const-decl "bool" metric_space_def nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (choose const-decl "(p)" sets nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (< const-decl "bool" reals nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (metric_adherent? const-decl "bool" metric_space_def nil)
-    (n!1 skolem-const-decl "nat" metric_space nil)
-    (AA skolem-const-decl "[nat -> set[T]]" metric_space nil)
-    (TRUE const-decl "bool" booleans nil)
-    (empty? const-decl "bool" sets nil)
-    (Intersection const-decl "set" sets nil)
-    (every const-decl "bool" sets nil)
-    (Cl_closed formula-decl nil topology "topology/")
-    (Cl_is_closed application-judgement
-     "closed[T, (metric_induced_topology)]" metric_space nil)
-    (metric_closure_is_Cl formula-decl nil metric_space nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
-    (singleton? const-decl "bool" sets nil)
-    (singleton const-decl "(singleton?)" sets nil)
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_setofsets "sets_aux/")
-    (card_one formula-decl nil finite_sets nil)
-    (rest const-decl "set" sets nil)
-    (rest_subset formula-decl nil sets_lemmas nil)
-    (card_rest formula-decl nil finite_sets nil)
-    (Intersection_intersection_rew formula-decl nil sets_lemmas nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (nat_max application-judgement "{k: nat | i <= k AND j <= k}"
-     real_defs nil)
-    (nonneg_rat_max application-judgement
-     "{s: nonneg_rat | s >= q AND s >= r}" real_defs nil)
-    (nonempty_card formula-decl nil finite_sets nil)
-    (finite_rest judgement-tcc nil finite_sets nil)
-    (subset_transitive formula-decl nil sets_lemmas nil)
-    (choose_rest formula-decl nil sets_lemmas nil)
-    (Intersection_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+   ((IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (subset? const-decl "bool" sets nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (finite_set type-eq-decl nil finite_sets nil)
+    (Card const-decl "nat" finite_sets nil)
+    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil) nil nil
+    nil nil
+    (finite_emptyset name-judgement "finite_set" finite_sets nil)
+    (emptyset const-decl "set" sets nil)
+    (card_is_0 formula-decl nil finite_sets nil) nil
+    (ball_centre formula-decl nil metric_space nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
-    (ball_centre formula-decl nil metric_space nil)
-    (Y1!1 skolem-const-decl "setofsets[T]" metric_space nil)
-    (card_is_0 formula-decl nil finite_sets nil)
-    (emptyset const-decl "set" sets nil)
-    (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[finite_set[T]]"
-     countable_setofsets "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[set[T]]"
-     countable_setofsets "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
-    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (Card const-decl "nat" finite_sets nil)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (subset? const-decl "bool" sets nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil))
+    (Intersection_surjective name-judgement
+     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    (choose_rest formula-decl nil sets_lemmas nil)
+    (subset_transitive formula-decl nil sets_lemmas nil)
+    (finite_rest judgement-tcc nil finite_sets nil)
+    (nonempty_card formula-decl nil finite_sets nil)
+    (nonneg_rat_max application-judgement
+     "{s: nonneg_rat | s >= q AND s >= r}" real_defs nil)
+    (nat_max application-judgement "{k: nat | i <= k AND j <= k}"
+     real_defs nil)
+    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
+    (Intersection_intersection_rew formula-decl nil sets_lemmas nil)
+    (card_rest formula-decl nil finite_sets nil)
+    (rest_subset formula-decl nil sets_lemmas nil)
+    (rest const-decl "set" sets nil)
+    (card_one formula-decl nil finite_sets nil) nil
+    (singleton const-decl "(singleton?)" sets nil)
+    (singleton? const-decl "bool" sets nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
+    (metric_closure_is_Cl formula-decl nil metric_space nil) nil
+    (Cl_closed formula-decl nil topology "topology/") nil
+    (Intersection const-decl "set" sets nil)
+    (empty? const-decl "bool" sets nil)
+    (TRUE const-decl "bool" booleans nil) nil nil
+    (metric_adherent? const-decl "bool" metric_space_def nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (< const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (choose const-decl "(p)" sets nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    nil (metric_converges_to const-decl "bool" metric_space_def nil)
+    (archimedean formula-decl nil real_props nil) nil
+    (both_sides_div_pos_lt2 formula-decl nil real_props nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (subseq? const-decl "bool" subseq "topology/") nil nil nil
+    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (pred type-eq-decl nil defined_types nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (choose_member formula-decl nil sets_lemmas nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (iterate_add_applied formula-decl nil function_iterate nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    nil (iterate def-decl "T" function_iterate nil)
+    (ball const-decl "set[T]" metric_space_def nil)
+    (intersection const-decl "set" sets nil)
+    (member const-decl "bool" sets nil)
+    (nonempty? const-decl "bool" sets nil) nil
+    (fullset const-decl "set" sets nil)
+    (ball_is_metric_open application-judgement "metric_open"
+     metric_space nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (set type-eq-decl nil sets nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (metric_closure const-decl "set[T]" metric_space_def nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (> const-decl "bool" reals nil)
+    (sequence type-eq-decl nil sequences nil)
+    (weierstrass_bolzano? const-decl "bool" metric_space nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff" metric_space
+     nil)
+    (compact_space? const-decl "bool" topology_prelim "topology/")
+    (Union const-decl "set" sets nil)
+    (hausdorff_space? const-decl "bool" topology_prelim "topology/")
+    (Union_surjective name-judgement
+     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    nil (metric_zero? const-decl "bool" metric_def nil) nil
+    (compact? const-decl "bool" topology "topology/")
+    (compact_def formula-decl nil topology "topology/")
+    (T formal-type-decl nil metric_space nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (setof type-eq-decl nil defined_types nil)
+    (setofsets type-eq-decl nil sets nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (>= const-decl "bool" reals nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (metric? const-decl "bool" metric_def nil)
+    (metric nonempty-type-eq-decl nil metric_def nil)
+    (d formal-const-decl "metric" metric_space nil)
+    (metric_induced_topology const-decl "setofsets[T]" metric_space_def
+     nil))
    shostak))
  (cauchy_subseq_is_totally_bounded 0
   (cauchy_subseq_is_totally_bounded-1 nil 3397740732
@@ -3573,47 +3549,24 @@
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
-    (emptyset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" metric_space nil)
-    (emptyset_is_compact name-judgement
-     "compact[T, (metric_induced_topology)]" metric_space nil)
     (emptyset_is_empty? formula-decl nil sets_lemmas nil)
     (empty? const-decl "bool" sets nil)
-    (nonempty_add_finite application-judgement
-     "non_empty_finite_set[T]" countable_setofsets "sets_aux/")
     (add const-decl "(nonempty?)" sets nil)
     (cauchy? const-decl "bool" metric_space_def nil)
     (strict_increasing? const-decl "bool" real_fun_preds "reals/")
     (choose_member formula-decl nil sets_lemmas nil)
-    (XX skolem-const-decl "[nat -> non_empty_finite_set[T]]"
-     metric_space nil)
-    (ADD skolem-const-decl
-     "[non_empty_finite_set[T] -> non_empty_finite_set[T]]"
-     metric_space nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (Xm skolem-const-decl "({y_1: T |
-    NOT XX(m)(y_1) & (FORALL (x_1: T): XX(m)(x_1) => d(x_1, y_1) >= r!1)})"
-     metric_space nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (m skolem-const-decl "nat" metric_space nil)
-    (n skolem-const-decl "nat" metric_space nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (metric_symmetric formula-decl nil metric_space nil)
-    (NEXT skolem-const-decl "[X: non_empty_finite_set[T] ->
-   ({y: T | NOT X(y) & (FORALL x: X(x) => d(x, y) >= r!1)})]"
-     metric_space nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -3633,18 +3586,9 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (singleton_is_compact application-judgement
-     "compact[T, (metric_induced_topology)]" metric_space nil)
-    (singleton_is_closed application-judgement
-     "closed[T, (metric_induced_topology)]" metric_space nil)
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_setofsets "sets_aux/")
     (finite_set type-eq-decl nil finite_sets nil)
     (non_empty_finite_set type-eq-decl nil finite_sets nil)
     (choose const-decl "(p)" sets nil)
-    (x!1 skolem-const-decl "T" metric_space nil)
-    (X!1 skolem-const-decl "set[T]" metric_space nil)
-    (x!2 skolem-const-decl "T" metric_space nil)
     (subset? const-decl "bool" sets nil)
     (Union const-decl "set" sets nil)
     (ball_centre formula-decl nil metric_space nil)
@@ -3665,15 +3609,10 @@
     (metric nonempty-type-eq-decl nil metric_def nil)
     (d formal-const-decl "metric" metric_space nil)
     (ball const-decl "set[T]" metric_space_def nil)
-    (x!1 skolem-const-decl "T" metric_space nil)
-    (r!1 skolem-const-decl "posreal" metric_space nil)
     (ball_is_metric_open application-judgement "metric_open"
      metric_space nil)
-    (image const-decl "set[R]" function_image nil)
     (member const-decl "bool" sets nil)
     (epsilon_net? const-decl "bool" metric_space_def nil)
-    (fullset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" metric_space nil)
     (T formal-type-decl nil metric_space nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -4065,7 +4004,6 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (image const-decl "set[R]" function_image nil)
     (ball const-decl "set[T]" metric_space_def nil)
     (intersection const-decl "set" sets nil)
     (metric_symmetric formula-decl nil metric_space nil)
@@ -4077,16 +4015,10 @@
     (member const-decl "bool" sets nil)
     (separable? const-decl "bool" metric_space_def nil)
     (countable_union1 formula-decl nil countable_setofsets "sets_aux/")
-    (i!1 skolem-const-decl "nat" metric_space nil)
-    (F skolem-const-decl
-     "[n: nat -> ({X: set[T] | epsilon_net?({x: T | TRUE}, X, 1 / (n + 1))})]"
-     metric_space nil)
     (Union_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
     (countable_image formula-decl nil countable_image "sets_aux/")
     (injective? const-decl "bool" functions nil)
-    (image const-decl "set[R]" function_image nil)
-    (every const-decl "bool" sets nil)
     (finite_set type-eq-decl nil finite_sets nil)
     (is_finite const-decl "bool" finite_sets nil)
     (finite_countable judgement-tcc nil countable_props "sets_aux/")
@@ -5015,8 +4947,6 @@
      rationals nil)
     (cross_product const-decl "set[[T1, T2]]" cross_product
      "topology/")
-    (image const-decl "set[R]" function_image nil)
-    (image const-decl "set[R]" function_image nil)
     (countable_image formula-decl nil countable_image "sets_aux/")
     (injective? const-decl "bool" functions nil)
     (TRUE const-decl "bool" booleans nil)
@@ -5028,11 +4958,7 @@
     (metric_open? const-decl "bool" metric_space_def nil)
     (metric_open_def formula-decl nil metric_space nil)
     (metric_open_ball formula-decl nil metric_space nil)
-    (every const-decl "bool" sets nil)
     (open_Union formula-decl nil topology "topology/")
-    (x!3 skolem-const-decl "T" metric_space nil)
-    (n!1 skolem-const-decl "posnat" metric_space nil)
-    (x!1 skolem-const-decl "[T -> boolean]" metric_space nil)
     (synthetic_generated_topology_set const-decl "setofsets[T]" basis
      "topology/")
     (synthetic_base? const-decl "bool" basis "topology/")
@@ -5048,10 +4974,6 @@
     (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (metric_triangle formula-decl nil metric_space nil)
-    (B2!1 skolem-const-decl "(BALLS)" metric_space nil)
-    (B1!1 skolem-const-decl "(BALLS)" metric_space nil)
-    (n!3 skolem-const-decl "posnat" metric_space nil)
-    (x!4 skolem-const-decl "T" metric_space nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -5078,15 +5000,10 @@
     (Union const-decl "set" sets nil)
     (Union_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
-    (fullset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" metric_space nil)
     (metric_adherent? const-decl "bool" metric_space_def nil)
     (intersection const-decl "set" sets nil)
     (empty? const-decl "bool" sets nil)
-    (BALLS skolem-const-decl "[set[T] -> boolean]" metric_space nil)
-    (x!2 skolem-const-decl "T" metric_space nil)
     (metric_symmetric formula-decl nil metric_space nil)
-    (X!1 skolem-const-decl "set[T]" metric_space nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (nonempty? const-decl "bool" sets nil)
     (metric_closure const-decl "set[T]" metric_space_def nil)
@@ -6050,7 +5967,7 @@
                                      "metric_induced_topology[T,d]")
                                     (("1"
                                       (expand "hausdorff_space?")
-                                      (("1" (propax) nil nil))
+                                      (("1" (flatten) nil nil))
                                       nil))
                                     nil)
                                    ("2" (propax) nil nil))
@@ -6143,168 +6060,162 @@
         nil))
       nil))
     nil)
-   ((cauchy_subseq_is_totally_bounded formula-decl nil metric_space
-     nil)
-    (cauchy? const-decl "bool" metric_space_def nil)
-    (ball const-decl "set[T]" metric_space_def nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (metric_symmetric formula-decl nil metric_space nil)
-    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (metric_triangle formula-decl nil metric_space nil)
-    (totally_bounded_is_separable formula-decl nil metric_space nil)
-    (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     nil)
-    (d formal-const-decl "metric" metric_space nil)
-    (metric nonempty-type-eq-decl nil metric_def nil)
-    (metric? const-decl "bool" metric_def nil)
-    (nnreal type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (setofsets type-eq-decl nil sets nil)
-    (setof type-eq-decl nil defined_types nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (T formal-type-decl nil metric_space nil)
-    (lindelof formula-decl nil lindelof "topology/")
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     metric_space nil)
-    (metric_space_is_hausdorff name-judgement "hausdorff" metric_space
-     nil)
-    (second_countable? const-decl "bool" topology_def "topology/")
-    (compact_subset? const-decl "bool" topology_prelim "topology/")
-    (nonempty? const-decl "bool" sets nil)
-    (difference const-decl "set" sets nil)
-    (fullset const-decl "set" sets nil)
-    (empty? const-decl "bool" sets nil)
-    (metric_convergent? const-decl "bool" metric_space_def nil)
-    (open_cover? const-decl "bool" topology_prelim "topology/")
-    (subset? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
-    (IUnion const-decl "set[T]" indexed_sets nil)
-    (metric_open? const-decl "bool" metric_space_def nil)
-    (j!1 skolem-const-decl "nat" metric_space nil)
-    (i!2 skolem-const-decl "nat" metric_space nil)
-    (a!1 skolem-const-decl
-     "({y: set[T] | EXISTS (x: ({i | i <= i!2})): y = YS!1(x)})"
-     metric_space nil)
-    (x!3 skolem-const-decl "({i | i <= i!2})" metric_space nil)
-    (WW skolem-const-decl "[nat -> set[T]]" metric_space nil)
-    (subseq? const-decl "bool" subseq "topology/")
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
-    (Union const-decl "set" sets nil)
-    (YS!1 skolem-const-decl "sequence[set[T]]" metric_space nil)
-    (i!1 skolem-const-decl "nat" metric_space nil)
-    (image const-decl "set[R]" function_image nil)
-    (subseq_index formula-decl nil subseq "topology/")
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
-     nil)
-    (ball_is_metric_open application-judgement "metric_open"
-     metric_space nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (metric_converges_to const-decl "bool" metric_space_def nil)
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (<= const-decl "bool" reals nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (IUnion_n_def formula-decl nil nat_indexed_sets "sets_aux/")
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
-     nil)
-    (odd_plus_odd_is_even application-judgement "even_int" integers
-     nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (metric_open_def formula-decl nil metric_space nil)
-    (union_empty formula-decl nil sets_lemmas nil)
-    (open nonempty-type-eq-decl nil topology "topology/")
-    (open? const-decl "bool" topology "topology/")
-    (union_is_open judgement-tcc nil topology "topology/")
-    (union const-decl "set" sets nil)
-    (emptyset_is_empty? formula-decl nil sets_lemmas nil)
-    (emptyset_is_compact name-judgement
-     "compact[T, (metric_induced_topology)]" metric_space nil)
-    (emptyset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" metric_space nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (emptyset const-decl "set" sets nil)
-    (ball_centre formula-decl nil metric_space nil)
-    (IUnion_0_def formula-decl nil nat_indexed_sets "sets_aux/")
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (pred type-eq-decl nil defined_types nil)
-    (cover? const-decl "bool" topology_prelim "topology/")
-    (XX skolem-const-decl
-     "[n: nat -> ({x: T | difference(fullset[T], WW(n))(x)})]"
-     metric_space nil)
-    (choose const-decl "(p)" sets nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
-    (injective? const-decl "bool" functions nil)
-    (finite_image judgement-tcc nil function_image_aux nil)
-    (n!1 skolem-const-decl "nat" metric_space nil)
-    (n!2 skolem-const-decl "nat" metric_space nil)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (finite_subset formula-decl nil finite_sets nil)
-    (VV skolem-const-decl "[set[T] -> boolean]" metric_space nil)
+   ((compact_is_weierstrass_bolzano formula-decl nil metric_space nil)
+    (fullset_is_clopen name-judgement "clopen" metric_space nil)
+    (weierstrass_bolzano? const-decl "bool" metric_space nil)
+    (has_countable_basis? const-decl "bool" topology_def "topology/")
+    (hausdorff_space? const-decl "bool" topology_prelim "topology/")
+    (separable_has_countable_basis formula-decl nil metric_space nil)
+    (compact? const-decl "bool" topology "topology/")
+    (subcover? const-decl "bool" topology_prelim "topology/")
+    (Union_IUnion formula-decl nil countable_indexed_sets "sets_aux/")
+    (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
+     sets_lemmas nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (set type-eq-decl nil sets nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (sequence type-eq-decl nil sequences nil)
+    (IUnion const-decl "set[T]" nat_indexed_sets "sets_aux/")
+    (finite_cover? const-decl "bool" topology_prelim "topology/")
+    (V!1 skolem-const-decl "setofsets[T]" metric_space nil)
     (a!1 skolem-const-decl
      "({y: set[T] | EXISTS (x: ({i | i <= n!1})): y = YS!1(x)})"
      metric_space nil)
-    (V!1 skolem-const-decl "setofsets[T]" metric_space nil)
-    (finite_cover? const-decl "bool" topology_prelim "topology/")
-    (IUnion const-decl "set[T]" nat_indexed_sets "sets_aux/")
-    (sequence type-eq-decl nil sequences nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (set type-eq-decl nil sets nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
-     sets_lemmas nil)
-    (Union_IUnion formula-decl nil countable_indexed_sets "sets_aux/")
-    (subcover? const-decl "bool" topology_prelim "topology/")
-    (compact? const-decl "bool" topology "topology/")
-    (separable_has_countable_basis formula-decl nil metric_space nil)
-    (hausdorff? const-decl "bool" topology_prelim "topology/")
-    (hausdorff_space? const-decl "bool" topology_prelim "topology/")
-    (has_countable_basis? const-decl "bool" topology_def "topology/")
-    (weierstrass_bolzano? const-decl "bool" metric_space nil)
-    (fullset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" metric_space nil)
-    (compact_is_weierstrass_bolzano formula-decl nil metric_space nil))
+    (VV skolem-const-decl "[set[T] -> boolean]" metric_space nil)
+    (finite_subset formula-decl nil finite_sets nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (finite_set type-eq-decl nil finite_sets nil)
+    (n!2 skolem-const-decl "nat" metric_space nil)
+    (n!1 skolem-const-decl "nat" metric_space nil)
+    (finite_image judgement-tcc nil function_image_aux nil)
+    (injective? const-decl "bool" functions nil)
+    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (choose const-decl "(p)" sets nil)
+    (XX skolem-const-decl
+     "[n: nat -> ({x: T | difference(fullset[T], WW(n))(x)})]"
+     metric_space nil)
+    (cover? const-decl "bool" topology_prelim "topology/")
+    (pred type-eq-decl nil defined_types nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (IUnion_0_def formula-decl nil nat_indexed_sets "sets_aux/")
+    (ball_centre formula-decl nil metric_space nil)
+    (emptyset const-decl "set" sets nil)
+    (finite_emptyset name-judgement "finite_set" finite_sets nil)
+    (finite_emptyset name-judgement "finite_set" countable_props
+     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set" countable_setofsets
+     "sets_aux/")
+    (emptyset_is_clopen name-judgement "clopen" metric_space nil)
+    (emptyset_is_compact name-judgement "compact" metric_space nil)
+    (emptyset_is_empty? formula-decl nil sets_lemmas nil)
+    (union const-decl "set" sets nil)
+    (union_is_open judgement-tcc nil topology "topology/")
+    (open? const-decl "bool" topology "topology/")
+    (open nonempty-type-eq-decl nil topology "topology/")
+    (union_empty formula-decl nil sets_lemmas nil)
+    (metric_open_def formula-decl nil metric_space nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (odd_plus_odd_is_even application-judgement "even_int" integers
+     nil)
+    (odd_minus_odd_is_even application-judgement "even_int" integers
+     nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (IUnion_n_def formula-decl nil nat_indexed_sets "sets_aux/")
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (Union_surjective name-judgement
+     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    (metric_converges_to const-decl "bool" metric_space_def nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (ball_is_metric_open application-judgement "metric_open"
+     metric_space nil)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers
+     nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (subseq_index formula-decl nil subseq "topology/")
+    (image const-decl "set[R]" function_image nil)
+    (i!1 skolem-const-decl "nat" metric_space nil)
+    (YS!1 skolem-const-decl "sequence[set[T]]" metric_space nil)
+    (Union const-decl "set" sets nil)
+    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (subseq? const-decl "bool" subseq "topology/")
+    (WW skolem-const-decl "[nat -> set[T]]" metric_space nil)
+    (x!3 skolem-const-decl "({i | i <= i!2})" metric_space nil)
+    (a!1 skolem-const-decl
+     "({y: set[T] | EXISTS (x: ({i | i <= i!2})): y = YS!1(x)})"
+     metric_space nil)
+    (i!2 skolem-const-decl "nat" metric_space nil)
+    (j!1 skolem-const-decl "nat" metric_space nil)
+    (metric_open? const-decl "bool" metric_space_def nil)
+    (IUnion const-decl "set[T]" indexed_sets nil)
+    (member const-decl "bool" sets nil)
+    (subset? const-decl "bool" sets nil)
+    (open_cover? const-decl "bool" topology_prelim "topology/")
+    (metric_convergent? const-decl "bool" metric_space_def nil)
+    (empty? const-decl "bool" sets nil)
+    (fullset const-decl "set" sets nil)
+    (difference const-decl "set" sets nil)
+    (nonempty? const-decl "bool" sets nil)
+    (compact_subset? const-decl "bool" topology_prelim "topology/")
+    (second_countable? const-decl "bool" topology_def "topology/")
+    (metric_space_is_hausdorff name-judgement "hausdorff" metric_space
+     nil)
+    (lindelof formula-decl nil lindelof "topology/")
+    (T formal-type-decl nil metric_space nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (setof type-eq-decl nil defined_types nil)
+    (setofsets type-eq-decl nil sets nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (>= const-decl "bool" reals nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (metric? const-decl "bool" metric_def nil)
+    (metric nonempty-type-eq-decl nil metric_def nil)
+    (d formal-const-decl "metric" metric_space nil)
+    (metric_induced_topology const-decl "setofsets[T]" metric_space_def
+     nil)
+    (totally_bounded_is_separable formula-decl nil metric_space nil)
+    (metric_triangle formula-decl nil metric_space nil)
+    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (metric_symmetric formula-decl nil metric_space nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (ball const-decl "set[T]" metric_space_def nil)
+    (cauchy? const-decl "bool" metric_space_def nil)
+    (cauchy_subseq_is_totally_bounded formula-decl nil metric_space
+     nil))
    shostak))
  (totally_bounded_iff_cauchy_subseq 0
   (totally_bounded_iff_cauchy_subseq-1 nil 3406536093
@@ -9937,14 +9848,7 @@
     (fullset const-decl "set" sets nil)
     (separable? const-decl "bool" metric_space_def nil)
     (finite_subset formula-decl nil finite_sets nil)
-    (BALLS2 skolem-const-decl "[set[T] -> boolean]" metric_space nil)
     (TRUE const-decl "bool" booleans nil)
-    (r!1 skolem-const-decl "posreal" metric_space nil)
-    (XX skolem-const-decl "({x | S!1(x) & a!1(x)})" metric_space nil)
-    (a!1 skolem-const-decl "(BALLS)" metric_space nil)
-    (BALLS skolem-const-decl "set[set[T]]" metric_space nil)
-    (S!1 skolem-const-decl "set[T]" metric_space nil)
-    (CENTRES skolem-const-decl "set[T]" metric_space nil)
     (restrict const-decl "R" restrict nil)
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
@@ -9954,30 +9858,18 @@
     (Union const-decl "set" sets nil)
     (subseq? const-decl "bool" subseq "topology/")
     (subset? const-decl "bool" sets nil)
-    (CENTRES skolem-const-decl
-     "[d: [nat, set[T]] -> ({X: set[T] | epsilon_net?(d`2, X, 1 / (d`1 + 2))})]"
-     metric_space nil)
     (finite_image judgement-tcc nil function_image_aux nil)
     (finite_set type-eq-decl nil finite_sets nil)
     (iterate def-decl "T" function_iterate nil)
-    (GG skolem-const-decl
-     "[[nat, S: set[T], (LAMBDA u: seq_in(u, S))] ->
-   [numfield, set[T], sequence[T]]]" metric_space nil)
-    (AA skolem-const-decl "[nat -> set[T]]" metric_space nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (strict_increasing? const-decl "bool" real_fun_preds "reals/")
-    (H skolem-const-decl
-     "[nat -> {f: [nat -> nat] | strict_increasing?(f)}]" metric_space
-     nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
     (subseq_index formula-decl nil subseq "topology/")
-    (x!1 skolem-const-decl "nat" metric_space nil)
-    (y!1 skolem-const-decl "nat" metric_space nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (pred type-eq-decl nil defined_types nil)
@@ -9992,16 +9884,11 @@
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (n!1 skolem-const-decl "posnat" metric_space nil)
-    (i!1 skolem-const-decl "nat" metric_space nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (ball_is_metric_open application-judgement "metric_open"
      metric_space nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (BALLS skolem-const-decl "[[nat, set[T]] -> set[set[T]]]"
-     metric_space nil)
-    (U skolem-const-decl "[nat -> T]" metric_space nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (div_mult_pos_lt1 formula-decl nil real_props nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
@@ -10017,43 +9904,16 @@
      real_types nil)
     (metric_triangle? const-decl "bool" metric_def nil)
     (metric_symmetric? const-decl "bool" metric_def nil)
-    (seq_in skolem-const-decl "[[sequence[T], set[T]] -> boolean]"
-     metric_space nil)
-    (j!1 skolem-const-decl "nat" metric_space nil)
     (member const-decl "bool" sets nil)
     (cauchy? const-decl "bool" metric_space_def nil)
-    (FF skolem-const-decl "[nat -> nat]" metric_space nil)
-    (US skolem-const-decl "[n: nat -> (LAMBDA u: seq_in(u, F(n)`2))]"
-     metric_space nil)
-    (F skolem-const-decl
-     "[nat -> [nat, S: set[T], (LAMBDA u: seq_in(u, S))]]" metric_space
-     nil)
-    (E skolem-const-decl
-     "[nat -> [nat, {f: [nat -> nat] | strict_increasing?(f)}]]"
-     metric_space nil)
-    (EE skolem-const-decl
-     "[[nat, {f: [nat -> nat] | strict_increasing?(f)}] ->
-   [numfield, [nat -> nat]]]" metric_space nil)
     (O const-decl "T3" function_props nil)
     (empty? const-decl "bool" sets nil)
     (choose_member formula-decl nil sets_lemmas nil)
-    (EXTRACT skolem-const-decl
-     "[d: [u: sequence[T], (LAMBDA v: subseq?(v, u))] ->
-   ({f: [nat -> nat] |
-       strict_increasing?(f) & (FORALL (i: nat): d`2(i) = d`1(f(i)))})]"
-     metric_space nil)
-    (n!1 skolem-const-decl "nat" metric_space nil)
     (Union_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
-    (SELECT_BALL_SUBSEQ skolem-const-decl
-     "[d: [nat, S: set[T], (LAMBDA u: seq_in(u, S))] ->
-   ({vx: [sequence[T], set[T]] |
-       subseq?(vx`1, d`3) & BALLS(d`1, d`2)(vx`2) & seq_in(vx)})]"
-     metric_space nil)
     (ball const-decl "set[T]" metric_space_def nil)
-    (image const-decl "set[R]" function_image nil)
     (choose const-decl "(p)" sets nil)
     (nonempty? const-decl "bool" sets nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -10073,34 +9933,20 @@
     (transitive_subseq formula-decl nil subseq "topology/")
     (card_rest formula-decl nil finite_sets nil)
     (finite_rest judgement-tcc nil finite_sets nil)
-    (a!1 skolem-const-decl "(SS!1)" metric_space nil)
-    (SS!1 skolem-const-decl "setofsets[T]" metric_space nil)
     (rest const-decl "set" sets nil)
     (choose_rest formula-decl nil sets_lemmas nil)
     (nonempty_card formula-decl nil finite_sets nil)
     (emptyset const-decl "set" sets nil)
     (card_is_0 formula-decl nil finite_sets nil)
-    (SS!1 skolem-const-decl "setofsets[T]" metric_space nil)
     (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
     (Card const-decl "nat" finite_sets nil)
     (<= const-decl "bool" reals nil)
-    (N2 skolem-const-decl "set[nat]" metric_space nil)
-    (N1 skolem-const-decl "set[nat]" metric_space nil)
     (infinite_def formula-decl nil infinite_nat_def "sets_aux/")
     (injective? const-decl "bool" functions nil)
     (finite_union judgement-tcc nil finite_sets nil)
-    (infinite_remove application-judgement "infinite_set[nat]"
-     countability "sets_aux/")
     (infinite_set type-eq-decl nil infinite_sets_def nil)
     (min const-decl "{a | S(a) AND (FORALL x: S(x) IMPLIES a <= x)}"
          min_nat nil)
-    (N skolem-const-decl "set[nat]" metric_space nil)
-    (x!1 skolem-const-decl "nat" metric_space nil)
-    (y!1 skolem-const-decl "nat" metric_space nil)
-    (GX skolem-const-decl "[infinite_set[nat] -> infinite_set[nat]]"
-     metric_space nil)
-    (F skolem-const-decl "[nat -> infinite_set[nat]]" metric_space nil)
-    (inverse_image const-decl "set[D]" function_image nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -10127,9 +9973,7 @@
     (metric nonempty-type-eq-decl nil metric_def nil)
     (d formal-const-decl "metric" metric_space nil)
     (epsilon_net? const-decl "bool" metric_space_def nil)
-    (totally_bounded? const-decl "bool" metric_space_def nil)
-    (fullset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" metric_space nil))
+    (totally_bounded? const-decl "bool" metric_space_def nil))
    shostak))
  (compact_is_complete_totally_bounded 0
   (compact_is_complete_totally_bounded-1 nil 3398126840
@@ -10679,8 +10523,6 @@
    ((compact_iff_convergent_subseq formula-decl nil metric_space nil)
     (totally_bounded_iff_cauchy_subseq formula-decl nil metric_space
      nil)
-    (fullset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" metric_space nil)
     (T formal-type-decl nil metric_space nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -10740,17 +10582,12 @@
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (metric_convergent? const-decl "bool" metric_space_def nil)
-    (metric_convergent? const-decl "bool" metric_space_def nil)
     (compact? const-decl "bool" topology "topology/")
     (epsilon_net? const-decl "bool" metric_space_def nil)
     (finite_cover? const-decl "bool" topology_prelim "topology/")
-    (V!1 skolem-const-decl "setofsets[T]" metric_space nil)
     (nonempty? const-decl "bool" sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (r!1 skolem-const-decl "posreal" metric_space nil)
     (choose const-decl "(p)" sets nil)
-    (a!1 skolem-const-decl "(V!1)" metric_space nil)
     (cover? const-decl "bool" topology_prelim "topology/")
     (Union const-decl "set" sets nil)
     (finite_image judgement-tcc nil function_image_aux nil)
@@ -10758,14 +10595,12 @@
     (finite_set type-eq-decl nil finite_sets nil)
     (restrict const-decl "R" restrict nil)
     (empty? const-decl "bool" sets nil)
-    (x!1 skolem-const-decl "T" metric_space nil)
     (ball_centre formula-decl nil metric_space nil)
     (open_cover? const-decl "bool" topology_prelim "topology/")
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
      nil)
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
-    (image const-decl "set[R]" function_image nil)
     (ball_is_metric_open application-judgement "metric_open"
      metric_space nil)
     (subset? const-decl "bool" sets nil)
