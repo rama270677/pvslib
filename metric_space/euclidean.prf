@@ -6,7 +6,9 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (sigma_nnreal_eq_0 subtype "(number_fields.-)(euclidean.n, 1)"
+    "T_high[below(n)]")))
  (sigma_nnreal_eq_0 0
   (sigma_nnreal_eq_0-1 nil 3508674648
    ("" (skosimp)
@@ -70,8 +72,7 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (sigma_nonneg_eq_0 formula-decl nil sigma "reals/")
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (sigma_zero formula-decl nil sigma "reals/")
-    (sigma_nat application-judgement "nat" euclidean nil)
+    (sigma_zero formula-decl nil sigma "reals/") nil
     (subrange type-eq-decl nil integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -80,7 +81,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sigma_nnreal application-judgement "nnreal" euclidean nil))
+    nil)
    nil))
  (d1_TCC1 0
   (d1_TCC1-2 nil 3508674747
@@ -163,8 +164,7 @@
     (T_high type-eq-decl nil sigma "reals/")
     (<= const-decl "bool" reals nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (sigma_zero formula-decl nil sigma "reals/")
-    (sigma_nat application-judgement "nat" euclidean nil)
+    (sigma_zero formula-decl nil sigma "reals/") nil
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
     (extensionality_postulate formula-decl nil functions nil)
@@ -216,10 +216,12 @@
      real_types nil)
     (sigma_sum formula-decl nil sigma "reals/")
     (metric_triangle? const-decl "bool" metric_def nil)
-    (metric? const-decl "bool" metric_def nil)
-    (sigma_nnreal application-judgement "nnreal" euclidean nil)
+    (metric? const-decl "bool" metric_def nil) nil
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil)
+   nil
+   (d1 subtype
+    "LAMBDA x, y: sigma[naturalnumbers.below(euclidean.n)].sigma(0, (number_fields.-)(euclidean.n, 1), (LAMBDA i: real_defs.abs((number_fields.-)(euclidean.x(euclidean.i), euclidean.y(euclidean.i)))))"
+    "metric[Vector[n]]"))
   (d1_TCC1-1 nil 3382851446
    ("" (expand "metric?")
     (("" (split)
@@ -307,7 +309,10 @@
     (sigma_sum formula-decl nil sigma "reals/")
     (metric_triangle? const-decl "bool" metric_def nil)
     (metric? const-decl "bool" metric_def nil))
-   nil))
+   nil
+   (d1 subtype
+    "LAMBDA x, y: sigma[naturalnumbers.below(euclidean.n)].sigma(0, (number_fields.-)(euclidean.n, 1), (LAMBDA i: real_defs.abs((number_fields.-)(euclidean.x(euclidean.i), euclidean.y(euclidean.i)))))"
+    "metric[Vector[n]]")))
  (d2_TCC1 0
   (d2_TCC1-1 nil 3382851446
    ("" (expand "metric?")
@@ -482,8 +487,7 @@
     (- const-decl "real" vectors "vectors/")
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (sigma_nnreal application-judgement "nnreal" euclidean nil)
-    (sqrt_eq_0 formula-decl nil sqrt "reals/")
+    nil (sqrt_eq_0 formula-decl nil sqrt "reals/")
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -534,7 +538,10 @@
     (norm_add_le formula-decl nil vectors "vectors/")
     (metric_triangle? const-decl "bool" metric_def nil)
     (metric? const-decl "bool" metric_def nil))
-   nil))
+   nil
+   (d2 subtype
+    "LAMBDA x, y: sqrt.sqrt(sigma[naturalnumbers.below(euclidean.n)].sigma(0, (number_fields.-)(euclidean.n, 1), (LAMBDA i: sq.sq((number_fields.-)(euclidean.x(euclidean.i), euclidean.y(euclidean.i))))))"
+    "metric[Vector[n]]")))
  (dinf_TCC1 0
   (dinf_TCC1-1 nil 3293695864
    ("" (skosimp*)
@@ -756,18 +763,14 @@
     (pred type-eq-decl nil defined_types nil)
     (least_upper_bound const-decl "bool" bound_defs "reals/")
     (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
-     "reals/")
-    (NNS skolem-const-decl "[nnreal -> boolean]" euclidean nil)
-    (x!1 skolem-const-decl "Vector[n]" euclidean nil)
-    (K!1 skolem-const-decl "below[n]" euclidean nil)
-    (y!1 skolem-const-decl "Vector[n]" euclidean nil)
+         "reals/")
+    nil nil nil nil
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (upper_bound const-decl "bool" bound_defs "reals/")
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (NNS skolem-const-decl "[nnreal -> boolean]" euclidean nil)
+    (NOT const-decl "[bool -> bool]" booleans nil) nil
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (in_set const-decl "bool" bounded_reals "reals/")
@@ -785,11 +788,12 @@
     (below_induction formula-decl nil bounded_nat_inductions nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (i!1 skolem-const-decl "below[2 + jb!1]" euclidean nil)
-    (jb!1 skolem-const-decl "below(n)" euclidean nil)
-    (i!1 skolem-const-decl "below[2 + jb!1]" euclidean nil)
+    nil nil nil
     (real_minus_real_is_real application-judgement "real" reals nil))
-   shostak))
+   shostak
+   (dinf subtype
+    "{z: real_types.nnreal | EXISTS i: real_defs.abs((number_fields.-)(euclidean.x(euclidean.i), euclidean.y(euclidean.i))) = z}"
+    "max_set[nnreal]")))
  (dinf_TCC2 0
   (dinf_TCC2-1 nil 3382851446
    ("" (expand "metric?")
@@ -1334,17 +1338,13 @@
     (setof type-eq-decl nil defined_types nil)
     (above_bounded const-decl "bool" bounded_reals "reals/")
     (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
-     "reals/")
+         "reals/")
     (sup_set type-eq-decl nil bounded_reals "reals/")
     (<= const-decl "bool" reals nil)
     (least_upper_bound const-decl "bool" bound_defs "reals/")
     (pred type-eq-decl nil defined_types nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (upper_bound const-decl "bool" bound_defs "reals/")
-    (XX skolem-const-decl "[nnreal -> boolean]" euclidean nil)
-    (x!1 skolem-const-decl "Vector[n]" euclidean nil)
-    (x!2 skolem-const-decl "Index[n]" euclidean nil)
-    (y!1 skolem-const-decl "Vector[n]" euclidean nil)
+    (upper_bound const-decl "bool" bound_defs "reals/") nil nil nil nil
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (minus_real_is_real application-judgement "real" reals nil)
@@ -1354,8 +1354,7 @@
     (sigma_split formula-decl nil sigma "reals/")
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
-    (sigma_nnreal application-judgement "nnreal" euclidean nil)
-    (sigma_first formula-decl nil sigma "reals/")
+    nil (sigma_first formula-decl nil sigma "reals/")
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -1407,16 +1406,15 @@
     (real_minus_real_is_real application-judgement "real" reals nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (extensionality formula-decl nil sets_lemmas nil)
-    (metric_symmetric? const-decl "bool" metric_def nil)
-    (x!1 skolem-const-decl "Vector[n]" euclidean nil)
-    (triangle formula-decl nil real_props nil)
-    (i!1 skolem-const-decl "below[n]" euclidean nil)
-    (z!1 skolem-const-decl "Vector[n]" euclidean nil)
-    (y!1 skolem-const-decl "Vector[n]" euclidean nil)
+    (metric_symmetric? const-decl "bool" metric_def nil) nil
+    (triangle formula-decl nil real_props nil) nil nil nil
     (real_plus_real_is_real application-judgement "real" reals nil)
     (metric_triangle? const-decl "bool" metric_def nil)
     (metric? const-decl "bool" metric_def nil))
-   nil))
+   nil
+   (dinf subtype
+    "LAMBDA x, y: bounded_reals[nnreal].max({z: real_types.nnreal | EXISTS i: real_defs.abs((number_fields.-)(euclidean.x(euclidean.i), euclidean.y(euclidean.i))) = z})"
+    "metric[Vector[n]]")))
  (euclidean_d1 0
   (euclidean_d1-1 nil 3293707277
    ("" (typepred "d1")
@@ -2074,8 +2072,7 @@
    ((max const-decl "T" bounded_reals "reals/")
     (d1 const-decl "metric" euclidean nil)
     (metric nonempty-type-eq-decl nil metric_def nil)
-    (metric? const-decl "bool" metric_def nil)
-    (sigma_nnreal application-judgement "nnreal" euclidean nil)
+    (metric? const-decl "bool" metric_def nil) nil
     (below type-eq-decl nil naturalnumbers nil)
     (T_low type-eq-decl nil sigma "reals/")
     (T_high type-eq-decl nil sigma "reals/")
@@ -2087,10 +2084,7 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (minus_real_is_real application-judgement "real" reals nil)
-    (<= const-decl "bool" reals nil)
-    (x!2 skolem-const-decl "Index[n]" euclidean nil)
-    (y!1 skolem-const-decl "(fullset[Vector])" euclidean nil)
-    (x!1 skolem-const-decl "(fullset[Vector])" euclidean nil)
+    (<= const-decl "bool" reals nil) nil nil nil
     (upper_bound const-decl "bool" bound_defs "reals/")
     (least_upper_bound const-decl "bool" bound_defs "reals/")
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -2142,20 +2136,14 @@
     (trich_lt formula-decl nil real_props nil)
     (metric_symmetric? const-decl "bool" metric_space_def nil)
     (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
-     "reals/")
-    (pred type-eq-decl nil defined_types nil)
-    (YZS skolem-const-decl "[nnreal -> boolean]" euclidean nil)
-    (XZS skolem-const-decl "[nnreal -> boolean]" euclidean nil)
+         "reals/")
+    (pred type-eq-decl nil defined_types nil) nil nil
     (real_plus_real_is_real application-judgement "real" reals nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (x!1 skolem-const-decl "(fullset[Vector])" euclidean nil)
+    nil
     (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
-    (triangle formula-decl nil real_props nil)
-    (i!1 skolem-const-decl "below[n]" euclidean nil)
-    (z!1 skolem-const-decl "(fullset[Vector])" euclidean nil)
-    (y!1 skolem-const-decl "(fullset[Vector])" euclidean nil)
-    (XYS skolem-const-decl "[nnreal -> boolean]" euclidean nil)
+    (triangle formula-decl nil real_props nil) nil nil nil nil
     (metric_triangle? const-decl "bool" metric_space_def nil)
     (metric_space? const-decl "bool" metric_space_def nil))
    shostak))
@@ -2179,7 +2167,7 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (zero const-decl "Vector" vectors "vectors/"))
-   nil))
+   nil (Qn subtype "vectors[euclidean.n].zero" "Qn")))
  (Qn_countable 0
   (Qn_countable-1 nil 3391066001
    (""
@@ -2359,9 +2347,7 @@
    ((is_countable_cross formula-decl nil countable_cross nil)
     (cross_product const-decl "set[[T1, T2]]" cross_product
      "topology/")
-    (f!1 skolem-const-decl "(injective?[({z | TRUE}), nat])" euclidean
-     nil)
-    (extensionality_postulate formula-decl nil functions nil)
+    nil (extensionality_postulate formula-decl nil functions nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (<= const-decl "bool" reals nil)
@@ -2377,9 +2363,7 @@
     (injective? const-decl "bool" functions nil)
     (TRUE const-decl "bool" booleans nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (j!1 skolem-const-decl "nat" euclidean nil)
-    (f!1 skolem-const-decl "(bijective?[rational, nat])" euclidean nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil) nil nil
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (bijective? const-decl "bool" functions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -2442,7 +2426,10 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   nil))
+   nil
+   (balls subtype
+    "metric_space_def[Vector[n], euclidean.d2].ball(vectors[euclidean.n].zero, 1)"
+    "balls")))
  (rational_balls_TCC1 0
   (rational_balls_TCC1-1 nil 3391058802 ("" (subtype-tcc) nil nil)
    ((posrat nonempty-type-eq-decl nil rationals nil)
@@ -2471,44 +2458,10 @@
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (n formal-const-decl "posnat" euclidean nil))
-   nil))
- (ball_basis_TCC1 0
-  (ball_basis_TCC1-1 nil 3507983654
-   ("" (assert)
-    (("" (lemma "metric_space_is_topology?") (("" (propax) nil nil))
-      nil))
-    nil)
-   ((d2 const-decl "metric" euclidean nil)
-    (metric nonempty-type-eq-decl nil metric_def nil)
-    (metric? const-decl "bool" metric_def nil)
-    (nnreal type-eq-decl nil real_types nil)
-    (Vector type-eq-decl nil vectors "vectors/")
-    (Index type-eq-decl nil vectors "vectors/")
-    (n formal-const-decl "posnat" euclidean nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (< const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (metric_space_is_topology? judgement-tcc nil metric_space nil)
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)" euclidean
-     nil)
-    (metric_space_is_hausdorff name-judgement "hausdorff" euclidean
-     nil))
-   nil))
+   nil
+   (rational_balls subtype
+    "metric_space_def[Vector[n], euclidean.d2].ball(vectors[euclidean.n].zero, 1)"
+    "rational_balls")))
  (ball_basis 0
   (ball_basis-1 nil 3391058849
    ("" (expand "fullset")
@@ -2629,9 +2582,7 @@
     (member const-decl "bool" sets nil)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
      nil)
-    (ball_is_metric_open application-judgement "metric_open" euclidean
-     nil)
-    (metric_open_ball formula-decl nil metric_space nil)
+    nil (metric_open_ball formula-decl nil metric_space nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (number nonempty-type-decl nil numbers nil)
@@ -2672,14 +2623,9 @@
     (Union_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
     (metric_open? const-decl "bool" metric_space_def nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (x!1 skolem-const-decl "[Index[n] -> real]" euclidean nil)
-    (r!1 skolem-const-decl "posreal" euclidean nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (A!1 skolem-const-decl "(metric_induced_topology[Vector, d2])"
-     euclidean nil)
-    (ball_centre formula-decl nil metric_space nil)
-    (base? const-decl "bool" basis "topology/")
+    (IF const-decl "[boolean, T, T -> T]" if_def nil) nil nil
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil) nil
+    (ball_centre formula-decl nil metric_space nil) nil
     (fullset const-decl "set" sets nil))
    shostak))
  (Qn_dense 0
@@ -2902,8 +2848,7 @@
      real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (sigma_nnreal application-judgement "nnreal" euclidean nil)
+    (int_minus_int_is_int application-judgement "int" integers nil) nil
     (sq_lt formula-decl nil sq "reals/")
     (nnreal type-eq-decl nil real_types nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -3530,9 +3475,7 @@
     nil)
    ((extend const-decl "R" extend nil)
     (subset? const-decl "bool" sets nil)
-    (ball_centre formula-decl nil metric_space nil)
-    (ball_is_metric_open application-judgement "metric_open" euclidean
-     nil)
+    (ball_centre formula-decl nil metric_space nil) nil
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nnreal type-eq-decl nil real_types nil)
     (metric? const-decl "bool" metric_def nil)
@@ -3548,10 +3491,7 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (x!2 skolem-const-decl "Vector[n]" euclidean nil)
-    (q!1 skolem-const-decl "Qn" euclidean nil)
-    (pq!1 skolem-const-decl "posrat" euclidean nil)
+    (posreal nonempty-type-eq-decl nil real_types nil) nil nil nil
     (posrat nonempty-type-eq-decl nil rationals nil)
     (nonneg_rat nonempty-type-eq-decl nil rationals nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -3601,8 +3541,7 @@
     (sq const-decl "nonneg_real" sq "reals/")
     (int_plus_int_is_int application-judgement "int" integers nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (sigma_nnreal application-judgement "nnreal" euclidean nil)
-    (sqrt_sq formula-decl nil sqrt "reals/")
+    nil (sqrt_sq formula-decl nil sqrt "reals/")
     (sigma def-decl "real" sigma "reals/")
     (sqrt_lt formula-decl nil sqrt "reals/")
     (div_cancel1 formula-decl nil real_props nil)
@@ -3629,10 +3568,7 @@
      nil)
     (both_sides_div_pos_le2 formula-decl nil real_props nil)
     (sq_abs formula-decl nil sq "reals/")
-    (choose_member formula-decl nil sets_lemmas nil)
-    (Q skolem-const-decl
-     "[i: below[n] -> ({q: rat | abs(q - x!1(i)) < r!2 / (4 * n)})]"
-     euclidean nil)
+    (choose_member formula-decl nil sets_lemmas nil) nil
     (choose const-decl "(p)" sets nil)
     (empty? const-decl "bool" sets nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -3645,11 +3581,7 @@
      nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (metric_symmetric? const-decl "bool" metric_def nil)
-    (A!1 skolem-const-decl "(metric_induced_topology[Vector, d2])"
-     euclidean nil)
-    (q!1 skolem-const-decl "Qn" euclidean nil)
-    (r!2 skolem-const-decl "rat" euclidean nil)
+    (metric_symmetric? const-decl "bool" metric_def nil) nil nil nil
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
@@ -3660,8 +3592,7 @@
     (Union_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (Union const-decl "set" sets nil)
-    (base? const-decl "bool" basis "topology/")
+    (Union const-decl "set" sets nil) nil
     (fullset const-decl "set" sets nil))
    shostak))
  (countable_rational_balls 0
@@ -3886,13 +3817,9 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (image const-decl "set[R]" function_image nil)
+    (number nonempty-type-decl nil numbers nil) nil
     (TRUE const-decl "bool" booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (image const-decl "set[R]" function_image nil)
-    (ball_is_metric_open application-judgement "metric_open" euclidean
-     nil)
+    (NOT const-decl "[bool -> bool]" booleans nil) nil nil
     (countable_image formula-decl nil countable_image "sets_aux/")
     (cross_product const-decl "set[[T1, T2]]" cross_product
      "topology/")
@@ -3930,8 +3857,7 @@
      real_props nil)
     (posrat_times_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (NUM skolem-const-decl "[rat -> rat]" euclidean nil)
-    (x!1 skolem-const-decl "posrat" euclidean nil)
+    nil nil
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (min const-decl "{a | S(a) AND (FORALL x: S(x) IMPLIES a <= x)}"
          min_nat nil)
@@ -3955,39 +3881,42 @@
     (("" (expand "has_countable_basis?")
       (("" (typepred "metric_induced_topology[Vector[n], d2]")
         (("" (expand "hausdorff_space?")
-          (("" (assert)
-            (("" (inst + "fullset[rational_balls]")
-              (("" (split)
-                (("1" (lemma "countable_rational_balls")
-                  (("1" (hide -2 -3)
-                    (("1" (expand "fullset")
-                      (("1" (expand "extend")
-                        (("1" (expand "is_countable")
-                          (("1" (skosimp)
-                            (("1" (inst + "f!1")
+          (("" (flatten)
+            (("" (assert)
+              (("" (inst + "fullset[rational_balls]")
+                (("" (split)
+                  (("1" (lemma "countable_rational_balls")
+                    (("1" (hide -2 -3)
+                      (("1" (expand "fullset")
+                        (("1" (expand "extend")
+                          (("1" (expand "is_countable")
+                            (("1" (skosimp)
                               (("1"
-                                (typepred "f!1")
+                                (inst + "f!1")
                                 (("1"
-                                  (split)
+                                  (typepred "f!1")
                                   (("1"
-                                    (skosimp)
+                                    (split)
                                     (("1"
-                                      (case-replace
-                                       "(EXISTS q, pq: x2!1 = ball[Vector[n], d2](q, pq))")
-                                      (("1" (assert) nil nil)
-                                       ("2"
-                                        (replace 1 2)
-                                        (("2" (assert) nil nil))
-                                        nil))
-                                      nil))
-                                    nil)
-                                   ("2"
-                                    (expand "injective?")
-                                    (("2"
                                       (skosimp)
+                                      (("1"
+                                        (case-replace
+                                         "(EXISTS q, pq: x2!1 = ball[Vector[n], d2](q, pq))")
+                                        (("1" (assert) nil nil)
+                                         ("2"
+                                          (replace 1 2)
+                                          (("2" (assert) nil nil))
+                                          nil))
+                                        nil))
+                                      nil)
+                                     ("2"
+                                      (expand "injective?")
                                       (("2"
-                                        (inst - "x1!1" "x2!1")
-                                        (("2" (assert) nil nil))
+                                        (skosimp)
+                                        (("2"
+                                          (inst - "x1!1" "x2!1")
+                                          (("2" (assert) nil nil))
+                                          nil))
                                         nil))
                                       nil))
                                     nil))
@@ -3998,202 +3927,206 @@
                           nil))
                         nil))
                       nil))
-                    nil))
-                  nil)
-                 ("2" (lemma "Qn_basis")
-                  (("2"
-                    (lemma "base_is_synthetic_base"
-                     ("U"
-                      "extend[setof[Vector[n]], rational_balls, bool, FALSE](fullset[rational_balls])"
-                      "t" "metric_induced_topology[Vector, d2]"))
-                    (("2" (assert) nil nil)) nil))
-                  nil)
-                 ("3" (apply-extensionality :hide? t)
-                  (("3" (expand "metric_induced_topology")
-                    (("3" (case-replace "metric_open?(x!1)")
-                      (("1" (expand "fullset")
-                        (("1" (expand "extend")
-                          (("1"
-                            (expand "synthetic_generated_topology_set")
+                    nil)
+                   ("2" (lemma "Qn_basis")
+                    (("2"
+                      (lemma "base_is_synthetic_base"
+                       ("U"
+                        "extend[setof[Vector[n]], rational_balls, bool, FALSE](fullset[rational_balls])"
+                        "t" "metric_induced_topology[Vector, d2]"))
+                      (("2" (assert) nil nil)) nil))
+                    nil)
+                   ("3" (apply-extensionality :hide? t)
+                    (("3" (expand "metric_induced_topology")
+                      (("3" (case-replace "metric_open?(x!1)")
+                        (("1" (expand "fullset")
+                          (("1" (expand "extend")
                             (("1"
-                              (inst +
-                               "{X:rational_balls| subset?(X,x!1)}")
+                              (expand "synthetic_generated_topology_set")
                               (("1"
-                                (split)
+                                (inst
+                                 +
+                                 "{X:rational_balls| subset?(X,x!1)}")
                                 (("1"
-                                  (expand "extend")
+                                  (split)
                                   (("1"
-                                    (expand "subset?")
+                                    (expand "extend")
                                     (("1"
-                                      (expand "member")
+                                      (expand "subset?")
                                       (("1"
-                                        (skosimp)
-                                        (("1" (prop) nil nil))
+                                        (expand "member")
+                                        (("1"
+                                          (skosimp)
+                                          (("1" (prop) nil nil))
+                                          nil))
                                         nil))
                                       nil))
-                                    nil))
-                                  nil)
-                                 ("2"
-                                  (expand "extend")
-                                  (("2"
-                                    (expand "Union")
+                                    nil)
+                                   ("2"
+                                    (expand "extend")
                                     (("2"
-                                      (apply-extensionality 1 :hide? t)
+                                      (expand "Union")
                                       (("2"
-                                        (case-replace "x!1(x!2)")
-                                        (("1"
-                                          (expand "metric_open?")
+                                        (apply-extensionality
+                                         1
+                                         :hide?
+                                         t)
+                                        (("2"
+                                          (case-replace "x!1(x!2)")
                                           (("1"
-                                            (inst - "x!2")
+                                            (expand "metric_open?")
                                             (("1"
-                                              (assert)
+                                              (inst - "x!2")
                                               (("1"
-                                                (skosimp)
+                                                (assert)
                                                 (("1"
-                                                  (case
-                                                   "exists q, pq: subset?(ball[Vector, d2](q, pq),ball(x!2, r!1)) & ball[Vector, d2](q, pq)(x!2)")
+                                                  (skosimp)
                                                   (("1"
-                                                    (skosimp)
+                                                    (case
+                                                     "exists q, pq: subset?(ball[Vector, d2](q, pq),ball(x!2, r!1)) & ball[Vector, d2](q, pq)(x!2)")
                                                     (("1"
-                                                      (inst
-                                                       +
-                                                       "ball[Vector, d2](q!1, pq!1)")
+                                                      (skosimp)
                                                       (("1"
-                                                        (prop)
+                                                        (inst
+                                                         +
+                                                         "ball[Vector, d2](q!1, pq!1)")
                                                         (("1"
-                                                          (hide -1)
+                                                          (prop)
                                                           (("1"
-                                                            (expand
-                                                             "subset?")
+                                                            (hide -1)
                                                             (("1"
-                                                              (skosimp)
+                                                              (expand
+                                                               "subset?")
                                                               (("1"
-                                                                (expand
-                                                                 "member")
+                                                                (skosimp)
                                                                 (("1"
-                                                                  (inst
-                                                                   -
-                                                                   "x!3")
+                                                                  (expand
+                                                                   "member")
                                                                   (("1"
                                                                     (inst
                                                                      -
                                                                      "x!3")
                                                                     (("1"
-                                                                      (assert)
-                                                                      nil
+                                                                      (inst
+                                                                       -
+                                                                       "x!3")
+                                                                      (("1"
+                                                                        (assert)
+                                                                        nil
+                                                                        nil))
                                                                       nil))
                                                                     nil))
                                                                   nil))
                                                                 nil))
                                                               nil))
+                                                            nil)
+                                                           ("2"
+                                                            (inst
+                                                             +
+                                                             "q!1"
+                                                             "pq!1")
+                                                            nil
                                                             nil))
-                                                          nil)
-                                                         ("2"
-                                                          (inst
-                                                           +
-                                                           "q!1"
-                                                           "pq!1")
-                                                          nil
                                                           nil))
                                                         nil))
-                                                      nil))
-                                                    nil)
-                                                   ("2"
-                                                    (hide 2)
-                                                    (("2"
-                                                      (lemma
-                                                       "density"
-                                                       ("x"
-                                                        "0"
-                                                        "y"
-                                                        "r!1"))
+                                                      nil)
+                                                     ("2"
+                                                      (hide 2)
                                                       (("2"
-                                                        (assert)
+                                                        (lemma
+                                                         "density"
+                                                         ("x"
+                                                          "0"
+                                                          "y"
+                                                          "r!1"))
                                                         (("2"
-                                                          (skosimp)
+                                                          (assert)
                                                           (("2"
-                                                            (lemma
-                                                             "posreal_div_posreal_is_posreal"
-                                                             ("px"
-                                                              "r!2"
-                                                              "py"
-                                                              "sqrt(n)"))
-                                                            (("1"
-                                                              (name
-                                                               "R"
-                                                               "r!2 / sqrt(n)")
+                                                            (skosimp)
+                                                            (("2"
+                                                              (lemma
+                                                               "posreal_div_posreal_is_posreal"
+                                                               ("px"
+                                                                "r!2"
+                                                                "py"
+                                                                "sqrt(n)"))
                                                               (("1"
-                                                                (replace
-                                                                 -1)
+                                                                (name
+                                                                 "R"
+                                                                 "r!2 / sqrt(n)")
                                                                 (("1"
-                                                                  (name
-                                                                   "VV"
-                                                                   "{q | ball[Vector, d2](q,r!2/2)(x!2)}")
+                                                                  (replace
+                                                                   -1)
                                                                   (("1"
-                                                                    (case
-                                                                     "nonempty?(VV)")
+                                                                    (name
+                                                                     "VV"
+                                                                     "{q | ball[Vector, d2](q,r!2/2)(x!2)}")
                                                                     (("1"
-                                                                      (inst
-                                                                       +
-                                                                       "choose(VV)"
-                                                                       "r!2/2")
+                                                                      (case
+                                                                       "nonempty?(VV)")
                                                                       (("1"
-                                                                        (lemma
-                                                                         "choose_member"
-                                                                         ("a"
-                                                                          "VV"))
+                                                                        (inst
+                                                                         +
+                                                                         "choose(VV)"
+                                                                         "r!2/2")
                                                                         (("1"
-                                                                          (split
-                                                                           -1)
+                                                                          (lemma
+                                                                           "choose_member"
+                                                                           ("a"
+                                                                            "VV"))
                                                                           (("1"
-                                                                            (expand
-                                                                             "member")
+                                                                            (split
+                                                                             -1)
                                                                             (("1"
                                                                               (expand
-                                                                               "VV"
-                                                                               -1
-                                                                               1)
+                                                                               "member")
                                                                               (("1"
-                                                                                (assert)
+                                                                                (expand
+                                                                                 "VV"
+                                                                                 -1
+                                                                                 1)
                                                                                 (("1"
-                                                                                  (expand
-                                                                                   "subset?"
-                                                                                   1)
+                                                                                  (assert)
                                                                                   (("1"
                                                                                     (expand
-                                                                                     "member")
+                                                                                     "subset?"
+                                                                                     1)
                                                                                     (("1"
-                                                                                      (skosimp)
+                                                                                      (expand
+                                                                                       "member")
                                                                                       (("1"
-                                                                                        (name-replace
-                                                                                         "CC"
-                                                                                         "choose(VV)")
+                                                                                        (skosimp)
                                                                                         (("1"
-                                                                                          (hide-all-but
-                                                                                           (-1
-                                                                                            -6
-                                                                                            -7
-                                                                                            -8
-                                                                                            1))
+                                                                                          (name-replace
+                                                                                           "CC"
+                                                                                           "choose(VV)")
                                                                                           (("1"
-                                                                                            (expand
-                                                                                             "ball")
+                                                                                            (hide-all-but
+                                                                                             (-1
+                                                                                              -6
+                                                                                              -7
+                                                                                              -8
+                                                                                              1))
                                                                                             (("1"
-                                                                                              (lemma
-                                                                                               "metric_triangle"
-                                                                                               ("x"
-                                                                                                "x!2"
-                                                                                                "y"
-                                                                                                "CC"
-                                                                                                "z"
-                                                                                                "x!3"))
+                                                                                              (expand
+                                                                                               "ball")
                                                                                               (("1"
-                                                                                                (rewrite
-                                                                                                 "metric_symmetric"
-                                                                                                 -2)
+                                                                                                (lemma
+                                                                                                 "metric_triangle"
+                                                                                                 ("x"
+                                                                                                  "x!2"
+                                                                                                  "y"
+                                                                                                  "CC"
+                                                                                                  "z"
+                                                                                                  "x!3"))
                                                                                                 (("1"
-                                                                                                  (assert)
-                                                                                                  nil
+                                                                                                  (rewrite
+                                                                                                   "metric_symmetric"
+                                                                                                   -2)
+                                                                                                  (("1"
+                                                                                                    (assert)
+                                                                                                    nil
+                                                                                                    nil))
                                                                                                   nil))
                                                                                                 nil))
                                                                                               nil))
@@ -4204,104 +4137,104 @@
                                                                                     nil))
                                                                                   nil))
                                                                                 nil))
-                                                                              nil))
-                                                                            nil)
-                                                                           ("2"
-                                                                            (expand
-                                                                             "nonempty?")
-                                                                            (("2"
-                                                                              (propax)
-                                                                              nil
+                                                                              nil)
+                                                                             ("2"
+                                                                              (expand
+                                                                               "nonempty?")
+                                                                              (("2"
+                                                                                (propax)
+                                                                                nil
+                                                                                nil))
                                                                               nil))
                                                                             nil))
+                                                                          nil)
+                                                                         ("2"
+                                                                          (assert)
+                                                                          nil
                                                                           nil))
                                                                         nil)
                                                                        ("2"
-                                                                        (assert)
-                                                                        nil
-                                                                        nil))
-                                                                      nil)
-                                                                     ("2"
-                                                                      (hide
-                                                                       2)
-                                                                      (("2"
-                                                                        (expand
-                                                                         "nonempty?")
+                                                                        (hide
+                                                                         2)
                                                                         (("2"
                                                                           (expand
-                                                                           "empty?")
+                                                                           "nonempty?")
                                                                           (("2"
                                                                             (expand
-                                                                             "member")
+                                                                             "empty?")
                                                                             (("2"
                                                                               (expand
-                                                                               "VV")
+                                                                               "member")
                                                                               (("2"
-                                                                                (hide
-                                                                                 -2)
+                                                                                (expand
+                                                                                 "VV")
                                                                                 (("2"
-                                                                                  (expand
-                                                                                   "ball")
+                                                                                  (hide
+                                                                                   -2)
                                                                                   (("2"
-                                                                                    (case
-                                                                                     "FORALL i: nonempty?[rat]({q: rat | sq(q - x!2(i)) < sq(r!2 / 2) / n})")
-                                                                                    (("1"
-                                                                                      (inst
-                                                                                       -2
-                                                                                       "lambda i: choose[rat]({q:rat | sq(q-x!2(i)) < sq(r!2/2)/n})")
+                                                                                    (expand
+                                                                                     "ball")
+                                                                                    (("2"
+                                                                                      (case
+                                                                                       "FORALL i: nonempty?[rat]({q: rat | sq(q - x!2(i)) < sq(r!2 / 2) / n})")
                                                                                       (("1"
-                                                                                        (name-replace
-                                                                                         "v"
-                                                                                         "LAMBDA i: choose[rat]({q: rat | sq(q - x!2(i)) < sq(r!2 / 2) / n})")
+                                                                                        (inst
+                                                                                         -2
+                                                                                         "lambda i: choose[rat]({q:rat | sq(q-x!2(i)) < sq(r!2/2)/n})")
                                                                                         (("1"
-                                                                                          (expand
-                                                                                           "d2")
+                                                                                          (name-replace
+                                                                                           "v"
+                                                                                           "LAMBDA i: choose[rat]({q: rat | sq(q - x!2(i)) < sq(r!2 / 2) / n})")
                                                                                           (("1"
-                                                                                            (lemma
-                                                                                             "sqrt_lt"
-                                                                                             ("nny"
-                                                                                              "sigma(0, n - 1, LAMBDA i: sq(v(i) - x!2(i)))"
-                                                                                              "nnz"
-                                                                                              "sq(r!2/2)"))
+                                                                                            (expand
+                                                                                             "d2")
                                                                                             (("1"
-                                                                                              (rewrite
-                                                                                               "sqrt_sq")
+                                                                                              (lemma
+                                                                                               "sqrt_lt"
+                                                                                               ("nny"
+                                                                                                "sigma(0, n - 1, LAMBDA i: sq(v(i) - x!2(i)))"
+                                                                                                "nnz"
+                                                                                                "sq(r!2/2)"))
                                                                                               (("1"
-                                                                                                (replace
-                                                                                                 -1)
+                                                                                                (rewrite
+                                                                                                 "sqrt_sq")
                                                                                                 (("1"
-                                                                                                  (hide
+                                                                                                  (replace
                                                                                                    -1)
                                                                                                   (("1"
-                                                                                                    (lemma
-                                                                                                     "sigma_lt"
-                                                                                                     ("low"
-                                                                                                      "0"
-                                                                                                      "high"
-                                                                                                      "n-1"
-                                                                                                      "F"
-                                                                                                      "LAMBDA i: sq(v(i) - x!2(i))"
-                                                                                                      "G"
-                                                                                                      "LAMBDA i: sq(r!2/2)/n"))
+                                                                                                    (hide
+                                                                                                     -1)
                                                                                                     (("1"
-                                                                                                      (rewrite
-                                                                                                       "sigma_const")
+                                                                                                      (lemma
+                                                                                                       "sigma_lt"
+                                                                                                       ("low"
+                                                                                                        "0"
+                                                                                                        "high"
+                                                                                                        "n-1"
+                                                                                                        "F"
+                                                                                                        "LAMBDA i: sq(v(i) - x!2(i))"
+                                                                                                        "G"
+                                                                                                        "LAMBDA i: sq(r!2/2)/n"))
                                                                                                       (("1"
-                                                                                                        (assert)
+                                                                                                        (rewrite
+                                                                                                         "sigma_const")
                                                                                                         (("1"
-                                                                                                          (hide
-                                                                                                           2)
+                                                                                                          (assert)
                                                                                                           (("1"
-                                                                                                            (skosimp)
+                                                                                                            (hide
+                                                                                                             2)
                                                                                                             (("1"
-                                                                                                              (typepred
-                                                                                                               "n1!1")
+                                                                                                              (skosimp)
                                                                                                               (("1"
-                                                                                                                (expand
-                                                                                                                 "nonempty?")
+                                                                                                                (typepred
+                                                                                                                 "n1!1")
                                                                                                                 (("1"
-                                                                                                                  (assert)
-                                                                                                                  nil
+                                                                                                                  (expand
+                                                                                                                   "nonempty?")
+                                                                                                                  (("1"
+                                                                                                                    (assert)
+                                                                                                                    nil
+                                                                                                                    nil))
                                                                                                                   nil))
                                                                                                                 nil))
                                                                                                               nil))
@@ -4312,110 +4245,85 @@
                                                                                                     nil))
                                                                                                   nil))
                                                                                                 nil))
-                                                                                              nil)
-                                                                                             ("2"
-                                                                                              (assert)
-                                                                                              (("2"
-                                                                                                (lemma
-                                                                                                 "sigma_nnreal")
-                                                                                                (("2"
-                                                                                                  (inst?)
-                                                                                                  (("2"
-                                                                                                    (lemma
-                                                                                                     "sigma_Fnnr[below(n)]")
-                                                                                                    (("2"
-                                                                                                      (inst?)
-                                                                                                      nil
-                                                                                                      nil))
-                                                                                                    nil))
-                                                                                                  nil))
-                                                                                                nil))
                                                                                               nil))
                                                                                             nil))
                                                                                           nil))
-                                                                                        nil))
-                                                                                      nil)
-                                                                                     ("2"
-                                                                                      (skosimp)
-                                                                                      (("2"
-                                                                                        (expand
-                                                                                         "nonempty?")
+                                                                                        nil)
+                                                                                       ("2"
+                                                                                        (skosimp)
                                                                                         (("2"
                                                                                           (expand
-                                                                                           "empty?")
+                                                                                           "nonempty?")
                                                                                           (("2"
-                                                                                            (lemma
-                                                                                             "density"
-                                                                                             ("x"
-                                                                                              "x!2(i!1)-r!2/(2*sqrt(n))"
-                                                                                              "y"
-                                                                                              "x!2(i!1)+r!2/(2*sqrt(n))"))
+                                                                                            (expand
+                                                                                             "empty?")
                                                                                             (("2"
-                                                                                              (assert)
+                                                                                              (lemma
+                                                                                               "density"
+                                                                                               ("x"
+                                                                                                "x!2(i!1)-r!2/(2*sqrt(n))"
+                                                                                                "y"
+                                                                                                "x!2(i!1)+r!2/(2*sqrt(n))"))
                                                                                               (("2"
-                                                                                                (skosimp)
+                                                                                                (assert)
                                                                                                 (("2"
-                                                                                                  (inst
-                                                                                                   -3
-                                                                                                   "r!3")
+                                                                                                  (skosimp)
                                                                                                   (("2"
-                                                                                                    (lemma
-                                                                                                     "sq_abs"
-                                                                                                     ("a"
-                                                                                                      "r!3 - x!2(i!1)"))
+                                                                                                    (inst
+                                                                                                     -3
+                                                                                                     "r!3")
                                                                                                     (("2"
-                                                                                                      (replace
-                                                                                                       -1
-                                                                                                       1
-                                                                                                       rl)
+                                                                                                      (lemma
+                                                                                                       "sq_abs"
+                                                                                                       ("a"
+                                                                                                        "r!3 - x!2(i!1)"))
                                                                                                       (("2"
-                                                                                                        (hide
-                                                                                                         -1)
+                                                                                                        (replace
+                                                                                                         -1
+                                                                                                         1
+                                                                                                         rl)
                                                                                                         (("2"
-                                                                                                          (lemma
-                                                                                                           "sqrt_lt"
-                                                                                                           ("nny"
-                                                                                                            "sq(abs(r!3 - x!2(i!1)))"
-                                                                                                            "nnz"
-                                                                                                            "sq(r!2 / 2) / n"))
+                                                                                                          (hide
+                                                                                                           -1)
                                                                                                           (("2"
-                                                                                                            (replace
-                                                                                                             -1
-                                                                                                             1
-                                                                                                             rl)
+                                                                                                            (lemma
+                                                                                                             "sqrt_lt"
+                                                                                                             ("nny"
+                                                                                                              "sq(abs(r!3 - x!2(i!1)))"
+                                                                                                              "nnz"
+                                                                                                              "sq(r!2 / 2) / n"))
                                                                                                             (("2"
-                                                                                                              (hide
-                                                                                                               -1)
+                                                                                                              (replace
+                                                                                                               -1
+                                                                                                               1
+                                                                                                               rl)
                                                                                                               (("2"
-                                                                                                                (rewrite
-                                                                                                                 "sqrt_sq")
+                                                                                                                (hide
+                                                                                                                 -1)
                                                                                                                 (("2"
                                                                                                                   (rewrite
-                                                                                                                   "sqrt_div")
+                                                                                                                   "sqrt_sq")
                                                                                                                   (("2"
                                                                                                                     (rewrite
-                                                                                                                     "div_div2")
+                                                                                                                     "sqrt_div")
                                                                                                                     (("2"
-                                                                                                                      (case-replace
-                                                                                                                       "r!2 / (2 * sqrt(n))=R/2")
-                                                                                                                      (("1"
-                                                                                                                        (hide-all-but
-                                                                                                                         (-2
-                                                                                                                          -3
-                                                                                                                          -6
-                                                                                                                          1))
+                                                                                                                      (rewrite
+                                                                                                                       "div_div2")
+                                                                                                                      (("2"
+                                                                                                                        (case-replace
+                                                                                                                         "r!2 / (2 * sqrt(n))=R/2")
                                                                                                                         (("1"
                                                                                                                           (grind)
                                                                                                                           nil
-                                                                                                                          nil))
-                                                                                                                        nil)
-                                                                                                                       ("2"
-                                                                                                                        (expand
-                                                                                                                         "R")
-                                                                                                                        (("2"
-                                                                                                                          (rewrite
-                                                                                                                           "div_div2")
-                                                                                                                          nil
+                                                                                                                          nil)
+                                                                                                                         ("2"
+                                                                                                                          (expand
+                                                                                                                           "R")
+                                                                                                                          (("2"
+                                                                                                                            (rewrite
+                                                                                                                             "div_div2")
+                                                                                                                            nil
+                                                                                                                            nil))
                                                                                                                           nil))
                                                                                                                         nil))
                                                                                                                       nil))
@@ -4442,18 +4350,18 @@
                                                                             nil))
                                                                           nil))
                                                                         nil))
+                                                                      nil)
+                                                                     ("2"
+                                                                      (assert)
+                                                                      nil
                                                                       nil))
-                                                                    nil)
-                                                                   ("2"
-                                                                    (assert)
-                                                                    nil
                                                                     nil))
                                                                   nil))
+                                                                nil)
+                                                               ("2"
+                                                                (assert)
+                                                                nil
                                                                 nil))
-                                                              nil)
-                                                             ("2"
-                                                              (assert)
-                                                              nil
                                                               nil))
                                                             nil))
                                                           nil))
@@ -4463,25 +4371,25 @@
                                                   nil))
                                                 nil))
                                               nil))
-                                            nil))
-                                          nil)
-                                         ("2"
-                                          (assert)
-                                          (("2"
-                                            (skosimp)
+                                            nil)
+                                           ("2"
+                                            (assert)
                                             (("2"
-                                              (typepred "a!1")
+                                              (skosimp)
                                               (("2"
-                                                (replace -2 -1)
+                                                (typepred "a!1")
                                                 (("2"
-                                                  (expand "subset?")
+                                                  (replace -2 -1)
                                                   (("2"
-                                                    (expand "member")
+                                                    (expand "subset?")
                                                     (("2"
-                                                      (inst - "x!2")
+                                                      (expand "member")
                                                       (("2"
-                                                        (assert)
-                                                        nil
+                                                        (inst - "x!2")
+                                                        (("2"
+                                                          (assert)
+                                                          nil
+                                                          nil))
                                                         nil))
                                                       nil))
                                                     nil))
@@ -4497,63 +4405,64 @@
                                 nil))
                               nil))
                             nil))
-                          nil))
-                        nil)
-                       ("2" (replace 1 2)
-                        (("2" (assert)
-                          (("2" (expand "fullset")
-                            (("2" (expand "extend")
+                          nil)
+                         ("2" (replace 1 2)
+                          (("2" (assert)
+                            (("2" (expand "fullset")
                               (("2"
-                                (expand
-                                 "synthetic_generated_topology_set")
+                                (expand "extend")
                                 (("2"
-                                  (skosimp)
+                                  (expand
+                                   "synthetic_generated_topology_set")
                                   (("2"
-                                    (lemma "open_Union" ("Y" "V!1"))
+                                    (skosimp)
                                     (("2"
-                                      (replace -3 -1)
+                                      (lemma "open_Union" ("Y" "V!1"))
                                       (("2"
-                                        (rewrite "metric_open_def")
+                                        (replace -3 -1)
                                         (("2"
-                                          (assert)
+                                          (rewrite "metric_open_def")
                                           (("2"
-                                            (hide 2)
+                                            (assert)
                                             (("2"
-                                              (expand "every")
+                                              (hide 2)
                                               (("2"
-                                                (skosimp)
+                                                (expand "every")
                                                 (("2"
-                                                  (typepred "x!2")
+                                                  (skosimp)
                                                   (("2"
-                                                    (hide -3)
+                                                    (typepred "x!2")
                                                     (("2"
-                                                      (rewrite
-                                                       "metric_open_def"
-                                                       +
-                                                       :dir
-                                                       rl)
+                                                      (hide -3)
                                                       (("2"
-                                                        (expand
-                                                         "subset?")
+                                                        (rewrite
+                                                         "metric_open_def"
+                                                         +
+                                                         :dir
+                                                         rl)
                                                         (("2"
                                                           (expand
-                                                           "member")
+                                                           "subset?")
                                                           (("2"
-                                                            (inst
-                                                             -
-                                                             "x!2")
+                                                            (expand
+                                                             "member")
                                                             (("2"
-                                                              (assert)
+                                                              (inst
+                                                               -
+                                                               "x!2")
                                                               (("2"
-                                                                (prop)
+                                                                (assert)
                                                                 (("2"
-                                                                  (skosimp)
+                                                                  (prop)
                                                                   (("2"
-                                                                    (replace
-                                                                     -1)
+                                                                    (skosimp)
                                                                     (("2"
-                                                                      (assert)
-                                                                      nil
+                                                                      (replace
+                                                                       -1)
+                                                                      (("2"
+                                                                        (assert)
+                                                                        nil
+                                                                        nil))
                                                                       nil))
                                                                     nil))
                                                                   nil))
@@ -4588,7 +4497,40 @@
         nil))
       nil))
     nil)
-   ((has_countable_basis? const-decl "bool" topology_def "topology/")
+   ((metric_space_is_hausdorff name-judgement "hausdorff" euclidean
+     nil)
+    (second_countable? const-decl "bool" topology_def "topology/")
+    (metric_induced_topology const-decl "setofsets[T]" metric_space_def
+     nil)
+    (d2 const-decl "metric" euclidean nil)
+    (metric nonempty-type-eq-decl nil metric_def nil)
+    (metric? const-decl "bool" metric_def nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (hausdorff_space? const-decl "bool" topology_prelim "topology/")
+    (setofsets type-eq-decl nil sets nil)
+    (setof type-eq-decl nil defined_types nil)
+    (Vector type-eq-decl nil vectors "vectors/")
+    (Index type-eq-decl nil vectors "vectors/")
+    (n formal-const-decl "posnat" euclidean nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (< const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (set type-eq-decl nil sets nil)
     (rat nonempty-type-eq-decl nil rationals nil)
     (Qn nonempty-type-eq-decl nil euclidean nil)
@@ -4602,12 +4544,12 @@
     (FALSE const-decl "bool" booleans nil)
     (extend const-decl "R" extend nil)
     (fullset const-decl "set" sets nil)
-    (synthetic_base? const-decl "bool" basis "topology/")
-    (synthetic_base type-eq-decl nil basis "topology/")
     (synthetic_generated_topology_set const-decl "setofsets[T]" basis
      "topology/")
+    (synthetic_base type-eq-decl nil basis "topology/")
+    (synthetic_base? const-decl "bool" basis "topology/")
     (synthetic_basis_is_topology application-judgement
-     "topology[Vector]" euclidean nil)
+     "topology[Vector[n]]" euclidean nil)
     (metric_open? const-decl "bool" metric_space_def nil)
     (subset? const-decl "bool" sets nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -4626,14 +4568,37 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (sqrt_div formula-decl nil sqrt "reals/")
+    (minus_even_is_even application-judgement "even_int" integers nil)
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (hausdorff? const-decl "bool" topology_prelim "topology/")
+    (is_T2? const-decl "bool" topology_prelim "topology/")
+    (disjoint? const-decl "bool" sets nil)
+    (topology_intersection? const-decl "bool" topology_prelim
+     "topology/")
+    (intersection const-decl "set" sets nil)
+    (topology_Union? const-decl "bool" topology_prelim "topology/")
+    (topology_full? const-decl "bool" topology_prelim "topology/")
+    (topology_empty? const-decl "bool" topology_prelim "topology/")
+    (emptyset const-decl "set" sets nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (finite_emptyset name-judgement "finite_set" finite_sets nil)
+    (finite_emptyset name-judgement "finite_set" countable_props
+     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set" countable_setofsets
+     "sets_aux/")
+    (emptyset_is_compact name-judgement "compact" euclidean nil)
+    (emptyset_is_clopen name-judgement "clopen" euclidean nil)
+    (fullset_is_clopen name-judgement "clopen" euclidean nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (R skolem-const-decl "real" euclidean nil)
     (div_div2 formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (sq_abs formula-decl nil sq "reals/")
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (x!2 skolem-const-decl "[Index[n] -> real]" euclidean nil)
     (sqrt_sq formula-decl nil sqrt "reals/")
     (sigma_const formula-decl nil sigma "reals/")
@@ -4686,9 +4651,9 @@
     (metric_open_def formula-decl nil metric_space nil)
     (open_Union formula-decl nil topology "topology/")
     (Qn_basis formula-decl nil euclidean nil)
-    (topology nonempty-type-eq-decl nil topology_prelim "topology/")
-    (topology? const-decl "bool" topology_prelim "topology/")
     (base_is_synthetic_base formula-decl nil basis "topology/")
+    (topology? const-decl "bool" topology_prelim "topology/")
+    (topology nonempty-type-eq-decl nil topology_prelim "topology/")
     (countable_rational_balls formula-decl nil euclidean nil)
     (is_countable const-decl "bool" countability "sets_aux/")
     (injective? const-decl "bool" functions nil)
@@ -4696,48 +4661,15 @@
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (f!1 skolem-const-decl "(injective?[({x | TRUE}), nat])" euclidean
-     nil)
+    (f!1 skolem-const-decl "(injective?[rational_balls, nat])"
+     euclidean nil)
     (ball_is_metric_open application-judgement "metric_open" euclidean
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (n formal-const-decl "posnat" euclidean nil)
-    (Index type-eq-decl nil vectors "vectors/")
-    (Vector type-eq-decl nil vectors "vectors/")
-    (setof type-eq-decl nil defined_types nil)
-    (setofsets type-eq-decl nil sets nil)
-    (hausdorff? const-decl "bool" topology_prelim "topology/")
-    (nnreal type-eq-decl nil real_types nil)
-    (metric? const-decl "bool" metric_def nil)
-    (metric nonempty-type-eq-decl nil metric_def nil)
-    (d2 const-decl "metric" euclidean nil)
-    (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     nil)
-    (hausdorff_space? const-decl "bool" topology_prelim "topology/")
-    (second_countable? const-decl "bool" topology_def "topology/")
-    (metric_space_is_hausdorff name-judgement "hausdorff" euclidean
-     nil)
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)" euclidean
-     nil))
-   nil))
+    (has_countable_basis? const-decl "bool" topology_def "topology/"))
+   nil
+   (euclidean_topology_is_second_countable subtype
+    "metric_space_def[Vector[n], euclidean.d2].metric_induced_topology"
+    "second_countable[Vector[n]]")))
  (euclidean_topology_is_complete 0
   (euclidean_topology_is_complete-1 nil 3407039473
    ("" (lemma "real_is_complete")
@@ -5822,13 +5754,10 @@
         nil))
       nil))
     nil)
-   ((fullset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" real_topology nil)
+   (nil
     (real_is_complete name-judgement "metric_complete" real_topology
      nil)
-    (fullset_is_clopen name-judgement
-     "clopen[T, (metric_induced_topology)]" euclidean nil)
-    (complete_metric_space? const-decl "bool" metric_space_def nil)
+    nil (complete_metric_space? const-decl "bool" metric_space_def nil)
     (euclidean_d2 formula-decl nil euclidean nil)
     (fullset const-decl "set" sets nil)
     (metric_complete? const-decl "bool" metric_space_def nil)
@@ -5865,8 +5794,7 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (sigma_nnreal application-judgement "nnreal" vectors "vectors/")
+    (number nonempty-type-decl nil numbers nil) nil
     (real_minus_real_is_real application-judgement "real" reals nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -5874,10 +5802,7 @@
     (Vector type-eq-decl nil vectors "vectors/")
     (Index type-eq-decl nil vectors "vectors/")
     (sequence type-eq-decl nil sequences nil)
-    (TRUE const-decl "bool" booleans nil)
-    (metric_convergent? const-decl "bool" metric_space_def nil)
-    (ball_is_metric_open application-judgement "metric_open" euclidean
-     nil)
+    (TRUE const-decl "bool" booleans nil) nil nil
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (member const-decl "bool" sets nil)
@@ -5909,11 +5834,9 @@
      real_props nil)
     (sq_sqrt formula-decl nil sqrt "reals/")
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (j!1 skolem-const-decl "nat" euclidean nil)
+    (NOT const-decl "[bool -> bool]" booleans nil) nil
     (sigma_zero formula-decl nil sigma "reals/")
-    (sq_0 formula-decl nil sq "reals/")
-    (sigma_nat application-judgement "nat" vectors "vectors/")
+    (sq_0 formula-decl nil sq "reals/") nil
     (sqrt_0 formula-decl nil sqrt "reals/")
     (extensionality formula-decl nil functions nil)
     (sigma_Fnnr formula-decl nil sigma "reals/")
@@ -5943,5 +5866,7 @@
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (real_is_complete judgement-tcc nil real_topology nil))
-   nil)))
+   nil
+   (euclidean_topology_is_complete subtype "sets[Vector[n]].fullset"
+    "metric_complete[Vector[n], d2]"))))
 
