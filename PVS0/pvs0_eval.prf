@@ -10,8 +10,6 @@
    ((terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (list type-decl nil list_adt nil)
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -19,11 +17,16 @@
     (boolean nonempty-type-decl nil booleans nil)
     (terminates_implies_pvs0_tcc formula-decl nil measure_termination
      nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.pvs0"
+    "(measure_termination_defs[pvs0_eval.Val, MT, LAMBDA (m, n: naturalnumbers.nat): reals.<(m, n)].pvs0_tcc_termination)")))
  (pvs0_eval_expr_TCC2 0
   (pvs0_eval_expr_TCC2-1 nil 3682847758
    ("" (skosimp*) (("" (rewrite "wf_nat") nil nil)) nil)
-   ((wf_nat formula-decl nil naturalnumbers nil)) nil))
+   ((wf_nat formula-decl nil naturalnumbers nil)) nil
+   (pvs0_eval_expr subtype
+    "LAMBDA (m, n: naturalnumbers.nat): reals.<(m, n)"
+    "(orders[MT].well_founded?)")))
  (pvs0_eval_expr_TCC3 0
   (pvs0_eval_expr_TCC3-2 nil 3684365534
    ("" (skolem 1 "pvs0")
@@ -35,8 +38,6 @@
    ((terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (list type-decl nil list_adt nil)
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -44,7 +45,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (terminates_implies_pvs0_tcc formula-decl nil measure_termination
      nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs01"
+    "(measure_termination_defs[pvs0_eval.Val, MT, LAMBDA (m, n: naturalnumbers.nat): reals.<(m, n)].pvs0_tcc_termination)")))
  (pvs0_eval_expr_TCC4 0
   (pvs0_eval_expr_TCC4-1 nil 3682847758
    ("" (skeep)
@@ -56,7 +59,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (semantic_rel_expr inductive-decl "bool" pvs0_expr nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.v"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}")))
  (pvs0_eval_expr_TCC5 0
   (pvs0_eval_expr_TCC5-2 nil 3684365451
    ("" (skeep)
@@ -68,15 +73,69 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (semantic_rel_expr inductive-decl "bool" pvs0_expr nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}")))
  (pvs0_eval_expr_TCC6 0
+  (pvs0_eval_expr_TCC6-4 nil 3769264240
+   ("" (skeep*)
+    (("" (grind)
+      (("" (typepred "val")
+        (("" (lemma "subterm_append")
+          (("" (skeep)
+            (("" (inst -1 "get_body(pvs0)" "path")
+              (("" (beta)
+                (("" (inst -1 "(:0:)")
+                  (("1" (replace -4)
+                    (("1" (replace -2)
+                      (("1" (expand "subterm_at" -1 2)
+                        (("1" (expand "rdc")
+                          (("1" (expand "reverse" -1 2)
+                            (("1" (expand "reverse" -1 2)
+                              (("1"
+                                (expand "append" -1 2)
+                                (("1"
+                                  (expand "reverse")
+                                  (("1"
+                                    (expand "subterm_at" -1 2)
+                                    (("1"
+                                      (inst 1 "append((:0:),path)")
+                                      (("1"
+                                        (assert)
+                                        nil)))))))))))))))))))))
+                   ("2" (replace -1)
+                    (("2" (replace -3)
+                      (("2" (expand "valid_path")
+                        (("2" (grind)
+                          (("2" (rewrite "null_path")
+                            nil))))))))))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
+  (pvs0_eval_expr_TCC6-3 nil 3768987944
+   ("" (skeep*) (("" (assert) nil)) nil) nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
+  (pvs0_eval_expr_TCC6-1 nil 3768986814
+   ("" (skeep*) (("" (assert) nil)) nil) nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
   (pvs0_eval_expr_TCC6-2 nil 3684365407
    ("" (skeep*) (("" (assert) nil nil)) nil)
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_expr_TCC7 0
+  (pvs0_eval_expr_TCC7-1 nil 3769264240
+   ("" (skeep) (("" (rewrite "lex2_lt") (("" (grind) nil)))) nil) nil
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg, pvs0_eval.val)"
+    "nil"))
   (pvs0_eval_expr_TCC7-2 nil 3684365361
    ("" (skeep*)
     (("" (typepred "v")
@@ -108,7 +167,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (number nonempty-type-decl nil numbers nil)
     (terminating? const-decl "bool" pvs0_lang nil)
@@ -123,7 +181,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg, pvs0_eval.val)"
+    "nil")))
  (pvs0_eval_expr_TCC8 0
   (pvs0_eval_expr_TCC8-3 nil 3742984969
    ("" (skeep*)
@@ -175,63 +236,25 @@
         nil))
       nil))
     nil)
-   ((subterm_append formula-decl nil pvs0_props nil)
-    (null adt-constructor-decl "(null?)" list_adt nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
-    (rdc const-decl "list[T]" more_list_props "structures/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (append def-decl "list[T]" list_props nil)
-    (reverse def-decl "list[T]" list_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (rac const-decl "T" more_list_props "structures/")
-    (nth def-decl "T" list_props nil)
-    (length def-decl "nat" list_props nil)
-    (null_path formula-decl nil pvs0_props nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (>= const-decl "bool" reals nil)
-    (Val formal-nonempty-type-decl nil pvs0_eval nil)
-    (Path type-eq-decl nil pvs0_cc nil)
-    (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (valid_path def-decl "bool" pvs0_cc nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (PVS0 type-eq-decl nil pvs0_expr nil)
-    (terminating? const-decl "bool" pvs0_lang nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (subterm adt-def-decl "boolean" PVS0Expr_adt nil)
-    (subterm_at def-decl "({res: PVS0Expr | subterm(res, expr)})"
-     pvs0_cc nil)
-    (PVS0Bool type-decl nil PVS0Bool_adt nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
-    (eval_conds def-decl "bool" pvs0_cc nil)
-    (path_conditions def-decl "Conditions" pvs0_cc nil)
-    (boolean nonempty-type-decl nil booleans nil)
+   ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.expr"
+    "{x: PVS0Expr_adt[pvs0_eval.Val].PVS0Expr | booleans.OR(PVS0Expr_adt[pvs0_eval.Val].op1?(x), PVS0Expr_adt[pvs0_eval.Val].op2?(x))}")))
  (pvs0_eval_expr_TCC9 0
+  (pvs0_eval_expr_TCC9-1 nil 3769264240
+   ("" (skeep*)
+    (("" (typepred "v")
+      (("" (hide -3)
+        (("" (replaces -2)
+          (("" (expand "semantic_rel_expr" 1)
+            (("" (inst 1 "v") nil))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype
+    "pvs0_expr[pvs0_eval.Val].eval_op1(pvs0_eval.pvs0)(PVS0Expr_adt[pvs0_eval.Val].get_op(pvs0_eval.expr), pvs0_eval.v)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}"))
   (pvs0_eval_expr_TCC9-2 nil 3742990557
    ("" (skeep) (("" (rewrite "lex2_lt") (("" (grind) nil nil)) nil))
     nil)
@@ -269,7 +292,6 @@
      measure_termination_defs nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (Path type-eq-decl nil pvs0_cc nil)
     (valid_path def-decl "bool" pvs0_cc nil)
@@ -287,8 +309,78 @@
     (reduce_nat adt-def-decl "[PVS0Expr -> nat]" PVS0Expr_adt nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype
+    "pvs0_expr[pvs0_eval.Val].eval_op1(pvs0_eval.pvs0)(PVS0Expr_adt[pvs0_eval.Val].get_op(pvs0_eval.expr), pvs0_eval.v)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}")))
  (pvs0_eval_expr_TCC10 0
+  (pvs0_eval_expr_TCC10-1 nil 3769264240
+   ("" (skeep)
+    (("" (typepred "val")
+      (("" (skeep)
+        (("" (lemma "subterm_append")
+          (("" (inst -1 "get_body(pvs0)" "path")
+            (("" (assert)
+              (("" (inst -1 "(:0:)")
+                (("1" (replace -4)
+                  (("1" (replace -2)
+                    (("1" (expand "subterm_at" -1 2)
+                      (("1" (expand "rac")
+                        (("1" (expand "length")
+                          (("1" (expand "length")
+                            (("1" (expand "nth")
+                              (("1"
+                                (expand "rdc")
+                                (("1"
+                                  (expand "reverse" -1 2)
+                                  (("1"
+                                    (expand "reverse" -1 2)
+                                    (("1"
+                                      (expand "append" -1 2)
+                                      (("1"
+                                        (expand "reverse")
+                                        (("1"
+                                          (expand "subterm_at" -1 2)
+                                          (("1"
+                                            (inst
+                                             1
+                                             "append((:0:),path)")
+                                            (("1"
+                                              (assert)
+                                              (("1"
+                                                (expand "append")
+                                                (("1"
+                                                  (expand "append")
+                                                  (("1"
+                                                    (expand
+                                                     "path_conditions"
+                                                     1)
+                                                    (("1"
+                                                      (expand "append")
+                                                      (("1"
+                                                        (propax)
+                                                        nil)))))))))))
+                                             ("2"
+                                              (grind)
+                                              nil)))))))))))))))))))))))))))))
+                 ("2" (expand "valid_path" 1)
+                  (("2" (flatten)
+                    (("2" (hide 2)
+                      (("2" (expand "rac")
+                        (("2" (expand "length")
+                          (("2" (expand "length")
+                            (("2" (expand "nth")
+                              (("2"
+                                (grind)
+                                (("2"
+                                  (rewrite "null_path")
+                                  nil)))))))))))))))))
+                 ("3" (hide-all-but 1)
+                  (("3" (grind) nil))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg1, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
   (pvs0_eval_expr_TCC10-3 nil 3742992082
    ("" (skeep*)
     (("" (hide -2)
@@ -394,7 +486,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
@@ -411,8 +502,6 @@
      real_props nil)
     (rdc const-decl "list[T]" more_list_props "structures/")
     (rac const-decl "T" more_list_props "structures/")
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
@@ -423,7 +512,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg1, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_expr_TCC11 0
   (pvs0_eval_expr_TCC11-1 nil 3682847758
    ("" (skeep*)
@@ -447,8 +538,6 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (list type-decl nil list_adt nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (MT type-eq-decl nil pvs0_prelude nil)
@@ -471,27 +560,93 @@
     (subterm_at def-decl "({res: PVS0Expr | subterm(res, expr)})"
      pvs0_cc nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (eval_conds def-decl "bool" pvs0_cc nil)
     (path_conditions def-decl "Conditions" pvs0_cc nil)
     (sizepvs0 const-decl "[PVS0Expr -> nat]" pvs0_expr nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (reduce_nat adt-def-decl "[PVS0Expr -> nat]" PVS0Expr_adt nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (reduce_nat adt-def-decl "[PVS0Expr -> nat]" PVS0Expr_adt nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg1, pvs0_eval.val)"
+    "nil")))
  (pvs0_eval_expr_TCC12 0
+  (pvs0_eval_expr_TCC12-1 nil 3769264240
+   ("" (skeep*)
+    (("" (hide -2)
+      (("" (grind)
+        (("" (typepred "val")
+          (("" (lemma "subterm_append")
+            (("" (skeep)
+              (("" (inst -1 "get_body(pvs0)" "path")
+                (("" (beta)
+                  (("" (inst -1 "(:1:)")
+                    (("1" (replace -4)
+                      (("1" (replace -2)
+                        (("1" (expand "subterm_at" -1 2)
+                          (("1" (expand "rac")
+                            (("1" (expand "length")
+                              (("1"
+                                (expand "length")
+                                (("1"
+                                  (expand "nth")
+                                  (("1"
+                                    (expand "rdc")
+                                    (("1"
+                                      (expand "reverse" -1 2)
+                                      (("1"
+                                        (expand "reverse" -1 2)
+                                        (("1"
+                                          (expand "append" -1 2)
+                                          (("1"
+                                            (expand "reverse")
+                                            (("1"
+                                              (expand
+                                               "subterm_at"
+                                               -1
+                                               2)
+                                              (("1"
+                                                (inst
+                                                 1
+                                                 "append((:1:),path)")
+                                                (("1"
+                                                  (assert)
+                                                  nil)))))))))))))))))))))))))))))
+                     ("2" (replace -1)
+                      (("2" (replace -3)
+                        (("2" (expand "valid_path")
+                          (("2" (flatten)
+                            (("2" (hide 1)
+                              (("2"
+                                (grind)
+                                (("2"
+                                  (rewrite "null_path")
+                                  nil))))))))))))))))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg2, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
   (pvs0_eval_expr_TCC12-3 nil 3707580786
    ("" (skeep*) (("" (assert) nil nil)) nil)
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg2, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_expr_TCC13 0
+  (pvs0_eval_expr_TCC13-1 nil 3769264240
+   ("" (skeep*)
+    (("" (rewrite "lex2_lt") (("" (hide -2) (("" (grind) nil)))))) nil)
+   nil nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg2, pvs0_eval.val)"
+    "nil"))
   (pvs0_eval_expr_TCC13-3 nil 3707580821
    ("" (skeep*)
     (("" (typepred "v1")
@@ -526,7 +681,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (number nonempty-type-decl nil numbers nil)
     (terminating? const-decl "bool" pvs0_lang nil)
@@ -541,7 +695,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg2, pvs0_eval.val)"
+    "nil")))
  (pvs0_eval_expr_TCC14 0
   (pvs0_eval_expr_TCC14-2 nil 3742992468
    ("" (skeep)
@@ -638,7 +795,6 @@
     nil)
    ((path_conditions def-decl "Conditions" pvs0_cc nil)
     (eval_conds def-decl "bool" pvs0_cc nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
     (subterm_at def-decl "({res: PVS0Expr | subterm(res, expr)})"
      pvs0_cc nil)
@@ -646,8 +802,6 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (valid_path def-decl "bool" pvs0_cc nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
     (Path type-eq-decl nil pvs0_cc nil)
@@ -669,26 +823,24 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (subterm_append formula-decl nil pvs0_props nil)
-    (null_path formula-decl nil pvs0_props nil)
-    (length def-decl "nat" list_props nil)
-    (nth def-decl "T" list_props nil)
-    (reverse def-decl "list[T]" list_props nil)
-    (append def-decl "list[T]" list_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (rdc const-decl "list[T]" more_list_props "structures/")
-    (rac const-decl "T" more_list_props "structures/")
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
-    (null adt-constructor-decl "(null?)" list_adt nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil))
-   nil))
+    (subterm_append formula-decl nil pvs0_props nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.expr"
+    "{x: PVS0Expr_adt[pvs0_eval.Val].PVS0Expr | booleans.OR(PVS0Expr_adt[pvs0_eval.Val].op1?(x), PVS0Expr_adt[pvs0_eval.Val].op2?(x))}")))
  (pvs0_eval_expr_TCC15 0
+  (pvs0_eval_expr_TCC15-1 nil 3769264240
+   ("" (skeep*)
+    (("" (typepred "v1")
+      (("" (typepred "v2")
+        (("" (hide (-4 -5))
+          (("" (replaces -3)
+            (("" (expand "semantic_rel_expr" 1)
+              (("" (inst 1 "v1" "v2") (("" (assert) nil))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype
+    "pvs0_expr[pvs0_eval.Val].eval_op2(pvs0_eval.pvs0)(PVS0Expr_adt[pvs0_eval.Val].get_op(pvs0_eval.expr), pvs0_eval.v1, pvs0_eval.v2)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}"))
   (pvs0_eval_expr_TCC15-3 nil 3707580854
    ("" (skeep) (("" (rewrite "lex2_lt") (("" (grind) nil nil)) nil))
     nil)
@@ -726,7 +878,6 @@
      measure_termination_defs nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (Path type-eq-decl nil pvs0_cc nil)
     (valid_path def-decl "bool" pvs0_cc nil)
@@ -744,8 +895,60 @@
     (reduce_nat adt-def-decl "[PVS0Expr -> nat]" PVS0Expr_adt nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype
+    "pvs0_expr[pvs0_eval.Val].eval_op2(pvs0_eval.pvs0)(PVS0Expr_adt[pvs0_eval.Val].get_op(pvs0_eval.expr), pvs0_eval.v1, pvs0_eval.v2)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}")))
  (pvs0_eval_expr_TCC16 0
+  (pvs0_eval_expr_TCC16-1 nil 3769264240
+   ("" (skeep)
+    (("" (typepred "val")
+      (("" (lemma "subterm_append")
+        (("" (skeep)
+          (("" (inst -1 "get_body(pvs0)" "path")
+            (("" (beta)
+              (("" (inst -1 "(:0:)")
+                (("1" (replace -4)
+                  (("1" (replace -2)
+                    (("1" (expand "subterm_at" -1 2)
+                      (("1" (expand "rac")
+                        (("1" (expand "length")
+                          (("1" (expand "length")
+                            (("1" (expand "nth")
+                              (("1"
+                                (expand "rdc")
+                                (("1"
+                                  (expand "reverse" -1 2)
+                                  (("1"
+                                    (expand "reverse" -1 2)
+                                    (("1"
+                                      (expand "append")
+                                      (("1"
+                                        (expand "append")
+                                        (("1"
+                                          (expand "reverse")
+                                          (("1"
+                                            (expand "subterm_at" -1 2)
+                                            (("1"
+                                              (inst 1 "cons(0,path)")
+                                              (("1"
+                                                (assert)
+                                                (("1"
+                                                  (expand
+                                                   "path_conditions"
+                                                   1)
+                                                  (("1"
+                                                    (expand "append")
+                                                    (("1"
+                                                      (propax)
+                                                      nil)))))))))))))))))))))))))))))))))))))
+                 ("2" (grind) (("2" (rewrite "null_path") nil)))
+                 ("3" (hide-all-but 1)
+                  (("3" (grind) nil))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.cnd, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
   (pvs0_eval_expr_TCC16-2 nil 3742994456
    ("" (skeep*)
     (("" (typepred "val")
@@ -870,7 +1073,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
@@ -888,8 +1090,6 @@
     (semantic_rel_expr inductive-decl "bool" pvs0_expr nil)
     (rdc const-decl "list[T]" more_list_props "structures/")
     (rac const-decl "T" more_list_props "structures/")
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
@@ -900,8 +1100,16 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.cnd, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_expr_TCC17 0
+  (pvs0_eval_expr_TCC17-1 nil 3769264240
+   ("" (skeep*) (("" (rewrite "lex2_lt") (("" (grind) nil)))) nil) nil
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.cnd, pvs0_eval.val)"
+    "nil"))
   (pvs0_eval_expr_TCC17-3 nil 3707580886
    ("" (skeep*)
     (("" (rewrite "lex2_lt")
@@ -939,7 +1147,6 @@
      measure_termination_defs nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (Path type-eq-decl nil pvs0_cc nil)
     (valid_path def-decl "bool" pvs0_cc nil)
@@ -960,8 +1167,83 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.cnd, pvs0_eval.val)"
+    "nil")))
  (pvs0_eval_expr_TCC18 0
+  (pvs0_eval_expr_TCC18-1 nil 3769264240
+   ("" (skeep*)
+    (("" (typepred "val")
+      (("" (lemma "subterm_append")
+        (("" (skeep)
+          (("" (inst -1 "get_body(pvs0)" "path")
+            (("" (beta)
+              (("" (inst -1 "(:1:)")
+                (("1" (replace -4)
+                  (("1" (replace -2)
+                    (("1" (expand "subterm_at" -1 2)
+                      (("1" (expand "rac")
+                        (("1" (expand "length")
+                          (("1" (expand "length")
+                            (("1" (expand "nth")
+                              (("1"
+                                (expand "rdc")
+                                (("1"
+                                  (expand "reverse" -1 2)
+                                  (("1"
+                                    (expand "reverse" -1 2)
+                                    (("1"
+                                      (expand "append" -1 2)
+                                      (("1"
+                                        (expand "reverse")
+                                        (("1"
+                                          (expand "subterm_at" -1 2)
+                                          (("1"
+                                            (inst
+                                             2
+                                             "append((:1:),path)")
+                                            (("1"
+                                              (assert)
+                                              (("1"
+                                                (expand "append")
+                                                (("1"
+                                                  (expand "append")
+                                                  (("1"
+                                                    (expand
+                                                     "path_conditions"
+                                                     2)
+                                                    (("1"
+                                                      (expand "append")
+                                                      (("1"
+                                                        (expand
+                                                         "append")
+                                                        (("1"
+                                                          (expand
+                                                           "eval_conds"
+                                                           2)
+                                                          (("1"
+                                                            (inst
+                                                             2
+                                                             "vc")
+                                                            (("1"
+                                                              (assert)
+                                                              (("1"
+                                                                (replace
+                                                                 -2)
+                                                                (("1"
+                                                                  (assert)
+                                                                  nil)))))))))))))))))))))
+                                             ("2"
+                                              (grind)
+                                              nil)))))))))))))))))))))))))))))
+                 ("2" (grind) (("2" (rewrite "null_path") nil)))
+                 ("3" (hide-all-but 1)
+                  (("3" (grind) nil))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg1, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
   (pvs0_eval_expr_TCC18-4 nil 3742994799
    ("" (skeep*)
     (("" (replace -1)
@@ -1050,7 +1332,6 @@
     (terminating? const-decl "bool" pvs0_lang nil)
     (number nonempty-type-decl nil numbers nil)
     (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -1092,8 +1373,6 @@
     (subterm_append formula-decl nil pvs0_props nil)
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (null adt-constructor-decl "(null?)" list_adt nil)
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
     (rac const-decl "T" more_list_props "structures/")
@@ -1106,8 +1385,18 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg1, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_expr_TCC19 0
+  (pvs0_eval_expr_TCC19-1 nil 3769264240
+   ("" (skeep*)
+    (("" (rewrite "lex2_lt") (("" (hide (-2 1)) (("" (grind) nil))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg1, pvs0_eval.val)"
+    "nil"))
   (pvs0_eval_expr_TCC19-4 nil 3742995554
    ("" (skeep*)
     (("" (typepred "val")
@@ -1232,7 +1521,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
@@ -1250,8 +1538,6 @@
     (semantic_rel_expr inductive-decl "bool" pvs0_expr nil)
     (rdc const-decl "list[T]" more_list_props "structures/")
     (rac const-decl "T" more_list_props "structures/")
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
@@ -1262,8 +1548,68 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg1, pvs0_eval.val)"
+    "nil")))
  (pvs0_eval_expr_TCC20 0
+  (pvs0_eval_expr_TCC20-1 nil 3769264240
+   ("" (skeep*)
+    (("" (replace -1)
+      (("" (expand "semantic_rel_expr" 2)
+        (("" (inst 2 "vc")
+          (("" (assert)
+            (("" (typepred "v(pvs0)(arg1, val)")
+              (("1" (propax) nil)
+               ("2" (typepred "val")
+                (("2" (lemma "subterm_append")
+                  (("2" (skeep)
+                    (("2" (inst -1 "get_body(pvs0)" "path")
+                      (("2" (beta)
+                        (("2" (inst -1 "(:1:)")
+                          (("1" (replace -4)
+                            (("1" (replace -2)
+                              (("1"
+                                (expand "subterm_at" -1 2)
+                                (("1"
+                                  (expand "rac")
+                                  (("1"
+                                    (expand "length")
+                                    (("1"
+                                      (expand "length")
+                                      (("1"
+                                        (expand "nth")
+                                        (("1"
+                                          (expand "rdc")
+                                          (("1"
+                                            (expand "reverse" -1 2)
+                                            (("1"
+                                              (expand "reverse" -1 2)
+                                              (("1"
+                                                (expand "append")
+                                                (("1"
+                                                  (expand "append")
+                                                  (("1"
+                                                    (expand "reverse")
+                                                    (("1"
+                                                      (expand
+                                                       "subterm_at"
+                                                       -1
+                                                       2)
+                                                      (("1"
+                                                        (inst
+                                                         1
+                                                         "cons(1,path)")
+                                                        (("1"
+                                                          (assert)
+                                                          nil)))))))))))))))))))))))))))))))
+                           ("2" (grind) nil)
+                           ("3" (grind) nil))))))))))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg1, pvs0_eval.val)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}"))
   (pvs0_eval_expr_TCC20-3 nil 3707581320
    ("" (skeep*)
     (("" (rewrite "lex2_lt")
@@ -1301,7 +1647,6 @@
      measure_termination_defs nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (Path type-eq-decl nil pvs0_cc nil)
     (valid_path def-decl "bool" pvs0_cc nil)
@@ -1322,8 +1667,83 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg1, pvs0_eval.val)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}")))
  (pvs0_eval_expr_TCC21 0
+  (pvs0_eval_expr_TCC21-1 nil 3769264240
+   ("" (skeep*)
+    (("" (typepred "val")
+      (("" (lemma "subterm_append")
+        (("" (skeep)
+          (("" (inst -1 "get_body(pvs0)" "path")
+            (("" (beta)
+              (("" (inst -1 "(:2:)")
+                (("1" (replace -4)
+                  (("1" (replace -2)
+                    (("1" (expand "subterm_at" -1 2)
+                      (("1" (expand "rac")
+                        (("1" (expand "length")
+                          (("1" (expand "length")
+                            (("1" (expand "nth")
+                              (("1"
+                                (expand "rdc")
+                                (("1"
+                                  (expand "reverse" -1 2)
+                                  (("1"
+                                    (expand "reverse" -1 2)
+                                    (("1"
+                                      (expand "append" -1 2)
+                                      (("1"
+                                        (expand "reverse")
+                                        (("1"
+                                          (expand "subterm_at" -1 2)
+                                          (("1"
+                                            (inst
+                                             1
+                                             "append((:2:),path)")
+                                            (("1"
+                                              (assert)
+                                              (("1"
+                                                (expand "append")
+                                                (("1"
+                                                  (expand "append")
+                                                  (("1"
+                                                    (expand
+                                                     "path_conditions"
+                                                     1)
+                                                    (("1"
+                                                      (expand "append")
+                                                      (("1"
+                                                        (expand
+                                                         "append")
+                                                        (("1"
+                                                          (expand
+                                                           "eval_conds"
+                                                           1)
+                                                          (("1"
+                                                            (inst
+                                                             1
+                                                             "vc")
+                                                            (("1"
+                                                              (assert)
+                                                              (("1"
+                                                                (replace
+                                                                 -2)
+                                                                (("1"
+                                                                  (assert)
+                                                                  nil)))))))))))))))))))))
+                                             ("2"
+                                              (grind)
+                                              nil)))))))))))))))))))))))))))))
+                 ("2" (grind) (("2" (rewrite "null_path") nil)))
+                 ("3" (hide-all-but 1)
+                  (("3" (grind) nil))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg2, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
   (pvs0_eval_expr_TCC21-4 nil 3742995193
    ("" (skeep*)
     (("" (replace -1)
@@ -1409,7 +1829,6 @@
     (terminating? const-decl "bool" pvs0_lang nil)
     (number nonempty-type-decl nil numbers nil)
     (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -1451,8 +1870,6 @@
     (subterm_append formula-decl nil pvs0_props nil)
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (null adt-constructor-decl "(null?)" list_adt nil)
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
     (length def-decl "nat" list_props nil)
@@ -1465,8 +1882,18 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg2, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_expr_TCC22 0
+  (pvs0_eval_expr_TCC22-1 nil 3769264240
+   ("" (skeep*)
+    (("" (rewrite "lex2_lt") (("" (hide -2 -3) (("" (grind) nil))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg2, pvs0_eval.val)"
+    "nil"))
   (pvs0_eval_expr_TCC22-2 nil 3743024789
    ("" (skeep)
     (("" (typepred "val")
@@ -1564,7 +1991,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
@@ -1581,8 +2007,6 @@
     (append def-decl "list[T]" list_props nil)
     (rdc const-decl "list[T]" more_list_props "structures/")
     (rac const-decl "T" more_list_props "structures/")
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
@@ -1590,8 +2014,66 @@
     (null adt-constructor-decl "(null?)" list_adt nil)
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (subterm_append formula-decl nil pvs0_props nil))
-   nil))
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg2, pvs0_eval.val)"
+    "nil")))
  (pvs0_eval_expr_TCC23 0
+  (pvs0_eval_expr_TCC23-1 nil 3769264240
+   ("" (skeep*)
+    (("" (replace -1)
+      (("" (expand "semantic_rel_expr" 1)
+        (("" (inst 1 "vc")
+          (("" (assert)
+            (("" (typepred "v(pvs0)(arg2, val)")
+              (("1" (propax) nil)
+               ("2" (typepred "val")
+                (("2" (lemma "subterm_append")
+                  (("2" (skeep)
+                    (("2" (inst -1 "get_body(pvs0)" "path")
+                      (("2" (beta)
+                        (("2" (inst -1 "(:2:)")
+                          (("1" (replace -2)
+                            (("1" (expand "subterm_at" -1 2)
+                              (("1"
+                                (expand "rac")
+                                (("1"
+                                  (expand "length")
+                                  (("1"
+                                    (expand "length")
+                                    (("1"
+                                      (expand "nth")
+                                      (("1"
+                                        (expand "rdc")
+                                        (("1"
+                                          (expand "reverse" -1 2)
+                                          (("1"
+                                            (expand "reverse" -1 2)
+                                            (("1"
+                                              (expand "append")
+                                              (("1"
+                                                (expand "append")
+                                                (("1"
+                                                  (expand "reverse")
+                                                  (("1"
+                                                    (expand
+                                                     "subterm_at"
+                                                     -1
+                                                     2)
+                                                    (("1"
+                                                      (inst
+                                                       1
+                                                       "cons(2,path)")
+                                                      (("1"
+                                                        (assert)
+                                                        nil)))))))))))))))))))))))))))))
+                           ("2" (grind) nil)
+                           ("3" (grind) nil))))))))))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg2, pvs0_eval.val)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}"))
   (pvs0_eval_expr_TCC23-2 nil 3684364240
    ("" (skeep*) (("" (rewrite "lex2_lt") (("" (grind) nil nil)) nil))
     nil)
@@ -1627,7 +2109,6 @@
      measure_termination_defs nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (Path type-eq-decl nil pvs0_cc nil)
     (valid_path def-decl "bool" pvs0_cc nil)
@@ -1648,8 +2129,49 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg2, pvs0_eval.val)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}")))
  (pvs0_eval_expr_TCC24 0
+  (pvs0_eval_expr_TCC24-1 nil 3769264240
+   ("" (skeep)
+    (("" (typepred "val")
+      (("" (skeep)
+        (("" (lemma "subterm_append")
+          (("" (inst -1 "get_body(pvs0)" "path")
+            (("" (assert)
+              (("" (inst -1 "(:0:)")
+                (("1" (replace -4)
+                  (("1" (replace -2)
+                    (("1" (expand "subterm_at" -1 2)
+                      (("1" (expand "rdc")
+                        (("1" (expand "reverse" -1 2)
+                          (("1" (expand "reverse" -1 2)
+                            (("1" (expand "append")
+                              (("1"
+                                (expand "append")
+                                (("1"
+                                  (expand "reverse")
+                                  (("1"
+                                    (expand "subterm_at" -1 2)
+                                    (("1"
+                                      (inst 1 "cons(0,path)")
+                                      (("1"
+                                        (assert)
+                                        (("1"
+                                          (expand "path_conditions" 1)
+                                          (("1"
+                                            (expand "append")
+                                            (("1"
+                                              (propax)
+                                              nil)))))))))))))))))))))))))))))
+                 ("2" (grind) (("2" (rewrite "null_path") nil)))
+                 ("3" (grind) nil))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
   (pvs0_eval_expr_TCC24-4 nil 3743024942
    ("" (skeep*)
     (("" (inst 1 "(::)")
@@ -1659,7 +2181,6 @@
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (int nonempty-type-eq-decl nil integers nil)
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (EvalOp2 type-eq-decl nil pvs0_expr nil)
@@ -1676,7 +2197,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
@@ -1690,8 +2210,16 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.arg, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_expr_TCC25 0
+  (pvs0_eval_expr_TCC25-1 nil 3769264240
+   ("" (skeep*) (("" (rewrite "lex2_lt") (("" (grind) nil)))) nil) nil
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg, pvs0_eval.val)"
+    "nil"))
   (pvs0_eval_expr_TCC25-5 nil 3743025108
    ("" (skeep*)
     (("" (rewrite "lex2_lt")
@@ -1893,7 +2421,6 @@
     (terminating? const-decl "bool" pvs0_lang nil)
     (semantic_rel_expr inductive-decl "bool" pvs0_expr nil)
     (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (Path type-eq-decl nil pvs0_cc nil)
     (valid_path def-decl "bool" pvs0_cc nil)
@@ -1930,18 +2457,26 @@
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
     (pvs0_tcc_valid_cc const-decl "bool" pvs0_cc nil)
     (PVS0Expr_CC type-eq-decl nil pvs0_cc nil)
-    (expr skolem-const-decl "PVS0Expr[Val]" pvs0_eval nil)
     (rec? adt-recognizer-decl "[PVS0Expr -> boolean]" PVS0Expr_adt nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.arg, pvs0_eval.val)"
+    "nil")))
  (pvs0_eval_expr_TCC26 0
+  (pvs0_eval_expr_TCC26-1 nil 3769264240
+   ("" (skeep*)
+    (("" (inst 1 "(::)")
+      (("1" (grind) nil) ("2" (rewrite "null_path") nil))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype "pvs0_eval.v"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.pvs0`4, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}"))
   (pvs0_eval_expr_TCC26-4 nil 3743028368
    ("" (skeep*)
     (("" (typepred "v")
@@ -1982,7 +2517,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (number nonempty-type-decl nil numbers nil)
     (terminating? const-decl "bool" pvs0_lang nil)
@@ -1994,7 +2528,6 @@
     (list type-decl nil list_adt nil)
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (null adt-constructor-decl "(null?)" list_adt nil)
     (null_path formula-decl nil pvs0_props nil)
@@ -2018,8 +2551,138 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype "pvs0_eval.v"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.pvs0`4, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_expr_TCC27 0
+  (pvs0_eval_expr_TCC27-1 nil 3769264240
+   ("" (skeep*)
+    (("" (rewrite "lex2_lt")
+      (("" (flatten)
+        (("" (hide 2)
+          ((""
+            (typepred
+             "wfm_tcc[Val, MT, LAMBDA (m, n: nat): m < n](pvs0)")
+            (("" (expand "pvs0_tcc_termination_pred")
+              (("" (inst -1 "val")
+                (("" (typepred "val")
+                  (("" (skeep)
+                    (("" (label "wfm" -3)
+                      ((""
+                        (inst "wfm"
+                         "(# `rec_expr:=expr, `cnds:=path_conditions(get_body(pvs0),path), `path:=path #)")
+                        (("1" (typepred "v1(pvs0)(arg, val)")
+                          (("1" (inst -4 "v")
+                            (("1" (assert)
+                              (("1"
+                                (hide 2)
+                                (("1"
+                                  (replace -4 1)
+                                  (("1" (assert) nil)))))))))
+                           ("2" (hide 2)
+                            (("2" (hide -3)
+                              (("2"
+                                (typepred "val")
+                                (("2"
+                                  (skeep)
+                                  (("2"
+                                    (inst 1 "append((:0:),path)")
+                                    (("1"
+                                      (lemma "subterm_append")
+                                      (("1"
+                                        (inst
+                                         -1
+                                         "get_body(pvs0)"
+                                         "path")
+                                        (("1"
+                                          (assert)
+                                          (("1"
+                                            (inst -1 "(:0:)")
+                                            (("1"
+                                              (split)
+                                              (("1"
+                                                (replace -1 1)
+                                                (("1" (grind) nil)))
+                                               ("2"
+                                                (lemma
+                                                 "path_conditions_unmodified")
+                                                (("2"
+                                                  (inst
+                                                   -1
+                                                   "get_body(pvs0)"
+                                                   "path"
+                                                   "0")
+                                                  (("2"
+                                                    (assert)
+                                                    (("2"
+                                                      (expand "append")
+                                                      (("2"
+                                                        (expand
+                                                         "append")
+                                                        (("2"
+                                                          (replace
+                                                           -1
+                                                           1)
+                                                          (("2"
+                                                            (propax)
+                                                            nil)))))))))))))))
+                                             ("2"
+                                              (hide 2)
+                                              (("2"
+                                                (expand "valid_path")
+                                                (("2"
+                                                  (grind)
+                                                  (("2"
+                                                    (rewrite
+                                                     "null_path")
+                                                    nil)))))))
+                                             ("3"
+                                              (expand "every")
+                                              (("3"
+                                                (propax)
+                                                nil)))))))))))
+                                     ("2"
+                                      (lemma "valid_paths_subexpr")
+                                      (("2"
+                                        (inst
+                                         -1
+                                         "get_body(pvs0)"
+                                         "path")
+                                        (("2"
+                                          (assert)
+                                          (("2"
+                                            (inst -1 "(:0:)")
+                                            (("1"
+                                              (hide 2 -2)
+                                              (("1"
+                                                (expand "valid_path")
+                                                (("1"
+                                                  (grind)
+                                                  (("1"
+                                                    (rewrite
+                                                     "null_path")
+                                                    nil)))))))
+                                             ("2"
+                                              (expand "every")
+                                              (("2"
+                                                (propax)
+                                                nil)))))))))))
+                                     ("3"
+                                      (expand "every")
+                                      (("3"
+                                        (expand "every")
+                                        (("3"
+                                          (propax)
+                                          nil)))))))))))))))))
+                         ("2" (hide 2)
+                          (("2" (expand "pvs0_tcc_valid_cc")
+                            (("2" (assert) nil)))))
+                         ("3" (assert) nil))))))))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.pvs0`4, pvs0_eval.v)"
+    "nil"))
   (pvs0_eval_expr_TCC27-2 nil 3743028503
    ("" (skeep)
     (("" (typepred "val")
@@ -2100,7 +2763,6 @@
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
@@ -2118,16 +2780,34 @@
     (reverse def-decl "list[T]" list_props nil)
     (append def-decl "list[T]" list_props nil)
     (rdc const-decl "list[T]" more_list_props "structures/")
-    (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
-    (path skolem-const-decl "(valid_path(pvs0`4))" pvs0_eval nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
     (null adt-constructor-decl "(null?)" list_adt nil)
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil))
-   nil))
+   nil
+   (pvs0_eval_expr termination
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.pvs0`4, pvs0_eval.v)"
+    "nil")))
  (pvs0_eval_expr_TCC28 0
+  (pvs0_eval_expr_TCC28-2 nil 3769264240
+   ("" (skeep*)
+    (("" (typepred "v")
+      (("" (replace -2)
+        (("" (expand "semantic_rel_expr" 1)
+          (("" (inst 1 "v")
+            (("" (assert)
+              (("" (typepred "v1(pvs0)(get_body(pvs0), v)")
+                (("1" (propax) nil)
+                 ("2" (inst 1 "(::)")
+                  (("1" (grind) nil)
+                   ("2" (rewrite "null_path") nil))))))))))))))))
+    nil)
+   nil nil
+   (pvs0_eval_expr subtype
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.pvs0`4, pvs0_eval.v)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}"))
   (pvs0_eval_expr_TCC28-1 nil 3710521107
    ("" (skeep*) (("" (rewrite "lex2_lt") (("" (grind) nil nil)) nil))
     nil)
@@ -2163,7 +2843,6 @@
      measure_termination_defs nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PRED type-eq-decl nil defined_types nil)
-    (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (Path type-eq-decl nil pvs0_cc nil)
     (valid_path def-decl "bool" pvs0_cc nil)
@@ -2184,7 +2863,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_expr subtype
+    "pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(pvs0_eval.pvs0`4, pvs0_eval.v)"
+    "{v: pvs0_eval.Val | pvs0_expr[pvs0_eval.Val].semantic_rel_expr(pvs0_eval.pvs0)(pvs0_eval.expr, pvs0_eval.val, v)}")))
  (pvs0_eval_TCC1 0
   (pvs0_eval_TCC1-1 nil 3683472034
    ("" (skeep)
@@ -2200,8 +2882,6 @@
     (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (valid_path def-decl "bool" pvs0_cc nil)
     (Path type-eq-decl nil pvs0_cc nil)
     (>= const-decl "bool" reals nil)
@@ -2227,7 +2907,9 @@
     (subterm_at def-decl "({res: PVS0Expr | subterm(res, expr)})"
      pvs0_cc nil)
     (null_path formula-decl nil pvs0_props nil))
-   nil))
+   nil
+   (pvs0_eval subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.pvs0`4, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_correct 0
   (pvs0_eval_correct-1 nil 3683501056
    ("" (skeep* :preds? t)
@@ -2246,8 +2928,6 @@
     (semantic_rel_expr inductive-decl "bool" pvs0_expr nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (list type-decl nil list_adt nil)
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -2281,10 +2961,10 @@
     (Path type-eq-decl nil pvs0_cc nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
     (valid_path def-decl "bool" pvs0_cc nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
     (PVS0 type-eq-decl nil pvs0_expr nil))
-   nil))
+   nil
+   (terminates_expr_transitive subtype "pvs0_eval.path_ext"
+    "(pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.body))")))
  (terminates_expr_transitive_TCC2 0
   (terminates_expr_transitive_TCC2-1 nil 3742979595
    ("" (subtype-tcc) nil nil)
@@ -2309,11 +2989,11 @@
     (Path type-eq-decl nil pvs0_cc nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
     (valid_path def-decl "bool" pvs0_cc nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (subterm adt-def-decl "boolean" PVS0Expr_adt nil))
-   nil))
+   nil
+   (terminates_expr_transitive subtype "pvs0_eval.path"
+    "(pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.body))")))
  (terminates_expr_transitive 0
   (terminates_expr_transitive-5 nil 3707581644
    ("" (skeep)
@@ -3042,11 +3722,8 @@
     (number nonempty-type-decl nil numbers nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (list type-decl nil list_adt nil)
     (path_conditions def-decl "Conditions" pvs0_cc nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
     (subterm_at def-decl "({res: PVS0Expr | subterm(res, expr)})"
      pvs0_cc nil)
@@ -3066,8 +3743,6 @@
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (pvs0 skolem-const-decl "PVS0[Val]" pvs0_eval nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (null adt-constructor-decl "(null?)" list_adt nil)
     (reverse def-decl "list[T]" list_props nil)
     (rdc const-decl "list[T]" more_list_props "structures/")
     (op1? adt-recognizer-decl "[PVS0Expr -> boolean]" PVS0Expr_adt nil)
@@ -3152,8 +3827,7 @@
         nil))
       nil))
     nil)
-   ((Conditions type-eq-decl nil pvs0_cc nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
+   ((null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (boolean nonempty-type-decl nil booleans nil)
     (list type-decl nil list_adt nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
@@ -3189,7 +3863,9 @@
   (pvs0_eval_conds_TCC1-1 nil 3707210191
    ("" (skeep) (("" (expand "eval_conds") (("" (assert) nil nil)) nil))
     nil)
-   ((eval_conds def-decl "bool" pvs0_cc nil)) nil))
+   ((eval_conds def-decl "bool" pvs0_cc nil)) nil
+   (pvs0_eval_conds subtype "booleans.TRUE"
+    "{b: booleans.bool | b = pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_eval.cnds, pvs0_eval.val)}")))
  (pvs0_eval_conds_TCC2 0
   (pvs0_eval_conds_TCC2-1 nil 3707210191
    ("" (skeep* :preds? t)
@@ -3265,9 +3941,6 @@
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (list type-decl nil list_adt nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
@@ -3276,7 +3949,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_conds subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.expr, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_conds_TCC3 0
   (pvs0_eval_conds_TCC3-3 nil 3743029546
    ("" (skeep* :preds? t)
@@ -3352,9 +4027,6 @@
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (list type-decl nil list_adt nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
@@ -3363,7 +4035,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_conds subtype "pvs0_eval.val"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = pvs0_eval.expr, pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_eval_conds_TCC4 0
   (pvs0_eval_conds_TCC4-2 nil 3743031256
    ("" (skolem 1 ("pp" "val" "revcnds" "a" "cnds"))
@@ -3493,15 +4167,14 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (list type-decl nil list_adt nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (valid_rev_conditions? const-decl "bool" pvs0_eval nil))
-   nil))
+   nil
+   (pvs0_eval_conds subtype "pvs0_eval.cnds_"
+    "(pvs0_eval.valid_rev_conditions?(pvs0_eval.pvs0, pvs0_eval.val))")))
  (pvs0_eval_conds_TCC5 0
   (pvs0_eval_conds_TCC5-2 nil 3707502413 ("" (termination-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -3509,20 +4182,20 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (list type-decl nil list_adt nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (valid_rev_conditions? const-decl "bool" pvs0_eval nil)
     (<< adt-def-decl "(strict_well_founded?[list])" list_adt nil)
     (valid_conditions? const-decl "bool" pvs0_eval nil)
     (reverse def-decl "list[T]" list_props nil)
     (terminates_expr const-decl "bool" pvs0_expr nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (pvs0_eval_conds termination
+    "pvs0_eval.pvs0_eval_conds(pvs0_eval.pvs0)(pvs0_eval.val, pvs0_eval.cnds_)"
+    "nil")))
  (pvs0_eval_conds_TCC6 0
   (pvs0_eval_conds_TCC6-1 nil 3743074204
    ("" (skeep* :preds? t)
@@ -3862,13 +4535,10 @@
     (strict_well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil)
     (valid_rev_conditions? const-decl "bool" pvs0_eval nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (list type-decl nil list_adt nil)
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -3916,7 +4586,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_conds subtype
+    "booleans.AND(CASES pvs0_eval.a OF pvs0bool(expr): pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(expr, pvs0_eval.val) /= pvs0_eval.pvs0`3, pvs0not(expr): pvs0_eval.pvs0_eval_expr(pvs0_eval.pvs0)(expr, pvs0_eval.val) = pvs0_eval.pvs0`3 ENDCASES, pvs0_eval.pvs0_eval_conds(pvs0_eval.pvs0)(pvs0_eval.val, pvs0_eval.cnds_))"
+    "{b: booleans.bool | b = pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_eval.cnds, pvs0_eval.val)}")))
  (pvs0_eval_conds_corrrect_TCC1 0
   (pvs0_eval_conds_corrrect_TCC1-1 nil 3707210483
    ("" (skeep* :preds? t)
@@ -3975,17 +4648,17 @@
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (list type-decl nil list_adt nil)
     (reverse_reverse formula-decl nil list_props nil)
     (valid_conditions? const-decl "bool" pvs0_eval nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_eval_conds_corrrect subtype
+    "list_props[PVS0Bool_adt[pvs0_eval.Val].PVS0Bool].reverse(pvs0_eval.cnds)"
+    "(pvs0_eval.valid_rev_conditions?(pvs0_eval.pvs0, pvs0_eval.val))")))
  (pvs0_eval_conds_corrrect 0
   (pvs0_eval_conds_corrrect-1 nil 3707212657
    ("" (skeep* :preds? t)
@@ -4000,13 +4673,10 @@
      "{b: bool | b = eval_conds(pvs0)(cnds, val)}" pvs0_eval nil)
     (eval_conds def-decl "bool" pvs0_cc nil)
     (valid_rev_conditions? const-decl "bool" pvs0_eval nil)
-    (Conditions type-eq-decl nil pvs0_cc nil)
     (PVS0Bool type-decl nil PVS0Bool_adt nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (PVS0Expr type-decl nil PVS0Expr_adt nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (list type-decl nil list_adt nil)
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -4077,8 +4747,6 @@
     (Val formal-nonempty-type-decl nil pvs0_eval nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (pvs0_tcc_valid_cc const-decl "bool" pvs0_cc nil)
     (PVS0Expr_CC type-eq-decl nil pvs0_cc nil)
     (rec? adt-recognizer-decl "[PVS0Expr -> boolean]" PVS0Expr_adt nil)
@@ -4090,7 +4758,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_tcc subtype
+    "list_props[PVS0Bool_adt[pvs0_eval.Val].PVS0Bool].reverse(pvs0_eval.cc`cnds)"
+    "(pvs0_eval.valid_rev_conditions?(pvs0_eval.pvs0, pvs0_eval.env))")))
  (pvs0_tcc_TCC2 0
   (pvs0_tcc_TCC2-1 nil 3707210483
    ("" (skeep* :preds? t)
@@ -4184,8 +4855,6 @@
     (pvs0 skolem-const-decl "(terminating?[Val])" pvs0_eval nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
     (valid_path def-decl "bool" pvs0_cc nil)
     (Path type-eq-decl nil pvs0_cc nil)
     (>= const-decl "bool" reals nil)
@@ -4227,21 +4896,26 @@
     (append def-decl "list[T]" list_props nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
+    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (rdc const-decl "list[T]" more_list_props "structures/")
+    (null adt-constructor-decl "(null?)" list_adt nil)
     (reverse def-decl "list[T]" list_props nil)
     (subterm adt-def-decl "boolean" PVS0Expr_adt nil)
     (subterm_at def-decl "({res: PVS0Expr | subterm(res, expr)})"
      pvs0_cc nil)
-    (null adt-constructor-decl "(null?)" list_adt nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (valid_0_path_ext formula-decl nil pvs0_props nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (pvs0_tcc subtype "pvs0_eval.env"
+    "{val: pvs0_eval.Val | EXISTS (path: (pvs0_cc[pvs0_eval.Val].valid_path(pvs0_eval.pvs0`4))): booleans.AND(pvs0_cc[pvs0_eval.Val].subterm_at(pvs0_eval.pvs0`4, path) = PVS0Expr_adt[pvs0_eval.Val].get_arg(pvs0_eval.cc`rec_expr), pvs0_cc[pvs0_eval.Val].eval_conds(pvs0_eval.pvs0)(pvs0_cc[pvs0_eval.Val].path_conditions(pvs0_eval.pvs0`4, path), val))}")))
  (pvs0_tccs_correct_TCC1 0
   (pvs0_tccs_correct_TCC1-1 nil 3707210483 ("" (subtype-tcc) nil nil)
-   nil nil))
+   nil nil
+   (pvs0_tccs_correct subtype
+    "LAMBDA (m, n: naturalnumbers.nat): reals.<(m, n)"
+    "(orders[MT].well_founded?)")))
  (pvs0_tccs_correct 0
   (pvs0_tccs_correct-2 nil 3707469137
    ("" (skeep)
@@ -4406,8 +5080,6 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (pvs0_tcc_valid_cc const-decl "bool" pvs0_cc nil)
     (list type-decl nil list_adt nil)
-    (EvalOp1 type-eq-decl nil pvs0_expr nil)
-    (EvalOp2 type-eq-decl nil pvs0_expr nil)
     (PVS0 type-eq-decl nil pvs0_expr nil)
     (terminating? const-decl "bool" pvs0_lang nil)
     (pvs0_tcc_termination_pred const-decl "bool"
