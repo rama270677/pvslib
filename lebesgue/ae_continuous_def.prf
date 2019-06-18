@@ -194,7 +194,9 @@
                                     nil))
                                   nil))
                                 nil))
-                              nil))
+                              nil)
+                             ("2" (hide-all-but 1)
+                              (("2" (grind) nil nil)) nil))
                             nil))
                           nil))
                         nil)
@@ -211,92 +213,93 @@
         nil))
       nil))
     nil)
-   ((* const-decl "[T -> real]" real_fun_ops "reals/")
-    (member const-decl "bool" sets nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (metric_space_is_hausdorff name-judgement "hausdorff[T]"
-     real_continuity "metric_space/")
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     real_continuity "metric_space/")
-    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
-     real_topology "metric_space/")
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     real_topology "metric_space/")
-    (metric_induced_topology_is_second_countable name-judgement
-     "second_countable" real_topology "metric_space/")
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (< const-decl "bool" reals nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (setof type-eq-decl nil defined_types nil)
-    (setofsets type-eq-decl nil sets nil)
-    (>= const-decl "bool" reals nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
-    (continuous_at? const-decl "bool" continuity_def "topology/")
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (<= const-decl "bool" reals nil) (set type-eq-decl nil sets nil)
-    (nnreal type-eq-decl nil real_types nil)
-    (closed? const-decl "bool" topology "topology/")
-    (closed nonempty-type-eq-decl nil topology "topology/")
-    (closed_ball const-decl "closed" real_topology "metric_space/")
-    (closed_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (closed const-decl "closed_interval" real_topology "metric_space/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (a!1 skolem-const-decl "real" ae_continuous_def nil)
-    (b!1 skolem-const-decl "real" ae_continuous_def nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (metric_continuous_at_def formula-decl nil metric_continuity
-     "metric_space/")
-    (metric_continuous_at? const-decl "bool" metric_continuity
-     "metric_space/")
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (x!1 skolem-const-decl "real" ae_continuous_def nil)
-    (delta!1 skolem-const-decl "posreal" ae_continuous_def nil)
+   ((phi const-decl "nat" measure_space "measure_integration/")
+    (ae_continuous? const-decl "bool" ae_continuous_def nil)
+    (metric? const-decl "bool" metric_def "metric_space/")
     (DEL skolem-const-decl
      "{p: real | p <= min(b!1 - x!1, x!1 - a!1) AND p <= delta!1}"
      ae_continuous_def nil)
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
+    (delta!1 skolem-const-decl "posreal" ae_continuous_def nil)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (metric_triangle? const-decl "bool" metric_def "metric_space/")
+    (metric_symmetric? const-decl "bool" metric_def "metric_space/")
+    (metric_zero? const-decl "bool" metric_def "metric_space/")
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (closed_is_measurable application-judgement "measurable_set"
      lebesgue_def nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (delta!1 skolem-const-decl "posreal" ae_continuous_def nil)
+    (ball_is_metric_open application-judgement "metric_open"
+     real_topology "metric_space/")
     (DEL skolem-const-decl
      "{p: real | p <= min(b!1 - x!1, x!1 - a!1) AND p <= delta!1}"
      ae_continuous_def nil)
-    (ae_continuous? const-decl "bool" ae_continuous_def nil)
-    (phi const-decl "nat" measure_space "measure_integration/"))
+    (delta!1 skolem-const-decl "posreal" ae_continuous_def nil)
+    (x!1 skolem-const-decl "real" ae_continuous_def nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (metric_continuous_at? const-decl "bool" metric_continuity
+     "metric_space/")
+    (metric_continuous_at_def formula-decl nil metric_continuity
+     "metric_space/")
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (b!1 skolem-const-decl "real" ae_continuous_def nil)
+    (a!1 skolem-const-decl "real" ae_continuous_def nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (closed const-decl "closed_interval" real_topology "metric_space/")
+    (closed_interval nonempty-type-eq-decl nil real_topology
+     "metric_space/")
+    (closed_ball const-decl "closed" real_topology "metric_space/")
+    (closed nonempty-type-eq-decl nil topology "topology/")
+    (closed? const-decl "bool" topology "topology/")
+    (nnreal type-eq-decl nil real_types nil)
+    (set type-eq-decl nil sets nil) (<= const-decl "bool" reals nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (continuous_at? const-decl "bool" continuity_def "topology/")
+    (metric_induced_topology const-decl "setofsets[T]" metric_space_def
+     "metric_space/")
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (>= const-decl "bool" reals nil)
+    (setofsets type-eq-decl nil sets nil)
+    (setof type-eq-decl nil defined_types nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (< const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology "metric_space/")
+    (metric_space_is_hausdorff name-judgement "hausdorff" real_topology
+     "metric_space/")
+    (metric_space_is_hausdorff name-judgement "hausdorff"
+     real_continuity "metric_space/")
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (member const-decl "bool" sets nil)
+    (* const-decl "[T -> real]" real_fun_ops "reals/"))
    shostak))
  (continuous_at_is_ae_continuous 0
   (continuous_at_is_ae_continuous-1 nil 3452491324
@@ -367,41 +370,9 @@
     (number nonempty-type-decl nil numbers nil)
     (metric_induced_topology_is_second_countable name-judgement
      "second_countable" real_topology "metric_space/")
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     real_topology "metric_space/")
-    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
-     real_topology "metric_space/")
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     real_continuity "metric_space/")
-    (metric_space_is_hausdorff name-judgement "hausdorff[T]"
-     real_continuity "metric_space/")
+    nil nil nil nil
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (finite_emptyset name-judgement "finite_set[real]" integral_def
-     "analysis/")
-    (subset_algebra_emptyset name-judgement "(cal_M)" lebesgue_def nil)
-    (emptyset_is_compact name-judgement
-     "compact[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (emptyset_is_clopen name-judgement
-     "clopen[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (outer_negligible_emptyset name-judgement
-     "outer_negligible[real, lebesgue_outer_measure]"
-     real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(induced_sigma_algebra)"
-     real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(lebesgue_measurable)"
-     real_lebesgue_scaf nil)
-    (finite_emptyset name-judgement "finite_set[T]" sigma_countable
-     "sigma_set/")
-    (finite_emptyset name-judgement "finite_set[T]" bounded_nats
-     "orders/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" step_fun_props
-     "analysis/")
+    nil nil nil nil nil nil nil nil nil nil nil nil
     (finite_emptyset name-judgement "finite_set" finite_sets nil))
    shostak))
  (continuous_is_ae_continuous 0
@@ -475,41 +446,9 @@
     (number nonempty-type-decl nil numbers nil)
     (metric_induced_topology_is_second_countable name-judgement
      "second_countable" real_topology "metric_space/")
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     real_topology "metric_space/")
-    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
-     real_topology "metric_space/")
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     real_continuity "metric_space/")
-    (metric_space_is_hausdorff name-judgement "hausdorff[T]"
-     real_continuity "metric_space/")
+    nil nil nil nil
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (finite_emptyset name-judgement "finite_set[real]" integral_def
-     "analysis/")
-    (subset_algebra_emptyset name-judgement "(cal_M)" lebesgue_def nil)
-    (emptyset_is_compact name-judgement
-     "compact[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (emptyset_is_clopen name-judgement
-     "clopen[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (outer_negligible_emptyset name-judgement
-     "outer_negligible[real, lebesgue_outer_measure]"
-     real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(induced_sigma_algebra)"
-     real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(lebesgue_measurable)"
-     real_lebesgue_scaf nil)
-    (finite_emptyset name-judgement "finite_set[T]" sigma_countable
-     "sigma_set/")
-    (finite_emptyset name-judgement "finite_set[T]" bounded_nats
-     "orders/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" step_fun_props
-     "analysis/")
+    nil nil nil nil nil nil nil nil nil nil nil nil
     (finite_emptyset name-judgement "finite_set" finite_sets nil))
    shostak)))
 
