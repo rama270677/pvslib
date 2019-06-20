@@ -1,6 +1,6 @@
 ;;
 ;; pvsio.lisp
-;; Release: PVSio-7.0.0 (06/30/19)
+;; Release: PVSio-7.0.0 (06/20/19)
 ;;
 ;; Contact: Cesar Munoz (cesar.a.munoz@nasa.gov)
 ;; NASA Langley Research Center
@@ -139,8 +139,9 @@ To change output prompt '~a':
       (let ((pref (get-output-stream-string fstr)))
 	(cond ((member pref '("(lisp" "(pvs::lisp")
 		       :test #+allegro #'string= #-allegro #'string-equal)
-	       (let ((input (read input-stream nil nil)))
-		 (format t "~%~s~2%~a" (eval input) *pvsio-promptin*))
+	       (let* ((input (read input-stream nil nil))
+		      (e     (eval input)))
+		 (format t "~s~2%~a" e *pvsio-promptin*))
 	       (loop until (or (null c) (char= c #\)))
 		  do (setq c (read-char-no-hang input-stream nil nil)))
 	       (setq c #\Space)
@@ -211,7 +212,6 @@ To change output prompt '~a':
 		       (eval cl-input)))))
 	    (when *evaluator-debug*
 	      (format t "~%Common Lisp expression ~a evaluates to:~%~a~%" cl-input cl-eval))
-	    (format t "~a" cl-eval)
 	    (when (and *convert-back-to-pvs* (not isvoid))
 	      (let ((pvs-val (cl2pvs cl-eval (type tc-input))))
 		(assert (expr? pvs-val))
