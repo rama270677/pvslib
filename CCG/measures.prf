@@ -1,6 +1,7 @@
 (measures
  (get_TCC1 0
-  (get_TCC1-1 nil 3653416765 ("" (subtype-tcc) nil nil) nil nil))
+  (get_TCC1-1 nil 3653416765 ("" (subtype-tcc) nil nil) nil nil
+   (get subtype "measures.i" "below[length[listn[Sign3](N)](m)]")))
  (get_TCC2 0
   (get_TCC2-1 nil 3653416765 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -38,7 +39,9 @@
     (below type-eq-decl nil naturalnumbers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (get subtype "measures.j"
+        "below[length[Sign3](nth[listn[Sign3](N)](m, i))]")))
  (form_matrix_TCC1 0
   (form_matrix_TCC1-1 nil 3653424979
    ("" (skeep)
@@ -68,8 +71,6 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
-    (null adt-constructor-decl "(null?)" list_adt nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -79,59 +80,57 @@
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (length_singleton formula-decl nil more_list_props "structures/"))
-   nil))
+   nil
+   (form_matrix subtype
+    "more_list_props[Sign3].^((: (number_fields.-)(1) :), measures.N)"
+    "listn[Sign3].listn(measures.N)")))
  (form_matrix_TCC2 0
   (form_matrix_TCC2-1 nil 3653424979
-   ("" (inst 1 "(: Undefined :)^N")
-    (("" (use "length_appendn[Sign3]") (("" (assert) nil nil)) nil))
+   ("" (skeep)
+    (("" (inst 1 "(: Undefined :)^N")
+      (("" (use "length_appendn[Sign3]") (("" (assert) nil nil)) nil))
+      nil))
     nil)
-   ((length_appendn formula-decl nil more_list_props "structures/")
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (length_singleton formula-decl nil more_list_props "structures/")
-    (null adt-constructor-decl "(null?)" list_adt nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (^ def-decl "list[T]" more_list_props "structures/")
-    (listn type-eq-decl nil listn "structures/")
-    (N formal-const-decl "posnat" measures nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (length def-decl "nat" list_props nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (Sign3 type-eq-decl nil sign3 "reals/")
-    (int nonempty-type-eq-decl nil integers nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
+   ((number nonempty-type-decl nil numbers nil)
+    (list type-decl nil list_adt nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (every adt-def-decl "boolean" list_adt nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (list type-decl nil list_adt nil)
-    (number nonempty-type-decl nil numbers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil))
-   nil))
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (Sign3 type-eq-decl nil sign3 "reals/")
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (length def-decl "nat" list_props nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (N formal-const-decl "posnat" measures nil)
+    (listn type-eq-decl nil listn "structures/")
+    (^ def-decl "list[T]" more_list_props "structures/")
+    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
+    (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
+    (length_singleton formula-decl nil more_list_props "structures/")
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (length_appendn formula-decl nil more_list_props "structures/"))
+   nil (form_matrix existence "" "listn[Sign3].listn(measures.N)")))
  (form_matrix_TCC3 0
   (form_matrix_TCC3-1 nil 3653424979
    ("" (expand "eq")
@@ -145,12 +144,15 @@
               nil))
             nil)
            ("2" (hide 2)
-            (("2" (skeep)
+            (("2" (inst 1 "(: Undefined :)^N")
               (("2" (use "length_appendn[Sign3]")
                 (("2" (assert) nil nil)) nil))
               nil))
             nil)
-           ("3" (grind) nil nil))
+           ("3" (skeep)
+            (("3" (use "length_appendn[Sign3]")
+              (("3" (assert) nil nil)) nil))
+            nil))
           nil))
         nil))
       nil))
@@ -200,31 +202,26 @@
     (^ def-decl "list[T]" more_list_props "structures/")
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (null adt-constructor-decl "(null?)" list_adt nil)
     (length_singleton formula-decl nil more_list_props "structures/")
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (length_appendn formula-decl nil more_list_props "structures/")
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (append def-decl "list[T]" list_props nil)
-    (array2list_it def-decl
-     "{l: listn(n - i) | FORALL (j: subrange(i, n - 1)): a(j) = nth(l, j - i)}"
-     array2list "structures/")
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (get const-decl "Sign3" measures nil)
     (eq const-decl "bool" measures nil))
-   nil))
+   nil
+   (form_matrix subtype
+    "array2list[listn[Sign3].listn(measures.N)].array2list(measures.N)(LAMBDA (k: naturalnumbers.nat): IF reals.<(k, measures.N) THEN array2list[Sign3].array2list(measures.N)(LAMBDA (p: naturalnumbers.nat): IF reals.<(p, measures.N) THEN measures.f(k)(p) ELSE (number_fields.-)(1) ENDIF) ELSE more_list_props[Sign3].^((: (number_fields.-)(1) :), measures.N) ENDIF)"
+    "{m: measures.Measure_Matrix | measures.eq(m, measures.f)}")))
  (form_matfun_TCC1 0
   (form_matfun_TCC1-1 nil 3653468924 ("" (subtype-tcc) nil nil)
    ((get const-decl "Sign3" measures nil)
     (eq const-decl "bool" measures nil))
-   nil))
+   nil
+   (form_matfun subtype
+    "LAMBDA (i) (j): measures.get(measures.m)(measures.i, measures.j)"
+    "{f | measures.eq(measures.m, measures.f)}")))
  (matrix_fun_idemp 0
   (matrix_fun_idemp-2 nil 3653730861
    ("" (skeep)
@@ -305,10 +302,11 @@
     (form_matrix const-decl "{m: Measure_Matrix | eq(m, f)}" measures
      nil)
     (eq const-decl "bool" measures nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil)
     (Measure_Matrix type-eq-decl nil measures nil)
     (Measure_Mat_Fn type-eq-decl nil measures nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil) (nth def-decl "T" list_props nil)
+    (nth def-decl "T" list_props nil)
     (below type-eq-decl nil nat_types nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (real_lt_is_strict_total_order name-judgement
@@ -389,13 +387,13 @@
         nil))
       nil))
     nil)
-   ((list type-decl nil list_adt nil)
+   ((Measure_Matrix type-eq-decl nil measures nil)
+    (list type-decl nil list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (length def-decl "nat" list_props nil)
     (listn type-eq-decl nil listn "structures/")
-    (Measure_Matrix type-eq-decl nil measures nil)
     (eq const-decl "bool" measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (form_matrix const-decl "{m: Measure_Matrix | eq(m, f)}" measures
@@ -440,11 +438,11 @@
    ((form_matrix const-decl "{m: Measure_Matrix | eq(m, f)}" measures
      nil)
     (eq const-decl "bool" measures nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil)
     (Measure_Matrix type-eq-decl nil measures nil)
     (listn type-eq-decl nil listn "structures/")
     (Measure_Mat_Fn type-eq-decl nil measures nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil)
     (N formal-const-decl "posnat" measures nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
@@ -476,7 +474,8 @@
     (boolean nonempty-type-decl nil booleans nil))
    shostak))
  (max__TCC1 0
-  (max__TCC1-1 nil 3653480863 ("" (subtype-tcc) nil nil) nil nil))
+  (max__TCC1-1 nil 3653480863 ("" (subtype-tcc) nil nil) nil nil
+   (max_ subtype "0" "naturalnumbers.below(measures.n)")))
  (max__TCC2 0
   (max__TCC2-1 nil 3653480863
    ("" (skeep*)
@@ -509,9 +508,13 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (max_ subtype "measures.f(0)"
+    "{t: sign3.Sign3 | booleans.AND(FORALL (i: naturalnumbers.below(measures.n)): reals.<=(measures.f(i), t), EXISTS (j: naturalnumbers.below(measures.n)): measures.f(j) = t)}")))
  (max__TCC3 0
-  (max__TCC3-1 nil 3653480863 ("" (subtype-tcc) nil nil) nil nil))
+  (max__TCC3-1 nil 3653480863 ("" (subtype-tcc) nil nil) nil nil
+   (max_ subtype "(number_fields.-)(measures.n, 1)"
+    "naturalnumbers.below(measures.n)")))
  (max__TCC4 0
   (max__TCC4-1 nil 3653480863
    ("" (skeep)
@@ -563,7 +566,9 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (below type-eq-decl nil naturalnumbers nil)
     (<= const-decl "bool" reals nil))
-   nil))
+   nil
+   (max_ subtype "measures.next"
+    "{t: sign3.Sign3 | booleans.AND(FORALL (i: naturalnumbers.below(measures.n)): reals.<=(measures.f(i), t), EXISTS (j: naturalnumbers.below(measures.n)): measures.f(j) = t)}")))
  (max__TCC5 0
   (max__TCC5-1 nil 3653480863
    ("" (skeep*)
@@ -618,9 +623,12 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (max_ subtype "measures.f((number_fields.-)(measures.n, 1))"
+    "{t: sign3.Sign3 | booleans.AND(FORALL (i: naturalnumbers.below(measures.n)): reals.<=(measures.f(i), t), EXISTS (j: naturalnumbers.below(measures.n)): measures.f(j) = t)}")))
  (max__TCC6 0
-  (max__TCC6-1 nil 3653481754 ("" (subtype-tcc) nil nil) nil nil))
+  (max__TCC6-1 nil 3653481754 ("" (subtype-tcc) nil nil) nil nil
+   (max_ subtype "measures.i" "naturalnumbers.below(measures.n)")))
  (max__TCC7 0
   (max__TCC7-1 nil 3653481754 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -643,9 +651,11 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (max_ subtype "(number_fields.-)(measures.n, 1)" "posnat")))
  (max__TCC8 0
-  (max__TCC8-1 nil 3653481754 ("" (termination-tcc) nil nil) nil nil))
+  (max__TCC8-1 nil 3653481754 ("" (termination-tcc) nil nil) nil nil
+   (max_ termination "measures.max_((number_fields.-)(measures.n, 1))"
+    "nil")))
  (id_def 0
   (id_def-1 nil 3653837454
    ("" (skeep)
@@ -1239,18 +1249,12 @@
     (surjective? const-decl "bool" functions nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (unique? const-decl "bool" exists1 nil)
     (bij_inv_is_bij_alt formula-decl nil function_inverse_def nil)
     (FF skolem-const-decl
      "[[below(N) -> Sign3] -> [below(N) -> below(3)]]" measures nil)
     (F skolem-const-decl
      "[[below(N) -> below(3)] -> [below(N) -> int]]" measures nil)
     (p skolem-const-decl "[below(3) -> int]" measures nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (odd_plus_odd_is_even application-judgement "even_int" integers
-     nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
@@ -2062,11 +2066,15 @@
  (card_measure_matrices_TCC1 0
   (card_measure_matrices_TCC1-1 nil 3631015109
    ("" (lemma "card_prep") (("" (propax) nil nil)) nil)
-   ((card_prep formula-decl nil measures nil)) nil))
+   ((card_prep formula-decl nil measures nil)) nil
+   (card_measure_matrices subtype "sets[Measure_Matrix].fullset"
+    "finite_set[Measure_Matrix]")))
  (card_measure_matrices_TCC2 0
   (card_measure_matrices_TCC2-1 nil 3631015109
    ("" (subtype-tcc) nil nil) ((/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (card_measure_matrices subtype "2"
+    "{i: integers.int | booleans.OR(measures.N /= 0, reals.>=(i, 0))}")))
  (card_measure_matrices 0
   (card_measure_matrices-3 nil 3653731302
    ("" (rewrite "expt_x2")
@@ -2148,24 +2156,25 @@
                                   (inst
                                    1
                                    "array2list[listn[Sign3](N)](N)(LAMBDA (k:nat): IF k < N THEN
-                       array2list[Sign3](N)(LAMBDA (p:nat): IF p<N THEN f_(k)(p) ELSE Undefined ENDIF)
-         	      ELSE (:Undefined:)^N ENDIF)")
+                                       array2list[Sign3](N)(LAMBDA (p:nat): IF p<N THEN f_(k)(p) ELSE Undefined ENDIF)
+                         	      ELSE (:Undefined:)^N ENDIF)")
                                   (("1"
-                                    (decompose-equality)
+                                    (with-tccs (decompose-equality))
                                     (("1"
-                                      (decompose-equality)
+                                      (with-tccs (decompose-equality))
                                       (("1"
                                         (expand "get")
                                         (("1"
-                                          (typepred
-                                           "array2list[listn[Sign3](N)]
-                                (N)
-                                (LAMBDA (k: nat):
-                                   IF k < N
-                                     THEN array2list[Sign3]
-                                              (N)(LAMBDA (p: nat): IF p < N THEN f_(k)(p) ELSE -1 ENDIF)
-                                   ELSE (: -1 :) ^ N
-                                   ENDIF)")
+                                          (with-tccs
+                                           (typepred
+                                            "array2list[listn[Sign3](N)]
+                                                            (N)
+                                                            (LAMBDA (k: nat):
+                                                               IF k < N
+                                                                 THEN array2list[Sign3]
+                                                                          (N)(LAMBDA (p: nat): IF p < N THEN f_(k)(p) ELSE -1 ENDIF)
+                                                               ELSE (: -1 :) ^ N
+                                                               ENDIF)"))
                                           (("1"
                                             (inst?)
                                             (("1"
@@ -2187,77 +2196,8 @@
                                                   nil))
                                                 nil))
                                               nil))
-                                            nil)
-                                           ("2"
-                                            (hide-all-but 1)
-                                            (("2"
-                                              (use
-                                               "length_appendn[Sign3]")
-                                              (("1" (assert) nil nil)
-                                               ("2"
-                                                (expand "every")
-                                                (("2"
-                                                  (expand "every")
-                                                  (("2"
-                                                    (propax)
-                                                    nil
-                                                    nil))
-                                                  nil))
-                                                nil))
-                                              nil))
-                                            nil)
-                                           ("3"
-                                            (hide 2)
-                                            (("3"
-                                              (skeep)
-                                              (("3"
-                                                (hide-all-but 2)
-                                                (("3"
-                                                  (use
-                                                   "length_appendn[Sign3]")
-                                                  (("1"
-                                                    (assert)
-                                                    (("1"
-                                                      (expand "every")
-                                                      (("1"
-                                                        (expand
-                                                         "every")
-                                                        (("1"
-                                                          (propax)
-                                                          nil
-                                                          nil))
-                                                        nil))
-                                                      nil))
-                                                    nil)
-                                                   ("2"
-                                                    (expand "every")
-                                                    (("2"
-                                                      (expand "every")
-                                                      (("2"
-                                                        (propax)
-                                                        nil
-                                                        nil))
-                                                      nil))
-                                                    nil))
-                                                  nil))
-                                                nil))
-                                              nil))
                                             nil))
                                           nil))
-                                        nil)
-                                       ("2"
-                                        (skeep)
-                                        (("2"
-                                          (use "length_appendn[Sign3]")
-                                          (("2" (assert) nil nil))
-                                          nil))
-                                        nil))
-                                      nil)
-                                     ("2"
-                                      (skeep)
-                                      (("2"
-                                        (use "length_appendn[Sign3]")
-                                        (("2" (assert) nil nil))
                                         nil))
                                       nil))
                                     nil)
@@ -2266,8 +2206,18 @@
                                     (("2" (propax) nil nil))
                                     nil)
                                    ("3"
-                                    (use "length_appendn[Sign3]")
-                                    (("3" (assert) nil nil))
+                                    (inst 1 "(: Undefined :)^N")
+                                    (("3"
+                                      (use "length_appendn[Sign3]")
+                                      (("3" (assert) nil nil))
+                                      nil))
+                                    nil)
+                                   ("4"
+                                    (skeep)
+                                    (("4"
+                                      (use "length_appendn[Sign3]")
+                                      (("4" (assert) nil nil))
+                                      nil))
                                     nil))
                                   nil))
                                 nil))
@@ -2647,7 +2597,6 @@
      "[[below(N) -> [below(N) -> Sign3]] -> [below(N) -> below(3 ^ N)]]"
      measures nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (TRUE const-decl "bool" booleans nil)
     (G skolem-const-decl
      "[[below(N) -> [below(N) -> Sign3]] -> [below(N) -> below(3 ^ N)]]"
      measures nil)
@@ -2659,19 +2608,12 @@
      nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (unique? const-decl "bool" exists1 nil)
     (bij_inv_is_bij_alt formula-decl nil function_inverse_def nil)
     (FF skolem-const-decl
      "[[below(N) -> Sign3] -> [below(N) -> below(3)]]" measures nil)
     (F skolem-const-decl
      "[[below(N) -> below(3)] -> [below(N) -> int]]" measures nil)
     (p skolem-const-decl "[below(3) -> int]" measures nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (odd_plus_odd_is_even application-judgement "even_int" integers
-     nil)
-    (id const-decl "(bijective?[T, T])" identity nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
@@ -2684,21 +2626,20 @@
     (set type-eq-decl nil sets nil)
     (surjective? const-decl "bool" functions nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (^ def-decl "list[T]" more_list_props "structures/")
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (null adt-constructor-decl "(null?)" list_adt nil)
+    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
+    (^ def-decl "list[T]" more_list_props "structures/")
+    (TRUE const-decl "bool" booleans nil)
+    (f_ skolem-const-decl "[below(N) -> [below(N) -> Sign3]]" measures
+     nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (array2list const-decl
      "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
      array2list "structures/")
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (f_ skolem-const-decl "[below(N) -> [below(N) -> Sign3]]" measures
-     nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
     (length_appendn formula-decl nil more_list_props "structures/")
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (length_singleton formula-decl nil more_list_props "structures/")
     (injective? const-decl "bool" functions nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -2737,7 +2678,6 @@
     (bijective? const-decl "bool" functions nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (N formal-const-decl "posnat" measures nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
@@ -3929,13 +3869,13 @@
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
     (Measure_Mat_Fn type-eq-decl nil measures nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (list type-decl nil list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (length def-decl "nat" list_props nil)
     (listn type-eq-decl nil listn "structures/")
-    (Measure_Matrix type-eq-decl nil measures nil)
     (eq const-decl "bool" measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (reflexive? const-decl "bool" relations nil)
@@ -4245,13 +4185,13 @@
     (fun_matrix_idemp formula-decl nil measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (eq const-decl "bool" measures nil)
-    (Measure_Matrix type-eq-decl nil measures nil)
     (listn type-eq-decl nil listn "structures/")
     (length def-decl "nat" list_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (mult const-decl "Measure_Mat_Fn" measures nil)
     (Measure_Mat_Fn type-eq-decl nil measures nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
@@ -4645,13 +4585,13 @@
     (fun_matrix_idemp formula-decl nil measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (eq const-decl "bool" measures nil)
-    (Measure_Matrix type-eq-decl nil measures nil)
     (listn type-eq-decl nil listn "structures/")
     (length def-decl "nat" list_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (mult const-decl "Measure_Mat_Fn" measures nil)
     (Measure_Mat_Fn type-eq-decl nil measures nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
@@ -5027,13 +4967,13 @@
     (fun_matrix_idemp formula-decl nil measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (eq const-decl "bool" measures nil)
-    (Measure_Matrix type-eq-decl nil measures nil)
     (listn type-eq-decl nil listn "structures/")
     (length def-decl "nat" list_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (Measure_Mat_Fn type-eq-decl nil measures nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
     (- const-decl "[numfield -> numfield]" number_fields nil)
@@ -5310,8 +5250,8 @@
     nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
     (max_ def-decl "{t: Sign3 |
-         (FORALL (i: below(n)): f(i) <= t) AND
-          (EXISTS (j: below(n)): f(j) = t)}" measures nil)
+   (FORALL (i: below(n)): f(i) <= t) AND (EXISTS (j: below(n)): f(j) = t)}"
+     measures nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -5897,13 +5837,13 @@
     (fun_matrix_idemp formula-decl nil measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (eq const-decl "bool" measures nil)
-    (Measure_Matrix type-eq-decl nil measures nil)
     (listn type-eq-decl nil listn "structures/")
     (length def-decl "nat" list_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (mult const-decl "Measure_Mat_Fn" measures nil)
     (Measure_Mat_Fn type-eq-decl nil measures nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
@@ -6780,13 +6720,13 @@
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
     (Measure_Mat_Fn type-eq-decl nil measures nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (list type-decl nil list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (length def-decl "nat" list_props nil)
     (listn type-eq-decl nil listn "structures/")
-    (Measure_Matrix type-eq-decl nil measures nil)
     (eq const-decl "bool" measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (positive_mult_fun formula-decl nil measures nil))
@@ -7141,13 +7081,13 @@
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
     (Measure_Mat_Fn type-eq-decl nil measures nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (list type-decl nil list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (length def-decl "nat" list_props nil)
     (listn type-eq-decl nil listn "structures/")
-    (Measure_Matrix type-eq-decl nil measures nil)
     (eq const-decl "bool" measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (positive_mult_fun_pos formula-decl nil measures nil))
@@ -7212,13 +7152,13 @@
     (fun_matrix_idemp formula-decl nil measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (eq const-decl "bool" measures nil)
-    (Measure_Matrix type-eq-decl nil measures nil)
     (listn type-eq-decl nil listn "structures/")
     (length def-decl "nat" list_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (sum const-decl "Measure_Mat_Fn" measures nil)
     (Measure_Mat_Fn type-eq-decl nil measures nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
@@ -7352,13 +7292,13 @@
     (Sign3 type-eq-decl nil sign3 "reals/")
     (Measure_Mat_Fn type-eq-decl nil measures nil)
     (sum const-decl "Measure_Mat_Fn" measures nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (list type-decl nil list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (length def-decl "nat" list_props nil)
     (listn type-eq-decl nil listn "structures/")
-    (Measure_Matrix type-eq-decl nil measures nil)
     (eq const-decl "bool" measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (fun_matrix_idemp formula-decl nil measures nil)
@@ -7654,13 +7594,13 @@
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
     (Measure_Mat_Fn type-eq-decl nil measures nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (list type-decl nil list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (length def-decl "nat" list_props nil)
     (listn type-eq-decl nil listn "structures/")
-    (Measure_Matrix type-eq-decl nil measures nil)
     (eq const-decl "bool" measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (defined_pos_mul_fun formula-decl nil measures nil))
@@ -7771,13 +7711,13 @@
     (fun_matrix_idemp formula-decl nil measures nil)
     (form_matfun const-decl "{f | eq(m, f)}" measures nil)
     (eq const-decl "bool" measures nil)
-    (Measure_Matrix type-eq-decl nil measures nil)
     (listn type-eq-decl nil listn "structures/")
     (length def-decl "nat" list_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
     (list type-decl nil list_adt nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
     (mult const-decl "Measure_Mat_Fn" measures nil)
     (Measure_Mat_Fn type-eq-decl nil measures nil)
     (Sign3 type-eq-decl nil sign3 "reals/")
@@ -7923,11 +7863,11 @@
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (N formal-const-decl "posnat" measures nil)
-    (< const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
     (Measure_Mat_Fn type-eq-decl nil measures nil)
     (listn type-eq-decl nil listn "structures/")
     (Measure_Matrix type-eq-decl nil measures nil)
+    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil naturalnumbers nil)
     (eq const-decl "bool" measures nil)
     (form_matrix const-decl "{m: Measure_Matrix | eq(m, f)}" measures
      nil)
@@ -8051,11 +7991,11 @@
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (N formal-const-decl "posnat" measures nil)
-    (< const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
     (Measure_Mat_Fn type-eq-decl nil measures nil)
     (listn type-eq-decl nil listn "structures/")
     (Measure_Matrix type-eq-decl nil measures nil)
+    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil naturalnumbers nil)
     (eq const-decl "bool" measures nil)
     (form_matrix const-decl "{m: Measure_Matrix | eq(m, f)}" measures
      nil)

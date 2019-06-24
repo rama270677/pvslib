@@ -20,9 +20,13 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (measure_matrix_assoc formula-decl nil measures nil))
-   nil)
+   nil
+   (IMP_c_weighted_digraphs subtype "measures[matrix_wdg.N].*"
+    "{f: [[Measure_Matrix[N], Measure_Matrix[N]] -> Measure_Matrix[N]] | operator_defs[Measure_Matrix[N]].associative?(matrix_wdg.f)}"))
   (IMP_c_weighted_digraphs_TCC1-1 nil 3661593386
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (IMP_c_weighted_digraphs subtype "measures[matrix_wdg.N].*"
+    "{f: [[Measure_Matrix[N], Measure_Matrix[N]] -> Measure_Matrix[N]] | operator_defs[Measure_Matrix[N]].associative?(matrix_wdg.f)}")))
  (IMP_c_weighted_digraphs_TCC2 0
   (IMP_c_weighted_digraphs_TCC2-2 nil 3661593844
    ("" (rewrite "id_is_identity") nil nil)
@@ -44,9 +48,13 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (id_is_identity formula-decl nil measures nil))
-   nil)
+   nil
+   (IMP_c_weighted_digraphs subtype "measures[matrix_wdg.N].id"
+    "{zero: Measure_Matrix[N] | operator_defs[Measure_Matrix[N]].identity?(measures[matrix_wdg.N].*)(matrix_wdg.zero)}"))
   (IMP_c_weighted_digraphs_TCC2-1 nil 3661593386
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (IMP_c_weighted_digraphs subtype "measures[matrix_wdg.N].id"
+    "{zero: Measure_Matrix[N] | operator_defs[Measure_Matrix[N]].identity?(measures[matrix_wdg.N].*)(matrix_wdg.zero)}")))
  (mwg_termination?_TCC1 0
   (mwg_termination?_TCC1-1 nil 3612569072 ("" (subtype-tcc) nil nil)
    ((wdg type-eq-decl nil matrix_wdg nil)
@@ -101,7 +109,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -121,7 +129,9 @@
     (walk? const-decl "bool" walks_ "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (mwg_termination? subtype "matrix_wdg.c"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (mwg_termination?_TCC2 0
   (mwg_termination?_TCC2-1 nil 3661593386 ("" (subtype-tcc) nil nil)
    ((T formal-type-decl nil matrix_wdg nil)
@@ -165,7 +175,10 @@
      c_weighted_digraphs_def "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (mwg_termination? subtype
+    "c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].get_wgt"
+    "[[W: wgd_type[T, Measure_Matrix[N], measures[N].*, measures[N].id], (c_digraphs_imp[matrix_wdg.T].digraph_edges(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(W)))] -> Measure_Matrix[N]]")))
  (double_cycle?_TCC1 0
   (double_cycle?_TCC1-1 nil 3579439673 ("" (subtype-tcc) nil nil)
    ((prewalk type-eq-decl nil walks_ "digraphs/")
@@ -202,7 +215,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -246,7 +259,10 @@
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (double_cycle? subtype
+    "finite_sequences[matrix_wdg.T].o(matrix_wdg.c1, seq_extras[matrix_wdg.T].rest(matrix_wdg.c2))"
+    "prewalk[T, digraph_type[T], digraph_verts[T], digraph_edges[T], digraph_size[T], digraph_make[T]]")))
  (positive_double_cycle?_TCC1 0
   (positive_double_cycle?_TCC1-1 nil 3579679885
    ("" (skeep :preds? t)
@@ -305,7 +321,7 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (double_cycle? const-decl "bool" matrix_wdg nil)
     (wdg type-eq-decl nil matrix_wdg nil)
@@ -336,11 +352,13 @@
      "(strict_total_order?[real])" real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (edges_of const-decl "finite_set[edgetype]" walks_ "digraphs/")
+    (edges_of const-decl "finite_set[edgetype[T]]" walks_ "digraphs/")
     (finite_set type-eq-decl nil finite_sets nil)
     (edgetype type-eq-decl nil digraphs_utils "digraphs/")
     (subset? const-decl "bool" sets nil))
-   nil))
+   nil
+   (positive_double_cycle? subtype "matrix_wdg.e"
+    "(c_digraphs_def[matrix_wdg.T].edges(dg(matrix_wdg.G)))")))
  (limiting_measure?_TCC1 0
   (limiting_measure?_TCC1-2 nil 3661594824
    ("" (skosimp*)
@@ -376,7 +394,7 @@
     (edge? const-decl "bool" digraphs_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -410,7 +428,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil)
+   nil
+   (limiting_measure? subtype "matrix_wdg.e"
+    "(c_digraphs_def[matrix_wdg.T].edges(dg(matrix_wdg.G)))"))
   (limiting_measure?_TCC1-1 nil 3658072500
    ("" (skosimp*)
     (("" (typepred "e!1")
@@ -425,7 +445,9 @@
    ((edge type-eq-decl nil digraphs_ "digraphs/")
     (edge? const-decl "bool" digraphs_ "digraphs/")
     (is_finite const-decl "bool" finite_sets nil))
-   nil))
+   nil
+   (limiting_measure? subtype "matrix_wdg.e"
+    "(c_digraphs_def[matrix_wdg.T].edges(dg(matrix_wdg.G)))")))
  (criterion_one?_TCC1 0
   (criterion_one?_TCC1-1 nil 3604069584 ("" (subtype-tcc) nil nil)
    ((prewalk type-eq-decl nil walks_ "digraphs/")
@@ -476,7 +498,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -504,7 +526,9 @@
      integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (criterion_one? subtype "matrix_wdg.cy"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (criterion_one?_TCC2 0
   (criterion_one?_TCC2-1 nil 3661593386 ("" (subtype-tcc) nil nil)
    ((id const-decl "Measure_Matrix" measures nil)
@@ -549,7 +573,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -577,7 +601,10 @@
      integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (criterion_one? subtype
+    "c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].get_wgt"
+    "[[W: wgd_type[T, Measure_Matrix[N], measures[N].*, measures[N].id], (c_digraphs_imp[matrix_wdg.T].digraph_edges(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(W)))] -> Measure_Matrix[N]]")))
  (positive_eq_circuit_TCC1 0
   (positive_eq_circuit_TCC1-1 nil 3582911550 ("" (subtype-tcc) nil nil)
    ((prewalk type-eq-decl nil walks_ "digraphs/")
@@ -590,7 +617,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -653,7 +680,9 @@
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (positive_eq_circuit subtype "matrix_wdg.w1"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (positive_eq_circuit_TCC2 0
   (positive_eq_circuit_TCC2-1 nil 3582911550 ("" (subtype-tcc) nil nil)
    ((T formal-type-decl nil matrix_wdg nil)
@@ -662,7 +691,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -725,7 +754,10 @@
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (positive_eq_circuit subtype
+    "c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].get_wgt"
+    "[[W: wgd_type[T, Measure_Matrix[N], measures[N].*, measures[N].id], (c_digraphs_imp[matrix_wdg.T].digraph_edges(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(W)))] -> Measure_Matrix[N]]")))
  (positive_eq_circuit_TCC3 0
   (positive_eq_circuit_TCC3-1 nil 3661593386 ("" (subtype-tcc) nil nil)
    ((prewalk type-eq-decl nil walks_ "digraphs/")
@@ -741,7 +773,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -818,7 +850,9 @@
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (positive_eq_circuit subtype "matrix_wdg.w2"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (positive_eq_circuit 0
   (positive_eq_circuit-1 nil 3563205706
    ("" (skeep)
@@ -1281,22 +1315,22 @@
                                                       (lemma
                                                        "wgt_walk_decomposed")
                                                       (("1"
-                                                        (inst
-                                                         -1
-                                                         "G"
-                                                         "i"
-                                                         "w1")
+                                                        (copy -1)
                                                         (("1"
-                                                          (assert)
+                                                          (inst
+                                                           -2
+                                                           "G"
+                                                           "i"
+                                                           "w1")
                                                           (("1"
-                                                            (replace
-                                                             -1
-                                                             -9)
+                                                            (assert)
                                                             (("1"
-                                                              (hide -1)
+                                                              (replace
+                                                               -2
+                                                               -10)
                                                               (("1"
-                                                                (lemma
-                                                                 "wgt_walk_decomposed")
+                                                                (hide
+                                                                 -2)
                                                                 (("1"
                                                                   (inst
                                                                    -1
@@ -1310,7 +1344,7 @@
                                                                       (("1"
                                                                         (case
                                                                          "w2 ^ (0, length(w1) - 1 - i) = w1 ^ (i, length(w1) - 1) AND
-                                               w2 ^ (length(w1) - 1 - i, length(w2) - 1) =  w1 ^ (0, i)")
+                                                                                   w2 ^ (length(w1) - 1 - i, length(w2) - 1) =  w1 ^ (0, i)")
                                                                         (("1"
                                                                           (flatten)
                                                                           (("1"
@@ -1744,7 +1778,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -1806,12 +1840,12 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (wgt_walk_decomposed formula-decl nil weighted_digraphs_
      "digraphs/")
+    (wdg type-eq-decl nil matrix_wdg nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (positive_commute formula-decl nil measures nil)
     (measure_matrix_assoc formula-decl nil measures nil)
     (id_is_identity formula-decl nil measures nil)
@@ -1821,7 +1855,6 @@
     (identity? const-decl "bool" operator_defs nil)
     (associative? const-decl "bool" operator_defs nil)
     (TRUE const-decl "bool" booleans nil)
-    (wdg type-eq-decl nil matrix_wdg nil)
     (O const-decl "finseq" finite_sequences nil)
     (nzint_min application-judgement "{k: nzint | k <= i AND k <= j}"
      real_defs nil)
@@ -1851,27 +1884,23 @@
     (below type-eq-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (T formal-type-decl nil matrix_wdg nil)
-    (digraph_verts const-decl "[digraph_type -> [T -> bool]]"
-     c_digraphs_imp "digraphs/")
-    (vert const-decl "bool" c_digraphs_def "digraphs/")
-    (digraph_make const-decl "[v: (is_finite[T]),
- {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
-   digraph_type]" c_digraphs_imp "digraphs/")
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (set type-eq-decl nil sets nil)
-    (digraph_size const-decl "[digraph_type -> nat]" c_digraphs_imp
-     "digraphs/")
-    (digraph_edges const-decl "[digraph_type -> [T, T -> bool]]"
-     c_digraphs_imp "digraphs/")
-    (digraph_type type-eq-decl nil c_digraphs_imp "digraphs/")
-    (cdigraph const-decl "bool" c_digraphs_def "digraphs/")
-    (ComputableDigraph type-eq-decl nil c_digraphs_def "digraphs/")
+    (id const-decl "Measure_Matrix" measures nil)
+    (* const-decl "Measure_Matrix" measures nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
+    (listn type-eq-decl nil listn "structures/")
+    (N formal-const-decl "posnat" matrix_wdg nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (length def-decl "nat" list_props nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
+    (Sign3 type-eq-decl nil sign3 "reals/")
+    (int nonempty-type-eq-decl nil integers nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
@@ -1887,60 +1916,62 @@
     (boolean nonempty-type-decl nil booleans nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
+    (T formal-type-decl nil matrix_wdg nil)
+    (get_wgt const-decl "Weight" c_weighted_digraphs_def "digraphs/")
+    (get const-decl "Sign3" measures nil)
+    (positive_double_cycle? const-decl "bool" matrix_wdg nil)
+    (limiting_measure? const-decl "bool" matrix_wdg nil)
+    (digraph_verts const-decl "[digraph_type -> [T -> bool]]"
+     c_digraphs_imp "digraphs/")
+    (vert const-decl "bool" c_digraphs_def "digraphs/")
+    (digraph_make const-decl "[v: (is_finite[T]),
+ {e: (is_finite[[T, T]]) |
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+   digraph_type]" c_digraphs_imp "digraphs/")
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (set type-eq-decl nil sets nil)
+    (digraph_size const-decl "[digraph_type -> nat]" c_digraphs_imp
+     "digraphs/")
+    (digraph_edges const-decl "[digraph_type -> [T, T -> bool]]"
+     c_digraphs_imp "digraphs/")
+    (digraph_type type-eq-decl nil c_digraphs_imp "digraphs/")
+    (cdigraph const-decl "bool" c_digraphs_def "digraphs/")
+    (ComputableDigraph type-eq-decl nil c_digraphs_def "digraphs/")
     (verts_in? const-decl "bool" walks_ "digraphs/")
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
      nil)
     (edges const-decl "bool" c_digraphs_def "digraphs/")
     (edge? const-decl "bool" digraphs_ "digraphs/")
     (walk? const-decl "bool" walks_ "digraphs/")
-    (id const-decl "Measure_Matrix" measures nil)
-    (* const-decl "Measure_Matrix" measures nil)
-    (Measure_Matrix type-eq-decl nil measures nil)
-    (listn type-eq-decl nil listn "structures/")
-    (N formal-const-decl "posnat" matrix_wdg nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (length def-decl "nat" list_props nil)
-    (Sign3 type-eq-decl nil sign3 "reals/")
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (get_wgt const-decl "Weight" c_weighted_digraphs_def "digraphs/")
-    (get const-decl "Sign3" measures nil)
-    (positive_double_cycle? const-decl "bool" matrix_wdg nil)
-    (limiting_measure? const-decl "bool" matrix_wdg nil)
     (wgd_dg const-decl "[wgd_type -> digraph_type]"
      c_weighted_digraphs_def "digraphs/")
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (lm_defined_walks subtype "matrix_wdg.w"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (lm_defined_walks_TCC2 0
   (lm_defined_walks_TCC2-1 nil 3661593386 ("" (subtype-tcc) nil nil)
-   ((T formal-type-decl nil matrix_wdg nil)
-    (digraph_verts const-decl "[digraph_type -> [T -> bool]]"
-     c_digraphs_imp "digraphs/")
-    (vert const-decl "bool" c_digraphs_def "digraphs/")
-    (digraph_make const-decl "[v: (is_finite[T]),
- {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
-   digraph_type]" c_digraphs_imp "digraphs/")
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (set type-eq-decl nil sets nil)
-    (digraph_size const-decl "[digraph_type -> nat]" c_digraphs_imp
-     "digraphs/")
-    (digraph_edges const-decl "[digraph_type -> [T, T -> bool]]"
-     c_digraphs_imp "digraphs/")
-    (digraph_type type-eq-decl nil c_digraphs_imp "digraphs/")
-    (cdigraph const-decl "bool" c_digraphs_def "digraphs/")
-    (ComputableDigraph type-eq-decl nil c_digraphs_def "digraphs/")
+   ((id const-decl "Measure_Matrix" measures nil)
+    (* const-decl "Measure_Matrix" measures nil)
+    (Measure_Matrix type-eq-decl nil measures nil)
+    (listn type-eq-decl nil listn "structures/")
+    (N formal-const-decl "posnat" matrix_wdg nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (length def-decl "nat" list_props nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
+    (Sign3 type-eq-decl nil sign3 "reals/")
+    (int nonempty-type-eq-decl nil integers nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
@@ -1956,37 +1987,44 @@
     (boolean nonempty-type-decl nil booleans nil)
     (list type-decl nil list_adt nil)
     (number nonempty-type-decl nil numbers nil)
+    (T formal-type-decl nil matrix_wdg nil)
+    (get_wgt const-decl "Weight" c_weighted_digraphs_def "digraphs/")
+    (get const-decl "Sign3" measures nil)
+    (positive_double_cycle? const-decl "bool" matrix_wdg nil)
+    (limiting_measure? const-decl "bool" matrix_wdg nil)
+    (digraph_verts const-decl "[digraph_type -> [T -> bool]]"
+     c_digraphs_imp "digraphs/")
+    (vert const-decl "bool" c_digraphs_def "digraphs/")
+    (digraph_make const-decl "[v: (is_finite[T]),
+ {e: (is_finite[[T, T]]) |
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+   digraph_type]" c_digraphs_imp "digraphs/")
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (set type-eq-decl nil sets nil)
+    (digraph_size const-decl "[digraph_type -> nat]" c_digraphs_imp
+     "digraphs/")
+    (digraph_edges const-decl "[digraph_type -> [T, T -> bool]]"
+     c_digraphs_imp "digraphs/")
+    (digraph_type type-eq-decl nil c_digraphs_imp "digraphs/")
+    (cdigraph const-decl "bool" c_digraphs_def "digraphs/")
+    (ComputableDigraph type-eq-decl nil c_digraphs_def "digraphs/")
     (verts_in? const-decl "bool" walks_ "digraphs/")
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
      nil)
     (edges const-decl "bool" c_digraphs_def "digraphs/")
     (edge? const-decl "bool" digraphs_ "digraphs/")
     (walk? const-decl "bool" walks_ "digraphs/")
-    (id const-decl "Measure_Matrix" measures nil)
-    (* const-decl "Measure_Matrix" measures nil)
-    (Measure_Matrix type-eq-decl nil measures nil)
-    (listn type-eq-decl nil listn "structures/")
-    (N formal-const-decl "posnat" matrix_wdg nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (length def-decl "nat" list_props nil)
-    (Sign3 type-eq-decl nil sign3 "reals/")
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (get_wgt const-decl "Weight" c_weighted_digraphs_def "digraphs/")
-    (get const-decl "Sign3" measures nil)
-    (positive_double_cycle? const-decl "bool" matrix_wdg nil)
-    (limiting_measure? const-decl "bool" matrix_wdg nil)
     (wgd_dg const-decl "[wgd_type -> digraph_type]"
      c_weighted_digraphs_def "digraphs/")
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (lm_defined_walks subtype
+    "c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].get_wgt"
+    "[[W: wgd_type[T, Measure_Matrix[N], measures[N].*, measures[N].id], (c_digraphs_imp[matrix_wdg.T].digraph_edges(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(W)))] -> Measure_Matrix[N]]")))
  (lm_defined_walks 0
   (lm_defined_walks-1 nil 3592839310
    ("" (auto-rewrite "finseq_appl")
@@ -2404,7 +2442,6 @@
     (^ const-decl "finseq" finite_sequences nil)
     (walk?_caret formula-decl nil walks_ "digraphs/")
     (defined_pos?_def formula-decl nil measures nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (defined_pos_mul formula-decl nil measures nil)
@@ -2452,7 +2489,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -2543,7 +2580,7 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (> const-decl "bool" reals nil)
@@ -2575,18 +2612,20 @@
      "(strict_total_order?[real])" real_props nil)
     (edgetype type-eq-decl nil digraphs_utils "digraphs/")
     (finite_set type-eq-decl nil finite_sets nil)
-    (edges_of const-decl "finite_set[edgetype]" walks_ "digraphs/")
+    (edges_of const-decl "finite_set[edgetype[T]]" walks_ "digraphs/")
     (subset? const-decl "bool" sets nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil)
+   nil
+   (lm_positive_edge subtype "matrix_wdg.e"
+    "(c_digraphs_def[matrix_wdg.T].edges(dg(matrix_wdg.G)))"))
   (lm_positive_edge_TCC1-1 nil 3592839392 ("" (subtype-tcc) nil nil)
    ((prewalk type-eq-decl nil walks_ "digraphs/")
     (finseq type-eq-decl nil finite_sequences nil)
     (edgetype type-eq-decl nil digraphs_utils "digraphs/")
     (finite_set type-eq-decl nil finite_sets nil)
-    (edges_of const-decl "finite_set[edgetype]" walks_ "digraphs/")
+    (edges_of const-decl "finite_set[edgetype[T]]" walks_ "digraphs/")
     (is_finite const-decl "bool" finite_sets nil)
     (verts_in? const-decl "bool" walks_ "digraphs/")
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
@@ -2597,7 +2636,9 @@
     (circuit? const-decl "bool" circuits_ "digraphs/")
     (cycle? const-decl "bool" cycles_ "digraphs/")
     (get const-decl "Sign3" measures nil))
-   nil))
+   nil
+   (lm_positive_edge subtype "matrix_wdg.e"
+    "(c_digraphs_def[matrix_wdg.T].edges(dg(matrix_wdg.G)))")))
  (lm_positive_edge 0
   (lm_positive_edge-1 nil 3592839392
    ("" (auto-rewrite "finseq_appl")
@@ -2947,7 +2988,7 @@
     (circuit? const-decl "bool" circuits_ "digraphs/")
     (edgetype type-eq-decl nil digraphs_utils "digraphs/")
     (finite_set type-eq-decl nil finite_sets nil)
-    (edges_of const-decl "finite_set[edgetype]" walks_ "digraphs/")
+    (edges_of const-decl "finite_set[edgetype[T]]" walks_ "digraphs/")
     (c_digraph type-eq-decl nil c_digraphs_def "digraphs/")
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (member def-decl "bool" list_props nil)
@@ -2960,7 +3001,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -3620,7 +3661,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -3712,7 +3753,7 @@
      nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (edges_of const-decl "finite_set[edgetype]" walks_ "digraphs/")
+    (edges_of const-decl "finite_set[edgetype[T]]" walks_ "digraphs/")
     (finite_set type-eq-decl nil finite_sets nil)
     (edgetype type-eq-decl nil digraphs_utils "digraphs/")
     (real_gt_is_strict_total_order name-judgement
@@ -4813,7 +4854,7 @@
     (edge? const-decl "bool" digraphs_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -4851,7 +4892,9 @@
     (concretedigraph_implements_abstractdigraph formula-decl nil
      cycles_ "digraphs/")
     (vert? const-decl "bool" digraphs_ "digraphs/"))
-   nil))
+   nil
+   (limiting_labeling? subtype "matrix_wdg.e`1"
+    "digraphs_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].vert(dg(matrix_wdg.G))")))
  (limiting_labeling?_TCC2 0
   (limiting_labeling?_TCC2-1 nil 3592058495
    ("" (skeep)
@@ -4887,7 +4930,7 @@
     (edge? const-decl "bool" digraphs_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -4926,7 +4969,9 @@
      cycles_ "digraphs/")
     (edges const-decl "bool" c_digraphs_def "digraphs/")
     (vert? const-decl "bool" digraphs_ "digraphs/"))
-   nil))
+   nil
+   (limiting_labeling? subtype "matrix_wdg.e`2"
+    "digraphs_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].vert(dg(matrix_wdg.G))")))
  (limiting_labeling?_TCC3 0
   (limiting_labeling?_TCC3-1 nil 3592058495
    ("" (skosimp*)
@@ -4954,7 +4999,7 @@
     (edge? const-decl "bool" digraphs_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -4989,7 +5034,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (edges const-decl "bool" c_digraphs_def "digraphs/"))
-   nil))
+   nil
+   (limiting_labeling? subtype "matrix_wdg.e"
+    "(c_digraphs_def[matrix_wdg.T].edges(dg(matrix_wdg.G)))")))
  (limiting_labeling?_TCC4 0
   (limiting_labeling?_TCC4-1 nil 3592058495 ("" (subtype-tcc) nil nil)
    ((id const-decl "Measure_Matrix" measures nil)
@@ -5032,7 +5079,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5056,7 +5103,7 @@
     (cycle? const-decl "bool" cycles_ "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil (limiting_labeling? subtype "matrix_wdg.c" "not_empty_seq[T]")))
  (limiting_labeling?_TCC5 0
   (limiting_labeling?_TCC5-1 nil 3592058495 ("" (subtype-tcc) nil nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
@@ -5113,7 +5160,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5139,7 +5186,10 @@
     (vert? const-decl "bool" digraphs_ "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (limiting_labeling? subtype
+    "seq_extras[matrix_wdg.T].first(matrix_wdg.c)"
+    "digraphs_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].vert(dg(matrix_wdg.G))")))
  (limiting_labeling?_TCC6 0
   (limiting_labeling?_TCC6-1 nil 3592058495 ("" (subtype-tcc) nil nil)
    ((< const-decl "bool" reals nil)
@@ -5194,7 +5244,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5220,7 +5270,10 @@
     (vert? const-decl "bool" digraphs_ "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (limiting_labeling? subtype
+    "seq_extras[matrix_wdg.T].last(matrix_wdg.c)"
+    "digraphs_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].vert(dg(matrix_wdg.G))")))
  (limiting_labeling?_TCC7 0
   (limiting_labeling?_TCC7-1 nil 3658072500 ("" (subtype-tcc) nil nil)
    ((NOT const-decl "[bool -> bool]" booleans nil)
@@ -5267,7 +5320,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5293,7 +5346,9 @@
      c_weighted_digraphs_def "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (limiting_labeling? subtype "matrix_wdg.c"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (limiting_labeling?_TCC8 0
   (limiting_labeling?_TCC8-1 nil 3661593386 ("" (subtype-tcc) nil nil)
    ((id const-decl "Measure_Matrix" measures nil)
@@ -5336,7 +5391,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5362,7 +5417,10 @@
      c_weighted_digraphs_def "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (limiting_labeling? subtype
+    "c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].get_wgt"
+    "[[W: wgd_type[T, Measure_Matrix[N], measures[N].*, measures[N].id], (c_digraphs_imp[matrix_wdg.T].digraph_edges(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(W)))] -> Measure_Matrix[N]]")))
  (ll_defined_walks_TCC1 0
   (ll_defined_walks_TCC1-1 nil 3592843505 ("" (subtype-tcc) nil nil)
    ((id const-decl "Measure_Matrix" measures nil)
@@ -5405,7 +5463,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5443,7 +5501,7 @@
     (limiting_labeling? const-decl "bool" matrix_wdg nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil (ll_defined_walks subtype "matrix_wdg.w" "not_empty_seq[T]")))
  (ll_defined_walks_TCC2 0
   (ll_defined_walks_TCC2-1 nil 3592843505 ("" (subtype-tcc) nil nil)
    ((prewalk type-eq-decl nil walks_ "digraphs/")
@@ -5495,7 +5553,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5534,7 +5592,10 @@
     (vert? const-decl "bool" digraphs_ "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (ll_defined_walks subtype
+    "seq_extras[matrix_wdg.T].first(matrix_wdg.w)"
+    "digraphs_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].vert(dg(matrix_wdg.G))")))
  (ll_defined_walks_TCC3 0
   (ll_defined_walks_TCC3-1 nil 3592843505 ("" (subtype-tcc) nil nil)
    ((prewalk type-eq-decl nil walks_ "digraphs/")
@@ -5591,7 +5652,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5630,7 +5691,10 @@
     (vert? const-decl "bool" digraphs_ "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (ll_defined_walks subtype
+    "seq_extras[matrix_wdg.T].last(matrix_wdg.w)"
+    "digraphs_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].vert(dg(matrix_wdg.G))")))
  (ll_defined_walks_TCC4 0
   (ll_defined_walks_TCC4-1 nil 3661593386 ("" (subtype-tcc) nil nil)
    ((prewalk type-eq-decl nil walks_ "digraphs/")
@@ -5677,7 +5741,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5715,7 +5779,9 @@
     (limiting_labeling? const-decl "bool" matrix_wdg nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (ll_defined_walks subtype "matrix_wdg.w"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (ll_defined_walks_TCC5 0
   (ll_defined_walks_TCC5-1 nil 3661593386 ("" (subtype-tcc) nil nil)
    ((id const-decl "Measure_Matrix" measures nil)
@@ -5758,7 +5824,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -5796,7 +5862,10 @@
     (limiting_labeling? const-decl "bool" matrix_wdg nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (ll_defined_walks subtype
+    "c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].get_wgt"
+    "[[W: wgd_type[T, Measure_Matrix[N], measures[N].*, measures[N].id], (c_digraphs_imp[matrix_wdg.T].digraph_edges(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(W)))] -> Measure_Matrix[N]]")))
  (ll_defined_walks 0
   (ll_defined_walks-1 nil 3592843505
    ("" (auto-rewrite "finseq_appl")
@@ -6248,7 +6317,6 @@
      nil)
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
      nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (id_def formula-decl nil measures nil)
     (measure_matrix_assoc formula-decl nil measures nil)
     (real_lt_is_strict_total_order name-judgement
@@ -6268,6 +6336,7 @@
      "digraphs/")
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (^ const-decl "finseq" finite_sequences nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (defined_pos?_def formula-decl nil measures nil)
@@ -6326,7 +6395,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -6408,7 +6477,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -6446,7 +6515,8 @@
     (limiting_labeling? const-decl "bool" matrix_wdg nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (ll_pstv_pos_circuits subtype "matrix_wdg.c" "not_empty_seq[T]")))
  (ll_pstv_pos_circuits_TCC2 0
   (ll_pstv_pos_circuits_TCC2-1 nil 3592845815
    ("" (subtype-tcc) nil nil)
@@ -6500,7 +6570,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -6539,7 +6609,10 @@
     (vert? const-decl "bool" digraphs_ "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (ll_pstv_pos_circuits subtype
+    "seq_extras[matrix_wdg.T].first(matrix_wdg.c)"
+    "digraphs_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].vert(dg(matrix_wdg.G))")))
  (ll_pstv_pos_circuits_TCC3 0
   (ll_pstv_pos_circuits_TCC3-1 nil 3592845815
    ("" (subtype-tcc) nil nil)
@@ -6596,7 +6669,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -6635,7 +6708,10 @@
     (vert? const-decl "bool" digraphs_ "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (ll_pstv_pos_circuits subtype
+    "seq_extras[matrix_wdg.T].last(matrix_wdg.c)"
+    "digraphs_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].vert(dg(matrix_wdg.G))")))
  (ll_pstv_pos_circuits 0
   (ll_pstv_pos_circuits-6 nil 3631708412
    ("" (auto-rewrite "finseq_appl")
@@ -7336,80 +7412,8 @@
                                                                                                                                                                                                             nil))
                                                                                                                                                                                                           nil))
                                                                                                                                                                                                         nil))
-                                                                                                                                                                                                      nil)
-                                                                                                                                                                                                     ("2"
-                                                                                                                                                                                                      (hide-all-but
-                                                                                                                                                                                                       1)
-                                                                                                                                                                                                      (("2"
-                                                                                                                                                                                                        (rewrite
-                                                                                                                                                                                                         "id_is_identity")
-                                                                                                                                                                                                        nil
-                                                                                                                                                                                                        nil))
-                                                                                                                                                                                                      nil)
-                                                                                                                                                                                                     ("3"
-                                                                                                                                                                                                      (hide-all-but
-                                                                                                                                                                                                       1)
-                                                                                                                                                                                                      (("3"
-                                                                                                                                                                                                        (rewrite
-                                                                                                                                                                                                         "measure_matrix_assoc")
-                                                                                                                                                                                                        nil
-                                                                                                                                                                                                        nil))
-                                                                                                                                                                                                      nil))
-                                                                                                                                                                                                    nil)
-                                                                                                                                                                                                   ("2"
-                                                                                                                                                                                                    (hide-all-but
-                                                                                                                                                                                                     1)
-                                                                                                                                                                                                    (("2"
-                                                                                                                                                                                                      (rewrite
-                                                                                                                                                                                                       "id_is_identity")
-                                                                                                                                                                                                      nil
-                                                                                                                                                                                                      nil))
-                                                                                                                                                                                                    nil)
-                                                                                                                                                                                                   ("3"
-                                                                                                                                                                                                    (hide-all-but
-                                                                                                                                                                                                     1)
-                                                                                                                                                                                                    (("3"
-                                                                                                                                                                                                      (rewrite
-                                                                                                                                                                                                       "measure_matrix_assoc")
-                                                                                                                                                                                                      nil
                                                                                                                                                                                                       nil))
                                                                                                                                                                                                     nil))
-                                                                                                                                                                                                  nil)
-                                                                                                                                                                                                 ("2"
-                                                                                                                                                                                                  (hide-all-but
-                                                                                                                                                                                                   1)
-                                                                                                                                                                                                  (("2"
-                                                                                                                                                                                                    (rewrite
-                                                                                                                                                                                                     "id_is_identity")
-                                                                                                                                                                                                    nil
-                                                                                                                                                                                                    nil))
-                                                                                                                                                                                                  nil)
-                                                                                                                                                                                                 ("3"
-                                                                                                                                                                                                  (hide-all-but
-                                                                                                                                                                                                   1)
-                                                                                                                                                                                                  (("3"
-                                                                                                                                                                                                    (rewrite
-                                                                                                                                                                                                     "measure_matrix_assoc")
-                                                                                                                                                                                                    nil
-                                                                                                                                                                                                    nil))
-                                                                                                                                                                                                  nil))
-                                                                                                                                                                                                nil)
-                                                                                                                                                                                               ("2"
-                                                                                                                                                                                                (hide-all-but
-                                                                                                                                                                                                 1)
-                                                                                                                                                                                                (("2"
-                                                                                                                                                                                                  (rewrite
-                                                                                                                                                                                                   "id_is_identity")
-                                                                                                                                                                                                  nil
-                                                                                                                                                                                                  nil))
-                                                                                                                                                                                                nil)
-                                                                                                                                                                                               ("3"
-                                                                                                                                                                                                (hide-all-but
-                                                                                                                                                                                                 1)
-                                                                                                                                                                                                (("3"
-                                                                                                                                                                                                  (rewrite
-                                                                                                                                                                                                   "measure_matrix_assoc")
-                                                                                                                                                                                                  nil
                                                                                                                                                                                                   nil))
                                                                                                                                                                                                 nil))
                                                                                                                                                                                               nil))
@@ -7794,6 +7798,22 @@
                                                                                                                           (assert)
                                                                                                                           nil
                                                                                                                           nil))
+                                                                                                                        nil)
+                                                                                                                       ("2"
+                                                                                                                        (lemma
+                                                                                                                         "id_is_identity")
+                                                                                                                        (("2"
+                                                                                                                          (propax)
+                                                                                                                          nil
+                                                                                                                          nil))
+                                                                                                                        nil)
+                                                                                                                       ("3"
+                                                                                                                        (lemma
+                                                                                                                         "measure_matrix_assoc")
+                                                                                                                        (("3"
+                                                                                                                          (propax)
+                                                                                                                          nil
+                                                                                                                          nil))
                                                                                                                         nil))
                                                                                                                       nil))
                                                                                                                     nil)
@@ -7968,42 +7988,6 @@
                                                                                                                                                               nil))
                                                                                                                                                             nil))
                                                                                                                                                           nil))
-                                                                                                                                                        nil)
-                                                                                                                                                       ("2"
-                                                                                                                                                        (hide-all-but
-                                                                                                                                                         1)
-                                                                                                                                                        (("2"
-                                                                                                                                                          (rewrite
-                                                                                                                                                           "id_is_identity")
-                                                                                                                                                          nil
-                                                                                                                                                          nil))
-                                                                                                                                                        nil)
-                                                                                                                                                       ("3"
-                                                                                                                                                        (hide-all-but
-                                                                                                                                                         1)
-                                                                                                                                                        (("3"
-                                                                                                                                                          (rewrite
-                                                                                                                                                           "measure_matrix_assoc")
-                                                                                                                                                          nil
-                                                                                                                                                          nil))
-                                                                                                                                                        nil))
-                                                                                                                                                      nil)
-                                                                                                                                                     ("2"
-                                                                                                                                                      (hide-all-but
-                                                                                                                                                       1)
-                                                                                                                                                      (("2"
-                                                                                                                                                        (rewrite
-                                                                                                                                                         "id_is_identity")
-                                                                                                                                                        nil
-                                                                                                                                                        nil))
-                                                                                                                                                      nil)
-                                                                                                                                                     ("3"
-                                                                                                                                                      (hide-all-but
-                                                                                                                                                       1)
-                                                                                                                                                      (("3"
-                                                                                                                                                        (rewrite
-                                                                                                                                                         "measure_matrix_assoc")
-                                                                                                                                                        nil
                                                                                                                                                         nil))
                                                                                                                                                       nil))
                                                                                                                                                     nil)
@@ -8032,24 +8016,6 @@
                                                                                                                                                           nil))
                                                                                                                                                         nil))
                                                                                                                                                       nil))
-                                                                                                                                                    nil))
-                                                                                                                                                  nil)
-                                                                                                                                                 ("2"
-                                                                                                                                                  (hide-all-but
-                                                                                                                                                   1)
-                                                                                                                                                  (("2"
-                                                                                                                                                    (rewrite
-                                                                                                                                                     "id_is_identity")
-                                                                                                                                                    nil
-                                                                                                                                                    nil))
-                                                                                                                                                  nil)
-                                                                                                                                                 ("3"
-                                                                                                                                                  (hide-all-but
-                                                                                                                                                   1)
-                                                                                                                                                  (("3"
-                                                                                                                                                    (rewrite
-                                                                                                                                                     "measure_matrix_assoc")
-                                                                                                                                                    nil
                                                                                                                                                     nil))
                                                                                                                                                   nil))
                                                                                                                                                 nil))
@@ -8162,6 +8128,22 @@
                                                                                                                               nil))
                                                                                                                             nil))
                                                                                                                           nil))
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("2"
+                                                                                                                      (lemma
+                                                                                                                       "id_is_identity")
+                                                                                                                      (("2"
+                                                                                                                        (propax)
+                                                                                                                        nil
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("3"
+                                                                                                                      (lemma
+                                                                                                                       "measure_matrix_assoc")
+                                                                                                                      (("3"
+                                                                                                                        (propax)
+                                                                                                                        nil
                                                                                                                         nil))
                                                                                                                       nil))
                                                                                                                     nil))
@@ -8488,56 +8470,25 @@
                                                                                                                                                                                                                                     (hide-all-but
                                                                                                                                                                                                                                      1)
                                                                                                                                                                                                                                     (("2"
-                                                                                                                                                                                                                                      (rewrite
-                                                                                                                                                                                                                                       "id_is_identity")
-                                                                                                                                                                                                                                      nil
-                                                                                                                                                                                                                                      nil))
-                                                                                                                                                                                                                                    nil)
-                                                                                                                                                                                                                                   ("3"
-                                                                                                                                                                                                                                    (hide-all-but
-                                                                                                                                                                                                                                     1)
-                                                                                                                                                                                                                                    (("3"
-                                                                                                                                                                                                                                      (rewrite
-                                                                                                                                                                                                                                       "measure_matrix_assoc")
-                                                                                                                                                                                                                                      nil
-                                                                                                                                                                                                                                      nil))
-                                                                                                                                                                                                                                    nil)
-                                                                                                                                                                                                                                   ("4"
-                                                                                                                                                                                                                                    (rewrite
-                                                                                                                                                                                                                                     "walk?_caret")
-                                                                                                                                                                                                                                    (("4"
-                                                                                                                                                                                                                                      (hide-all-but
-                                                                                                                                                                                                                                       (-6
-                                                                                                                                                                                                                                        -7
-                                                                                                                                                                                                                                        1))
-                                                                                                                                                                                                                                      (("4"
-                                                                                                                                                                                                                                        (expand*
-                                                                                                                                                                                                                                         "^"
-                                                                                                                                                                                                                                         "min")
-                                                                                                                                                                                                                                        (("4"
-                                                                                                                                                                                                                                          (assert)
+                                                                                                                                                                                                                                      (prop)
+                                                                                                                                                                                                                                      (("1"
+                                                                                                                                                                                                                                        (typepred
+                                                                                                                                                                                                                                         "i")
+                                                                                                                                                                                                                                        (("1"
+                                                                                                                                                                                                                                          (grind)
+                                                                                                                                                                                                                                          nil
+                                                                                                                                                                                                                                          nil))
+                                                                                                                                                                                                                                        nil)
+                                                                                                                                                                                                                                       ("2"
+                                                                                                                                                                                                                                        (reveal
+                                                                                                                                                                                                                                         -16)
+                                                                                                                                                                                                                                        (("2"
+                                                                                                                                                                                                                                          (rewrite
+                                                                                                                                                                                                                                           "walk?_caret")
                                                                                                                                                                                                                                           nil
                                                                                                                                                                                                                                           nil))
                                                                                                                                                                                                                                         nil))
                                                                                                                                                                                                                                       nil))
-                                                                                                                                                                                                                                    nil))
-                                                                                                                                                                                                                                  nil)
-                                                                                                                                                                                                                                 ("2"
-                                                                                                                                                                                                                                  (hide-all-but
-                                                                                                                                                                                                                                   1)
-                                                                                                                                                                                                                                  (("2"
-                                                                                                                                                                                                                                    (rewrite
-                                                                                                                                                                                                                                     "id_is_identity")
-                                                                                                                                                                                                                                    nil
-                                                                                                                                                                                                                                    nil))
-                                                                                                                                                                                                                                  nil)
-                                                                                                                                                                                                                                 ("3"
-                                                                                                                                                                                                                                  (hide-all-but
-                                                                                                                                                                                                                                   1)
-                                                                                                                                                                                                                                  (("3"
-                                                                                                                                                                                                                                    (rewrite
-                                                                                                                                                                                                                                     "measure_matrix_assoc")
-                                                                                                                                                                                                                                    nil
                                                                                                                                                                                                                                     nil))
                                                                                                                                                                                                                                   nil))
                                                                                                                                                                                                                                 nil)
@@ -8545,56 +8496,25 @@
                                                                                                                                                                                                                                 (hide-all-but
                                                                                                                                                                                                                                  1)
                                                                                                                                                                                                                                 (("2"
-                                                                                                                                                                                                                                  (rewrite
-                                                                                                                                                                                                                                   "id_is_identity")
-                                                                                                                                                                                                                                  nil
-                                                                                                                                                                                                                                  nil))
-                                                                                                                                                                                                                                nil)
-                                                                                                                                                                                                                               ("3"
-                                                                                                                                                                                                                                (hide-all-but
-                                                                                                                                                                                                                                 1)
-                                                                                                                                                                                                                                (("3"
-                                                                                                                                                                                                                                  (rewrite
-                                                                                                                                                                                                                                   "measure_matrix_assoc")
-                                                                                                                                                                                                                                  nil
-                                                                                                                                                                                                                                  nil))
-                                                                                                                                                                                                                                nil)
-                                                                                                                                                                                                                               ("4"
-                                                                                                                                                                                                                                (rewrite
-                                                                                                                                                                                                                                 "walk?_caret")
-                                                                                                                                                                                                                                (("4"
-                                                                                                                                                                                                                                  (hide-all-but
-                                                                                                                                                                                                                                   (-6
-                                                                                                                                                                                                                                    -7
-                                                                                                                                                                                                                                    1))
-                                                                                                                                                                                                                                  (("4"
-                                                                                                                                                                                                                                    (expand*
-                                                                                                                                                                                                                                     "^"
-                                                                                                                                                                                                                                     "min")
-                                                                                                                                                                                                                                    (("4"
-                                                                                                                                                                                                                                      (assert)
+                                                                                                                                                                                                                                  (prop)
+                                                                                                                                                                                                                                  (("1"
+                                                                                                                                                                                                                                    (typepred
+                                                                                                                                                                                                                                     "i")
+                                                                                                                                                                                                                                    (("1"
+                                                                                                                                                                                                                                      (grind)
+                                                                                                                                                                                                                                      nil
+                                                                                                                                                                                                                                      nil))
+                                                                                                                                                                                                                                    nil)
+                                                                                                                                                                                                                                   ("2"
+                                                                                                                                                                                                                                    (reveal
+                                                                                                                                                                                                                                     -16)
+                                                                                                                                                                                                                                    (("2"
+                                                                                                                                                                                                                                      (rewrite
+                                                                                                                                                                                                                                       "walk?_caret")
                                                                                                                                                                                                                                       nil
                                                                                                                                                                                                                                       nil))
                                                                                                                                                                                                                                     nil))
                                                                                                                                                                                                                                   nil))
-                                                                                                                                                                                                                                nil))
-                                                                                                                                                                                                                              nil)
-                                                                                                                                                                                                                             ("2"
-                                                                                                                                                                                                                              (hide-all-but
-                                                                                                                                                                                                                               1)
-                                                                                                                                                                                                                              (("2"
-                                                                                                                                                                                                                                (rewrite
-                                                                                                                                                                                                                                 "id_is_identity")
-                                                                                                                                                                                                                                nil
-                                                                                                                                                                                                                                nil))
-                                                                                                                                                                                                                              nil)
-                                                                                                                                                                                                                             ("3"
-                                                                                                                                                                                                                              (hide-all-but
-                                                                                                                                                                                                                               1)
-                                                                                                                                                                                                                              (("3"
-                                                                                                                                                                                                                                (rewrite
-                                                                                                                                                                                                                                 "measure_matrix_assoc")
-                                                                                                                                                                                                                                nil
                                                                                                                                                                                                                                 nil))
                                                                                                                                                                                                                               nil))
                                                                                                                                                                                                                             nil))
@@ -9159,6 +9079,22 @@
                                                                                                                               nil))
                                                                                                                             nil))
                                                                                                                           nil))
+                                                                                                                        nil)
+                                                                                                                       ("2"
+                                                                                                                        (lemma
+                                                                                                                         "id_is_identity")
+                                                                                                                        (("2"
+                                                                                                                          (propax)
+                                                                                                                          nil
+                                                                                                                          nil))
+                                                                                                                        nil)
+                                                                                                                       ("3"
+                                                                                                                        (lemma
+                                                                                                                         "measure_matrix_assoc")
+                                                                                                                        (("3"
+                                                                                                                          (propax)
+                                                                                                                          nil
+                                                                                                                          nil))
                                                                                                                         nil))
                                                                                                                       nil))
                                                                                                                     nil)
@@ -9360,61 +9296,7 @@
                                                                                                                                                                           nil))
                                                                                                                                                                         nil))
                                                                                                                                                                       nil))
-                                                                                                                                                                    nil)
-                                                                                                                                                                   ("2"
-                                                                                                                                                                    (hide-all-but
-                                                                                                                                                                     1)
-                                                                                                                                                                    (("2"
-                                                                                                                                                                      (rewrite
-                                                                                                                                                                       "id_is_identity")
-                                                                                                                                                                      nil
-                                                                                                                                                                      nil))
-                                                                                                                                                                    nil)
-                                                                                                                                                                   ("3"
-                                                                                                                                                                    (hide-all-but
-                                                                                                                                                                     1)
-                                                                                                                                                                    (("3"
-                                                                                                                                                                      (rewrite
-                                                                                                                                                                       "measure_matrix_assoc")
-                                                                                                                                                                      nil
-                                                                                                                                                                      nil))
                                                                                                                                                                     nil))
-                                                                                                                                                                  nil)
-                                                                                                                                                                 ("2"
-                                                                                                                                                                  (hide-all-but
-                                                                                                                                                                   1)
-                                                                                                                                                                  (("2"
-                                                                                                                                                                    (rewrite
-                                                                                                                                                                     "id_is_identity")
-                                                                                                                                                                    nil
-                                                                                                                                                                    nil))
-                                                                                                                                                                  nil)
-                                                                                                                                                                 ("3"
-                                                                                                                                                                  (hide-all-but
-                                                                                                                                                                   1)
-                                                                                                                                                                  (("3"
-                                                                                                                                                                    (rewrite
-                                                                                                                                                                     "measure_matrix_assoc")
-                                                                                                                                                                    nil
-                                                                                                                                                                    nil))
-                                                                                                                                                                  nil))
-                                                                                                                                                                nil)
-                                                                                                                                                               ("2"
-                                                                                                                                                                (hide-all-but
-                                                                                                                                                                 1)
-                                                                                                                                                                (("2"
-                                                                                                                                                                  (rewrite
-                                                                                                                                                                   "id_is_identity")
-                                                                                                                                                                  nil
-                                                                                                                                                                  nil))
-                                                                                                                                                                nil)
-                                                                                                                                                               ("3"
-                                                                                                                                                                (hide-all-but
-                                                                                                                                                                 1)
-                                                                                                                                                                (("3"
-                                                                                                                                                                  (rewrite
-                                                                                                                                                                   "measure_matrix_assoc")
-                                                                                                                                                                  nil
                                                                                                                                                                   nil))
                                                                                                                                                                 nil))
                                                                                                                                                               nil))
@@ -9512,6 +9394,22 @@
                                                                                                                               nil))
                                                                                                                             nil))
                                                                                                                           nil))
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("2"
+                                                                                                                      (lemma
+                                                                                                                       "id_is_identity")
+                                                                                                                      (("2"
+                                                                                                                        (propax)
+                                                                                                                        nil
+                                                                                                                        nil))
+                                                                                                                      nil)
+                                                                                                                     ("3"
+                                                                                                                      (lemma
+                                                                                                                       "measure_matrix_assoc")
+                                                                                                                      (("3"
+                                                                                                                        (propax)
+                                                                                                                        nil
                                                                                                                         nil))
                                                                                                                       nil))
                                                                                                                     nil))
@@ -9712,157 +9610,155 @@
         nil))
       nil))
     nil)
-   ((verts_in? const-decl "bool" walks_ "digraphs/")
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
+   ((pred type-eq-decl nil defined_types nil)
+    (well_founded? const-decl "bool" orders nil)
+    (measure_induction formula-decl nil measure_induction nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (below type-eq-decl nil nat_types nil)
+    (T formal-type-decl nil matrix_wdg nil)
+    (finseq type-eq-decl nil finite_sequences nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (cycle_o_circuit formula-decl nil cycles_ "digraphs/")
-    (eq_circuit? const-decl "bool" circuits_ "digraphs/")
-    (rest const-decl "finseq" seq_extras "structures/")
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (eq_circuit_symmetric formula-decl nil circuits_ "digraphs/")
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (TRUE const-decl "bool" booleans nil)
-    (Plus3 const-decl "Sign3" measures nil)
-    (positive_pos_mul formula-decl nil measures nil)
-    (id_is_identity formula-decl nil measures nil)
-    (measure_matrix_assoc formula-decl nil measures nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (wgt_walk_decomposed formula-decl nil weighted_digraphs_
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (> const-decl "bool" reals nil) (list type-decl nil list_adt nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (every adt-def-decl "boolean" list_adt nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (ComputableDigraph type-eq-decl nil c_digraphs_def "digraphs/")
+    (cdigraph const-decl "bool" c_digraphs_def "digraphs/")
+    (digraph_type type-eq-decl nil c_digraphs_imp "digraphs/")
+    (digraph_verts const-decl "[digraph_type -> [T -> bool]]"
+     c_digraphs_imp "digraphs/")
+    (digraph_edges const-decl "[digraph_type -> [T, T -> bool]]"
+     c_digraphs_imp "digraphs/")
+    (digraph_size const-decl "[digraph_type -> nat]" c_digraphs_imp
      "digraphs/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (walk?_caret formula-decl nil walks_ "digraphs/")
-    (ll_defined_walks formula-decl nil matrix_wdg nil)
-    (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
-     real_defs nil)
-    (walk_o formula-decl nil walks_ "digraphs/")
-    (i skolem-const-decl "below[length(w1 o rest(w2))]" matrix_wdg nil)
-    (w1 skolem-const-decl "prewalk
+    (set type-eq-decl nil sets nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (digraph_make const-decl "[v: (is_finite[T]),
+ {e: (is_finite[[T, T]]) |
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+   digraph_type]" c_digraphs_imp "digraphs/")
+    (prewalk type-eq-decl nil walks_ "digraphs/")
+    (circuit? const-decl "bool" circuits_ "digraphs/")
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (Sign3 type-eq-decl nil sign3 "reals/")
+    (length def-decl "nat" list_props nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (N formal-const-decl "posnat" matrix_wdg nil)
+    (listn type-eq-decl nil listn "structures/")
+    (Measure_Matrix type-eq-decl nil measures nil)
+    (* const-decl "Measure_Matrix" measures nil)
+    (id const-decl "Measure_Matrix" measures nil)
+    (all_edges_in_map? const-decl "bool" c_weighted_digraphs_def
+     "digraphs/")
+    (wdg type-eq-decl nil matrix_wdg nil)
+    (naturalnumber type-eq-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil)
+    (wf_nat formula-decl nil naturalnumbers nil)
+    (first const-decl "T" seq_extras "structures/")
+    (not_empty_seq type-eq-decl nil seq_extras "structures/")
+    (/= const-decl "boolean" notequal nil)
+    (vert? const-decl "bool" digraphs_ "digraphs/")
+    (G skolem-const-decl "wdg" matrix_wdg nil)
+    (last const-decl "T" seq_extras "structures/")
+    (walk? const-decl "bool" walks_ "digraphs/")
+    (associative? const-decl "bool" operator_defs nil)
+    (identity? const-decl "bool" operator_defs nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (get const-decl "Sign3" measures nil)
+    (wgd_type type-eq-decl nil c_weighted_digraphs_def "digraphs/")
+    (wgd_dg const-decl "[wgd_type -> digraph_type]"
+     c_weighted_digraphs_def "digraphs/")
+    (Walk type-eq-decl nil walks_ "digraphs/")
+    (c_digraph type-eq-decl nil c_digraphs_def "digraphs/")
+    (edges const-decl "bool" c_digraphs_def "digraphs/")
+    (get_wgt const-decl "Weight" c_weighted_digraphs_def "digraphs/")
+    (has_key? const-decl "bool" c_weighted_digraphs_def "digraphs/")
+    (get_value def-decl "Weight" c_weighted_digraphs_def "digraphs/")
+    (make_c_wdg const-decl "wgd_type" c_weighted_digraphs_def
+     "digraphs/")
+    (wgt_walk const-decl "Weight" weighted_digraphs_ "digraphs/")
+    (vert type-eq-decl nil digraphs_ "digraphs/")
+    (vertex_labeling type-eq-decl nil matrix_wdg nil)
+    (pre_circuit? const-decl "bool" circuits_ "digraphs/")
+    (limiting_labeling? const-decl "bool" matrix_wdg nil)
+    (w2 skolem-const-decl "prewalk
     [T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
      digraph_make]" matrix_wdg nil)
-    (empty_seq const-decl "finseq" finite_sequences nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (eq_circuit_length formula-decl nil circuits_ "digraphs/")
+    (cycle? const-decl "bool" cycles_ "digraphs/")
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (O const-decl "finseq" finite_sequences nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}"
+     real_defs nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (^ const-decl "finseq" finite_sequences nil)
+    (eq_circuit_position formula-decl nil circuits_ "digraphs/")
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (odd_minus_even_is_odd application-judgement "odd_int" integers
+     nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (odd_minus_even_is_odd application-judgement "odd_int" integers
-     nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (eq_circuit_position formula-decl nil circuits_ "digraphs/")
-    (^ const-decl "finseq" finite_sequences nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (O const-decl "finseq" finite_sequences nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (cycle? const-decl "bool" cycles_ "digraphs/")
-    (eq_circuit_length formula-decl nil circuits_ "digraphs/")
-    (w2 skolem-const-decl "prewalk
+    (empty_seq const-decl "finseq" finite_sequences nil)
+    (w1 skolem-const-decl "prewalk
     [T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
      digraph_make]" matrix_wdg nil)
-    (limiting_labeling? const-decl "bool" matrix_wdg nil)
-    (pre_circuit? const-decl "bool" circuits_ "digraphs/")
-    (vertex_labeling type-eq-decl nil matrix_wdg nil)
-    (vert type-eq-decl nil digraphs_ "digraphs/")
-    (wgt_walk const-decl "Weight" weighted_digraphs_ "digraphs/")
-    (make_c_wdg const-decl "wgd_type" c_weighted_digraphs_def
+    (i skolem-const-decl "below[(w1 o rest(w2))`length]" matrix_wdg
+       nil)
+    (walk_o formula-decl nil walks_ "digraphs/")
+    (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
+     real_defs nil)
+    (ll_defined_walks formula-decl nil matrix_wdg nil)
+    (walk?_caret formula-decl nil walks_ "digraphs/")
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (wgt_walk_decomposed formula-decl nil weighted_digraphs_
      "digraphs/")
-    (get_value def-decl "Weight" c_weighted_digraphs_def "digraphs/")
-    (has_key? const-decl "bool" c_weighted_digraphs_def "digraphs/")
-    (get_wgt const-decl "Weight" c_weighted_digraphs_def "digraphs/")
-    (edges const-decl "bool" c_digraphs_def "digraphs/")
-    (c_digraph type-eq-decl nil c_digraphs_def "digraphs/")
-    (Walk type-eq-decl nil walks_ "digraphs/")
-    (wgd_dg const-decl "[wgd_type -> digraph_type]"
-     c_weighted_digraphs_def "digraphs/")
-    (wgd_type type-eq-decl nil c_weighted_digraphs_def "digraphs/")
-    (get const-decl "Sign3" measures nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (identity? const-decl "bool" operator_defs nil)
-    (associative? const-decl "bool" operator_defs nil)
-    (walk? const-decl "bool" walks_ "digraphs/")
-    (last const-decl "T" seq_extras "structures/")
-    (G skolem-const-decl "wdg" matrix_wdg nil)
-    (vert? const-decl "bool" digraphs_ "digraphs/")
-    (/= const-decl "boolean" notequal nil)
-    (not_empty_seq type-eq-decl nil seq_extras "structures/")
-    (first const-decl "T" seq_extras "structures/")
-    (wf_nat formula-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil)
-    (naturalnumber type-eq-decl nil naturalnumbers nil)
-    (wdg type-eq-decl nil matrix_wdg nil)
-    (all_edges_in_map? const-decl "bool" c_weighted_digraphs_def
-     "digraphs/")
-    (id const-decl "Measure_Matrix" measures nil)
-    (* const-decl "Measure_Matrix" measures nil)
-    (Measure_Matrix type-eq-decl nil measures nil)
-    (listn type-eq-decl nil listn "structures/")
-    (N formal-const-decl "posnat" matrix_wdg nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (length def-decl "nat" list_props nil)
-    (Sign3 type-eq-decl nil sign3 "reals/")
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (circuit? const-decl "bool" circuits_ "digraphs/")
-    (prewalk type-eq-decl nil walks_ "digraphs/")
-    (digraph_make const-decl "[v: (is_finite[T]),
- {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
-   digraph_type]" c_digraphs_imp "digraphs/")
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (set type-eq-decl nil sets nil)
-    (digraph_size const-decl "[digraph_type -> nat]" c_digraphs_imp
-     "digraphs/")
-    (digraph_edges const-decl "[digraph_type -> [T, T -> bool]]"
-     c_digraphs_imp "digraphs/")
-    (digraph_verts const-decl "[digraph_type -> [T -> bool]]"
-     c_digraphs_imp "digraphs/")
-    (digraph_type type-eq-decl nil c_digraphs_imp "digraphs/")
-    (cdigraph const-decl "bool" c_digraphs_def "digraphs/")
-    (ComputableDigraph type-eq-decl nil c_digraphs_def "digraphs/")
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (list type-decl nil list_adt nil) (> const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (measure_matrix_assoc formula-decl nil measures nil)
+    (id_is_identity formula-decl nil measures nil)
+    (positive_pos_mul formula-decl nil measures nil)
+    (Plus3 const-decl "Sign3" measures nil)
+    (TRUE const-decl "bool" booleans nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (eq_circuit_symmetric formula-decl nil circuits_ "digraphs/")
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    (rest const-decl "finseq" seq_extras "structures/")
+    (eq_circuit? const-decl "bool" circuits_ "digraphs/")
+    (cycle_o_circuit formula-decl nil cycles_ "digraphs/")
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (finseq type-eq-decl nil finite_sequences nil)
-    (T formal-type-decl nil matrix_wdg nil)
-    (below type-eq-decl nil nat_types nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (measure_induction formula-decl nil measure_induction nil)
-    (well_founded? const-decl "bool" orders nil)
-    (pred type-eq-decl nil defined_types nil))
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (verts_in? const-decl "bool" walks_ "digraphs/"))
    nil)
   (ll_pstv_pos_circuits-5 nil 3631659646
    ("" (auto-rewrite "finseq_appl")
@@ -24864,7 +24760,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -24988,7 +24884,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -25044,7 +24940,9 @@
      c_weighted_digraphs_def "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (circuit_length_reduce subtype "matrix_wdg.c"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (circuit_length_reduce_TCC2 0
   (circuit_length_reduce_TCC2-1 nil 3631661476
    ("" (skeep)
@@ -25083,7 +24981,7 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (wdg type-eq-decl nil matrix_wdg nil)
     (all_edges_in_map? const-decl "bool" c_weighted_digraphs_def
@@ -25105,7 +25003,10 @@
     (wgd_dg const-decl "[wgd_type -> digraph_type]"
      c_weighted_digraphs_def "digraphs/")
     (edges const-decl "bool" c_digraphs_def "digraphs/"))
-   nil))
+   nil
+   (circuit_length_reduce subtype
+    "c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].get_wgt"
+    "[[W: wgd_type[T, Measure_Matrix[N], measures[N].*, measures[N].id], (c_digraphs_imp[matrix_wdg.T].digraph_edges(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(W)))] -> Measure_Matrix[N]]")))
  (circuit_length_reduce_TCC3 0
   (circuit_length_reduce_TCC3-1 nil 3631661476
    ("" (skeep)
@@ -25144,7 +25045,7 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (wdg type-eq-decl nil matrix_wdg nil)
     (all_edges_in_map? const-decl "bool" c_weighted_digraphs_def
@@ -25164,7 +25065,10 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (vert_finite formula-decl nil c_digraphs_def "digraphs/"))
-   nil))
+   nil
+   (circuit_length_reduce subtype
+    "c_digraphs_def[matrix_wdg.T].vert(dg(matrix_wdg.G))"
+    "finite_set[T]")))
  (circuit_length_reduce_TCC4 0
   (circuit_length_reduce_TCC4-1 nil 3657010233
    ("" (subtype-tcc) nil nil)
@@ -25182,7 +25086,7 @@
      "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -25241,7 +25145,9 @@
     (/= const-decl "boolean" notequal nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (circuit_length_reduce subtype "2"
+    "{i: integers.int | booleans.OR(matrix_wdg.N /= 0, reals.>=(i, 0))}")))
  (circuit_length_reduce_TCC5 0
   (circuit_length_reduce_TCC5-1 nil 3661593386
    ("" (subtype-tcc) nil nil)
@@ -25256,7 +25162,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -25324,11 +25230,11 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (circuit_length_reduce subtype "matrix_wdg.cc"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (circuit_length_reduce 0
   (circuit_length_reduce-1 nil 3631661950
    ("" (skeep)
@@ -26251,7 +26157,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -26326,8 +26232,6 @@
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (pre_circuit? const-decl "bool" circuits_ "digraphs/")
     (posint_exp application-judgement "posint" exponentiation nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (real_lt_is_strict_total_order name-judgement
@@ -26363,8 +26267,8 @@
      "finite_sets/")
     (restrict const-decl "R" restrict nil)
     (surjective? const-decl "bool" functions nil)
-    (x skolem-const-decl "[vert
-     [T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
+    (x skolem-const-decl
+     "[vert[T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
       digraph_make](dg(G)),
  Measure_Matrix[N]]" matrix_wdg nil)
     (injective? const-decl "bool" functions nil)
@@ -26377,8 +26281,8 @@
      matrix_wdg nil)
     (O const-decl "T3" function_props nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (CPF skolem-const-decl "[[vert
-      [T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
+    (CPF skolem-const-decl
+     "[[vert[T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
        digraph_make](dg(G)),
   Measure_Matrix[N]] ->
    [below[card(vert(dg(G)))], below[3 ^ (N ^ 2)]]]" matrix_wdg nil)
@@ -26457,9 +26361,7 @@
         nil))
       nil))
     nil)
-   ((mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+   ((nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
@@ -26486,7 +26388,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -26566,7 +26468,10 @@
    ("" (skeep) (("" (assert) nil nil)) nil)
    ((vert_finite formula-decl nil c_digraphs_def "digraphs/")
     (T formal-type-decl nil matrix_wdg nil))
-   nil))
+   nil
+   (bounded_circuits_pstv subtype
+    "c_digraphs_def[matrix_wdg.T].vert(dg(matrix_wdg.G))"
+    "finite_set[T]")))
  (bounded_circuits_pstv_TCC2 0
   (bounded_circuits_pstv_TCC2-1 nil 3657010233
    ("" (subtype-tcc) nil nil)
@@ -26576,7 +26481,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -26617,7 +26522,9 @@
     (/= const-decl "boolean" notequal nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (bounded_circuits_pstv subtype "2"
+    "{i: integers.int | booleans.OR(matrix_wdg.N /= 0, reals.>=(i, 0))}")))
  (bounded_circuits_pstv 0
   (bounded_circuits_pstv-2 nil 3659955175
    ("" (expand "mwg_termination?")
@@ -26682,7 +26589,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -26738,8 +26645,6 @@
     (associative? const-decl "bool" operator_defs nil)
     (* const-decl "Measure_Matrix" measures nil)
     (mwg_termination? const-decl "bool" matrix_wdg nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (posint_exp application-judgement "posint" exponentiation nil))
@@ -26786,7 +26691,10 @@
   (lower_bounding_sets_TCC1-1 nil 3659954443 ("" (assert) nil nil)
    ((T formal-type-decl nil matrix_wdg nil)
     (vert_finite formula-decl nil c_digraphs_def "digraphs/"))
-   nil))
+   nil
+   (lower_bounding_sets subtype
+    "c_digraphs_def[matrix_wdg.T].vert(dg(matrix_wdg.G))"
+    "finite_set[T]")))
  (lower_bounding_sets_TCC2 0
   (lower_bounding_sets_TCC2-1 nil 3659954443 ("" (subtype-tcc) nil nil)
    ((T formal-type-decl nil matrix_wdg nil)
@@ -26795,7 +26703,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -26837,7 +26745,9 @@
     (/= const-decl "boolean" notequal nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (lower_bounding_sets subtype "2"
+    "{i: integers.int | booleans.OR(matrix_wdg.N /= 0, reals.>=(i, 0))}")))
  (lower_bounding_sets_TCC3 0
   (lower_bounding_sets_TCC3-1 nil 3659954443 ("" (subtype-tcc) nil nil)
    ((NOT const-decl "[bool -> bool]" booleans nil)
@@ -26919,7 +26829,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -26940,11 +26850,11 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (lower_bounding_sets subtype "matrix_wdg.c"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (lower_bounding_sets_TCC4 0
   (lower_bounding_sets_TCC4-1 nil 3661593386 ("" (subtype-tcc) nil nil)
    ((N formal-const-decl "posnat" matrix_wdg nil)
@@ -26990,14 +26900,15 @@
     (list type-decl nil list_adt nil)
     (wgd_dg const-decl "[wgd_type -> digraph_type]"
      c_weighted_digraphs_def "digraphs/")
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (lower_bounding_sets subtype
+    "c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].get_wgt"
+    "[[W: wgd_type[T, Measure_Matrix[N], measures[N].*, measures[N].id], (c_digraphs_imp[matrix_wdg.T].digraph_edges(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(W)))] -> Measure_Matrix[N]]")))
  (lower_bounding_sets 0
   (lower_bounding_sets-1 nil 3659954544
    ("" (skeep)
@@ -27181,7 +27092,7 @@
     (prewalk type-eq-decl nil walks_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -27194,9 +27105,9 @@
      c_digraphs_imp "digraphs/")
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
      nil)
+    (below type-eq-decl nil nat_types nil)
     (< const-decl "bool" reals nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (pre_circuit? const-decl "bool" circuits_ "digraphs/")
@@ -27208,9 +27119,8 @@
      real_props nil)
     (circuit_at? const-decl "bool" circuits_ "digraphs/")
     (c!1 skolem-const-decl "{c |
-         circuit?(dg(G), c) AND
-          length(c) <= 1 + card(vert(dg(G))) * 3 ^ (N ^ 2)}" matrix_wdg
-     nil)
+   circuit?(dg(G), c) AND length(c) <= 1 + card(vert(dg(G))) * 3 ^ (N ^ 2)}"
+     matrix_wdg nil)
     (positive? const-decl "bool" measures nil)
     (<= const-decl "bool" measures nil)
     (TRUE const-decl "bool" booleans nil)
@@ -27248,9 +27158,7 @@
     (bounded_circuits_pstv formula-decl nil matrix_wdg nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil))
+     integers nil))
    nil))
  (CircBound_TCC1 0
   (CircBound_TCC1-1 nil 3659954443
@@ -27290,9 +27198,11 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/"))
-   nil))
+   nil
+   (CircBound subtype "2"
+    "{i: integers.int | booleans.OR(matrix_wdg.N /= 0, reals.>=(i, 0))}")))
  (BoundingSets_TCC1 0
   (BoundingSets_TCC1-1 nil 3659954443 ("" (subtype-tcc) nil nil)
    ((below type-eq-decl nil naturalnumbers nil)
@@ -27366,7 +27276,7 @@
     (vert const-decl "bool" c_digraphs_def "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -27386,7 +27296,9 @@
     (walk? const-decl "bool" walks_ "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (BoundingSets subtype "matrix_wdg.cc"
+    "walks_[matrix_wdg.T, digraph_type[T], c_digraphs_imp[matrix_wdg.T].digraph_verts, c_digraphs_imp[matrix_wdg.T].digraph_edges, c_digraphs_imp[matrix_wdg.T].digraph_size, c_digraphs_imp[matrix_wdg.T].digraph_make].Walk(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(matrix_wdg.G))")))
  (BoundingSets_TCC2 0
   (BoundingSets_TCC2-1 nil 3661593386 ("" (subtype-tcc) nil nil)
    ((N formal-const-decl "posnat" matrix_wdg nil)
@@ -27434,7 +27346,10 @@
      c_weighted_digraphs_def "digraphs/")
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (BoundingSets subtype
+    "c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].get_wgt"
+    "[[W: wgd_type[T, Measure_Matrix[N], measures[N].*, measures[N].id], (c_digraphs_imp[matrix_wdg.T].digraph_edges(c_weighted_digraphs_def[matrix_wdg.T, Measure_Matrix[N], measures[matrix_wdg.N].*, measures[matrix_wdg.N].id].wgd_dg(W)))] -> Measure_Matrix[N]]")))
  (bounding_steps_iter_TCC1 0
   (bounding_steps_iter_TCC1-1 nil 3659954443
    ("" (skeep) (("" (typepred "S`1") (("" (grind) nil nil)) nil)) nil)
@@ -27464,7 +27379,7 @@
     (vert? const-decl "bool" digraphs_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -27527,14 +27442,10 @@
      integers nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -27542,7 +27453,10 @@
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (bounding_steps_iter subtype
+    "(number_fields.-)(matrix_wdg.CircBound(matrix_wdg.G), matrix_wdg.S`1)"
+    "naturalnumber")))
  (bounding_steps_iter_TCC2 0
   (bounding_steps_iter_TCC2-2 nil 3659957460
    ("" (skeep)
@@ -27582,7 +27496,7 @@
     (vert? const-decl "bool" digraphs_ "digraphs/")
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite const-decl "bool" finite_sets nil)
@@ -27644,9 +27558,15 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (TRUE const-decl "bool" booleans nil))
-   nil)
+   nil
+   (bounding_steps_iter termination
+    "matrix_wdg.bounding_steps_iter(matrix_wdg.G, matrix_wdg.F(matrix_wdg.S), matrix_wdg.F)"
+    "nil"))
   (bounding_steps_iter_TCC2-1 nil 3659954443
-   ("" (termination-tcc) nil nil) nil nil))
+   ("" (termination-tcc) nil nil) nil nil
+   (bounding_steps_iter termination
+    "matrix_wdg.bounding_steps_iter(matrix_wdg.G, matrix_wdg.F(matrix_wdg.S), matrix_wdg.F)"
+    "nil")))
  (bounding_steps_iter_def 0
   (bounding_steps_iter_def-1 nil 3659956934
    (""
@@ -27915,8 +27835,6 @@
     (identity? const-decl "bool" operator_defs nil)
     (pred type-eq-decl nil defined_types nil)
     (NAT_induction formula-decl nil naturalnumbers nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (posint_exp application-judgement "posint" exponentiation nil)
@@ -27928,13 +27846,13 @@
     (finite_set type-eq-decl nil finite_sets nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (v skolem-const-decl "vert
-    [T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
+    (v skolem-const-decl
+     "vert[T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
      digraph_make](dg(G))" matrix_wdg nil)
     (c skolem-const-decl "{c |
-         circuit_at?(dg(G), c, v) AND
-          length(c) <= 1 + card[T](vert(dg(G))) * 3 ^ (N ^ 2)}"
-     matrix_wdg nil)
+   circuit_at?(dg(G), c, v) AND
+    length(c) <= 1 + card[T](vert(dg(G))) * 3 ^ (N ^ 2)}" matrix_wdg
+     nil)
     (j skolem-const-decl "nat" matrix_wdg nil)
     (S skolem-const-decl
      "{S: BoundingSets(G) | S`1 = CircBound(G) - j}" matrix_wdg nil)
@@ -27948,16 +27866,16 @@
      "(strict_total_order?[real])" real_props nil)
     (size const-decl "nat" c_digraphs_def "digraphs/")
     (lower_bounding_sets formula-decl nil matrix_wdg nil)
+    (v skolem-const-decl
+     "vert[T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
+     digraph_make](dg(G))" matrix_wdg nil)
+    (c skolem-const-decl "{c |
+   circuit_at?(dg(G), c, v) AND
+    length(c) <= 1 + card[T](vert(dg(G))) * 3 ^ (N ^ 2)}" matrix_wdg
+     nil)
+    (F skolem-const-decl "BoundingStepsFun(G)" matrix_wdg nil)
     (S skolem-const-decl
      "{S: BoundingSets(G) | S`1 = CircBound(G) - j}" matrix_wdg nil)
-    (F skolem-const-decl "BoundingStepsFun(G)" matrix_wdg nil)
-    (c skolem-const-decl "{c |
-         circuit_at?(dg(G), c, v) AND
-          length(c) <= 1 + card[T](vert(dg(G))) * 3 ^ (N ^ 2)}"
-     matrix_wdg nil)
-    (v skolem-const-decl "vert
-    [T, digraph_type[T], digraph_verts, digraph_edges, digraph_size,
-     digraph_make](dg(G))" matrix_wdg nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (id_is_identity formula-decl nil measures nil)
@@ -28026,7 +27944,7 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (digraph_make const-decl "[v: (is_finite[T]),
  {e: (is_finite[[T, T]]) |
-          FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
+    FORALL (x, y: T): e(x, y) IMPLIES v(x) AND v(y)} ->
    digraph_type]" c_digraphs_imp "digraphs/")
     (vert? const-decl "bool" digraphs_ "digraphs/")
     (vert type-eq-decl nil digraphs_ "digraphs/")
