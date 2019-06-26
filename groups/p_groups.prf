@@ -2,9 +2,14 @@
  (IMP_finite_groups_TCC1 0
   (IMP_finite_groups_TCC1-1 nil 3530721851
    ("" (rewrite "fullset_is_group") nil nil)
-   ((fullset_is_group formula-decl nil p_groups nil)) nil))
+   ((fullset_is_group formula-decl nil p_groups nil)) nil
+   (IMP_finite_groups assuming
+    "algebra@finite_groups[p_groups.T, p_groups.*, p_groups.one]"
+    "fullset_is_group: ASSUMPTION group_def[finite_groups.T, finite_groups.*, finite_groups.one].group?(sets[finite_groups.T].fullset)")))
  (p_group?_TCC1 0
-  (p_group?_TCC1-1 nil 3530273648 ("" (subtype-tcc) nil nil) nil nil))
+  (p_group?_TCC1-1 nil 3530273648 ("" (subtype-tcc) nil nil) nil nil
+   (p_group? subtype "p_groups.n"
+    "{i: integers.int | booleans.OR(p_groups.p /= 0, reals.>=(i, 0))}")))
  (alt_is_action_TCC1 0
   (alt_is_action_TCC1-1 nil 3530265242
    ("" (skosimp*)
@@ -59,7 +64,10 @@
     (x1!1 skolem-const-decl "[(H!1), (left_cosets(G!1, K!1))]" p_groups
      nil)
     (a!1 skolem-const-decl "(G!1)" p_groups nil))
-   nil))
+   nil
+   (alt_is_action subtype
+    "p_groups.alt(p_groups.G, p_groups.H, p_groups.K)"
+    "group_action[p_groups.T, p_groups.*, p_groups.one, setof[T]].F(p_groups.H, right_left_cosets[p_groups.T, p_groups.*, p_groups.one].left_cosets(p_groups.G, p_groups.K))")))
  (alt_is_action 0
   (alt_is_action-1 nil 3530282276
    ("" (skosimp*)
@@ -288,7 +296,10 @@
     (x1!1 skolem-const-decl "[(H!1), (left_cosets(G!1, H!1))]" p_groups
      nil)
     (a!1 skolem-const-decl "(G!1)" p_groups nil))
-   nil))
+   nil
+   (Fix_iff_subset_cor subtype
+    "p_groups.alt(p_groups.G, p_groups.H, p_groups.H)"
+    "group_action[p_groups.T, p_groups.*, p_groups.one, setof[T]].F(p_groups.H, right_left_cosets[p_groups.T, p_groups.*, p_groups.one].left_cosets(p_groups.G, p_groups.H))")))
  (Fix_iff_subset_cor 0
   (Fix_iff_subset_cor-1 nil 3530285250
    ("" (skosimp*)
@@ -421,7 +432,9 @@
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (subgroup_is_p_group subtype "p_groups.H"
+    "finite_group[T, *, one]")))
  (subgroup_is_p_group 0
   (subgroup_is_p_group-1 nil 3530352927
    ("" (skosimp*)
@@ -493,7 +506,9 @@
    ((/= const-decl "boolean" notequal nil)
     (divides const-decl "bool" divides nil)
     (prime? const-decl "bool" primes "ints/"))
-   nil))
+   nil
+   (p_group_iff_power subtype "p_groups.m"
+    "{i: integers.int | booleans.OR(p_groups.p /= 0, reals.>=(i, 0))}")))
  (p_group_iff_power 0
   (p_group_iff_power-1 nil 3530719670
    ("" (skosimp*)
@@ -955,7 +970,10 @@
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (factor_cyclic subtype
+    "group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)"
+    "normal_subgroups[p_groups.T, p_groups.*, p_groups.one].normal_subgroup(p_groups.G)")))
  (factor_cyclic_TCC2 0
   (factor_cyclic_TCC2-1 nil 3530273648
    ("" (skosimp*)
@@ -979,7 +997,10 @@
     (monad nonempty-type-eq-decl nil monad "algebra/")
     (monad? const-decl "bool" monad_def "algebra/")
     (one_in formula-decl nil monad "algebra/"))
-   nil))
+   nil
+   (factor_cyclic subtype
+    "group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)"
+    "cosets[p_groups.T, p_groups.*, p_groups.one].left_cosets(p_groups.G, group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G))")))
  (factor_cyclic_TCC3 0
   (factor_cyclic_TCC3-1 nil 3530721851
    ("" (skosimp*)
@@ -1022,7 +1043,10 @@
     (fullset const-decl "set" sets nil)
     (subgroup? const-decl "bool" group_def "algebra/")
     (fullset_is_group formula-decl nil p_groups nil))
-   nil))
+   nil
+   (factor_cyclic assuming
+    "algebra@group[cosets[p_groups.T, p_groups.*, p_groups.one].left_cosets(p_groups.G, group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)), factor_groups[p_groups.T, p_groups.*, p_groups.one].mult(p_groups.G, group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)), group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)]"
+    "fullset_is_group: ASSUMPTION group_def[group.T, group.*, group.one].group?(sets[group.T].fullset)")))
  (factor_cyclic 0
   (factor_cyclic-1 nil 3530384047
    ("" (skosimp*)
@@ -1396,7 +1420,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (cyclic? const-decl "boolean" group "algebra/")
-    (/ const-decl "group[left_cosets(G, N), mult(G, N), N]"
+    (/ const-decl "group[left_cosets[T, *, one](G, N), mult(G, N), N]"
        right_left_cosets nil)
     (mult const-decl "left_cosets(G, H)" factor_groups "algebra/")
     (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
@@ -1471,7 +1495,8 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (finite_subgroups formula-decl nil group "algebra/"))
-   nil))
+   nil
+   (normalizer_index subtype "p_groups.H" "finite_group[T, *, one]")))
  (normalizer_index_TCC2 0
   (normalizer_index_TCC2-1 nil 3530273648
    ("" (skosimp*)
@@ -1504,7 +1529,10 @@
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (normalizer_index subtype
+    "normalizer_centralizer[p_groups.T, p_groups.*, p_groups.one].normalizer(p_groups.G, p_groups.H)"
+    "finite_group[T, *, one]")))
  (normalizer_index_TCC3 0
   (normalizer_index_TCC3-1 nil 3530273648
    ("" (skosimp*)
@@ -1533,7 +1561,9 @@
     (T formal-type-decl nil p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
     (one formal-const-decl "T" p_groups nil))
-   nil))
+   nil
+   (normalizer_index subtype "p_groups.H"
+    "group[p_groups.T, p_groups.*, p_groups.one].subgroup(normalizer_centralizer[p_groups.T, p_groups.*, p_groups.one].normalizer(p_groups.G, p_groups.H))")))
  (normalizer_index 0
   (normalizer_index-1 nil 3530541504
    ("" (skosimp*)
@@ -1828,10 +1858,8 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (TRUE const-decl "bool" booleans nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (a!1 skolem-const-decl "(G!1)" p_groups nil)
     (inv const-decl "{y | x * y = one AND y * x = one}" group
      "algebra/")
@@ -2168,8 +2196,6 @@
      integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (/= const-decl "boolean" notequal nil)
@@ -2246,7 +2272,10 @@
      "(strict_total_order?[real])" real_props nil)
     (finite_subgroups formula-decl nil group "algebra/")
     (center_subgroup formula-decl nil group "algebra/"))
-   nil))
+   nil
+   (burside_theorem subtype
+    "group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)"
+    "finite_monad[T, *, one]")))
  (burside_theorem 0
   (burside_theorem-1 nil 3530350714
    ("" (skosimp*)
@@ -2962,9 +2991,9 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (group? const-decl "bool" group_def "algebra/")
     (group nonempty-type-eq-decl nil group "algebra/")
     (subset? const-decl "bool" sets nil)
+    (group? const-decl "bool" group_def "algebra/")
     (center const-decl "{s: set[T] | subset?(s, G)}" group "algebra/")
     (finite_group nonempty-type-eq-decl nil group "algebra/")
     (finite_group? const-decl "bool" group_def "algebra/")
@@ -2994,7 +3023,9 @@
    ((/= const-decl "boolean" notequal nil)
     (divides const-decl "bool" divides nil)
     (prime? const-decl "bool" primes "ints/"))
-   nil))
+   nil
+   (p_square_is_abelian subtype "2"
+    "{i: integers.int | booleans.OR(p_groups.p /= 0, reals.>=(i, 0))}")))
  (p_square_is_abelian 0
   (p_square_is_abelian-1 nil 3530396563
    ("" (skosimp*)
@@ -3206,35 +3237,11 @@
                                                           (hide-all-but
                                                            1)
                                                           (("2"
-                                                            (inst
-                                                             1
-                                                             "center(G!1)")
-                                                            (("2"
-                                                              (inst
-                                                               1
-                                                               "one")
-                                                              (("1"
-                                                                (rewrite
-                                                                 "left_coset_one")
-                                                                nil
-                                                                nil)
-                                                               ("2"
-                                                                (rewrite
-                                                                 "one_in")
-                                                                nil
-                                                                nil))
-                                                              nil))
-                                                            nil))
-                                                          nil)
-                                                         ("3"
-                                                          (hide-all-but
-                                                           1)
-                                                          (("3"
                                                             (rewrite
                                                              "left_cosets_group")
-                                                            (("3"
+                                                            (("2"
                                                               (hide 2)
-                                                              (("3"
+                                                              (("2"
                                                                 (lemma
                                                                  "center_is_normal[T, *, one]")
                                                                 (("1"
@@ -3275,10 +3282,10 @@
                                                               nil))
                                                             nil))
                                                           nil)
-                                                         ("4"
+                                                         ("3"
                                                           (hide-all-but
                                                            1)
-                                                          (("4"
+                                                          (("3"
                                                             (inst
                                                              1
                                                              "one")
@@ -3291,6 +3298,30 @@
                                                               (rewrite
                                                                "one_in")
                                                               nil
+                                                              nil))
+                                                            nil))
+                                                          nil)
+                                                         ("4"
+                                                          (hide-all-but
+                                                           1)
+                                                          (("4"
+                                                            (inst
+                                                             1
+                                                             "center(G!1)")
+                                                            (("4"
+                                                              (inst
+                                                               1
+                                                               "one")
+                                                              (("1"
+                                                                (rewrite
+                                                                 "left_coset_one")
+                                                                nil
+                                                                nil)
+                                                               ("2"
+                                                                (rewrite
+                                                                 "one_in")
+                                                                nil
+                                                                nil))
                                                               nil))
                                                             nil))
                                                           nil))
@@ -3443,10 +3474,10 @@
                 nil))
               nil))
             nil)
-           ("2" (hide (-1 -2 2))
+           ("2" (hide-all-but 1)
             (("2" (rewrite "center_subgroup") nil nil)) nil))
           nil)
-         ("2" (hide (-1 -2 2))
+         ("2" (hide-all-but 1)
           (("2" (lemma "finite_subgroups")
             (("2" (inst -1 "center(G!1)" "G!1")
               (("2" (assert)
@@ -3472,12 +3503,12 @@
     (left_cosets type-eq-decl nil cosets "algebra/")
     (nzreal nonempty-type-eq-decl nil reals nil)
     (/= const-decl "boolean" notequal nil)
+    (monad nonempty-type-eq-decl nil monad "algebra/")
+    (monad? const-decl "bool" monad_def "algebra/")
+    (one_in formula-decl nil monad "algebra/")
+    (left_coset_one formula-decl nil cosets "algebra/")
     (left_cosets_group formula-decl nil factor_groups "algebra/")
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (left_coset_one formula-decl nil cosets "algebra/")
-    (one_in formula-decl nil monad "algebra/")
-    (monad? const-decl "bool" monad_def "algebra/")
-    (monad nonempty-type-eq-decl nil monad "algebra/")
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (factor_cyclic formula-decl nil p_groups nil)
@@ -3496,7 +3527,7 @@
      "algebra/")
     (expt_div formula-decl nil exponentiation nil)
     (finite_set type-eq-decl nil finite_sets nil)
-    (/ const-decl "group[left_cosets(G, N), mult(G, N), N]"
+    (/ const-decl "group[left_cosets[T, *, one](G, N), mult(G, N), N]"
        right_left_cosets nil)
     (mult const-decl "left_cosets(G, H)" factor_groups "algebra/")
     (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
@@ -3551,9 +3582,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (set type-eq-decl nil sets nil)
     (finite_group? const-decl "bool" group_def "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
     (group nonempty-type-eq-decl nil group "algebra/")
     (subset? const-decl "bool" sets nil)
+    (group? const-decl "bool" group_def "algebra/")
     (center const-decl "{s: set[T] | subset?(s, G)}" group "algebra/")
     (finite_group nonempty-type-eq-decl nil group "algebra/")
     (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil))

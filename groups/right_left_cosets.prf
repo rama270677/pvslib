@@ -2,7 +2,10 @@
  (IMP_lagrange_TCC1 0
   (IMP_lagrange_TCC1-1 nil 3530611400
    ("" (rewrite "fullset_is_group") nil nil)
-   ((fullset_is_group formula-decl nil right_left_cosets nil)) nil))
+   ((fullset_is_group formula-decl nil right_left_cosets nil)) nil
+   (IMP_lagrange assuming
+    "algebra@lagrange[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one]"
+    "fullset_is_group: ASSUMPTION group_def[lagrange.T, lagrange.*, lagrange.one].group?(sets[lagrange.T].fullset)")))
  (nonempty_left_coset_TCC1 0
   (nonempty_left_coset_TCC1-1 nil 3528677081 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -17,7 +20,9 @@
     (member const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil)
     (subgroup? const-decl "bool" group_def "algebra/"))
-   nil))
+   nil
+   (nonempty_left_coset subtype "right_left_cosets.a"
+    "(right_left_cosets.G)")))
  (nonempty_left_coset 0
   (nonempty_left_coset-1 nil 3528677207
    ("" (skosimp*)
@@ -76,7 +81,9 @@
     (member const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil)
     (subgroup? const-decl "bool" group_def "algebra/"))
-   nil))
+   nil
+   (left_coset_finite subtype "right_left_cosets.a"
+    "(right_left_cosets.G)")))
  (left_coset_finite 0
   (left_coset_finite-1 nil 3528677376
    ("" (skosimp)
@@ -104,11 +111,9 @@
     (group nonempty-type-eq-decl nil group "algebra/")
     (subgroup? const-decl "bool" group_def "algebra/")
     (subgroup type-eq-decl nil group "algebra/")
-    (is_finite const-decl "bool" finite_sets nil)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" right_left_cosets
-     nil)
     (* const-decl "set[T]" cosets "algebra/")
     (finite_set type-eq-decl nil finite_sets nil)
+    (is_finite const-decl "bool" finite_sets nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (finite_subset formula-decl nil finite_sets nil)
@@ -312,7 +317,10 @@
     (finite_group? const-decl "bool" group_def "algebra/")
     (finite_group nonempty-type-eq-decl nil group "algebra/")
     (left_coset_finite formula-decl nil right_left_cosets nil))
-   nil))
+   nil
+   (finite_left_coset_correspondence subtype
+    "cosets[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].left_coset(right_left_cosets.G, right_left_cosets.H)(right_left_cosets.a)"
+    "finite_set[T]")))
  (finite_left_coset_correspondence_TCC2 0
   (finite_left_coset_correspondence_TCC2-1 nil 3528677081
    ("" (subtype-tcc) nil nil)
@@ -330,7 +338,9 @@
     (member const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil)
     (subgroup? const-decl "bool" group_def "algebra/"))
-   nil))
+   nil
+   (finite_left_coset_correspondence subtype "right_left_cosets.b"
+    "(right_left_cosets.G)")))
  (finite_left_coset_correspondence_TCC3 0
   (finite_left_coset_correspondence_TCC3-1 nil 3528677081
    ("" (skosimp)
@@ -349,7 +359,10 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil right_left_cosets nil))
-   nil))
+   nil
+   (finite_left_coset_correspondence subtype
+    "cosets[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].left_coset(right_left_cosets.G, right_left_cosets.H)(right_left_cosets.b)"
+    "finite_set[T]")))
  (finite_left_coset_correspondence 0
   (finite_left_coset_correspondence-1 nil 3528677432
    ("" (skosimp)
@@ -1223,7 +1236,10 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil right_left_cosets nil))
-   nil))
+   nil
+   (finite_right_left_correspondence subtype
+    "right_left_cosets.right_cosets(right_left_cosets.G, right_left_cosets.H)"
+    "finite_set[set[T]]")))
  (finite_right_left_correspondence_TCC2 0
   (finite_right_left_correspondence_TCC2-1 nil 3528677081
    ("" (skosimp*)
@@ -1266,7 +1282,10 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil right_left_cosets nil))
-   nil))
+   nil
+   (finite_right_left_correspondence subtype
+    "right_left_cosets.left_cosets(right_left_cosets.G, right_left_cosets.H)"
+    "finite_set[set[T]]")))
  (finite_right_left_correspondence 0
   (finite_right_left_correspondence-1 nil 3528678094
    ("" (skosimp)
@@ -1344,7 +1363,10 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil right_left_cosets nil))
-   nil))
+   nil
+   (index subtype
+          "right_left_cosets.left_cosets(right_left_cosets.G, right_left_cosets.H)"
+          "finite_set[set[T]]")))
  (index_gt1 0
   (index_gt1-1 nil 3530550237
    ("" (skosimp*)
@@ -1402,46 +1424,6 @@
  (divide_TCC1 0
   (divide_TCC1-1 nil 3530434541
    ("" (skosimp*)
-    (("" (inst 1 "one")
-      (("1" (rewrite "left_coset_one") nil nil)
-       ("2" (rewrite "one_in") nil nil))
-      nil))
-    nil)
-   ((G!1 skolem-const-decl "group[T, *, one]" right_left_cosets nil)
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
-    (one formal-const-decl "T" right_left_cosets nil)
-    (* formal-const-decl "[T, T -> T]" right_left_cosets nil)
-    (set type-eq-decl nil sets nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (T formal-type-decl nil right_left_cosets nil)
-    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (left_coset_one formula-decl nil cosets "algebra/")
-    (monad nonempty-type-eq-decl nil monad "algebra/")
-    (monad? const-decl "bool" monad_def "algebra/")
-    (one_in formula-decl nil monad "algebra/"))
-   nil))
- (divide_TCC2 0
-  (divide_TCC2-1 nil 3530434541
-   ("" (skosimp*) (("" (rewrite "left_cosets_group[T,*,one]") nil nil))
-    nil)
-   ((left_cosets_group formula-decl nil factor_groups "algebra/")
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (T formal-type-decl nil right_left_cosets nil)
-    (* formal-const-decl "[T, T -> T]" right_left_cosets nil)
-    (one formal-const-decl "T" right_left_cosets nil))
-   nil))
- (divide_TCC3 0
-  (divide_TCC3-1 nil 3530434541
-   ("" (skosimp*)
     (("" (inst 1 "N!1")
       (("" (inst 1 "one")
         (("1" (rewrite "left_coset_one") nil nil)
@@ -1469,7 +1451,54 @@
     (monad? const-decl "bool" monad_def "algebra/")
     (one_in formula-decl nil monad "algebra/")
     (left_coset_one formula-decl nil cosets "algebra/"))
-   nil))
+   nil
+   (divide existence ""
+    "cosets[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].left_cosets(right_left_cosets.G, right_left_cosets.N)")))
+ (divide_TCC2 0
+  (divide_TCC2-1 nil 3530434541
+   ("" (skosimp*)
+    (("" (inst 1 "one")
+      (("1" (rewrite "left_coset_one") nil nil)
+       ("2" (rewrite "one_in") nil nil))
+      nil))
+    nil)
+   ((G!1 skolem-const-decl "group[T, *, one]" right_left_cosets nil)
+    (group nonempty-type-eq-decl nil group "algebra/")
+    (group? const-decl "bool" group_def "algebra/")
+    (one formal-const-decl "T" right_left_cosets nil)
+    (* formal-const-decl "[T, T -> T]" right_left_cosets nil)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T formal-type-decl nil right_left_cosets nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
+    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
+    (left_coset_one formula-decl nil cosets "algebra/")
+    (monad nonempty-type-eq-decl nil monad "algebra/")
+    (monad? const-decl "bool" monad_def "algebra/")
+    (one_in formula-decl nil monad "algebra/"))
+   nil
+   (divide subtype "right_left_cosets.N"
+    "cosets[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].left_cosets(right_left_cosets.G, right_left_cosets.N)")))
+ (divide_TCC3 0
+  (divide_TCC3-1 nil 3530434541
+   ("" (skosimp*) (("" (rewrite "left_cosets_group[T,*,one]") nil nil))
+    nil)
+   ((left_cosets_group formula-decl nil factor_groups "algebra/")
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (group? const-decl "bool" group_def "algebra/")
+    (group nonempty-type-eq-decl nil group "algebra/")
+    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
+    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
+    (T formal-type-decl nil right_left_cosets nil)
+    (* formal-const-decl "[T, T -> T]" right_left_cosets nil)
+    (one formal-const-decl "T" right_left_cosets nil))
+   nil
+   (divide assuming
+    "algebra@group[cosets[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].left_cosets(right_left_cosets.G, right_left_cosets.N), factor_groups[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].mult(right_left_cosets.G, right_left_cosets.N), right_left_cosets.N]"
+    "fullset_is_group: ASSUMPTION group_def[group.T, group.*, group.one].group?(sets[group.T].fullset)")))
  (divide_TCC4 0
   (divide_TCC4-1 nil 3530434541
    ("" (skosimp*)
@@ -1488,7 +1517,9 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (divide subtype "right_left_cosets.N"
+    "group[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].subgroup(right_left_cosets.G)")))
  (divide_TCC5 0
   (divide_TCC5-1 nil 3530434541
    ("" (skosimp*)
@@ -1729,7 +1760,10 @@
     (T formal-type-decl nil right_left_cosets nil)
     (mult_is_coset formula-decl nil factor_groups "algebra/")
     (restrict const-decl "R" restrict nil))
-   nil))
+   nil
+   (divide subtype
+    "restrict[setof[T], cosets[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].left_cosets(right_left_cosets.G, right_left_cosets.N), booleans.bool].restrict(right_left_cosets.left_cosets(right_left_cosets.G, right_left_cosets.N))"
+    "group[left_cosets[T, *, one](G, N), mult[T, *, one](G, N), N]")))
  (card_factor_TCC1 0
   (card_factor_TCC1-1 nil 3530433063
    ("" (skosimp*)
@@ -1754,7 +1788,7 @@
         nil))
       nil))
     nil)
-   ((/ const-decl "group[left_cosets(G, N), mult(G, N), N]"
+   ((/ const-decl "group[left_cosets[T, *, one](G, N), mult(G, N), N]"
        right_left_cosets nil)
     (setof type-eq-decl nil defined_types nil)
     (restrict const-decl "R" restrict nil)
@@ -1782,14 +1816,19 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (* const-decl "set[T]" cosets "algebra/")
     (left_cosets type-eq-decl nil cosets "algebra/"))
-   nil))
+   nil
+   (card_factor subtype
+    "extend[set[T], cosets[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].left_cosets(right_left_cosets.G, right_left_cosets.N), booleans.bool, booleans.FALSE].extend(right_left_cosets./(right_left_cosets.G, right_left_cosets.N))"
+    "finite_set[set[T]]")))
  (card_factor_TCC2 0
   (card_factor_TCC2-1 nil 3530433063
    ("" (skosimp*)
     (("" (expand "normal_subgroup?") (("" (assert) nil nil)) nil)) nil)
    ((normal_subgroup? const-decl "boolean" normal_subgroups
      "algebra/"))
-   nil))
+   nil
+   (card_factor subtype "right_left_cosets.N"
+    "group[right_left_cosets.T, right_left_cosets.*, right_left_cosets.one].subgroup(right_left_cosets.G)")))
  (card_factor 0
   (card_factor-1 nil 3530433621
    ("" (skosimp*)
@@ -1958,7 +1997,7 @@
     (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
     (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
     (mult const-decl "left_cosets(G, H)" factor_groups "algebra/")
-    (/ const-decl "group[left_cosets(G, N), mult(G, N), N]"
+    (/ const-decl "group[left_cosets[T, *, one](G, N), mult(G, N), N]"
        right_left_cosets nil))
    shostak)))
 
