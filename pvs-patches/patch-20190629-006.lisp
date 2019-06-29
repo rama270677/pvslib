@@ -414,10 +414,10 @@ if called."
 	     (lisp-function opdecl)) ;;generate code if needed
 	(pvs2cl-datatype operator))
     (let* ((domtyp (domain (declared-type (declaration operator))))
-	   (args (if (or (type-name? domtyp)
-			 (and (tupletype? domtyp)
-			      (type-name? (print-type domtyp))
-			      (> (length (arguments expr)) 1)))
+	   (args (if (and (or (type-name? domtyp)
+			      (and (tupletype? domtyp)
+				   (type-name? (print-type domtyp))))
+			  (> (length (arguments expr)) 1))
 		     (argument* expr)
 		   (arguments expr))) ;; (arguments expr)) Takes care of tuples June 29, 2019 [CM]
 	   (clargs (pvs2cl_up* args bindings livevars)))
