@@ -120,18 +120,17 @@ BEGIN
   rec2str(p:Point):string = pvs2str(p)
 
   %% Parsing and printing decimals
-  ex_parser : void =
+  dec_parser : void =
     LET r = decstr2rat("1.23456789") IN
     printf("~a",r)
 
-  ex_format : void =
+  dec_format : void =
     LET r = 1/3 IN
-    reset_precision &
-    printf("~a~%",rat2decstr(r)) &
-    set_precision(20) &
-    printf("~a",rat2decstr(r))
+    printf("~a~%",rat2decstr(r,5)) & %% 5 decimals
+    set_precision(10) &
+    printf("~a",rat2str(r))          %% 10 decimals
 
-  ex_formatter : void =
+  dec_formatter : void =
     LET r = 1/3 IN
     printf("~-10/pvs:d/~%",r) &  %% 10 decimals
     printf("~-20/pvs:d/",r)      %% 20 decimals
