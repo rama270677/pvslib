@@ -1,1 +1,1 @@
-../decimals/decimals.lisp
+../RELEASE/decimals/decimals.lisp
