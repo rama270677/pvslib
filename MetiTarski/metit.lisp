@@ -375,8 +375,7 @@
   (let ((s-forms (extra-get-seqfs fnums)))
     (if s-forms
 	(let ((result (metit s-forms timeout options pre-bins? arch about?)))
-	  (when result
-	    (trust metit (case "TRUE") !)))
+	  (when result (trust! metit)))
       (printf "Formula(s) ~a not found" fnums)))
   "Calls MetiTarski on first order formulas FNUMS. TIMEOUT is a
 processor time limit (in seconds). Additional options to MetiTarski
