@@ -529,6 +529,13 @@ more_list_props   [ T : TYPE ]
 
   ldiff_append: LEMMA forall (l1, l2): ldiff(append(l1, l2), l2) = l1
 
+  filter_nth: LEMMA forall (L :list[T], P: [T->bool]):
+     LET FL = filter(L,P)  IN  
+       cons?(FL) IMPLIES
+      FORALL (i:below(length(FL))):
+      EXISTS (j: below(length(L))):
+        nth(FL, i) = nth(L,j)
+
   takeFromRight(l: list[T], n: nat)
   : RECURSIVE list[T]
   = IF length(l) <= n OR null?(l) THEN l
