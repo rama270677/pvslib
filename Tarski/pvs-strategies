@@ -705,7 +705,7 @@ ground evaluation of the formally verified PVS algorithm.
      (replace -3 -2 :dir rl)))
   "[Tarski] Internal strategy." "")
 
-(defhelper dnftarski_eq_polynomial__ (x var instv)
+(defhelper dnftarski_eq_polynomial__ (x var instv eqs laby)
   (let ((nm    (nth 1 x))
 	(e1    (nth 5 x))
 	(e2    (nth 6 x))
@@ -715,57 +715,68 @@ ground evaluation of the formally verified PVS algorithm.
 		 (format nil "polylist(~a)(~a) = LET ~a=~a IN (~a) ~a (~a)" nm instv var instv e1 op e2)))
 	(rews  *sturm-rews*))
     (spread (case castr)
-	     ((beta)
+	     ((then (label laby -1) (beta))
 	      (then
 	       (hide-all-but 1)
 	       (beta) 
+	       (reveal eqs)
+	       (replaces eqs)
+	       (hide eqs)
 	       (expand nm 1 :assert? none)
 	       (rewrite* rews)
 	       (real-props)))))
    "[Tarski] Internal strategy." "")
 
-(defhelper dnftarski_polynomial__ (var instv nes)
+(defhelper dnftarski_polynomial__ (var instv nes eqs laby)
   (let ((qvar   (list 'quote var))
-	(qinstv (list 'quote instv)))
+	(qinstv (list 'quote instv))
+	(qeqs   (list 'quote eqs))
+	(qlaby  (list 'quote laby)))
     (then
      (repeat (rewrite "polylist_eval" :dir rl))
      (flatten)
-     (mapstep #'(lambda(x)`(dnftarski_eq_polynomial__$ ,x ,qvar ,qinstv)) nes)))
-   "[Tarski] Internal strategy." "")
+     (mapstep #'(lambda(x)`(dnftarski_eq_polynomial__$ ,x ,qvar ,qinstv ,qeqs ,qlaby)) nes)))
+  "[Tarski] Internal strategy." "")
 
-(defhelper dnftarski_polynomial_rel__ (eqs fnums var instv nes)
+;; Return true if expr represents a constant (check is polynomial representation doesn't have free variables)
+(defun dnftarski-is-ground-expr (expr)
+  (let ((ls (sturm-poly-exprs (list expr))))
+    (when ls (not (caar ls)))))
+
+(defhelper dnftarski_polynomial_rel__ (fnums var instv nes eqs laby)
   (let ((exprs (loop for x in nes
 		     for e1 = (nth 5 x)
 		     for e2 = (nth 6 x)
 		     append (append
-			     (unless (name-expr? e1)
+			     (unless (or (name-expr? e1) (dnftarski-is-ground-expr e1))
 			       (list (format nil "LET ~a=~a IN ~a" var instv e1)))
-			     (unless (or (name-expr? e2) (number-expr? e2))
+			     (unless (or (name-expr? e2) (dnftarski-is-ground-expr e2))
 			       (list (format nil "LET ~a=~a IN ~a" var instv e2))))))
 	(n     (length exprs)))
-    (then@
-     (reveal eqs)
-     (replaces eqs)
-     (if exprs
-	 (with-fresh-labels
-	  (names!)
-	  (with-fresh-names
-	   (names_ :list n)
-	   (let ((nandes (merge-lists names_ exprs)))
-	     (name-label* nandes :hide? nil :label names! :tcc-step nil))
-	   (beta names!)
-	   (replaces names!)
-	   (replaces -)
-	   (expand* "[||]" "##" "contains?")
-	   (rewrite* ("abs_lt" "abs_le" "abs_gt" "abs_ge" "lt_abs" "le_abs" "gt_abs" "ge_abs"))
-	   (prop)
-	   (real-props)))
-       (then
-	(replaces -)
-	(expand* "[||]" "##" "contains?")
-	(rewrite* ("abs_lt" "abs_le" "abs_gt" "abs_ge" "lt_abs" "le_abs" "gt_abs" "ge_abs"))
-	(prop)
-	(real-props)))))
+    (if exprs
+	(with-fresh-labels
+	 (names!)
+	 (with-fresh-names
+	  (names_ :list n)
+	  (let ((nandes (merge-lists names_ exprs)))
+	    (name-label* nandes :hide? nil :label names! :tcc-step nil))
+	  (beta names!)
+	  (reveal eqs)
+	  (replaces eqs)
+	  (replaces names!)
+	  (replaces laby)
+	  (expand* "[||]" "##" "contains?")
+	  (rewrite* ("abs_lt" "abs_le" "abs_gt" "abs_ge" "lt_abs" "le_abs" "gt_abs" "ge_abs"))
+	  (prop)
+	  (real-props)))
+      (then
+       (reveal eqs)
+       (replaces eqs)
+       (replaces laby)
+       (expand* "[||]" "##" "contains?")
+       (rewrite* ("abs_lt" "abs_le" "abs_gt" "abs_ge" "lt_abs" "le_abs" "gt_abs" "ge_abs"))
+       (prop)
+       (real-props))))
   "[Tarski] Internal strategy." "")
 
 (defun dnf-conj-all (n m)
@@ -982,7 +993,7 @@ ground evaluation of the formally verified PVS algorithm.
 
 (defhelper dnftarski__ (fnums fall strfms var qvars preds? timing?)
   (with-fresh-labels
-   ((fnums! fnums) (labp!) (labd!) (dbal!) (labpred!) (labsk!))
+   ((fnums! fnums) (labp!) (labd!) (dbal!) (labpred!) (labsk!) (laby!))
    (let ((predvar (unless qvars preds?)))
      (then
       (when predvar
@@ -1045,7 +1056,7 @@ ground evaluation of the formally verified PVS algorithm.
 		     (instfn (if fall ex! fnums!))
 		     (valid  (iff instp fall))
 		     (eqs    (extra-get-evalexprs)))
-		 (when@ valid
+		 (when valid
 		   (extra-evalexprs$ eqs eqs!)
 		   (repeat* (expand "eval"))
 		   (repeat* (expand "eval_rel"))
@@ -1061,7 +1072,7 @@ ground evaluation of the formally verified PVS algorithm.
 			(inst instfn instv)
 			(replaces labp! :dir rl)
 			(replaces labd! :dir rl)
-			(dnftarski_polynomial__$ var instv nes)
+			(dnftarski_polynomial__$ var instv nes eqs! laby!)
 			(if qvars
 			    (reveal labsk!)
 			  (reveal fnums!)))  ;; Fnums are not needed anymore, when qvars
@@ -1069,10 +1080,10 @@ ground evaluation of the formally verified PVS algorithm.
 		      (skolem skolfn x_)
 		      (replaces labp! :dir rl)
 		      (replaces labd! :dir rl)
-		      (dnftarski_polynomial__$ var instv nes)
+		      (dnftarski_polynomial__$ var instv nes eqs! laby!)
 		      (reveal fnums!) ;; Finally, fnums are needed for this step
 		      (inst instfn instv)))
-		   (dnftarski_polynomial_rel__$ eqs! fnums! var instv nes)))))))))))))
+		   (dnftarski_polynomial_rel__$ fnums! var instv nes eqs! laby!)))))))))))))
   "[Tarski] Internal strategy." "")
   
   
