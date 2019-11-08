@@ -7,7 +7,6 @@
 %%         Mauricio Ayala-Rincon
 %%         Universidade de Brasilia
 %%
-%% Last modified: 10 April 2019
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 dependency_pairs[variable: TYPE+, symbol: TYPE+, arity: [symbol -> nat]]: THEORY
@@ -71,9 +70,9 @@ dependency_pairs[variable: TYPE+, symbol: TYPE+, arity: [symbol -> nat]]: THEORY
    LET delta = ext(sigmas(i)) IN
    IF i=0 THEN 
       (delta(rhs(dps(0)`1)),dps(0)`2)
-    ELSE LET (Ca,pa) = term_pos_dps_alt(E)(dps,sigmas,i-1) IN 
-      (replaceTerm(Ca, delta(rhs(dps(i)`1)), pa), 
-       pa o dps(i)`2)
+    ELSE LET (prevCont,prevPos) = term_pos_dps_alt(E)(dps,sigmas,i-1) IN 
+      (replaceTerm(prevCont, delta(rhs(dps(i)`1)), prevPos), 
+       prevPos o dps(i)`2)
     ENDIF
   MEASURE i
 
