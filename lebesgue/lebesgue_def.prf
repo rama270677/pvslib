@@ -63,9 +63,9 @@
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (>= const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -75,9 +75,9 @@
          nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
-    (borel? const-decl "sigma_algebra" borel "measure_integration/")
-    (borel nonempty-type-eq-decl nil borel "measure_integration/")
+     metric_space)
+    (borel? const-decl "sigma_algebra" borel measure_integration)
+    (borel nonempty-type-eq-decl nil borel measure_integration)
     (x!1 skolem-const-decl "setof[real]" lebesgue_def nil)
     (borel_is_lebesgue_measurable judgement-tcc nil real_lebesgue_scaf
      nil)
@@ -155,14 +155,14 @@
     (setof type-eq-decl nil defined_types nil)
     (set type-eq-decl nil sets nil) (fullset const-decl "set" sets nil)
     (generated_sigma_algebra_subset1 formula-decl nil
-     subset_algebra_def "measure_integration/")
-    (metric_open_def formula-decl nil metric_space "metric_space/")
+     subset_algebra_def measure_integration)
+    (metric_open_def formula-decl nil metric_space metric_space)
     (open_interval? const-decl "bool" real_intervals_aux nil)
     (FALSE const-decl "bool" booleans nil)
     (TRUE const-decl "bool" booleans nil)
-    (open? const-decl "bool" topology "topology/")
+    (open? const-decl "bool" topology topology)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
+     metric_space)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -175,13 +175,9 @@
     (setofsets type-eq-decl nil sets nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (metric_induced_topology_is_second_countable name-judgement
-     "second_countable" real_topology "metric_space/")
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     real_topology "metric_space/")
-    (metric_space_is_hausdorff name-judgement "hausdorff[real]"
-     real_topology "metric_space/")
-    (extend const-decl "R" extend nil)
-    (borel? const-decl "sigma_algebra" borel "measure_integration/")
+     "second_countable" real_topology metric_space)
+    nil nil (extend const-decl "R" extend nil)
+    (borel? const-decl "sigma_algebra" borel measure_integration)
     (member const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil))
    shostak))
@@ -224,7 +220,7 @@
     (setof type-eq-decl nil defined_types nil)
     (set type-eq-decl nil sets nil)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
+     metric_space)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -234,10 +230,15 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (setofsets type-eq-decl nil sets nil)
-    (closed nonempty-type-eq-decl nil topology "topology/")
-    (closed? const-decl "bool" topology "topology/")
-    (closed_is_borel formula-decl nil borel "measure_integration/")
-    (metric_closed? const-decl "bool" metric_space_def "metric_space/")
+    (closed nonempty-type-eq-decl nil topology topology)
+    (closed? const-decl "bool" topology topology)
+    (closed_is_borel formula-decl nil borel measure_integration)
+    (metric_space_is_hausdorff name-judgement "hausdorff" real_topology
+     metric_space)
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology metric_space)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (metric_closed? const-decl "bool" metric_space_def metric_space)
     (closed_interval? const-decl "bool" real_intervals_aux nil)
     (member const-decl "bool" sets nil)
     (borel_is_cal_M formula-decl nil lebesgue_def nil))
@@ -265,12 +266,12 @@
       nil))
     nil)
    ((nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_setofsets "sets_aux/")
+     "non_empty_finite_set[T]" countable_setofsets sets_aux)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
+    (singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
     (member const-decl "bool" sets nil)
     (lebesgue_measurable const-decl "sigma_algebra[real]"
      real_lebesgue_scaf nil)
@@ -278,8 +279,13 @@
     (borel_is_lebesgue_measurable judgement-tcc nil real_lebesgue_scaf
      nil)
     (singleton_is_borel formula-decl nil hausdorff_borel
-     "measure_integration/")
-    (borel nonempty-type-eq-decl nil borel "measure_integration/")
+     measure_integration)
+    (metric_space_is_hausdorff name-judgement "hausdorff" real_topology
+     metric_space)
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology metric_space)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (borel nonempty-type-eq-decl nil borel measure_integration)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -291,9 +297,9 @@
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (>= const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -303,8 +309,8 @@
          nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
-    (borel? const-decl "sigma_algebra" borel "measure_integration/")
+     metric_space)
+    (borel? const-decl "sigma_algebra" borel measure_integration)
     (set type-eq-decl nil sets nil)
     (singleton? const-decl "bool" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
@@ -358,19 +364,18 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
-    (interval? const-decl "bool" real_topology "metric_space/")
+    (ball const-decl "set[T]" metric_space_def metric_space)
+    (interval? const-decl "bool" real_topology metric_space)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (minus_real_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (open_interval? const-decl "bool" real_intervals_aux nil)
     (member const-decl "bool" sets nil)
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
+    (ball_is_metric_open application-judgement "metric_open"
+     real_topology metric_space)
     (subset? const-decl "bool" sets nil))
    shostak))
  (closed_ball_is_cal_M 0
@@ -404,14 +409,14 @@
     (extend const-decl "R" extend nil)
     (nnr!1 skolem-const-decl "nnreal" lebesgue_def nil)
     (x!1 skolem-const-decl "real" lebesgue_def nil)
-    (closed_ball const-decl "closed" real_topology "metric_space/")
-    (closed nonempty-type-eq-decl nil topology "topology/")
-    (closed? const-decl "bool" topology "topology/")
+    (closed_ball const-decl "closed" real_topology metric_space)
+    (closed nonempty-type-eq-decl nil topology topology)
+    (closed? const-decl "bool" topology topology)
     (set type-eq-decl nil sets nil)
     (nnreal type-eq-decl nil real_types nil)
-    (borel? const-decl "sigma_algebra" borel "measure_integration/")
+    (borel? const-decl "sigma_algebra" borel measure_integration)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
+     metric_space)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -421,9 +426,9 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -434,8 +439,13 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (borel nonempty-type-eq-decl nil borel "measure_integration/")
-    (closed_is_borel formula-decl nil borel "measure_integration/")
+    (borel nonempty-type-eq-decl nil borel measure_integration)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology metric_space)
+    (metric_space_is_hausdorff name-judgement "hausdorff" real_topology
+     metric_space)
+    (closed_is_borel formula-decl nil borel measure_integration)
     (borel_is_lebesgue_measurable judgement-tcc nil real_lebesgue_scaf
      nil)
     (fullset const-decl "set" sets nil)
@@ -528,19 +538,19 @@
      "complete_sigma_finite[real, lebesgue_measurable]"
      real_lebesgue_scaf nil)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (nnreal type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (lebesgue_measurable const-decl "sigma_algebra[real]"
      real_lebesgue_scaf nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -553,19 +563,19 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (measure_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (X!1 skolem-const-decl
      "disjoint_indexed_measurable[real, lebesgue_measurable]"
      lebesgue_def nil)
     (measure_complete? const-decl "bool" generalized_measure_def
-     "measure_integration/")
+     measure_integration)
     (set type-eq-decl nil sets nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (measure? const-decl "bool" generalized_measure_def
-     "measure_integration/")
+     measure_integration)
     (measure_empty? const-decl "bool" generalized_measure_def
-     "measure_integration/")
+     measure_integration)
     (O const-decl "T3" function_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
@@ -574,15 +584,17 @@
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (disjoint_indexed_measurable? const-decl "bool"
-     generalized_measure_def "measure_integration/")
+     generalized_measure_def measure_integration)
     (disjoint_indexed_measurable nonempty-type-eq-decl nil
-     generalized_measure_def "measure_integration/")
+     generalized_measure_def measure_integration)
     (X!1 skolem-const-decl "disjoint_indexed_measurable[real, cal_M]"
      lebesgue_def nil)
     (measure_countably_additive? const-decl "bool"
-     generalized_measure_def "measure_integration/")
+     generalized_measure_def measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil))
-   nil))
+   nil
+   (lambda_ subtype "real_lebesgue_scaf.lebesgue_measure"
+    "complete_sigma_finite[real, cal_M]")))
  (lambda_singleton_TCC1 0
   (lambda_singleton_TCC1-1 nil 3475933087
    ("" (skosimp)
@@ -598,7 +610,9 @@
     (number nonempty-type-decl nil numbers nil)
     (singleton_is_cal_M formula-decl nil lebesgue_def nil)
     (member const-decl "bool" sets nil))
-   nil))
+   nil
+   (lambda_singleton subtype "sets[real].singleton(lebesgue_def.x)"
+    "(lebesgue_def.cal_M)")))
  (lambda_singleton 0
   (lambda_singleton-1 nil 3475933229
    ("" (skosimp)
@@ -630,26 +644,26 @@
     (nnreal type-eq-decl nil real_types nil)
     (set type-eq-decl nil sets nil)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (outer_measure? const-decl "bool" outer_measure_def
-     "measure_integration/")
+     measure_integration)
     (outer_measure nonempty-type-eq-decl nil outer_measure_def
-     "measure_integration/")
+     measure_integration)
     (lebesgue_outer_measure const-decl "outer_measure"
      real_lebesgue_scaf nil)
     (singleton? const-decl "bool" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
     (TRUE const-decl "bool" booleans nil)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_setofsets "sets_aux/")
+     "non_empty_finite_set[T]" countable_setofsets sets_aux)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
-    (x_eq const-decl "bool" extended_nnreal "extended_nnreal/")
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
+    (singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
+    (x_eq const-decl "bool" extended_nnreal extended_nnreal)
     (induced_measure const-decl "complete_measure" outer_measure_props
-     "measure_integration/")
+     measure_integration)
     (lebesgue_outer_measure_singleton formula-decl nil
      real_lebesgue_scaf nil)
     (number nonempty-type-decl nil numbers nil)
@@ -680,7 +694,10 @@
     (number nonempty-type-decl nil numbers nil)
     (ball_is_cal_M formula-decl nil lebesgue_def nil)
     (member const-decl "bool" sets nil))
-   nil))
+   nil
+   (lambda_ball subtype
+    "metric_space_def[real, (LAMBDA (x, y: reals.real): real_defs.abs((number_fields.-)(x, y)))].ball(lebesgue_def.x, lebesgue_def.r)"
+    "(lebesgue_def.cal_M)")))
  (lambda_ball 0
   (lambda_ball-1 nil 3475932807
    ("" (skosimp)
@@ -745,7 +762,7 @@
         nil))
       nil))
     nil)
-   ((ball const-decl "set[T]" metric_space_def "metric_space/")
+   ((ball const-decl "set[T]" metric_space_def metric_space)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -757,8 +774,8 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (bounded_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (bounded_interval? const-decl "bool" real_topology "metric_space/")
+     metric_space)
+    (bounded_interval? const-decl "bool" real_topology metric_space)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -770,9 +787,8 @@
     (number nonempty-type-decl nil numbers nil)
     (lebesgue_outer_measure_bounded_interval formula-decl nil
      real_lebesgue_scaf nil)
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
+    (ball_is_metric_open application-judgement "metric_open"
+     real_topology metric_space)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (lebesgue_measure const-decl
      "complete_sigma_finite[real, lebesgue_measurable]"
@@ -798,16 +814,16 @@
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (induced_measure const-decl "complete_measure" outer_measure_props
-     "measure_integration/")
+     measure_integration)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
-    (bounded? const-decl "bool" real_topology "metric_space/")
+    (bounded? const-decl "bool" real_topology metric_space)
     (nonempty? const-decl "bool" sets nil)
-    (below_bounded const-decl "bool" bounded_reals "reals/")
-    (lower_bound const-decl "bool" bound_defs "reals/")
-    (above_bounded const-decl "bool" bounded_reals "reals/")
-    (upper_bound const-decl "bool" bound_defs "reals/")
-    (interval? const-decl "bool" real_topology "metric_space/")
+    (below_bounded const-decl "bool" bounded_reals reals)
+    (lower_bound const-decl "bool" bound_defs reals)
+    (above_bounded const-decl "bool" bounded_reals reals)
+    (upper_bound const-decl "bool" bound_defs reals)
+    (interval? const-decl "bool" real_topology metric_space)
     (NOT const-decl "[bool -> bool]" booleans nil))
    shostak))
  (lambda_closed_ball_TCC1 0
@@ -828,7 +844,10 @@
     (number nonempty-type-decl nil numbers nil)
     (closed_ball_is_cal_M formula-decl nil lebesgue_def nil)
     (member const-decl "bool" sets nil))
-   nil))
+   nil
+   (lambda_closed_ball subtype
+    "real_topology.closed_ball(lebesgue_def.x, lebesgue_def.nnr)"
+    "(lebesgue_def.cal_M)")))
  (lambda_closed_ball 0
   (lambda_closed_ball-1 nil 3475933366
    ("" (skosimp)
@@ -960,12 +979,12 @@
    ((lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
     (induced_measure const-decl "complete_measure" outer_measure_props
-     "measure_integration/")
-    (closed_ball const-decl "closed" real_topology "metric_space/")
-    (closed nonempty-type-eq-decl nil topology "topology/")
-    (closed? const-decl "bool" topology "topology/")
+     measure_integration)
+    (closed_ball const-decl "closed" real_topology metric_space)
+    (closed nonempty-type-eq-decl nil topology topology)
+    (closed? const-decl "bool" topology topology)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
+     metric_space)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -978,8 +997,8 @@
     (nnreal type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (bounded_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (bounded_interval? const-decl "bool" real_topology "metric_space/")
+     metric_space)
+    (bounded_interval? const-decl "bool" real_topology metric_space)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -991,6 +1010,10 @@
     (number nonempty-type-decl nil numbers nil)
     (lebesgue_outer_measure_eq_length formula-decl nil
      real_lebesgue_scaf nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff" real_topology
+     metric_space)
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology metric_space)
     (minus_real_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1003,27 +1026,27 @@
     (real_minus_real_is_real application-judgement "real" reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nonempty? const-decl "bool" sets nil)
-    (upper_bound const-decl "bool" bound_defs "reals/")
-    (above_bounded const-decl "bool" bounded_reals "reals/")
-    (lower_bound const-decl "bool" bound_defs "reals/")
-    (below_bounded const-decl "bool" bounded_reals "reals/")
-    (bounded? const-decl "bool" real_topology "metric_space/")
+    (upper_bound const-decl "bool" bound_defs reals)
+    (above_bounded const-decl "bool" bounded_reals reals)
+    (lower_bound const-decl "bool" bound_defs reals)
+    (below_bounded const-decl "bool" bounded_reals reals)
+    (bounded? const-decl "bool" real_topology metric_space)
     (outer_measure? const-decl "bool" outer_measure_def
-     "measure_integration/")
+     measure_integration)
     (outer_measure nonempty-type-eq-decl nil outer_measure_def
-     "measure_integration/")
+     measure_integration)
     (lebesgue_outer_measure const-decl "outer_measure"
      real_lebesgue_scaf nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
-    (x_eq const-decl "bool" extended_nnreal "extended_nnreal/")
+    (x_eq const-decl "bool" extended_nnreal extended_nnreal)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (TRUE const-decl "bool" booleans nil)
     (x_length const-decl "extended_nnreal" real_lebesgue_scaf nil)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
-    (interval nonempty-type-eq-decl nil real_topology "metric_space/")
-    (interval? const-decl "bool" real_topology "metric_space/")
+     extended_nnreal)
+    (interval nonempty-type-eq-decl nil real_topology metric_space)
+    (interval? const-decl "bool" real_topology metric_space)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (restrict const-decl "R" restrict nil)
     (lebesgue_measure const-decl
@@ -1075,17 +1098,16 @@
         nil))
       nil))
     nil)
-   ((isf_is_integrable judgement-tcc nil integral
-     "measure_integration/")
-    (isf? const-decl "bool" isf "measure_integration/")
-    (isf nonempty-type-eq-decl nil isf "measure_integration/")
+   ((isf_is_integrable judgement-tcc nil integral measure_integration)
+    (isf? const-decl "bool" isf measure_integration)
+    (isf nonempty-type-eq-decl nil isf measure_integration)
     (set type-eq-decl nil sets nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (phi const-decl "nat" measure_space "measure_integration/")
+    (phi const-decl "nat" measure_space measure_integration)
     (< const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
@@ -1097,10 +1119,10 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (ball const-decl "set[T]" metric_space_def metric_space)
     (open_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (open const-decl "open_interval" real_topology "metric_space/")
+     metric_space)
+    (open const-decl "open_interval" real_topology metric_space)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -1112,26 +1134,26 @@
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (>= const-decl "bool" reals nil)
     (nnreal type-eq-decl nil real_types nil)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
-    (isf_phi judgement-tcc nil isf "measure_integration/")
+    (isf_phi judgement-tcc nil isf measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
-    (mu_fin? const-decl "bool" measure_props "measure_integration/")
+     measure_integration)
+    (mu_fin? const-decl "bool" measure_props measure_integration)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (lambda_ball formula-decl nil lebesgue_def nil)
     (/= const-decl "boolean" notequal nil)
@@ -1144,9 +1166,8 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (member const-decl "bool" sets nil)
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
+    (ball_is_metric_open application-judgement "metric_open"
+     real_topology metric_space)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (ball_is_cal_M formula-decl nil lebesgue_def nil))
@@ -1215,49 +1236,48 @@
          nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
-    (closed? const-decl "bool" topology "topology/")
-    (closed nonempty-type-eq-decl nil topology "topology/")
-    (closed_ball const-decl "closed" real_topology "metric_space/")
+     metric_space)
+    (closed? const-decl "bool" topology topology)
+    (closed nonempty-type-eq-decl nil topology topology)
+    (closed_ball const-decl "closed" real_topology metric_space)
     (closed_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (closed const-decl "closed_interval" real_topology "metric_space/")
+     metric_space)
+    (closed const-decl "closed_interval" real_topology metric_space)
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (lambda_closed_ball formula-decl nil lebesgue_def nil)
     (member const-decl "bool" sets nil)
-    (isf_phi judgement-tcc nil isf "measure_integration/")
+    (isf_phi judgement-tcc nil isf measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
-    (mu_fin? const-decl "bool" measure_props "measure_integration/")
+     measure_integration)
+    (mu_fin? const-decl "bool" measure_props measure_integration)
     (real_times_real_is_real application-judgement "real" reals nil)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
-    (phi const-decl "nat" measure_space "measure_integration/")
+     measure_integration)
+    (phi const-decl "nat" measure_space measure_integration)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (isf nonempty-type-eq-decl nil isf "measure_integration/")
-    (isf? const-decl "bool" isf "measure_integration/")
-    (isf_is_integrable judgement-tcc nil integral
-     "measure_integration/")
+    (isf nonempty-type-eq-decl nil isf measure_integration)
+    (isf? const-decl "bool" isf measure_integration)
+    (isf_is_integrable judgement-tcc nil integral measure_integration)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (closed_ball_is_cal_M formula-decl nil lebesgue_def nil))
    shostak))
@@ -1274,7 +1294,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (< const-decl "bool" reals nil))
-   nil))
+   nil
+   (integral_phi_open subtype
+    "measure_space[real, lebesgue_def.cal_M].phi(real_topology.open(lebesgue_def.a, lebesgue_def.b))"
+    "integrable[real, cal_M, lambda_]")))
  (integral_phi_open 0
   (integral_phi_open-1 nil 3475934094
    ("" (skosimp)
@@ -1315,11 +1338,10 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
     (real_minus_real_is_real application-judgement "real" reals nil)
+    (ball_is_metric_open application-judgement "metric_open"
+     real_topology metric_space)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -1340,40 +1362,40 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (ball const-decl "set[T]" metric_space_def metric_space)
     (open_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (open const-decl "open_interval" real_topology "metric_space/")
+     metric_space)
+    (open const-decl "open_interval" real_topology metric_space)
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (lambda_ball formula-decl nil lebesgue_def nil)
     (member const-decl "bool" sets nil)
-    (mu const-decl "nnreal" measure_props "measure_integration/")
+    (mu const-decl "nnreal" measure_props measure_integration)
     (real_times_real_is_real application-judgement "real" reals nil)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (nnreal type-eq-decl nil real_types nil)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
-    (mu_fin? const-decl "bool" measure_props "measure_integration/")
+    (mu_fin? const-decl "bool" measure_props measure_integration)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
-    (integral_phi formula-decl nil integral "measure_integration/")
+     measure_integration)
+    (integral_phi formula-decl nil integral measure_integration)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (ball_is_cal_M formula-decl nil lebesgue_def nil))
    shostak))
@@ -1390,7 +1412,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (<= const-decl "bool" reals nil))
-   nil))
+   nil
+   (integral_phi_closed subtype
+    "measure_space[real, lebesgue_def.cal_M].phi(real_topology.closed(lebesgue_def.a, lebesgue_def.b))"
+    "integrable[real, cal_M, lambda_]")))
  (integral_phi_closed 0
   (integral_phi_closed-1 nil 3475934559
    ("" (skosimp)
@@ -1454,40 +1479,40 @@
          nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
-    (closed? const-decl "bool" topology "topology/")
-    (closed nonempty-type-eq-decl nil topology "topology/")
-    (closed_ball const-decl "closed" real_topology "metric_space/")
+     metric_space)
+    (closed? const-decl "bool" topology topology)
+    (closed nonempty-type-eq-decl nil topology topology)
+    (closed_ball const-decl "closed" real_topology metric_space)
     (closed_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (closed const-decl "closed_interval" real_topology "metric_space/")
+     metric_space)
+    (closed const-decl "closed_interval" real_topology metric_space)
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (lambda_closed_ball formula-decl nil lebesgue_def nil)
     (member const-decl "bool" sets nil)
-    (mu const-decl "nnreal" measure_props "measure_integration/")
+    (mu const-decl "nnreal" measure_props measure_integration)
     (real_times_real_is_real application-judgement "real" reals nil)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
-    (mu_fin? const-decl "bool" measure_props "measure_integration/")
+     measure_integration)
+    (mu_fin? const-decl "bool" measure_props measure_integration)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
-    (integral_phi formula-decl nil integral "measure_integration/")
+     measure_integration)
+    (integral_phi formula-decl nil integral measure_integration)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (closed_ball_is_cal_M formula-decl nil lebesgue_def nil))
    shostak))
@@ -1519,27 +1544,26 @@
       nil))
     nil)
    ((member const-decl "bool" sets nil)
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
-    (id_fun_continuous name-judgement "continuous_fun[T2]"
-     lim_of_composition "analysis/")
-    (derivable_id name-judgement "deriv_fun" derivatives "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]"
-     indefinite_integral "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun"
-     continuous_functions "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]" unif_cont_fun
-     "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]" integral_step
-     "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]"
-     integral_split_scaf "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]" integral
-     "analysis/")
+    (ball_is_metric_open application-judgement "metric_open"
+     real_topology metric_space)
     (I_is_continuous name-judgement
      "continuous[real, metric_induced_topology, real, metric_induced_topology]"
      lebesgue_def nil)
+    (id_fun_continuous name-judgement "continuous_fun" integral
+     analysis)
+    (id_fun_continuous name-judgement "continuous_fun"
+     integral_split_scaf analysis)
+    (id_fun_continuous name-judgement "continuous_fun" integral_step
+     analysis)
+    (id_fun_continuous name-judgement "continuous_fun" unif_cont_fun
+     analysis)
+    (id_fun_continuous name-judgement "continuous_fun"
+     continuous_functions analysis)
+    (id_fun_continuous name-judgement "continuous_fun"
+     indefinite_integral analysis)
+    (derivable_id name-judgement "deriv_fun" derivatives analysis)
+    (id_fun_continuous name-judgement "continuous_fun"
+     lim_of_composition analysis)
     (inverse_image const-decl "set[D]" function_image nil)
     (ball_is_cal_M formula-decl nil lebesgue_def nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -1555,14 +1579,14 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (ball const-decl "set[T]" metric_space_def metric_space)
     (open_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
+     metric_space)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -1576,8 +1600,10 @@
     (I const-decl "(bijective?[T, T])" identity nil)
     (bijective? const-decl "bool" functions nil)
     (measurable_def2 formula-decl nil measure_space_def
-     "measure_integration/"))
-   nil))
+     measure_integration))
+   nil
+   (I_is_measurable subtype "identity[real].I"
+    "measurable_function[real, cal_M]")))
  (continuous_is_measurable 0
   (continuous_is_measurable-1 nil 3475936049
    ("" (skolem + "f!1")
@@ -1605,10 +1631,10 @@
         nil))
       nil))
     nil)
-   ((continuous type-eq-decl nil continuity_def "topology/")
-    (continuous? const-decl "bool" continuity_def "topology/")
+   ((continuous type-eq-decl nil continuity_def topology)
+    (continuous? const-decl "bool" continuity_def topology)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
+     metric_space)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -1628,50 +1654,56 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology metric_space)
+    (metric_space_is_hausdorff name-judgement "hausdorff" real_topology
+     metric_space)
     (continuous_is_borel judgement-tcc nil borel_functions
-     "measure_integration/")
-    (id_fun_continuous name-judgement "continuous_fun[T2]"
-     lim_of_composition "analysis/")
-    (derivable_id name-judgement "deriv_fun" derivatives "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]"
-     indefinite_integral "analysis/")
+     measure_integration)
     (id_fun_continuous name-judgement "continuous_fun"
-     continuous_functions "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]" unif_cont_fun
-     "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]" integral_step
-     "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]"
-     integral_split_scaf "analysis/")
-    (id_fun_continuous name-judgement "continuous_fun[T]" integral
-     "analysis/")
+     lim_of_composition analysis)
+    (derivable_id name-judgement "deriv_fun" derivatives analysis)
+    (id_fun_continuous name-judgement "continuous_fun"
+     indefinite_integral analysis)
+    (id_fun_continuous name-judgement "continuous_fun"
+     continuous_functions analysis)
+    (id_fun_continuous name-judgement "continuous_fun" unif_cont_fun
+     analysis)
+    (id_fun_continuous name-judgement "continuous_fun" integral_step
+     analysis)
+    (id_fun_continuous name-judgement "continuous_fun"
+     integral_split_scaf analysis)
+    (id_fun_continuous name-judgement "continuous_fun" integral
+     analysis)
     (I_is_measurable name-judgement "measurable_function" lebesgue_def
      nil)
     (I_is_continuous name-judgement
      "continuous[real, metric_induced_topology, real, metric_induced_topology]"
      lebesgue_def nil)
     (borel_comp_measurable_is_measurable judgement-tcc nil
-     measure_space "measure_integration/")
+     measure_space measure_integration)
     (measurable_function? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_function nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (bijective? const-decl "bool" functions nil)
     (I const-decl "(bijective?[T, T])" identity nil)
     (borel_function? const-decl "bool" borel_functions
-     "measure_integration/")
+     measure_integration)
     (borel_function type-eq-decl nil borel_functions
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
     (O const-decl "T3" function_props nil)
     (I_is_measurable judgement-tcc nil lebesgue_def nil))
-   nil))
+   nil
+   (continuous_is_measurable subtype "lebesgue_def.x"
+    "measurable_function[real, cal_M]")))
  (singleton_is_measurable 0
   (singleton_is_measurable-1 nil 3475936361
    ("" (skosimp)
@@ -1680,15 +1712,15 @@
         (("" (expand "member") (("" (propax) nil nil)) nil)) nil))
       nil))
     nil)
-   ((nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
+   ((singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
+    (nonempty_singleton_finite application-judgement
+     "non_empty_finite_set[real]" integral_def analysis)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (member const-decl "bool" sets nil)
     (singleton_is_cal_M formula-decl nil lebesgue_def nil)
     (number nonempty-type-decl nil numbers nil)
@@ -1698,7 +1730,10 @@
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil))
-   nil))
+   nil
+   (singleton_is_measurable subtype
+    "sets[real].singleton(lebesgue_def.x)"
+    "measurable_set[real, cal_M]")))
  (open_is_measurable 0
   (open_is_measurable-1 nil 3475936361
    ("" (skosimp)
@@ -1720,21 +1755,20 @@
       nil))
     nil)
    ((measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (member const-decl "bool" sets nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (open const-decl "open_interval" real_topology "metric_space/")
+    (open const-decl "open_interval" real_topology metric_space)
     (open_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
+     metric_space)
+    (ball const-decl "set[T]" metric_space_def metric_space)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (set type-eq-decl nil sets nil)
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
+    (ball_is_metric_open application-judgement "metric_open"
+     real_topology metric_space)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1763,7 +1797,10 @@
     (< const-decl "bool" reals nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields
        nil))
-   nil))
+   nil
+   (open_is_measurable subtype
+    "real_topology.open(lebesgue_def.a, lebesgue_def.b)"
+    "measurable_set[real, cal_M]")))
  (closed_is_measurable 0
   (closed_is_measurable-1 nil 3475936361
    ("" (skosimp)
@@ -1784,17 +1821,17 @@
       nil))
     nil)
    ((measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (member const-decl "bool" sets nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (closed const-decl "closed_interval" real_topology "metric_space/")
+    (closed const-decl "closed_interval" real_topology metric_space)
     (closed_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (closed_ball const-decl "closed" real_topology "metric_space/")
-    (closed nonempty-type-eq-decl nil topology "topology/")
-    (closed? const-decl "bool" topology "topology/")
+     metric_space)
+    (closed_ball const-decl "closed" real_topology metric_space)
+    (closed nonempty-type-eq-decl nil topology topology)
+    (closed? const-decl "bool" topology topology)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
+     metric_space)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
@@ -1827,7 +1864,10 @@
     (<= const-decl "bool" reals nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields
        nil))
-   nil))
+   nil
+   (closed_is_measurable subtype
+    "real_topology.closed(lebesgue_def.a, lebesgue_def.b)"
+    "measurable_set[real, cal_M]")))
  (finite_is_measurable 0
   (finite_is_measurable-1 nil 3475936361
    (""
@@ -1952,28 +1992,26 @@
     (nonempty? const-decl "bool" sets nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (finite_rest application-judgement "finite_set[real]" integral_def
-     "analysis/")
+     analysis)
     (choose_rest formula-decl nil sets_lemmas nil)
     (add_as_union formula-decl nil sets_lemmas nil)
     (nonempty_finite_union2 application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
-    (finite_union application-judgement "finite_set[real]" integral_def
-     "analysis/")
+     "non_empty_finite_set[real]" integral_def analysis)
     (sigma_algebra_union formula-decl nil sigma_algebra
-     "measure_integration/")
+     measure_integration)
     (singleton? const-decl "bool" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
     (member const-decl "bool" sets nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
+    (singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
     (singleton_is_measurable application-judgement "measurable_set"
      lebesgue_def nil)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
+     "non_empty_finite_set[real]" integral_def analysis)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
     (choose const-decl "(p)" sets nil)
     (singleton_is_measurable judgement-tcc nil lebesgue_def nil)
     (rest const-decl "set" sets nil)
@@ -1981,36 +2019,32 @@
     (nonempty_card formula-decl nil finite_sets nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (subset_algebra_emptyset name-judgement "(lebesgue_measurable)"
+    (subset_algebra_emptyset name-judgement "(S)" real_lebesgue_scaf
+     nil)
+    (subset_algebra_emptyset name-judgement "(S)" real_borel
+     measure_integration)
+    (subset_algebra_emptyset name-judgement "(S)" real_lebesgue_scaf
+     nil)
+    (outer_negligible_emptyset name-judgement "outer_negligible"
      real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(borel?)" real_borel
-     "measure_integration/")
-    (subset_algebra_emptyset name-judgement "(induced_sigma_algebra)"
-     real_lebesgue_scaf nil)
-    (outer_negligible_emptyset name-judgement
-     "outer_negligible[real, lebesgue_outer_measure]"
-     real_lebesgue_scaf nil)
-    (emptyset_is_clopen name-judgement
-     "clopen[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (emptyset_is_compact name-judgement
-     "compact[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (subset_algebra_emptyset name-judgement "(cal_M)" lebesgue_def nil)
-    (null_emptyset name-judgement "null_set[real, cal_M, lambda_]"
-     lebesgue_def nil)
+    (emptyset_is_clopen name-judgement "clopen" real_topology
+     metric_space)
+    (emptyset_is_compact name-judgement "compact" real_topology
+     metric_space)
+    (subset_algebra_emptyset name-judgement "(S)" lebesgue_def nil)
+    (null_emptyset name-judgement "null_set" lebesgue_def nil)
     (finite_emptyset name-judgement "finite_set[real]" integral_def
-     "analysis/")
+     analysis)
     (finite_emptyset name-judgement "finite_set[T]" step_fun_props
-     "analysis/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
+     analysis)
+    (finite_emptyset name-judgement "finite_set" countable_setofsets
+     sets_aux)
+    (finite_emptyset name-judgement "finite_set" countable_props
+     sets_aux)
     (finite_emptyset name-judgement "finite_set[T]" bounded_nats
-     "orders/")
-    (finite_emptyset name-judgement "finite_set[T]" sigma_countable
-     "sigma_set/")
+     orders)
+    (finite_emptyset name-judgement "finite_set" sigma_countable
+     sigma_set)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
     (card_is_0 formula-decl nil finite_sets nil)
     (nat_induction formula-decl nil naturalnumbers nil)
@@ -2042,13 +2076,15 @@
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/"))
-   nil))
+     measure_integration))
+   nil
+   (finite_is_measurable subtype "lebesgue_def.x"
+    "measurable_set[real, cal_M]")))
  (countable_is_measurable 0
   (countable_is_measurable-1 nil 3475936581
    ("" (skosimp)
@@ -2125,8 +2161,8 @@
         nil))
       nil))
     nil)
-   ((countable_set nonempty-type-eq-decl nil countability "sets_aux/")
-    (is_countable const-decl "bool" countability "sets_aux/")
+   ((countable_set nonempty-type-eq-decl nil countability sets_aux)
+    (is_countable const-decl "bool" countability sets_aux)
     (set type-eq-decl nil sets nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
@@ -2145,9 +2181,9 @@
      nil)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (singleton const-decl "(singleton?)" sets nil)
@@ -2155,26 +2191,24 @@
     (singleton? const-decl "bool" sets nil)
     (sequence type-eq-decl nil sequences nil)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_IUnion judgement-tcc nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (inverse? const-decl "bool" function_inverse_def nil)
     (comp_inverse_left_alt formula-decl nil function_inverse_def nil)
     (x!2 skolem-const-decl "real" lebesgue_def nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (IUnion const-decl "set[T]" indexed_sets nil)
     (singleton_is_measurable judgement-tcc nil lebesgue_def nil)
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
-    (singleton_is_measurable application-judgement "measurable_set"
-     lebesgue_def nil)
+     "non_empty_finite_set[real]" integral_def analysis)
+    (singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
     (exists1 const-decl "bool" exists1 nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
@@ -2183,9 +2217,11 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (bijective? const-decl "bool" functions nil)
-    (is_countably_infinite const-decl "bool" countability "sets_aux/")
-    (countable_card formula-decl nil countable_props "sets_aux/"))
-   nil))
+    (is_countably_infinite const-decl "bool" countability sets_aux)
+    (countable_card formula-decl nil countable_props sets_aux))
+   nil
+   (countable_is_measurable subtype "lebesgue_def.x"
+    "measurable_set[real, cal_M]")))
  (singleton_is_null 0
   (singleton_is_null-1 nil 3475936361
    ("" (skosimp)
@@ -2200,19 +2236,17 @@
         nil))
       nil))
     nil)
-   ((singleton_is_measurable application-judgement "measurable_set"
-     lebesgue_def nil)
+   ((singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
+     "non_empty_finite_set[real]" integral_def analysis)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
-    (null_set? const-decl "bool" measure_theory "measure_integration/")
-    (mu_fin? const-decl "bool" measure_props "measure_integration/")
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
+    (null_set? const-decl "bool" measure_theory measure_integration)
+    (mu_fin? const-decl "bool" measure_props measure_integration)
     (lambda_singleton formula-decl nil lebesgue_def nil)
-    (mu const-decl "nnreal" measure_props "measure_integration/")
+    (mu const-decl "nnreal" measure_props measure_integration)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
@@ -2221,7 +2255,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (singleton_is_measurable judgement-tcc nil lebesgue_def nil))
-   nil))
+   nil
+   (singleton_is_null subtype "sets[real].singleton(lebesgue_def.x)"
+    "null_set[real, cal_M, lambda_]")))
  (finite_is_null 0
   (finite_is_null-1 nil 3475936361
    (""
@@ -2311,28 +2347,25 @@
     (nonempty? const-decl "bool" sets nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (finite_rest application-judgement "finite_set[real]" integral_def
-     "analysis/")
+     analysis)
     (choose_rest formula-decl nil sets_lemmas nil)
     (add_as_union formula-decl nil sets_lemmas nil)
     (nonempty_finite_union2 application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
-    (finite_union application-judgement "finite_set[real]" integral_def
-     "analysis/")
-    (null_union judgement-tcc nil measure_theory
-     "measure_integration/")
+     "non_empty_finite_set[real]" integral_def analysis)
+    (null_union judgement-tcc nil measure_theory measure_integration)
     (null_set nonempty-type-eq-decl nil measure_theory
-     "measure_integration/")
+     measure_integration)
     (singleton? const-decl "bool" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
+    (singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
     (singleton_is_null application-judgement "null_set" lebesgue_def
      nil)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
+     "non_empty_finite_set[real]" integral_def analysis)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
     (choose const-decl "(p)" sets nil)
     (singleton_is_null judgement-tcc nil lebesgue_def nil)
     (rest const-decl "set" sets nil)
@@ -2341,38 +2374,34 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (null_emptyset judgement-tcc nil measure_theory
-     "measure_integration/")
+     measure_integration)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" sigma_countable
-     "sigma_set/")
+    (finite_emptyset name-judgement "finite_set" sigma_countable
+     sigma_set)
     (finite_emptyset name-judgement "finite_set[T]" bounded_nats
-     "orders/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
+     orders)
+    (finite_emptyset name-judgement "finite_set" countable_props
+     sets_aux)
+    (finite_emptyset name-judgement "finite_set" countable_setofsets
+     sets_aux)
     (finite_emptyset name-judgement "finite_set[T]" step_fun_props
-     "analysis/")
+     analysis)
     (finite_emptyset name-judgement "finite_set[real]" integral_def
-     "analysis/")
-    (null_emptyset name-judgement "null_set[real, cal_M, lambda_]"
-     lebesgue_def nil)
-    (subset_algebra_emptyset name-judgement "(cal_M)" lebesgue_def nil)
-    (emptyset_is_compact name-judgement
-     "compact[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (emptyset_is_clopen name-judgement
-     "clopen[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (outer_negligible_emptyset name-judgement
-     "outer_negligible[real, lebesgue_outer_measure]"
+     analysis)
+    (null_emptyset name-judgement "null_set" lebesgue_def nil)
+    (subset_algebra_emptyset name-judgement "(S)" lebesgue_def nil)
+    (emptyset_is_compact name-judgement "compact" real_topology
+     metric_space)
+    (emptyset_is_clopen name-judgement "clopen" real_topology
+     metric_space)
+    (outer_negligible_emptyset name-judgement "outer_negligible"
      real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(induced_sigma_algebra)"
-     real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(borel?)" real_borel
-     "measure_integration/")
-    (subset_algebra_emptyset name-judgement "(lebesgue_measurable)"
-     real_lebesgue_scaf nil)
+    (subset_algebra_emptyset name-judgement "(S)" real_lebesgue_scaf
+     nil)
+    (subset_algebra_emptyset name-judgement "(S)" real_borel
+     measure_integration)
+    (subset_algebra_emptyset name-judgement "(S)" real_lebesgue_scaf
+     nil)
     (card_is_0 formula-decl nil finite_sets nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
@@ -2403,22 +2432,23 @@
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (nnreal type-eq-decl nil real_types nil)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
-    (null_set? const-decl "bool" measure_theory
-     "measure_integration/"))
-   nil))
+    (null_set? const-decl "bool" measure_theory measure_integration))
+   nil
+   (finite_is_null subtype "lebesgue_def.x"
+    "null_set[real, cal_M, lambda_]")))
  (countable_is_null 0
   (countable_is_null-1 nil 3475936361
    ("" (skosimp)
@@ -2499,8 +2529,8 @@
         nil))
       nil))
     nil)
-   ((countable_set nonempty-type-eq-decl nil countability "sets_aux/")
-    (is_countable const-decl "bool" countability "sets_aux/")
+   ((countable_set nonempty-type-eq-decl nil countability sets_aux)
+    (is_countable const-decl "bool" countability sets_aux)
     (set type-eq-decl nil sets nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
@@ -2519,17 +2549,17 @@
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (nnreal type-eq-decl nil real_types nil)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (singleton const-decl "(singleton?)" sets nil)
@@ -2537,10 +2567,9 @@
     (singleton? const-decl "bool" sets nil)
     (sequence type-eq-decl nil sequences nil)
     (null_set nonempty-type-eq-decl nil measure_theory
-     "measure_integration/")
-    (null_set? const-decl "bool" measure_theory "measure_integration/")
-    (null_IUnion judgement-tcc nil measure_theory
-     "measure_integration/")
+     measure_integration)
+    (null_set? const-decl "bool" measure_theory measure_integration)
+    (null_IUnion judgement-tcc nil measure_theory measure_integration)
     (x!1 skolem-const-decl "countable_set[real]" lebesgue_def nil)
     (x!2 skolem-const-decl "real" lebesgue_def nil)
     (comp_inverse_left_alt formula-decl nil function_inverse_def nil)
@@ -2548,15 +2577,13 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (IUnion const-decl "set[T]" indexed_sets nil)
     (singleton_is_null judgement-tcc nil lebesgue_def nil)
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
-    (singleton_is_null application-judgement "null_set" lebesgue_def
-     nil)
+     "non_empty_finite_set[real]" integral_def analysis)
+    (singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
     (exists1 const-decl "bool" exists1 nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
@@ -2565,9 +2592,11 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (bijective? const-decl "bool" functions nil)
-    (is_countably_infinite const-decl "bool" countability "sets_aux/")
-    (countable_card formula-decl nil countable_props "sets_aux/"))
-   nil))
+    (is_countably_infinite const-decl "bool" countability sets_aux)
+    (countable_card formula-decl nil countable_props sets_aux))
+   nil
+   (countable_is_null subtype "lebesgue_def.x"
+    "null_set[real, cal_M, lambda_]")))
  (integrable_singleton 0
   (integrable_singleton-1 nil 3475937385
    ("" (skosimp)
@@ -2592,22 +2621,27 @@
     (integrable_phi_closed formula-decl nil lebesgue_def nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (metric_space_is_hausdorff name-judgement "hausdorff" real_topology
+     metric_space)
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology metric_space)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (singleton const-decl "(singleton?)" sets nil)
     (singleton? const-decl "bool" sets nil)
-    (closed const-decl "closed_interval" real_topology "metric_space/")
+    (closed const-decl "closed_interval" real_topology metric_space)
     (closed_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (closed_ball const-decl "closed" real_topology "metric_space/")
-    (closed nonempty-type-eq-decl nil topology "topology/")
-    (closed? const-decl "bool" topology "topology/")
+     metric_space)
+    (closed_ball const-decl "closed" real_topology metric_space)
+    (closed nonempty-type-eq-decl nil topology topology)
+    (closed? const-decl "bool" topology topology)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
+     metric_space)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -2621,19 +2655,273 @@
     (>= const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (set type-eq-decl nil sets nil)
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
-    (singleton_is_null application-judgement "null_set" lebesgue_def
-     nil)
+     "non_empty_finite_set[real]" integral_def analysis)
+    (singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
     (closed_is_measurable application-judgement "measurable_set"
      lebesgue_def nil))
    shostak))
  (integrable_finite 0
+  (integrable_finite-2 nil 3782585500
+   (""
+    (case "forall (n:nat,X: finite_set[real]): card(X) <= n => integral[reals.real,cal_M,lambda_].integrable?(phi(X))")
+    (("1" (skosimp)
+      (("1" (inst - "card(X!1)" "X!1") (("1" (assert) nil nil)) nil))
+      nil)
+     ("2" (hide 2)
+      (("2" (induct "n")
+        (("1" (skosimp)
+          (("1" (expand "<=")
+            (("1" (split)
+              (("1" (assert) nil nil)
+               ("2" (rewrite "card_is_0")
+                (("2" (replace -1)
+                  (("2" (hide -1)
+                    (("2"
+                      (case-replace "phi(emptyset[real])=lambda x: 0")
+                      (("1" (rewrite "integrable_zero") nil nil)
+                       ("2" (apply-extensionality :hide? t)
+                        (("2" (expand "emptyset")
+                          (("2" (expand "phi")
+                            (("2" (expand "member")
+                              (("2" (propax) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (skosimp*)
+          (("2" (expand "<=" -2)
+            (("2" (split)
+              (("1" (inst - "X!1") (("1" (assert) nil nil)) nil)
+               ("2" (lemma "nonempty_card[real]" ("S" "X!1"))
+                (("2" (assert)
+                  (("2" (lemma "card_rest[real]" ("S" "X!1"))
+                    (("2" (split)
+                      (("1" (inst - "rest[real](X!1)")
+                        (("1" (assert)
+                          (("1" (lemma "choose_rest[real]" ("a" "X!1"))
+                            (("1" (split)
+                              (("1"
+                                (rewrite "add_as_union")
+                                (("1"
+                                  (lemma
+                                   "integrable_singleton"
+                                   ("x" "choose[real](X!1)"))
+                                  (("1"
+                                    (replace -2 1 rl)
+                                    (("1"
+                                      (lemma
+                                       "integrable_add"
+                                       ("f1"
+                                        "phi(rest[real](X!1))"
+                                        "f2"
+                                        "phi(singleton[real](choose[real](X!1)))"))
+                                      (("1"
+                                        (expand "+" -1)
+                                        (("1"
+                                          (case-replace
+                                           "(LAMBDA (x: real):
+                                  phi(rest[real](X!1))(x) +
+                                   phi(singleton[real](choose[real](X!1)))(x))=phi(union[real](rest[real](X!1), singleton[real](choose[real](X!1))))")
+                                          (("1"
+                                            (hide -1 -2 2)
+                                            (("1"
+                                              (apply-extensionality
+                                               :hide?
+                                               t)
+                                              (("1"
+                                                (expand "phi")
+                                                (("1"
+                                                  (expand "union")
+                                                  (("1"
+                                                    (expand "member")
+                                                    (("1"
+                                                      (expand
+                                                       "singleton")
+                                                      (("1"
+                                                        (case-replace
+                                                         "rest[real](X!1)(x!1)")
+                                                        (("1"
+                                                          (lemma
+                                                           "choose_not_member[real]"
+                                                           ("a" "X!1"))
+                                                          (("1"
+                                                            (split)
+                                                            (("1"
+                                                              (assert)
+                                                              nil
+                                                              nil)
+                                                             ("2"
+                                                              (expand
+                                                               "nonempty?")
+                                                              (("2"
+                                                                (assert)
+                                                                nil
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (assert)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (expand "nonempty?")
+                                (("2" (propax) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (expand "nonempty?")
+                        (("2" (propax) nil nil)) nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((phi const-decl "nat" measure_space measure_integration)
+    (integrable? const-decl "bool" integral measure_integration)
+    (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
+     lebesgue_def nil)
+    (complete_sigma_finite type-eq-decl nil measure_def
+     measure_integration)
+    (complete_sigma_finite? const-decl "bool" measure_def
+     measure_integration)
+    (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
+     extended_nnreal)
+    (nnreal type-eq-decl nil real_types nil)
+    (cal_M const-decl "sigma_algebra" lebesgue_def nil)
+    (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
+     measure_integration)
+    (sigma_algebra? const-decl "bool" subset_algebra_def
+     measure_integration)
+    (setofsets type-eq-decl nil sets nil)
+    (setof type-eq-decl nil defined_types nil)
+    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
+    (Card const-decl "nat" finite_sets nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (<= const-decl "bool" reals nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (finite_set type-eq-decl nil finite_sets nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (set type-eq-decl nil sets nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (isf_phi application-judgement "isf" lebesgue_def nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (pred type-eq-decl nil defined_types nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (card_is_0 formula-decl nil finite_sets nil)
+    (subset_algebra_emptyset name-judgement "(S)" real_lebesgue_scaf
+     nil)
+    (subset_algebra_emptyset name-judgement "(S)" real_borel
+     measure_integration)
+    (subset_algebra_emptyset name-judgement "(S)" real_lebesgue_scaf
+     nil)
+    (outer_negligible_emptyset name-judgement "outer_negligible"
+     real_lebesgue_scaf nil)
+    (emptyset_is_clopen name-judgement "clopen" real_topology
+     metric_space)
+    (emptyset_is_compact name-judgement "compact" real_topology
+     metric_space)
+    (subset_algebra_emptyset name-judgement "(S)" lebesgue_def nil)
+    (null_emptyset name-judgement "null_set" lebesgue_def nil)
+    (finite_emptyset name-judgement "finite_set[real]" integral_def
+     analysis)
+    (finite_emptyset name-judgement "finite_set[T]" step_fun_props
+     analysis)
+    (finite_emptyset name-judgement "finite_set" countable_setofsets
+     sets_aux)
+    (finite_emptyset name-judgement "finite_set" countable_props
+     sets_aux)
+    (finite_emptyset name-judgement "finite_set[T]" bounded_nats
+     orders)
+    (finite_emptyset name-judgement "finite_set" sigma_countable
+     sigma_set)
+    (finite_emptyset name-judgement "finite_set" finite_sets nil)
+    (member const-decl "bool" sets nil)
+    (integrable_zero formula-decl nil integral measure_integration)
+    (emptyset const-decl "set" sets nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (nonempty_card formula-decl nil finite_sets nil)
+    (card_rest formula-decl nil finite_sets nil)
+    (finite_rest application-judgement "finite_set[real]" integral_def
+     analysis)
+    (rest const-decl "set" sets nil)
+    (choose_rest formula-decl nil sets_lemmas nil)
+    (choose const-decl "(p)" sets nil)
+    (nonempty? const-decl "bool" sets nil)
+    (add_as_union formula-decl nil sets_lemmas nil)
+    (singleton_is_closed application-judgement
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
+    (nonempty_singleton_finite application-judgement
+     "non_empty_finite_set[real]" integral_def analysis)
+    (singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
+    (nonempty_finite_union2 application-judgement
+     "non_empty_finite_set[real]" integral_def analysis)
+    (+ const-decl "[T -> real]" real_fun_ops reals)
+    (choose_not_member formula-decl nil sets_lemmas nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (union const-decl "set" sets nil)
+    (singleton const-decl "(singleton?)" sets nil)
+    (singleton? const-decl "bool" sets nil)
+    (integrable nonempty-type-eq-decl nil integral measure_integration)
+    (integrable_add judgement-tcc nil integral measure_integration)
+    (integrable_singleton formula-decl nil lebesgue_def nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil))
+   nil)
   (integrable_finite-1 nil 3475940248
    (""
     (case "forall (n:nat,X: finite_set[real]): card(X) <= n => integrable?(phi(X))")
@@ -2783,9 +3071,8 @@
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (integrable_singleton formula-decl nil lebesgue_def nil)
-    (integrable_add judgement-tcc nil integral "measure_integration/")
-    (integrable nonempty-type-eq-decl nil integral
-     "measure_integration/")
+    (integrable_add judgement-tcc nil integral measure_integration)
+    (integrable nonempty-type-eq-decl nil integral measure_integration)
     (singleton? const-decl "bool" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
     (union const-decl "set" sets nil)
@@ -2794,65 +3081,23 @@
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (choose_not_member formula-decl nil sets_lemmas nil)
-    (+ const-decl "[T -> real]" real_fun_ops "reals/")
-    (finite_union application-judgement "finite_set[real]" integral_def
-     "analysis/")
-    (nonempty_finite_union2 application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
+    (+ const-decl "[T -> real]" real_fun_ops reals) nil nil
     (singleton_is_null application-judgement "null_set" lebesgue_def
      nil)
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
-    (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
-    (add_as_union formula-decl nil sets_lemmas nil)
+    nil nil (add_as_union formula-decl nil sets_lemmas nil)
     (nonempty? const-decl "bool" sets nil)
     (choose const-decl "(p)" sets nil)
     (choose_rest formula-decl nil sets_lemmas nil)
-    (rest const-decl "set" sets nil)
-    (finite_rest application-judgement "finite_set[real]" integral_def
-     "analysis/")
+    (rest const-decl "set" sets nil) nil
     (card_rest formula-decl nil finite_sets nil)
     (nonempty_card formula-decl nil finite_sets nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (emptyset const-decl "set" sets nil)
-    (phi_is_simple application-judgement "simple[real, cal_M]"
-     lebesgue_def nil)
-    (integrable_zero formula-decl nil integral "measure_integration/")
+    (emptyset const-decl "set" sets nil) nil
+    (integrable_zero formula-decl nil integral measure_integration)
     (member const-decl "bool" sets nil)
-    (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" sigma_countable
-     "sigma_set/")
-    (finite_emptyset name-judgement "finite_set[T]" bounded_nats
-     "orders/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" step_fun_props
-     "analysis/")
-    (finite_emptyset name-judgement "finite_set[real]" integral_def
-     "analysis/")
-    (null_emptyset name-judgement "null_set[real, cal_M, lambda_]"
-     lebesgue_def nil)
-    (subset_algebra_emptyset name-judgement "(cal_M)" lebesgue_def nil)
-    (emptyset_is_compact name-judgement
-     "compact[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (emptyset_is_clopen name-judgement
-     "clopen[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (outer_negligible_emptyset name-judgement
-     "outer_negligible[real, lebesgue_outer_measure]"
-     real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(induced_sigma_algebra)"
-     real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(borel?)" real_borel
-     "measure_integration/")
-    (subset_algebra_emptyset name-judgement "(lebesgue_measurable)"
-     real_lebesgue_scaf nil)
+    (finite_emptyset name-judgement "finite_set" finite_sets nil) nil
+    nil nil nil nil nil nil nil nil nil nil nil nil nil
     (card_is_0 formula-decl nil finite_sets nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
@@ -2883,21 +3128,21 @@
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (nnreal type-eq-decl nil real_types nil)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
-    (integrable? const-decl "bool" integral "measure_integration/")
-    (phi const-decl "nat" measure_space "measure_integration/"))
+    (integrable? const-decl "bool" integral measure_integration)
+    (phi const-decl "nat" measure_space measure_integration))
    shostak))
  (integrable_countable 0
   (integrable_countable-1 nil 3475940817
@@ -2914,42 +3159,36 @@
       nil))
     nil)
    ((countable_is_null judgement-tcc nil lebesgue_def nil)
-    (null_set? const-decl "bool" measure_theory "measure_integration/")
-    (isf_is_integrable judgement-tcc nil integral
-     "measure_integration/")
-    (isf? const-decl "bool" isf "measure_integration/")
-    (isf nonempty-type-eq-decl nil isf "measure_integration/")
+    (null_set? const-decl "bool" measure_theory measure_integration)
+    (isf_phi application-judgement "isf" lebesgue_def nil)
+    (isf_is_integrable judgement-tcc nil integral measure_integration)
+    (isf? const-decl "bool" isf measure_integration)
+    (isf nonempty-type-eq-decl nil isf measure_integration)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (phi const-decl "nat" measure_space "measure_integration/")
+    (phi const-decl "nat" measure_space measure_integration)
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (>= const-decl "bool" reals nil)
     (nnreal type-eq-decl nil real_types nil)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
-    (isf_phi judgement-tcc nil isf "measure_integration/")
-    (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
-    (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
-    (mu_fin? const-decl "bool" measure_props "measure_integration/")
-    (countable_set nonempty-type-eq-decl nil countability "sets_aux/")
-    (is_countable const-decl "bool" countability "sets_aux/")
+    (countable_set nonempty-type-eq-decl nil countability sets_aux)
+    (is_countable const-decl "bool" countability sets_aux)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -2960,18 +3199,6 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    shostak))
- (integral_singleton_TCC1 0
-  (integral_singleton_TCC1-1 nil 3475936361
-   ("" (skosimp) (("" (rewrite "integrable_singleton") nil nil)) nil)
-   ((integrable_singleton formula-decl nil lebesgue_def nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil))
-   nil))
  (integral_singleton 0
   (integral_singleton-1 nil 3475941153
    ("" (skosimp)
@@ -3006,18 +3233,24 @@
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (metric_induced_topology_is_second_countable name-judgement
+     "second_countable" real_topology metric_space)
+    (metric_space_is_hausdorff name-judgement "hausdorff" real_topology
+     metric_space)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
+    (isf_phi application-judgement "isf" lebesgue_def nil)
     (singleton const-decl "(singleton?)" sets nil)
     (singleton? const-decl "bool" sets nil)
-    (closed const-decl "closed_interval" real_topology "metric_space/")
+    (closed const-decl "closed_interval" real_topology metric_space)
     (closed_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (closed_ball const-decl "closed" real_topology "metric_space/")
-    (closed nonempty-type-eq-decl nil topology "topology/")
-    (closed? const-decl "bool" topology "topology/")
+     metric_space)
+    (closed_ball const-decl "closed" real_topology metric_space)
+    (closed nonempty-type-eq-decl nil topology topology)
+    (closed? const-decl "bool" topology topology)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
+     metric_space)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -3031,34 +3264,16 @@
     (>= const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (set type-eq-decl nil sets nil)
-    (singleton_is_compact application-judgement
-     "compact[real, metric_induced_topology]" real_intervals nil)
     (singleton_is_closed application-judgement
-     "closed[real, (metric_induced_topology)]" convergence_aux
-     "metric_space/")
+     "closed[real, (metric_induced_topology)]" real_topology
+     metric_space)
     (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[real]" integral_def "analysis/")
-    (singleton_is_null application-judgement "null_set" lebesgue_def
-     nil)
+     "non_empty_finite_set[real]" integral_def analysis)
+    (singleton_is_compact application-judgement "compact" real_topology
+     metric_space)
     (closed_is_measurable application-judgement "measurable_set"
      lebesgue_def nil))
    shostak))
- (integral_finite_TCC1 0
-  (integral_finite_TCC1-1 nil 3475936361
-   ("" (skosimp) (("" (rewrite "integrable_finite") nil nil)) nil)
-   ((integrable_finite formula-decl nil lebesgue_def nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (finite_set type-eq-decl nil finite_sets nil))
-   nil))
  (integral_finite 0
   (integral_finite-1 nil 3475945770
    ("" (skosimp)
@@ -3071,28 +3286,28 @@
       nil))
     nil)
    ((finite_is_null judgement-tcc nil lebesgue_def nil)
-    (null_set? const-decl "bool" measure_theory "measure_integration/")
-    (integral_phi formula-decl nil integral "measure_integration/")
+    (null_set? const-decl "bool" measure_theory measure_integration)
+    (integral_phi formula-decl nil integral measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
-    (mu_fin? const-decl "bool" measure_props "measure_integration/")
+     measure_integration)
+    (mu_fin? const-decl "bool" measure_props measure_integration)
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (>= const-decl "bool" reals nil)
     (nnreal type-eq-decl nil real_types nil)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
     (finite_set type-eq-decl nil finite_sets nil)
@@ -3107,22 +3322,6 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    shostak))
- (integral_countable_TCC1 0
-  (integral_countable_TCC1-1 nil 3475936581
-   ("" (skosimp) (("" (rewrite "integrable_countable") nil nil)) nil)
-   ((integrable_countable formula-decl nil lebesgue_def nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (is_countable const-decl "bool" countability "sets_aux/")
-    (countable_set nonempty-type-eq-decl nil countability "sets_aux/"))
-   nil))
  (integral_countable 0
   (integral_countable-1 nil 3475945816
    ("" (skosimp)
@@ -3135,32 +3334,32 @@
       nil))
     nil)
    ((countable_is_null judgement-tcc nil lebesgue_def nil)
-    (null_set? const-decl "bool" measure_theory "measure_integration/")
-    (integral_phi formula-decl nil integral "measure_integration/")
+    (null_set? const-decl "bool" measure_theory measure_integration)
+    (integral_phi formula-decl nil integral measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
-    (mu_fin? const-decl "bool" measure_props "measure_integration/")
+     measure_integration)
+    (mu_fin? const-decl "bool" measure_props measure_integration)
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (>= const-decl "bool" reals nil)
     (nnreal type-eq-decl nil real_types nil)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
-    (countable_set nonempty-type-eq-decl nil countability "sets_aux/")
-    (is_countable const-decl "bool" countability "sets_aux/")
+    (countable_set nonempty-type-eq-decl nil countability sets_aux)
+    (is_countable const-decl "bool" countability sets_aux)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -3518,9 +3717,9 @@
       nil))
     nil)
    ((bounded_open_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
+     metric_space)
     (bounded_open_interval? const-decl "bool" real_topology
-     "metric_space/")
+     metric_space)
     (set type-eq-decl nil sets nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
@@ -3531,41 +3730,40 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (bounded_interval? const-decl "bool" real_topology "metric_space/")
+    (bounded_interval? const-decl "bool" real_topology metric_space)
     (nonempty? const-decl "bool" sets nil)
     (sup const-decl "{x | least_upper_bound(<=)(x, Su)}" bounded_reals
-     "reals/")
-    (<= const-decl "bool" reals nil)
-    (least_upper_bound const-decl "bool" bound_defs "reals/")
-    (pred type-eq-decl nil defined_types nil)
-    (sup_set type-eq-decl nil bounded_reals "reals/")
-    (above_bounded const-decl "bool" bounded_reals "reals/")
+         reals)
+    (above_bounded const-decl "bool" bounded_reals reals)
     (setof type-eq-decl nil defined_types nil)
+    (<= const-decl "bool" reals nil)
+    (least_upper_bound const-decl "bool" bound_defs reals)
+    (pred type-eq-decl nil defined_types nil)
+    (sup_set type-eq-decl nil bounded_reals reals)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (lower_bound const-decl "bool" bound_defs "reals/")
+    (lower_bound const-decl "bool" bound_defs reals)
     (< const-decl "bool" reals nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (r!1 skolem-const-decl "posreal" lebesgue_def nil)
     (z!1 skolem-const-decl "(b!1)" lebesgue_def nil)
     (subset? const-decl "bool" sets nil)
-    (metric_open? const-decl "bool" metric_space_def "metric_space/")
+    (metric_open? const-decl "bool" metric_space_def metric_space)
     (> const-decl "bool" reals nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
+    (ball const-decl "set[T]" metric_space_def metric_space)
+    (ball_is_metric_open application-judgement "metric_open"
+     real_topology metric_space)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (minus_real_is_real application-judgement "real" reals nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (interval? const-decl "bool" real_topology "metric_space/")
+    (interval? const-decl "bool" real_topology metric_space)
     (x!1 skolem-const-decl "real" lebesgue_def nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
@@ -3600,14 +3798,14 @@
      real_types nil)
     (r!1 skolem-const-decl "posreal" lebesgue_def nil)
     (z!1 skolem-const-decl "(b!1)" lebesgue_def nil)
-    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
-    (upper_bound const-decl "bool" bound_defs "reals/")
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (upper_bound const-decl "bool" bound_defs reals)
     (inf const-decl "{x | greatest_lower_bound(<=)(x, Sl)}"
-     bounded_reals "reals/")
-    (greatest_lower_bound const-decl "bool" bound_defs "reals/")
-    (inf_set type-eq-decl nil bounded_reals "reals/")
-    (below_bounded const-decl "bool" bounded_reals "reals/")
-    (bounded? const-decl "bool" real_topology "metric_space/"))
+         bounded_reals reals)
+    (below_bounded const-decl "bool" bounded_reals reals)
+    (greatest_lower_bound const-decl "bool" bound_defs reals)
+    (inf_set type-eq-decl nil bounded_reals reals)
+    (bounded? const-decl "bool" real_topology metric_space))
    shostak))
  (bounded_open_interval_is_measurable 0
   (bounded_open_interval_is_measurable-1 nil 3475937691
@@ -3651,9 +3849,9 @@
       nil))
     nil)
    ((bounded_open_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
+     metric_space)
     (bounded_open_interval? const-decl "bool" real_topology
-     "metric_space/")
+     metric_space)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -3666,61 +3864,58 @@
     (nonempty_bounded_open_interval_prop formula-decl nil lebesgue_def
      nil)
     (measurable_emptyset judgement-tcc nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" sigma_countable
-     "sigma_set/")
+    (finite_emptyset name-judgement "finite_set" sigma_countable
+     sigma_set)
     (finite_emptyset name-judgement "finite_set[T]" bounded_nats
-     "orders/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
+     orders)
+    (finite_emptyset name-judgement "finite_set" countable_props
+     sets_aux)
+    (finite_emptyset name-judgement "finite_set" countable_setofsets
+     sets_aux)
     (finite_emptyset name-judgement "finite_set[T]" step_fun_props
-     "analysis/")
+     analysis)
     (finite_emptyset name-judgement "finite_set[real]" integral_def
-     "analysis/")
-    (null_emptyset name-judgement "null_set[real, cal_M, lambda_]"
-     lebesgue_def nil)
-    (subset_algebra_emptyset name-judgement "(cal_M)" lebesgue_def nil)
-    (emptyset_is_compact name-judgement
-     "compact[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (emptyset_is_clopen name-judgement
-     "clopen[real, (metric_induced_topology)]" real_topology
-     "metric_space/")
-    (outer_negligible_emptyset name-judgement
-     "outer_negligible[real, lebesgue_outer_measure]"
+     analysis)
+    (null_emptyset name-judgement "null_set" lebesgue_def nil)
+    (subset_algebra_emptyset name-judgement "(S)" lebesgue_def nil)
+    (emptyset_is_compact name-judgement "compact" real_topology
+     metric_space)
+    (emptyset_is_clopen name-judgement "clopen" real_topology
+     metric_space)
+    (outer_negligible_emptyset name-judgement "outer_negligible"
      real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(induced_sigma_algebra)"
-     real_lebesgue_scaf nil)
-    (subset_algebra_emptyset name-judgement "(borel?)" real_borel
-     "measure_integration/")
-    (subset_algebra_emptyset name-judgement "(lebesgue_measurable)"
-     real_lebesgue_scaf nil)
+    (subset_algebra_emptyset name-judgement "(S)" real_lebesgue_scaf
+     nil)
+    (subset_algebra_emptyset name-judgement "(S)" real_borel
+     measure_integration)
+    (subset_algebra_emptyset name-judgement "(S)" real_lebesgue_scaf
+     nil)
     (emptyset_is_empty? formula-decl nil sets_lemmas nil)
     (member const-decl "bool" sets nil)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
+     measure_integration)
+    (ball_is_metric_open application-judgement "metric_open"
+     real_topology metric_space)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (ball_is_cal_M formula-decl nil lebesgue_def nil)
-    (bounded? const-decl "bool" real_topology "metric_space/")
-    (bounded_interval? const-decl "bool" real_topology "metric_space/")
+    (bounded? const-decl "bool" real_topology metric_space)
+    (bounded_interval? const-decl "bool" real_topology metric_space)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (bounded_open_interval_is_measurable subtype "lebesgue_def.x"
+    "measurable_set[real, cal_M]")))
  (lebesgue_measurable_intervals_TCC1 0
   (lebesgue_measurable_intervals_TCC1-1 nil 3475937691
    ("" (skosimp*)
@@ -3804,9 +3999,9 @@
     nil)
    ((cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -3818,14 +4013,14 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (bounded_open_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
+     metric_space)
     (bounded_open_interval? const-decl "bool" real_topology
-     "metric_space/")
+     metric_space)
     (sequence type-eq-decl nil sequences nil)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (set type-eq-decl nil sets nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -3834,8 +4029,8 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (measurable_IUnion judgement-tcc nil measure_space_def
-     "measure_integration/")
-    (IUnion const-decl "set[T]" nat_indexed_sets "sets_aux/")
+     measure_integration)
+    (IUnion const-decl "set[T]" nat_indexed_sets sets_aux)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (measurable_IUnion application-judgement
@@ -3843,14 +4038,14 @@
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (nnreal type-eq-decl nil real_types nil)
     (IUnion const-decl "set[T]" indexed_sets nil)
-    (m_monotone formula-decl nil measure_props "measure_integration/")
+    (m_monotone formula-decl nil measure_props measure_integration)
     (Union const-decl "set" sets nil)
     (member const-decl "bool" sets nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -3858,24 +4053,27 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (subset? const-decl "bool" sets nil)
     (image const-decl "set[R]" function_image nil)
-    (x_le const-decl "bool" extended_nnreal "extended_nnreal/")
-    (mu_fin? const-decl "bool" measure_props "measure_integration/")
+    (x_le const-decl "bool" extended_nnreal extended_nnreal)
+    (mu_fin? const-decl "bool" measure_props measure_integration)
     (pred type-eq-decl nil defined_types nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (bounded_open_interval_is_measurable judgement-tcc nil lebesgue_def
      nil)
-    (IUnion_0_def formula-decl nil nat_indexed_sets "sets_aux/")
-    (IUnion_n_def formula-decl nil nat_indexed_sets "sets_aux/")
+    (IUnion_0_def formula-decl nil nat_indexed_sets sets_aux)
+    (IUnion_n_def formula-decl nil nat_indexed_sets sets_aux)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (measurable_union judgement-tcc nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil))
-   nil))
+   nil
+   (lebesgue_measurable_intervals subtype
+    "nat_indexed_sets[real].IUnion(lebesgue_def.n, lebesgue_def.I)"
+    "{m: (lebesgue_def.cal_M) | measure_props[real, lebesgue_def.cal_M, lebesgue_def.lambda_].mu_fin?(m)}")))
  (lebesgue_measurable_intervals_TCC2 0
   (lebesgue_measurable_intervals_TCC2-1 nil 3475937691
    ("" (skosimp)
@@ -3885,9 +4083,9 @@
     nil)
    ((cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -3899,14 +4097,14 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (bounded_open_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
+     metric_space)
     (bounded_open_interval? const-decl "bool" real_topology
-     "metric_space/")
+     metric_space)
     (sequence type-eq-decl nil sequences nil)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (set type-eq-decl nil sets nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -3915,8 +4113,11 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (measurable_IUnion judgement-tcc nil measure_space_def
-     "measure_integration/"))
-   nil))
+     measure_integration))
+   nil
+   (lebesgue_measurable_intervals subtype
+    "indexed_sets[nat, real].IUnion(lebesgue_def.I)"
+    "{m: (lebesgue_def.cal_M) | measure_props[real, lebesgue_def.cal_M, lebesgue_def.lambda_].mu_fin?(m)}")))
  (lebesgue_measurable_intervals_TCC3 0
   (lebesgue_measurable_intervals_TCC3-1 nil 3475937691
    ("" (skosimp)
@@ -3924,26 +4125,26 @@
       (("" (expand "measurable_set?") (("" (assert) nil nil)) nil))
       nil))
     nil)
-   ((mu_fin? const-decl "bool" measure_props "measure_integration/")
+   ((mu_fin? const-decl "bool" measure_props measure_integration)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (nnreal type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (set type-eq-decl nil sets nil)
@@ -3960,7 +4161,9 @@
      sets_lemmas nil)
     (measurable_IUnion application-judgement
      "measurable_set[real, cal_M]" lebesgue_def nil))
-   nil))
+   nil
+   (lebesgue_measurable_intervals subtype "lebesgue_def.E"
+    "{m: (lebesgue_def.cal_M) | measure_props[real, lebesgue_def.cal_M, lebesgue_def.lambda_].mu_fin?(m)}")))
  (lebesgue_measurable_intervals 0
   (lebesgue_measurable_intervals-1 nil 3475946203
    ("" (skosimp)
@@ -4649,26 +4852,26 @@
         nil))
       nil))
     nil)
-   ((mu_fin? const-decl "bool" measure_props "measure_integration/")
+   ((mu_fin? const-decl "bool" measure_props measure_integration)
     (lambda_ const-decl "complete_sigma_finite[real, cal_M]"
      lebesgue_def nil)
     (complete_sigma_finite type-eq-decl nil measure_def
-     "measure_integration/")
+     measure_integration)
     (complete_sigma_finite? const-decl "bool" measure_def
-     "measure_integration/")
+     measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
+     extended_nnreal)
     (nnreal type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
     (cal_M const-decl "sigma_algebra" lebesgue_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (set type-eq-decl nil sets nil)
@@ -4681,13 +4884,11 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (mu const-decl "nnreal" measure_props "measure_integration/")
+    (mu const-decl "nnreal" measure_props measure_integration)
     (lebesgue_measure const-decl
      "complete_sigma_finite[real, lebesgue_measurable]"
      real_lebesgue_scaf nil)
-    (restrict const-decl "R" restrict nil)
-    (x_inf const-decl "extended_nnreal" extended_nnreal
-     "extended_nnreal/")
+    (restrict const-decl "R" restrict nil) nil
     (empty? const-decl "bool" sets nil)
     (bounded_below? const-decl "bool" bounded_real_defs nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -4700,77 +4901,69 @@
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (< const-decl "bool" reals nil)
-    (increasing_IUnion formula-decl nil nat_indexed_sets "sets_aux/")
-    (IUnion const-decl "set[T]" nat_indexed_sets "sets_aux/")
+    (increasing_IUnion formula-decl nil nat_indexed_sets sets_aux)
+    (IUnion const-decl "set[T]" nat_indexed_sets sets_aux)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (measurable_union judgement-tcc nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (bounded_open_interval_is_measurable judgement-tcc nil lebesgue_def
      nil)
     (nat_induction formula-decl nil naturalnumbers nil)
-    (pred type-eq-decl nil defined_types nil)
-    (I!1 skolem-const-decl "sequence[bounded_open_interval]"
-     lebesgue_def nil)
-    (B!1 skolem-const-decl "sequence[set[real]]" lebesgue_def nil)
-    (limit_lemma formula-decl nil convergence_sequences "analysis/")
-    (convergent? const-decl "bool" convergence_sequences "analysis/")
+    (pred type-eq-decl nil defined_types nil) nil nil
+    (limit_lemma formula-decl nil convergence_sequences analysis)
+    (convergent? const-decl "bool" convergence_sequences analysis)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (metric_convergence_def formula-decl nil metric_space
-     "metric_space/")
-    (ball_is_metric_open application-judgement
-     "metric_open[real, (LAMBDA (x, y: real): abs(x - y))]"
-     convergence_aux "metric_space/")
+    (metric_convergence_def formula-decl nil metric_space metric_space)
+    nil
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (member const-decl "bool" sets nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
+    (ball const-decl "set[T]" metric_space_def metric_space)
     (metric_converges_to const-decl "bool" metric_space_def
-     "metric_space/")
-    (convergence const-decl "bool" convergence_sequences "analysis/")
+     metric_space)
+    (convergence const-decl "bool" convergence_sequences analysis)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (x_converges? const-decl "bool" extended_nnreal "extended_nnreal/")
+    (x_converges? const-decl "bool" extended_nnreal extended_nnreal)
     (m_increasing_convergence formula-decl nil measure_props
-     "measure_integration/")
-    (IUnion_0_def formula-decl nil nat_indexed_sets "sets_aux/")
-    (IUnion_n_def formula-decl nil nat_indexed_sets "sets_aux/")
+     measure_integration)
+    (IUnion_0_def formula-decl nil nat_indexed_sets sets_aux)
+    (IUnion_n_def formula-decl nil nat_indexed_sets sets_aux)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (lebesgue_outer_measure_le_length formula-decl nil
      real_lebesgue_scaf nil)
-    (bounded_interval? const-decl "bool" real_topology "metric_space/")
+    (bounded_interval? const-decl "bool" real_topology metric_space)
     (bounded_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
-    (x_sum_le formula-decl nil extended_nnreal "extended_nnreal/")
+     metric_space)
+    (x_sum_le formula-decl nil extended_nnreal extended_nnreal)
     (om_countably_subadditive? const-decl "bool" outer_measure_def
-     "measure_integration/")
+     measure_integration)
     (outer_measure nonempty-type-eq-decl nil outer_measure_def
-     "measure_integration/")
+     measure_integration)
     (outer_measure? const-decl "bool" outer_measure_def
-     "measure_integration/")
+     measure_integration)
     (measurable_IUnion judgement-tcc nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
-    (measurable_IUnion application-judgement
-     "measurable_set[real, cal_M]" lebesgue_def nil)
+    nil
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (lower_bound? const-decl "bool" bounded_real_defs nil)
+    nil
     (glb const-decl "{x | greatest_lower_bound?(x, SB)}"
      bounded_real_defs nil)
-    (greatest_lower_bound? const-decl "bool" bounded_real_defs nil)
-    (nonempty? const-decl "bool" sets nil)
+    nil (nonempty? const-decl "bool" sets nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
@@ -4778,15 +4971,13 @@
     (int nonempty-type-eq-decl nil integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (bounded_open_interval? const-decl "bool" real_topology
-     "metric_space/")
+     metric_space)
     (bounded_open_interval nonempty-type-eq-decl nil real_topology
-     "metric_space/")
+     metric_space)
     (sequence type-eq-decl nil sequences nil)
-    (x_le const-decl "bool" extended_nnreal "extended_nnreal/")
-    (x_sum const-decl "extended_nnreal" extended_nnreal
-     "extended_nnreal/")
-    (interval? const-decl "bool" real_topology "metric_space/")
-    (interval nonempty-type-eq-decl nil real_topology "metric_space/")
+    (x_le const-decl "bool" extended_nnreal extended_nnreal) nil
+    (interval? const-decl "bool" real_topology metric_space)
+    (interval nonempty-type-eq-decl nil real_topology metric_space)
     (O const-decl "T3" function_props nil)
     (x_length const-decl "extended_nnreal" real_lebesgue_scaf nil)
     (subset? const-decl "bool" sets nil)
@@ -4794,7 +4985,7 @@
     (lebesgue_outer_measure const-decl "outer_measure"
      real_lebesgue_scaf nil)
     (induced_measure const-decl "complete_measure" outer_measure_props
-     "measure_integration/")
+     measure_integration)
     (= const-decl "[T, T -> boolean]" equalities nil))
    shostak)))
 
