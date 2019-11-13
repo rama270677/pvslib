@@ -1,0 +1,137 @@
+%% deriv_examples.pvs
+%% 
+%% These examples illustrate the use of the strategies derivable, aka
+%% differentiable, and derivative.
+%%  
+
+deriv_examples : THEORY
+BEGIN
+
+  IMPORTING analysis@strategies
+
+  x : VAR real
+
+  f(x:real) : real = x^2+3*x
+  g(x:real) : real = -x/2
+
+%|- derivative_*TCC* : PROOF 
+%|- deriv_*TCC* : PROOF (then (assert) (derivable)) QED
+%|- derivable_* : PROOF (derivable) QED
+
+  derivable_f : LEMMA
+    derivable?(f) 
+
+  derivable_g : LEMMA
+    derivable?(g)
+
+  derivable_f_plus_g : LEMMA
+    derivable?(f+g)
+%|- derivable_f_plus_g : PROOF
+%|- (derivable :use ("f" "g"))
+%|- QED
+
+  h : [real->nzreal]
+
+  derivable_f_div_h : LEMMA
+    derivable?(h) IMPLIES 
+    derivable?(f/h)
+%|- derivable_f_div_h : PROOF
+%|- deriv_f_div_h_TCC1 : PROOF
+%|- (then (flatten) (derivable :use "f"))
+%|- QED
+
+  sq_f(x:real) : real = sq(f(x))
+
+  derivable_sq_f : LEMMA
+    derivable?(sq_f)
+
+  derivable_f_o_g : LEMMA
+    derivable?(f o g)
+
+  derivative_f : LEMMA
+    deriv(f) = LAMBDA(x):2*x + 3
+%|- derivative_f : PROOF
+%|- (then (decompose-equality) (deriv))
+%|- QED
+
+  derivative_g : LEMMA
+    deriv(g) = LAMBDA(x):-1/2
+%|- derivative_g : PROOF
+%|- (then (decompose-equality) (deriv))
+%|- QED
+ 
+  deriv_f_plus_g : LEMMA
+    deriv(f+g)(x) = 2*x+3-1/2
+%|- deriv_f_plus_g : PROOF
+%|- (then (skeep) (deriv :use ("f" "g")) (assert))
+%|- QED
+
+  deriv_f_div_h : LEMMA
+    derivable?(h) IMPLIES
+      deriv(f/h)(x) =
+      (3*h(x) + 2*h(x)*x - 3*deriv(h)(x)*x - deriv(h)(x)*x^2)/sq(h(x))
+%|- deriv_f_div_h : PROOF
+%|- (then (skeep) (deriv :use "f") (expand "f") (assert))
+%|- QED
+
+  deriv_sq_f : LEMMA
+    deriv(sq_f)(x) = 18*x + 18*x^2 + 4*x^3 
+%|- deriv_sq_f : PROOF
+%|- (then (skeep) (deriv) (hide-all-but 1) (grind))
+%|- QED
+
+  deriv_f_o_g : LEMMA
+    deriv(f o g)(x) = -3/2 + x/2 
+%|- deriv_f_o_g : PROOF
+%|- (then (skeep) (deriv) (real-props))
+%|- QED
+
+  IMPORTING trig@sincos_def
+
+  k : real
+
+  ksincos(x:real) : real = k*(sin(x)+cos(x))
+
+  derivable_ksincos : LEMMA
+    derivable?(ksincos)
+%|- derivable_ksincos : PROOF
+%|- (derivable)
+%|- QED
+
+  deriv_ksincos : LEMMA
+    deriv(ksincos)(x) = k*(cos(x) - sin(x))
+%|- deriv_ksincos : PROOF
+%|- (then (skeep) (deriv) (assert))
+%|- QED
+
+  sincos2(x:real) : real = sin(cos(x^2))
+
+  derivable_sincos2 : LEMMA
+    derivable?(sincos2)
+%|- derivable_sincos2 : PROOF
+%|- (derivable)
+%|- QED
+
+  deriv_sincos2 : LEMMA
+    deriv(sincos2)(x) =  -2*x*cos(cos(x^2))*sin(x^2)
+%|- deriv_sincos2 : PROOF
+%|- (then (skeep) (deriv) (assert))
+%|- QED
+
+  IMPORTING lnexp@ln_exp
+
+  expsin(x:real) : real = exp(sin(x))
+
+  derivable_expsin : LEMMA
+    derivable?(expsin)
+%|- derivable_expsin : PROOF
+%|- (derivable)
+%|- QED
+
+  deriv_expsin : LEMMA
+    deriv(expsin)(x) = exp(sin(x))*cos(x)
+%|- deriv_expsin : PROOF
+%|- (then (skeep) (deriv))
+%|- QED
+
+END deriv_examples
