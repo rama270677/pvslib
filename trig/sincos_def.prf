@@ -1,7 +1,9 @@
 (sincos_def
  (useful_prep_TCC1 0
   (useful_prep_TCC1-1 nil 3298132328 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) nil))
+   ((/= const-decl "boolean" notequal nil)) nil
+   (useful_prep subtype "sincos_def.n"
+    "{i: integers.int | booleans.OR((real_defs.abs(sincos_def.x)) /= 0, reals.>=(i, 0))}")))
  (useful_prep 0
   (useful_prep-1 nil 3298132328
    ("" (skosimp*)
@@ -15,7 +17,7 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (simple_conv formula-decl nil power_series_conv "series/")
+    (simple_conv formula-decl nil power_series_conv series)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
@@ -24,7 +26,7 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (simple const-decl "sequence[real]" power_series_conv "series/"))
+    (simple const-decl "sequence[real]" power_series_conv series))
    nil))
  (altsign_prep 0
   (altsign_prep-1 nil 3298132328
@@ -92,7 +94,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil))
-   nil))
+   nil
+   (altsign subtype "(number_fields./(sincos_def.n, 2))"
+    "{i: integers.int | booleans.TRUE}")))
  (altsign_TCC2 0
   (altsign_TCC2-1 nil 3298132328
    ("" (case "(FORALL n: integer_pred((-1)^n))")
@@ -138,8 +142,7 @@
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
     (even_div2 formula-decl nil naturalnumbers nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (n!1 skolem-const-decl "nat" sincos_def nil)
+    (= const-decl "[T, T -> boolean]" equalities nil) nil
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
@@ -168,7 +171,10 @@
     (^ const-decl "real" exponentiation nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil))
-   nil))
+   nil
+   (altsign subtype
+    "exponentiation.^(((number_fields.-)(1)), (number_fields./(sincos_def.n, 2)))"
+    "{i: integers.int | booleans.OR(i = (number_fields.-)(1), i = 1)}")))
  (altsign_TCC3 0
   (altsign_TCC3-1 nil 3298132328
    ("" (skosimp*)
@@ -195,7 +201,10 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (even_iff_not_odd formula-decl nil naturalnumbers nil))
-   nil))
+   nil
+   (altsign subtype
+    "(number_fields./(((number_fields.-)(sincos_def.n, 1)), 2))"
+    "{i: integers.int | booleans.TRUE}")))
  (altsign_TCC4 0
   (altsign_TCC4-1 nil 3298132328
    ("" (skosimp*)
@@ -255,7 +264,10 @@
     (rat_exp application-judgement "rat" exponentiation nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (even_iff_not_odd formula-decl nil naturalnumbers nil))
-   nil))
+   nil
+   (altsign subtype
+    "exponentiation.^(((number_fields.-)(1)), (number_fields./(((number_fields.-)(sincos_def.n, 1)), 2)))"
+    "{i: integers.int | booleans.OR(i = (number_fields.-)(1), i = 1)}")))
  (abs_altsign 0
   (abs_altsign-1 nil 3298132884
    ("" (skosimp*)
@@ -309,7 +321,7 @@
      rationals nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (n!1 skolem-const-decl "nat" sincos_def nil)
+    nil
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
@@ -339,7 +351,7 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (abs_hat formula-decl nil exponent_props "reals/")
+    (abs_hat formula-decl nil exponent_props reals)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (odd_div2 formula-decl nil naturalnumbers nil)
     (odd_iff_not_even formula-decl nil naturalnumbers nil))
@@ -360,16 +372,24 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/"))
-   shostak))
+    (not_one_element? const-decl "bool" deriv_domain_def analysis))
+   shostak
+   (sin_conv assuming
+    "series@power_series_conv[real].power_series_conv"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (sin_conv_TCC2 0
   (sin_conv_TCC2-1 nil 3298204091
    ("" (lemma "deriv_domain_real") (("" (propax) nil nil)) nil)
-   ((deriv_domain_real formula-decl nil deriv_domain "analysis/"))
-   shostak))
+   ((deriv_domain_real formula-decl nil deriv_domain analysis)) shostak
+   (sin_conv assuming
+    "series@power_series_conv[real].power_series_conv"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (sin_conv_TCC3 0
   (sin_conv_TCC3-1 nil 3298204091
-   ("" (skosimp*) (("" (assert) nil nil)) nil) nil shostak))
+   ("" (skosimp*) (("" (assert) nil nil)) nil) nil shostak
+   (sin_conv assuming
+    "series@power_series_conv[real].power_series_conv"
+    "open: ASSUMPTION FORALL (x: power_series_conv.T): EXISTS (delta: real_types.posreal): FORALL (y: reals.real): booleans.IMPLIES(reals.<(real_defs.abs((number_fields.-)(x, y)), delta), power_series_conv.T_pred(y))")))
  (sin_conv 0
   (sin_conv-3 nil 3352095508
    ("" (expand "conv_powerseries?")
@@ -461,13 +481,12 @@
     (real nonempty-type-from-decl nil reals nil)
     (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
      real_types nil)
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (apow_rew formula-decl nil power_series "series/")
+    nil (apow_rew formula-decl nil power_series series)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
-    (abs_0 formula-decl nil abs_lems "reals/")
+    (abs_0 formula-decl nil abs_lems reals)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (abs_mult formula-decl nil real_props nil)
@@ -482,20 +501,20 @@
      "(strict_total_order?[real])" real_props nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (hat_02n formula-decl nil power_series "series/")
+    (hat_02n formula-decl nil power_series series)
     (nat_exp application-judgement "nat" exponentiation nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (abs_hat formula-decl nil exponent_props "reals/")
+    (abs_hat formula-decl nil exponent_props reals)
     (nzreal nonempty-type-eq-decl nil reals nil)
     (rat_abs_is_nonneg application-judgement "{r: nonneg_rat | r >= q}"
      real_defs nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (altsign const-decl "{i: int | i = -1 OR i = 1}" sincos_def nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (apowerseq const-decl "sequence[real]" power_series "series/")
+    (apowerseq const-decl "sequence[real]" power_series series)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -511,7 +530,7 @@
     (/= const-decl "boolean" notequal nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (sin_coef const-decl "real" sincos_def nil)
-    (powerseq const-decl "sequence[real]" power_series "series/")
+    (powerseq const-decl "sequence[real]" power_series series)
     (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -520,9 +539,8 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (comparison_test formula-decl nil series "series/")
-    (useful_prep formula-decl nil sincos_def nil)
-    (conv_powerseries? const-decl "bool" power_series_conv "series/"))
+    (comparison_test formula-decl nil series series)
+    (useful_prep formula-decl nil sincos_def nil) nil)
    nil)
   (sin_conv-2 nil 3320063019
    ("" (stop-rewrite "abs_0")
@@ -608,10 +626,10 @@
         nil))
       nil))
     nil)
-   ((abs_hat formula-decl nil exponent_props "reals/")
-    (zero_hat formula-decl nil exponent_props "reals/")
-    (powerseq const-decl "sequence[real]" power_series "series/")
-    (comparison_test formula-decl nil series "series/"))
+   ((abs_hat formula-decl nil exponent_props reals)
+    (zero_hat formula-decl nil exponent_props reals)
+    (powerseq const-decl "sequence[real]" power_series series)
+    (comparison_test formula-decl nil series series))
    nil)
   (sin_conv-1 nil 3298132328
    ("" (expand "conv_powerseries?")
@@ -693,10 +711,10 @@
         nil))
       nil))
     nil)
-   ((abs_hat formula-decl nil exponent_props "reals/")
-    (zero_hat formula-decl nil exponent_props "reals/")
-    (powerseq const-decl "sequence[real]" power_series "series/")
-    (comparison_test formula-decl nil series "series/"))
+   ((abs_hat formula-decl nil exponent_props reals)
+    (zero_hat formula-decl nil exponent_props reals)
+    (powerseq const-decl "sequence[real]" power_series series)
+    (comparison_test formula-decl nil series series))
    nil))
  (sin_TCC1 0
   (sin_TCC1-1 nil 3298132328
@@ -718,11 +736,11 @@
      nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (conv_series? const-decl "bool" series "series/")
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (conv_powerseries? const-decl "bool" power_series_conv "series/"))
-   nil))
+    (real nonempty-type-from-decl nil reals nil) nil nil nil)
+   nil
+   (sin subtype
+        "power_series.powerseq(sincos_def.sin_coef, sincos_def.x)"
+        "(series.conv_series?)")))
  (cos_conv 0
   (cos_conv-2 nil 3352095538
    ("" (expand "conv_powerseries?")
@@ -916,12 +934,11 @@
     (real nonempty-type-from-decl nil reals nil)
     (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
      real_types nil)
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (apow_rew formula-decl nil power_series "series/")
+    nil (apow_rew formula-decl nil power_series series)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (factorial_0 formula-decl nil factorial "ints/")
+    (factorial_0 formula-decl nil factorial ints)
     (rat_abs_is_nonneg application-judgement "{r: nonneg_rat | r >= q}"
      real_defs nil)
     (abs_hat_nat formula-decl nil exponentiation nil)
@@ -953,17 +970,17 @@
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (altsign const-decl "{i: int | i = -1 OR i = 1}" sincos_def nil)
-    (n!1 skolem-const-decl "nat" sincos_def nil)
+    nil
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (abs_altsign formula-decl nil sincos_def nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (abs_mult formula-decl nil real_props nil)
-    (abs_0 formula-decl nil abs_lems "reals/")
-    (apowerseq const-decl "sequence[real]" power_series "series/")
+    (abs_0 formula-decl nil abs_lems reals)
+    (apowerseq const-decl "sequence[real]" power_series series)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -979,7 +996,7 @@
     (/= const-decl "boolean" notequal nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (cos_coef const-decl "real" sincos_def nil)
-    (powerseq const-decl "sequence[real]" power_series "series/")
+    (powerseq const-decl "sequence[real]" power_series series)
     (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -988,9 +1005,8 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (comparison_test formula-decl nil series "series/")
-    (useful_prep formula-decl nil sincos_def nil)
-    (conv_powerseries? const-decl "bool" power_series_conv "series/"))
+    (comparison_test formula-decl nil series series)
+    (useful_prep formula-decl nil sincos_def nil) nil)
    nil)
   (cos_conv-1 nil 3298132328
    ("" (expand "conv_powerseries?")
@@ -1173,8 +1189,8 @@
         nil))
       nil))
     nil)
-   ((powerseq const-decl "sequence[real]" power_series "series/")
-    (comparison_test formula-decl nil series "series/"))
+   ((powerseq const-decl "sequence[real]" power_series series)
+    (comparison_test formula-decl nil series series))
    nil))
  (cos_TCC1 0
   (cos_TCC1-1 nil 3298132328
@@ -1189,10 +1205,7 @@
         nil))
       nil))
     nil)
-   ((conv_series? const-decl "bool" series "series/")
-    (conv_powerseries? const-decl "bool" power_series_conv "series/")
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (real nonempty-type-from-decl nil reals nil)
+   (nil nil nil (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -1200,7 +1213,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (cos_conv formula-decl nil sincos_def nil))
-   nil))
+   nil
+   (cos subtype
+        "power_series.powerseq(sincos_def.cos_coef, sincos_def.x)"
+        "(series.conv_series?)")))
  (sin_0 0
   (sin_0-1 nil 3298132328
    ("" (expand "sin")
@@ -1267,8 +1283,7 @@
         nil))
       nil))
     nil)
-   ((inf_sum const-decl "real" series "series/")
-    (number nonempty-type-decl nil numbers nil)
+   (nil (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -1283,9 +1298,9 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (sequence type-eq-decl nil sequences nil)
-    (powerseq const-decl "sequence[real]" power_series "series/")
+    (powerseq const-decl "sequence[real]" power_series series)
     (sin_coef const-decl "real" sincos_def nil)
-    (sigma def-decl "real" sigma "reals/")
+    (sigma def-decl "real" sigma reals)
     (^ const-decl "real" exponentiation nil)
     (/= const-decl "boolean" notequal nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
@@ -1295,9 +1310,9 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (hat_02n formula-decl nil power_series "series/")
-    (sigma_0_neg formula-decl nil sigma_nat "reals/")
-    (zero_series_limit formula-decl nil series "series/")
+    (hat_02n formula-decl nil power_series series)
+    (sigma_0_neg formula-decl nil sigma_nat reals)
+    (zero_series_limit formula-decl nil series series)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
@@ -1319,13 +1334,11 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sin_conv formula-decl nil sincos_def nil)
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (conv_powerseries? const-decl "bool" power_series_conv "series/")
+    (sin_conv formula-decl nil sincos_def nil) nil nil
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
-    (limit_series_shift formula-decl nil series "series/")
+    (limit_series_shift formula-decl nil series series)
     (sin const-decl "real" sincos_def nil))
    nil))
  (cos_0 0
@@ -1421,8 +1434,7 @@
         nil))
       nil))
     nil)
-   ((inf_sum const-decl "real" series "series/")
-    (number nonempty-type-decl nil numbers nil)
+   (nil (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
@@ -1437,9 +1449,9 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (sequence type-eq-decl nil sequences nil)
-    (powerseq const-decl "sequence[real]" power_series "series/")
+    (powerseq const-decl "sequence[real]" power_series series)
     (cos_coef const-decl "real" sincos_def nil)
-    (sigma def-decl "real" sigma "reals/")
+    (sigma def-decl "real" sigma reals)
     (^ const-decl "real" exponentiation nil)
     (/= const-decl "boolean" notequal nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
@@ -1449,9 +1461,9 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (hat_02n formula-decl nil power_series "series/")
-    (sigma_0_neg formula-decl nil sigma_nat "reals/")
-    (zero_series_limit formula-decl nil series "series/")
+    (hat_02n formula-decl nil power_series series)
+    (sigma_0_neg formula-decl nil sigma_nat reals)
+    (zero_series_limit formula-decl nil series series)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (expt_x0 formula-decl nil exponentiation nil)
@@ -1462,7 +1474,7 @@
      nil)
     (altsign const-decl "{i: int | i = -1 OR i = 1}" sincos_def nil)
     (expt def-decl "real" exponentiation nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (nat_exp application-judgement "nat" exponentiation nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
@@ -1471,22 +1483,26 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (cos_conv formula-decl nil sincos_def nil)
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (conv_powerseries? const-decl "bool" power_series_conv "series/")
+    (cos_conv formula-decl nil sincos_def nil) nil nil
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
-    (limit_series_shift formula-decl nil series "series/")
+    (limit_series_shift formula-decl nil series series)
     (cos const-decl "real" sincos_def nil))
    nil))
  (IMP_power_series_deriv_TCC1 0
   (IMP_power_series_deriv_TCC1-1 nil 3704791044
    ("" (assuming-tcc) nil nil)
-   ((connected? const-decl "bool" deriv_domain_def "analysis/")) nil))
+   ((connected? const-decl "bool" deriv_domain_def analysis)) nil
+   (IMP_power_series_deriv assuming
+    "series@power_series_deriv[real].power_series_deriv"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (IMP_power_series_deriv_TCC2 0
   (IMP_power_series_deriv_TCC2-1 nil 3704791044
-   ("" (assuming-tcc) nil nil) nil nil))
+   ("" (assuming-tcc) nil nil) nil nil
+   (IMP_power_series_deriv assuming
+    "series@power_series_deriv[real].power_series_deriv"
+    "ball: ASSUMPTION FORALL (x: power_series_deriv.T): booleans.IMPLIES(power_series_deriv.T_pred(x), power_series_deriv.T_pred((number_fields.-)(x)))")))
  (derivable_sin 0
   (derivable_sin-1 nil 3705135861
    ("" (lemma "sin_conv")
@@ -1509,11 +1525,8 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (powerseries_derivable formula-decl nil power_series_deriv
-     "series/")
-    (inf_sum const-decl "real" series "series/")
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (sin_coef const-decl "real" sincos_def nil)
+    (powerseries_derivable formula-decl nil power_series_deriv series)
+    nil nil (sin_coef const-decl "real" sincos_def nil)
     (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -1528,7 +1541,8 @@
  (deriv_sin_TCC1 0
   (deriv_sin_TCC1-1 nil 3249311628
    ("" (lemma "derivable_sin") (("" (propax) nil nil)) nil)
-   ((derivable_sin formula-decl nil sincos_def nil)) nil))
+   ((derivable_sin formula-decl nil sincos_def nil)) nil
+   (deriv_sin subtype "sincos_def.sin" "deriv_fun[real]")))
  (deriv_sin 0
   (deriv_sin-2 nil 3352090315
    ("" (skosimp*)
@@ -1744,18 +1758,15 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (deriv_Inf_sum formula-decl nil power_series_deriv "series/")
-    (sin_conv formula-decl nil sincos_def nil)
-    (inf_sum const-decl "real" series "series/")
+    (deriv_Inf_sum formula-decl nil power_series_deriv series)
+    (sin_conv formula-decl nil sincos_def nil) nil
     (cos const-decl "real" sincos_def nil)
     (cos_coef const-decl "real" sincos_def nil)
-    (derivseq const-decl "sequence[real]" power_series_derivseq
-     "series/")
-    (powerseq const-decl "sequence[real]" power_series "series/")
-    (series const-decl "sequence[real]" series "series/")
+    (derivseq const-decl "sequence[real]" power_series_derivseq series)
+    (powerseq const-decl "sequence[real]" power_series series) nil
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (apow_rew formula-decl nil power_series "series/")
-    (apowerseq const-decl "sequence[real]" power_series "series/")
+    (apow_rew formula-decl nil power_series series)
+    (apowerseq const-decl "sequence[real]" power_series series)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -1779,7 +1790,7 @@
     (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
     (even? const-decl "bool" integers nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (rat_exp application-judgement "rat" exponentiation nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -1815,13 +1826,11 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sigma def-decl "real" sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
     (<= const-decl "bool" reals nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (Inf_sum const-decl "real" power_series_conv "series/")
+    (OR const-decl "[bool, bool -> bool]" booleans nil) nil nil
     (sin const-decl "real" sincos_def nil)
     (sin_coef const-decl "real" sincos_def nil)
     (sequence type-eq-decl nil sequences nil)
@@ -2032,12 +2041,29 @@
         nil))
       nil))
     nil)
-   ((deriv_Inf_sum formula-decl nil power_series_deriv "series/")
-    (derivseq const-decl "sequence[real]" power_series_derivseq
-     "series/")
-    (powerseq const-decl "sequence[real]" power_series "series/")
-    (sigma def-decl "real" sigma "reals/"))
+   ((deriv_Inf_sum formula-decl nil power_series_deriv series)
+    (derivseq const-decl "sequence[real]" power_series_derivseq series)
+    (powerseq const-decl "sequence[real]" power_series series)
+    (sigma def-decl "real" sigma reals))
    nil))
+ (derivative_sin 0
+  (derivative_sin-1 nil 3782648114
+   ("" (decompose-equality) (("" (rewrite "deriv_sin") nil nil)) nil)
+   ((deriv_sin formula-decl nil sincos_def nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (cos const-decl "real" sincos_def nil)
+    (sin const-decl "real" sincos_def nil)
+    (deriv const-decl "[T -> real]" derivatives analysis)
+    (deriv_fun type-eq-decl nil derivatives analysis)
+    (derivable? const-decl "bool" derivatives analysis)
+    (bool nonempty-type-eq-decl nil booleans nil))
+   shostak))
  (derivable_cos 0
   (derivable_cos-1 nil 3705135892
    ("" (lemma "cos_conv")
@@ -2063,8 +2089,7 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (powerseries_derivable formula-decl nil power_series_deriv
-     "series/")
+    (powerseries_derivable formula-decl nil power_series_deriv series)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -2073,16 +2098,15 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (sequence type-eq-decl nil sequences nil)
-    (cos_coef const-decl "real" sincos_def nil)
-    (inf_sum const-decl "real" series "series/")
-    (powerseries const-decl "sequence[real]" power_series "series/")
+    (cos_coef const-decl "real" sincos_def nil) nil nil
     (cos const-decl "real" sincos_def nil)
     (cos_conv formula-decl nil sincos_def nil))
    nil))
  (deriv_cos_TCC1 0
   (deriv_cos_TCC1-1 nil 3249311628
    ("" (rewrite "derivable_cos") nil nil)
-   ((derivable_cos formula-decl nil sincos_def nil)) nil))
+   ((derivable_cos formula-decl nil sincos_def nil)) nil
+   (deriv_cos subtype "sincos_def.cos" "deriv_fun[real]")))
  (deriv_cos 0
   (deriv_cos-3 nil 3352090481
    ("" (skosimp*)
@@ -2402,27 +2426,23 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (deriv_Inf_sum formula-decl nil power_series_deriv "series/")
+    (deriv_Inf_sum formula-decl nil power_series_deriv series)
     (cos_conv formula-decl nil sincos_def nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (inf_sum const-decl "real" series "series/")
+    (minus_real_is_real application-judgement "real" reals nil) nil
     (sin const-decl "real" sincos_def nil)
-    (sin_coef const-decl "real" sincos_def nil)
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
-    (derivseq const-decl "sequence[real]" power_series_derivseq
-     "series/")
-    (powerseq const-decl "sequence[real]" power_series "series/")
-    (series const-decl "sequence[real]" series "series/")
+    (sin_coef const-decl "real" sincos_def nil) nil
+    (derivseq const-decl "sequence[real]" power_series_derivseq series)
+    (powerseq const-decl "sequence[real]" power_series series) nil
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (convergent? const-decl "bool" convergence_sequences "analysis/")
-    (limit_neg formula-decl nil convergence_ops "analysis/")
+    (convergent? const-decl "bool" convergence_sequences analysis)
+    (limit_neg formula-decl nil convergence_ops analysis)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (sigma_scal formula-decl nil sigma "reals/")
-    (apow_rew formula-decl nil power_series "series/")
-    (apowerseq const-decl "sequence[real]" power_series "series/")
+    (sigma_scal formula-decl nil sigma reals)
+    (apow_rew formula-decl nil power_series series)
+    (apowerseq const-decl "sequence[real]" power_series series)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
@@ -2458,7 +2478,7 @@
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (posint nonempty-type-eq-decl nil integers nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -2481,13 +2501,11 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sigma def-decl "real" sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
     (<= const-decl "bool" reals nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (Inf_sum const-decl "real" power_series_conv "series/")
+    (OR const-decl "[bool, bool -> bool]" booleans nil) nil nil
     (cos const-decl "real" sincos_def nil)
     (cos_coef const-decl "real" sincos_def nil)
     (sequence type-eq-decl nil sequences nil)
@@ -2822,13 +2840,12 @@
         nil))
       nil))
     nil)
-   ((deriv_Inf_sum formula-decl nil power_series_deriv "series/")
-    (derivseq const-decl "sequence[real]" power_series_derivseq
-     "series/")
-    (powerseq const-decl "sequence[real]" power_series "series/")
-    (limit_neg formula-decl nil convergence_ops "analysis/")
-    (sigma_scal formula-decl nil sigma "reals/")
-    (sigma def-decl "real" sigma "reals/"))
+   ((deriv_Inf_sum formula-decl nil power_series_deriv series)
+    (derivseq const-decl "sequence[real]" power_series_derivseq series)
+    (powerseq const-decl "sequence[real]" power_series series)
+    (limit_neg formula-decl nil convergence_ops analysis)
+    (sigma_scal formula-decl nil sigma reals)
+    (sigma def-decl "real" sigma reals))
    nil)
   (deriv_cos-1 nil 3249311628
    ("" (skosimp*)
@@ -3219,12 +3236,33 @@
         nil))
       nil))
     nil)
-   ((sigma def-decl "real" sigma "reals/")
-    (powerseq const-decl "sequence[real]" power_series "series/")
-    (sigma_scal formula-decl nil sigma "reals/")
-    (limit_neg formula-decl nil convergence_ops "analysis/")
-    (limit_series_shift formula-decl nil series "series/"))
+   ((sigma def-decl "real" sigma reals)
+    (powerseq const-decl "sequence[real]" power_series series)
+    (sigma_scal formula-decl nil sigma reals)
+    (limit_neg formula-decl nil convergence_ops analysis)
+    (limit_series_shift formula-decl nil series series))
    nil))
+ (derivative_cos 0
+  (derivative_cos-1 nil 3782648133
+   ("" (decompose-equality) (("" (rewrite "deriv_cos") nil nil)) nil)
+   ((deriv_cos formula-decl nil sincos_def nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (sin const-decl "real" sincos_def nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (cos const-decl "real" sincos_def nil)
+    (deriv const-decl "[T -> real]" derivatives analysis)
+    (deriv_fun type-eq-decl nil derivatives analysis)
+    (derivable? const-decl "bool" derivatives analysis)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (minus_real_is_real application-judgement "real" reals nil))
+   shostak))
  (sin2_cos2_derivable 0
   (sin2_cos2_derivable-1 nil 3249311628
    ("" (lemma "derivable_cos")
@@ -3272,18 +3310,17 @@
       nil))
     nil)
    ((derivable_sin formula-decl nil sincos_def nil)
-    (deriv_domain_real formula-decl nil deriv_domain "analysis/")
+    (deriv_domain_real formula-decl nil deriv_domain analysis)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (cos const-decl "real" sincos_def nil)
-    (sin const-decl "real" sincos_def nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (prod_derivable formula-decl nil derivatives_def "analysis/")
+    (sin const-decl "real" sincos_def nil) nil
+    (prod_derivable formula-decl nil derivatives_def analysis)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
-    (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
-    (sum_derivable formula-decl nil derivatives_def "analysis/")
+    (not_one_element? const-decl "bool" deriv_domain_def analysis)
+    (deriv_domain? const-decl "bool" deriv_domain_def analysis)
+    (sum_derivable formula-decl nil derivatives_def analysis)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
@@ -3291,7 +3328,7 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives analysis)
     (derivable_cos formula-decl nil sincos_def nil))
    nil))
  (sin2_cos2_fun 0
@@ -3631,9 +3668,8 @@
       nil))
     nil)
    ((derivable_cos formula-decl nil sincos_def nil)
-    (cos const-decl "real" sincos_def nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (derivable? const-decl "bool" derivatives "analysis/")
+    (cos const-decl "real" sincos_def nil) nil
+    (derivable? const-decl "bool" derivatives analysis)
     (bool nonempty-type-eq-decl nil booleans nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
@@ -3642,35 +3678,35 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (prod_derivable formula-decl nil derivatives_def "analysis/")
-    (+ const-decl "[T -> real]" real_fun_ops "reals/")
-    (deriv_domain_real formula-decl nil deriv_domain "analysis/")
+    (prod_derivable formula-decl nil derivatives_def analysis)
+    (+ const-decl "[T -> real]" real_fun_ops reals)
+    (deriv_domain_real formula-decl nil deriv_domain analysis)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (deriv_prod formula-decl nil derivatives_def "analysis/")
+    (deriv_prod formula-decl nil derivatives_def analysis)
     (deriv_sin formula-decl nil sincos_def nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (deriv_cos formula-decl nil sincos_def nil)
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
-    (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
-    (deriv_sum formula-decl nil derivatives_def "analysis/")
-    (null_derivative formula-decl nil derivative_props "analysis/")
+    (not_one_element? const-decl "bool" deriv_domain_def analysis)
+    (deriv_domain? const-decl "bool" deriv_domain_def analysis)
+    (deriv_sum formula-decl nil derivatives_def analysis)
+    (null_derivative formula-decl nil derivative_props analysis)
     (cos_0 formula-decl nil sincos_def nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (sin_0 formula-decl nil sincos_def nil)
-    (constant? const-decl "bool" real_fun_preds "reals/")
-    (deriv const-decl "[T -> real]" derivatives "analysis/")
-    (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (constant? const-decl "bool" real_fun_preds reals)
+    (deriv const-decl "[T -> real]" derivatives analysis)
+    (deriv_fun type-eq-decl nil derivatives analysis)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (constant_seq1 application-judgement "(convergent?)"
-     convergence_ops "analysis/")
+     convergence_ops analysis)
     (derivable_const application-judgement "deriv_fun" derivatives
-     "analysis/")
-    (sum_derivable formula-decl nil derivatives_def "analysis/")
+     analysis)
+    (sum_derivable formula-decl nil derivatives_def analysis)
     (sin const-decl "real" sincos_def nil)
     (derivable_sin formula-decl nil sincos_def nil)
-    (const_fun const-decl "[T -> real]" real_fun_ops "reals/"))
+    (const_fun const-decl "[T -> real]" real_fun_ops reals))
    nil))
  (sin_cos_one 0
   (sin_cos_one-2 nil 3445341870
@@ -3699,11 +3735,10 @@
       nil))
     nil)
    ((sin2_cos2_fun formula-decl nil sincos_def nil)
-    (+ const-decl "[T -> real]" real_fun_ops "reals/")
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (+ const-decl "[T -> real]" real_fun_ops reals) nil
     (sin const-decl "real" sincos_def nil)
     (cos const-decl "real" sincos_def nil)
-    (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
+    (const_fun const-decl "[T -> real]" real_fun_ops reals)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (congruence formula-decl nil functions nil)
@@ -4022,16 +4057,16 @@
         nil))
       nil))
     nil)
-   ((prod_derivable formula-decl nil derivatives_def "analysis/")
-    (+ const-decl "[T -> real]" real_fun_ops "reals/")
-    (deriv_prod formula-decl nil derivatives_def "analysis/")
-    (deriv_sum formula-decl nil derivatives_def "analysis/")
-    (null_derivative formula-decl nil derivative_props "analysis/")
-    (constant? const-decl "bool" real_fun_preds "reals/")
-    (deriv_fun type-eq-decl nil derivatives "analysis/")
-    (deriv const-decl "[T -> real]" derivatives "analysis/")
-    (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
-    (sum_derivable formula-decl nil derivatives_def "analysis/"))
+   ((prod_derivable formula-decl nil derivatives_def analysis)
+    (+ const-decl "[T -> real]" real_fun_ops reals)
+    (deriv_prod formula-decl nil derivatives_def analysis)
+    (deriv_sum formula-decl nil derivatives_def analysis)
+    (null_derivative formula-decl nil derivative_props analysis)
+    (constant? const-decl "bool" real_fun_preds reals)
+    (deriv_fun type-eq-decl nil derivatives analysis)
+    (deriv const-decl "[T -> real]" derivatives analysis)
+    (const_fun const-decl "[T -> real]" real_fun_ops reals)
+    (sum_derivable formula-decl nil derivatives_def analysis))
    nil))
  (sin_le_1 0
   (sin_le_1-1 nil 3704707439
@@ -4152,12 +4187,11 @@
       nil))
     nil)
    ((sin2_cos2_fun formula-decl nil sincos_def nil)
-    (+ const-decl "[T -> real]" real_fun_ops "reals/")
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (+ const-decl "[T -> real]" real_fun_ops reals) nil
     (sin const-decl "real" sincos_def nil)
     (cos const-decl "real" sincos_def nil)
-    (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
-    (sq const-decl "nonneg_real" sq "reals/")
+    (const_fun const-decl "[T -> real]" real_fun_ops reals)
+    (sq const-decl "nonneg_real" sq reals)
     (congruence formula-decl nil functions nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -4205,12 +4239,16 @@
   (pow_neg_prep_TCC1-1 nil 3708689113 ("" (subtype-tcc) nil nil)
    ((even? const-decl "bool" integers nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (pow_neg_prep subtype "sincos_def.n"
+    "{i: integers.int | booleans.OR(((number_fields.-)(sincos_def.x)) /= 0, reals.>=(i, 0))}")))
  (pow_neg_prep_TCC2 0
   (pow_neg_prep_TCC2-1 nil 3708689113 ("" (subtype-tcc) nil nil)
    ((even? const-decl "bool" integers nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (pow_neg_prep subtype "sincos_def.n"
+    "{i: integers.int | booleans.OR(sincos_def.x /= 0, reals.>=(i, 0))}")))
  (pow_neg_prep 0
   (pow_neg_prep-1 nil 3708689057
    ("" (skeep)
@@ -4266,7 +4304,7 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (sq const-decl "nonneg_real" sq "reals/")
+    (sq const-decl "nonneg_real" sq reals)
     (expt_times formula-decl nil exponentiation nil)
     (/= const-decl "boolean" notequal nil)
     (nzreal nonempty-type-eq-decl nil reals nil)
@@ -4393,13 +4431,10 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (sequence type-eq-decl nil sequences nil)
-    (sin_coef const-decl "real" sincos_def nil)
-    (conv_powerseries? const-decl "bool" power_series_conv "series/")
-    (powerseries const-decl "sequence[real]" power_series "series/")
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
+    (sin_coef const-decl "real" sincos_def nil) nil nil nil
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (^ const-decl "real" exponentiation nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -4429,15 +4464,13 @@
     (expt def-decl "real" exponentiation nil)
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (int_exp application-judgement "int" exponentiation nil)
-    (nzreal nonempty-type-eq-decl nil reals nil)
-    (a!1 skolem-const-decl "real" sincos_def nil)
+    (nzreal nonempty-type-eq-decl nil reals nil) nil
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (not_even_m1_pow formula-decl nil exponentiation nil)
-    (powerseq const-decl "sequence[real]" power_series "series/")
-    (conv_series? const-decl "bool" series "series/")
+    (powerseq const-decl "sequence[real]" power_series series) nil
     (sin_conv formula-decl nil sincos_def nil)
     (minus_real_is_real application-judgement "real" reals nil)
-    (inf_sum_neg formula-decl nil power_series "series/"))
+    (inf_sum_neg formula-decl nil power_series series))
    shostak))
  (cos_neg 0
   (cos_neg-2 nil 3708689120
@@ -4469,7 +4502,7 @@
     nil)
    ((cos const-decl "real" sincos_def nil)
     (^ const-decl "real" exponentiation nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -4501,7 +4534,7 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (sequence type-eq-decl nil sequences nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (powerseq const-decl "sequence[real]" power_series "series/")
+    (powerseq const-decl "sequence[real]" power_series series)
     (cos_coef const-decl "real" sincos_def nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil))
@@ -4533,7 +4566,7 @@
         nil))
       nil))
     nil)
-   ((factorial def-decl "posnat" factorial "ints/")
-    (powerseq const-decl "sequence[real]" power_series "series/"))
+   ((factorial def-decl "posnat" factorial ints)
+    (powerseq const-decl "sequence[real]" power_series series))
    shostak)))
 

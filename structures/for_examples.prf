@@ -1,29 +1,9 @@
 (for_examples
  (expit_TCC1 0
-  (expit_TCC1-1 nil 3759603117 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+  (expit_TCC1-1 nil 3759603117 ("" (subtype-tcc) nil nil) nil nil
+   (expit subtype
+    "LAMBDA (i: naturalnumbers.below(for_examples.n), a: reals.real): number_fields.*(a, for_examples.x)"
+    "for_iterate[real].ForBody(0, (number_fields.-)(for_examples.n, 1))")))
  (expit_test 0
   (expit_test-1 nil 3505593379 ("" (grind) nil nil)
    ((for_it def-decl
@@ -36,11 +16,13 @@
     (real_times_real_is_real application-judgement "real" reals nil))
    shostak))
  (expit_inv_TCC1 0
-  (expit_inv_TCC1-1 nil 3759583715 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) nil))
+  (expit_inv_TCC1-1 nil 3759583715 ("" (subtype-tcc) nil nil) nil nil
+   (expit_inv subtype "for_examples.i"
+    "{i: integers.int | booleans.OR(for_examples.x /= 0, reals.>=(i, 0))}")))
  (expit_post_TCC1 0
-  (expit_post_TCC1-1 nil 3759586342 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) nil))
+  (expit_post_TCC1-1 nil 3759586342 ("" (subtype-tcc) nil nil) nil nil
+   (expit_post subtype "for_examples.n"
+    "{i: integers.int | booleans.OR(for_examples.x /= 0, reals.>=(i, 0))}")))
  (expit_sound 0
   (expit_sound-1 nil 3508441066
    ("" (skeep)
@@ -59,64 +41,12 @@
         nil))
       nil))
     nil)
-   ((expit const-decl "real" for_examples nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (<= const-decl "bool" reals nil)
-    (n skolem-const-decl "nat" for_examples nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil) (>= const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (subrange type-eq-decl nil integers nil)
-    (ForBody type-eq-decl nil for_iterate nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (expt_x0 formula-decl nil exponentiation nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (expt def-decl "real" exponentiation nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (/= const-decl "boolean" notequal nil)
-    (^ const-decl "real" exponentiation nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (for_invariant formula-decl nil for_iterate nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil))
+   ((ForBody type-eq-decl nil for_iterate nil)
+    (for_invariant formula-decl nil for_iterate nil))
    shostak))
  (factit_test 0
   (factit_test-1 nil 3505593275 ("" (grind) nil nil)
-   ((posint_times_posint_is_posint application-judgement "posint"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (factit const-decl "posnat" for_examples nil)
-    (for_down const-decl "T" for_iterate nil)
+   ((for_down const-decl "T" for_iterate nil)
     (for const-decl "T" for_iterate nil)
     (for_it def-decl
      "{t: T | t = for_def(i, upto, a, ext2int(upfrom, upto, f))}"
@@ -146,119 +76,37 @@
         nil))
       nil))
     nil)
-   ((nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (posint_times_posint_is_posint application-judgement "posint"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (factorial def-decl "posnat" factorial "ints/")
-    (factit const-decl "posnat" for_examples nil)
+   ((factorial def-decl "posnat" factorial ints)
     (for_down const-decl "T" for_iterate nil)
     (for const-decl "T" for_iterate nil)
     (for_it def-decl
      "{t: T | t = for_def(i, upto, a, ext2int(upfrom, upto, f))}"
      for_iterate nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
     (for_down_invariant formula-decl nil for_iterate nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (factorial_1 formula-decl nil factorial "ints/")
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (subrange type-eq-decl nil integers nil)
-    (ForBody type-eq-decl nil for_iterate nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (n skolem-const-decl "nat" for_examples nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (<= const-decl "bool" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
+    (factorial_1 formula-decl nil factorial ints)
+    (ForBody type-eq-decl nil for_iterate nil))
    shostak))
  (sum_array_logic_TCC1 0
-  (sum_array_logic_TCC1-1 nil 3759586521 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+  (sum_array_logic_TCC1-1 nil 3759586521 ("" (subtype-tcc) nil nil) nil
+   nil
+   (sum_array_logic subtype "(number_fields.-)(for_examples.i, 1)"
+    "naturalnumbers.below(for_examples.n)")))
  (sum_array_logic_TCC2 0
-  (sum_array_logic_TCC2-1 nil 3759586521 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+  (sum_array_logic_TCC2-1 nil 3759586521 ("" (subtype-tcc) nil nil) nil
+   nil
+   (sum_array_logic subtype "(number_fields.-)(for_examples.i, 1)"
+    "naturalnumbers.upto(for_examples.n)")))
  (sum_array_logic_TCC3 0
   (sum_array_logic_TCC3-1 nil 3759586521 ("" (termination-tcc) nil nil)
-   nil nil))
+   nil nil
+   (sum_array_logic termination
+    "for_examples.sum_array_logic(for_examples.n, for_examples.A)((number_fields.-)(for_examples.i, 1))"
+    "nil")))
  (sum_array_post_TCC1 0
   (sum_array_post_TCC1-1 nil 3759586521 ("" (subtype-tcc) nil nil) nil
-   nil))
+   nil
+   (sum_array_post subtype "for_examples.n"
+    "naturalnumbers.upto(for_examples.n)")))
  (sum_array_sound 0
   (sum_array_sound-3 nil 3759589303
    ("" (skeep)
@@ -294,50 +142,11 @@
         nil))
       nil))
     nil)
-   ((sum_array const-decl "real" for_examples nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (<= const-decl "bool" reals nil)
-    (n skolem-const-decl "nat" for_examples nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil) (>= const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (subrange type-eq-decl nil integers nil)
-    (ForBody type-eq-decl nil for_iterate nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+   ((ForBody type-eq-decl nil for_iterate nil)
     (Maybe type-decl nil Maybe nil)
     (some? adt-recognizer-decl "[Maybe -> boolean]" Maybe nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (val adt-accessor-decl "[(some?) -> T]" Maybe nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (sum_array_logic def-decl "real" for_examples nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (for_invariant formula-decl nil for_iterate nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil))
+    (for_invariant formula-decl nil for_iterate nil))
    nil)
   (sum_array_sound-2 nil 3759586570
    ("" (skeep)
@@ -364,74 +173,26 @@
     nil)
    nil shostak))
  (maxit_TCC1 0
-  (maxit_TCC1-1 nil 3505593581 ("" (grind) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (list type-decl nil list_adt nil)
-    (every adt-def-decl "boolean" list_adt nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (length def-decl "nat" list_props nil))
-   nil))
+  (maxit_TCC1-1 nil 3505593581 ("" (grind) nil nil) nil nil
+   (maxit subtype
+    "(number_fields.-)(list_props[real].length(for_examples.l), 1)"
+    "integers.upfrom(0)")))
  (maxit_TCC2 0
-  (maxit_TCC2-1 nil 3508362429 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (list type-decl nil list_adt nil)
-    (every adt-def-decl "boolean" list_adt nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+  (maxit_TCC2-1 nil 3508362429 ("" (subtype-tcc) nil nil) nil nil
+   (maxit subtype
+    "LAMBDA (i: naturalnumbers.below(list_props[real].length(for_examples.l))): list_props[real].nth(for_examples.l, i)"
+    "for_iterate[real].IterateBody(0, (number_fields.-)(list_props[real].length(for_examples.l), 1))")))
  (maxit_test 0
   (maxit_test-1 nil 3505593776 ("" (grind) nil nil)
-   ((length def-decl "nat" list_props nil)
-    (nth def-decl "T" list_props nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (for_it def-decl
+   ((for_it def-decl
      "{t: T | t = for_def(i, upto, a, ext2int(upfrom, upto, f))}"
      for_iterate nil)
     (for const-decl "T" for_iterate nil)
-    (iterate_left const-decl "T" for_iterate nil)
-    (maxit const-decl "real" for_examples nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil))
+    (iterate_left const-decl "T" for_iterate nil))
    shostak))
  (maxit_inv_TCC1 0
-  (maxit_inv_TCC1-1 nil 3759694339 ("" (subtype-tcc) nil nil) nil nil))
+  (maxit_inv_TCC1-1 nil 3759694339 ("" (subtype-tcc) nil nil) nil nil
+   (maxit_inv subtype "for_examples.k" "below[length[real](l)]")))
  (maxit_sound 0
   (maxit_sound-1 nil 3508424536
    ("" (skeep)
@@ -460,80 +221,21 @@
         nil))
       nil))
     nil)
-   ((maxit const-decl "real" for_examples nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (l skolem-const-decl "(cons?[real])" for_examples nil)
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (length def-decl "nat" list_props nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (list type-decl nil list_adt nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (<= const-decl "bool" reals nil) (< const-decl "bool" reals nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (upfrom nonempty-type-eq-decl nil integers nil)
-    (subrange type-eq-decl nil integers nil)
-    (IterateBody type-eq-decl nil for_iterate nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (below type-eq-decl nil nat_types nil)
-    (nth def-decl "T" list_props nil)
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (k!2 skolem-const-decl "upto(1 + k!1)" for_examples nil)
-    (k!1 skolem-const-decl "subrange(0, length(l) - 2)" for_examples
-     nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (max_ge formula-decl nil real_defs nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (iterate_left_invariant formula-decl nil for_iterate nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil))
+   ((IterateBody type-eq-decl nil for_iterate nil)
+    (iterate_left_invariant formula-decl nil for_iterate nil))
    shostak))
  (minit_test 0
   (minit_test-1 nil 3508284859 ("" (grind) nil nil)
-   ((length def-decl "nat" list_props nil)
-    (nth def-decl "T" list_props nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (for_it def-decl
+   ((for_it def-decl
      "{t: T | t = for_def(i, upto, a, ext2int(upfrom, upto, f))}"
      for_iterate nil)
     (for const-decl "T" for_iterate nil)
     (for_down const-decl "T" for_iterate nil)
-    (iterate_right const-decl "T" for_iterate nil)
-    (minit const-decl "real" for_examples nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil))
+    (iterate_right const-decl "T" for_iterate nil))
    shostak))
  (minit_inv_TCC1 0
-  (minit_inv_TCC1-1 nil 3759745861 ("" (subtype-tcc) nil nil) nil nil))
+  (minit_inv_TCC1-1 nil 3759745861 ("" (subtype-tcc) nil nil) nil nil
+   (minit_inv subtype "for_examples.k" "below[length[real](l)]")))
  (minit_sound 0
   (minit_sound-1 nil 3508461473
    ("" (skeep)
@@ -562,80 +264,14 @@
         nil))
       nil))
     nil)
-   ((minit const-decl "real" for_examples nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (l skolem-const-decl "(cons?[real])" for_examples nil)
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (length def-decl "nat" list_props nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (every adt-def-decl "boolean" list_adt nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (list type-decl nil list_adt nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (<= const-decl "bool" reals nil) (< const-decl "bool" reals nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (upfrom nonempty-type-eq-decl nil integers nil)
-    (subrange type-eq-decl nil integers nil)
-    (IterateBody type-eq-decl nil for_iterate nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (below type-eq-decl nil nat_types nil)
-    (nth def-decl "T" list_props nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (k!2 skolem-const-decl "subrange(k!1 - 1, length(l) - 1)"
-     for_examples nil)
-    (k!1 skolem-const-decl "subrange(1, length(l) - 1)" for_examples
-     nil)
-    (min_le formula-decl nil real_defs nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (iterate_right_invariant formula-decl nil for_iterate nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil))
+   ((IterateBody type-eq-decl nil for_iterate nil)
+    (iterate_right_invariant formula-decl nil for_iterate nil))
    shostak))
  (forall_and_upto_TCC1 0
-  (forall_and_upto_TCC1-1 nil 3720484860 ("" (subtype-tcc) nil nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (>= const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+  (forall_and_upto_TCC1-1 nil 3720484860 ("" (subtype-tcc) nil nil) nil
+   nil
+   (forall_and_upto subtype "for_examples.P"
+    "for_iterate[booleans.bool].IterateBody(0, for_examples.n)")))
  (forall_and_upto 0
   (forall_and_upto-1 nil 3720484878
    ("" (skeep)
@@ -678,49 +314,14 @@
         nil))
       nil))
     nil)
-   ((bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (iterate_left_induction formula-decl nil for_iterate nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (n skolem-const-decl "nat" for_examples nil)
-    (kk skolem-const-decl "below(n)" for_examples nil)
-    (k skolem-const-decl "upto(1 + kk)" for_examples nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (< const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (TRUE const-decl "bool" booleans nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (IterateBody type-eq-decl nil for_iterate nil)
-    (subrange type-eq-decl nil integers nil)
-    (<= const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (upfrom nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil))
+   ((iterate_left_induction formula-decl nil for_iterate nil)
+    (IterateBody type-eq-decl nil for_iterate nil))
    shostak))
  (forall_and_below_TCC1 0
   (forall_and_below_TCC1-1 nil 3720484986 ("" (subtype-tcc) nil nil)
-   nil nil))
+   nil nil
+   (forall_and_below subtype "(number_fields.-)(for_examples.n, 1)"
+    "integers.upfrom(0)")))
  (forall_and_below 0
   (forall_and_below-1 nil 3720485076
    ("" (skeep)
@@ -743,43 +344,7 @@
         nil))
       nil))
     nil)
-   ((forall_and_upto formula-decl nil for_examples nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (<= const-decl "bool" reals nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (P skolem-const-decl "[below(n) -> bool]" for_examples nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (n skolem-const-decl "posnat" for_examples nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (< const-decl "bool" reals nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (TRUE const-decl "bool" booleans nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil nil))
  (forall_and_subrange 0
   (forall_and_subrange-2 nil 3720486550
    ("" (skeep)
@@ -822,44 +387,8 @@
         nil))
       nil))
     nil)
-   ((bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (iterate_left_induction formula-decl nil for_iterate nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (m skolem-const-decl "int" for_examples nil)
-    (n skolem-const-decl "upfrom(m)" for_examples nil)
-    (kk skolem-const-decl "below(n - m)" for_examples nil)
-    (k skolem-const-decl "subrange(m, 1 + kk + m)" for_examples nil)
-    (< const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (TRUE const-decl "bool" booleans nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (IterateBody type-eq-decl nil for_iterate nil)
-    (subrange type-eq-decl nil integers nil)
-    (<= const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (upfrom nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil))
+   ((iterate_left_induction formula-decl nil for_iterate nil)
+    (IterateBody type-eq-decl nil for_iterate nil))
    nil)
   (forall_and_subrange-1 nil 3720486166
    ("" (skeep)
@@ -876,8 +405,8 @@
             (("2" (hide-all-but 1) (("2" (grind) nil))))))))))))
     nil)
    nil nil))
- (exists_and_upto 0
-  (exists_and_upto-1 nil 3720486962
+ (exists_or_upto 0
+  (exists_or_upto-1 nil 3782424154
    ("" (skeep)
     (("" (lemma "iterate_left_induction[bool]")
       (("" (inst?)
@@ -918,51 +447,51 @@
         nil))
       nil))
     nil)
-   ((bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (iterate_left_induction formula-decl nil for_iterate nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (PRED type-eq-decl nil defined_types nil)
-    (k skolem-const-decl "upto(1 + kk)" for_examples nil)
-    (kk skolem-const-decl "below(n)" for_examples nil)
-    (n skolem-const-decl "nat" for_examples nil)
-    (< const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
+   ((number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (upfrom nonempty-type-eq-decl nil integers nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil)
+    (subrange type-eq-decl nil integers nil)
+    (IterateBody type-eq-decl nil for_iterate nil)
+    (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (TRUE const-decl "bool" booleans nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
+    (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (TRUE const-decl "bool" booleans nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (IterateBody type-eq-decl nil for_iterate nil)
-    (subrange type-eq-decl nil integers nil)
-    (<= const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (upfrom nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil))
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil)
+    (n skolem-const-decl "nat" for_examples nil)
+    (kk skolem-const-decl "below(n)" for_examples nil)
+    (k skolem-const-decl "upto(1 + kk)" for_examples nil)
+    (PRED type-eq-decl nil defined_types nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (iterate_left_induction formula-decl nil for_iterate nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil))
    nil))
- (exists_and_below 0
-  (exists_and_below-1 nil 3720487110
+ (exists_or_below 0
+  (exists_or_below-1 nil 3782424249
    ("" (skeep)
-    (("" (lemma "exists_and_upto")
+    (("" (lemma "exists_or_upto")
       (("" (iff)
         (("" (inst -1 "n-1" "P")
           (("1" (split)
@@ -976,50 +505,20 @@
               nil))
             nil)
            ("2" (skeep)
-            (("2" (hide-all-but 1) (("2" (grind) nil nil)) nil)) nil))
+            (("2" (hide-all-but 1)
+              (("2" (split)
+                (("1" (flatten) (("1" (assert) nil nil)) nil)
+                 ("2" (flatten) (("2" (assert) nil nil)) nil))
+                nil))
+              nil))
+            nil))
           nil))
         nil))
       nil))
     nil)
-   ((exists_and_upto formula-decl nil for_examples nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (<= const-decl "bool" reals nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (P skolem-const-decl "[below(n) -> bool]" for_examples nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (n skolem-const-decl "posnat" for_examples nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (< const-decl "bool" reals nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (TRUE const-decl "bool" booleans nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   nil))
- (exists_and_subrange 0
-  (exists_and_subrange-1 nil 3720487188
+   nil nil))
+ (exists_or_subrange 0
+  (exists_or_subrange-1 nil 3782424343
    ("" (skeep)
     (("" (lemma "iterate_left_induction[bool]")
       (("" (inst?)
@@ -1028,7 +527,15 @@
            "LAMBDA(j:upto(n-m),a:bool):(EXISTS(k:subrange(m,m+j)):P(k)) = a")
           (("" (split -1)
             (("1" (propax) nil nil)
-             ("2" (hide 2) (("2" (grind) nil nil)) nil)
+             ("2" (hide 2)
+              (("2" (iff)
+                (("2" (split)
+                  (("1" (flatten)
+                    (("1" (skeep) (("1" (assert) nil nil)) nil)) nil)
+                   ("2" (flatten) (("2" (inst 1 "m") nil nil)) nil))
+                  nil))
+                nil))
+              nil)
              ("3" (hide 2)
               (("3" (skolem 1 ("kk" "ak"))
                 (("3" (flatten)
@@ -1072,11 +579,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (k skolem-const-decl "subrange(m, 1 + kk + m)" for_examples nil)
-    (kk skolem-const-decl "below(n - m)" for_examples nil)
-    (n skolem-const-decl "upfrom(m)" for_examples nil)
-    (m skolem-const-decl "int" for_examples nil)
-    (< const-decl "bool" reals nil)
+    nil nil nil nil (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (TRUE const-decl "bool" booleans nil)

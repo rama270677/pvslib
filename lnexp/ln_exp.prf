@@ -7,7 +7,7 @@
      real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (connected? const-decl "bool" deriv_domain_def "analysis/"))
+    (connected? const-decl "bool" deriv_domain_def analysis))
    shostak))
  (one_over_t_cont 0
   (one_over_t_cont-1 nil 3253532189
@@ -30,24 +30,22 @@
         nil))
       nil))
     nil)
-   ((continuous? const-decl "bool" continuous_functions "analysis/")
+   ((continuous? const-decl "bool" continuous_functions analysis)
     (continuous_fun nonempty-type-eq-decl nil continuous_functions
-     "analysis/")
+     analysis)
     (/= const-decl "boolean" notequal nil)
     (nzreal nonempty-type-eq-decl nil reals nil)
-    (nz_continuous_fun type-eq-decl nil continuous_functions
-     "analysis/")
-    (/ const-decl "[T -> real]" real_fun_ops "reals/")
+    (nz_continuous_fun type-eq-decl nil continuous_functions analysis)
+    (/ const-decl "[T -> real]" real_fun_ops reals)
     (I const-decl "(bijective?[T, T])" identity nil)
-    (id_fun_continuous judgement-tcc nil continuous_functions
-     "analysis/")
+    (id_fun_continuous judgement-tcc nil continuous_functions analysis)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (const_fun_continuous judgement-tcc nil continuous_functions
-     "analysis/")
-    (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
+     analysis)
+    (const_fun const-decl "[T -> real]" real_fun_ops reals)
     (div_fun_continuous judgement-tcc nil continuous_functions
-     "analysis/")
+     analysis)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -82,8 +80,10 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (connected? const-decl "bool" deriv_domain_def "analysis/"))
-   nil))
+    (connected? const-decl "bool" deriv_domain_def analysis))
+   nil
+   (ln_prep assuming "analysis@integral_def[posreal].integral_def"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (ln_prep_TCC2 0
   (ln_prep_TCC2-1 nil 3253532189
    ("" (expand "not_one_element?")
@@ -104,10 +104,12 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+    (nnreal_plus_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/"))
-   nil))
+    (not_one_element? const-decl "bool" deriv_domain_def analysis))
+   nil
+   (ln_prep assuming "analysis@integral_def[posreal].integral_def"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (ln_prep 0
   (ln_prep-1 nil 3253532189
    ("" (skosimp*)
@@ -144,11 +146,11 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (continuous_Integrable? formula-decl nil integral "analysis/")
-    (connected? const-decl "bool" deriv_domain_def "analysis/")
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
-    (continuous? const-decl "bool" continuous_functions "analysis/")
-    (Closed_interval type-eq-decl nil intervals_real "reals/")
+    (continuous_Integrable? formula-decl nil integral analysis)
+    (connected? const-decl "bool" deriv_domain_def analysis)
+    (not_one_element? const-decl "bool" deriv_domain_def analysis)
+    (continuous? const-decl "bool" continuous_functions analysis)
+    (Closed_interval type-eq-decl nil intervals_real reals)
     (< const-decl "bool" reals nil) (<= const-decl "bool" reals nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -176,12 +178,16 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil))
-   nil))
+   nil
+   (ln subtype
+    "(LAMBDA (t: real_types.posreal): number_fields./(1, t))"
+    "integral_def[posreal].Integrable_funs(1, ln_exp.x)")))
  (ln_derivable_TCC1 0
   (ln_derivable_TCC1-1 nil 3471688875
    ("" (lemma "deriv_domain_posreal") (("" (propax) nil nil)) nil)
-   ((deriv_domain_posreal formula-decl nil deriv_domain "analysis/"))
-   nil))
+   ((deriv_domain_posreal formula-decl nil deriv_domain analysis)) nil
+   (ln_derivable assuming "analysis@derivatives[posreal].derivatives"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (ln_derivable 0
   (ln_derivable-1 nil 3253532189
    ("" (lemma "fundamental[posreal]")
@@ -214,9 +220,9 @@
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (one_over_t_cont formula-decl nil ln_exp nil)
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
-    (connected? const-decl "bool" deriv_domain_def "analysis/")
-    (fundamental formula-decl nil fundamental_theorem "analysis/")
+    (not_one_element? const-decl "bool" deriv_domain_def analysis)
+    (connected? const-decl "bool" deriv_domain_def analysis)
+    (fundamental formula-decl nil fundamental_theorem analysis)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -276,13 +282,13 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (derivable_continuous formula-decl nil derivatives_def "analysis/")
-    (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
+    (derivable_continuous formula-decl nil derivatives_def analysis)
+    (deriv_domain? const-decl "bool" deriv_domain_def analysis)
+    (not_one_element? const-decl "bool" deriv_domain_def analysis)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (continuous? const-decl "bool" continuous_functions "analysis/")
+    (derivable? const-decl "bool" derivatives analysis)
+    (continuous? const-decl "bool" continuous_functions analysis)
     (ln const-decl "real" ln_exp nil)
     (ln_derivable formula-decl nil ln_exp nil))
    nil)
@@ -312,14 +318,13 @@
        ("3" (skosimp*) (("3" (assert) nil nil)) nil))
       nil))
     nil)
-   ((derivable_continuous formula-decl nil derivatives_def
-     "analysis/"))
+   ((derivable_continuous formula-decl nil derivatives_def analysis))
    nil))
  (ln_1 0
   (ln_1-1 nil 3253532189
    ("" (expand "ln")
     (("" (expand "Integral") (("" (propax) nil nil)) nil)) nil)
-   ((Integral const-decl "real" integral_def "analysis/")
+   ((Integral const-decl "real" integral_def analysis)
     (ln const-decl "real" ln_exp nil))
    nil))
  (ln_mult 0
@@ -681,7 +686,7 @@
    ((* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (ln const-decl "real" ln_exp nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives analysis)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -696,38 +701,38 @@
     (number nonempty-type-decl nil numbers nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (derivable? const-decl "bool" derivatives_def "analysis/")
+    (derivable? const-decl "bool" derivatives_def analysis)
     (I const-decl "(bijective?[T, T])" identity nil)
     (bijective? const-decl "bool" functions nil)
-    (identity_derivable formula-decl nil derivatives_def "analysis/")
+    (identity_derivable formula-decl nil derivatives_def analysis)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (deriv_identity formula-decl nil derivatives_def "analysis/")
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (deriv_scal formula-decl nil derivatives_def "analysis/")
-    (deriv const-decl "real" derivatives_def "analysis/")
+    (deriv_identity formula-decl nil derivatives_def analysis)
+    (* const-decl "[T -> real]" real_fun_ops reals)
+    (deriv_scal formula-decl nil derivatives_def analysis)
+    (deriv const-decl "real" derivatives_def analysis)
     (O const-decl "T3" function_props nil)
-    (scal_derivable formula-decl nil derivatives_def "analysis/")
+    (scal_derivable formula-decl nil derivatives_def analysis)
     (py!1 skolem-const-decl "posreal" ln_exp nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
-    (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
-    (deriv_composition formula-decl nil chain_rule "analysis/")
-    (derivs_eq formula-decl nil indefinite_integral "analysis/")
-    (connected? const-decl "bool" deriv_domain_def "analysis/")
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
+    (deriv_domain? const-decl "bool" deriv_domain_def analysis)
+    (deriv_composition formula-decl nil chain_rule analysis)
+    (derivs_eq formula-decl nil indefinite_integral analysis)
+    (connected? const-decl "bool" deriv_domain_def analysis)
+    (not_one_element? const-decl "bool" deriv_domain_def analysis)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
+    (const_fun const-decl "[T -> real]" real_fun_ops reals)
     (ln_1 formula-decl nil ln_exp nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (+ const-decl "[T -> real]" real_fun_ops "reals/")
+    (+ const-decl "[T -> real]" real_fun_ops reals)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (deriv_fun type-eq-decl nil derivatives "analysis/")
-    (deriv const-decl "[T -> real]" derivatives "analysis/")
+    (deriv_fun type-eq-decl nil derivatives analysis)
+    (deriv const-decl "[T -> real]" derivatives analysis)
     (ln_derivable formula-decl nil ln_exp nil)
-    (composition_derivable formula-decl nil chain_rule "analysis/"))
+    (composition_derivable formula-decl nil chain_rule analysis))
    nil)
   (ln_mult-2 nil 3445353520
    (";;; Proof ln_mult-1 for formula ln_exp.ln_mult" (skosimp*)
@@ -1282,17 +1287,17 @@
         nil))
       nil))
     nil)
-   ((composition_derivable formula-decl nil chain_rule "analysis/")
-    (deriv const-decl "[T -> real]" derivatives "analysis/")
-    (deriv_fun type-eq-decl nil derivatives "analysis/")
-    (+ const-decl "[T -> real]" real_fun_ops "reals/")
-    (const_fun const-decl "[T -> real]" real_fun_ops "reals/")
-    (deriv_composition formula-decl nil chain_rule "analysis/")
-    (scal_derivable formula-decl nil derivatives_def "analysis/")
-    (deriv const-decl "real" derivatives_def "analysis/")
-    (deriv_scal formula-decl nil derivatives_def "analysis/")
-    (deriv_identity formula-decl nil derivatives_def "analysis/")
-    (identity_derivable formula-decl nil derivatives_def "analysis/"))
+   ((composition_derivable formula-decl nil chain_rule analysis)
+    (deriv const-decl "[T -> real]" derivatives analysis)
+    (deriv_fun type-eq-decl nil derivatives analysis)
+    (+ const-decl "[T -> real]" real_fun_ops reals)
+    (const_fun const-decl "[T -> real]" real_fun_ops reals)
+    (deriv_composition formula-decl nil chain_rule analysis)
+    (scal_derivable formula-decl nil derivatives_def analysis)
+    (deriv const-decl "real" derivatives_def analysis)
+    (deriv_scal formula-decl nil derivatives_def analysis)
+    (deriv_identity formula-decl nil derivatives_def analysis)
+    (identity_derivable formula-decl nil derivatives_def analysis))
    nil))
  (ln_div 0
   (ln_div-1 nil 3253532189
@@ -1336,7 +1341,9 @@
      real_types nil))
    nil))
  (ln_expt_TCC1 0
-  (ln_expt_TCC1-1 nil 3253532189 ("" (subtype-tcc) nil nil) nil nil))
+  (ln_expt_TCC1-1 nil 3253532189 ("" (subtype-tcc) nil nil) nil nil
+   (ln_expt subtype "ln_exp.i"
+    "{i: integers.int | booleans.OR(ln_exp.px /= 0, reals.>=(i, 0))}")))
  (ln_expt 0
   (ln_expt-1 nil 3253532189
    ("" (skosimp*)
@@ -1408,17 +1415,15 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (posreal_exp application-judgement "posreal" exponentiation nil)
-    (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (expt def-decl "real" exponentiation nil)
     (ln_div formula-decl nil ln_exp nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (ln_1 formula-decl nil ln_exp nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (nzreal_expt application-judgement "nzreal" exponentiation nil)
+    (posreal_expt application-judgement "posreal" exponentiation nil)
     (minus_int_is_int application-judgement "int" integers nil)
     (i!1 skolem-const-decl "integer" ln_exp nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
@@ -1471,21 +1476,21 @@
      ("3" (skosimp*) (("3" (assert) nil nil)) nil))
     nil)
    ((ln const-decl "real" ln_exp nil)
-    (derivable? const-decl "bool" derivatives "analysis/")
-    (deriv_fun type-eq-decl nil derivatives "analysis/")
+    (derivable? const-decl "bool" derivatives analysis)
+    (deriv_fun type-eq-decl nil derivatives analysis)
     (ln_derivable formula-decl nil ln_exp nil)
-    (deriv const-decl "[T -> real]" derivatives "analysis/")
-    (deriv const-decl "real" derivatives_def "analysis/")
-    (derivable? const-decl "bool" derivatives_def "analysis/")
+    (deriv const-decl "[T -> real]" derivatives analysis)
+    (deriv const-decl "real" derivatives_def analysis)
+    (derivable? const-decl "bool" derivatives_def analysis)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (deriv_domain? const-decl "bool" deriv_domain_def "analysis/")
+    (deriv_domain? const-decl "bool" deriv_domain_def analysis)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
-    (connected? const-decl "bool" deriv_domain_def "analysis/")
-    (positive_derivative formula-decl nil derivative_props "analysis/")
+    (not_one_element? const-decl "bool" deriv_domain_def analysis)
+    (connected? const-decl "bool" deriv_domain_def analysis)
+    (positive_derivative formula-decl nil derivative_props analysis)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -1511,8 +1516,8 @@
         nil))
       nil))
     nil)
-   ((increasing? const-decl "bool" real_fun_preds "reals/")
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+   ((increasing? const-decl "bool" real_fun_preds reals)
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1677,7 +1682,7 @@
     (div_cancel2 formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (intermediate1 formula-decl nil continuous_functions_props
-     "analysis/")
+     analysis)
     (<= const-decl "bool" reals nil)
     (ln_derivable formula-decl nil ln_exp nil)
     (ln_continuous formula-decl nil ln_exp nil)
@@ -1686,8 +1691,7 @@
     (both_sides_expt_gt1_le formula-decl nil exponentiation nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (^ const-decl "real" exponentiation nil)
-    (continuous? const-decl "bool" continuous_functions "analysis/")
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
+    (continuous? const-decl "bool" continuous_functions analysis)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (integer nonempty-type-from-decl nil integers nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -1706,7 +1710,7 @@
     (ln_expt formula-decl nil ln_exp nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/"))
+    (strict_increasing? const-decl "bool" real_fun_preds reals))
    nil))
  (ln_bij 0
   (ln_bij-1 nil 3253532189
@@ -1736,7 +1740,7 @@
     (surjective? const-decl "bool" functions nil)
     (ln_image_all formula-decl nil ln_exp nil)
     (injective? const-decl "bool" functions nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
@@ -1795,7 +1799,7 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+    (nnreal_plus_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
@@ -1805,7 +1809,7 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (bijective? const-decl "bool" functions nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/"))
+    (strict_increasing? const-decl "bool" real_fun_preds reals))
    nil))
  (ln_eq_0 0
   (ln_eq_0-1 nil 3297441392
@@ -1866,7 +1870,7 @@
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (ln_1 formula-decl nil ln_exp nil)
-    (increasing? const-decl "bool" real_fun_preds "reals/"))
+    (increasing? const-decl "bool" real_fun_preds reals))
    shostak))
  (ln_gt_0 0
   (ln_gt_0-1 nil 3297691602
@@ -1896,7 +1900,7 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (ln_1 formula-decl nil ln_exp nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/"))
+    (strict_increasing? const-decl "bool" real_fun_preds reals))
    shostak))
  (ln_le_0 0
   (ln_le_0-1 nil 3709995687
@@ -1926,7 +1930,7 @@
     (ln_1 formula-decl nil ln_exp nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (increasing? const-decl "bool" real_fun_preds "reals/"))
+    (increasing? const-decl "bool" real_fun_preds reals))
    shostak))
  (ln_lt_0 0
   (ln_lt_0-1 nil 3709995849
@@ -1956,7 +1960,7 @@
     (ln_1 formula-decl nil ln_exp nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/"))
+    (strict_increasing? const-decl "bool" real_fun_preds reals))
    nil))
  (exp_TCC1 0
   (exp_TCC1-1 nil 3253532189
@@ -1981,14 +1985,16 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil))
-   nil))
+    (number nonempty-type-decl nil numbers nil)
+    (real nonempty-type-from-decl nil reals nil))
+   nil
+   (exp existence ""
+        "[x: reals.real -> {py | x = ln_exp.ln(ln_exp.py)}]")))
  (exp_def 0
   (exp_def-1 nil 3253532189
    ("" (apply-extensionality 1 :hide? t)
@@ -2021,13 +2027,13 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
-    (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil))
+    (number nonempty-type-decl nil numbers nil)
+    (real nonempty-type-from-decl nil reals nil))
    nil))
  (exp_bij 0
   (exp_bij-1 nil 3253532189
@@ -2155,15 +2161,15 @@
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (Integrable? const-decl "bool" integral_def "analysis/")
-    (Integrable_funs type-eq-decl nil integral_def "analysis/")
-    (Integral const-decl "real" integral_def "analysis/")
+    (Integrable? const-decl "bool" integral_def analysis)
+    (Integrable_funs type-eq-decl nil integral_def analysis)
+    (Integral const-decl "real" integral_def analysis)
     (ln const-decl "real" ln_exp nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (div_cancel2 formula-decl nil real_props nil)
-    (Closed_interval type-eq-decl nil intervals_real "reals/")
+    (Closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (both_sides_times_pos_le1 formula-decl nil real_props nil)
@@ -2172,9 +2178,9 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
-    (connected? const-decl "bool" deriv_domain_def "analysis/")
-    (Integral_bound formula-decl nil integral "analysis/")
+    (not_one_element? const-decl "bool" deriv_domain_def analysis)
+    (connected? const-decl "bool" deriv_domain_def analysis)
+    (Integral_bound formula-decl nil integral analysis)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -2190,7 +2196,9 @@
    nil))
  (exp_int_TCC1 0
   (exp_int_TCC1-1 nil 3253532189
-   ("" (skosimp*) (("" (assert) nil nil)) nil) nil nil))
+   ("" (skosimp*) (("" (assert) nil nil)) nil) nil nil
+   (exp_int subtype "ln_exp.i"
+    "{i: integers.int | booleans.OR(ln_exp.e /= 0, reals.>=(i, 0))}")))
  (exp_int 0
   (exp_int-1 nil 3253532189
    ("" (skosimp*)
@@ -2240,10 +2248,8 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (posreal_exp application-judgement "posreal" exponentiation nil)
-    (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (bijective? const-decl "bool" functions nil)
     (injective? const-decl "bool" functions nil)
     (int nonempty-type-eq-decl nil integers nil)
@@ -2371,7 +2377,6 @@
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (ln_div formula-decl nil ln_exp nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (ln_exp formula-decl nil ln_exp nil)
     (ln_bij formula-decl nil ln_exp nil)
     (injective? const-decl "bool" functions nil)
@@ -2379,7 +2384,9 @@
    nil))
  (exp_scal_TCC1 0
   (exp_scal_TCC1-1 nil 3253532189
-   ("" (skosimp*) (("" (assert) nil nil)) nil) nil nil))
+   ("" (skosimp*) (("" (assert) nil nil)) nil) nil nil
+   (exp_scal subtype "ln_exp.i"
+    "{i: integers.int | booleans.OR(ln_exp.exp(ln_exp.x) /= 0, reals.>=(i, 0))}")))
  (exp_scal 0
   (exp_scal-1 nil 3253532189
    ("" (skosimp*)
@@ -2408,7 +2415,6 @@
       nil))
     nil)
    ((real_times_real_is_real application-judgement "real" reals nil)
-    (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (posreal_exp application-judgement "posreal" exponentiation nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -2511,7 +2517,9 @@
    ("" (skosimp*) (("" (assert) nil nil)) nil)
    ((real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (expt_alt_def subtype "ln_exp.i"
+    "{i: integers.int | booleans.OR(ln_exp.x /= 0, reals.>=(i, 0))}")))
  (expt_alt_def_TCC2 0
   (expt_alt_def_TCC2-1 nil 3253532189
    ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -2519,7 +2527,7 @@
      real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (expt_alt_def subtype "ln_exp.x" "posreal")))
  (expt_alt_def 0
   (expt_alt_def-1 nil 3253532189
    ("" (skosimp*)
@@ -2548,7 +2556,6 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posreal_exp application-judgement "posreal" exponentiation nil)
-    (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (exp_ln formula-decl nil ln_exp nil))
    nil))
  (exp_strict_increasing 0
@@ -2588,7 +2595,7 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (ln const-decl "real" ln_exp nil)
     (exp const-decl "{py | x = ln(py)}" ln_exp nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/"))
+    (strict_increasing? const-decl "bool" real_fun_preds reals))
    nil))
  (exp_increasing 0
   (exp_increasing-1 nil 3253532189
@@ -2602,8 +2609,8 @@
         nil))
       nil))
     nil)
-   ((increasing? const-decl "bool" real_fun_preds "reals/")
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+   ((increasing? const-decl "bool" real_fun_preds reals)
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -3022,7 +3029,7 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+    (nnreal_plus_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -3036,13 +3043,13 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (increasing? const-decl "bool" real_fun_preds "reals/")
+    (increasing? const-decl "bool" real_fun_preds reals)
     (exp_increasing formula-decl nil ln_exp nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (exp_strict_increasing formula-decl nil ln_exp nil)
     (exp_ln formula-decl nil ln_exp nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
     (minus_real_is_real application-judgement "real" reals nil)
     (ln_strict_increasing formula-decl nil ln_exp nil)
     (number nonempty-type-decl nil numbers nil)
@@ -3060,21 +3067,24 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (ln const-decl "real" ln_exp nil)
     (exp const-decl "{py | x = ln(py)}" ln_exp nil)
-    (continuous? const-decl "bool" continuous_functions "analysis/")
+    (continuous? const-decl "bool" continuous_functions analysis)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (continuous? const-decl "bool" continuous_functions "analysis/"))
+    (continuous? const-decl "bool" continuous_functions analysis))
    nil))
  (exp_deriv_TCC1 0
   (exp_deriv_TCC1-1 nil 3299599408
    ("" (lemma "deriv_domain_real") (("" (propax) nil nil)) nil)
-   ((deriv_domain_real formula-decl nil deriv_domain "analysis/"))
-   shostak))
+   ((deriv_domain_real formula-decl nil deriv_domain analysis)) shostak
+   (exp_deriv assuming "analysis@derivatives[real].derivatives"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (exp_deriv_TCC2 0
   (exp_deriv_TCC2-1 nil 3299599409
    ("" (skosimp*) (("" (inst + "x!1+1") (("" (assert) nil nil)) nil))
     nil)
-   ((not_one_element_real formula-decl nil deriv_domain "analysis/"))
-   shostak))
+   ((not_one_element_real formula-decl nil deriv_domain analysis))
+   shostak
+   (exp_deriv assuming "analysis@derivatives[real].derivatives"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (exp_deriv 0
   (exp_deriv-1 nil 3298213289
    ("" (lemma "inverse_derivable_fun[posreal,real]")
@@ -3124,7 +3134,7 @@
    ((= const-decl "[T, T -> boolean]" equalities nil)
     (ln const-decl "real" ln_exp nil)
     (exp const-decl "{py | x = ln(py)}" ln_exp nil)
-    (deriv_inverse_fun formula-decl nil derivative_inverse "analysis/")
+    (deriv_inverse_fun formula-decl nil derivative_inverse analysis)
     (ln_derivable formula-decl nil ln_exp nil)
     (ln_exp formula-decl nil ln_exp nil)
     (inverse? const-decl "bool" function_inverse_def nil)
@@ -3136,10 +3146,10 @@
     (/= const-decl "boolean" notequal nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/")
-    (connected? const-decl "bool" deriv_domain_def "analysis/")
+    (not_one_element? const-decl "bool" deriv_domain_def analysis)
+    (connected? const-decl "bool" deriv_domain_def analysis)
     (inverse_derivable_fun formula-decl nil derivative_inverse
-     "analysis/")
+     analysis)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -3153,6 +3163,19 @@
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil))
    shostak))
+ (derivable_exp 0
+  (derivable_exp-1 nil 3782648827
+   ("" (lemma "exp_deriv") (("" (flatten) nil nil)) nil)
+   ((exp_deriv formula-decl nil ln_exp nil)) shostak))
+ (derivative_exp_TCC1 0
+  (derivative_exp_TCC1-1 nil 3782648561
+   ("" (lemma "exp_deriv") (("" (flatten) nil nil)) nil)
+   ((exp_deriv formula-decl nil ln_exp nil)) nil
+   (derivative_exp subtype "ln_exp.exp" "deriv_fun[real]")))
+ (derivative_exp 0
+  (derivative_exp-1 nil 3782648843
+   ("" (lemma "exp_deriv") (("" (flatten) nil nil)) nil)
+   ((exp_deriv formula-decl nil ln_exp nil)) shostak))
  (e_bnds 0
   (e_bnds-1 nil 3253532189
    ("" (expand "e")
@@ -3265,7 +3288,7 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (expt def-decl "real" exponentiation nil)
-    (increasing? const-decl "bool" real_fun_preds "reals/")
+    (increasing? const-decl "bool" real_fun_preds reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (exp_ln formula-decl nil ln_exp nil)
