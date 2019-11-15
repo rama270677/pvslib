@@ -184,7 +184,9 @@ if [ "$THMA" -a -z "$FILE" ]; then
 fi
 
 DIR=`dirname $FILE`
-DIR=`readlink --canonicalize $DIR`
+if [ "$DIR" = "." ]; then
+    DIR=`pwd -P`
+fi
 NAME=`basename $FILE .pvs`
 FILE="$DIR/$NAME"
 
