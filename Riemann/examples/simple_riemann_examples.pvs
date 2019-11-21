@@ -18,10 +18,10 @@
 % details.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-examples_numerical_Riemann 
+simple_riemann_examples 
 : THEORY BEGIN
 
-   IMPORTING Riemann_integ_interval_approx 
+   IMPORTING Riemann@Riemann_integ_interval_approx 
    IMPORTING continuous_functions[real]
    IMPORTING structures@fun_preds_partial
 
@@ -79,12 +79,14 @@ atan_deriv_cont:lemma continuous?[real](atan_deriv_fun)
 
 %- atan_deriv_fun_interval_bounding_function: 
  
-Atan_Deriv(n)(Y):Interval =	COND   0 < lb(Y) and 0 < ub(Y) and lb(Y)<ub(Y)            -> [|1/(1+ub(Y)*ub(Y)),1/(1+lb(Y)*lb(Y))|],
-                                       ub(Y) < 0 and lb(Y) < 0 and lb(Y)<ub(Y)            -> [|1/(1+lb(Y)*lb(Y)),1/(1+ub(Y)*ub(Y))|],
-                                       lb(Y)=ub(Y)                                        ->  [|0,1|], 
-                                       else                                               -> [|min(atan_deriv_fun(lb(Y)),atan_deriv_fun(ub(Y))),1|]
-                
-                             	ENDCOND 
+  Atan_Deriv(n)(Y)
+  : Interval 
+  = COND
+    0 < lb(Y) and 0 < ub(Y) and lb(Y)<ub(Y) -> [|1/(1+ub(Y)*ub(Y)),1/(1+lb(Y)*lb(Y))|],
+    ub(Y) < 0 and lb(Y) < 0 and lb(Y)<ub(Y) -> [|1/(1+lb(Y)*lb(Y)),1/(1+ub(Y)*ub(Y))|],
+    lb(Y)=ub(Y)                             -> [|0,1|], 
+    else                                    -> [|min(atan_deriv_fun(lb(Y)),atan_deriv_fun(ub(Y))),1|]
+  ENDCOND 
 
 
 %atan_deriv_fun fundamental inclusion theory:
@@ -194,4 +196,4 @@ exp_test3:LEMMA integral(0,3,exp) ## [|19.0 , 19.1|]
 %|-  "exp" "12" "3")
 %|- QED
 
-END examples_numerical_Riemann
+END simple_riemann_examples
