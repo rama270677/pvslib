@@ -70,7 +70,11 @@
     (reflexive? const-decl "bool" relations nil)
     (subs_o formula-decl nil substitution nil)
     (TRUE const-decl "bool" booleans nil)
-    (o_ass formula-decl nil substitution nil) nil nil
+    (o_ass formula-decl nil substitution nil)
+    (tau!2 skolem-const-decl "Sub[variable, symbol, arity]" unification
+     nil)
+    (tau!1 skolem-const-decl "Sub[variable, symbol, arity]" unification
+     nil)
     (transitive? const-decl "bool" relations nil)
     (preorder? const-decl "bool" orders nil))
    shostak))
@@ -133,8 +137,8 @@
     (V const-decl "set[term]" variables_term nil)
     (set type-eq-decl nil sets nil) (< const-decl "bool" reals nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (below type-eq-decl nil nat_types nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -147,8 +151,8 @@
   (resolving_diff_TCC1-1 nil 3447690997
    ("" (skosimp*)
     (("" (lemma "positions_of_arg")
-      (("" (inst -1 "s!1" "k!1")
-        (("1" (typepred "k!1")
+      (("" (inst -1 "s!1" "kk!1")
+        (("1" (typepred "kk!1")
           (("1" (lemma "uni_diff_equal_length_arg")
             (("1" (inst -1 "s!1" "t!1" "f!1" "st!1")
               (("1" (assert)
@@ -194,8 +198,14 @@
      integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (uni_diff_equal_length_arg formula-decl nil unification nil) nil
-    nil nil nil
+    (uni_diff_equal_length_arg formula-decl nil unification nil)
+    (fp!1 skolem-const-decl "symbol" unification nil)
+    (stp!1 skolem-const-decl
+     "{args: finite_sequence[term[variable, symbol, arity]] | args`length = arity(fp!1)}"
+     unification nil)
+    (kk!1 skolem-const-decl "below[length(stp!1)]" unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (args adt-accessor-decl
           "[d: (app?) -> {args: finite_sequence[term] | args`length = arity(f(d))}]"
           term_adt nil)
@@ -216,8 +226,8 @@
   (resolving_diff_TCC2-1 nil 3447690997
    ("" (skosimp*)
     (("" (lemma "positions_of_arg")
-      (("" (inst -1 "t!1" "k!1")
-        (("1" (typepred "k!1")
+      (("" (inst -1 "t!1" "kk!1")
+        (("1" (typepred "kk!1")
           (("1" (replace -3 1) (("1" (assert) nil nil)) nil)) nil)
          ("2" (assert) nil nil))
         nil))
@@ -241,7 +251,16 @@
     (symbol formal-nonempty-type-decl nil unification nil)
     (variable formal-nonempty-type-decl nil unification nil)
     (positions_of_arg formula-decl nil positions nil)
-    (NOT const-decl "[bool -> bool]" booleans nil) nil nil nil nil nil
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (fp!1 skolem-const-decl "symbol" unification nil)
+    (stp!1 skolem-const-decl
+     "{args: finite_sequence[term[variable, symbol, arity]] | args`length = arity(fp!1)}"
+     unification nil)
+    (kk!1 skolem-const-decl "below[length(stp!1)]" unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
     (args adt-accessor-decl
           "[d: (app?) -> {args: finite_sequence[term] | args`length = arity(f(d))}]"
           term_adt nil)
@@ -263,6 +282,128 @@
     "positions[unification.variable, unification.symbol, unification.arity].positions?(unification.t)")))
  (resolving_diff_TCC3 0
   (resolving_diff_TCC3-1 nil 3447690997
+   ("" (skosimp*)
+    (("" (lemma "uni_diff_equal_length_arg")
+      (("" (inst -1 "s!1" "t!1" "f!1" "st!1")
+        (("" (assert)
+          (("" (inst -1 "fp!1" "stp!1")
+            (("" (assert)
+              (("" (flatten)
+                (("" (replace -1 -4 rl)
+                  (("" (hide -1)
+                    (("" (typepred t!1)
+                      (("" (hide -1)
+                        (("" (case "st!1 = stp!1")
+                          (("1" (hide +) (("1" (grind) nil nil)) nil)
+                           ("2" (decompose-equality 1)
+                            (("2" (decompose-equality 1)
+                              (("2"
+                                (typepred x!1)
+                                (("2"
+                                  (expand* "nonempty?" "empty?")
+                                  (("2"
+                                    (inst -6 "x!1")
+                                    (("2"
+                                      (expand "member")
+                                      (("2"
+                                        (replace -5 -6)
+                                        (("2"
+                                          (replace -4 -6)
+                                          (("2"
+                                            (assert)
+                                            (("2"
+                                              (expand subtermOF)
+                                              (("2"
+                                                (lift-if)
+                                                (("2"
+                                                  (assert)
+                                                  (("2"
+                                                    (grind)
+                                                    nil
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((uni_diff_equal_length_arg formula-decl nil unification nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (< const-decl "bool" reals nil) (empty? const-decl "bool" sets nil)
+    (nonempty? const-decl "bool" sets nil)
+    (member const-decl "bool" sets nil)
+    (subtermOF def-decl "term" subterm nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (|#| const-decl "finite_sequence[T]" set2seq structures)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
+     nil)
+    (first const-decl "T" seq_extras structures)
+    (empty_seq const-decl "finseq" finite_sequences nil)
+    (^ const-decl "finseq" finite_sequences nil)
+    (rest const-decl "finseq" seq_extras structures)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
+     real_defs nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}"
+     real_defs nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (finite_sequence type-eq-decl nil finite_sequences nil)
+    (below type-eq-decl nil nat_types nil)
+    (/= const-decl "boolean" notequal nil)
+    (unifiable const-decl "bool" unification nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (term type-decl nil term_adt nil)
+    (arity formal-const-decl "[symbol -> nat]" unification nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (symbol formal-nonempty-type-decl nil unification nil)
+    (variable formal-nonempty-type-decl nil unification nil))
+   nil
+   (resolving_diff subtype
+    "{kk: nat_types[length(unification.stp)].below | subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.s, set2seq[posnat].#((number_fields.+)(kk, 1))) /= subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.t, set2seq[posnat].#((number_fields.+)(kk, 1)))}"
+    "(sets[below[length(stp)]].nonempty?)")))
+ (resolving_diff_TCC4 0
+  (resolving_diff_TCC4-1 nil 3449937385
    ("" (skosimp*)
     (("" (assert)
       (("" (typepred "t!1")
@@ -344,7 +485,16 @@
     (empty_seq const-decl "finseq" finite_sequences nil)
     (^ const-decl "finseq" finite_sequences nil)
     (rest const-decl "finseq" seq_extras structures)
-    (subtermOF def-decl "term" subterm nil) nil nil nil nil nil
+    (subtermOF def-decl "term" subterm nil)
+    (st!1 skolem-const-decl
+     "{args: finite_sequence[term[variable, symbol, arity]] | args`length = arity(f!1)}"
+     unification nil)
+    (f!1 skolem-const-decl "symbol" unification nil)
+    (k!1 skolem-const-decl "below[length(stp!1)]" unification nil)
+    (stp!1 skolem-const-decl
+     "{args: finite_sequence[term[variable, symbol, arity]] | args`length = arity(fp!1)}"
+     unification nil)
+    (fp!1 skolem-const-decl "symbol" unification nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (args adt-accessor-decl
@@ -353,8 +503,8 @@
     (f adt-accessor-decl "[(app?) -> symbol]" term_adt nil)
     (v adt-accessor-decl "[(vars?) -> variable]" term_adt nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
     (app? adt-recognizer-decl "[term -> boolean]" term_adt nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
@@ -388,12 +538,12 @@
     (unifiable const-decl "bool" unification nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (/= const-decl "boolean" notequal nil))
-   nil
+   shostak
    (resolving_diff subtype
-    "{kk: nat_types[length(unification.stp)].below | subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.s, set2seq[posnat].#((number_fields.+)(kk, 1))) /= subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.t, set2seq[posnat].#((number_fields.+)(kk, 1)))}"
-    "(sets[below[length(stp)]].nonempty?)")))
- (resolving_diff_TCC4 0
-  (resolving_diff_TCC4-1 nil 3449937385
+    "subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.t, set2seq[posnat].#((number_fields.+)(unification.k, 1)))"
+    "{t: term_adt[unification.variable, unification.symbol, unification.arity].term | booleans.&(unification.unifiable(subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.s, set2seq[posnat].#((number_fields.+)(1, unification.k))), t), (booleans.NOT)(subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.s, set2seq[posnat].#((number_fields.+)(1, unification.k))) = t))}")))
+ (resolving_diff_TCC5 0
+  (resolving_diff_TCC5-1 nil 3449937623
    ("" (skosimp*)
     (("" (expand "<<")
       (("" (lift-if)
@@ -471,82 +621,19 @@
     (arity formal-const-decl "[symbol -> nat]" unification nil)
     (term type-decl nil term_adt nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (= const-decl "[T, T -> boolean]" equalities nil) nil nil nil
-    (app? adt-recognizer-decl "[term -> boolean]" term_adt nil)
-    (f adt-accessor-decl "[(app?) -> symbol]" term_adt nil)
-    (args adt-accessor-decl
-          "[d: (app?) -> {args: finite_sequence[term] | args`length = arity(f(d))}]"
-          term_adt nil)
-    nil
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
-   shostak
-   (resolving_diff subtype
-    "subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.t, set2seq[posnat].#((number_fields.+)(unification.k, 1)))"
-    "{t: term_adt[unification.variable, unification.symbol, unification.arity].term | booleans.&(unification.unifiable(subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.s, set2seq[posnat].#((number_fields.+)(1, unification.k))), t), (booleans.NOT)(subterm[unification.variable, unification.symbol, unification.arity].subtermOF(unification.s, set2seq[posnat].#((number_fields.+)(1, unification.k))) = t))}")))
- (resolving_diff_TCC5 0
-  (resolving_diff_TCC5-1 nil 3449937623
-   ("" (skosimp*)
-    (("" (lemma "positions_of_arg")
-      (("" (inst -1 "s!1" "kk!1")
-        (("1" (typepred "kk!1")
-          (("1" (lemma "uni_diff_equal_length_arg")
-            (("1" (inst -1 "s!1" "t!1" "f!1" "st!1")
-              (("1" (assert)
-                (("1" (inst -1 "fp!1" "stp!1")
-                  (("1" (assert)
-                    (("1" (flatten)
-                      (("1" (replace -4 1) (("1" (assert) nil nil))
-                        nil))
-                      nil))
-                    nil))
-                  nil))
-                nil))
-              nil))
-            nil))
-          nil)
-         ("2" (assert) nil nil))
-        nil))
-      nil))
-    nil)
-   ((arity formal-const-decl "[symbol -> nat]" unification nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (symbol formal-nonempty-type-decl nil unification nil)
-    (variable formal-nonempty-type-decl nil unification nil)
-    (positions_of_arg formula-decl nil positions nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (/= const-decl "boolean" notequal nil)
-    (unifiable const-decl "bool" unification nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (uni_diff_equal_length_arg formula-decl nil unification nil) nil
-    nil nil nil
-    (args adt-accessor-decl
-          "[d: (app?) -> {args: finite_sequence[term] | args`length = arity(f(d))}]"
-          term_adt nil)
-    (f adt-accessor-decl "[(app?) -> symbol]" term_adt nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (finite_sequence type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (fp!1 skolem-const-decl "symbol" unification nil)
+    (stp!1 skolem-const-decl
+     "{args: finite_sequence[term[variable, symbol, arity]] | args`length = arity(fp!1)}"
+     unification nil)
+    (k!1 skolem-const-decl "below[length(stp!1)]" unification nil)
     (app? adt-recognizer-decl "[term -> boolean]" term_adt nil)
-    (term type-decl nil term_adt nil)
+    (f adt-accessor-decl "[(app?) -> symbol]" term_adt nil)
+    (args adt-accessor-decl
+          "[d: (app?) -> {args: finite_sequence[term] | args`length = arity(f(d))}]"
+          term_adt nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
    shostak
@@ -624,11 +711,11 @@
                                     (inst
                                      -3
                                      "min({kk: below[length(args(t!1))] |
-                                         NOT subtermOF(s!1, #(1 + kk)) = subtermOF(t!1, #(1 + kk))})")
+                                                 NOT subtermOF(s!1, #(1 + kk)) = subtermOF(t!1, #(1 + kk))})")
                                     (("1"
                                       (hide 5 2 3 4 5)
                                       (("1"
-                                        (lemma "resolving_diff_TCC7")
+                                        (lemma "resolving_diff_TCC3")
                                         (("1"
                                           (inst
                                            -1
@@ -720,7 +807,7 @@
                     nil))
                   nil)
                  ("2" (hide -1 5 6)
-                  (("2" (lemma "resolving_diff_TCC7")
+                  (("2" (lemma "resolving_diff_TCC3")
                     (("2" (inst -1 "s!1" "t!1" "f(s!1)" "args(s!1)")
                       (("2" (assert)
                         (("2" (case "s!1 = app( f(s!1), args(s!1))")
@@ -805,15 +892,26 @@
         nil))
       nil))
     nil)
-   ((resolving_diff def-decl "position" unification nil) nil
+   ((resolving_diff def-decl "position" unification nil)
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
     (term_app_extensionality formula-decl nil term_adt nil)
-    (uni_diff_equal_length_arg formula-decl nil unification nil) nil
+    (uni_diff_equal_length_arg formula-decl nil unification nil)
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (positions_of_arg formula-decl nil positions nil) nil nil nil
+    (positions_of_arg formula-decl nil positions nil)
+    (resolving_diff_TCC3 subtype-tcc nil unification nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (resolving_diff_TCC1 subtype-tcc nil unification nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
@@ -897,11 +995,11 @@
                                     (inst
                                      -3
                                      "min({kk: below[length(args(t!1))] |
-                                        NOT subtermOF(s!1, #(1 + kk)) = subtermOF(t!1, #(1 + kk))})")
+                                                NOT subtermOF(s!1, #(1 + kk)) = subtermOF(t!1, #(1 + kk))})")
                                     (("1"
                                       (hide 2 3 4 5)
                                       (("1"
-                                        (lemma "resolving_diff_TCC7")
+                                        (lemma "resolving_diff_TCC3")
                                         (("1"
                                           (inst
                                            -1
@@ -993,7 +1091,7 @@
                     nil))
                   nil)
                  ("2" (hide -1 5 6)
-                  (("2" (lemma "resolving_diff_TCC7")
+                  (("2" (lemma "resolving_diff_TCC3")
                     (("2" (inst -1 "s!1" "t!1" "f(s!1)" "args(s!1)")
                       (("2" (case "s!1 = app( f(s!1), args(s!1))")
                         (("1" (assert)
@@ -1076,15 +1174,26 @@
         nil))
       nil))
     nil)
-   ((resolving_diff def-decl "position" unification nil) nil
+   ((resolving_diff def-decl "position" unification nil)
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
     (term_app_extensionality formula-decl nil term_adt nil)
-    (uni_diff_equal_length_arg formula-decl nil unification nil) nil
+    (uni_diff_equal_length_arg formula-decl nil unification nil)
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (positions_of_arg formula-decl nil positions nil) nil nil nil
+    (positions_of_arg formula-decl nil positions nil)
+    (resolving_diff_TCC3 subtype-tcc nil unification nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (resolving_diff_TCC2 subtype-tcc nil unification nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
@@ -1157,12 +1266,12 @@
                   ((""
                     (name-replace "k1"
                      "min({kk: below[length(args(t!1))]
-                              | NOT subtermOF(s!1, #(1 + kk)) = subtermOF(t!1, #(1 + kk))})")
+                                | NOT subtermOF(s!1, #(1 + kk)) = subtermOF(t!1, #(1 + kk))})")
                     (("1" (name-replace "k" "1+k1")
                       (("1" (replace -1 1)
                         (("1" (hide -1)
                           (("1" (rewrite "first_add[posnat]")
-                            (("1" (lemma "resolving_diff_TCC3")
+                            (("1" (lemma "resolving_diff_TCC4")
                               (("1"
                                 (inst
                                  -1
@@ -1227,7 +1336,7 @@
                               nil)
                              ("2" (hide 2)
                               (("2"
-                                (lemma "resolving_diff_TCC3")
+                                (lemma "resolving_diff_TCC4")
                                 (("2"
                                   (inst
                                    -1
@@ -1443,7 +1552,7 @@
                         nil))
                       nil)
                      ("2" (hide -1 2)
-                      (("2" (lemma "resolving_diff_TCC7")
+                      (("2" (lemma "resolving_diff_TCC3")
                         (("2"
                           (inst -1 "s!1" "t!1" "f(s!1)" "args(s!1)")
                           (("2" (case "s!1 = app(f(s!1), args(s!1))")
@@ -1541,17 +1650,27 @@
       nil))
     nil)
    ((resolving_diff def-decl "position" unification nil)
-    (uni_diff_equal_length_arg formula-decl nil unification nil) nil
-    (positions_of_arg formula-decl nil positions nil) nil
+    (uni_diff_equal_length_arg formula-decl nil unification nil)
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
+    (positions_of_arg formula-decl nil positions nil)
+    (resolving_diff_TCC3 subtype-tcc nil unification nil)
     (posint nonempty-type-eq-decl nil integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (resolving_diff_TCC1 subtype-tcc nil unification nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
     (resolving_diff_TCC2 subtype-tcc nil unification nil)
-    (resolving_diff_TCC3 subtype-tcc nil unification nil)
+    (resolving_diff_TCC4 subtype-tcc nil unification nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
-    (term_app_extensionality formula-decl nil term_adt nil) nil nil nil
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
+    (term_app_extensionality formula-decl nil term_adt nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (k skolem-const-decl "posint" unification nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -1627,11 +1746,11 @@
                 ((""
                   (name-replace "k1"
                    "min({kk: below[length(args(t!1))] |
-                            NOT subtermOF(s!1,  #(1 + kk)) = subtermOF(t!1,  #(1 + kk))})")
+                              NOT subtermOF(s!1,  #(1 + kk)) = subtermOF(t!1,  #(1 + kk))})")
                   (("1" (name-replace "k" "1+k1")
                     (("1"
                       (case "resolving_diff(s!1, t!1) = add_first(k,
-                                              resolving_diff(subtermOF(s!1, #(k)), subtermOF(t!1, #(k))))")
+                                                       resolving_diff(subtermOF(s!1, #(k)), subtermOF(t!1, #(k))))")
                       (("1" (hide 2)
                         (("1" (replace -1 4)
                           (("1" (rewrite "first_add[posnat]")
@@ -1655,7 +1774,7 @@
                       nil))
                     nil)
                    ("2" (hide 3 6)
-                    (("2" (lemma "resolving_diff_TCC7")
+                    (("2" (lemma "resolving_diff_TCC3")
                       (("2" (inst -1 "s!1" "t!1" "f(s!1)" "args(s!1)")
                         (("2" (case "s!1 = app(f(s!1), args(s!1))")
                           (("1" (assert)
@@ -1819,15 +1938,22 @@
     (rest_add_first formula-decl nil seq_extras structures)
     (first_add formula-decl nil seq_extras structures)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (posint nonempty-type-eq-decl nil integers nil) nil
+    (posint nonempty-type-eq-decl nil integers nil)
+    (resolving_diff_TCC3 subtype-tcc nil unification nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
     (term_app_extensionality formula-decl nil term_adt nil)
     (positions_of_arg formula-decl nil positions nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    nil nil nil
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
     (uni_diff_equal_length_arg formula-decl nil unification nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil))
@@ -1875,7 +2001,7 @@
               (("4"
                 (name-replace "k!11"
                  "min({kk: below[length(args(t!1))] |
-                     NOT subtermOF(s!1,  #(1 + kk)) = subtermOF(t!1,  #(1 + kk))})")
+                         NOT subtermOF(s!1,  #(1 + kk)) = subtermOF(t!1,  #(1 + kk))})")
                 (("1" (name-replace "k!1" "1+k!11")
                   (("1"
                     (inst -2
@@ -1978,7 +2104,7 @@
                     nil))
                   nil)
                  ("2" (hide - 5)
-                  (("2" (lemma "resolving_diff_TCC7")
+                  (("2" (lemma "resolving_diff_TCC3")
                     (("2" (inst -1 "s!1" "t!1" "f(s!1)" "args(s!1)")
                       (("2" (case "s!1 = app(f(s!1), args(s!1))")
                         (("1" (assert)
@@ -2063,15 +2189,26 @@
     nil)
    ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    nil nil (posint nonempty-type-eq-decl nil integers nil)
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
+    (resolving_diff_TCC3 subtype-tcc nil unification nil)
+    (posint nonempty-type-eq-decl nil integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (insert? const-decl "finseq" seq_extras structures)
     (positions_of_arg formula-decl nil positions nil)
     (uni_diff_equal_length_arg formula-decl nil unification nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
-    (term_app_extensionality formula-decl nil term_adt nil) nil nil nil
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
+    (term_app_extensionality formula-decl nil term_adt nil)
+    (k!11 skolem-const-decl
+     "{a | NOT subtermOF(s!1,  #(1 + a)) = subtermOF(t!1,  #(1 + a)) AND FORALL (x: below[length(args(t!1))]): NOT subtermOF(s!1,  #(1 + x)) = subtermOF(t!1,  #(1 + x)) IMPLIES a <= x}"
+     unification nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (finseq type-eq-decl nil finite_sequences nil)
@@ -2168,20 +2305,18 @@
                 nil))
               nil)
              ("2" (hide-all-but (-2 2))
-              (("2" (replaces -2)
-                (("2" (replaces -1)
-                  (("2" (expand "positionsOF")
-                    (("2" (lift-if)
-                      (("2" (prop)
-                        (("1" (expand "only_empty_seq")
-                          (("1" (propax) nil nil)) nil)
-                         ("2" (expand "only_empty_seq")
-                          (("2" (propax) nil nil)) nil)
-                         ("3"
-                          (expand* "union" "only_empty_seq" "IUnion"
-                           "member")
-                          nil nil))
-                        nil))
+              (("2" (replaces -1)
+                (("2" (expand "positionsOF")
+                  (("2" (lift-if)
+                    (("2" (prop)
+                      (("1" (expand "only_empty_seq")
+                        (("1" (propax) nil nil)) nil)
+                       ("2" (expand "only_empty_seq")
+                        (("2" (propax) nil nil)) nil)
+                       ("3"
+                        (expand* "union" "only_empty_seq" "IUnion"
+                         "member")
+                        nil nil))
                       nil))
                     nil))
                   nil))
@@ -2201,7 +2336,7 @@
               (("4"
                 (name-replace "k!11"
                  "min({kk: below[length(args(t!1))] |
-                         NOT subtermOF(s!1,  #(1 + kk)) = subtermOF(t!1,  #(1 + kk))})")
+                             NOT subtermOF(s!1,  #(1 + kk)) = subtermOF(t!1,  #(1 + kk))})")
                 (("1" (name-replace "k!1" "1+k!11")
                   (("1"
                     (inst -2
@@ -2246,7 +2381,7 @@
                     nil))
                   nil)
                  ("2" (hide - 5)
-                  (("2" (lemma "resolving_diff_TCC7")
+                  (("2" (lemma "resolving_diff_TCC3")
                     (("2" (inst -1 "s!1" "t!1" "f(s!1)" "args(s!1)")
                       (("2" (case "s!1 = app(f(s!1), args(s!1))")
                         (("1" (assert)
@@ -2331,15 +2466,22 @@
     nil)
    ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (uni_diff_equal_length_arg formula-decl nil unification nil) nil
-    nil nil
+    (uni_diff_equal_length_arg formula-decl nil unification nil)
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (term_app_extensionality formula-decl nil term_adt nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
-    nil (posint nonempty-type-eq-decl nil integers nil)
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
+    (resolving_diff_TCC3 subtype-tcc nil unification nil)
+    (posint nonempty-type-eq-decl nil integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (insert? const-decl "finseq" seq_extras structures)
     (positions_of_arg formula-decl nil positions nil)
@@ -2458,17 +2600,17 @@
               (("3"
                 (name-replace "k!11"
                  "min({kk: below[length(args(t!1))] |
-                                    NOT subtermOF(app(app1_var!1, app2_var!1), #(1 + kk))
-                                      = subtermOF(t!1,  #(1 + kk))})")
+                                          NOT subtermOF(app(app1_var!1, app2_var!1), #(1 + kk))
+                                            = subtermOF(t!1,  #(1 + kk))})")
                 (("1" (name-replace "k!1" "1 + k!11")
                   (("1" (inst -2 "k!1 - 1")
                     (("1"
                       (inst -2 "subtermOF(t!1, #(k!1))"
                        "resolving_diff(subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                                   subtermOF(t!1,  #(k!1)))")
+                                                             subtermOF(t!1,  #(k!1)))")
                       (("1"
                         (case "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                                = app2_var!1`seq(k!1 - 1)")
+                                                                 = app2_var!1`seq(k!1 - 1)")
                         (("1" (replace -1 -3 rl)
                           (("1" (hide -1)
                             (("1"
@@ -2479,7 +2621,7 @@
                                  "app(app1_var!1, app2_var!1)"
                                  "k!1"
                                  "resolving_diff(subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                                   subtermOF(t!1, #(k!1)))"
+                                                                 subtermOF(t!1, #(k!1)))"
                                  "p!1")
                                 (("1"
                                   (assert)
@@ -2492,7 +2634,7 @@
                                        "t!1"
                                        "k!1"
                                        "resolving_diff(subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                                       subtermOF(t!1, #(k!1)))"
+                                                                       subtermOF(t!1, #(k!1)))"
                                        "p!1")
                                       (("1" (assert) nil nil)
                                        ("2"
@@ -2542,7 +2684,8 @@
                                                     (hide-all-but
                                                      (1 3))
                                                     (("2"
-                                                      (decompose-equality)
+                                                      (decompose-equality
+                                                       1)
                                                       nil
                                                       nil))
                                                     nil))
@@ -2598,7 +2741,7 @@
                                              ("2"
                                               (hide-all-but (1 3))
                                               (("2"
-                                                (decompose-equality)
+                                                (decompose-equality 1)
                                                 nil
                                                 nil))
                                               nil))
@@ -2654,7 +2797,8 @@
                                               (("2"
                                                 (reveal 3)
                                                 (("2"
-                                                  (decompose-equality)
+                                                  (decompose-equality
+                                                   2)
                                                   nil
                                                   nil))
                                                 nil))
@@ -2677,11 +2821,11 @@
                               (inst -1 "app2_var!1`seq(k!1 - 1)"
                                "subtermOF(t!1, #(k!1))"
                                "resolving_diff(subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                                           subtermOF(t!1,  #[posnat](k!1)))")
+                                                                         subtermOF(t!1,  #[posnat](k!1)))")
                               (("1"
                                 (case
                                  "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                                       = app2_var!1`seq(k!1 - 1)")
+                                                                            = app2_var!1`seq(k!1 - 1)")
                                 (("1" (assert) nil nil)
                                  ("2"
                                   (hide-all-but 1)
@@ -2698,7 +2842,7 @@
                                ("2"
                                 (hide 2)
                                 (("2"
-                                  (lemma "resolving_diff_TCC3")
+                                  (lemma "resolving_diff_TCC4")
                                   (("2"
                                     (inst
                                      -1
@@ -2728,7 +2872,7 @@
                                                       (("1"
                                                         (case
                                                          "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                                             = app2_var!1`seq(k!1 - 1)")
+                                                                                    = app2_var!1`seq(k!1 - 1)")
                                                         (("1"
                                                           (assert)
                                                           nil
@@ -2772,7 +2916,8 @@
                                                                        (1
                                                                         3))
                                                                       (("2"
-                                                                        (decompose-equality)
+                                                                        (decompose-equality
+                                                                         1)
                                                                         nil
                                                                         nil))
                                                                       nil))
@@ -2820,21 +2965,13 @@
                                                                               (inst
                                                                                -1
                                                                                "k!11")
-                                                                              (("1"
-                                                                                (assert)
-                                                                                nil
-                                                                                nil))
+                                                                              nil
                                                                               nil))
                                                                             nil))
                                                                           nil)
                                                                          ("2"
-                                                                          (hide-all-but
-                                                                           (1
-                                                                            3))
-                                                                          (("2"
-                                                                            (decompose-equality)
-                                                                            nil
-                                                                            nil))
+                                                                          (assert)
+                                                                          nil
                                                                           nil))
                                                                         nil))
                                                                       nil))
@@ -2854,7 +2991,7 @@
                                            ("2"
                                             (hide-all-but (1 3))
                                             (("2"
-                                              (decompose-equality)
+                                              (decompose-equality 1)
                                               nil
                                               nil))
                                             nil))
@@ -2865,7 +3002,7 @@
                                   nil))
                                 nil)
                                ("3"
-                                (hide-all-but 1)
+                                (hide-all-but (1 3))
                                 (("3"
                                   (reveal -6)
                                   (("3" (assert) nil nil))
@@ -2881,13 +3018,13 @@
                                "subtermOF(app(app1_var!1, app2_var!1), #(k!1))"
                                "subtermOF(t!1, #(k!1))"
                                "resolving_diff(subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                                           subtermOF(t!1, #(k!1)))")
+                                                                         subtermOF(t!1, #(k!1)))")
                               nil nil))
                             nil))
                           nil))
                         nil)
                        ("3" (hide -)
-                        (("3" (lemma "resolving_diff_TCC3")
+                        (("3" (lemma "resolving_diff_TCC4")
                           (("3"
                             (inst -1 "app(app1_var!1, app2_var!1)"
                              "t!1" "app1_var!1" "app2_var!1")
@@ -2911,7 +3048,7 @@
                                               (("1"
                                                 (case
                                                  "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                                     = app2_var!1`seq(k!1 - 1)")
+                                                                        = app2_var!1`seq(k!1 - 1)")
                                                 (("1" (assert) nil nil)
                                                  ("2"
                                                   (hide-all-but 1)
@@ -2950,7 +3087,8 @@
                                                               (hide-all-but
                                                                (1 3))
                                                               (("2"
-                                                                (decompose-equality)
+                                                                (decompose-equality
+                                                                 1)
                                                                 nil
                                                                 nil))
                                                               nil))
@@ -2993,20 +3131,13 @@
                                                                     (inst
                                                                      -1
                                                                      "k!11")
-                                                                    (("1"
-                                                                      (assert)
-                                                                      nil
-                                                                      nil))
+                                                                    nil
                                                                     nil))
                                                                   nil))
                                                                 nil)
                                                                ("2"
-                                                                (hide-all-but
-                                                                 (1 3))
-                                                                (("2"
-                                                                  (decompose-equality)
-                                                                  nil
-                                                                  nil))
+                                                                (assert)
+                                                                nil
                                                                 nil))
                                                               nil))
                                                             nil))
@@ -3025,7 +3156,7 @@
                                    ("2"
                                     (hide-all-but (1 3))
                                     (("2"
-                                      (decompose-equality)
+                                      (decompose-equality 1)
                                       nil
                                       nil))
                                     nil))
@@ -3063,7 +3194,7 @@
                                           (("2"
                                             (reveal 2)
                                             (("2"
-                                              (decompose-equality)
+                                              (decompose-equality 2)
                                               nil
                                               nil))
                                             nil))
@@ -3081,7 +3212,7 @@
                     nil))
                   nil)
                  ("2" (hide -)
-                  (("2" (lemma "resolving_diff_TCC7")
+                  (("2" (lemma "resolving_diff_TCC3")
                     (("2"
                       (inst -1 "app(app1_var!1, app2_var!1)" "t!1"
                        "app1_var!1" "app2_var!1")
@@ -3090,7 +3221,7 @@
                           (("2" (case "t!1 = app(f(t!1), args(t!1))")
                             (("1" (assert) nil nil)
                              ("2" (hide-all-but (1 3))
-                              (("2" (decompose-equality) nil nil))
+                              (("2" (decompose-equality 1) nil nil))
                               nil))
                             nil))
                           nil))
@@ -3135,7 +3266,7 @@
                                        ("2"
                                         (hide-all-but (1 3))
                                         (("2"
-                                          (decompose-equality)
+                                          (decompose-equality 1)
                                           nil
                                           nil))
                                         nil))
@@ -3159,9 +3290,16 @@
     nil)
    ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    nil (positions_of_arg formula-decl nil positions nil) nil
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
+    (positions_of_arg formula-decl nil positions nil)
+    (resolving_diff_TCC3 subtype-tcc nil unification nil)
     (posint nonempty-type-eq-decl nil integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil) nil
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (t!1 skolem-const-decl
+     "{t: term | unifiable(app(app1_var!1, app2_var!1), t) & app(app1_var!1, app2_var!1) /= t}"
+     unification nil)
     (uni_diff_equal_length_arg formula-decl nil unification nil)
     (first const-decl "T" seq_extras structures)
     (^ const-decl "finseq" finite_sequences nil)
@@ -3179,9 +3317,13 @@
     (resolving_diff_TCC2 subtype-tcc nil unification nil)
     (term_app_extensionality formula-decl nil term_adt nil)
     (position_t_resolving_diff formula-decl nil unification nil)
-    (resolving_diff_TCC3 subtype-tcc nil unification nil)
-    (position_s_resolving_diff formula-decl nil unification nil) nil
-    nil nil
+    (resolving_diff_TCC4 subtype-tcc nil unification nil)
+    (position_s_resolving_diff formula-decl nil unification nil)
+    (app2_var!1 skolem-const-decl
+     "{args: finite_sequence[term[variable, symbol, arity]] | args`length = arity(app1_var!1)}"
+     unification nil)
+    (app1_var!1 skolem-const-decl "symbol" unification nil)
+    (k!1 skolem-const-decl "posint" unification nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -3205,8 +3347,8 @@
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (app? adt-recognizer-decl "[term -> boolean]" term_adt nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
     (TRUE const-decl "bool" booleans nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
     (finseq type-eq-decl nil finite_sequences nil)
@@ -3291,14 +3433,14 @@
               (("3"
                 (name-replace "k!11"
                  "min({kk: below[length(args(t!1))] |
-              NOT subtermOF(app(app1_var!1, app2_var!1), #(1 + kk)) = subtermOF(t!1,  #(1 + kk))})")
+                    NOT subtermOF(app(app1_var!1, app2_var!1), #(1 + kk)) = subtermOF(t!1,  #(1 + kk))})")
                 (("1" (name-replace "k!1" "1 + k!11")
                   (("1"
                     (inst -2 "k!1 - 1" "subtermOF(t!1, #(k!1))"
                      "resolving_diff(app2_var!1`seq(k!1 - 1), subtermOF(t!1, #(k!1)))")
                     (("1"
                       (case "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                           = app2_var!1`seq(k!1 - 1)")
+                                                          = app2_var!1`seq(k!1 - 1)")
                       (("1" (replace -1 -3 rl)
                         (("1" (hide -1)
                           (("1" (lemma "subt_of_subt_is_subt_of_term")
@@ -3306,7 +3448,7 @@
                               (inst -1 "app(app1_var!1, app2_var!1)"
                                "k!1"
                                "resolving_diff(subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                                       subtermOF(t!1, #(k!1)))"
+                                                                   subtermOF(t!1, #(k!1)))"
                                "p!1")
                               (("1"
                                 (assert)
@@ -3319,7 +3461,7 @@
                                      "t!1"
                                      "k!1"
                                      "resolving_diff(subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                                           subtermOF(t!1, #(k!1)))"
+                                                                         subtermOF(t!1, #(k!1)))"
                                      "p!1")
                                     (("1" (assert) nil nil)
                                      ("2"
@@ -3359,7 +3501,7 @@
                                                              1
                                                              rl)
                                                             (("1"
-                                                              (assert)
+                                                              (propax)
                                                               nil
                                                               nil))
                                                             nil))
@@ -3371,7 +3513,8 @@
                                                  ("2"
                                                   (hide-all-but (1 3))
                                                   (("2"
-                                                    (decompose-equality)
+                                                    (decompose-equality
+                                                     1)
                                                     nil
                                                     nil))
                                                   nil))
@@ -3415,7 +3558,7 @@
                                                     (("1"
                                                       (replace -1 1 rl)
                                                       (("1"
-                                                        (assert)
+                                                        (propax)
                                                         nil
                                                         nil))
                                                       nil))
@@ -3427,7 +3570,7 @@
                                            ("2"
                                             (hide-all-but (1 3))
                                             (("2"
-                                              (decompose-equality)
+                                              (decompose-equality 1)
                                               nil
                                               nil))
                                             nil))
@@ -3503,7 +3646,7 @@
                                        ("2"
                                         (hide-all-but (1 3))
                                         (("2"
-                                          (decompose-equality)
+                                          (decompose-equality 1)
                                           nil
                                           nil))
                                         nil))
@@ -3517,7 +3660,7 @@
                         nil))
                       nil)
                      ("4" (hide - 4)
-                      (("4" (lemma "resolving_diff_TCC3")
+                      (("4" (lemma "resolving_diff_TCC4")
                         (("4"
                           (inst -1 "app(app1_var!1, app2_var!1)" "t!1"
                            "app1_var!1" "app2_var!1")
@@ -3540,7 +3683,7 @@
                                             (("1"
                                               (case
                                                "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                                 = app2_var!1`seq(k!1 - 1)")
+                                                                  = app2_var!1`seq(k!1 - 1)")
                                               (("1" (assert) nil nil)
                                                ("2"
                                                 (hide-all-but 1)
@@ -3576,7 +3719,8 @@
                                                             (hide-all-but
                                                              (1 3))
                                                             (("2"
-                                                              (decompose-equality)
+                                                              (decompose-equality
+                                                               1)
                                                               nil
                                                               nil))
                                                             nil))
@@ -3627,7 +3771,8 @@
                                                             (hide-all-but
                                                              (1 3))
                                                             (("2"
-                                                              (decompose-equality)
+                                                              (decompose-equality
+                                                               1)
                                                               nil
                                                               nil))
                                                             nil))
@@ -3646,7 +3791,10 @@
                                   nil)
                                  ("2"
                                   (hide-all-but (1 3))
-                                  (("2" (decompose-equality) nil nil))
+                                  (("2"
+                                    (decompose-equality 1)
+                                    nil
+                                    nil))
                                   nil))
                                 nil))
                               nil))
@@ -3679,7 +3827,7 @@
                                          ("2"
                                           (hide-all-but (1 3))
                                           (("2"
-                                            (decompose-equality)
+                                            (decompose-equality 1)
                                             nil
                                             nil))
                                           nil))
@@ -3696,7 +3844,7 @@
                     nil))
                   nil)
                  ("2" (hide - 4)
-                  (("2" (lemma "resolving_diff_TCC7")
+                  (("2" (lemma "resolving_diff_TCC3")
                     (("2"
                       (inst -1 "app(app1_var!1, app2_var!1)" "t!1"
                        "app1_var!1" "app2_var!1")
@@ -3705,7 +3853,7 @@
                           (("2" (case "t!1 = app(f(t!1), args(t!1))")
                             (("1" (assert) nil nil)
                              ("2" (hide-all-but (1 3))
-                              (("2" (decompose-equality) nil nil))
+                              (("2" (decompose-equality 1) nil nil))
                               nil))
                             nil))
                           nil))
@@ -3748,7 +3896,7 @@
                                        ("2"
                                         (hide-all-but (1 3))
                                         (("2"
-                                          (decompose-equality)
+                                          (decompose-equality 1)
                                           nil
                                           nil))
                                         nil))
@@ -3772,10 +3920,14 @@
     nil)
    ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    nil (positions_of_arg formula-decl nil positions nil) nil
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
+    (positions_of_arg formula-decl nil positions nil)
+    (resolving_diff_TCC3 subtype-tcc nil unification nil)
     (posint nonempty-type-eq-decl nil integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (resolving_diff_TCC3 subtype-tcc nil unification nil)
+    (resolving_diff_TCC4 subtype-tcc nil unification nil)
     (uni_diff_equal_length_arg formula-decl nil unification nil)
     (position_s_resolving_diff formula-decl nil unification nil)
     (position_t_resolving_diff formula-decl nil unification nil)
@@ -3794,7 +3946,14 @@
      real_defs nil)
     (int_min application-judgement "{k: int | k <= i AND k <= j}"
      real_defs nil)
-    nil nil nil nil
+    (t!1 skolem-const-decl
+     "{t: term | unifiable(app(app1_var!1, app2_var!1), t) & app(app1_var!1, app2_var!1) /= t}"
+     unification nil)
+    (app2_var!1 skolem-const-decl
+     "{args: finite_sequence[term[variable, symbol, arity]] | args`length = arity(app1_var!1)}"
+     unification nil)
+    (app1_var!1 skolem-const-decl "symbol" unification nil)
+    (k!1 skolem-const-decl "posint" unification nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -3818,8 +3977,8 @@
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (app? adt-recognizer-decl "[term -> boolean]" term_adt nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
     (TRUE const-decl "bool" booleans nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
     (finseq type-eq-decl nil finite_sequences nil)
@@ -3969,18 +4128,18 @@
               (("3"
                 (name-replace "k!11"
                  "min({kk: below[length(args(t!1))] |
-                             NOT subtermOF(app(app1_var!1, app2_var!1), #(1 + kk))
-                                 = subtermOF(t!1, #(1 + kk))})")
+                                   NOT subtermOF(app(app1_var!1, app2_var!1), #(1 + kk))
+                                       = subtermOF(t!1, #(1 + kk))})")
                 (("1" (name-replace "k!1" "1 + k!11")
                   (("1" (inst -2 "k!1 - 1")
                     (("1"
                       (inst -2 "subtermOF(t!1, #(k!1))"
                        "resolving_diff(app2_var!1`seq(k!1 - 1),
-                                          subtermOF(t!1, #(k!1)) )")
+                                                    subtermOF(t!1, #(k!1)) )")
                       (("1" (prop)
                         (("1"
                           (case "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                                   = app2_var!1`seq(k!1 - 1)")
+                                                                      = app2_var!1`seq(k!1 - 1)")
                           (("1" (replace -1 -2 rl)
                             (("1"
                               (lemma "subt_of_subt_is_subt_of_term")
@@ -3990,8 +4149,8 @@
                                  "app(app1_var!1, app2_var!1)"
                                  "k!1"
                                  "resolving_diff(
-                                                   subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                                   subtermOF(t!1,  #(k!1)))"
+                                                                   subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
+                                                                   subtermOF(t!1,  #(k!1)))"
                                  "p!1")
                                 (("1" (assert) nil nil)
                                  ("2"
@@ -4037,7 +4196,7 @@
                                              ("2"
                                               (hide-all-but (1 3))
                                               (("2"
-                                                (decompose-equality)
+                                                (decompose-equality 1)
                                                 nil
                                                 nil))
                                               nil))
@@ -4059,7 +4218,7 @@
                           nil)
                          ("2"
                           (case "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                                   = app2_var!1`seq(k!1 - 1)")
+                                                                      = app2_var!1`seq(k!1 - 1)")
                           (("1" (replace -1 -2 rl)
                             (("1" (hide -1)
                               (("1"
@@ -4070,8 +4229,8 @@
                                    "t!1"
                                    "k!1"
                                    "resolving_diff(
-                                                   subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                                   subtermOF(t!1,  #(k!1)))"
+                                                                   subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
+                                                                   subtermOF(t!1,  #(k!1)))"
                                    "p!1")
                                   (("1" (assert) nil nil)
                                    ("2"
@@ -4117,7 +4276,8 @@
                                                ("2"
                                                 (hide-all-but (1 3))
                                                 (("2"
-                                                  (decompose-equality)
+                                                  (decompose-equality
+                                                   1)
                                                   nil
                                                   nil))
                                                 nil))
@@ -4142,7 +4302,7 @@
                        ("2" (split)
                         (("1"
                           (case "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                                   = app2_var!1`seq(k!1 - 1)")
+                                                                      = app2_var!1`seq(k!1 - 1)")
                           (("1" (replace -1 1 rl)
                             (("1" (hide -1)
                               (("1"
@@ -4153,8 +4313,8 @@
                                    "subtermOF(app(app1_var!1, app2_var!1),  #(k!1))"
                                    "subtermOF(t!1, #(k!1))"
                                    "resolving_diff(
-                                            subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                            subtermOF(t!1, #(k!1)))")
+                                                            subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
+                                                            subtermOF(t!1, #(k!1)))")
                                   nil
                                   nil))
                                 nil))
@@ -4169,7 +4329,7 @@
                           nil)
                          ("2"
                           (case "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                                   = app2_var!1`seq(k!1 - 1)")
+                                                                      = app2_var!1`seq(k!1 - 1)")
                           (("1" (replace -1 1 rl)
                             (("1" (hide -1)
                               (("1"
@@ -4180,8 +4340,8 @@
                                    "subtermOF(app(app1_var!1, app2_var!1),  #(k!1))"
                                    "subtermOF(t!1, #(k!1))"
                                    "resolving_diff(
-                                            subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
-                                            subtermOF(t!1, #(k!1)))")
+                                                            subtermOF(app(app1_var!1, app2_var!1), #(k!1)),
+                                                            subtermOF(t!1, #(k!1)))")
                                   nil
                                   nil))
                                 nil))
@@ -4217,7 +4377,7 @@
                                        ("2"
                                         (hide-all-but (1 3))
                                         (("2"
-                                          (decompose-equality)
+                                          (decompose-equality 1)
                                           nil
                                           nil))
                                         nil))
@@ -4231,9 +4391,9 @@
                         nil)
                        ("4"
                         (case "subtermOF(app(app1_var!1, app2_var!1), #(k!1))
-                                               = app2_var!1`seq(k!1 - 1)")
+                                                                = app2_var!1`seq(k!1 - 1)")
                         (("1" (replace -1 1 rl)
-                          (("1" (lemma "resolving_diff_TCC3")
+                          (("1" (lemma "resolving_diff_TCC4")
                             (("1"
                               (inst -1 "app(app1_var!1, app2_var!1)"
                                "t!1" "app1_var!1" "app2_var!1")
@@ -4263,7 +4423,7 @@
                                      ("2"
                                       (hide-all-but (1 3))
                                       (("2"
-                                        (decompose-equality)
+                                        (decompose-equality 1)
                                         nil
                                         nil))
                                       nil))
@@ -4305,7 +4465,7 @@
                                              ("2"
                                               (hide-all-but (1 3))
                                               (("2"
-                                                (decompose-equality)
+                                                (decompose-equality 1)
                                                 nil
                                                 nil))
                                               nil))
@@ -4344,7 +4504,7 @@
                                        ("2"
                                         (hide-all-but (1 3))
                                         (("2"
-                                          (decompose-equality)
+                                          (decompose-equality 1)
                                           nil
                                           nil))
                                         nil))
@@ -4360,7 +4520,7 @@
                     nil))
                   nil)
                  ("2" (hide - 4)
-                  (("2" (lemma "resolving_diff_TCC7")
+                  (("2" (lemma "resolving_diff_TCC3")
                     (("2"
                       (inst -1 "app(app1_var!1, app2_var!1)" "t!1"
                        "app1_var!1" "app2_var!1")
@@ -4369,7 +4529,7 @@
                           (("2" (case "t!1 = app(f(t!1), args(t!1))")
                             (("1" (assert) nil nil)
                              ("2" (hide-all-but (1 3))
-                              (("2" (decompose-equality) nil nil))
+                              (("2" (decompose-equality 1) nil nil))
                               nil))
                             nil))
                           nil))
@@ -4412,7 +4572,7 @@
                                        ("2"
                                         (hide-all-but (1 3))
                                         (("2"
-                                          (decompose-equality)
+                                          (decompose-equality 1)
                                           nil
                                           nil))
                                         nil))
@@ -4436,9 +4596,16 @@
     nil)
    ((nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    nil (positions_of_arg formula-decl nil positions nil) nil
+    (kk!1 skolem-const-decl
+     "below[length(args[variable, symbol, arity](t!1))]" unification
+     nil)
+    (positions_of_arg formula-decl nil positions nil)
+    (resolving_diff_TCC3 subtype-tcc nil unification nil)
     (posint nonempty-type-eq-decl nil integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil) nil
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (t!1 skolem-const-decl
+     "{t: term | unifiable(app(app1_var!1, app2_var!1), t) & app(app1_var!1, app2_var!1) /= t}"
+     unification nil)
     (resolving_diff_TCC2 subtype-tcc nil unification nil)
     (subt_of_subt_is_subt_of_term formula-decl nil subterm nil)
     (term_app_extensionality formula-decl nil term_adt nil)
@@ -4455,7 +4622,12 @@
     (position_t_resolving_diff formula-decl nil unification nil)
     (position_s_resolving_diff formula-decl nil unification nil)
     (uni_diff_equal_length_arg formula-decl nil unification nil)
-    (resolving_diff_TCC3 subtype-tcc nil unification nil) nil nil nil
+    (resolving_diff_TCC4 subtype-tcc nil unification nil)
+    (app2_var!1 skolem-const-decl
+     "{args: finite_sequence[term[variable, symbol, arity]] | args`length = arity(app1_var!1)}"
+     unification nil)
+    (app1_var!1 skolem-const-decl "symbol" unification nil)
+    (k!1 skolem-const-decl "posint" unification nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -4471,8 +4643,8 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (app adt-constructor-decl
-     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] ->
-   (app?)]" term_adt nil)
+     "[[f: symbol, {args: finite_sequence[term] | args`length = arity(f)}] -> (app?)]"
+     term_adt nil)
     (app? adt-recognizer-decl "[term -> boolean]" term_adt nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (ext def-decl "term" substitution nil)
@@ -4845,8 +5017,14 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil unification nil)
-    (variable formal-nonempty-type-decl nil unification nil) nil nil
-    nil (NOT const-decl "[bool -> bool]" booleans nil))
+    (variable formal-nonempty-type-decl nil unification nil)
+    (t!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (sigma!1 skolem-const-decl "Sub[variable, symbol, arity]"
+     unification nil)
+    (NOT const-decl "[bool -> bool]" booleans nil))
    shostak))
  (unifiable_terms_unifiable_args 0
   (unifiable_terms_unifiable_args-1 nil 3456581410
@@ -5088,7 +5266,6 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (subtermOF def-decl "term" subterm nil)
     (empty_0 formula-decl nil seq_extras structures)
-    (< const-decl "bool" reals nil)
     (positions? type-eq-decl nil positions nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
@@ -5277,8 +5454,14 @@
     (TRUE const-decl "bool" booleans nil)
     (resolving_diff_has_diff_argument formula-decl nil unification nil)
     (position_t_resolving_diff formula-decl nil unification nil)
-    (position_s_resolving_diff formula-decl nil unification nil) nil
-    (unifiable const-decl "bool" unification nil) nil nil
+    (position_s_resolving_diff formula-decl nil unification nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (unifiable const-decl "bool" unification nil)
+    (k!1 skolem-const-decl "position[variable, symbol, arity]"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (positionsOF def-decl "positions" positions nil)
     (positions type-eq-decl nil positions nil)
     (position type-eq-decl nil positions nil)
@@ -5291,9 +5474,13 @@
     (< const-decl "bool" reals nil) (set type-eq-decl nil sets nil)
     (V const-decl "set[term]" variables_term nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil) nil
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (sp!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (/= const-decl "boolean" notequal nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil) nil
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (tp!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (is_finite const-decl "bool" finite_sets nil)
     (Sub? const-decl "bool" substitution nil)
     (Dom const-decl "set[(V)]" substitution nil)
@@ -5373,8 +5560,12 @@
     (set type-eq-decl nil sets nil)
     (V const-decl "set[term]" variables_term nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil) nil
-    (IF const-decl "[boolean, T, T -> T]" if_def nil) nil
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (tp!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (sp!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (< const-decl "bool" reals nil)
     (injective? const-decl "bool" functions nil)
     (TRUE const-decl "bool" booleans nil)
@@ -5404,9 +5595,15 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (position type-eq-decl nil positions nil)
     (positions type-eq-decl nil positions nil)
-    (positionsOF def-decl "positions" positions nil) nil nil
+    (positionsOF def-decl "positions" positions nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (k!1 skolem-const-decl "position[variable, symbol, arity]"
+     unification nil)
     (unifiable const-decl "bool" unification nil)
-    (/= const-decl "boolean" notequal nil) nil)
+    (/= const-decl "boolean" notequal nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil))
    nil
    (sub_of_frst_diff subtype
     "(LAMBDA (x: (variables_term[unification.variable, unification.symbol, unification.arity].V)): IF x = unification.tp THEN unification.sp ELSE x ENDIF)"
@@ -5576,7 +5773,9 @@
       nil))
     nil)
    ((singleton const-decl "(singleton?)" sets nil)
-    (restrict const-decl "R" restrict nil) nil
+    (restrict const-decl "R" restrict nil)
+    (p!1 skolem-const-decl "position[variable, symbol, arity]"
+     unification nil)
     (Dom const-decl "set[(V)]" substitution nil)
     (Sub? const-decl "bool" substitution nil)
     (Sub type-eq-decl nil substitution nil)
@@ -5618,8 +5817,12 @@
     (sub_of_frst_diff const-decl "Sub" unification nil)
     (resolving_diff_has_diff_argument formula-decl nil unification nil)
     (position_s_resolving_diff formula-decl nil unification nil)
-    (position_t_resolving_diff formula-decl nil unification nil) nil
-    nil (TRUE const-decl "bool" booleans nil))
+    (position_t_resolving_diff formula-decl nil unification nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (TRUE const-decl "bool" booleans nil))
    shostak))
  (var_sub_1stdiff_not_member_term 0
   (var_sub_1stdiff_not_member_term-1 nil 3452327480
@@ -5931,7 +6134,11 @@
     nil)
    ((Dom const-decl "set[(V)]" substitution nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (dom_sub_of_frst_diff_is formula-decl nil unification nil) nil nil
+    (dom_sub_of_frst_diff_is formula-decl nil unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
     (unifier const-decl "bool" unification nil)
     (resolving_diff_vars formula-decl nil unification nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -6149,7 +6356,13 @@
     (member const-decl "bool" sets nil)
     (unifier const-decl "bool" unification nil)
     (U const-decl "set[Sub[variable, symbol, arity]]" unification nil)
-    nil nil nil (positionsOF def-decl "positions" positions nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (p!1 skolem-const-decl "position[variable, symbol, arity]"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (positionsOF def-decl "positions" positions nil)
     (positions type-eq-decl nil positions nil)
     (sub_of_frst_diff const-decl "Sub" unification nil)
     (Sub type-eq-decl nil substitution nil)
@@ -6324,8 +6537,15 @@
     (Ran const-decl "set[term[variable, symbol, arity]]" substitution
      nil)
     (Dom const-decl "set[(V)]" substitution nil)
-    (member const-decl "bool" sets nil) nil nil nil
-    (vars_subst_not_in formula-decl nil substitution nil) nil
+    (member const-decl "bool" sets nil)
+    (x!1 skolem-const-decl "(V)" unification nil)
+    (sig!1 skolem-const-decl "Sub[variable, symbol, arity]" unification
+     nil)
+    (r!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (vars_subst_not_in formula-decl nil substitution nil)
+    (r!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (sub_of_frst_diff const-decl "Sub" unification nil)
     (Sub type-eq-decl nil substitution nil)
     (Sub? const-decl "bool" substitution nil)
@@ -7789,16 +8009,26 @@
     (union const-decl "set" sets nil)
     (VRan const-decl "set[(V)]" substitution nil)
     (IUnion const-decl "set[T]" indexed_sets nil)
-    (dom_sub_of_frst_diff_is formula-decl nil unification nil) nil
+    (dom_sub_of_frst_diff_is formula-decl nil unification nil)
+    (p!1 skolem-const-decl
+     "positions?[variable, symbol, arity](subtermOF(s!1, resolving_diff(s!1, t!1)))"
+     unification nil)
     (position_s_resolving_diff formula-decl nil unification nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (singleton const-decl "(singleton?)" sets nil)
     (restrict const-decl "R" restrict nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (Vars const-decl "set[(V)]" subterm nil)
-    (pos_subterm formula-decl nil subterm nil) nil
+    (pos_subterm formula-decl nil subterm nil)
+    (p!1 skolem-const-decl
+     "positions?[variable, symbol, arity](subtermOF(t!1, resolving_diff(s!1, t!1)))"
+     unification nil)
     (O const-decl "finseq" finite_sequences nil)
-    (finseq type-eq-decl nil finite_sequences nil) nil nil
+    (finseq type-eq-decl nil finite_sequences nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (position_t_resolving_diff formula-decl nil unification nil)
     (pos_o_term formula-decl nil subterm nil)
     (TRUE const-decl "bool" booleans nil)
@@ -7815,7 +8045,9 @@
     (resolving_diff def-decl "position" unification nil)
     (resolving_diff_vars formula-decl nil unification nil)
     (resolving_diff_has_diff_argument formula-decl nil unification nil)
-    nil (positions_of_ext formula-decl nil substitution nil)
+    (sig!1 skolem-const-decl "Sub[variable, symbol, arity]" unification
+     nil)
+    (positions_of_ext formula-decl nil substitution nil)
     (vars? adt-recognizer-decl "[term -> boolean]" term_adt nil)
     (ext def-decl "term" substitution nil)
     (args adt-accessor-decl
@@ -7827,7 +8059,9 @@
     (v adt-accessor-decl "[(vars?) -> variable]" term_adt nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (subterm_ext_commute formula-decl nil substitution nil)
-    (sub_of_frst_diff_remove_x formula-decl nil unification nil) nil
+    (sub_of_frst_diff_remove_x formula-decl nil unification nil)
+    (p2!1 skolem-const-decl "position[variable, symbol, arity]"
+     unification nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
@@ -9246,16 +9480,26 @@
     (VRan const-decl "set[(V)]" substitution nil)
     (IUnion const-decl "set[T]" indexed_sets nil)
     (dom_sub_of_frst_diff_is formula-decl nil unification nil)
-    (position_s_resolving_diff formula-decl nil unification nil) nil
+    (position_s_resolving_diff formula-decl nil unification nil)
+    (p!1 skolem-const-decl
+     "positions?[variable, symbol, arity](subtermOF(s!1, resolving_diff(s!1, t!1)))"
+     unification nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (singleton const-decl "(singleton?)" sets nil)
     (restrict const-decl "R" restrict nil)
     (TRUE const-decl "bool" booleans nil)
     (Vars const-decl "set[(V)]" subterm nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (pos_subterm formula-decl nil subterm nil) nil
+    (pos_subterm formula-decl nil subterm nil)
+    (p!1 skolem-const-decl
+     "positions?[variable, symbol, arity](subtermOF(t!1, resolving_diff(s!1, t!1)))"
+     unification nil)
     (O const-decl "finseq" finite_sequences nil)
-    (finseq type-eq-decl nil finite_sequences nil) nil nil
+    (finseq type-eq-decl nil finite_sequences nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (position_t_resolving_diff formula-decl nil unification nil)
     (pos_o_term formula-decl nil subterm nil)
     (Dom const-decl "set[(V)]" substitution nil)
@@ -9271,7 +9515,9 @@
     (resolving_diff def-decl "position" unification nil)
     (resolving_diff_vars formula-decl nil unification nil)
     (resolving_diff_has_diff_argument formula-decl nil unification nil)
-    nil (positions_of_ext formula-decl nil substitution nil)
+    (sig!1 skolem-const-decl "Sub[variable, symbol, arity]" unification
+     nil)
+    (positions_of_ext formula-decl nil substitution nil)
     (vars? adt-recognizer-decl "[term -> boolean]" term_adt nil)
     (ext def-decl "term" substitution nil)
     (args adt-accessor-decl
@@ -9287,7 +9533,9 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (subterm_ext_commute formula-decl nil substitution nil)
-    (sub_of_frst_diff_remove_x formula-decl nil unification nil) nil
+    (sub_of_frst_diff_remove_x formula-decl nil unification nil)
+    (p2!1 skolem-const-decl "position[variable, symbol, arity]"
+     unification nil)
     (only_empty_seq const-decl "positions" positions nil)
     (empty_0 formula-decl nil seq_extras structures)
     (empty_seq const-decl "finseq" finite_sequences nil)
@@ -9445,7 +9693,9 @@
         nil))
       nil))
     nil)
-   (nil (ext_preserv_pos formula-decl nil substitution nil)
+   ((p!1 skolem-const-decl "positions?[variable, symbol, arity](t!1)"
+     unification nil)
+    (ext_preserv_pos formula-decl nil substitution nil)
     (subterm_ext_commute formula-decl nil substitution nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (TRUE const-decl "bool" booleans nil)
@@ -9455,8 +9705,14 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (position type-eq-decl nil positions nil)
     (positions type-eq-decl nil positions nil)
-    (positionsOF def-decl "positions" positions nil) nil nil
-    (positions? type-eq-decl nil positions nil) nil
+    (positionsOF def-decl "positions" positions nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (positions? type-eq-decl nil positions nil)
+    (p!1 skolem-const-decl "positions?[variable, symbol, arity](s!1)"
+     unification nil)
     (member const-decl "bool" sets nil)
     (vars_sub_of_frst_diff_t_is_subset_union formula-decl nil
      unification nil)
@@ -9793,7 +10049,9 @@
      "(strict_total_order?[real])" real_props nil)
     (card_diff_subset formula-decl nil finite_sets nil)
     (is_finite const-decl "bool" finite_sets nil)
-    (Dom const-decl "set[(V)]" substitution nil) nil
+    (Dom const-decl "set[(V)]" substitution nil)
+    (sig1 skolem-const-decl "Sub[variable, symbol, arity]" unification
+     nil)
     (Vars const-decl "set[(V)]" subterm nil)
     (union const-decl "set" sets nil)
     (finite_set type-eq-decl nil finite_sets nil)
@@ -9812,14 +10070,21 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (below type-eq-decl nil nat_types nil)
     (restrict const-decl "R" restrict nil)
-    (singleton const-decl "(singleton?)" sets nil) nil nil
+    (singleton const-decl "(singleton?)" sets nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t) & s!1 /= t}"
+     unification nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (subtermOF def-decl "term" subterm nil)
     (positions? type-eq-decl nil positions nil)
     (positionsOF def-decl "positions" positions nil)
     (positions type-eq-decl nil positions nil)
     (finite_restrict application-judgement "finite_set[S]"
      restrict_set_props nil)
-    nil (position_t_resolving_diff formula-decl nil unification nil)
+    (nonempty_singleton_finite application-judgement
+     "non_empty_finite_set[term[variable, symbol, arity]]" unification
+     nil)
+    (position_t_resolving_diff formula-decl nil unification nil)
     (position_s_resolving_diff formula-decl nil unification nil)
     (resolving_diff_vars formula-decl nil unification nil)
     (dom_sub_of_frst_diff_is formula-decl nil unification nil)
@@ -9884,7 +10149,11 @@
     (symbol formal-nonempty-type-decl nil unification nil)
     (variable formal-nonempty-type-decl nil unification nil)
     (finite_union judgement-tcc nil finite_sets nil)
-    (vars_of_term_finite formula-decl nil subterm nil) nil nil
+    (vars_of_term_finite formula-decl nil subterm nil)
+    (t!1 skolem-const-decl "{t: term | unifiable(s!1, t)}" unification
+     nil)
+    (s!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (unifiable const-decl "bool" unification nil)
     (Vars const-decl "set[(V)]" subterm nil)
     (finite_set type-eq-decl nil finite_sets nil)
@@ -9925,7 +10194,10 @@
     (symbol formal-nonempty-type-decl nil unification nil)
     (variable formal-nonempty-type-decl nil unification nil)
     (finite_union judgement-tcc nil finite_sets nil)
-    (vars_of_term_finite formula-decl nil subterm nil) nil
+    (vars_of_term_finite formula-decl nil subterm nil)
+    (z!1 skolem-const-decl
+     "[s: term[variable, symbol, arity], {t: term | unifiable(s, t)}]"
+     unification nil)
     (unifiable const-decl "bool" unification nil)
     (Vars const-decl "set[(V)]" subterm nil)
     (finite_set type-eq-decl nil finite_sets nil)
@@ -10152,7 +10424,11 @@
     (unifier_o formula-decl nil unification nil)
     (ext def-decl "term" substitution nil)
     (sub_of_frst_diff const-decl "Sub" unification nil)
-    (/= const-decl "boolean" notequal nil) nil nil
+    (/= const-decl "boolean" notequal nil)
+    (x!2 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (x!1 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (U const-decl "set[Sub[variable, symbol, arity]]" unification nil)
@@ -10372,7 +10648,7 @@
       (("6" (expand* "member" "U" "unifiable")
         (("6" (inst 1 "rho!1") nil nil)) nil))
       nil)
-     ("7" (hide-all-but 1)
+     ("7" (hide -1 2)
       (("7" (rewrite "finite_union")
         (("1" (rewrite "vars_of_term_finite") nil nil)
          ("2" (rewrite "vars_of_term_finite") nil nil))
@@ -10411,67 +10687,67 @@
         nil))
       nil))
     nil)
-   ((pred type-eq-decl nil defined_types nil)
-    (well_founded? const-decl "bool" orders nil)
-    (measure_induction formula-decl nil measure_induction nil)
-    (variable formal-nonempty-type-decl nil unification nil)
-    (symbol formal-nonempty-type-decl nil unification nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (arity formal-const-decl "[symbol -> nat]" unification nil)
-    (term type-decl nil term_adt nil)
-    (naturalnumber type-eq-decl nil naturalnumbers nil)
-    (set type-eq-decl nil sets nil)
-    (V const-decl "set[term]" variables_term nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (Card const-decl "nat" finite_sets nil)
-    (union const-decl "set" sets nil)
-    (Vars const-decl "set[(V)]" subterm nil)
-    (< const-decl "bool" reals nil)
-    (wf_nat formula-decl nil naturalnumbers nil)
-    (Sub? const-decl "bool" substitution nil)
-    (Sub type-eq-decl nil substitution nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (member const-decl "bool" sets nil)
-    (U const-decl "set[Sub[variable, symbol, arity]]" unification nil)
-    (unifiable const-decl "bool" unification nil)
-    (<= const-decl "bool" unification nil)
-    (unification_algorithm def-decl "Sub" unification nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (subs_o_identity formula-decl nil substitution nil)
-    (sub_of_frst_diff_unifier_o formula-decl nil unification nil)
-    (ext_o formula-decl nil substitution nil)
-    (O const-decl "T3" function_props nil)
-    (unifier const-decl "bool" unification nil)
-    (o_ass formula-decl nil substitution nil)
-    (TRUE const-decl "bool" booleans nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (vars_ext_sub_of_frst_diff_decrease formula-decl nil unification
-     nil)
-    (ext def-decl "term" substitution nil)
-    (sub_of_frst_diff const-decl "Sub" unification nil)
-    (/= const-decl "boolean" notequal nil)
-    (x!2 skolem-const-decl "term[variable, symbol, arity]" unification
-     nil)
+   ((vars_of_term_finite formula-decl nil subterm nil)
+    (finite_union judgement-tcc nil finite_sets nil)
     (x!1 skolem-const-decl "term[variable, symbol, arity]" unification
      nil)
-    (finite_union judgement-tcc nil finite_sets nil)
-    (vars_of_term_finite formula-decl nil subterm nil))
+    (x!2 skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (/= const-decl "boolean" notequal nil)
+    (sub_of_frst_diff const-decl "Sub" unification nil)
+    (ext def-decl "term" substitution nil)
+    (vars_ext_sub_of_frst_diff_decrease formula-decl nil unification
+     nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (TRUE const-decl "bool" booleans nil)
+    (o_ass formula-decl nil substitution nil)
+    (unifier const-decl "bool" unification nil)
+    (O const-decl "T3" function_props nil)
+    (ext_o formula-decl nil substitution nil)
+    (sub_of_frst_diff_unifier_o formula-decl nil unification nil)
+    (subs_o_identity formula-decl nil substitution nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (unification_algorithm def-decl "Sub" unification nil)
+    (<= const-decl "bool" unification nil)
+    (unifiable const-decl "bool" unification nil)
+    (U const-decl "set[Sub[variable, symbol, arity]]" unification nil)
+    (member const-decl "bool" sets nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (Sub type-eq-decl nil substitution nil)
+    (Sub? const-decl "bool" substitution nil)
+    (wf_nat formula-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil)
+    (Vars const-decl "set[(V)]" subterm nil)
+    (union const-decl "set" sets nil)
+    (Card const-decl "nat" finite_sets nil)
+    (finite_set type-eq-decl nil finite_sets nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (V const-decl "set[term]" variables_term nil)
+    (set type-eq-decl nil sets nil)
+    (naturalnumber type-eq-decl nil naturalnumbers nil)
+    (term type-decl nil term_adt nil)
+    (arity formal-const-decl "[symbol -> nat]" unification nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (symbol formal-nonempty-type-decl nil unification nil)
+    (variable formal-nonempty-type-decl nil unification nil)
+    (measure_induction formula-decl nil measure_induction nil)
+    (well_founded? const-decl "bool" orders nil)
+    (pred type-eq-decl nil defined_types nil))
    shostak))
  (unification 0
   (unification-1 nil 3448697978
@@ -10489,7 +10765,11 @@
         nil))
       nil))
     nil)
-   (nil nil (unifiable const-decl "bool" unification nil)
+   ((t skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (s skolem-const-decl "term[variable, symbol, arity]" unification
+     nil)
+    (unifiable const-decl "bool" unification nil)
     (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" unification nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
