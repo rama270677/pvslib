@@ -3,13 +3,13 @@
   (partition_join_TCC1-1 nil 3281885132
    ("" (lemma "connected_domain") (("" (skosimp*) nil nil)) nil)
    ((connected_domain formula-decl nil integral_split nil)) shostak
-   (partition_join assuming "integral_def[T]"
+   (partition_join assuming "integral_def[T].integral_def"
     "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (partition_join_TCC2 0
   (partition_join_TCC2-1 nil 3282313772
    ("" (lemma "not_one_element") (("" (assert) nil nil)) nil)
    ((not_one_element formula-decl nil integral_split nil)) shostak
-   (partition_join assuming "integral_def[T]"
+   (partition_join assuming "integral_def[T].integral_def"
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (partition_join_TCC3 0
   (partition_join_TCC3-1 nil 3282313772
@@ -18,7 +18,7 @@
      "(strict_total_order?[real])" real_props nil))
    shostak
    (partition_join subtype "integral_split.c"
-    "{x: integral_split.T | reals.<(integral_split.a, x)}")))
+    "{b | reals.<(integral_split.a, b)}")))
  (partition_join 0
   (partition_join-3 nil 3399973962
    ("" (auto-rewrite "xis?")
@@ -927,7 +927,7 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (> const-decl "bool" reals nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -954,15 +954,15 @@
      nil)
     (xisa!1 skolem-const-decl "(xis?(a!1, b!1, Pa!1))" integral_split
      nil)
-    (O const-decl "below_array[n + m, T]" concat_arrays "structures/")
-    (below_array type-eq-decl nil below_arrays "structures/")
+    (O const-decl "below_array[n + m, T]" concat_arrays structures)
+    (below_array type-eq-decl nil below_arrays structures)
     (UUPart const-decl "partition[T](a, c)" step_fun_props nil)
     (Pb!1 skolem-const-decl "partition[T](b!1, c!1)" integral_split
      nil)
-    (c!1 skolem-const-decl "T" integral_split nil)
+    (c!1 skolem-const-decl "{x: T | b!1 < x}" integral_split nil)
     (Pa!1 skolem-const-decl "partition[T](a!1, b!1)" integral_split
      nil)
-    (b!1 skolem-const-decl "T" integral_split nil)
+    (b!1 skolem-const-decl "{x: T | a!1 < x}" integral_split nil)
     (a!1 skolem-const-decl "T" integral_split nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (not_one_element formula-decl nil integral_split nil)
@@ -970,16 +970,14 @@
      "(strict_total_order?[real])" real_props nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (integer nonempty-type-from-decl nil integers nil)
-    (sigma_split formula-decl nil sigma "reals/")
-    (sigma_diff_eq formula-decl nil sigma_below_sub "reals/")
-    (sigma_diff_shift formula-decl nil sigma_below_sub "reals/")
-    (sigma def-decl "real" sigma "reals/")
+    (sigma_split formula-decl nil sigma reals)
+    (sigma_diff_eq formula-decl nil sigma_below_sub reals)
+    (sigma_diff_shift formula-decl nil sigma_below_sub reals)
+    (sigma def-decl "real" sigma reals)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
-     nil)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
     (Rie_sum const-decl "real" integral_def nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (connected_domain formula-decl nil integral_split nil)
@@ -995,7 +993,7 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (max const-decl
          "{a: T | SS(a) AND (FORALL (x: T): SS(x) IMPLIES x <= a)}"
-         finite_sets_minmax "finite_sets/")
+         finite_sets_minmax finite_sets)
     (ii!1 skolem-const-decl
      "below(length(UUPart(a!1, b!1, c!1, Pa!1, Pb!1)) - 1)"
      integral_split nil)
@@ -1864,20 +1862,20 @@
     nil)
    ((partition type-eq-decl nil integral_def nil)
     (xis? const-decl "bool" integral_def nil)
-    (O const-decl "below_array[n + m, T]" concat_arrays "structures/")
-    (below_array type-eq-decl nil below_arrays "structures/")
+    (O const-decl "below_array[n + m, T]" concat_arrays structures)
+    (below_array type-eq-decl nil below_arrays structures)
     (UUPart const-decl "partition[T](a, c)" step_fun_props nil)
-    (sigma_split formula-decl nil sigma "reals/")
-    (sigma_diff_eq formula-decl nil sigma_below_sub "reals/")
-    (sigma_diff_shift formula-decl nil sigma_below_sub "reals/")
-    (sigma def-decl "real" sigma "reals/")
+    (sigma_split formula-decl nil sigma reals)
+    (sigma_diff_eq formula-decl nil sigma_below_sub reals)
+    (sigma_diff_shift formula-decl nil sigma_below_sub reals)
+    (sigma def-decl "real" sigma reals)
     (Rie_sum const-decl "real" integral_def nil)
     (is_finite_surj formula-decl nil finite_sets nil)
     (finite_set type-eq-decl nil finite_sets nil)
     (non_empty_finite_set type-eq-decl nil finite_sets nil)
     (max const-decl
          "{a: T | SS(a) AND (FORALL (x: T): SS(x) IMPLIES x <= a)}"
-         finite_sets_minmax "finite_sets/")
+         finite_sets_minmax finite_sets)
     (is_finite const-decl "bool" finite_sets nil)
     (width const-decl "posreal" integral_def nil))
    nil)
@@ -2737,14 +2735,14 @@
    ((partition type-eq-decl nil integral_def nil)
     (xis? const-decl "bool" integral_def nil)
     (UUPart const-decl "partition[T](a, c)" step_fun_props nil)
-    (sigma_split formula-decl nil sigma "reals/")
-    (sigma_diff_eq formula-decl nil sigma_below_sub "reals/")
-    (sigma_diff_shift formula-decl nil sigma_below_sub "reals/")
-    (sigma def-decl "real" sigma "reals/")
+    (sigma_split formula-decl nil sigma reals)
+    (sigma_diff_eq formula-decl nil sigma_below_sub reals)
+    (sigma_diff_shift formula-decl nil sigma_below_sub reals)
+    (sigma def-decl "real" sigma reals)
     (Rie_sum const-decl "real" integral_def nil)
     (max const-decl
          "{a: T | SS(a) AND (FORALL (x: T): SS(x) IMPLIES x <= a)}"
-         finite_sets_minmax "finite_sets/")
+         finite_sets_minmax finite_sets)
     (width const-decl "posreal" integral_def nil))
    shostak))
  (iss_prep_TCC1 0
@@ -2955,7 +2953,7 @@
     (step_function_on? const-decl "bool" step_fun_def nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (open_interval type-eq-decl nil intervals_real "reals/")
+    (open_interval type-eq-decl nil intervals_real reals)
     (ii!1 skolem-const-decl "below(length(P!1))" integral_split nil)
     (x!1 skolem-const-decl "open_interval
     [T](IF ii!1 < ab THEN P!1`seq(ii!1)
@@ -3026,7 +3024,7 @@
     (T formal-nonempty-subtype-decl nil integral_split nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (> const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -4466,7 +4464,121 @@
        ("2" (lemma "connected_domain") (("2" (propax) nil nil)) nil))
       nil))
     nil)
-   nil shostak)
+   ((T formal-nonempty-subtype-decl nil integral_split nil)
+    (T_pred const-decl "[real -> boolean]" integral_split nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (step_function_integrable? formula-decl nil integral_step nil)
+    (connected? const-decl "bool" deriv_domain_def nil)
+    (not_one_element? const-decl "bool" deriv_domain_def nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (iss_prep formula-decl nil integral_split nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (x!1 skolem-const-decl
+     "open_interval[T](seq(PP!1 ^ (0, ib!1))(ii!1),
+                 seq(PP!1 ^ (0, ib!1))(1 + ii!1))" integral_split nil)
+    (ii!1 skolem-const-decl "below((PP!1 ^ (0, ib!1))`length - 1)"
+     integral_split nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (sigma_split formula-decl nil sigma reals)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (sigma def-decl "real" sigma reals)
+    (UP skolem-const-decl "finseq[closed_interval[T](a!1, c!1)]"
+     integral_split nil)
+    (b!1 skolem-const-decl "T" integral_split nil)
+    (connected_domain formula-decl nil integral_split nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (pick const-decl "{t: T | seq(P)(j) < t AND t < seq(P)(j + 1)}"
+     integral_step nil)
+    (i!1 skolem-const-decl "nat" integral_split nil)
+    (ib!1 skolem-const-decl "below(length(PP!1))" integral_split nil)
+    (P1 skolem-const-decl "{t: T |
+   seq(PP!1 ^ (ib!1, length(PP!1) - 1))(i!1) < t AND
+    t < seq(PP!1 ^ (ib!1, length(PP!1) - 1))(1 + i!1)}" integral_split
+     nil)
+    (open_interval type-eq-decl nil intervals_real reals)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (parts_order formula-decl nil integral_def nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}"
+     real_defs nil)
+    (sigma_diff_shift formula-decl nil sigma_below_sub reals)
+    (LP skolem-const-decl "finseq[closed_interval[T](a!1, c!1)]"
+     integral_split nil)
+    (i!1 skolem-const-decl "nat" integral_split nil)
+    (P1 skolem-const-decl "{t: T |
+   seq(PP!1 ^ (0, ib!1))(i!1) < t AND t < seq(PP!1 ^ (0, ib!1))(1 + i!1)}"
+     integral_split nil)
+    (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
+     real_defs nil)
+    (sigma_diff_eq formula-decl nil sigma_below_sub reals)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers
+     nil)
+    (not_one_element formula-decl nil integral_split nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (val_in const-decl "real" integral_step nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
+    (PP!1 skolem-const-decl "partition[T](a!1, c!1)" integral_split
+     nil)
+    (c!1 skolem-const-decl "T" integral_split nil)
+    (a!1 skolem-const-decl "T" integral_split nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
+     nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (step_function_on_integral formula-decl nil integral_step nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (x!1 skolem-const-decl
+     "open_interval[T](seq(PP!1 ^ (ib!1, length(PP!1) - 1))(ii!1),
+                 seq(PP!1 ^ (ib!1, length(PP!1) - 1))(1 + ii!1))"
+     integral_split nil)
+    (ii!1 skolem-const-decl
+     "below((PP!1 ^ (ib!1, length(PP!1) - 1))`length - 1)"
+     integral_split nil)
+    (step_function_on? const-decl "bool" step_fun_def nil)
+    (finseq type-eq-decl nil finite_sequences nil)
+    (^ const-decl "finseq" finite_sequences nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (partition type-eq-decl nil integral_def nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (< const-decl "bool" reals nil) (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (> const-decl "bool" reals nil)
+    (finite_sequence type-eq-decl nil finite_sequences nil)
+    (closed_interval type-eq-decl nil intervals_real reals)
+    (<= const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (below type-eq-decl nil nat_types nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (step_function? const-decl "bool" step_fun_def nil))
+   shostak)
   (integrable_split_step-5 nil 3282396607
    ("" (skosimp*)
     (("" (lemma "step_function_integrable?[T]")
@@ -5579,34 +5691,21 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (iss_prep formula-decl nil integral_split nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (x!1 skolem-const-decl
-     "open_interval[T](seq(PP!1 ^ (0, ib!1))(ii!1),
-                 seq(PP!1 ^ (0, ib!1))(1 + ii!1))" integral_split nil)
-    (ii!1 skolem-const-decl "below((PP!1 ^ (0, ib!1))`length - 1)"
-     integral_split nil)
+    (real_plus_real_is_real application-judgement "real" reals nil) nil
+    nil
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sigma_split formula-decl nil sigma "reals/")
+    (sigma_split formula-decl nil sigma reals)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (integer nonempty-type-from-decl nil integers nil)
-    (sigma def-decl "real" sigma "reals/")
-    (UP skolem-const-decl "finseq[closed_interval[T](a!1, c!1)]"
-     integral_split nil)
-    (b!1 skolem-const-decl "T" integral_split nil)
+    (sigma def-decl "real" sigma reals) nil nil
     (connected_domain formula-decl nil integral_split nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (pick const-decl "{t: T | seq(P)(j) < t AND t < seq(P)(j + 1)}"
      integral_step nil)
-    (i!1 skolem-const-decl "nat" integral_split nil)
-    (ib!1 skolem-const-decl "below(length(PP!1))" integral_split nil)
-    (P1 skolem-const-decl "{t: T |
-   seq(PP!1 ^ (ib!1, length(PP!1) - 1))(i!1) < t AND
-    t < seq(PP!1 ^ (ib!1, length(PP!1) - 1))(1 + i!1)}" integral_split
-     nil)
-    (open_interval type-eq-decl nil intervals_real "reals/")
+    nil nil nil (open_interval type-eq-decl nil intervals_real reals)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
@@ -5614,28 +5713,19 @@
     (parts_order formula-decl nil integral_def nil)
     (int_min application-judgement "{k: int | k <= i AND k <= j}"
      real_defs nil)
-    (sigma_diff_shift formula-decl nil sigma_below_sub "reals/")
-    (LP skolem-const-decl "finseq[closed_interval[T](a!1, c!1)]"
-     integral_split nil)
-    (i!1 skolem-const-decl "nat" integral_split nil)
-    (P1 skolem-const-decl "{t: T |
-   seq(PP!1 ^ (0, ib!1))(i!1) < t AND t < seq(PP!1 ^ (0, ib!1))(1 + i!1)}"
-     integral_split nil)
+    (sigma_diff_shift formula-decl nil sigma_below_sub reals) nil nil
+    nil
     (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
      real_defs nil)
-    (sigma_diff_eq formula-decl nil sigma_below_sub "reals/")
+    (sigma_diff_eq formula-decl nil sigma_below_sub reals)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
-    (T_low type-eq-decl nil sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
+    (T_low type-eq-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (val_in const-decl "real" integral_step nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (not_one_element formula-decl nil integral_split nil)
-    (a!1 skolem-const-decl "T" integral_split nil)
-    (c!1 skolem-const-decl "T" integral_split nil)
-    (PP!1 skolem-const-decl "partition[T](a!1, c!1)" integral_split
-     nil)
+    (not_one_element formula-decl nil integral_split nil) nil nil nil
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
@@ -5645,14 +5735,7 @@
     (step_function_on_integral formula-decl nil integral_step nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (x!1 skolem-const-decl
-     "open_interval[T](seq(PP!1 ^ (ib!1, length(PP!1) - 1))(ii!1),
-                 seq(PP!1 ^ (ib!1, length(PP!1) - 1))(1 + ii!1))"
-     integral_split nil)
-    (ii!1 skolem-const-decl
-     "below((PP!1 ^ (ib!1, length(PP!1) - 1))`length - 1)"
-     integral_split nil)
-    (step_function_on? const-decl "bool" step_fun_def nil)
+    nil nil (step_function_on? const-decl "bool" step_fun_def nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (^ const-decl "finseq" finite_sequences nil)
     (real_gt_is_strict_total_order name-judgement
@@ -5671,7 +5754,7 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (> const-decl "bool" reals nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -7111,7 +7194,8 @@
               (("2" (inst?)
                 (("2" (inst?) (("2" (assert) nil))))))))))))))))
     ";;; developed with shostak decision procedures")
-   ((= const-decl "[T, T -> boolean]" equalities nil)
+   ((connected_domain formula-decl nil integral_split nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (< const-decl "bool" reals nil) (<= const-decl "bool" reals nil)
@@ -7119,17 +7203,15 @@
      "(strict_total_order?[real])" real_props nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (diff_step_is_step formula-decl nil step_fun_props nil)
     (step_function_integrable? formula-decl nil integral_step nil)
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
+    (- const-decl "[T -> real]" real_fun_ops reals)
     (integrable_split_step formula-decl nil integral_split nil)
     (integral_restrict_eq formula-decl nil integral_def nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (integral_restr_eq formula-decl nil integral_prep nil)
-    (connected_domain formula-decl nil integral_split nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (integral const-decl "{S: real | integral?(a, b, ff, S)}"
      integral_def nil)
     (integral? const-decl "bool" integral_def nil)
@@ -9862,22 +9944,22 @@
       (("" (inst - "a!1" "b!1" "c!1" "f!1")
         (("" (assert)
           (("" (typepred "integral(a!1, b!1, f!1)")
-            (("1" (typepred "integral(b!1, c!1, f!1)")
-              (("1" (hide -6 -7)
-                (("1" (expand "integrable?")
-                  (("1" (skosimp*)
-                    (("1" (lemma "integral_def[T]")
-                      (("1" (inst -1 "a!1" "c!1" "f!1" "S!1")
-                        (("1" (assert)
-                          (("1" (replace -1 * rl)
-                            (("1" (expand "integral?")
-                              (("1"
+            (("" (typepred "integral(b!1, c!1, f!1)")
+              (("" (hide -6 -7)
+                (("" (expand "integrable?")
+                  (("" (skosimp*)
+                    (("" (lemma "integral_def[T]")
+                      (("" (inst -1 "a!1" "c!1" "f!1" "S!1")
+                        (("" (assert)
+                          (("" (replace -1 * rl)
+                            (("" (expand "integral?")
+                              ((""
                                 (lemma "epsilon_is_0[T]")
                                 (("1"
                                   (inst
                                    -
                                    "integral(a!1, b!1, f!1) + integral(b!1, c!1, f!1) -
-                               integral(a!1, c!1, f!1)")
+                                   integral(a!1, c!1, f!1)")
                                   (("1"
                                     (assert)
                                     (("1"
@@ -9914,7 +9996,7 @@
                                                             (inst
                                                              -
                                                              "b!1 "
-                                                             c!1
+                                                             "c!1"
                                                              "DEL")
                                                             (("1"
                                                               (assert)
@@ -9940,228 +10022,109 @@
                                                                            "b!1"
                                                                            "c!1"
                                                                            "DEL"
-                                                                           "f!1")
+                                                                           "f!1"
+                                                                           "P!2"
+                                                                           "gen_xis(a!1,b!1,P!2)"
+                                                                           "P!1"
+                                                                           "gen_xis(b!1,c!1,P!1)")
                                                                           (("1"
                                                                             (assert)
                                                                             (("1"
-                                                                              (inst
-                                                                               -
-                                                                               "P!2"
-                                                                               "gen_xis(a!1,b!1,P!2)"
-                                                                               "P!1"
-                                                                               "gen_xis(b!1,c!1,P!1)")
+                                                                              (skosimp*)
                                                                               (("1"
-                                                                                (assert)
+                                                                                (inst
+                                                                                 -9
+                                                                                 "PP!1")
                                                                                 (("1"
-                                                                                  (skosimp*)
+                                                                                  (assert)
                                                                                   (("1"
-                                                                                    (inst
-                                                                                     -9
-                                                                                     "PP!1")
+                                                                                    (name
+                                                                                     "Sab"
+                                                                                     "Rie_sum(a!1, b!1, P!2, gen_xis(a!1, b!1, P!2), f!1)")
                                                                                     (("1"
-                                                                                      (assert)
+                                                                                      (replace
+                                                                                       -1)
                                                                                       (("1"
                                                                                         (name
-                                                                                         "Sab"
-                                                                                         "Rie_sum(a!1, b!1, P!2, gen_xis(a!1, b!1, P!2), f!1)")
+                                                                                         "Sbc"
+                                                                                         "Rie_sum(b!1, c!1, P!1, gen_xis(b!1, c!1, P!1), f!1)")
                                                                                         (("1"
                                                                                           (replace
                                                                                            -1)
                                                                                           (("1"
-                                                                                            (name
-                                                                                             "Sbc"
-                                                                                             "Rie_sum(b!1, c!1, P!1, gen_xis(b!1, c!1, P!1), f!1)")
+                                                                                            (inst
+                                                                                             -10
+                                                                                             "Sab")
                                                                                             (("1"
-                                                                                              (replace
-                                                                                               -1)
+                                                                                              (inst
+                                                                                               -9
+                                                                                               "Sbc")
                                                                                               (("1"
                                                                                                 (inst
-                                                                                                 -10
-                                                                                                 "Sab")
+                                                                                                 -11
+                                                                                                 "Rie_sum(a!1, c!1, PP!1, xisp!1, f!1)")
                                                                                                 (("1"
-                                                                                                  (inst
-                                                                                                   -9
-                                                                                                   "Sbc")
+                                                                                                  (replace
+                                                                                                   -4)
                                                                                                   (("1"
-                                                                                                    (inst
-                                                                                                     -11
-                                                                                                     "Rie_sum(a!1, c!1, PP!1, xisp!1, f!1)")
+                                                                                                    (hide
+                                                                                                     -4)
                                                                                                     (("1"
-                                                                                                      (replace
-                                                                                                       -4)
+                                                                                                      (hide
+                                                                                                       -1
+                                                                                                       -2)
                                                                                                       (("1"
-                                                                                                        (hide
-                                                                                                         -4)
+                                                                                                        (case
+                                                                                                         "abs(integral(a!1, b!1, f!1) + integral(b!1, c!1, f!1) -
+                                                                                                                                                                                                       integral(a!1, c!1, f!1)) <=
+                                                                                                                                                                                                       abs(integral(a!1, b!1, f!1) - Sab) +
+                                                                                                                                                                                                       abs(integral(b!1, c!1, f!1) - Sbc) +
+                                                                                                                                                                                                       abs(Sab + Sbc - integral(a!1, c!1, f!1))")
                                                                                                         (("1"
-                                                                                                          (hide
-                                                                                                           -1
-                                                                                                           -2)
+                                                                                                          (case
+                                                                                                           "abs(Sab + Sbc - integral(a!1, c!1, f!1)) =
+                                                                                                                                                                                                                         abs(integral(a!1, c!1, f!1) - Sab - Sbc)")
                                                                                                           (("1"
-                                                                                                            (case
-                                                                                                             "abs(integral(a!1, b!1, f!1) + integral(b!1, c!1, f!1) -
-                                                                                                                                                                                    integral(a!1, c!1, f!1)) <=
-                                                                                                                                                                                    abs(integral(a!1, b!1, f!1) - Sab) +
-                                                                                                                                                                                    abs(integral(b!1, c!1, f!1) - Sbc) +
-                                                                                                                                                                                    abs(Sab + Sbc - integral(a!1, c!1, f!1))")
-                                                                                                            (("1"
-                                                                                                              (case
-                                                                                                               "abs(Sab + Sbc - integral(a!1, c!1, f!1)) =
-                                                                                                                                                                                                    abs(integral(a!1, c!1, f!1) - Sab - Sbc)")
-                                                                                                              (("1"
-                                                                                                                (assert)
-                                                                                                                nil
-                                                                                                                nil)
-                                                                                                               ("2"
-                                                                                                                (hide-all-but
-                                                                                                                 1)
+                                                                                                            (assert)
+                                                                                                            nil
+                                                                                                            nil)
+                                                                                                           ("2"
+                                                                                                            (hide-all-but
+                                                                                                             1)
+                                                                                                            (("2"
+                                                                                                              (lemma
+                                                                                                               "abs_neg")
+                                                                                                              (("2"
+                                                                                                                (inst?)
                                                                                                                 (("2"
-                                                                                                                  (lemma
-                                                                                                                   "abs_neg")
-                                                                                                                  (("2"
-                                                                                                                    (inst?)
-                                                                                                                    (("1"
-                                                                                                                      (assert)
-                                                                                                                      nil
-                                                                                                                      nil)
-                                                                                                                     ("2"
-                                                                                                                      (hide
-                                                                                                                       2)
-                                                                                                                      (("2"
-                                                                                                                        (skosimp*)
-                                                                                                                        (("2"
-                                                                                                                          (lemma
-                                                                                                                           "connected_domain")
-                                                                                                                          (("2"
-                                                                                                                            (inst?)
-                                                                                                                            (("2"
-                                                                                                                              (inst?)
-                                                                                                                              (("2"
-                                                                                                                                (assert)
-                                                                                                                                nil
-                                                                                                                                nil))
-                                                                                                                              nil))
-                                                                                                                            nil))
-                                                                                                                          nil))
-                                                                                                                        nil))
-                                                                                                                      nil))
-                                                                                                                    nil))
+                                                                                                                  (assert)
+                                                                                                                  nil
                                                                                                                   nil))
                                                                                                                 nil))
-                                                                                                              nil)
-                                                                                                             ("2"
-                                                                                                              (hide
-                                                                                                               2)
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil)
+                                                                                                         ("2"
+                                                                                                          (hide
+                                                                                                           2)
+                                                                                                          (("2"
+                                                                                                            (hide-all-but
+                                                                                                             1)
+                                                                                                            (("2"
+                                                                                                              (name-replace
+                                                                                                               "Iab"
+                                                                                                               "integral(a!1, b!1, f!1)")
                                                                                                               (("2"
-                                                                                                                (hide-all-but
-                                                                                                                 1)
+                                                                                                                (name-replace
+                                                                                                                 "Ibc"
+                                                                                                                 "integral(b!1, c!1, f!1)")
                                                                                                                 (("2"
                                                                                                                   (name-replace
-                                                                                                                   "Iab"
-                                                                                                                   "integral(a!1, b!1, f!1)")
+                                                                                                                   "Iac"
+                                                                                                                   "integral(a!1, c!1, f!1)")
                                                                                                                   (("2"
-                                                                                                                    (name-replace
-                                                                                                                     "Ibc"
-                                                                                                                     "integral(b!1, c!1, f!1)")
-                                                                                                                    (("2"
-                                                                                                                      (name-replace
-                                                                                                                       "Iac"
-                                                                                                                       "integral(a!1, c!1, f!1)")
-                                                                                                                      (("2"
-                                                                                                                        (grind)
-                                                                                                                        nil
-                                                                                                                        nil))
-                                                                                                                      nil))
-                                                                                                                    nil))
-                                                                                                                  nil))
-                                                                                                                nil))
-                                                                                                              nil))
-                                                                                                            nil))
-                                                                                                          nil))
-                                                                                                        nil))
-                                                                                                      nil)
-                                                                                                     ("2"
-                                                                                                      (hide-all-but
-                                                                                                       1)
-                                                                                                      (("2"
-                                                                                                        (lemma
-                                                                                                         "Riemann?_Rie[T]")
-                                                                                                        (("2"
-                                                                                                          (inst
-                                                                                                           -
-                                                                                                           "a!1"
-                                                                                                           "c!1"
-                                                                                                           "f!1")
-                                                                                                          (("2"
-                                                                                                            (assert)
-                                                                                                            (("2"
-                                                                                                              (inst?)
-                                                                                                              nil
-                                                                                                              nil))
-                                                                                                            nil))
-                                                                                                          nil))
-                                                                                                        nil))
-                                                                                                      nil)
-                                                                                                     ("3"
-                                                                                                      (hide
-                                                                                                       2)
-                                                                                                      (("3"
-                                                                                                        (skosimp*)
-                                                                                                        (("3"
-                                                                                                          (lemma
-                                                                                                           "connected_domain")
-                                                                                                          (("3"
-                                                                                                            (inst?)
-                                                                                                            (("3"
-                                                                                                              (inst?)
-                                                                                                              (("3"
-                                                                                                                (assert)
-                                                                                                                nil
-                                                                                                                nil))
-                                                                                                              nil))
-                                                                                                            nil))
-                                                                                                          nil))
-                                                                                                        nil))
-                                                                                                      nil))
-                                                                                                    nil)
-                                                                                                   ("2"
-                                                                                                    (replace
-                                                                                                     -1
-                                                                                                     *
-                                                                                                     rl)
-                                                                                                    (("2"
-                                                                                                      (hide-all-but
-                                                                                                       1)
-                                                                                                      (("2"
-                                                                                                        (lemma
-                                                                                                         "Riemann?_Rie[T]")
-                                                                                                        (("2"
-                                                                                                          (inst
-                                                                                                           -
-                                                                                                           "b!1"
-                                                                                                           "c!1"
-                                                                                                           "f!1")
-                                                                                                          (("2"
-                                                                                                            (assert)
-                                                                                                            (("2"
-                                                                                                              (inst?)
-                                                                                                              (("2"
-                                                                                                                (hide
-                                                                                                                 2)
-                                                                                                                (("2"
-                                                                                                                  (skosimp*)
-                                                                                                                  (("2"
-                                                                                                                    (lemma
-                                                                                                                     "connected_domain")
-                                                                                                                    (("2"
-                                                                                                                      (inst?)
-                                                                                                                      (("2"
-                                                                                                                        (inst?)
-                                                                                                                        (("2"
-                                                                                                                          (assert)
-                                                                                                                          nil
-                                                                                                                          nil))
-                                                                                                                        nil))
-                                                                                                                      nil))
+                                                                                                                    (grind)
+                                                                                                                    nil
                                                                                                                     nil))
                                                                                                                   nil))
                                                                                                                 nil))
@@ -10173,87 +10136,53 @@
                                                                                                     nil))
                                                                                                   nil)
                                                                                                  ("2"
-                                                                                                  (replace
-                                                                                                   -2
-                                                                                                   *
-                                                                                                   rl)
+                                                                                                  (hide-all-but
+                                                                                                   1)
                                                                                                   (("2"
-                                                                                                    (hide-all-but
-                                                                                                     1)
+                                                                                                    (lemma
+                                                                                                     "Riemann?_Rie[T]")
                                                                                                     (("2"
-                                                                                                      (lemma
-                                                                                                       "Riemann?_Rie[T]")
-                                                                                                      (("2"
-                                                                                                        (inst
-                                                                                                         -
-                                                                                                         "a!1"
-                                                                                                         "b!1"
-                                                                                                         "f!1")
-                                                                                                        (("2"
-                                                                                                          (assert)
-                                                                                                          (("2"
-                                                                                                            (inst?)
-                                                                                                            (("2"
-                                                                                                              (hide
-                                                                                                               2)
-                                                                                                              (("2"
-                                                                                                                (skosimp*)
-                                                                                                                (("2"
-                                                                                                                  (lemma
-                                                                                                                   "connected_domain")
-                                                                                                                  (("2"
-                                                                                                                    (inst?)
-                                                                                                                    (("2"
-                                                                                                                      (inst?)
-                                                                                                                      (("2"
-                                                                                                                        (assert)
-                                                                                                                        nil
-                                                                                                                        nil))
-                                                                                                                      nil))
-                                                                                                                    nil))
-                                                                                                                  nil))
-                                                                                                                nil))
-                                                                                                              nil))
-                                                                                                            nil))
-                                                                                                          nil))
-                                                                                                        nil))
+                                                                                                      (inst?)
+                                                                                                      nil
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil)
+                                                                                               ("2"
+                                                                                                (replace
+                                                                                                 -1
+                                                                                                 *
+                                                                                                 rl)
+                                                                                                (("2"
+                                                                                                  (hide-all-but
+                                                                                                   1)
+                                                                                                  (("2"
+                                                                                                    (lemma
+                                                                                                     "Riemann?_Rie[T]")
+                                                                                                    (("2"
+                                                                                                      (inst?)
+                                                                                                      nil
                                                                                                       nil))
                                                                                                     nil))
                                                                                                   nil))
                                                                                                 nil))
-                                                                                              nil))
-                                                                                            nil))
-                                                                                          nil))
-                                                                                        nil))
-                                                                                      nil))
-                                                                                    nil))
-                                                                                  nil))
-                                                                                nil)
-                                                                               ("2"
-                                                                                (hide-all-but
-                                                                                 (-1
-                                                                                  -7
-                                                                                  1))
-                                                                                (("2"
-                                                                                  (hide
-                                                                                   -2)
-                                                                                  (("2"
-                                                                                    (ground)
-                                                                                    (("2"
-                                                                                      (hide-all-but
-                                                                                       1)
-                                                                                      (("2"
-                                                                                        (skosimp*)
-                                                                                        (("2"
-                                                                                          (lemma
-                                                                                           "connected_domain")
-                                                                                          (("2"
-                                                                                            (inst?)
-                                                                                            (("2"
-                                                                                              (inst?)
+                                                                                              nil)
+                                                                                             ("2"
+                                                                                              (replace
+                                                                                               -2
+                                                                                               *
+                                                                                               rl)
                                                                                               (("2"
-                                                                                                (assert)
-                                                                                                nil
+                                                                                                (hide-all-but
+                                                                                                 1)
+                                                                                                (("2"
+                                                                                                  (lemma
+                                                                                                   "Riemann?_Rie[T]")
+                                                                                                  (("2"
+                                                                                                    (inst?)
+                                                                                                    nil
+                                                                                                    nil))
+                                                                                                  nil))
                                                                                                 nil))
                                                                                               nil))
                                                                                             nil))
@@ -10284,22 +10213,13 @@
                                           nil))
                                         nil))
                                       nil))
-                                    nil)
-                                   ("2"
-                                    (hide-all-but 1)
-                                    (("2"
-                                      (skosimp*)
-                                      (("2"
-                                        (lemma "connected_domain")
-                                        (("2"
-                                          (inst?)
-                                          (("2"
-                                            (inst?)
-                                            (("2" (assert) nil nil))
-                                            nil))
-                                          nil))
-                                        nil))
-                                      nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (hide-all-but 1)
+                                  (("2"
+                                    (lemma "connected_domain")
+                                    (("2" (propax) nil nil))
                                     nil))
                                   nil))
                                 nil))
@@ -10309,14 +10229,6 @@
                         nil))
                       nil))
                     nil))
-                  nil))
-                nil))
-              nil)
-             ("2" (hide-all-but 1)
-              (("2" (skosimp*)
-                (("2" (lemma "connected_domain")
-                  (("2" (inst?)
-                    (("2" (inst?) (("2" (assert) nil nil)) nil)) nil))
                   nil))
                 nil))
               nil))
@@ -10331,10 +10243,10 @@
     (integral_def formula-decl nil integral_def nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
+    (connected_domain formula-decl nil integral_split nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (not_one_element formula-decl nil integral_split nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
@@ -10347,26 +10259,26 @@
     (partition_exists formula-decl nil integral_split_scaf nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (partition type-eq-decl nil integral_def nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
-    (below type-eq-decl nil nat_types nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (below type-eq-decl nil nat_types nil)
+    (closed_interval type-eq-decl nil intervals_real reals)
+    (finite_sequence type-eq-decl nil finite_sequences nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (partition type-eq-decl nil integral_def nil)
     (gen_xis const-decl "(xis?(a, b, P))" integral_def nil)
     (xis? const-decl "bool" integral_def nil)
     (c!1 skolem-const-decl "T" integral_split nil)
     (P!1 skolem-const-decl "partition[T](b!1, c!1)" integral_split nil)
     (Sbc skolem-const-decl "real" integral_split nil)
     (Riemann?_Rie formula-decl nil integral_def nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (abs_neg formula-decl nil abs_lems "reals/")
-    (connected_domain formula-decl nil integral_split nil)
+    (abs_neg formula-decl nil abs_lems reals)
     (minus_real_is_real application-judgement "real" reals nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
@@ -10391,9 +10303,9 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (posreal_min application-judgement
      "{z: posreal | z <= x AND z <= y}" real_defs nil)
-    (epsilon_is_0 formula-decl nil integral_split_scaf nil)
     (not_one_element? const-decl "bool" deriv_domain_def nil)
     (connected? const-decl "bool" deriv_domain_def nil)
+    (epsilon_is_0 formula-decl nil integral_split_scaf nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (< const-decl "bool" reals nil)
@@ -11476,7 +11388,7 @@
     (Riemann?_Rie formula-decl nil integral_def nil)
     (min const-decl
          "{a: T | SS(a) AND (FORALL (x: T): SS(x) IMPLIES a <= x)}"
-         finite_sets_minmax "finite_sets/")
+         finite_sets_minmax finite_sets)
     (integral? const-decl "bool" integral_def nil)
     (integrable? const-decl "bool" integral_def nil)
     (integral const-decl "{S: real | integral?(a, b, ff, S)}"
@@ -11783,7 +11695,7 @@
     (partition type-eq-decl nil integral_def nil)
     (min const-decl
          "{a: T | SS(a) AND (FORALL (x: T): SS(x) IMPLIES a <= x)}"
-         finite_sets_minmax "finite_sets/")
+         finite_sets_minmax finite_sets)
     (integrable? const-decl "bool" integral_def nil)
     (integral const-decl "{S: real | integral?(a, b, ff, S)}"
      integral_def nil))
@@ -12423,9 +12335,9 @@
     (integral const-decl "{S: real | integral?(a, b, ff, S)}"
      integral_def nil)
     (integral? const-decl "bool" integral_def nil)
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
+    (- const-decl "[T -> real]" real_fun_ops reals)
     (integrable? const-decl "bool" integral_def nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (step_function? const-decl "bool" step_fun_def nil)
     (< const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
@@ -14796,18 +14708,6 @@
    shostak
    (integrable?_inside subtype "integral_split.b"
     "{x: integral_split.T | reals.<(integral_split.a, x)}")))
- (integrable?_inside_TCC2 0
-  (integrable?_inside_TCC2-1 nil 3282313858
-   ("" (lemma "connected_domain") (("" (skosimp*) nil nil)) nil)
-   ((connected_domain formula-decl nil integral_split nil)) shostak
-   (integrable?_inside assuming "integral_def[T]"
-    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
- (integrable?_inside_TCC3 0
-  (integrable?_inside_TCC3-1 nil 3282313858
-   ("" (lemma "not_one_element") (("" (assert) nil nil)) nil)
-   ((not_one_element formula-decl nil integral_split nil)) shostak
-   (integrable?_inside assuming "integral_def[T]"
-    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (integrable?_inside 0
   (integrable?_inside-1 nil 3281701155
    ("" (skosimp*)

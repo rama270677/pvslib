@@ -2,22 +2,26 @@
  (IMP_step_fun_def_TCC1 0
   (IMP_step_fun_def_TCC1-1 nil 3282481239
    ("" (lemma "connected_domain") (("" (propax) nil nil)) nil)
-   ((connected_domain formula-decl nil integral_step nil)) shostak))
+   ((connected_domain formula-decl nil integral_step nil)) shostak
+   (IMP_step_fun_def assuming "step_fun_def[T].step_fun_def"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (IMP_step_fun_def_TCC2 0
   (IMP_step_fun_def_TCC2-1 nil 3282481239
    ("" (lemma "not_one_element") (("" (propax) nil nil)) nil)
-   ((not_one_element formula-decl nil integral_step nil)) shostak))
+   ((not_one_element formula-decl nil integral_step nil)) shostak
+   (IMP_step_fun_def assuming "step_fun_def[T].step_fun_def"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (sigma_0_m1_TCC1 0
   (sigma_0_m1_TCC1-1 nil 3403457729 ("" (subtype-tcc) nil nil)
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil (sigma_0_m1 subtype "0" "T_low[nat]")))
  (sigma_0_m1_TCC2 0
   (sigma_0_m1_TCC2-1 nil 3403457729 ("" (subtype-tcc) nil nil)
    ((minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil (sigma_0_m1 subtype "(number_fields.-)(1)" "T_high[nat]")))
  (sigma_0_m1_TCC3 0
   (sigma_0_m1_TCC3-1 nil 3403457729 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -40,18 +44,25 @@
      real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   nil))
+   nil
+   (sigma_0_m1 assuming "reals@sigma[nat].sigma"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (sigma_0_m1 0
   (sigma_0_m1-1 nil 3403457735
    ("" (skosimp*) (("" (expand "sigma") (("" (propax) nil nil)) nil))
     nil)
-   ((sigma def-decl "real" sigma "reals/")) shostak))
+   ((sigma def-decl "real" sigma reals)) shostak))
  (pick_TCC1 0
-  (pick_TCC1-1 nil 3281791727 ("" (subtype-tcc) nil nil) nil shostak))
+  (pick_TCC1-1 nil 3281791727 ("" (subtype-tcc) nil nil) nil shostak
+   (pick subtype "(number_fields.-)(length(integral_step.P), 1)"
+    "nat")))
  (pick_TCC2 0
-  (pick_TCC2-1 nil 3281791727 ("" (subtype-tcc) nil nil) nil shostak))
+  (pick_TCC2-1 nil 3281791727 ("" (subtype-tcc) nil nil) nil shostak
+   (pick subtype "integral_step.j" "below[P`length]")))
  (pick_TCC3 0
-  (pick_TCC3-1 nil 3281791727 ("" (subtype-tcc) nil nil) nil shostak))
+  (pick_TCC3-1 nil 3281791727 ("" (subtype-tcc) nil nil) nil shostak
+   (pick subtype "(number_fields.+)(integral_step.j, 1)"
+    "below[P`length]")))
  (pick_TCC4 0
   (pick_TCC4-2 nil 3281793131
    ("" (skosimp*)
@@ -133,7 +144,7 @@
     (a!1 skolem-const-decl "T" integral_step nil)
     (< const-decl "bool" reals nil)
     (b!1 skolem-const-decl "{x: T | a!1 < x}" integral_step nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (> const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -154,11 +165,17 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (empty? const-decl "bool" sets nil))
-   nil)
+   nil
+   (pick subtype
+    "{t: integral_step.T | booleans.AND(reals.<(seq(integral_step.P)(integral_step.j), t), reals.<(t, seq(integral_step.P)((number_fields.+)(integral_step.j, 1))))}"
+    "(sets[T].nonempty?)"))
   (pick_TCC4-1 nil 3281791727
    ("" (subtype-tcc)
     (("1" (postpone) nil nil) ("2" (postpone) nil nil)) nil)
-   nil shostak))
+   nil shostak
+   (pick subtype
+    "{t: integral_step.T | booleans.AND(reals.<(seq(integral_step.P)(integral_step.j), t), reals.<(t, seq(integral_step.P)((number_fields.+)(integral_step.j, 1))))}"
+    "(sets[T].nonempty?)")))
  (stp_sect_TCC1 0
   (stp_sect_TCC1-1 nil 3262529911
    ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -167,7 +184,7 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   shostak))
+   shostak (stp_sect subtype "integral_step.jj" "below[P`length]")))
  (stp_sect_TCC2 0
   (stp_sect_TCC2-1 nil 3262529911
    ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -178,7 +195,9 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak
+   (stp_sect subtype "(number_fields.+)(integral_step.jj, 1)"
+    "below[P`length]")))
  (stp_sect_TCC3 0
   (stp_sect_TCC3-1 nil 3262529911
    ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -189,13 +208,16 @@
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak
+   (stp_sect subtype "integral_step.jj"
+    "naturalnumbers.below((number_fields.-)(length(integral_step.P), 1))")))
  (stp_sect_lem_TCC1 0
   (stp_sect_lem_TCC1-1 nil 3262529911
    ("" (skosimp*) (("" (assert) nil nil)) nil)
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak
+   (stp_sect_lem subtype "integral_step.jj" "below[P`length]")))
  (stp_sect_lem 0
   (stp_sect_lem-1 nil 3262529850
    ("" (skosimp*)
@@ -253,7 +275,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (> const-decl "bool" reals nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -278,7 +300,9 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak
+   (sigma_stp_sect subtype "(number_fields.+)(1, integral_step.j)"
+    "below[P`length]")))
  (sigma_stp_sect_TCC2 0
   (sigma_stp_sect_TCC2-1 nil 3262529911
    ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -293,7 +317,7 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   shostak))
+   shostak (sigma_stp_sect subtype "integral_step.j" "T_high[nat]")))
  (sigma_stp_sect 0
   (sigma_stp_sect-1 nil 3262529900
    ("" (skolem!)
@@ -393,8 +417,8 @@
      "(strict_total_order?[real])" real_props nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (restrict const-decl "[T -> real]" sigma "reals/")
-    (sigma_restrict_eq formula-decl nil sigma "reals/")
+    (restrict const-decl "[T -> real]" sigma reals)
+    (sigma_restrict_eq formula-decl nil sigma reals)
     (parts_order formula-decl nil integral_def nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_gt_is_strict_total_order name-judgement
@@ -407,9 +431,9 @@
     (nat_induction formula-decl nil naturalnumbers nil)
     (stp_sect const-decl "real" integral_step nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (sigma def-decl "real" sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (pred type-eq-decl nil defined_types nil)
     (x!1 skolem-const-decl "T" integral_step nil)
@@ -438,7 +462,7 @@
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (a!1 skolem-const-decl "T" integral_step nil)
     (b!1 skolem-const-decl "T" integral_step nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (> const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -453,10 +477,13 @@
    nil))
  (integral_stp_sect_TCC1 0
   (integral_stp_sect_TCC1-1 nil 3281868373 ("" (subtype-tcc) nil nil)
-   nil shostak))
+   nil shostak
+   (integral_stp_sect subtype "(number_fields.+)(integral_step.j, 1)"
+    "below[P`length]")))
  (integral_stp_sect_TCC2 0
   (integral_stp_sect_TCC2-1 nil 3281868373 ("" (subtype-tcc) nil nil)
-   nil shostak))
+   nil shostak
+   (integral_stp_sect subtype "integral_step.j" "below[P`length]")))
  (integral_stp_sect 0
   (integral_stp_sect-1 nil 3281796581
    ("" (skosimp*)
@@ -530,7 +557,7 @@
     (below type-eq-decl nil nat_types nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (> const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -571,7 +598,8 @@
     (zero_except_intv?_integrable formula-decl nil integral_pulse nil))
    shostak))
  (sumof_TCC1 0
-  (sumof_TCC1-1 nil 3281876432 ("" (subtype-tcc) nil nil) nil shostak))
+  (sumof_TCC1-1 nil 3281876432 ("" (subtype-tcc) nil nil) nil shostak
+   (sumof subtype "integral_step.n" "T_high[nat]")))
  (sumof_TCC2 0
   (sumof_TCC2-1 nil 3281876432 ("" (assuming-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -597,7 +625,9 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   shostak))
+   shostak
+   (sumof subtype "integral_step.ii"
+    "naturalnumbers.upto(integral_step.n)")))
  (sigma_sumof_TCC1 0
   (sigma_sumof_TCC1-1 nil 3261756014
    ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -608,7 +638,9 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   shostak))
+   shostak
+   (sigma_sumof subtype "(number_fields.+)(integral_step.n, 1)"
+    "below[P`length]")))
  (sigma_sumof 0
   (sigma_sumof-3 nil 3306073359
    ("" (auto-rewrite "sigma_0_m1")
@@ -952,38 +984,36 @@
       nil))
     nil)
    ((step_function_on? const-decl "bool" step_fun_def nil)
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (sigma_restrict_eq formula-decl nil sigma "reals/")
-    (restrict const-decl "[T -> real]" sigma "reals/")
-    (sigma_const formula-decl nil sigma "reals/")
+    (sigma_restrict_eq formula-decl nil sigma reals)
+    (restrict const-decl "[T -> real]" sigma reals)
+    (sigma_const formula-decl nil sigma reals)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (parts_order formula-decl nil integral_def nil)
     (sigma_stp_sect formula-decl nil integral_step nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
+    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (pick const-decl "{t: T | seq(P)(j) < t AND t < seq(P)(j + 1)}"
      integral_step nil)
-    (open_interval type-eq-decl nil intervals_real "reals/")
+    (open_interval type-eq-decl nil intervals_real reals)
     (val_in const-decl "real" integral_step nil)
     (sigma_0_m1 formula-decl nil integral_step nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (sigma def-decl "real" sigma "reals/")
+    (sigma def-decl "real" sigma reals)
     (n!1 skolem-const-decl "nat" integral_step nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -1020,7 +1050,7 @@
     (a!1 skolem-const-decl "T" integral_step nil)
     (< const-decl "bool" reals nil)
     (b!1 skolem-const-decl "{x: T | a!1 < x}" integral_step nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (> const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -1410,11 +1440,11 @@
       nil))
     nil)
    ((partition type-eq-decl nil integral_def nil)
-    (sigma def-decl "real" sigma "reals/")
+    (sigma def-decl "real" sigma reals)
     (parts_order formula-decl nil integral_def nil)
-    (sigma_const formula-decl nil sigma "reals/")
-    (restrict const-decl "[T -> real]" sigma "reals/")
-    (sigma_restrict_eq formula-decl nil sigma "reals/")
+    (sigma_const formula-decl nil sigma reals)
+    (restrict const-decl "[T -> real]" sigma reals)
+    (sigma_restrict_eq formula-decl nil sigma reals)
     (step_function_on? const-decl "bool" step_fun_def nil))
    nil)
   (sigma_sumof-1 nil 3261754034
@@ -1821,11 +1851,11 @@
         nil))
       nil))
     nil)
-   ((sigma def-decl "real" sigma "reals/")
+   ((sigma def-decl "real" sigma reals)
     (parts_order formula-decl nil integral_def nil)
-    (sigma_const formula-decl nil sigma "reals/")
-    (restrict const-decl "[T -> real]" sigma "reals/")
-    (sigma_restrict_eq formula-decl nil sigma "reals/")
+    (sigma_const formula-decl nil sigma reals)
+    (restrict const-decl "[T -> real]" sigma reals)
+    (sigma_restrict_eq formula-decl nil sigma reals)
     (partition type-eq-decl nil integral_def nil))
    shostak))
  (integrable_sumof 0
@@ -1945,21 +1975,21 @@
    ((integral_sum formula-decl nil integral_prep nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (sigma_restrict_eq formula-decl nil sigma "reals/")
-    (restrict const-decl "[T -> real]" sigma "reals/")
+    (sigma_restrict_eq formula-decl nil sigma reals)
+    (restrict const-decl "[T -> real]" sigma reals)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (T_low type-eq-decl nil sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
+    (T_low type-eq-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (sigma def-decl "real" sigma "reals/")
+    (sigma def-decl "real" sigma reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
+    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
-    (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (integral_def formula-decl nil integral_def nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -1980,7 +2010,7 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (> const-decl "bool" reals nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -2022,7 +2052,7 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (> const-decl "bool" reals nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -2043,7 +2073,10 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   shostak))
+   shostak
+   (integral_sumof subtype
+    "integral_step.sumof(integral_step.n, (LAMBDA (jj: naturalnumbers.upto(integral_step.n)): integral_step.stp_sect(integral_step.a, integral_step.b, integral_step.P, jj, integral_step.f)))"
+    "{f | integral_def[T].integrable?(integral_step.a, integral_step.b, integral_step.f)}")))
  (integral_sumof_TCC2 0
   (integral_sumof_TCC2-1 nil 3281794546
    ("" (skosimp*)
@@ -2066,7 +2099,7 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (< const-decl "bool" reals nil) (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (T formal-subtype-decl nil integral_step nil)
@@ -2101,7 +2134,7 @@
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (parts_order formula-decl nil integral_def nil))
-   shostak))
+   shostak (integral_sumof subtype "0" "T_low[below(length(P) - 1)]")))
  (integral_sumof_TCC3 0
   (integral_sumof_TCC3-1 nil 3281794546
    ("" (subtype-tcc) (("" (postpone) nil nil)) nil)
@@ -2126,7 +2159,7 @@
     (below type-eq-decl nil nat_types nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -2143,7 +2176,9 @@
      "(strict_total_order?[real])" real_props nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil))
-   shostak))
+   shostak
+   (integral_sumof subtype "integral_step.n"
+    "T_high[below(length(P) - 1)]")))
  (integral_sumof_TCC4 0
   (integral_sumof_TCC4-1 nil 3281794560 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -2167,7 +2202,7 @@
     (below type-eq-decl nil nat_types nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -2185,7 +2220,10 @@
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (integer nonempty-type-from-decl nil integers nil))
-   shostak))
+   shostak
+   (integral_sumof assuming
+    "reals@sigma[naturalnumbers.below((number_fields.-)(length(integral_step.P), 1))].sigma"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (integral_sumof 0
   (integral_sumof-2 nil 3281870156
    ("" (induct "n")
@@ -2366,15 +2404,15 @@
     nil)
    ((integral_sum formula-decl nil integral_prep nil)
     (integrable_sumof formula-decl nil integral_step nil)
-    (sigma_restrict_eq formula-decl nil sigma "reals/")
-    (restrict const-decl "[T -> real]" sigma "reals/")
+    (sigma_restrict_eq formula-decl nil sigma reals)
+    (restrict const-decl "[T -> real]" sigma reals)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (integral_stp_sect formula-decl nil integral_step nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
-    (sigma_0_neg formula-decl nil sigma_below "reals/")
+    (sigma_0_neg formula-decl nil sigma_below reals)
     (integral_def formula-decl nil integral_def nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -2391,9 +2429,9 @@
     (finseq type-eq-decl nil finite_sequences nil)
     (val_in const-decl "real" integral_step nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (sigma def-decl "real" sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
     (integral const-decl "{S: real | integral?(a, b, ff, S)}"
      integral_def nil)
     (integral? const-decl "bool" integral_def nil)
@@ -2420,7 +2458,7 @@
     (below type-eq-decl nil nat_types nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (> const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -2673,7 +2711,7 @@
     (below type-eq-decl nil nat_types nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (<= const-decl "bool" reals nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -2702,7 +2740,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (step_function_on? const-decl "bool" step_fun_def nil))
-   shostak))
+   shostak
+   (step_fun_is_sumof_n subtype "(number_fields.+)(integral_step.n, 1)"
+    "below[P`length]")))
  (step_fun_is_sumof_n 0
   (step_fun_is_sumof_n-1 nil 3281872825
    ("" (auto-rewrite "sigma_0_m1")
@@ -3046,7 +3086,7 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (> const-decl "bool" reals nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -3080,10 +3120,10 @@
     (val_in const-decl "real" integral_step nil)
     (pick const-decl "{t: T | seq(P)(j) < t AND t < seq(P)(j + 1)}"
      integral_step nil)
-    (open_interval type-eq-decl nil intervals_real "reals/")
+    (open_interval type-eq-decl nil intervals_real reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (sigma def-decl "real" sigma "reals/")
+    (sigma def-decl "real" sigma reals)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -3095,22 +3135,20 @@
     (x!1 skolem-const-decl "closed_interval[T](a!1, seq(P!1)(2 + j!1))"
      integral_step nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (int_times_even_is_even application-judgement "even_int" integers
-     nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (sigma_const formula-decl nil sigma "reals/")
+    (sigma_const formula-decl nil sigma reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (parts_order formula-decl nil integral_def nil)
-    (restrict const-decl "[T -> real]" sigma "reals/")
-    (sigma_restrict_eq formula-decl nil sigma "reals/"))
+    (restrict const-decl "[T -> real]" sigma reals)
+    (sigma_restrict_eq formula-decl nil sigma reals))
    shostak))
  (step_fun_is_sumof_TCC1 0
   (step_fun_is_sumof_TCC1-1 nil 3281872417
@@ -3118,7 +3156,7 @@
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   shostak))
+   shostak (step_fun_is_sumof subtype "integral_step.N" "nat")))
  (step_fun_is_sumof 0
   (step_fun_is_sumof-1 nil 3281872574
    ("" (skosimp*)
@@ -3152,7 +3190,7 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (> const-decl "bool" reals nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -3274,7 +3312,7 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (> const-decl "bool" reals nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -3343,7 +3381,7 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (> const-decl "bool" reals nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -3359,7 +3397,9 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
-   shostak))
+   shostak
+   (step_function_on_integral subtype "integral_step.f"
+    "{f | integral_def[T].integrable?(integral_step.a, integral_step.b, integral_step.f)}")))
  (step_function_on_integral_TCC2 0
   (step_function_on_integral_TCC2-1 nil 3281794594
    ("" (subtype-tcc) nil nil)
@@ -3386,7 +3426,7 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -3402,7 +3442,8 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (step_function_on? const-decl "bool" step_fun_def nil))
-   shostak))
+   shostak
+   (step_function_on_integral subtype "0" "T_low[below(N - 1)]")))
  (step_function_on_integral_TCC3 0
   (step_function_on_integral_TCC3-1 nil 3281794594
    ("" (subtype-tcc) nil nil)
@@ -3429,7 +3470,7 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -3445,7 +3486,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (step_function_on? const-decl "bool" step_fun_def nil))
-   shostak))
+   shostak
+   (step_function_on_integral subtype
+    "(number_fields.-)(integral_step.N, 2)" "T_high[below(N - 1)]")))
  (step_function_on_integral_TCC4 0
   (step_function_on_integral_TCC4-1 nil 3281794594
    ("" (subtype-tcc) nil nil)
@@ -3466,7 +3509,7 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -3482,7 +3525,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (step_function_on? const-decl "bool" step_fun_def nil))
-   shostak))
+   shostak
+   (step_function_on_integral subtype "integral_step.ii"
+    "naturalnumbers.below((number_fields.-)(length(integral_step.P), 1))")))
  (step_function_on_integral_TCC5 0
   (step_function_on_integral_TCC5-1 nil 3281794594
    ("" (subtype-tcc) nil nil)
@@ -3510,7 +3555,7 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -3526,7 +3571,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (step_function_on? const-decl "bool" step_fun_def nil))
-   shostak))
+   shostak
+   (step_function_on_integral subtype
+    "(number_fields.+)(integral_step.ii, 1)" "below[length(P)]")))
  (step_function_on_integral_TCC6 0
   (step_function_on_integral_TCC6-1 nil 3281794594
    ("" (subtype-tcc) nil nil)
@@ -3553,7 +3600,7 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -3569,7 +3616,9 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (step_function_on? const-decl "bool" step_fun_def nil))
-   shostak))
+   shostak
+   (step_function_on_integral subtype "integral_step.ii"
+    "below[length(P)]")))
  (step_function_on_integral_TCC7 0
   (step_function_on_integral_TCC7-1 nil 3281794594
    ("" (assuming-tcc) nil nil)
@@ -3599,7 +3648,7 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (finite_sequence type-eq-decl nil finite_sequences nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (below type-eq-decl nil nat_types nil)
@@ -3615,7 +3664,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (step_function_on? const-decl "bool" step_fun_def nil))
-   shostak))
+   shostak
+   (step_function_on_integral assuming
+    "reals@sigma[naturalnumbers.below((number_fields.-)(integral_step.N, 1))].sigma"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (step_function_on_integral 0
   (step_function_on_integral-1 nil 3281871787
    ("" (skosimp*)
@@ -3722,7 +3774,7 @@
     (T_pred const-decl "[real -> boolean]" integral_step nil)
     (T formal-subtype-decl nil integral_step nil)
     (<= const-decl "bool" reals nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
+    (closed_interval type-eq-decl nil intervals_real reals)
     (finite_sequence type-eq-decl nil finite_sequences nil)
     (> const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -4052,25 +4104,19 @@
                                                                                                       (typepred
                                                                                                        "xis!1")
                                                                                                       (("1"
-                                                                                                        (assert)
+                                                                                                        (lemma
+                                                                                                         "parts_order")
                                                                                                         (("1"
-                                                                                                          (inst?)
+                                                                                                          (inst
+                                                                                                           -
+                                                                                                           "a!1"
+                                                                                                           "b!1"
+                                                                                                           "P!1"
+                                                                                                           "n!1"
+                                                                                                           "n!1+1")
                                                                                                           (("1"
-                                                                                                            (lemma
-                                                                                                             "parts_order")
-                                                                                                            (("1"
-                                                                                                              (inst
-                                                                                                               -
-                                                                                                               "a!1"
-                                                                                                               "b!1"
-                                                                                                               "P!1"
-                                                                                                               "n!1"
-                                                                                                               "n!1+1")
-                                                                                                              (("1"
-                                                                                                                (assert)
-                                                                                                                nil
-                                                                                                                nil))
-                                                                                                              nil))
+                                                                                                            (assert)
+                                                                                                            nil
                                                                                                             nil))
                                                                                                           nil))
                                                                                                         nil))
@@ -4154,27 +4200,24 @@
                                                                                                     (typepred
                                                                                                      "xis!1")
                                                                                                     (("1"
-                                                                                                      (assert)
+                                                                                                      (hide-all-but
+                                                                                                       (-1
+                                                                                                        1
+                                                                                                        2))
                                                                                                       (("1"
-                                                                                                        (hide-all-but
-                                                                                                         (-1
-                                                                                                          1
-                                                                                                          2))
+                                                                                                        (lemma
+                                                                                                         "parts_order")
                                                                                                         (("1"
-                                                                                                          (lemma
-                                                                                                           "parts_order")
+                                                                                                          (inst
+                                                                                                           -1
+                                                                                                           "a!1"
+                                                                                                           "b!1"
+                                                                                                           "P!1"
+                                                                                                           "n!1"
+                                                                                                           "n!1+1")
                                                                                                           (("1"
-                                                                                                            (inst
-                                                                                                             -1
-                                                                                                             "a!1"
-                                                                                                             "b!1"
-                                                                                                             "P!1"
-                                                                                                             "n!1"
-                                                                                                             "n!1+1")
-                                                                                                            (("1"
-                                                                                                              (assert)
-                                                                                                              nil
-                                                                                                              nil))
+                                                                                                            (assert)
+                                                                                                            nil
                                                                                                             nil))
                                                                                                           nil))
                                                                                                         nil))
@@ -4213,29 +4256,8 @@
                                                                   (lemma
                                                                    "Riemann?_Rie")
                                                                   (("2"
-                                                                    (inst
-                                                                     -
-                                                                     "a!1"
-                                                                     "b!1"
-                                                                     "f1!1")
-                                                                    (("2"
-                                                                      (split
-                                                                       -1)
-                                                                      (("1"
-                                                                        (assert)
-                                                                        (("1"
-                                                                          (inst
-                                                                           -1
-                                                                           "P!1"
-                                                                           "xis!1")
-                                                                          nil
-                                                                          nil))
-                                                                        nil)
-                                                                       ("2"
-                                                                        (assert)
-                                                                        nil
-                                                                        nil))
-                                                                      nil))
+                                                                    (inst?)
+                                                                    nil
                                                                     nil))
                                                                   nil))
                                                                 nil))
@@ -4247,26 +4269,8 @@
                                                                 (lemma
                                                                  "Riemann?_Rie")
                                                                 (("2"
-                                                                  (inst
-                                                                   -
-                                                                   "a!1"
-                                                                   "b!1"
-                                                                   "f2!1")
-                                                                  (("2"
-                                                                    (split
-                                                                     -1)
-                                                                    (("1"
-                                                                      (inst
-                                                                       -1
-                                                                       "P!1"
-                                                                       "xis!1")
-                                                                      nil
-                                                                      nil)
-                                                                     ("2"
-                                                                      (assert)
-                                                                      nil
-                                                                      nil))
-                                                                    nil))
+                                                                  (inst?)
+                                                                  nil
                                                                   nil))
                                                                 nil))
                                                               nil))
@@ -4357,98 +4361,97 @@
         nil))
       nil))
     nil)
-   ((T formal-subtype-decl nil integral_step nil)
-    (T_pred const-decl "[real -> boolean]" integral_step nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (integrable_lem formula-decl nil integral_prep nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (step_function_integrable? formula-decl nil integral_step nil)
-    (integrable? const-decl "bool" integral_def nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (< const-decl "bool" reals nil)
-    (integral? const-decl "bool" integral_def nil)
-    (integral const-decl "{S: real | integral?(a, b, ff, S)}"
-     integral_def nil)
-    (integral_def formula-decl nil integral_def nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (<= const-decl "bool" reals nil)
-    (f1!1 skolem-const-decl "[T -> real]" integral_step nil)
-    (DD skolem-const-decl "real" integral_step nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (sigma_le formula-decl nil sigma "reals/")
-    (integer nonempty-type-from-decl nil integers nil)
-    (parts_order formula-decl nil integral_def nil)
-    (DD skolem-const-decl "real" integral_step nil)
-    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
-     nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (subrange type-eq-decl nil integers nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (Riemann?_Rie formula-decl nil integral_def nil)
-    (xis!1 skolem-const-decl "(xis?(a!1, b!1, P!1))" integral_step nil)
-    (f2!1 skolem-const-decl "[T -> real]" integral_step nil)
-    (P!1 skolem-const-decl "partition[T](a!1, b!1)" integral_step nil)
-    (b!1 skolem-const-decl "T" integral_step nil)
-    (a!1 skolem-const-decl "T" integral_step nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (Riemann_sum? const-decl "bool" integral_def nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+   ((Rie_sum const-decl "real" integral_def nil)
+    (width const-decl "posreal" integral_def nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (xis? const-decl "bool" integral_def nil)
+    (partition type-eq-decl nil integral_def nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (finite_sequence type-eq-decl nil finite_sequences nil)
+    (closed_interval type-eq-decl nil intervals_real reals)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (below type-eq-decl nil nat_types nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (integral_diff formula-decl nil integral_prep nil)
+    (- const-decl "[T -> real]" real_fun_ops reals)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
-    (integral_diff formula-decl nil integral_prep nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (below type-eq-decl nil nat_types nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (closed_interval type-eq-decl nil intervals_real "reals/")
-    (finite_sequence type-eq-decl nil finite_sequences nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (partition type-eq-decl nil integral_def nil)
-    (xis? const-decl "bool" integral_def nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (width const-decl "posreal" integral_def nil)
-    (Rie_sum const-decl "real" integral_def nil))
+    (minus_real_is_real application-judgement "real" reals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (Riemann_sum? const-decl "bool" integral_def nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (a!1 skolem-const-decl "T" integral_step nil)
+    (b!1 skolem-const-decl "T" integral_step nil)
+    (P!1 skolem-const-decl "partition[T](a!1, b!1)" integral_step nil)
+    (f2!1 skolem-const-decl "[T -> real]" integral_step nil)
+    (xis!1 skolem-const-decl "(xis?(a!1, b!1, P!1))" integral_step nil)
+    (Riemann?_Rie formula-decl nil integral_def nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
+     nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (T_low type-eq-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (subrange type-eq-decl nil integers nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
+     nil)
+    (DD skolem-const-decl "real" integral_step nil)
+    (parts_order formula-decl nil integral_def nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (sigma_le formula-decl nil sigma reals)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (DD skolem-const-decl "real" integral_step nil)
+    (f1!1 skolem-const-decl "[T -> real]" integral_step nil)
+    (<= const-decl "bool" reals nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (integral_def formula-decl nil integral_def nil)
+    (integral const-decl "{S: real | integral?(a, b, ff, S)}"
+     integral_def nil)
+    (integral? const-decl "bool" integral_def nil)
+    (< const-decl "bool" reals nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (integrable? const-decl "bool" integral_def nil)
+    (step_function_integrable? formula-decl nil integral_step nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (integrable_lem formula-decl nil integral_prep nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (T_pred const-decl "[real -> boolean]" integral_step nil)
+    (T formal-subtype-decl nil integral_step nil))
    nil)
   (step_to_integrable-1 nil 3262523207
    ("" (skosimp*)
@@ -5072,8 +5075,8 @@
     (integral_def formula-decl nil integral_def nil)
     (x_in const-decl "{t: T | aa <= t AND t <= bb}" integral_def nil)
     (parts_order formula-decl nil integral_def nil)
-    (sigma_le formula-decl nil sigma "reals/")
-    (sigma def-decl "real" sigma "reals/")
+    (sigma_le formula-decl nil sigma reals)
+    (sigma def-decl "real" sigma reals)
     (integral_diff formula-decl nil integral_prep nil)
     (partition type-eq-decl nil integral_def nil)
     (width const-decl "posreal" integral_def nil))
