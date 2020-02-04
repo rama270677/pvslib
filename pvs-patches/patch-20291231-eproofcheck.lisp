@@ -228,45 +228,10 @@
 	      (pvs-message "Interrupted: ~a sec timeout" timeout)))))
       (call-next-method)))
 
-;;;;;;;
-
-(defmacro first-node-of-branch? ()
-  '(not (string= (label(parent-proofstate *ps*)) (label *ps*))))
-
-
-(defstrat force-undo ()
-  (let ((*multiple-proof-default-behavior*-bak *multiple-proof-default-behavior*)
-	(dummy ;; this prevents undo from asking for confirmation
-	 (setf *multiple-proof-default-behavior* :noquestions))
-	(dummy (format t "~%MPDB ~a~%" *multiple-proof-default-behavior*)))
-    (then
-     (undo)
-     (let ((dummy (setf *multiple-proof-default-behavior* *multiple-proof-default-behavior*-bak))
-	   (dummy (format t "~%MPDB ~a~%" *multiple-proof-default-behavior*)))
-       (skip))))
-  "Undo. No questions asked.")
-
-(defstrat go-to-first-node-of-branch ()
-  (if (first-node-of-branch?)
-      (skip)
-    (then
-     (force-undo)
-     (go-to-first-node-of-branch)))
-  "")
-
-(defun replace-in-strategy (cmd-id-1 cmd-id-2 strategy)
-  (loop for prf-item in strategy
-	collect (cond ((eq cmd-id-1 prf-item) cmd-id-2)
-		      ((listp prf-item) (replace-in-strategy cmd-id-1 cmd-id-2  prf-item))
-		      (t prf-item))))
-
 ;;DEV move where it belongs
 (defstrat rerun* (proofs)
   (mapstep #'(lambda(prf)`(finalize (rerun ,prf))) proofs)
   "")
-
-;; (defun sibling-label? (onw-label sib-label &optional (:degree 1))
-;;   )
 
 (defmacro ps-label-as-list (label)
   `(uiop:split-string ,label :separator "."))
@@ -275,7 +240,8 @@
   `(>= ,degree (abs (- (parse-integer ,id1 :junk-allowed t) (parse-integer ,id2 :junk-allowed t)))))
 
 (defstrat try-siblings-proofs (&optional (degree 1))
-  (let ((dummy (format t "~%RUNNING SIBLING PROOFS for ~a~%" (label *ps*)))
+  (let (#+proveit-debug
+	(dummy (format t "~%RUNNING SIBLING PROOFS for ~a~%" (label *ps*)))
 	(own-branch-label (ps-label-as-list(label *ps*))))
     (if (< 1 (length own-branch-label))
 	(let ((own-branch-id (car(reverse own-branch-label)))
@@ -283,6 +249,7 @@
 			     when (neighbor-branch-id? own-branch-id (car(reverse(ps-label-as-list(label sg)))) degree)
 			     collect (editable-justification(collect-justification sg)))))
 	  (then
+	   #+proveit-debug
 	   (let ((dummy (format t "~%RuNNInG SIBLING PROOFS for ~a~%" (label *ps*)))) (skip))
 	   (rerun* justifs)))
       (skip-msg "Current goal has no siblings.")))
@@ -302,18 +269,25 @@
      (rematch-proofs-and-goals)))
   "")
 
+(defmacro current-pvs-verbose-level ()
+  (if (and *noninteractive*
+	   (integerp *pvs-verbose*))
+      *pvs-verbose*
+    -1))
+
 (defstrat rerun (&optional proof recheck? break? default auto-fix?)
   (let ((default (if *proof-for-unexpected-branches*
-		     (let ((dummy (when default
+		     (let ((dummy (when (and (> (current-pvs-verbose-level) 2) default)
 				    (format t "~%[rerun] WARNING default proof given by argument is being omitted since a default proof is set in *proof-for-unexpected-branches*.~%"))))
 		       *proof-for-unexpected-branches*)
 		   default))
 	(auto-fix? (if *auto-fix-on-rerun*
-		       (let ((dummy (unless auto-fix?
+		       (let ((dummy (unless (or (not (> (current-pvs-verbose-level) 2)) auto-fix?)
 				    (format t "~%[rerun] WARNING auto-fix? is set in *auto-fix-on-rerun*.~%"))))
 			 *auto-fix-on-rerun*)
 		     auto-fix?))
-	(dummy (format t "~%RERUN ON ~a~%" proof))
+	#+proveit-debug
+	(dummy (format t "~%[rerun] Rerunning proof script: ~a.~%" proof))
 	(x (rerun-step (cond  ((null proof)
 			       (justification *ps*))
 			      ((null (check-edited-justification proof))
@@ -333,10 +307,19 @@ and the number of subproofs.  The BREAK? flag causes an error and queries
 the user instead."
   "")
 
-;;;;
+;; Auto-Fix parameters
+;; - default proof to be tried on open branches after the stored proof was reran.
 (defparameter *proof-for-unexpected-branches* nil)
-
+;; - when a non-integer value is stored in *auto-fix-on-rerun*, that value is assumed
+;;   to determine the acceptable neighborhood size to look for misplaced proofs. For
+;;   example, if the branch 1.1.2.4 of a particular lemma cannot be closed with the
+;;   proof stored for it in the prf file, and the value *auto-fix-on-rerun* is 2, the
+;;   subproofs corresponding to the branches 1.1.2.2, 1.1.2.3, 1.1.2.5, and 1.1.2.6
+;;   will be tried on the open branch (1.1.2.4).
 (defparameter *auto-fix-on-rerun* nil)
+;; - (DEBUG) stores the count of proofs corrected by auto-fix.
+#+proveit-debug
+(defparameter *auto-fixed-count* 0)
 
 (defmethod prove-decl ((decl formula-decl) &key strategy context)
   (ensure-default-proof decl)
@@ -346,18 +329,7 @@ the user instead."
 	(with-current-decl decl
 	  (setf (closed-definition decl)
 		(universal-closure (definition decl))))))
-  (let* (
-	 ;; (strategy (if (and strategy *proof-for-unexpected-branches*)
-	 ;; 	     `(then (branch ,(replace-in-strategy
-	 ;; 			'quit
-	 ;; 			'postpone
-	 ;; 			(replace-in-strategy 'query* 'postpone strategy))
-	 ;; 			    (,*proof-for-unexpected-branches*)) (query*))
-	 ;; 	     strategy))
-	 
-	 ;; (dummy (format t "BLABLA ~a~%" strategy))
-	 
-	 (init-real-time (get-internal-real-time))
+  (let* ((init-real-time (get-internal-real-time))
 	 (init-run-time (get-run-time))
 	 (*skovar-counter* nil)
 	 (*skofun-counter* nil)
@@ -609,22 +581,24 @@ the user instead."
 		   (cdr scr-new)))))
 
 (defun save-proof-info (decl init-real-time init-run-time)
-  (let*((dummy (format t "~%[save-proof-info] entering... ~%"))
+  (let*(#+proveit-debug
+	(dummy (format t "~%[save-proof-info] entering... ~%"))
 	(prinfo (default-proof decl))
 	(script (extract-justification-sexp
 		 (collect-justification *top-proofstate*)))
-	;; 
 	(auto-fixed-prf
 	 ;; if the prf was rerun in *auto-fix-on-rerun* mode and it ended proved, save it.
 	 (and *auto-fix-on-rerun*
 	      (eq (status-flag *top-proofstate*) '!)
 	      (not *context-modified*)))
-	;;
+	#+proveit-debug
 	(dummy (format t "~%[save-proof-info] (null (script prinfo)) -> ~a ... ~%" (null (script prinfo))))
+	#+proveit-debug
 	(dummy (format t "~%[save-proof-info] ~a ~a ~a ... ~%"
 		       (eq (status prinfo) 'proved)
 		       (eq (status-flag *top-proofstate*) '!)
 		       (script-structure-changed? prinfo script)))
+	#+proveit-debug
 	(dummy (format t "~%[save-proof-info] cond1 -> ~a ... ~%" (or (null (script prinfo))
 								      (equal (script prinfo) '("" (postpone) nil nil))
 								      (and (tcc-decl? decl)
@@ -632,6 +606,7 @@ the user instead."
 								      (and (eq (status prinfo) 'proved)
 									   (eq (status-flag *top-proofstate*) '!)
 									   (script-structure-changed? prinfo script)))))
+	#+proveit-debug
 	(dummy (format t "~%[save-proof-info] cond2 -> ~a ~a ~a ~a ~a ~a... ~%"
 		       (not (not (or (not *proving-tcc*) auto-fixed-prf)))
 		       (not (not (or (not *noninteractive*)
@@ -642,8 +617,7 @@ the user instead."
 		       (not (not (or (eq *multiple-proof-default-behavior* :noquestions)
 				     auto-fixed-prf
 				     t ;; to omit the question
-				     )))))
-	)	
+				     ))))))	
     (cond ((or (null (script prinfo))
 	       (equal (script prinfo) '("" (postpone) nil nil))
 	       (and (tcc-decl? decl)
@@ -651,12 +625,9 @@ the user instead."
 	       (and (eq (status prinfo) 'proved)
 		    (eq (status-flag *top-proofstate*) '!)
 		    (script-structure-changed? prinfo script)))
-	   (let ((dummy (format t "~%[save-proof-info] leaving... ~%")))
-	     (setf (script prinfo) script)))
+	   (setf (script prinfo) script))
 	  ((and (or (not *proving-tcc*) auto-fixed-prf)
-		(or (let ((dummy (format t "~% I'M HERE ~%")))
-		      nil)
-		    (not *noninteractive*)
+		(or (not *noninteractive*)
 		    auto-fixed-prf)
 		script
 		(not (equal script '("" (postpone) nil nil)))
@@ -673,6 +644,10 @@ the user instead."
                        as ~{~a~^, ~}~%~]~
                     Would you like the proof to be saved~@[ anyway~]? "
 		       ids ids))))
+	   #+proveit-debug
+	   (when auto-fixed-prf
+	     (format t "~%The proof ~a was corrected by auto-fix.~%" (id prinfo))
+	     (setq *auto-fixed-count* (+ *auto-fixed-count* 1)))
 	   (cond ((and (not auto-fixed-prf)
 		       (or (memq *multiple-proof-default-behavior*
 				 '(:overwrite :noquestions))
@@ -680,7 +655,6 @@ the user instead."
 				(pvs-yes-or-no-p
 				 "Would you like to overwrite the current proof (named ~a)? "
 				 (id prinfo)))))
-		  (format t "~%[save-proof-info] saving ~a... ~%" script)
 		  (when (eq *multiple-proof-default-behavior* :overwrite)
 		    (format t "Overwriting proof named ~a" (id prinfo)))
 		  (setf (script prinfo) script))
@@ -689,6 +663,7 @@ the user instead."
 		      (setq prinfo
 			    (make-default-proof decl script id
 						description)))))))
+    #+proveit-debug
     (format t "~%[save-proof-info] after cond... ~%")
     ;; For some reason, this can go negative.  One possibility is that the proof
     ;; starts on one core, and finishes on another, each with it's own counter
