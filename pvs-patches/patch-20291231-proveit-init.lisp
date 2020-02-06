@@ -268,7 +268,7 @@
 		 do (format t "***   ~a: ~a~%"
 		      (car orcl) (cdr orcl)))))
 	  (format t "*** ")
-	  (change-workspace context)
+	  (change-workspace context t)
 	  (dolist (prelude preludext) (load-prelude-library prelude t))
 	  (when pvsfile (typecheck-file pvsfile nil nil nil t))
 	  (save-context)
