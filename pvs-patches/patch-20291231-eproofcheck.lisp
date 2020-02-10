@@ -237,21 +237,26 @@
   `(uiop:split-string ,label :separator "."))
 
 (defmacro neighbor-branch-id? (id1 id2 &optional (degree 1))
-  `(>= ,degree (abs (- (parse-integer ,id1 :junk-allowed t) (parse-integer ,id2 :junk-allowed t)))))
+  `(let ((dist (abs (- (parse-integer ,id1 :junk-allowed t) (parse-integer ,id2 :junk-allowed t)))))
+     (and
+      (>= ,degree dist)
+      (> dist 0))))
 
 (defstrat try-siblings-proofs (&optional (degree 1))
   (let (#+proveit-debug
-	(dummy (format t "~%RUNNING SIBLING PROOFS for ~a~%" (label *ps*)))
+	(dummy (format t "~%Entering try-siblings-proofs for ~a~%" (label *ps*)))
 	(own-branch-label (ps-label-as-list(label *ps*))))
     (if (< 1 (length own-branch-label))
 	(let ((own-branch-id (car(reverse own-branch-label)))
 	      (justifs (loop for sg in (all-subgoals (parent-proofstate *ps*))
 			     when (neighbor-branch-id? own-branch-id (car(reverse(ps-label-as-list(label sg)))) degree)
 			     collect (editable-justification(collect-justification sg)))))
-	  (then
-	   #+proveit-debug
-	   (let ((dummy (format t "~%RuNNInG SIBLING PROOFS for ~a~%" (label *ps*)))) (skip))
-	   (rerun* justifs)))
+	  (if justifs
+	      (then
+	       #+proveit-debug
+	       (let ((dummy (format t "~%RuNNInG SIBLING PROOFS for ~a proofs: ~a~%" (label *ps*) justifs))) (skip))
+	       (rerun* justifs))
+	    (skip)))
       (skip-msg "Current goal has no siblings.")))
   "")
 
@@ -2743,7 +2748,7 @@ the user instead."
 						`(then ,original-step ,default)
 					      original-step))))
 				      (if auto-fix?
-					  `(then (finalize ,subgoal-step)(try-siblings-proofs ,auto-fix?))
+					  `(then (finalize ,subgoal-step) (try-siblings-proofs ,auto-fix?))
 					subgoal-step)))))
 		 (if break?
 		     `(spread! ,top-rule ,subgoal-strategy)
