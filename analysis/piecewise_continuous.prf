@@ -2,57 +2,73 @@
  (IMP_fundamental_theorem_TCC1 0
   (IMP_fundamental_theorem_TCC1-1 nil 3612529043
    ("" (lemma "connected_domain") (("" (propax) nil nil)) nil)
-   ((connected_domain formula-decl nil piecewise_continuous nil)) nil))
+   ((connected_domain formula-decl nil piecewise_continuous nil)) nil
+   (IMP_fundamental_theorem assuming
+    "fundamental_theorem[T].fundamental_theorem"
+    "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (IMP_fundamental_theorem_TCC2 0
   (IMP_fundamental_theorem_TCC2-1 nil 3612529043
    ("" (lemma "not_one_element") (("" (propax) nil nil)) nil)
-   ((not_one_element formula-decl nil piecewise_continuous nil)) nil))
+   ((not_one_element formula-decl nil piecewise_continuous nil)) nil
+   (IMP_fundamental_theorem assuming
+    "fundamental_theorem[T].fundamental_theorem"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (piecewise_continuous?_TCC1 0
   (piecewise_continuous?_TCC1-1 nil 3611578171
    ("" (skosimp*) (("" (assert) nil nil)) nil)
-   ((real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+   ((real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil))
+   nil
+   (piecewise_continuous? subtype "piecewise_continuous.i"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (piecewise_continuous?_TCC2 0
   (piecewise_continuous?_TCC2-1 nil 3611578171
    ("" (skosimp*) (("" (assert) nil nil)) nil)
-   ((nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+   ((nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil))
+   nil
+   (piecewise_continuous? subtype
+    "(number_fields.+)(piecewise_continuous.i, 1)"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (piecewise_continuous?_TCC3 0
-  (piecewise_continuous?_TCC3-1 nil 3611578171
-   ("" (subtype-tcc) nil nil)
-   ((strict_increasing? const-decl "bool" real_fun_preds "reals/")
+  (piecewise_continuous?_TCC3-1 nil 3611578171 ("" (subtype-tcc) nil nil)
+   ((strict_increasing? const-decl "bool" real_fun_preds reals)
     (continuous_on? const-decl "bool" continuous_functions nil)
     (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (piecewise_continuous? subtype "0"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (piecewise_continuous?_TCC4 0
   (piecewise_continuous?_TCC4-1 nil 3611578171
    ("" (skeep) (("" (assert) nil nil)) nil)
-   ((real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+   ((real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil))
+   nil
+   (piecewise_continuous? subtype "piecewise_continuous.N"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (piecewise_continuous?_TCC5 0
   (piecewise_continuous?_TCC5-1 nil 3611591182 ("" (grind) nil nil)
-   ((strict_increasing? const-decl "bool" real_fun_preds "reals/")
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+   ((strict_increasing? const-decl "bool" real_fun_preds reals)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (continuous_on? const-decl "bool" continuous_functions nil)
     (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (piecewise_continuous? subtype "piecewise_continuous.i"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (piecewise_continuous?_TCC6 0
   (piecewise_continuous?_TCC6-1 nil 3611591182 ("" (grind) nil nil)
-   ((strict_increasing? const-decl "bool" real_fun_preds "reals/")
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+   ((strict_increasing? const-decl "bool" real_fun_preds reals)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (continuous_on? const-decl "bool" continuous_functions nil)
     (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (piecewise_continuous? subtype
+    "(number_fields.+)(piecewise_continuous.i, 1)"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (continuous_on_integrable 0
   (continuous_on_integrable-1 nil 3611681282
    ("" (skosimp*)
@@ -72,15 +88,12 @@
                           (("1" (inst -1 "(eps!1/2)/(b!1-a!1)")
                             (("1" (skosimp*)
                               (("1"
-                                (name
-                                 "PP"
-                                 "eq_partition(a!1,b!1,floor((b!1-a!1)/delta!1)+2)")
+                                (name "PP"
+                                      "eq_partition(a!1,b!1,floor((b!1-a!1)/delta!1)+2)")
                                 (("1"
-                                  (case
-                                   "step_function?(a!1, b!1, fmin(a!1, b!1, PP, f!1))")
+                                  (case "step_function?(a!1, b!1, fmin(a!1, b!1, PP, f!1))")
                                   (("1"
-                                    (case
-                                     "step_function?(a!1, b!1, fmax(a!1, b!1, PP, f!1))")
+                                    (case "step_function?(a!1, b!1, fmax(a!1, b!1, PP, f!1))")
                                     (("1"
                                       (inst
                                        +
@@ -101,8 +114,7 @@
                                                 (("1"
                                                   (skosimp*)
                                                   (("1"
-                                                    (hide-all-but
-                                                     (-7 1))
+                                                    (hide-all-but (-7 1))
                                                     (("1"
                                                       (split 1)
                                                       (("1"
@@ -281,8 +293,7 @@
                                                ("2"
                                                 (hide 2)
                                                 (("2"
-                                                  (lemma
-                                                   "width_eq_part")
+                                                  (lemma "width_eq_part")
                                                   (("2"
                                                     (inst?)
                                                     (("2"
@@ -293,9 +304,7 @@
                                                           (case
                                                            "width(a!1,b!1,PP) < delta!1")
                                                           (("1"
-                                                            (hide
-                                                             -2
-                                                             -6)
+                                                            (hide -2 -6)
                                                             (("1"
                                                               (lemma
                                                                "integral_bound_abs")
@@ -679,8 +688,7 @@
                                                              -8
                                                              2)
                                                             (("2"
-                                                              (replace
-                                                               -1)
+                                                              (replace -1)
                                                               (("2"
                                                                 (hide
                                                                  -1
@@ -704,8 +712,7 @@
                                                                         nil))
                                                                       nil)
                                                                      ("2"
-                                                                      (hide
-                                                                       2)
+                                                                      (hide 2)
                                                                       (("2"
                                                                         (reveal
                                                                          -3)
@@ -807,25 +814,14 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (hide 2)
-                                      (("2"
-                                        (rewrite "fmax_step")
-                                        nil
-                                        nil))
+                                     ("2" (hide 2)
+                                      (("2" (rewrite "fmax_step") nil nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (hide 2)
-                                    (("2"
-                                      (rewrite "fmin_step")
-                                      nil
-                                      nil))
-                                    nil)
-                                   ("3"
-                                    (hide 2)
-                                    (("3"
-                                      (skosimp*)
+                                   ("2" (hide 2)
+                                    (("2" (rewrite "fmin_step") nil nil)) nil)
+                                   ("3" (hide 2)
+                                    (("3" (skosimp*)
                                       (("3"
                                         (hide -1 -2 -3)
                                         (("3"
@@ -867,12 +863,9 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (assert)
-                                  (("2"
-                                    (mult-by 1 "delta!1")
-                                    (("2"
-                                      (assert)
+                                 ("2" (assert)
+                                  (("2" (mult-by 1 "delta!1")
+                                    (("2" (assert)
                                       (("2"
                                         (case
                                          "floor((b!1 - a!1) / delta!1)>=0")
@@ -894,16 +887,11 @@
                                 nil))
                               nil)
                              ("2" (hide 2)
-                              (("2"
-                                (split +)
-                                (("1"
-                                  (mult-by 1 "b!1-a!1")
-                                  (("1" (assert) nil nil))
-                                  nil)
-                                 ("2"
-                                  (mult-by 1 "b!1-a!1")
-                                  (("2" (assert) nil nil))
-                                  nil))
+                              (("2" (split +)
+                                (("1" (mult-by 1 "b!1-a!1")
+                                  (("1" (assert) nil nil)) nil)
+                                 ("2" (mult-by 1 "b!1-a!1")
+                                  (("2" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -913,8 +901,8 @@
                     nil))
                   nil)
                  ("2" (hide -1 2)
-                  (("2" (expand "continuous_on?")
-                    (("2" (propax) nil nil)) nil))
+                  (("2" (expand "continuous_on?") (("2" (propax) nil nil))
+                    nil))
                   nil))
                 nil))
               nil))
@@ -926,8 +914,7 @@
         (("2" (skosimp*)
           (("2" (typepred "x!1")
             (("2" (inst-cp 1 "a!1")
-              (("2" (inst-cp 1 "b!1") (("2" (assert) nil nil)) nil))
-              nil))
+              (("2" (inst-cp 1 "b!1") (("2" (assert) nil nil)) nil)) nil))
             nil))
           nil))
         nil)
@@ -937,8 +924,8 @@
             (("3" (skosimp*)
               (("3" (lemma "connected_domain")
                 (("3" (expand "connected?")
-                  (("3" (inst -1 "a!1" "b!1" "z!1")
-                    (("3" (assert) nil nil)) nil))
+                  (("3" (inst -1 "a!1" "b!1" "z!1") (("3" (assert) nil nil))
+                    nil))
                   nil))
                 nil))
               nil))
@@ -947,7 +934,7 @@
         nil))
       nil))
     nil)
-   ((closed_interval type-eq-decl nil intervals_real "reals/")
+   ((closed_interval type-eq-decl nil intervals_real reals)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -956,8 +943,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (unif_cont_interval formula-decl nil unif_cont_fun nil)
@@ -971,107 +957,93 @@
     (both_sides_times_pos_lt1 formula-decl nil real_props nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
-     nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props nil)
     (step_function? const-decl "bool" step_fun_def nil)
     (continuous? const-decl "bool" continuous_functions nil)
     (fun_cont_on type-eq-decl nil integral_cont_scaf nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (fun_cont_on type-eq-decl nil interval_minmax nil)
     (min_x const-decl "{mx: T |
-         a <= mx AND
-          mx <= b AND
-           (FORALL (x: T): a <= x AND x <= b IMPLIES f(mx) <= f(x))}"
+   a <= mx AND
+    mx <= b AND (FORALL (x: T): a <= x AND x <= b IMPLIES f(mx) <= f(x))}"
      interval_minmax nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (fmin const-decl "{ff: [T -> real] |
-         LET xx = seq(P) IN
-           FORALL (ii: below(length(P) - 1)):
-             FORALL (x: T):
-               (xx(ii) < x AND x < xx(ii + 1) IMPLIES
-                 ff(x) = f(min_x(xx(ii), xx(ii + 1), f)))
-                AND ((xx(ii) = x OR x = xx(ii + 1)) IMPLIES ff(x) = f(x))}"
+   LET xx = seq(P) IN
+     FORALL (ii: below(length(P) - 1)):
+       FORALL (x: T):
+         (xx(ii) < x AND x < xx(ii + 1) IMPLIES
+           ff(x) = f(min_x(xx(ii), xx(ii + 1), f)))
+          AND ((xx(ii) = x OR x = xx(ii + 1)) IMPLIES ff(x) = f(x))}"
      integral_cont_scaf nil)
     (fmax_step formula-decl nil integral_cont_scaf nil)
     (integrable? const-decl "bool" integral_def nil)
-    (- const-decl "[T -> real]" real_fun_ops "reals/")
+    (- const-decl "[T -> real]" real_fun_ops reals)
     (integral? const-decl "bool" integral_def nil)
-    (integral const-decl "{S: real | integral?(a, b, ff, S)}"
-     integral_def nil)
+    (integral const-decl "{S: real | integral?(a, b, ff, S)}" integral_def
+     nil)
     (part_induction formula-decl nil integral_def nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (width_eq_part formula-decl nil integral_def nil)
     (width const-decl "posreal" integral_def nil)
     (integral_bound_abs formula-decl nil integral_prep nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (both_sides_times_pos_le1 formula-decl nil real_props nil)
     (BMA skolem-const-decl "real" piecewise_continuous nil)
     (div_cancel2 formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (PP skolem-const-decl
-     "{fs: finite_sequence[{x | a!1 <= x AND x <= b!1}] |
-         length(fs) > 1 AND
-          seq(fs)(0) = a!1 AND
-           seq(fs)(length(fs) - 1) = b!1 AND
-            (FORALL (ii: below(length(fs) - 1)):
-               seq(fs)(ii) < seq(fs)(1 + ii))}" piecewise_continuous
-     nil)
-    (ii!1 skolem-const-decl "below(length(PP) - 1)"
-     piecewise_continuous nil)
+    (PP skolem-const-decl "partition[T](a!1, b!1)" piecewise_continuous nil)
+    (ii!1 skolem-const-decl "below(PP`length - 1)" piecewise_continuous nil)
     (f!1 skolem-const-decl "[T -> real]" piecewise_continuous nil)
     (MAX_x skolem-const-decl "{mx: T |
-         seq(PP)(ii!1) <= mx AND
-          mx <= seq(PP)(1 + ii!1) AND
-           (FORALL (x: T):
-              seq(PP)(ii!1) <= x AND x <= seq(PP)(1 + ii!1) IMPLIES
-               f!1(mx) >= f!1(x))}" piecewise_continuous nil)
+   seq(PP)(ii!1) <= mx AND
+    mx <= seq(PP)(1 + ii!1) AND
+     FORALL (x: T):
+       seq(PP)(ii!1) <= x AND x <= seq(PP)(1 + ii!1) IMPLIES
+        f!1(mx) >= f!1(x)}" piecewise_continuous nil)
     (MIN_x skolem-const-decl "{mx: T |
-         seq(PP)(ii!1) <= mx AND
-          mx <= seq(PP)(1 + ii!1) AND
-           (FORALL (x: T):
-              seq(PP)(ii!1) <= x AND x <= seq(PP)(1 + ii!1) IMPLIES
-               f!1(mx) <= f!1(x))}" piecewise_continuous nil)
+   seq(PP)(ii!1) <= mx AND
+    mx <= seq(PP)(1 + ii!1) AND
+     FORALL (x: T):
+       seq(PP)(ii!1) <= x AND x <= seq(PP)(1 + ii!1) IMPLIES
+        f!1(mx) <= f!1(x)}" piecewise_continuous nil)
     (width_lem formula-decl nil integral_def nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (fmax_ge formula-decl nil integral_cont_scaf nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
+     nil)
     (both_sides_times_pos_ge1 formula-decl nil real_props nil)
     (both_sides_div_pos_lt1 formula-decl nil real_props nil)
     (times_div_cancel1 formula-decl nil extra_real_props nil)
     (BMA skolem-const-decl "real" piecewise_continuous nil)
     (delta!1 skolem-const-decl "posreal" piecewise_continuous nil)
-    (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props
-     nil)
+    (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (integral_diff formula-decl nil integral_prep nil)
     (step_function_integrable? formula-decl nil integral_step nil)
     (fmax const-decl "{ff: [T -> real] |
-         LET xx = seq(P) IN
-           FORALL (ii: below(length(P) - 1)):
-             FORALL (x: T):
-               (xx(ii) < x AND x < xx(ii + 1) IMPLIES
-                 ff(x) = f(max_x(xx(ii), xx(ii + 1), f)))
-                AND ((xx(ii) = x OR x = xx(ii + 1)) IMPLIES ff(x) = f(x))}"
+   LET xx = seq(P) IN
+     FORALL (ii: below(length(P) - 1)):
+       FORALL (x: T):
+         (xx(ii) < x AND x < xx(ii + 1) IMPLIES
+           ff(x) = f(max_x(xx(ii), xx(ii + 1), f)))
+          AND ((xx(ii) = x OR x = xx(ii + 1)) IMPLIES ff(x) = f(x))}"
      integral_cont_scaf nil)
     (max_x const-decl "{mx: T |
-         a <= mx AND
-          mx <= b AND
-           (FORALL (x: T): a <= x AND x <= b IMPLIES f(mx) >= f(x))}"
+   a <= mx AND
+    mx <= b AND (FORALL (x: T): a <= x AND x <= b IMPLIES f(mx) >= f(x))}"
      interval_minmax nil)
     (fmin_step formula-decl nil integral_cont_scaf nil)
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (integer nonempty-type-from-decl nil integers nil)
     (eq_partition const-decl "partition(a, b)" integral_def nil)
+    (partition type-eq-decl nil integral_def nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (below type-eq-decl nil naturalnumbers nil)
     (above nonempty-type-eq-decl nil integers nil)
@@ -1081,6 +1053,7 @@
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (< const-decl "bool" reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
+    (finite_sequence type-eq-decl nil finite_sequences nil)
     (below type-eq-decl nil nat_types nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
@@ -1095,12 +1068,12 @@
     (/= const-decl "boolean" notequal nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (>= const-decl "bool" reals nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal" real_types
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (TRUE const-decl "bool" booleans nil)
@@ -1110,8 +1083,8 @@
      "(strict_total_order?[real])" real_props nil)
     (b!1 skolem-const-decl "T" piecewise_continuous nil)
     (a!1 skolem-const-decl "T" piecewise_continuous nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (connected_domain formula-decl nil piecewise_continuous nil))
    nil))
  (piecewise_continuous_integrable 0
@@ -1131,20 +1104,15 @@
                       (case "FORALL (i:nat): i+1<=N IMPLIES integrable?(P(i),P(i+1),f)")
                       (("1" (induct "i")
                         (("1" (assert)
-                          (("1" (inst - "0") (("1" (assert) nil nil))
-                            nil))
+                          (("1" (inst - "0") (("1" (assert) nil nil)) nil))
                           nil)
                          ("2" (skeep)
                           (("2" (assert)
                             (("2" (inst - "1+j")
-                              (("2"
-                                (assert)
-                                (("2"
-                                  (inst - "P(0)" "P(1+j)" "P(2+j)" "f")
-                                  (("2"
-                                    (assert)
-                                    (("2"
-                                      (expand "piecewise_continuous?")
+                              (("2" (assert)
+                                (("2" (inst - "P(0)" "P(1+j)" "P(2+j)" "f")
+                                  (("2" (assert)
+                                    (("2" (expand "piecewise_continuous?")
                                       (("2"
                                         (flatten)
                                         (("2"
@@ -1168,12 +1136,9 @@
                          ("3" (skeep)
                           (("3" (expand "piecewise_continuous?")
                             (("3" (flatten)
-                              (("3"
-                                (expand "strict_increasing?")
-                                (("3"
-                                  (inst - "0" "1+i")
-                                  (("3" (assert) nil nil))
-                                  nil))
+                              (("3" (expand "strict_increasing?")
+                                (("3" (inst - "0" "1+i")
+                                  (("3" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1183,14 +1148,10 @@
                         (("2" (flatten)
                           (("2" (hide 2)
                             (("2" (hide 2)
-                              (("2"
-                                (lemma "continuous_on_integrable")
-                                (("2"
-                                  (skeep)
-                                  (("2"
-                                    (inst - "i")
-                                    (("1"
-                                      (assert)
+                              (("2" (lemma "continuous_on_integrable")
+                                (("2" (skeep)
+                                  (("2" (inst - "i")
+                                    (("1" (assert)
                                       (("1"
                                         (inst - _ _ "H(i)")
                                         (("1"
@@ -1200,8 +1161,7 @@
                                             (("1"
                                               (assert)
                                               (("1"
-                                                (expand
-                                                 "strict_increasing?")
+                                                (expand "strict_increasing?")
                                                 (("1"
                                                   (inst? -5)
                                                   (("1"
@@ -1358,12 +1318,9 @@
                         (("3" (skeep)
                           (("3" (expand "piecewise_continuous?")
                             (("3" (expand "strict_increasing?")
-                              (("3"
-                                (flatten)
-                                (("3"
-                                  (inst - "i" "i+1")
-                                  (("3" (assert) nil nil))
-                                  nil))
+                              (("3" (flatten)
+                                (("3" (inst - "i" "i+1")
+                                  (("3" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1376,10 +1333,8 @@
                         (("3" (expand "strict_increasing?")
                           (("3" (flatten)
                             (("3" (skeep)
-                              (("3"
-                                (inst - "0" "i+1")
-                                (("3" (assert) nil nil))
-                                nil))
+                              (("3" (inst - "0" "i+1")
+                                (("3" (assert) nil nil)) nil))
                               nil))
                             nil))
                           nil))
@@ -1400,18 +1355,16 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (integrable_split formula-decl nil integral_split nil)
     (i skolem-const-decl "nat" piecewise_continuous nil)
     (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
     (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
     (P skolem-const-decl "[upto(N) -> T]" piecewise_continuous nil)
@@ -1423,18 +1376,16 @@
     (integral_chg_one_pt formula-decl nil integral_prep nil)
     (below type-eq-decl nil naturalnumbers nil)
     (i skolem-const-decl "nat" piecewise_continuous nil)
-    (continuous_on_integrable formula-decl nil piecewise_continuous
-     nil)
+    (continuous_on_integrable formula-decl nil piecewise_continuous nil)
     (i skolem-const-decl "nat" piecewise_continuous nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -1471,21 +1422,16 @@
                   (case "FORALL (i:nat): i+1<=N IMPLIES integrable?(P(i),P(i+1),f)")
                   (("1" (induct "i")
                     (("1" (assert)
-                      (("1" (inst - "0") (("1" (assert) nil nil)) nil))
-                      nil)
+                      (("1" (inst - "0") (("1" (assert) nil nil)) nil)) nil)
                      ("2" (skeep)
                       (("2" (assert)
                         (("2" (inst - "1+j")
                           (("2" (assert)
                             (("2" (inst - "P(0)" "P(1+j)" "P(2+j)" "f")
-                              (("2"
-                                (assert)
-                                (("2"
-                                  (expand "piecewise_continuous?")
-                                  (("2"
-                                    (flatten)
-                                    (("2"
-                                      (expand "strict_increasing?")
+                              (("2" (assert)
+                                (("2" (expand "piecewise_continuous?")
+                                  (("2" (flatten)
+                                    (("2" (expand "strict_increasing?")
                                       (("2"
                                         (inst-cp - "0" "1+j")
                                         (("2"
@@ -1506,8 +1452,8 @@
                       (("3" (expand "piecewise_continuous?")
                         (("3" (flatten)
                           (("3" (expand "strict_increasing?")
-                            (("3" (inst - "0" "1+i")
-                              (("3" (assert) nil nil)) nil))
+                            (("3" (inst - "0" "1+i") (("3" (assert) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -1519,21 +1465,16 @@
                         (("2" (hide 2)
                           (("2" (lemma "continuous_on_integrable")
                             (("2" (skeep)
-                              (("2"
-                                (inst - "i")
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (inst - _ _ "H(i)")
-                                    (("1"
-                                      (assert)
+                              (("2" (inst - "i")
+                                (("1" (assert)
+                                  (("1" (inst - _ _ "H(i)")
+                                    (("1" (assert)
                                       (("1"
                                         (inst - "P(i)" "P(i+1)")
                                         (("1"
                                           (assert)
                                           (("1"
-                                            (expand
-                                             "strict_increasing?")
+                                            (expand "strict_increasing?")
                                             (("1"
                                               (inst? -5)
                                               (("1"
@@ -1561,16 +1502,13 @@
                                                           (("1"
                                                             (assert)
                                                             (("1"
-                                                              (inst
-                                                               -
-                                                               "P(i)")
+                                                              (inst - "P(i)")
                                                               (("1"
                                                                 (assert)
                                                                 (("1"
                                                                   (flatten)
                                                                   (("1"
-                                                                    (hide
-                                                                     -4)
+                                                                    (hide -4)
                                                                     (("1"
                                                                       (replace
                                                                        -2)
@@ -1691,8 +1629,8 @@
                       (("3" (expand "piecewise_continuous?")
                         (("3" (expand "strict_increasing?")
                           (("3" (flatten)
-                            (("3" (inst - "i" "i+1")
-                              (("3" (assert) nil nil)) nil))
+                            (("3" (inst - "i" "i+1") (("3" (assert) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -1705,8 +1643,8 @@
                     (("3" (expand "strict_increasing?")
                       (("3" (flatten)
                         (("3" (skeep)
-                          (("3" (inst - "0" "i+1")
-                            (("3" (assert) nil nil)) nil))
+                          (("3" (inst - "0" "i+1") (("3" (assert) nil nil))
+                            nil))
                           nil))
                         nil))
                       nil))
@@ -1720,7 +1658,7 @@
       nil))
     nil)
    ((integrable_split formula-decl nil integral_split nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
     (integral_restrict_eq formula-decl nil integral_def nil)
     (integral_chg_one_pt formula-decl nil integral_prep nil)
     (integrable? const-decl "bool" integral_def nil))
@@ -1728,67 +1666,111 @@
  (piecewise_continuous_integral_TCC1 0
   (piecewise_continuous_integral_TCC1-1 nil 3612186214
    ("" (skosimp*) (("" (assert) nil nil)) nil)
-   ((real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+   ((real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (piecewise_continuous_integral subtype "piecewise_continuous.i"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (piecewise_continuous_integral_TCC2 0
   (piecewise_continuous_integral_TCC2-1 nil 3612186214
    ("" (skosimp*) (("" (assert) nil nil)) nil)
-   ((nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+   ((nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil))
+   nil
+   (piecewise_continuous_integral subtype
+    "(number_fields.+)(piecewise_continuous.i, 1)"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (piecewise_continuous_integral_TCC3 0
   (piecewise_continuous_integral_TCC3-1 nil 3612186214
    ("" (skosimp*) (("" (assert) nil nil)) nil)
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+   ((real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (piecewise_continuous_integral subtype "0" "T_low[nat]")))
  (piecewise_continuous_integral_TCC4 0
   (piecewise_continuous_integral_TCC4-1 nil 3612186214
    ("" (skosimp*) (("" (assert) nil nil)) nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (piecewise_continuous_integral subtype
+    "(number_fields.-)(piecewise_continuous.i, 1)" "T_high[nat]")))
  (piecewise_continuous_integral_TCC5 0
   (piecewise_continuous_integral_TCC5-1 nil 3612186214
    ("" (skosimp*) (("" (assert) nil nil)) nil)
-   ((nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+   ((nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (piecewise_continuous_integral subtype "piecewise_continuous.k"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (piecewise_continuous_integral_TCC6 0
   (piecewise_continuous_integral_TCC6-1 nil 3612186214
    ("" (skosimp*) (("" (assert) nil nil)) nil)
-   ((nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+   ((nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (piecewise_continuous_integral subtype
+    "(number_fields.+)(piecewise_continuous.k, 1)"
+    "naturalnumbers.upto(piecewise_continuous.N)")))
  (piecewise_continuous_integral_TCC7 0
+  (piecewise_continuous_integral_TCC7-2 "" 3790090206
+   ("" (skosimp*)
+    (("" (lemma "continuous_on_integrable")
+      (("" (expand "Integrable?")
+        (("" (assert)
+          (("" (flatten)
+            (("" (hide (1 3))
+              (("" (hide -2)
+                (("" (expand "piecewise_continuous?")
+                  (("" (flatten)
+                    (("" (expand "piecewise_continuous?")
+                      (("" (flatten)
+                        (("" (expand "strict_increasing?")
+                          (("" (inst - "k!1" "k!1+1")
+                            (("" (assert)
+                              (("" (inst?)
+                                (("" (assert) (("" (inst - "k!1") nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (piecewise_continuous_integral subtype
+    "piecewise_continuous.H(piecewise_continuous.k)"
+    "integral_def[T].Integrable_funs(piecewise_continuous.P(piecewise_continuous.k), piecewise_continuous.P((number_fields.+)(1, piecewise_continuous.k)))"))
   (piecewise_continuous_integral_TCC7-1 nil 3612186214
    ("" (skosimp*)
     (("" (lemma "continuous_on_integrable")
@@ -1804,13 +1786,9 @@
                         (("" (flatten)
                           (("" (expand "strict_increasing?")
                             (("" (inst - "k!1" "k!1+1")
-                              ((""
-                                (assert)
-                                ((""
-                                  (inst?)
-                                  ((""
-                                    (assert)
-                                    (("" (inst - "k!1") nil nil))
+                              (("" (assert)
+                                (("" (inst?)
+                                  (("" (assert) (("" (inst - "k!1") nil nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1828,19 +1806,16 @@
         nil))
       nil))
     nil)
-   ((continuous_on_integrable formula-decl nil piecewise_continuous
+   ((continuous_on_integrable formula-decl nil piecewise_continuous nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
     (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
     (T_pred const-decl "[real -> boolean]" piecewise_continuous nil)
     (T formal-nonempty-subtype-decl nil piecewise_continuous nil)
     (< const-decl "bool" reals nil)
@@ -1862,136 +1837,20 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (Integrable? const-decl "bool" integral_def nil))
-   nil))
+   nil
+   (piecewise_continuous_integral subtype
+    "piecewise_continuous.H(piecewise_continuous.k)"
+    "integral_def[T].Integrable_funs(piecewise_continuous.P(piecewise_continuous.k), piecewise_continuous.P((number_fields.+)(1, piecewise_continuous.k)))")))
  (piecewise_continuous_integral_TCC8 0
   (piecewise_continuous_integral_TCC8-1 nil 3612186214
-   ("" (skeep) (("" (skeep) (("" (assert) nil nil)) nil)) nil)
-   ((real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
- (piecewise_continuous_integral_TCC9 0
-  (piecewise_continuous_integral_TCC9-2 nil 3612187243
-   ("" (skosimp*)
-    (("" (lemma "continuous_on_integrable")
-      (("" (expand "Integrable?")
-        (("" (assert)
-          (("" (flatten)
-            (("" (assert)
-              (("" (inst - "P!1(i!1)" "x!1" "H!1(i!1)")
-                (("" (assert)
-                  (("" (expand "piecewise_continuous?")
-                    (("" (flatten)
-                      (("" (expand "piecewise_continuous?")
-                        (("" (flatten)
-                          (("" (assert)
-                            (("" (inst - "i!1")
-                              ((""
-                                (assert)
-                                ((""
-                                  (expand "continuous_on?")
-                                  ((""
-                                    (skeep)
-                                    ((""
-                                      (inst - "x0")
-                                      ((""
-                                        (skeep)
-                                        ((""
-                                          (inst - "epsilon")
-                                          ((""
-                                            (skeep -)
-                                            ((""
-                                              (inst + "delta")
-                                              ((""
-                                                (skeep)
-                                                ((""
-                                                  (inst - "x_1")
-                                                  ((""
-                                                    (assert)
-                                                    nil
-                                                    nil))
-                                                  nil))
-                                                nil))
-                                              nil))
-                                            nil))
-                                          nil))
-                                        nil))
-                                      nil))
-                                    nil))
-                                  nil))
-                                nil))
-                              nil))
-                            nil))
-                          nil))
-                        nil))
-                      nil))
-                    nil))
-                  nil))
-                nil))
-              nil))
-            nil))
-          nil))
-        nil))
-      nil))
-    nil)
-   ((continuous_on_integrable formula-decl nil piecewise_continuous
-     nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (continuous_on? const-decl "bool" continuous_functions nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
-    (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (<= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (T formal-nonempty-subtype-decl nil piecewise_continuous nil)
-    (T_pred const-decl "[real -> boolean]" piecewise_continuous nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (Integrable? const-decl "bool" integral_def nil))
-   nil)
-  (piecewise_continuous_integral_TCC9-1 nil 3612186214
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (skeep) (("" (skeep) (("" (assert) nil nil)) nil)) nil) nil nil
+   (piecewise_continuous_integral subtype
+    "piecewise_continuous.H(piecewise_continuous.i)"
+    "integral_def[T].Integrable_funs(piecewise_continuous.P(piecewise_continuous.i), piecewise_continuous.x)")))
  (piecewise_continuous_integral 0
   (piecewise_continuous_integral-2 nil 3612273788
    ("" (skeep)
@@ -2008,20 +1867,14 @@
                         (("" (label "pc2" -2)
                           (("" (flatten)
                             (("" (label "si" -1)
-                              ((""
-                                (copy -2)
-                                ((""
-                                  (label "cisaved" -1)
-                                  ((""
-                                    (hide "cisaved")
-                                    ((""
-                                      (label "ci" -2)
+                              (("" (copy -2)
+                                (("" (label "cisaved" -1)
+                                  (("" (hide "cisaved")
+                                    (("" (label "ci" -2)
                                       ((""
                                         (copy -1)
                                         ((""
-                                          (expand
-                                           "strict_increasing?"
-                                           -1)
+                                          (expand "strict_increasing?" -1)
                                           ((""
                                             (inst-cp - "0" "i")
                                             ((""
@@ -2052,8 +1905,7 @@
                                                               (("2"
                                                                 (label
                                                                  "ranges"
-                                                                 (-4
-                                                                  -6))
+                                                                 (-4 -6))
                                                                 (("2"
                                                                   (hide
                                                                    "ranges")
@@ -3157,87 +3009,18 @@
         nil))
       nil))
     nil)
-   ((strict_increasing? const-decl "bool" real_fun_preds "reals/")
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
-    (< const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
+   ((strict_increasing? const-decl "bool" real_fun_preds reals)
     (integral_restrict_eq formula-decl nil integral_def nil)
     (integral_split formula-decl nil integral_split nil)
-    (N skolem-const-decl "posnat" piecewise_continuous nil)
-    (a skolem-const-decl "T" piecewise_continuous nil)
-    (P skolem-const-decl "[upto(N) -> T]" piecewise_continuous nil)
-    (f skolem-const-decl "[T -> real]" piecewise_continuous nil)
-    (H skolem-const-decl "[below(N) -> [T -> real]]"
-     piecewise_continuous nil)
-    (pred type-eq-decl nil defined_types nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (kv!1 skolem-const-decl "nat" piecewise_continuous nil)
-    (kv!1 skolem-const-decl "nat" piecewise_continuous nil)
-    (kv!1 skolem-const-decl "nat" piecewise_continuous nil)
-    (kv!1 skolem-const-decl "nat" piecewise_continuous nil)
-    (kv!1 skolem-const-decl "nat" piecewise_continuous nil)
-    (kv!1 skolem-const-decl "nat" piecewise_continuous nil)
-    (kv!1 skolem-const-decl "nat" piecewise_continuous nil)
     (Integral_a_to_a formula-decl nil integral nil)
-    (TRUE const-decl "bool" booleans nil)
     (integral_restr_eq formula-decl nil integral_prep nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (continuous_on_integrable formula-decl nil piecewise_continuous
-     nil)
-    (integer nonempty-type-from-decl nil integers nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (sigma def-decl "real" sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (sigma def-decl "real" sigma reals) (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
     (Integral const-decl "real" integral_def nil)
     (Integrable_funs type-eq-decl nil integral_def nil)
     (Integrable? const-decl "bool" integral_def nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
     (Integral_split formula-decl nil integral nil)
-    (piecewise_continuous_integrable formula-decl nil
-     piecewise_continuous nil)
-    (Integrable?_inside formula-decl nil integral nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (T formal-nonempty-subtype-decl nil piecewise_continuous nil)
-    (T_pred const-decl "[real -> boolean]" piecewise_continuous nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (<= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (piecewise_continuous? const-decl "bool" piecewise_continuous nil)
-    (piecewise_continuous? const-decl "bool" piecewise_continuous nil))
+    (Integrable?_inside formula-decl nil integral nil))
    nil)
   (piecewise_continuous_integral-1 nil 3612260269
    ("" (skeep)
@@ -3254,14 +3037,10 @@
                         (("" (label "pc2" -2)
                           (("" (flatten)
                             (("" (label "si" -1)
-                              ((""
-                                (label "ci" -2)
-                                ((""
-                                  (copy -1)
-                                  ((""
-                                    (expand "strict_increasing?" -1)
-                                    ((""
-                                      (inst-cp - "0" "i")
+                              (("" (label "ci" -2)
+                                (("" (copy -1)
+                                  (("" (expand "strict_increasing?" -1)
+                                    (("" (inst-cp - "0" "i")
                                       ((""
                                         (inst-cp - "i" "i+1")
                                         ((""
@@ -3275,16 +3054,11 @@
                                                 ((""
                                                   (case
                                                    "NOT (a<=P(i) AND P(i+1)<=b)")
-                                                  (("1"
-                                                    (ground)
-                                                    nil
-                                                    nil)
+                                                  (("1" (ground) nil nil)
                                                    ("2"
                                                     (flatten)
                                                     (("2"
-                                                      (label
-                                                       "pabz"
-                                                       (-1 -2))
+                                                      (label "pabz" (-1 -2))
                                                       (("2"
                                                         (assert)
                                                         (("2"
@@ -3292,8 +3066,7 @@
                                                            "ranges"
                                                            (-4 -6))
                                                           (("2"
-                                                            (hide
-                                                             "ranges")
+                                                            (hide "ranges")
                                                             (("2"
                                                               (lemma
                                                                "Integrable?_inside")

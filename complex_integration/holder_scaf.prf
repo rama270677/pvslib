@@ -4,18 +4,15 @@
    ("" (typepred "S")
     (("" (expand "sigma_algebra?")
       (("" (flatten)
-        (("" (expand "subset_algebra_empty?") (("" (assert) nil nil))
-          nil))
+        (("" (expand "subset_algebra_empty?") (("" (assert) nil nil)) nil))
         nil))
       nil))
     nil)
    ((subset_algebra_empty? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set" countable_props sets_aux)
+    (finite_emptyset name-judgement "finite_set" countable_setofsets sets_aux)
     (member const-decl "bool" sets nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -23,18 +20,22 @@
     (T formal-type-decl nil holder_scaf nil)
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
-    (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+    (sigma_algebra? const-decl "bool" subset_algebra_def measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (S formal-const-decl "sigma_algebra[T]" holder_scaf nil))
-   nil))
- (q_TCC1 0 (q_TCC1-1 nil 3477456171 ("" (assert) nil nil) nil nil))
+   nil
+   (mu assuming
+    "measure_integration@generalized_measure_def[holder_scaf.T, holder_scaf.S].generalized_measure_def"
+    "S_empty: ASSUMPTION generalized_measure_def.S(sets[generalized_measure_def.T].emptyset)")))
+ (q_TCC1 0
+  (q_TCC1-1 nil 3477456171 ("" (assert) nil nil) nil nil
+   (q subtype "holder_scaf.p" "nznum")))
  (f_TCC1 0
   (f_TCC1-1 nil 3477456171 ("" (assert) nil nil)
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
-   nil))
+   ((real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil))
+   nil (f subtype "holder_scaf.p" "{a: reals.real | reals.>=(a, 1)}")))
  (g_TCC1 0
   (g_TCC1-1 nil 3477456171
    ("" (typepred "q")
@@ -66,16 +67,16 @@
         nil))
       nil))
     nil)
-   ((nzreal_times_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
+   ((nzreal_times_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal" real_types
+     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
@@ -91,8 +92,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -107,9 +107,8 @@
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (p formal-const-decl "{a: real | a > 1}" holder_scaf nil)
-    (q formal-const-decl "{a: posreal | 1 / p + 1 / a = 1}" holder_scaf
-     nil))
-   nil))
+    (q formal-const-decl "{a: posreal | 1 / p + 1 / a = 1}" holder_scaf nil))
+   nil (g subtype "holder_scaf.q" "{a: reals.real | reals.>=(a, 1)}")))
  (holder_aux 0
   (holder_aux-1 nil 3477461478
    ("" (skosimp)
@@ -126,19 +125,11 @@
                         (("1" (split)
                           (("1" (expand "p_integrable?")
                             (("1" (flatten)
-                              (("1"
-                                (rewrite
-                                 "prod_complex_measurable[T,S]")
-                                (("1"
-                                  (name
-                                   "ALPHA"
-                                   "norm[T, S, mu, p](f!1)")
-                                  (("1"
-                                    (replace -1)
+                              (("1" (rewrite "prod_complex_measurable[T,S]")
+                                (("1" (name "ALPHA" "norm[T, S, mu, p](f!1)")
+                                  (("1" (replace -1)
                                     (("1"
-                                      (name
-                                       "BETA"
-                                       "norm[T, S, mu, q](g!1)")
+                                      (name "BETA" "norm[T, S, mu, q](g!1)")
                                       (("1"
                                         (replace -1)
                                         (("1"
@@ -172,9 +163,7 @@
                                                         (("1"
                                                           (hide -1)
                                                           (("1"
-                                                            (hide
-                                                             -11
-                                                             -13)
+                                                            (hide -11 -13)
                                                             (("1"
                                                               (lemma
                                                                "both_sides_real_expt"
@@ -1335,9 +1324,7 @@
                                                            :hide?
                                                            t)
                                                           (("2"
-                                                            (expand
-                                                             "^"
-                                                             1)
+                                                            (expand "^" 1)
                                                             (("2"
                                                               (rewrite
                                                                "real_expt_x1"
@@ -1394,8 +1381,7 @@
                                                               "b"
                                                               "abs(g!1(x!1))/BETA"))
                                                             (("1"
-                                                              (replace
-                                                               -3)
+                                                              (replace -3)
                                                               (("1"
                                                                 (rewrite
                                                                  "abs_mult"
@@ -1489,45 +1475,27 @@
                                                   nil)
                                                  ("3"
                                                   (skosimp)
-                                                  (("3"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("3" (assert) nil nil))
                                                   nil)
                                                  ("4"
                                                   (skosimp)
-                                                  (("4"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("4" (assert) nil nil))
                                                   nil)
                                                  ("5"
                                                   (skosimp)
-                                                  (("5"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("5" (assert) nil nil))
                                                   nil)
                                                  ("6"
                                                   (skosimp)
-                                                  (("6"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("6" (assert) nil nil))
                                                   nil)
                                                  ("7"
                                                   (skosimp)
-                                                  (("7"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("7" (assert) nil nil))
                                                   nil)
                                                  ("8"
                                                   (skosimp)
-                                                  (("8"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("8" (assert) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1545,18 +1513,12 @@
                            ("2" (replace -1 * rl)
                             (("2" (rewrite "zero_times2")
                               (("2"
-                                (lemma
-                                 "norm_eq_0[T, S, mu, q]"
-                                 ("f" "g!1"))
-                                (("2"
-                                  (flatten)
-                                  (("2"
-                                    (split -1)
-                                    (("1"
-                                      (hide -2)
+                                (lemma "norm_eq_0[T, S, mu, q]" ("f" "g!1"))
+                                (("2" (flatten)
+                                  (("2" (split -1)
+                                    (("1" (hide -2)
                                       (("1"
-                                        (case
-                                         "cal_N?[T, S, mu](f!1*g!1)")
+                                        (case "cal_N?[T, S, mu](f!1*g!1)")
                                         (("1"
                                           (lemma
                                            "cal_N_is_p_integrable[T, S, mu, 1]")
@@ -1568,10 +1530,7 @@
                                                 (lemma
                                                  "norm_eq_0[T,S,mu,1]"
                                                  ("f" "f!1*g!1"))
-                                                (("1"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                (("1" (assert) nil nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -1587,16 +1546,13 @@
                                                 (("2"
                                                   (expand "ae_0?")
                                                   (("2"
-                                                    (expand
-                                                     "pointwise_ae?")
+                                                    (expand "pointwise_ae?")
                                                     (("2"
                                                       (expand "ae?")
                                                       (("2"
-                                                        (expand
-                                                         "fullset")
+                                                        (expand "fullset")
                                                         (("2"
-                                                          (expand
-                                                           "ae_in?")
+                                                          (expand "ae_in?")
                                                           (("2"
                                                             (skosimp)
                                                             (("2"
@@ -1679,16 +1635,11 @@
                         nil)
                        ("2" (replace -1 * rl)
                         (("2" (rewrite "zero_times1")
-                          (("2"
-                            (lemma "norm_eq_0[T, S, mu, p]"
-                             ("f" "f!1"))
+                          (("2" (lemma "norm_eq_0[T, S, mu, p]" ("f" "f!1"))
                             (("2" (flatten)
-                              (("2"
-                                (hide -2)
-                                (("2"
-                                  (split)
-                                  (("1"
-                                    (case "cal_N?[T,S,mu](f!1*g!1)")
+                              (("2" (hide -2)
+                                (("2" (split)
+                                  (("1" (case "cal_N?[T,S,mu](f!1*g!1)")
                                     (("1"
                                       (lemma
                                        "cal_N_is_p_integrable[T, S, mu, 1]")
@@ -1705,8 +1656,7 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (hide-all-but (-1 -6 -7 1))
+                                     ("2" (hide-all-but (-1 -6 -7 1))
                                       (("2"
                                         (expand "cal_N?")
                                         (("2"
@@ -1718,26 +1668,20 @@
                                               (("2"
                                                 (lemma
                                                  "prod_complex_measurable[T,S]"
-                                                 ("g1"
-                                                  "f!1"
-                                                  "g2"
-                                                  "g!1"))
+                                                 ("g1" "f!1" "g2" "g!1"))
                                                 (("1"
                                                   (replace -1)
                                                   (("1"
-                                                    (hide-all-but
-                                                     (-2 1))
+                                                    (hide-all-but (-2 1))
                                                     (("1"
                                                       (expand "ae_0?")
                                                       (("1"
                                                         (expand
                                                          "pointwise_ae?")
                                                         (("1"
-                                                          (expand
-                                                           "ae?")
+                                                          (expand "ae?")
                                                           (("1"
-                                                            (expand
-                                                             "fullset")
+                                                            (expand "fullset")
                                                             (("1"
                                                               (expand
                                                                "ae_in?")
@@ -1801,10 +1745,7 @@
                                                     nil))
                                                   nil)
                                                  ("2" (propax) nil nil)
-                                                 ("3"
-                                                  (propax)
-                                                  nil
-                                                  nil))
+                                                 ("3" (propax) nil nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -1828,8 +1769,7 @@
               nil)
              ("2" (hide-all-but (-1 1))
               (("2" (typepred "q")
-                (("2"
-                  (lemma "div_cancel3" ("x" "1" "n0z" "q" "y" "1-1/p"))
+                (("2" (lemma "div_cancel3" ("x" "1" "n0z" "q" "y" "1-1/p"))
                   (("2" (flatten)
                     (("2" (hide -2)
                       (("2" (split)
@@ -1839,8 +1779,7 @@
                               (lemma "both_sides_times_pos_gt1"
                                ("pz" "q" "x" "1" "y" "1-1/p"))
                               (("1"
-                                (lemma
-                                 "posreal_div_posreal_is_posreal"
+                                (lemma "posreal_div_posreal_is_posreal"
                                  ("px" "1" "py" "p"))
                                 (("1" (assert) nil nil)
                                  ("2" (assert) nil nil))
@@ -1863,197 +1802,78 @@
     nil)
    ((p_integrable nonempty-type-eq-decl nil p_integrable_def nil)
     (p_integrable? const-decl "bool" p_integrable_def nil)
-    (p formal-const-decl "{a: real | a > 1}" holder_scaf nil)
-    (> const-decl "bool" reals nil)
-    (mu formal-const-decl "measure_type[T, S]" holder_scaf nil)
     (measure_type nonempty-type-eq-decl nil generalized_measure_def
-     "measure_integration/")
-    (measure? const-decl "bool" generalized_measure_def
-     "measure_integration/")
+     measure_integration)
+    (measure? const-decl "bool" generalized_measure_def measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
-    (nnreal type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (S formal-const-decl "sigma_algebra[T]" holder_scaf nil)
+     extended_nnreal)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
-    (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
+    (sigma_algebra? const-decl "bool" subset_algebra_def measure_integration)
     (setofsets type-eq-decl nil sets nil)
-    (setof type-eq-decl nil defined_types nil)
-    (complex type-eq-decl nil complex_types "complex_alt/")
-    (real nonempty-type-from-decl nil reals nil)
-    (T formal-type-decl nil holder_scaf nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (div_cancel3 formula-decl nil real_props nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (both_sides_times_pos_gt1 formula-decl nil real_props nil)
+    (complex type-eq-decl nil complex_types complex_alt)
     (norm const-decl "nnreal" p_integrable_def nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posreal_times_posreal_is_posreal judgement-tcc nil real_types nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (div_mult_pos_ge1 formula-decl nil real_props nil)
-    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (div_times formula-decl nil real_props nil)
-    (div_real_expt formula-decl nil real_expt "power/")
+    (div_real_expt formula-decl nil real_expt power)
     (youngs_inequality formula-decl nil young nil)
-    (* const-decl "[T -> complex]" complex_fun_ops "complex_alt/")
-    (abs const-decl "[T -> nonneg_real]" complex_fun_ops
-         "complex_alt/")
-    (^ const-decl "[T -> nnreal]" real_fun_power "power/")
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (both_sides_real_expt formula-decl nil real_expt "power/")
-    (integrable? const-decl "bool" integral "measure_integration/")
-    (integrable nonempty-type-eq-decl nil integral
-     "measure_integration/")
-    (integral const-decl "real" integral "measure_integration/")
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (abs_mult formula-decl nil polar "complex_alt/")
-    (complex_abs_mul formula-decl nil complex_fun_ops "complex_alt/")
-    (real_expt_x1 formula-decl nil real_expt "power/")
-    (integrable_is_measurable judgement-tcc nil integral
-     "measure_integration/")
+    (abs const-decl "[T -> nonneg_real]" complex_fun_ops complex_alt)
+    (^ const-decl "[T -> nnreal]" real_fun_power power)
+    (both_sides_real_expt formula-decl nil real_expt power)
+    (integrable? const-decl "bool" integral measure_integration)
+    (integrable nonempty-type-eq-decl nil integral measure_integration)
+    (integral const-decl "real" integral measure_integration)
+    (abs_mult formula-decl nil polar complex_alt)
+    (complex_abs_mul formula-decl nil complex_fun_ops complex_alt)
+    (real_expt_x1 formula-decl nil real_expt power)
+    (integrable_is_measurable judgement-tcc nil integral measure_integration)
     (measurable_function? const-decl "bool" measure_space_def
-     "measure_integration/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posreal_div_posreal_is_posreal judgement-tcc nil real_types nil)
-    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
-     nil)
-    (abs const-decl "[T -> nonneg_real]" real_fun_ops "reals/")
-    (div_mult_pos_le1 formula-decl nil real_props nil)
-    (nzreal nonempty-type-eq-decl nil reals nil)
-    (integral_add formula-decl nil integral "measure_integration/")
-    (BB skolem-const-decl "nzreal" holder_scaf nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (div_cancel1 formula-decl nil real_props nil)
-    (one_times formula-decl nil extra_tegies nil)
-    (AA skolem-const-decl "nzreal" holder_scaf nil)
-    (g!1 skolem-const-decl "p_integrable[T, S, mu, q]" holder_scaf nil)
-    (BETA skolem-const-decl "nnreal" holder_scaf nil)
-    (f!1 skolem-const-decl "p_integrable[T, S, mu, p]" holder_scaf nil)
-    (ALPHA skolem-const-decl "nnreal" holder_scaf nil)
-    (div_div2 formula-decl nil real_props nil)
-    (both_sides_times_pos_le1 formula-decl nil real_props nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (nonzero_abs_is_pos application-judgement "{y: posreal | y >= x}"
-     real_defs nil)
-    (abs_mult formula-decl nil real_props nil)
-    (integral_nonneg formula-decl nil integral "measure_integration/")
-    (integral_scal formula-decl nil integral "measure_integration/")
-    (ae_le? const-decl "bool" measure_theory "measure_integration/")
-    (subset_algebra_fullset name-judgement "(S)" holder_scaf nil)
-    (measurable_fullset name-judgement "measurable_set[T, S]"
-     holder_scaf nil)
-    (ae? const-decl "bool" measure_theory "measure_integration/")
-    (ae_in? const-decl "bool" measure_theory "measure_integration/")
-    (member const-decl "bool" sets nil)
-    (TRUE const-decl "bool" booleans nil)
-    (both_sides_div_pos_ge1 formula-decl nil real_props nil)
-    (set type-eq-decl nil sets nil)
-    (negligible_set? const-decl "bool" measure_theory
-     "measure_integration/")
-    (negligible nonempty-type-eq-decl nil measure_theory
-     "measure_integration/")
+     measure_integration)
+    (abs const-decl "[T -> nonneg_real]" real_fun_ops reals)
+    (integral_add formula-decl nil integral measure_integration)
+    (integral_nonneg formula-decl nil integral measure_integration)
+    (integral_scal formula-decl nil integral measure_integration)
+    (ae_le? const-decl "bool" measure_theory measure_integration)
+    (ae_in? const-decl "bool" measure_theory measure_integration)
+    (member const-decl "bool" sets nil) (set type-eq-decl nil sets nil)
+    (negligible_set? const-decl "bool" measure_theory measure_integration)
+    (negligible nonempty-type-eq-decl nil measure_theory measure_integration)
     (emptyset const-decl "set" sets nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" sigma_countable
-     "sigma_set/")
-    (finite_emptyset name-judgement "finite_set[T]" step_fun_props
-     "analysis/")
-    (subset_algebra_emptyset name-judgement "(S)" holder_scaf nil)
-    (null_emptyset name-judgement "null_set[T, S, mu]" holder_scaf nil)
     (fullset const-decl "set" sets nil)
-    (pointwise_ae? const-decl "bool" measure_theory
-     "measure_integration/")
-    (+ const-decl "[T -> real]" real_fun_ops "reals/")
-    (integral_ae_abs formula-decl nil integral "measure_integration/")
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (integrable_add judgement-tcc nil integral "measure_integration/")
-    (integrable_scal judgement-tcc nil integral "measure_integration/")
-    (nzreal_times_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
+    (pointwise_ae? const-decl "bool" measure_theory measure_integration)
+    (integral_ae_abs formula-decl nil integral measure_integration)
+    (integrable_add judgement-tcc nil integral measure_integration)
+    (integrable_scal judgement-tcc nil integral measure_integration)
     (measurable_function nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
-    (scal_measurable judgement-tcc nil measure_space_def
-     "measure_integration/")
-    (prod_measurable judgement-tcc nil measure_space
-     "measure_integration/")
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
+     measure_integration)
+    (scal_measurable judgement-tcc nil measure_space_def measure_integration)
+    (prod_measurable judgement-tcc nil measure_space measure_integration)
     (nn_measurable nonempty-type-eq-decl nil measure_space
-     "measure_integration/")
-    (nn_measurable? const-decl "bool" measure_space
-     "measure_integration/")
-    (expt_measurable judgement-tcc nil measure_space
-     "measure_integration/")
-    (posreal_times_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_expt_times formula-decl nil real_expt "power/")
-    (^ const-decl "nnreal" real_expt "power/")
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (* const-decl "complex" complex_types "complex_alt/")
-    (abs const-decl "nnreal" polar "complex_alt/")
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (real_expt_pos formula-decl nil real_expt "power/")
+     measure_integration)
+    (nn_measurable? const-decl "bool" measure_space measure_integration)
+    (expt_measurable judgement-tcc nil measure_space measure_integration)
+    (real_expt_times formula-decl nil real_expt power)
+    (^ const-decl "nnreal" real_expt power)
+    (* const-decl "complex" complex_types complex_alt)
+    (abs const-decl "nnreal" polar complex_alt)
+    (real_expt_pos formula-decl nil real_expt power)
     (prod_complex_measurable judgement-tcc nil complex_measurable nil)
     (complex_measurable? const-decl "bool" complex_measurable nil)
-    (complex_measurable nonempty-type-eq-decl nil complex_measurable
-     nil)
-    (zero_times2 formula-decl nil real_props nil)
+    (complex_measurable nonempty-type-eq-decl nil complex_measurable nil)
     (ae_0? const-decl "bool" complex_measure_theory nil)
-    (complex_ const-decl "complex" complex_types "complex_alt/")
+    (complex_ const-decl "complex" complex_types complex_alt)
     (pointwise_ae? const-decl "bool" complex_measure_theory nil)
     (cal_N_is_p_integrable judgement-tcc nil p_integrable_def nil)
     (cal_N nonempty-type-eq-decl nil complex_measure_theory nil)
     (cal_N? const-decl "bool" complex_measure_theory nil)
-    (norm_eq_0 formula-decl nil p_integrable_def nil)
-    (zero_times1 formula-decl nil real_props nil)
-    (<= const-decl "bool" reals nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (q formal-const-decl "{a: posreal | 1 / p + 1 / a = 1}" holder_scaf
-     nil))
+    (norm_eq_0 formula-decl nil p_integrable_def nil))
    shostak))
  (holder_judge1 0
   (holder_judge1-1 nil 3477456171
    ("" (skosimp)
-    (("" (lemma "holder_aux" ("f" "f!1" "g" "g!1"))
-      (("" (flatten) nil nil)) nil))
+    (("" (lemma "holder_aux" ("f" "f!1" "g" "g!1")) (("" (flatten) nil nil))
+      nil))
     nil)
-   ((q formal-const-decl "{a: posreal | 1 / p + 1 / a = 1}" holder_scaf
-     nil)
+   ((q formal-const-decl "{a: posreal | 1 / p + 1 / a = 1}" holder_scaf nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
@@ -2068,46 +1888,44 @@
     (> const-decl "bool" reals nil)
     (mu formal-const-decl "measure_type[T, S]" holder_scaf nil)
     (measure_type nonempty-type-eq-decl nil generalized_measure_def
-     "measure_integration/")
-    (measure? const-decl "bool" generalized_measure_def
-     "measure_integration/")
+     measure_integration)
+    (measure? const-decl "bool" generalized_measure_def measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
-    (nnreal type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
+     extended_nnreal)
+    (nnreal type-eq-decl nil real_types nil) (>= const-decl "bool" reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (S formal-const-decl "sigma_algebra[T]" holder_scaf nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
-    (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
+    (sigma_algebra? const-decl "bool" subset_algebra_def measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (complex type-eq-decl nil complex_types "complex_alt/")
+    (complex type-eq-decl nil complex_types complex_alt)
     (real nonempty-type-from-decl nil reals nil)
     (T formal-type-decl nil holder_scaf nil)
     (holder_aux formula-decl nil holder_scaf nil))
-   nil))
+   nil
+   (holder_judge1 subtype
+    "complex_fun_ops[holder_scaf.T].*(holder_scaf.f, holder_scaf.g)"
+    "p_integrable[T, S, mu, 1]")))
  (holder_judge2 0
   (holder_judge2-1 nil 3477456171
    ("" (skosimp)
     (("" (lemma "holder_aux" ("f" "f!1" "g" "g!1"))
       (("" (flatten)
         (("" (hide -2)
-          (("" (expand "*")
-            (("" (expand "*") (("" (assert) nil nil)) nil)) nil))
+          (("" (expand "*") (("" (expand "*") (("" (assert) nil nil)) nil))
+            nil))
           nil))
         nil))
       nil))
     nil)
-   ((q formal-const-decl "{a: posreal | 1 / p + 1 / a = 1}" holder_scaf
-     nil)
+   ((q formal-const-decl "{a: posreal | 1 / p + 1 / a = 1}" holder_scaf nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
@@ -2122,43 +1940,41 @@
     (> const-decl "bool" reals nil)
     (mu formal-const-decl "measure_type[T, S]" holder_scaf nil)
     (measure_type nonempty-type-eq-decl nil generalized_measure_def
-     "measure_integration/")
-    (measure? const-decl "bool" generalized_measure_def
-     "measure_integration/")
+     measure_integration)
+    (measure? const-decl "bool" generalized_measure_def measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
-    (nnreal type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
+     extended_nnreal)
+    (nnreal type-eq-decl nil real_types nil) (>= const-decl "bool" reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (S formal-const-decl "sigma_algebra[T]" holder_scaf nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
-    (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
+    (sigma_algebra? const-decl "bool" subset_algebra_def measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (complex type-eq-decl nil complex_types "complex_alt/")
+    (complex type-eq-decl nil complex_types complex_alt)
     (real nonempty-type-from-decl nil reals nil)
     (T formal-type-decl nil holder_scaf nil)
     (holder_aux formula-decl nil holder_scaf nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (* const-decl "complex" complex_types "complex_alt/")
-    (* const-decl "[T -> complex]" complex_fun_ops "complex_alt/"))
-   nil))
+    (* const-decl "complex" complex_types complex_alt)
+    (* const-decl "[T -> complex]" complex_fun_ops complex_alt))
+   nil
+   (holder_judge2 subtype
+    "complex_fun_ops[holder_scaf.T].*(holder_scaf.g, holder_scaf.f)"
+    "p_integrable[T, S, mu, 1]")))
  (holder_scaf 0
   (holder_scaf-1 nil 3452581063
    ("" (skosimp)
-    (("" (lemma "holder_aux" ("f" "f!1" "g" "g!1"))
-      (("" (flatten) nil nil)) nil))
+    (("" (lemma "holder_aux" ("f" "f!1" "g" "g!1")) (("" (flatten) nil nil))
+      nil))
     nil)
-   ((q formal-const-decl "{a: posreal | 1 / p + 1 / a = 1}" holder_scaf
-     nil)
+   ((q formal-const-decl "{a: posreal | 1 / p + 1 / a = 1}" holder_scaf nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
@@ -2173,28 +1989,24 @@
     (> const-decl "bool" reals nil)
     (mu formal-const-decl "measure_type[T, S]" holder_scaf nil)
     (measure_type nonempty-type-eq-decl nil generalized_measure_def
-     "measure_integration/")
-    (measure? const-decl "bool" generalized_measure_def
-     "measure_integration/")
+     measure_integration)
+    (measure? const-decl "bool" generalized_measure_def measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
-    (nnreal type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
+     extended_nnreal)
+    (nnreal type-eq-decl nil real_types nil) (>= const-decl "bool" reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (S formal-const-decl "sigma_algebra[T]" holder_scaf nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
-    (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
+    (sigma_algebra? const-decl "bool" subset_algebra_def measure_integration)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (complex type-eq-decl nil complex_types "complex_alt/")
+    (complex type-eq-decl nil complex_types complex_alt)
     (real nonempty-type-from-decl nil reals nil)
     (T formal-type-decl nil holder_scaf nil)
     (holder_aux formula-decl nil holder_scaf nil))

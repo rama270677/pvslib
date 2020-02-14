@@ -10,7 +10,7 @@
       nil))
     nil)
    ((subset_algebra_empty? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (member const-decl "bool" sets nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -18,13 +18,15 @@
     (T formal-type-decl nil essential_bound_complete_scaf nil)
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
-    (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+    (sigma_algebra? const-decl "bool" subset_algebra_def measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
-    (S formal-const-decl "sigma_algebra[T]"
-     essential_bound_complete_scaf nil))
-   nil))
+     measure_integration)
+    (S formal-const-decl "sigma_algebra[T]" essential_bound_complete_scaf
+     nil))
+   nil
+   (mu assuming
+    "measure_integration@generalized_measure_def[essential_bound_complete_scaf.T, essential_bound_complete_scaf.S].generalized_measure_def"
+    "S_empty: ASSUMPTION generalized_measure_def.S(sets[generalized_measure_def.T].emptyset)")))
  (essential_bound_complete_scaf 0
   (essential_bound_complete_scaf-1 nil 3502969847
    (""
@@ -51,14 +53,10 @@
                         (("1" (inst - "r!1/2")
                           (("1" (skosimp)
                             (("1" (case "exists n: 2^(-n) < r!1/2")
-                              (("1"
-                                (skosimp)
-                                (("1"
-                                  (inst + "SEQ(n!1+n!2)")
-                                  (("1"
-                                    (skosimp)
-                                    (("1"
-                                      (inst - "n!1+n!2")
+                              (("1" (skosimp)
+                                (("1" (inst + "SEQ(n!1+n!2)")
+                                  (("1" (skosimp)
+                                    (("1" (inst - "n!1+n!2")
                                       (("1"
                                         (assert)
                                         (("1"
@@ -98,8 +96,7 @@
                                                               nil
                                                               nil)
                                                              ("2"
-                                                              (hide-all-but
-                                                               1)
+                                                              (hide-all-but 1)
                                                               (("2"
                                                                 (expand
                                                                  "LHS2")
@@ -179,10 +176,7 @@
                                                         "-n!2"
                                                         "b"
                                                         "-(n!1 + n!2)"))
-                                                      (("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("2" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -195,14 +189,10 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (hide-all-but 1)
-                                (("2"
-                                  (lemma "small_expt" ("px" "1/2"))
-                                  (("2"
-                                    (assert)
-                                    (("2"
-                                      (inst - "r!1/2")
+                               ("2" (hide-all-but 1)
+                                (("2" (lemma "small_expt" ("px" "1/2"))
+                                  (("2" (assert)
+                                    (("2" (inst - "r!1/2")
                                       (("2"
                                         (skosimp)
                                         (("2"
@@ -210,14 +200,10 @@
                                           (("2"
                                             (rewrite "real_expt_neg")
                                             (("2"
-                                              (rewrite
-                                               "real_expt_int_rew")
+                                              (rewrite "real_expt_int_rew")
                                               (("2"
                                                 (expand "^")
-                                                (("2"
-                                                  (propax)
-                                                  nil
-                                                  nil))
+                                                (("2" (propax) nil nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -239,16 +225,12 @@
                         (("2" (expand "o ")
                           (("2" (assert)
                             (("2" (hide 1 -1 -2 -3)
-                              (("2"
-                                (expand "SEQ")
-                                (("2"
-                                  (expand "iterate" 1 1)
+                              (("2" (expand "SEQ")
+                                (("2" (expand "iterate" 1 1)
                                   (("2"
-                                    (name-replace
-                                     "NN"
+                                    (name-replace "NN"
                                      "iterate(NEXT, 1 + n!1)(0, 0)")
-                                    (("2"
-                                      (expand "NEXT")
+                                    (("2" (expand "NEXT")
                                       (("2"
                                         (case
                                          "nonempty?({k: nat |
@@ -279,10 +261,7 @@
                                                 (expand "member")
                                                 (("1"
                                                   (flatten)
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("1" (assert) nil nil))
                                                   nil))
                                                 nil))
                                               nil)
@@ -301,15 +280,11 @@
                                               (("2"
                                                 (expand "member")
                                                 (("2"
-                                                  (inst
-                                                   -2
-                                                   "2 ^ (-NN`1)")
+                                                  (inst -2 "2 ^ (-NN`1)")
                                                   (("1"
                                                     (skosimp)
                                                     (("1"
-                                                      (inst
-                                                       -
-                                                       "n!2+NN`2+1")
+                                                      (inst - "n!2+NN`2+1")
                                                       (("1"
                                                         (assert)
                                                         (("1"
@@ -329,8 +304,7 @@
                                                       nil))
                                                     nil)
                                                    ("2"
-                                                    (rewrite
-                                                     "real_expt_pos")
+                                                    (rewrite "real_expt_pos")
                                                     nil
                                                     nil))
                                                   nil))
@@ -356,27 +330,21 @@
                   (("2" (inst + "SEQ")
                     (("1" (expand "o ") (("1" (propax) nil nil)) nil)
                      ("2" (expand "strict_increasing?")
-                      (("2"
-                        (case "forall (i,n:nat): SEQ(i) < SEQ(1+i+n)")
+                      (("2" (case "forall (i,n:nat): SEQ(i) < SEQ(1+i+n)")
                         (("1" (skosimp)
                           (("1" (inst - "x!1" "y!1-x!1-1")
-                            (("1" (assert) nil nil)
-                             ("2" (assert) nil nil))
+                            (("1" (assert) nil nil) ("2" (assert) nil nil))
                             nil))
                           nil)
                          ("2" (hide 2)
                           (("2" (induct "n")
                             (("1" (skosimp)
-                              (("1"
-                                (expand "SEQ")
-                                (("1"
-                                  (expand "iterate" 1 2)
+                              (("1" (expand "SEQ")
+                                (("1" (expand "iterate" 1 2)
                                   (("1"
-                                    (name-replace
-                                     "NN"
+                                    (name-replace "NN"
                                      "iterate(NEXT, 1 + i!1)(0, 0)")
-                                    (("1"
-                                      (expand "NEXT")
+                                    (("1" (expand "NEXT")
                                       (("1"
                                         (hide -2 -1)
                                         (("1"
@@ -409,19 +377,13 @@
                                                   (expand "member")
                                                   (("1"
                                                     (flatten)
-                                                    (("1"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                    (("1" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil)
                                                ("2"
                                                 (expand "nonempty?")
-                                                (("2"
-                                                  (propax)
-                                                  nil
-                                                  nil))
+                                                (("2" (propax) nil nil))
                                                 nil))
                                               nil))
                                             nil)
@@ -434,15 +396,11 @@
                                                 (("2"
                                                   (expand "member")
                                                   (("2"
-                                                    (inst
-                                                     -3
-                                                     "2 ^ (-NN`1)")
+                                                    (inst -3 "2 ^ (-NN`1)")
                                                     (("1"
                                                       (skosimp)
                                                       (("1"
-                                                        (inst
-                                                         -
-                                                         "n!1+NN`2+1")
+                                                        (inst - "n!1+NN`2+1")
                                                         (("1"
                                                           (assert)
                                                           (("1"
@@ -479,14 +437,10 @@
                                 nil))
                               nil)
                              ("2" (skosimp)
-                              (("2"
-                                (skosimp)
-                                (("2"
-                                  (inst - "i!1")
-                                  (("2"
-                                    (name-replace "LHS" "SEQ(i!1)")
-                                    (("2"
-                                      (hide -2 -3 -4)
+                              (("2" (skosimp)
+                                (("2" (inst - "i!1")
+                                  (("2" (name-replace "LHS" "SEQ(i!1)")
+                                    (("2" (hide -2 -3 -4)
                                       (("2"
                                         (expand "SEQ")
                                         (("2"
@@ -524,8 +478,7 @@
                                            i >= k AND j >= k =>
                                             essential_bound(F!1(j) - F!1(i)) < 2 ^ (-NN`1))})")
                                                       (("1"
-                                                        (expand
-                                                         "member")
+                                                        (expand "member")
                                                         (("1"
                                                           (flatten)
                                                           (("1"
@@ -536,25 +489,19 @@
                                                         nil))
                                                       nil)
                                                      ("2"
-                                                      (expand
-                                                       "nonempty?")
-                                                      (("2"
-                                                        (propax)
-                                                        nil
-                                                        nil))
+                                                      (expand "nonempty?")
+                                                      (("2" (propax) nil nil))
                                                       nil))
                                                     nil))
                                                   nil)
                                                  ("2"
                                                   (hide 2)
                                                   (("2"
-                                                    (expand
-                                                     "nonempty?")
+                                                    (expand "nonempty?")
                                                     (("2"
                                                       (expand "empty?")
                                                       (("2"
-                                                        (expand
-                                                         "member")
+                                                        (expand "member")
                                                         (("2"
                                                           (inst
                                                            -4
@@ -623,26 +570,21 @@
                         (("1" (hide -2)
                           (("1" (name "ZZ" "NEXT(0, 0)`2")
                             (("1" (replace -1)
-                              (("1"
-                                (expand "NEXT" -1)
+                              (("1" (expand "NEXT" -1)
                                 (("1"
-                                  (case
-                                   "nonempty?({k: nat |
+                                  (case "nonempty?({k: nat |
                                  k > 0 &
                                   (FORALL i, j:
                                      i >= k AND j >= k =>
                                       essential_bound(F!1(j) - F!1(i)) < 2 ^ (-0))})")
                                   (("1"
-                                    (lemma
-                                     "choose_member"
-                                     ("a"
-                                      "{k: nat |
+                                    (lemma "choose_member"
+                                     ("a" "{k: nat |
                                k > 0 &
                                 (FORALL i, j:
                                    i >= k AND j >= k =>
                                     essential_bound(F!1(j) - F!1(i)) < 2 ^ (-0))}"))
-                                    (("1"
-                                      (replace -3)
+                                    (("1" (replace -3)
                                       (("1"
                                         (split -1)
                                         (("1"
@@ -662,10 +604,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (hide -1 -2 2)
-                                    (("2"
-                                      (expand "nonempty?")
+                                   ("2" (hide -1 -2 2)
+                                    (("2" (expand "nonempty?")
                                       (("2"
                                         (expand "empty?")
                                         (("2"
@@ -681,14 +621,8 @@
                                                   (("1"
                                                     (skosimp)
                                                     (("1"
-                                                      (inst
-                                                       -5
-                                                       "i!2"
-                                                       "j!1")
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (inst -5 "i!2" "j!1")
+                                                      (("1" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -723,11 +657,9 @@
                             (("2"
                               (name-replace "NN"
                                "iterate(NEXT, 1 + j!1)(0, 0)")
-                              (("2"
-                                (expand "NEXT")
+                              (("2" (expand "NEXT")
                                 (("2"
-                                  (case
-                                   "nonempty?({k: nat |
+                                  (case "nonempty?({k: nat |
                                                       k > NN`2
                                                       &
                                                       (FORALL
@@ -738,10 +670,8 @@
                                                        <
                                                        2 ^ (-NN`1))})")
                                   (("1"
-                                    (lemma
-                                     "choose_member"
-                                     ("a"
-                                      "{k: nat |
+                                    (lemma "choose_member"
+                                     ("a" "{k: nat |
                                                     k > NN`2
                                                     &
                                                     (FORALL
@@ -751,8 +681,7 @@
                                                      essential_bound(F!1(j) - F!1(i))
                                                      <
                                                      2 ^ (-NN`1))}"))
-                                    (("1"
-                                      (split -1)
+                                    (("1" (split -1)
                                       (("1"
                                         (expand "member")
                                         (("1"
@@ -773,8 +702,7 @@
                                             (("1"
                                               (inst - "CC" "i!1")
                                               (("1"
-                                                (case-replace
-                                                 "NN`1=1+j!1")
+                                                (case-replace "NN`1=1+j!1")
                                                 (("1" (assert) nil nil)
                                                  ("2"
                                                   (expand "NN" 1)
@@ -790,8 +718,7 @@
                                                       (("2"
                                                         (induct "n")
                                                         (("1"
-                                                          (expand
-                                                           "iterate")
+                                                          (expand "iterate")
                                                           (("1"
                                                             (propax)
                                                             nil
@@ -818,8 +745,7 @@
                                                          ("3"
                                                           (skosimp)
                                                           (("3"
-                                                            (expand
-                                                             "NEXT")
+                                                            (expand "NEXT")
                                                             (("3"
                                                               (assert)
                                                               nil
@@ -841,10 +767,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (hide 2 -1 -2)
-                                    (("2"
-                                      (expand "nonempty?")
+                                   ("2" (hide 2 -1 -2)
+                                    (("2" (expand "nonempty?")
                                       (("2"
                                         (expand "empty?")
                                         (("2"
@@ -860,14 +784,8 @@
                                                   (("1"
                                                     (skosimp)
                                                     (("1"
-                                                      (inst
-                                                       -
-                                                       "i!2"
-                                                       "j!2")
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (inst - "i!2" "j!2")
+                                                      (("1" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -894,8 +812,8 @@
                 nil))
               nil))
             nil)
-           ("2" (skosimp)
-            (("2" (expand "NEXT") (("2" (assert) nil nil)) nil)) nil))
+           ("2" (skosimp) (("2" (expand "NEXT") (("2" (assert) nil nil)) nil))
+            nil))
           nil)
          ("2" (skosimp)
           (("2" (expand "nonempty?")
@@ -948,12 +866,9 @@
                           (("1"
                             (case "FORALL (x: T, n): NOT N!1(x) => abs(g!1(x) - F!1(n)(x)) < 2 ^ (2 - n)")
                             (("1" (case "essentially_bounded?(g!1)")
-                              (("1"
-                                (inst + "g!1")
-                                (("1"
-                                  (skosimp)
-                                  (("1"
-                                    (hide-all-but (-2 1))
+                              (("1" (inst + "g!1")
+                                (("1" (skosimp)
+                                  (("1" (hide-all-but (-2 1))
                                     (("1"
                                       (lemma
                                        "exp_of_exists"
@@ -963,12 +878,7 @@
                                         (("1"
                                           (lemma
                                            "both_sides_real_expt_gt1_lt"
-                                           ("gt1x"
-                                            "2"
-                                            "a"
-                                            "i!1-1"
-                                            "b"
-                                            "i!1"))
+                                           ("gt1x" "2" "a" "i!1-1" "b" "i!1"))
                                           (("1"
                                             (assert)
                                             (("1"
@@ -1008,15 +918,13 @@
                                                               "K"
                                                               "2^(2-i!2)"))
                                                             (("1"
-                                                              (split
-                                                               -1)
+                                                              (split -1)
                                                               (("1"
                                                                 (assert)
                                                                 nil
                                                                 nil)
                                                                ("2"
-                                                                (hide
-                                                                 2)
+                                                                (hide 2)
                                                                 (("2"
                                                                   (expand
                                                                    "ae_le?")
@@ -1107,9 +1015,7 @@
                                                                 (rewrite
                                                                  "expt_x3")
                                                                 (("1"
-                                                                  (inst
-                                                                   +
-                                                                   "0")
+                                                                  (inst + "0")
                                                                   (("1"
                                                                     (skosimp)
                                                                     (("1"
@@ -1237,10 +1143,7 @@
                                                             nil))
                                                           nil))
                                                         nil)
-                                                       ("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                       ("2" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -1253,14 +1156,10 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (hide-all-but (-1 1 -2))
-                                (("2"
-                                  (typepred "F!1(0)")
-                                  (("2"
-                                    (expand "essentially_bounded?")
-                                    (("2"
-                                      (replace -3)
+                               ("2" (hide-all-but (-1 1 -2))
+                                (("2" (typepred "F!1(0)")
+                                  (("2" (expand "essentially_bounded?")
+                                    (("2" (replace -3)
                                       (("2"
                                         (flatten)
                                         (("2"
@@ -1274,21 +1173,17 @@
                                                 (("2"
                                                   (expand "ae_le?")
                                                   (("2"
-                                                    (expand
-                                                     "pointwise_ae?")
+                                                    (expand "pointwise_ae?")
                                                     (("2"
                                                       (expand "ae?")
                                                       (("2"
-                                                        (expand
-                                                         "fullset")
+                                                        (expand "fullset")
                                                         (("2"
-                                                          (expand
-                                                           "ae_in?")
+                                                          (expand "ae_in?")
                                                           (("2"
                                                             (skosimp)
                                                             (("2"
-                                                              (typepred
-                                                               "E!1")
+                                                              (typepred "E!1")
                                                               (("2"
                                                                 (expand
                                                                  "member")
@@ -1425,14 +1320,10 @@
                                 nil))
                               nil)
                              ("2" (hide -1 2)
-                              (("2"
-                                (skosimp)
-                                (("2"
-                                  (expand "pointwise_convergence?")
-                                  (("2"
-                                    (inst - "x!1")
-                                    (("2"
-                                      (expand "complement")
+                              (("2" (skosimp)
+                                (("2" (expand "pointwise_convergence?")
+                                  (("2" (inst - "x!1")
+                                    (("2" (expand "complement")
                                       (("2"
                                         (expand "phi")
                                         (("2"
@@ -1455,8 +1346,7 @@
                                                       (("2"
                                                         (expand "ball")
                                                         (("2"
-                                                          (expand
-                                                           "member")
+                                                          (expand "member")
                                                           (("2"
                                                             (inst
                                                              -
@@ -1630,13 +1520,9 @@
                          ("2" (hide-all-but 1)
                           (("2" (skosimp)
                             (("2" (typepred "F!1(n!1)")
-                              (("2"
-                                (typepred "N!1")
-                                (("2"
-                                  (lemma
-                                   "null_set_is_measurable[T,S,mu]")
-                                  (("2"
-                                    (inst - "N!1")
+                              (("2" (typepred "N!1")
+                                (("2" (lemma "null_set_is_measurable[T,S,mu]")
+                                  (("2" (inst - "N!1")
                                     (("2"
                                       (lemma
                                        "measurable_complement[T,S]"
@@ -1669,10 +1555,7 @@
                                                       "Im(F!1(n!1))"))
                                                     (("1"
                                                       (expand "*" -1)
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("1" (assert) nil nil))
                                                       nil)
                                                      ("2"
                                                       (expand
@@ -1690,14 +1573,10 @@
                                                 nil))
                                               nil)
                                              ("2"
-                                              (expand
-                                               "essentially_bounded?")
+                                              (expand "essentially_bounded?")
                                               (("2"
                                                 (flatten)
-                                                (("2"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                (("2" (assert) nil nil))
                                                 nil))
                                               nil)
                                              ("3"
@@ -1734,22 +1613,16 @@
                            "lambda (x:T): if N!1(x) then complex_(0,0) else limit(LAMBDA (n: nat): F!1(n)(x)) endif")
                           (("1" (expand "pointwise_convergence?")
                             (("1" (skosimp)
-                              (("1"
-                                (inst - "x!1")
-                                (("1"
-                                  (expand "complement")
-                                  (("1"
-                                    (expand "phi")
-                                    (("1"
-                                      (expand "member")
+                              (("1" (inst - "x!1")
+                                (("1" (expand "complement")
+                                  (("1" (expand "phi")
+                                    (("1" (expand "member")
                                       (("1"
                                         (case-replace "N!1(x!1)")
                                         (("1"
-                                          (rewrite
-                                           "metric_convergence_def")
+                                          (rewrite "metric_convergence_def")
                                           (("1"
-                                            (expand
-                                             "metric_converges_to")
+                                            (expand "metric_converges_to")
                                             (("1"
                                               (skosimp)
                                               (("1"
@@ -1763,8 +1636,7 @@
                                                       (("1"
                                                         (expand "abs")
                                                         (("1"
-                                                          (expand
-                                                           "sq_abs")
+                                                          (expand "sq_abs")
                                                           (("1"
                                                             (assert)
                                                             nil
@@ -1792,8 +1664,7 @@
                                                 (("1"
                                                   (assert)
                                                   (("1"
-                                                    (expand
-                                                     "convergence?")
+                                                    (expand "convergence?")
                                                     (("1"
                                                       (skosimp)
                                                       (("1"
@@ -1839,8 +1710,7 @@
                                                 nil))
                                               nil)
                                              ("2"
-                                              (expand
-                                               "metric_convergent?")
+                                              (expand "metric_convergent?")
                                               (("2"
                                                 (expand "convergent?")
                                                 (("2"
@@ -1854,11 +1724,9 @@
                                                         (expand
                                                          "metric_converges_to")
                                                         (("2"
-                                                          (expand
-                                                           "ball")
+                                                          (expand "ball")
                                                           (("2"
-                                                            (expand
-                                                             "member")
+                                                            (expand "member")
                                                             (("2"
                                                               (hide-all-but
                                                                (-1 1))
@@ -1921,19 +1789,14 @@
                             nil)
                            ("2" (skosimp)
                             (("2" (inst - "x!1")
-                              (("2"
-                                (assert)
-                                (("2"
-                                  (expand "convergent?")
-                                  (("2"
-                                    (expand "metric_convergent?")
-                                    (("2"
-                                      (skosimp)
+                              (("2" (assert)
+                                (("2" (expand "convergent?")
+                                  (("2" (expand "metric_convergent?")
+                                    (("2" (skosimp)
                                       (("2"
                                         (inst + "x!2")
                                         (("2"
-                                          (rewrite
-                                           "metric_convergence_def")
+                                          (rewrite "metric_convergence_def")
                                           nil
                                           nil))
                                         nil))
@@ -1947,17 +1810,12 @@
                          ("2" (hide 2)
                           (("2" (skosimp)
                             (("2" (inst - "x!1" "_" "_")
-                              (("2"
-                                (assert)
-                                (("2"
-                                  (hide 1)
-                                  (("2"
-                                    (lemma "complex_is_complete")
-                                    (("2"
-                                      (expand "fullset")
+                              (("2" (assert)
+                                (("2" (hide 1)
+                                  (("2" (lemma "complex_is_complete")
+                                    (("2" (expand "fullset")
                                       (("2"
-                                        (expand
-                                         "complete_metric_space?")
+                                        (expand "complete_metric_space?")
                                         (("2"
                                           (expand "metric_complete?")
                                           (("2"
@@ -1973,10 +1831,7 @@
                                                    "metric_convergent?")
                                                   (("1"
                                                     (skeep -1)
-                                                    (("1"
-                                                      (inst?)
-                                                      nil
-                                                      nil))
+                                                    (("1" (inst?) nil nil))
                                                     nil))
                                                   nil)
                                                  ("2"
@@ -1988,8 +1843,7 @@
                                                       (("2"
                                                         (expand "ball")
                                                         (("2"
-                                                          (expand
-                                                           "member")
+                                                          (expand "member")
                                                           (("2"
                                                             (lemma
                                                              "exp_of_exists"
@@ -2003,9 +1857,7 @@
                                                                 (case
                                                                  "i!1>=0")
                                                                 (("1"
-                                                                  (inst
-                                                                   +
-                                                                   "2")
+                                                                  (inst + "2")
                                                                   (("1"
                                                                     (skosimp)
                                                                     (("1"
@@ -2169,8 +2021,7 @@
                                                                     (case
                                                                      "i!1<0")
                                                                     (("1"
-                                                                      (hide
-                                                                       1)
+                                                                      (hide 1)
                                                                       (("1"
                                                                         (inst
                                                                          +
@@ -2366,9 +2217,7 @@
                     (("2" (skosimp*)
                       (("2" (case-replace "m!1=0")
                         (("1" (expand "sigma")
-                          (("1"
-                            (lemma "real_expt_pos"
-                             ("px" "2" "a" "1-n!1"))
+                          (("1" (lemma "real_expt_pos" ("px" "2" "a" "1-n!1"))
                             (("1" (assert) nil nil)) nil))
                           nil)
                          ("2" (case "m!1>=1")
@@ -2376,19 +2225,13 @@
                             (("1"
                               (lemma "sigma_geometric"
                                ("x" "1/2" "n" "n!1+m!1-1"))
-                              (("1"
-                                (case-replace "n!1=0")
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (rewrite "real_expt_int_rew" 1)
-                                    (("1" (assert) nil nil))
-                                    nil))
+                              (("1" (case-replace "n!1=0")
+                                (("1" (assert)
+                                  (("1" (rewrite "real_expt_int_rew" 1)
+                                    (("1" (assert) nil nil)) nil))
                                   nil)
-                                 ("2"
-                                  (case "n!1>=1")
-                                  (("1"
-                                    (hide 1)
+                                 ("2" (case "n!1>=1")
+                                  (("1" (hide 1)
                                     (("1"
                                       (lemma
                                        "sigma_geometric"
@@ -2443,8 +2286,7 @@
                                                             (rewrite
                                                              "expt_x1")
                                                             (("1"
-                                                              (replace
-                                                               -1)
+                                                              (replace -1)
                                                               (("1"
                                                                 (lemma
                                                                  "both_sides_times_pos_lt1"
@@ -2475,10 +2317,7 @@
                                                             nil))
                                                           nil))
                                                         nil)
-                                                       ("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                       ("2" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -2502,8 +2341,7 @@
                       nil))
                     nil)
                    ("3" (skosimp)
-                    (("3" (inst + "n!1+m!1") (("3" (assert) nil nil))
-                      nil))
+                    (("3" (inst + "n!1+m!1") (("3" (assert) nil nil)) nil))
                     nil))
                   nil)
                  ("2" (hide 2)
@@ -2513,36 +2351,24 @@
                         (("2" (assert)
                           (("2" (hide 1)
                             (("2" (induct "m")
-                              (("1"
-                                (expand "sigma")
-                                (("1"
-                                  (expand "abs")
-                                  (("1"
-                                    (expand "sq_abs")
-                                    (("1" (assert) nil nil))
-                                    nil))
+                              (("1" (expand "sigma")
+                                (("1" (expand "abs")
+                                  (("1" (expand "sq_abs")
+                                    (("1" (assert) nil nil)) nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (skosimp*)
-                                (("2"
-                                  (assert)
-                                  (("2"
-                                    (expand "sigma" 1)
-                                    (("2"
-                                      (inst - "j!1+n!1")
+                               ("2" (skosimp*)
+                                (("2" (assert)
+                                  (("2" (expand "sigma" 1)
+                                    (("2" (inst - "j!1+n!1")
                                       (("2"
                                         (inst - "j!1+n!1")
                                         (("2"
                                           (expand "geometric" 1 1)
                                           (("2"
-                                            (rewrite
-                                             "real_expt_neg"
-                                             -3)
+                                            (rewrite "real_expt_neg" -3)
                                             (("2"
-                                              (rewrite
-                                               "real_expt_int_rew"
-                                               -3)
+                                              (rewrite "real_expt_int_rew" -3)
                                               (("2"
                                                 (lemma
                                                  "polar.abs_triangle"
@@ -2554,17 +2380,13 @@
                                                   (case-replace
                                                    "abs(F!1(1 + j!1 + n!1)(x!1) - F!1(n!1)(x!1))=abs(F!1(1 + (j!1 + n!1))(x!1) - F!1(j!1 + n!1)(x!1) +
                      (F!1(j!1 + n!1)(x!1) - F!1(n!1)(x!1)))")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil)
+                                                  (("1" (assert) nil nil)
                                                    ("2"
                                                     (hide-all-but 1)
                                                     (("2"
                                                       (expand "abs")
                                                       (("2"
-                                                        (expand
-                                                         "sq_abs")
+                                                        (expand "sq_abs")
                                                         (("2"
                                                           (assert)
                                                           nil
@@ -2582,12 +2404,9 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("3"
-                                (skosimp)
-                                (("3"
-                                  (inst + "n!1+m!1")
-                                  (("3" (assert) nil nil))
-                                  nil))
+                               ("3" (skosimp)
+                                (("3" (inst + "n!1+m!1")
+                                  (("3" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -2597,8 +2416,7 @@
                     nil))
                   nil)
                  ("3" (skosimp)
-                  (("3" (inst + "3") (("3" (assert) nil nil)) nil))
-                  nil))
+                  (("3" (inst + "3") (("3" (assert) nil nil)) nil)) nil))
                 nil))
               nil))
             nil))
@@ -2615,8 +2433,7 @@
                       (case "forall n: not EE(n)(x!1) => abs(F!1(n + 1)(x!1) - F!1(n)(x!1)) <= essential_bound(F!1(n + 1) - F!1(n))")
                       (("1" (expand "IUnion")
                         (("1" (inst + "n!1")
-                          (("1" (inst - "n!1") (("1" (assert) nil nil))
-                            nil))
+                          (("1" (inst - "n!1") (("1" (assert) nil nil)) nil))
                           nil))
                         nil)
                        ("2" (hide 2 3)
@@ -2630,54 +2447,41 @@
                                   abs(F!1(1 + n!2)(x) - F!1(n!2)(x)) <=
                                    essential_bound(F!1(1 + n!2) - F!1(n!2)))})")
                               (("1"
-                                (lemma
-                                 "choose_member[(S)]"
-                                 ("a"
-                                  "{E: (S) |
+                                (lemma "choose_member[(S)]"
+                                 ("a" "{E: (S) |
                            null_set?(E) &
                             (FORALL (x: T):
                                NOT E(x) =>
                                 abs(F!1(1 + n!2)(x) - F!1(n!2)(x)) <=
                                  essential_bound(F!1(1 + n!2) - F!1(n!2)))}"))
                                 (("1"
-                                  (name-replace
-                                   "CC"
-                                   "choose[(S)]
+                                  (name-replace "CC" "choose[(S)]
                       ({E: (S) |
                           null_set?(E) &
                            (FORALL (x: T):
                               NOT E(x) =>
                                abs(F!1(1 + n!2)(x) - F!1(n!2)(x)) <=
                                 essential_bound(F!1(1 + n!2) - F!1(n!2)))})")
-                                  (("1"
-                                    (split -1)
-                                    (("1"
-                                      (expand "member")
+                                  (("1" (split -1)
+                                    (("1" (expand "member")
                                       (("1"
                                         (inst - "x!1")
                                         (("1" (assert) nil nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (expand "nonempty?")
-                                      (("2" (propax) nil nil))
-                                      nil))
+                                     ("2" (expand "nonempty?")
+                                      (("2" (propax) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (hide 2)
-                                (("2"
-                                  (expand "nonempty?")
-                                  (("2"
-                                    (expand "empty?")
-                                    (("2"
-                                      (expand "member")
+                               ("2" (hide 2)
+                                (("2" (expand "nonempty?")
+                                  (("2" (expand "empty?")
+                                    (("2" (expand "member")
                                       (("2"
                                         (lemma
                                          "essential_bound_def2"
-                                         ("f"
-                                          "F!1(n!2 + 1) - F!1(n!2)"))
+                                         ("f" "F!1(n!2 + 1) - F!1(n!2)"))
                                         (("2"
                                           (expand "ae_le?")
                                           (("2"
@@ -2698,9 +2502,7 @@
                                                         (("2"
                                                           (skosimp)
                                                           (("2"
-                                                            (inst
-                                                             -4
-                                                             "X!1")
+                                                            (inst -4 "X!1")
                                                             (("1"
                                                               (assert)
                                                               (("1"
@@ -2746,9 +2548,7 @@
                                                               (lemma
                                                                "null_set_is_measurable")
                                                               (("2"
-                                                                (inst
-                                                                 -
-                                                                 "X!1")
+                                                                (inst - "X!1")
                                                                 (("2"
                                                                   (expand
                                                                    "measurable_set?")
@@ -2796,14 +2596,10 @@
                             (("2"
                               (name-replace "EB"
                                " essential_bound(((-[T])(F!1(1 + n!1), F!1(n!1))))")
-                              (("2"
-                                (hide -2)
-                                (("2"
-                                  (expand "ae_le?")
-                                  (("2"
-                                    (expand "pointwise_ae?")
-                                    (("2"
-                                      (expand "ae?")
+                              (("2" (hide -2)
+                                (("2" (expand "ae_le?")
+                                  (("2" (expand "pointwise_ae?")
+                                    (("2" (expand "ae?")
                                       (("2"
                                         (expand "fullset")
                                         (("2"
@@ -2815,8 +2611,7 @@
                                               (("2"
                                                 (typepred "E!1")
                                                 (("2"
-                                                  (expand
-                                                   "negligible_set?")
+                                                  (expand "negligible_set?")
                                                   (("2"
                                                     (skosimp)
                                                     (("2"
@@ -2826,12 +2621,9 @@
                                                         (("1"
                                                           (skosimp)
                                                           (("1"
-                                                            (expand
-                                                             "subset?")
+                                                            (expand "subset?")
                                                             (("1"
-                                                              (inst
-                                                               -2
-                                                               "x!1")
+                                                              (inst -2 "x!1")
                                                               (("1"
                                                                 (expand
                                                                  "member")
@@ -2871,9 +2663,7 @@
                                                           (lemma
                                                            "null_set_is_measurable")
                                                           (("2"
-                                                            (inst
-                                                             -
-                                                             "X!1")
+                                                            (inst - "X!1")
                                                             (("2"
                                                               (expand
                                                                "measurable_set?")
@@ -2911,335 +2701,111 @@
         nil))
       nil))
     nil)
-   ((subset_is_partial_order name-judgement "(partial_order?[set[T]])"
-     sets_lemmas nil)
-    (subset? const-decl "bool" sets nil)
-    (X!1 skolem-const-decl "set[T]" essential_bound_complete_scaf nil)
+   ((subset? const-decl "bool" sets nil)
     (essential_bound_def2 formula-decl nil essentially_bounded nil)
-    (EE skolem-const-decl "[n: nat ->
-   ({E: (S) |
-       null_set?(E) &
-        (FORALL (x: T):
-           NOT E(x) =>
-            abs(F!1(n + 1)(x) - F!1(n)(x)) <=
-             essential_bound(F!1(n + 1) - F!1(n)))})]"
-     essential_bound_complete_scaf nil)
-    (IUnion const-decl "set[T]" indexed_sets nil)
-    (sigma_algebra_IUnion_rew application-judgement "(S)"
-     essential_bound_complete_scaf nil)
-    (null_IUnion application-judgement "null_set[T, S, mu]"
-     essential_bound_complete_scaf nil)
-    (diff_essentially_bounded judgement-tcc nil essentially_bounded
-     nil)
-    (X!1 skolem-const-decl "set[T]" essential_bound_complete_scaf nil)
-    (n!1 skolem-const-decl "nat" essential_bound_complete_scaf nil)
-    (metric_complete? const-decl "bool" metric_space_def
-     "metric_space/")
-    (i!2 skolem-const-decl "nat" essential_bound_complete_scaf nil)
-    (j!1 skolem-const-decl "nat" essential_bound_complete_scaf nil)
-    (trich_lt formula-decl nil real_props nil)
-    (sq_neg_minus formula-decl nil sq "reals/")
-    (j!1 skolem-const-decl "nat" essential_bound_complete_scaf nil)
-    (i!2 skolem-const-decl "nat" essential_bound_complete_scaf nil)
-    (cauchy? const-decl "bool" metric_space_def "metric_space/")
-    (metric_convergent? const-decl "bool" metric_space_def
-     "metric_space/")
-    (complete_metric_space? const-decl "bool" metric_space_def
-     "metric_space/")
+    (diff_essentially_bounded judgement-tcc nil essentially_bounded nil)
+    (metric_complete? const-decl "bool" metric_space_def metric_space)
+    (sq_neg_minus formula-decl nil sq reals)
+    (cauchy? const-decl "bool" metric_space_def metric_space)
+    (complete_metric_space? const-decl "bool" metric_space_def metric_space)
     (complex_is_complete judgement-tcc nil complex_topology nil)
-    (metric_space_is_hausdorff name-judgement "hausdorff[complex]"
-     complex_topology nil)
-    (metric_space_is_hausdorff? name-judgement "(hausdorff?)"
-     complex_topology nil)
-    (N!1 skolem-const-decl "null_set[T, S, mu]"
-     essential_bound_complete_scaf nil)
     (metric_induced_topology const-decl "setofsets[T]" metric_space_def
-     "metric_space/")
-    (convergent? const-decl "bool" topological_convergence "topology/")
-    (F!1 skolem-const-decl "sequence[essentially_bounded]"
-     essential_bound_complete_scaf nil)
-    (limit const-decl "T" topological_convergence "topology/")
-    (convergent type-eq-decl nil topological_convergence "topology/")
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (open? const-decl "bool" topology "topology/")
-    (open nonempty-type-eq-decl nil topology "topology/")
-    (convergence? const-decl "bool" topological_convergence
-     "topology/")
-    (limit_lemma formula-decl nil topological_convergence "topology/")
-    (minus_real_is_real application-judgement "real" reals nil)
-    (sqrt_0 formula-decl nil sqrt "reals/")
-    (Re_sub2 formula-decl nil complex_types "complex_alt/")
-    (sq_0 formula-decl nil sq "reals/")
-    (Im_sub2 formula-decl nil complex_types "complex_alt/")
-    (metric_convergent? const-decl "bool" metric_space_def
-     "metric_space/")
-    (null_set_is_measurable judgement-tcc nil measure_theory
-     "measure_integration/")
+     metric_space)
+    (convergent? const-decl "bool" topological_convergence topology)
+    (limit const-decl "T" topological_convergence topology)
+    (convergent type-eq-decl nil topological_convergence topology)
+    (open? const-decl "bool" topology topology)
+    (open nonempty-type-eq-decl nil topology topology)
+    (convergence? const-decl "bool" topological_convergence topology)
+    (limit_lemma formula-decl nil topological_convergence topology)
+    (sqrt_0 formula-decl nil sqrt reals)
+    (Re_sub2 formula-decl nil complex_types complex_alt)
+    (sq_0 formula-decl nil sq reals)
+    (Im_sub2 formula-decl nil complex_types complex_alt)
     (measurable_complement judgement-tcc nil measure_space_def
-     "measure_integration/")
-    (measurable_set? const-decl "bool" measure_space_def
-     "measure_integration/")
+     measure_integration)
+    (measurable_set? const-decl "bool" measure_space_def measure_integration)
     (measurable_set nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
-    (simple? const-decl "bool" measure_space "measure_integration/")
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
+     measure_integration)
+    (simple? const-decl "bool" measure_space measure_integration)
     (complex_measurable_def formula-decl nil complex_measurable nil)
-    (Re_fun_rew formula-decl nil complex_fun_ops "complex_alt/")
-    (Im_fun_rew formula-decl nil complex_fun_ops "complex_alt/")
+    (Re_fun_rew formula-decl nil complex_fun_ops complex_alt)
+    (Im_fun_rew formula-decl nil complex_fun_ops complex_alt)
     (measurable_function nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
-    (prod_measurable judgement-tcc nil measure_space
-     "measure_integration/")
-    (phi_is_simple judgement-tcc nil measure_space
-     "measure_integration/")
-    (metric_converges_to const-decl "bool" metric_space_def
-     "metric_space/")
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (Re_mul2 formula-decl nil complex_types "complex_alt/")
-    (Im_mul2 formula-decl nil complex_types "complex_alt/")
-    (both_sides_times_pos_le1 formula-decl nil real_props nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil)
-    (expt def-decl "real" exponentiation nil)
-    (expt_x1 formula-decl nil exponentiation nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (real_expt_plus formula-decl nil real_expt "power/")
-    (n!1 skolem-const-decl "nat" essential_bound_complete_scaf nil)
-    (ball const-decl "set[T]" metric_space_def "metric_space/")
-    (metric_convergence_def formula-decl nil metric_space
-     "metric_space/")
-    (exp_of_exists formula-decl nil exponentiation nil)
-    (above nonempty-type-eq-decl nil integers nil)
-    (both_sides_real_expt_gt1_lt formula-decl nil real_expt "power/")
-    (TRUE const-decl "bool" booleans nil)
-    (negligible_set? const-decl "bool" measure_theory
-     "measure_integration/")
-    (negligible nonempty-type-eq-decl nil measure_theory
-     "measure_integration/")
+     measure_integration)
+    (prod_measurable judgement-tcc nil measure_space measure_integration)
+    (phi_is_simple judgement-tcc nil measure_space measure_integration)
+    (metric_converges_to const-decl "bool" metric_space_def metric_space)
+    (Re_mul2 formula-decl nil complex_types complex_alt)
+    (Im_mul2 formula-decl nil complex_types complex_alt)
+    (real_expt_plus formula-decl nil real_expt power)
+    (ball const-decl "set[T]" metric_space_def metric_space)
+    (metric_convergence_def formula-decl nil metric_space metric_space)
+    (both_sides_real_expt_gt1_lt formula-decl nil real_expt power)
+    (negligible_set? const-decl "bool" measure_theory measure_integration)
+    (negligible nonempty-type-eq-decl nil measure_theory measure_integration)
     (essential_bound_def1 formula-decl nil essentially_bounded nil)
-    (both_sides_real_expt_gt1_le formula-decl nil real_expt "power/")
-    (i!1 skolem-const-decl "int" essential_bound_complete_scaf nil)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (posint_times_posint_is_posint application-judgement "posint"
-     integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
-     nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (expt_x3 formula-decl nil exponentiation nil)
-    (g!1 skolem-const-decl "[T -> complex]"
-     essential_bound_complete_scaf nil)
-    (negligible_union application-judgement "negligible[T, S, mu]"
-     essential_bound_complete_scaf nil)
+    (both_sides_real_expt_gt1_le formula-decl nil real_expt power)
     (union const-decl "set" sets nil)
-    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (expt_x2 formula-decl nil exponentiation nil)
-    (+ const-decl "complex" complex_types "complex_alt/")
-    (sq_abs const-decl "nnreal" complex_types "complex_alt/")
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (Re_add1 formula-decl nil complex_types "complex_alt/")
-    (Re_sub1 formula-decl nil complex_types "complex_alt/")
-    (Im_add1 formula-decl nil complex_types "complex_alt/")
-    (Im_sub1 formula-decl nil complex_types "complex_alt/")
-    (abs_triangle formula-decl nil polar "complex_alt/")
-    (nnreal_plus_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
+    (+ const-decl "complex" complex_types complex_alt)
+    (sq_abs const-decl "nnreal" complex_types complex_alt)
+    (Re_add1 formula-decl nil complex_types complex_alt)
+    (Re_sub1 formula-decl nil complex_types complex_alt)
+    (Im_add1 formula-decl nil complex_types complex_alt)
+    (Im_sub1 formula-decl nil complex_types complex_alt)
+    (abs_triangle formula-decl nil polar complex_alt)
     (ae_bounded? const-decl "bool" complex_measure_theory nil)
     (measurable_function? const-decl "bool" measure_space_def
-     "measure_integration/")
-    (Re const-decl "[T -> real]" complex_fun_ops "complex_alt/")
-    (Im const-decl "[T -> real]" complex_fun_ops "complex_alt/")
-    (complex_measurable nonempty-type-eq-decl nil complex_measurable
-     nil)
+     measure_integration)
+    (Re const-decl "[T -> real]" complex_fun_ops complex_alt)
+    (Im const-decl "[T -> real]" complex_fun_ops complex_alt)
+    (complex_measurable nonempty-type-eq-decl nil complex_measurable nil)
     (complex_measurable? const-decl "bool" complex_measurable nil)
-    (pointwise_complex_measurable formula-decl nil complex_measurable
-     nil)
+    (pointwise_complex_measurable formula-decl nil complex_measurable nil)
     (complement const-decl "set" sets nil)
-    (phi const-decl "nat" measure_space "measure_integration/")
-    (complex_ const-decl "complex" complex_types "complex_alt/")
-    (* const-decl "complex" complex_types "complex_alt/")
+    (phi const-decl "nat" measure_space measure_integration)
+    (complex_ const-decl "complex" complex_types complex_alt)
+    (* const-decl "complex" complex_types complex_alt)
     (pointwise_convergence? const-decl "bool" complex_measurable nil)
-    (measurable_complement application-judgement "measurable_set[T, S]"
-     essential_bound_complete_scaf nil)
-    (subset_algebra_complement application-judgement "(S)" measure_def
-     "measure_integration/")
-    (sigma_geometric formula-decl nil series "series/")
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
-     nil)
-    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (expt_inverse formula-decl nil exponentiation nil)
-    (inv_expt formula-decl nil exponentiation nil)
-    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (posrat_times_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (expt_plus formula-decl nil exponentiation nil)
-    (nzreal nonempty-type-eq-decl nil reals nil)
-    (sigma_split formula-decl nil sigma "reals/")
-    (odd_minus_even_is_odd application-judgement "odd_int" integers
-     nil)
-    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
-     nil)
-    (geometric const-decl "sequence[real]" series "series/")
-    (sigma def-decl "real" sigma "reals/")
-    (T_high type-eq-decl nil sigma "reals/")
-    (T_low type-eq-decl nil sigma "reals/")
-    (abs const-decl "nnreal" polar "complex_alt/")
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (null_set nonempty-type-eq-decl nil measure_theory
-     "measure_integration/")
-    (null_set? const-decl "bool" measure_theory "measure_integration/")
-    (n!1 skolem-const-decl "nat" essential_bound_complete_scaf nil)
-    (iterate def-decl "T" function_iterate nil)
-    (NN skolem-const-decl "[nat, nat]" essential_bound_complete_scaf
-     nil)
-    (F!1 skolem-const-decl "sequence[essentially_bounded]"
-     essential_bound_complete_scaf nil)
-    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
-    (minus_even_is_even application-judgement "even_int" integers nil)
-    (subseq? const-decl "bool" subseq "topology/")
-    (O const-decl "T3" function_props nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (both_sides_real_expt_gt1_ge formula-decl nil real_expt "power/")
-    (LHS1 skolem-const-decl "nnreal" essential_bound_complete_scaf nil)
-    (ae_le? const-decl "bool" measure_theory "measure_integration/")
-    (pointwise_ae? const-decl "bool" measure_theory
-     "measure_integration/")
-    (fullset const-decl "set" sets nil)
-    (member const-decl "bool" sets nil)
-    (Re_rew formula-decl nil complex_types "complex_alt/")
-    (Im_rew formula-decl nil complex_types "complex_alt/")
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (- const-decl "complex" complex_types "complex_alt/")
-    (ae_in? const-decl "bool" measure_theory "measure_integration/")
-    (ae? const-decl "bool" measure_theory "measure_integration/")
-    (measurable_fullset name-judgement "measurable_set[T, S]"
-     essential_bound_complete_scaf nil)
-    (subset_algebra_fullset name-judgement "(S)"
-     essential_bound_complete_scaf nil)
-    (abs const-decl "[T -> nonneg_real]" complex_fun_ops
-         "complex_alt/")
-    (LHS2 skolem-const-decl "nnreal" essential_bound_complete_scaf nil)
-    (<= const-decl "bool" reals nil)
+    (sigma_geometric formula-decl nil series series)
+    (sigma_split formula-decl nil sigma reals)
+    (geometric const-decl "sequence[real]" series series)
+    (sigma def-decl "real" sigma reals) (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
+    (abs const-decl "nnreal" polar complex_alt)
+    (null_set nonempty-type-eq-decl nil measure_theory measure_integration)
+    (null_set? const-decl "bool" measure_theory measure_integration)
+    (subseq? const-decl "bool" subseq topology)
+    (both_sides_real_expt_gt1_ge formula-decl nil real_expt power)
+    (ae_le? const-decl "bool" measure_theory measure_integration)
+    (pointwise_ae? const-decl "bool" measure_theory measure_integration)
+    (fullset const-decl "set" sets nil) (member const-decl "bool" sets nil)
+    (Re_rew formula-decl nil complex_types complex_alt)
+    (Im_rew formula-decl nil complex_types complex_alt)
+    (ae_in? const-decl "bool" measure_theory measure_integration)
+    (abs const-decl "[T -> nonneg_real]" complex_fun_ops complex_alt)
     (essential_bound_diff formula-decl nil essentially_bounded nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (small_expt formula-decl nil exponentiation nil)
-    (real_expt_int_rew formula-decl nil real_expt "power/")
-    (posrat_exp application-judgement "posrat" exponentiation nil)
-    (nnrat_exp application-judgement "nnrat" exponentiation nil)
-    (^ const-decl "real" exponentiation nil)
-    (real_expt_neg formula-decl nil real_expt "power/")
-    (NEXT skolem-const-decl "[d: [nat, nat] ->
-   [numfield,
-    ({k: nat |
-        k > d`2 &
-         (FORALL i, j:
-            i >= k AND j >= k =>
-             essential_bound(F!1(j) - F!1(i)) < 2 ^ (-d`1))})]]"
-     essential_bound_complete_scaf nil)
+    (real_expt_int_rew formula-decl nil real_expt power)
+    (real_expt_neg formula-decl nil real_expt power)
     (empty? const-decl "bool" sets nil)
-    (NN skolem-const-decl "[nat, nat]" essential_bound_complete_scaf
-     nil)
-    (real_expt_pos formula-decl nil real_expt "power/")
-    (choose_member formula-decl nil sets_lemmas nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (SEQ skolem-const-decl "[nat -> nat]" essential_bound_complete_scaf
-     nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (NN skolem-const-decl "[nat, nat]" essential_bound_complete_scaf
-     nil)
-    (odd_plus_odd_is_even application-judgement "even_int" integers
-     nil)
-    (NN skolem-const-decl "[nat, nat]" essential_bound_complete_scaf
-     nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (pred type-eq-decl nil defined_types nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (y!1 skolem-const-decl "nat" essential_bound_complete_scaf nil)
-    (x!1 skolem-const-decl "nat" essential_bound_complete_scaf nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (set type-eq-decl nil sets nil)
-    (nonempty? const-decl "bool" sets nil)
+    (real_expt_pos formula-decl nil real_expt power)
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
+    (set type-eq-decl nil sets nil) (nonempty? const-decl "bool" sets nil)
     (choose const-decl "(p)" sets nil)
-    (diff_essentially_bounded application-judgement
-     "essentially_bounded[T, S, mu]" essential_bound_complete_scaf nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (minus_int_is_int application-judgement "int" integers nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil essential_bound_complete_scaf nil)
-    (complex type-eq-decl nil complex_types "complex_alt/")
-    (setof type-eq-decl nil defined_types nil)
+    (complex type-eq-decl nil complex_types complex_alt)
     (setofsets type-eq-decl nil sets nil)
-    (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+    (sigma_algebra? const-decl "bool" subset_algebra_def measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
-    (S formal-const-decl "sigma_algebra[T]"
-     essential_bound_complete_scaf nil)
-    (nnreal type-eq-decl nil real_types nil)
+     measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
-    (measure? const-decl "bool" generalized_measure_def
-     "measure_integration/")
+     extended_nnreal)
+    (measure? const-decl "bool" generalized_measure_def measure_integration)
     (measure_type nonempty-type-eq-decl nil generalized_measure_def
-     "measure_integration/")
-    (mu formal-const-decl "measure_type[T, S]"
-     essential_bound_complete_scaf nil)
+     measure_integration)
     (essentially_bounded? const-decl "bool" essentially_bounded nil)
-    (essentially_bounded nonempty-type-eq-decl nil essentially_bounded
-     nil)
+    (essentially_bounded nonempty-type-eq-decl nil essentially_bounded nil)
     (sequence type-eq-decl nil sequences nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (< const-decl "bool" reals nil)
     (essential_bound const-decl "nnreal" essentially_bounded nil)
-    (- const-decl "[T -> complex]" complex_fun_ops "complex_alt/")
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (> const-decl "bool" reals nil)
-    (^ const-decl "nnreal" real_expt "power/")
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (posreal nonempty-type-eq-decl nil real_types nil))
+    (^ const-decl "nnreal" real_expt power))
    shostak)))
 

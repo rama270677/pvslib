@@ -2,13 +2,13 @@
       (cauchy_exp_series_TCC1-1 nil 3394181533
        ("" (skosimp*)
         (("" (expand "cauchy_nzreal?")
-          (("" (inst + "factorial(n!1)")
-            (("" (rewrite "int_lemma") nil nil)) nil))
+          (("" (inst + "factorial(n!1)") (("" (rewrite "int_lemma") nil nil))
+            nil))
           nil))
         nil)
        ((cauchy_nzreal? const-decl "bool" cauchy nil)
         (int_lemma formula-decl nil int nil)
-        (factorial def-decl "posnat" factorial "ints/")
+        (factorial def-decl "posnat" factorial ints)
         (posnat nonempty-type-eq-decl nil integers nil)
         (> const-decl "bool" reals nil)
         (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -24,18 +24,18 @@
         (real nonempty-type-from-decl nil reals nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (boolean nonempty-type-decl nil booleans nil)
         (number nonempty-type-decl nil numbers nil))
-       nil))
+       nil
+       (cauchy_exp_series subtype "int.cauchy_int(factorial.factorial(exp.n))"
+        "cauchy_nzreal")))
      (cauchy_exp_series_TCC2 0
       (cauchy_exp_series_TCC2-1 nil 3394181533
        ("" (skosimp*)
         ((""
           (lemma "inv_lemma"
-           ("nzx" "factorial(n!1)" "nzcx"
-            "cauchy_int(factorial(n!1))"))
+           ("nzx" "factorial(n!1)" "nzcx" "cauchy_int(factorial(n!1))"))
           (("" (rewrite "int_lemma")
             (("" (expand "cauchy_nnreal?")
               (("" (inst + "1 / factorial(n!1)") nil nil)) nil))
@@ -44,7 +44,7 @@
         nil)
        ((nzreal nonempty-type-eq-decl nil reals nil)
         (/= const-decl "boolean" notequal nil)
-        (factorial def-decl "posnat" factorial "ints/")
+        (factorial def-decl "posnat" factorial ints)
         (posnat nonempty-type-eq-decl nil integers nil)
         (> const-decl "bool" reals nil)
         (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -63,8 +63,7 @@
         (real nonempty-type-from-decl nil reals nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (boolean nonempty-type-decl nil booleans nil)
         (number nonempty-type-decl nil numbers nil)
         (inv_lemma formula-decl nil inv nil)
@@ -72,24 +71,44 @@
         (nnreal type-eq-decl nil real_types nil)
         (numfield nonempty-type-eq-decl nil number_fields nil)
         (nznum nonempty-type-eq-decl nil number_fields nil)
-        (/ const-decl "[numfield, nznum -> numfield]" number_fields
-           nil)
-        (posrat_div_posrat_is_posrat application-judgement "posrat"
-         rationals nil)
+        (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+        (posrat_div_posrat_is_posrat application-judgement "posrat" rationals
+         nil)
         (int_lemma formula-decl nil int nil))
-       nil))
+       nil
+       (cauchy_exp_series subtype
+        "inv.cauchy_inv(int.cauchy_int(factorial.factorial(exp.n)))"
+        "cauchy_nnreal")))
      (exp_series_lemma 0
+      (exp_series_lemma-2 "" 3790106106
+       ("" (skosimp)
+        (("" (expand "cauchy_exp_series")
+          (("" (expand "expT")
+            (("" (case-replace "n!1=0")
+              (("1" (expand "factorial")
+                (("1" (lemma "inv_lemma" ("nzx" "1" "nzcx" "cauchy_int(1)"))
+                  (("1" (rewrite "int_lemma") nil nil)) nil))
+                nil)
+               ("2" (assert)
+                (("2"
+                  (lemma "inv_lemma"
+                   ("nzx" "factorial(n!1)" "nzcx"
+                    "cauchy_int(factorial(n!1))"))
+                  (("2" (rewrite "int_lemma") nil nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       nil shostak)
       (exp_series_lemma-1 nil 3394181733
        ("" (skosimp)
         (("" (expand "cauchy_exp_series")
           (("" (expand "expT")
             (("" (case-replace "n!1=0")
               (("1" (expand "factorial")
-                (("1"
-                  (lemma "inv_lemma"
-                   ("nzx" "1" "nzcx" "cauchy_int(1)"))
-                  (("1" (rewrite "int_lemma") (("1" (assert) nil nil))
-                    nil))
+                (("1" (lemma "inv_lemma" ("nzx" "1" "nzcx" "cauchy_int(1)"))
+                  (("1" (rewrite "int_lemma") (("1" (assert) nil nil)) nil))
                   nil))
                 nil)
                ("2" (assert)
@@ -109,8 +128,7 @@
         (number nonempty-type-decl nil numbers nil)
         (boolean nonempty-type-decl nil booleans nil)
         (= const-decl "[T, T -> boolean]" equalities nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (real nonempty-type-from-decl nil reals nil)
@@ -130,15 +148,15 @@
         (cauchy_nzreal? const-decl "bool" cauchy nil)
         (inv_lemma formula-decl nil inv nil)
         (int_lemma formula-decl nil int nil)
-        (factorial def-decl "posnat" factorial "ints/")
+        (factorial def-decl "posnat" factorial ints)
         (posnat nonempty-type-eq-decl nil integers nil)
         (> const-decl "bool" reals nil)
         (nonneg_int nonempty-type-eq-decl nil integers nil)
         (expt_1i formula-decl nil exponentiation nil)
-        (posrat_div_posrat_is_posrat application-judgement "posrat"
-         rationals nil)
+        (posrat_div_posrat_is_posrat application-judgement "posrat" rationals
+         nil)
         (posint_exp application-judgement "posint" exponentiation nil)
-        (expT const-decl "real" ln_exp_series_alt "lnexp_fnd/"))
+        (expT const-decl "real" ln_exp_series_alt lnexp))
        shostak))
      (exp_estimate_lemma_TCC1 0
       (exp_estimate_lemma_TCC1-1 nil 3394181533
@@ -146,17 +164,14 @@
         (("" (expand "cauchys_real?")
           (("" (lemma "exp_series_lemma")
             (("" (inst + "expT(1)")
-              (("" (expand "cauchys_prop") (("" (propax) nil nil))
-                nil))
-              nil))
+              (("" (expand "cauchys_prop") (("" (propax) nil nil)) nil)) nil))
             nil))
           nil))
         nil)
        ((cauchys_real? const-decl "bool" sum nil)
         (number nonempty-type-decl nil numbers nil)
         (boolean nonempty-type-decl nil booleans nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (real nonempty-type-from-decl nil reals nil)
@@ -167,18 +182,19 @@
         (bool nonempty-type-eq-decl nil booleans nil)
         (>= const-decl "bool" reals nil)
         (nat nonempty-type-eq-decl nil naturalnumbers nil)
-        (expT const-decl "real" ln_exp_series_alt "lnexp_fnd/")
+        (expT const-decl "real" ln_exp_series_alt lnexp)
         (cauchys_prop const-decl "bool" sum nil)
         (exp_series_lemma formula-decl nil exp nil))
-       nil))
+       nil
+       (exp_estimate_lemma subtype "exp.cauchy_exp_series" "cauchys_real")))
      (exp_estimate_lemma 0
-      (exp_estimate_lemma-1 nil 3394181952
+      (exp_estimate_lemma-2 "" 3790106106
        ("" (skosimp)
         (("" (expand "exp_estimate")
           ((""
             (lemma "powerseries_lemma"
-             ("x" "x!1" "xs" "expT(1)" "cx" "cx!1" "cxs"
-              "cauchy_exp_series" "m" "n!1"))
+             ("x" "x!1" "xs" "expT(1)" "cx" "cx!1" "cxs" "cauchy_exp_series"
+              "m" "n!1"))
             (("" (replace -2)
               (("" (lemma "exp_series_lemma")
                 (("" (replace -1)
@@ -192,12 +208,42 @@
                         (("" (apply-extensionality :hide? t)
                           (("" (expand "expT")
                             (("" (case-replace "x!2=0")
-                              ((""
-                                (assert)
-                                ((""
-                                  (rewrite "expt_1i")
-                                  (("" (assert) nil nil))
-                                  nil))
+                              (("" (assert) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       nil shostak)
+      (exp_estimate_lemma-1 nil 3394181952
+       ("" (skosimp)
+        (("" (expand "exp_estimate")
+          ((""
+            (lemma "powerseries_lemma"
+             ("x" "x!1" "xs" "expT(1)" "cx" "cx!1" "cxs" "cauchy_exp_series"
+              "m" "n!1"))
+            (("" (replace -2)
+              (("" (lemma "exp_series_lemma")
+                (("" (replace -1)
+                  (("" (expand "powerseries")
+                    ((""
+                      (case-replace "(LAMBDA (i:nat):
+                          IF i = 0 THEN expT(1)(i)
+                          ELSE expT(1)(i) * x!1 ^ i
+                          ENDIF)=expT(x!1)")
+                      (("" (hide-all-but 1)
+                        (("" (apply-extensionality :hide? t)
+                          (("" (expand "expT")
+                            (("" (case-replace "x!2=0")
+                              (("" (assert)
+                                (("" (rewrite "expt_1i")
+                                  (("" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -211,32 +257,28 @@
             nil))
           nil))
         nil)
-       ((exp_estimate const-decl "real" ln_exp_series_alt "lnexp_fnd/")
+       ((exp_estimate const-decl "real" ln_exp_series_alt lnexp)
         (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
         (NOT const-decl "[bool -> bool]" booleans nil)
         (^ const-decl "real" exponentiation nil)
         (/= const-decl "boolean" notequal nil)
         (OR const-decl "[bool, bool -> bool]" booleans nil)
-        (* const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+        (numfield nonempty-type-eq-decl nil number_fields nil)
         (IF const-decl "[boolean, T, T -> T]" if_def nil)
         (= const-decl "[T, T -> boolean]" equalities nil)
-        (numfield nonempty-type-eq-decl nil number_fields nil)
-        (real_times_real_is_real application-judgement "real" reals
+        (real_times_real_is_real application-judgement "real" reals nil)
+        (posrat_div_posrat_is_posrat application-judgement "posrat" rationals
          nil)
-        (posrat_div_posrat_is_posrat application-judgement "posrat"
-         rationals nil)
         (posint_exp application-judgement "posint" exponentiation nil)
-        (real_div_nzreal_is_real application-judgement "real" reals
-         nil)
+        (real_div_nzreal_is_real application-judgement "real" reals nil)
         (expt_1i formula-decl nil exponentiation nil)
         (powerseries const-decl "real" powerseries nil)
         (exp_series_lemma formula-decl nil exp nil)
         (powerseries_lemma formula-decl nil powerseries nil)
         (number nonempty-type-decl nil numbers nil)
         (boolean nonempty-type-decl nil booleans nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (real nonempty-type-from-decl nil reals nil)
@@ -252,20 +294,19 @@
         (cauchy_nnreal? const-decl "bool" cauchy nil)
         (cauchy_nnreal nonempty-type-eq-decl nil cauchy nil)
         (cauchy_exp_series const-decl "cauchy_nnreal" exp nil)
-        (expT const-decl "real" ln_exp_series_alt "lnexp_fnd/"))
+        (expT const-decl "real" ln_exp_series_alt lnexp))
        shostak))
      (cauchy_exp_dr_TCC1 0
       (cauchy_exp_dr_TCC1-1 nil 3394183332
        ("" (lemma "exp_series_lemma")
         (("" (expand "cauchys_real?")
           (("" (inst + "expT(1)")
-            (("" (expand "cauchys_prop") (("" (propax) nil nil)) nil))
-            nil))
+            (("" (expand "cauchys_prop") (("" (propax) nil nil)) nil)) nil))
           nil))
         nil)
        ((cauchys_real? const-decl "bool" sum nil)
         (cauchys_prop const-decl "bool" sum nil)
-        (expT const-decl "real" ln_exp_series_alt "lnexp_fnd/")
+        (expT const-decl "real" ln_exp_series_alt lnexp)
         (nat nonempty-type-eq-decl nil naturalnumbers nil)
         (>= const-decl "bool" reals nil)
         (bool nonempty-type-eq-decl nil booleans nil)
@@ -276,12 +317,11 @@
         (real nonempty-type-from-decl nil reals nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (boolean nonempty-type-decl nil booleans nil)
         (number nonempty-type-decl nil numbers nil)
         (exp_series_lemma formula-decl nil exp nil))
-       nil))
+       nil (cauchy_exp_dr subtype "exp.cauchy_exp_series" "cauchys_real")))
      (exp_dr_lemma 0
       (exp_dr_lemma-2 nil 3508599234
        ("" (skosimp)
@@ -302,21 +342,12 @@
                             (case "abs(exp_estimate(sx!1,3+p!1)*2^p!1-CPS/4)<1/4")
                             (("1" (hide -2 -3)
                               (("1"
-                                (lemma
-                                 "lemma_A2"
-                                 ("r"
-                                  "round(CPS / 4)"
-                                  "p"
-                                  "CPS"
-                                  "q"
-                                  "4"))
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (flatten)
+                                (lemma "lemma_A2"
+                                 ("r" "round(CPS / 4)" "p" "CPS" "q" "4"))
+                                (("1" (assert)
+                                  (("1" (flatten)
                                     (("1"
-                                      (case
-                                       "abs(CPS/4-round(CPS / 4))<=1/2")
+                                      (case "abs(CPS/4-round(CPS / 4))<=1/2")
                                       (("1"
                                         (hide -2 -3)
                                         (("1"
@@ -331,10 +362,7 @@
                                               (("1"
                                                 (lemma
                                                  "exp_estimate_bnd"
-                                                 ("x"
-                                                  "sx!1"
-                                                  "n"
-                                                  "3+p!1"))
+                                                 ("x" "sx!1" "n" "3+p!1"))
                                                 (("1"
                                                   (case
                                                    "abs((exp(sx!1) - exp_estimate(sx!1, 3 + p!1))*2^p!1) <= 1/4")
@@ -344,15 +372,11 @@
                                                       (name-replace
                                                        "EXP_"
                                                        "exp(sx!1)")
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("1" (assert) nil nil))
                                                       nil))
                                                     nil)
                                                    ("2"
-                                                    (hide-all-but
-                                                     (-1 1))
+                                                    (hide-all-but (-1 1))
                                                     (("2"
                                                       (lemma
                                                        "abs_mult"
@@ -363,10 +387,7 @@
                                                       (("2"
                                                         (replace -1)
                                                         (("2"
-                                                          (expand
-                                                           "abs"
-                                                           1
-                                                           2)
+                                                          (expand "abs" 1 2)
                                                           (("2"
                                                             (hide -1)
                                                             (("2"
@@ -557,8 +578,7 @@
                                                                       nil))
                                                                     nil)
                                                                    ("2"
-                                                                    (hide
-                                                                     2)
+                                                                    (hide 2)
                                                                     (("2"
                                                                       (case-replace
                                                                        "sx!1=0")
@@ -718,17 +738,12 @@
                                                "RR"
                                                "round(CPS / 4)")
                                               (("2"
-                                                (name-replace
-                                                 "P2"
-                                                 "2^p!1")
+                                                (name-replace "P2" "2^p!1")
                                                 (("2"
                                                   (name-replace
                                                    "EST"
                                                    "exp_estimate(sx!1, 3 + p!1)")
-                                                  (("2"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("2" (grind) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -738,9 +753,7 @@
                                        ("2"
                                         (hide -3 -4 2)
                                         (("2"
-                                          (name-replace
-                                           "RR"
-                                           "round(CPS / 4)")
+                                          (name-replace "RR" "round(CPS / 4)")
                                           (("2" (grind) nil nil))
                                           nil))
                                         nil))
@@ -750,18 +763,13 @@
                                 nil))
                               nil)
                              ("2" (hide -3 2)
-                              (("2"
-                                (rewrite "expt_plus")
-                                (("2"
-                                  (rewrite "expt_x2")
+                              (("2" (rewrite "expt_plus")
+                                (("2" (rewrite "expt_x2")
                                   (("2"
-                                    (name-replace
-                                     "EST"
+                                    (name-replace "EST"
                                      "exp_estimate(sx!1, 3 + p!1)")
-                                    (("2"
-                                      (name-replace "P2" "2^p!1")
-                                      (("2" (grind) nil nil))
-                                      nil))
+                                    (("2" (name-replace "P2" "2^p!1")
+                                      (("2" (grind) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -783,8 +791,7 @@
         (- const-decl "[numfield -> numfield]" number_fields nil)
         (< const-decl "bool" reals nil)
         (AND const-decl "[bool, bool -> bool]" booleans nil)
-        (+ const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
         (numfield nonempty-type-eq-decl nil number_fields nil)
         (cauchy_smallreal nonempty-type-eq-decl nil cauchy nil)
         (cauchy_smallreal? const-decl "bool" cauchy nil)
@@ -800,144 +807,131 @@
         (real nonempty-type-from-decl nil reals nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (boolean nonempty-type-decl nil booleans nil)
         (number nonempty-type-decl nil numbers nil)
         (exp_estimate_lemma formula-decl nil exp nil)
-        (nnint_plus_posint_is_posint application-judgement "posint"
-         integers nil)
+        (nnint_plus_posint_is_posint application-judgement "posint" integers
+         nil)
         (cauchy_exp_dr const-decl "int" exp nil)
-        (posint_plus_nnint_is_posint application-judgement "posint"
-         integers nil)
+        (posint_plus_nnint_is_posint application-judgement "posint" integers
+         nil)
         (expt_x2 formula-decl nil inv nil)
         (int_plus_int_is_int application-judgement "int" integers nil)
         (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
-        (mult_divides2 application-judgement "(divides(m))" divides
-         nil)
-        (mult_divides1 application-judgement "(divides(n))" divides
-         nil)
-        (even_times_int_is_even application-judgement "even_int"
-         integers nil)
-        (int_times_int_is_int application-judgement "int" integers nil)
-        (rat_minus_rat_is_rat application-judgement "rat" rationals
-         nil)
-        (rat_times_rat_is_rat application-judgement "rat" rationals
-         nil)
+        (even_times_int_is_even application-judgement "even_int" integers nil)
+        (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
+        (rat_times_rat_is_rat application-judgement "rat" rationals nil)
         (real_le_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
+        (rat_abs_is_nonneg application-judgement "{r: nonneg_rat | r >= q}"
+         real_defs nil)
         (<= const-decl "bool" reals nil)
         (posreal nonempty-type-eq-decl nil real_types nil)
-        (ln const-decl "real" ln_exp "lnexp_fnd/")
-        (exp const-decl "{py | x = ln(py)}" ln_exp "lnexp_fnd/")
-        (minus_odd_is_odd application-judgement "odd_int" integers nil)
+        (ln const-decl "real" ln_exp lnexp)
+        (exp const-decl "{py | x = ln(py)}" ln_exp lnexp)
         (abs_mult formula-decl nil real_props nil)
         (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
          real_types nil)
-        (posint_times_posint_is_posint application-judgement "posint"
-         integers nil)
+        (posint_times_posint_is_posint application-judgement "posint" integers
+         nil)
         (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-        (factorial def-decl "posnat" factorial "ints/")
+        (factorial def-decl "posnat" factorial ints)
         (nnreal type-eq-decl nil real_types nil)
         (both_sides_times_pos_le1 formula-decl nil real_props nil)
         (div_mult_pos_le2 formula-decl nil real_props nil)
-        (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-         integers nil)
         (expt_x1 formula-decl nil exponentiation nil)
         (expt_plus formula-decl nil exponentiation nil)
         (nzreal nonempty-type-eq-decl nil reals nil)
-        (even_plus_even_is_even application-judgement "even_int"
-         integers nil)
+        (even_plus_even_is_even application-judgement "even_int" integers nil)
         (nat_induction formula-decl nil naturalnumbers nil)
         (pred type-eq-decl nil defined_types nil)
         (lt_div_lt_pos2 formula-decl nil real_props nil)
         (expt def-decl "real" exponentiation nil)
         (nat_exp application-judgement "nat" exponentiation nil)
-        (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-         rationals nil)
-        (hat_02n formula-decl nil power_series "series/")
-        (exp_0 formula-decl nil ln_exp "lnexp_fnd/")
-        (exp_1 formula-decl nil ln_exp "lnexp_fnd/")
-        (exp_strict_increasing formula-decl nil ln_exp "lnexp_fnd/")
-        (ln_bounds formula-decl nil ln_approx "lnexp_fnd/")
+        (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+         integers nil)
+        (nat_expt application-judgement "nat" exponentiation nil)
+        (nzint_max application-judgement "{k: nzint | i <= k AND j <= k}"
+         real_defs nil)
+        (posint_max application-judgement "{k: posint | i <= k AND j <= k}"
+         real_defs nil)
+        (nat_max application-judgement "{k: nat | i <= k AND j <= k}"
+         real_defs nil)
+        (posrat_max application-judgement "{s: posrat | s >= q AND s >= r}"
+         real_defs nil)
+        (int_times_even_is_even application-judgement "even_int" integers nil)
+        (hat_02n formula-decl nil power_series series)
+        (exp_0 formula-decl nil ln_exp lnexp)
+        (exp_1 formula-decl nil ln_exp lnexp)
+        (exp_strict_increasing formula-decl nil ln_exp lnexp)
+        (ln_bounds formula-decl nil ln_approx lnexp)
         (real_plus_real_is_real application-judgement "real" reals nil)
-        (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+        (nnrat_exp application-judgement "nnrat" exponentiation nil)
+        (nnreal_plus_posreal_is_posreal application-judgement "posreal"
          real_types nil)
         (posrat_times_posrat_is_posrat application-judgement "posrat"
          rationals nil)
-        (nnrat_exp application-judgement "nnrat" exponentiation nil)
-        (posnat_expt application-judgement "posnat" exponentiation nil)
+        (posrat_exp application-judgement "posrat" exponentiation nil)
         (real_ge_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
-        (ln_ub const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}"
-         ln_approx "lnexp_fnd/")
-        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx
-         "lnexp_fnd/")
+        (posnat_expt application-judgement "posnat" exponentiation nil)
+        (ln_ub const-decl "real" ln_approx lnexp)
+        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}" ln_approx
+         lnexp)
+        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx lnexp)
         (ln12_alt_ub const-decl "{x: real | 0 <= x AND x >= ln(x12)}"
-         ln_approx "lnexp_fnd/")
-        (ln_lb const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_gt1_alt_lb const-decl "{x: nnreal | x <= ln(xge1)}"
-         ln_approx "lnexp_fnd/")
-        (ln_2m_lb const-decl "{x: real | x <= m * ln(2)}" ln_approx
-         "lnexp_fnd/")
+         ln_approx lnexp)
+        (ln_lb const-decl "real" ln_approx lnexp)
+        (ln_gt1_alt_lb const-decl "{x: nnreal | x <= ln(xge1)}" ln_approx
+         lnexp)
+        (ln_2m_lb const-decl "{x: real | x <= m * ln(2)}" ln_approx lnexp)
         (ln12_alt_lb const-decl "{x: real | 0 <= x AND x <= ln(x12)}"
-         ln_approx "lnexp_fnd/")
-        (ln_alt_series const-decl "posreal" ln_approx "lnexp_fnd/")
-        (ln_alt_series_it def-decl "real" ln_approx "lnexp_fnd/")
-        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx
-         "lnexp_fnd/")
-        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]"
-         log_nat "reals/")
-        (exp_ln formula-decl nil ln_exp "lnexp_fnd/")
-        (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+         ln_approx lnexp)
+        (ln_alt_series const-decl "posreal" ln_approx lnexp)
+        (ln_alt_series_it def-decl "real" ln_approx lnexp)
+        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx lnexp)
+        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]" log_nat
+         reals)
+        (exp_ln formula-decl nil ln_exp lnexp)
+        (strict_increasing? const-decl "bool" real_fun_preds reals)
         (expt_1i formula-decl nil exponentiation nil)
         (both_sides_times_pos_lt1 formula-decl nil real_props nil)
-        (e const-decl "posreal" ln_exp "lnexp_fnd/")
+        (e const-decl "posreal" ln_exp lnexp)
         (real_gt_is_strict_total_order name-judgement
          "(strict_total_order?[real])" real_props nil)
         (both_sides_expt_pos_lt formula-decl nil exponentiation nil)
         (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
          real_types nil)
         (nnreal_exp application-judgement "nnreal" exponentiation nil)
-        (posreal_max application-judgement
-         "{z: posreal | z >= x AND z >= y}" real_defs nil)
-        (exp_estimate_bnd formula-decl nil ln_exp_series_alt
-         "lnexp_fnd/")
+        (posreal_max application-judgement "{z: posreal | z >= x AND z >= y}"
+         real_defs nil)
+        (exp_estimate_bnd formula-decl nil ln_exp_series_alt lnexp)
         (minus_real_is_real application-judgement "real" reals nil)
-        (rat_abs_is_nonneg application-judgement
-         "{r: nonneg_rat | r >= q}" real_defs nil)
         (minus_rat_is_rat application-judgement "rat" rationals nil)
         (posint nonempty-type-eq-decl nil integers nil)
-        (even_minus_even_is_even application-judgement "even_int"
-         integers nil)
+        (even_minus_even_is_even application-judgement "even_int" integers
+         nil)
         (round const-decl "int" prelude_aux nil)
         (posnat nonempty-type-eq-decl nil integers nil)
         (> const-decl "bool" reals nil)
         (nonneg_int nonempty-type-eq-decl nil integers nil)
         (lemma_A2 formula-decl nil appendix nil)
-        (/ const-decl "[numfield, nznum -> numfield]" number_fields
-           nil)
+        (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
         (nznum nonempty-type-eq-decl nil number_fields nil)
         (^ const-decl "real" exponentiation nil)
         (/= const-decl "boolean" notequal nil)
         (OR const-decl "[bool, bool -> bool]" booleans nil)
-        (exp_estimate const-decl "real" ln_exp_series_alt "lnexp_fnd/")
-        (* const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
-        (- const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
-        (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}"
-             real_defs nil)
+        (exp_estimate const-decl "real" ln_exp_series_alt lnexp)
+        (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+        (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+        (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
         (nonneg_real nonempty-type-eq-decl nil real_types nil)
-        (posrat_div_posrat_is_posrat application-judgement "posrat"
-         rationals nil)
-        (real_minus_real_is_real application-judgement "real" reals
+        (posrat_div_posrat_is_posrat application-judgement "posrat" rationals
          nil)
-        (real_times_real_is_real application-judgement "real" reals
-         nil)
-        (rat_div_nzrat_is_rat application-judgement "rat" rationals
-         nil)
+        (real_minus_real_is_real application-judgement "real" reals nil)
+        (real_times_real_is_real application-judgement "real" reals nil)
+        (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
         (= const-decl "[T, T -> boolean]" equalities nil)
         (cauchys_real? const-decl "bool" sum nil)
         (cauchys_real nonempty-type-eq-decl nil sum nil)
@@ -948,8 +942,8 @@
         (real_lt_is_strict_total_order name-judgement
          "(strict_total_order?[real])" real_props nil)
         (int_minus_int_is_int application-judgement "int" integers nil)
-        (posreal_times_posreal_is_posreal application-judgement
-         "posreal" real_types nil))
+        (posreal_times_posreal_is_posreal application-judgement "posreal"
+         real_types nil))
        nil)
       (exp_dr_lemma-1 nil 3394186556
        ("" (skosimp)
@@ -970,21 +964,12 @@
                             (case "abs(exp_estimate(sx!1,3+p!1)*2^p!1-CPS/4)<1/4")
                             (("1" (hide -2 -3)
                               (("1"
-                                (lemma
-                                 "lemma_A2"
-                                 ("r"
-                                  "round(CPS / 4)"
-                                  "p"
-                                  "CPS"
-                                  "q"
-                                  "4"))
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (flatten)
+                                (lemma "lemma_A2"
+                                 ("r" "round(CPS / 4)" "p" "CPS" "q" "4"))
+                                (("1" (assert)
+                                  (("1" (flatten)
                                     (("1"
-                                      (case
-                                       "abs(CPS/4-round(CPS / 4))<=1/2")
+                                      (case "abs(CPS/4-round(CPS / 4))<=1/2")
                                       (("1"
                                         (hide -2 -3)
                                         (("1"
@@ -999,10 +984,7 @@
                                               (("1"
                                                 (lemma
                                                  "exp_estimate_bnd"
-                                                 ("x"
-                                                  "sx!1"
-                                                  "n"
-                                                  "3+p!1"))
+                                                 ("x" "sx!1" "n" "3+p!1"))
                                                 (("1"
                                                   (case
                                                    "abs((exp(sx!1) - exp_estimate(sx!1, 3 + p!1))*2^p!1) <= 1/4")
@@ -1012,15 +994,11 @@
                                                       (name-replace
                                                        "EXP"
                                                        "exp(sx!1)")
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("1" (assert) nil nil))
                                                       nil))
                                                     nil)
                                                    ("2"
-                                                    (hide-all-but
-                                                     (-1 1))
+                                                    (hide-all-but (-1 1))
                                                     (("2"
                                                       (lemma
                                                        "abs_mult"
@@ -1031,10 +1009,7 @@
                                                       (("2"
                                                         (replace -1)
                                                         (("2"
-                                                          (expand
-                                                           "abs"
-                                                           1
-                                                           2)
+                                                          (expand "abs" 1 2)
                                                           (("2"
                                                             (hide -1)
                                                             (("2"
@@ -1225,8 +1200,7 @@
                                                                       nil))
                                                                     nil)
                                                                    ("2"
-                                                                    (hide
-                                                                     2)
+                                                                    (hide 2)
                                                                     (("2"
                                                                       (case-replace
                                                                        "sx!1=0")
@@ -1386,17 +1360,12 @@
                                                "RR"
                                                "round(CPS / 4)")
                                               (("2"
-                                                (name-replace
-                                                 "P2"
-                                                 "2^p!1")
+                                                (name-replace "P2" "2^p!1")
                                                 (("2"
                                                   (name-replace
                                                    "EST"
                                                    "exp_estimate(sx!1, 3 + p!1)")
-                                                  (("2"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("2" (grind) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1406,9 +1375,7 @@
                                        ("2"
                                         (hide -3 -4 2)
                                         (("2"
-                                          (name-replace
-                                           "RR"
-                                           "round(CPS / 4)")
+                                          (name-replace "RR" "round(CPS / 4)")
                                           (("2" (grind) nil nil))
                                           nil))
                                         nil))
@@ -1418,18 +1385,13 @@
                                 nil))
                               nil)
                              ("2" (hide -3 2)
-                              (("2"
-                                (rewrite "expt_plus")
-                                (("2"
-                                  (rewrite "expt_x2")
+                              (("2" (rewrite "expt_plus")
+                                (("2" (rewrite "expt_x2")
                                   (("2"
-                                    (name-replace
-                                     "EST"
+                                    (name-replace "EST"
                                      "exp_estimate(sx!1, 3 + p!1)")
-                                    (("2"
-                                      (name-replace "P2" "2^p!1")
-                                      (("2" (grind) nil nil))
-                                      nil))
+                                    (("2" (name-replace "P2" "2^p!1")
+                                      (("2" (grind) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1450,27 +1412,13 @@
         (cauchy_powerseries const-decl "cauchy_real" powerseries nil)
         (cauchys_real nonempty-type-eq-decl nil sum nil)
         (cauchys_real? const-decl "bool" sum nil)
-        (exp_estimate const-decl "real" ln_exp_series_alt "lnexp_fnd/")
         (lemma_A2 formula-decl nil appendix nil)
         (round const-decl "int" prelude_aux nil)
-        (exp_estimate_bnd formula-decl nil ln_exp_series_alt
-         "lnexp_fnd/")
-        (e const-decl "posreal" ln_exp "lnexp_fnd/")
-        (strict_increasing? const-decl "bool" real_fun_preds "reals/")
-        (exp_ln formula-decl nil ln_exp "lnexp_fnd/")
-        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]"
-         log_nat "reals/")
-        (sigma def-decl "real" sigma "reals/")
-        (ln_estimate const-decl "real" ln_series "lnexp_fnd/")
-        (ln_lb const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_ub const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_bounds formula-decl nil ln_approx "lnexp_fnd/")
-        (exp_strict_increasing formula-decl nil ln_exp "lnexp_fnd/")
-        (exp_1 formula-decl nil ln_exp "lnexp_fnd/")
-        (exp_0 formula-decl nil ln_exp "lnexp_fnd/")
-        (hat_02n formula-decl nil power_series "series/")
-        (exp const-decl "{py | x = ln(py)}" ln_exp "lnexp_fnd/")
-        (ln const-decl "real" ln_exp "lnexp_fnd/")
+        (strict_increasing? const-decl "bool" real_fun_preds reals)
+        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]" log_nat
+         reals)
+        (sigma def-decl "real" sigma reals)
+        (hat_02n formula-decl nil power_series series)
         (expt_x2 formula-decl nil inv nil)
         (cauchy_real? const-decl "bool" cauchy nil)
         (cauchy_real nonempty-type-eq-decl nil cauchy nil)
@@ -1487,8 +1435,7 @@
             (("" (skosimp)
               (("" (lemma "exp_dr_lemma" ("csx" "csx!1" "sx" "sx!1"))
                 (("" (expand "cauchy_posreal?")
-                  (("" (inst + "exp(sx!1)") (("" (assert) nil nil))
-                    nil))
+                  (("" (inst + "exp(sx!1)") (("" (assert) nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -1506,8 +1453,7 @@
         (real nonempty-type-from-decl nil reals nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (number nonempty-type-decl nil numbers nil)
         (NOT const-decl "[bool -> bool]" booleans nil)
         (bool nonempty-type-eq-decl nil booleans nil)
@@ -1517,15 +1463,17 @@
         (> const-decl "bool" reals nil)
         (posreal nonempty-type-eq-decl nil real_types nil)
         (= const-decl "[T, T -> boolean]" equalities nil)
-        (ln const-decl "real" ln_exp "lnexp_fnd/")
-        (exp const-decl "{py | x = ln(py)}" ln_exp "lnexp_fnd/")
+        (ln const-decl "real" ln_exp lnexp)
+        (exp const-decl "{py | x = ln(py)}" ln_exp lnexp)
         (exp_dr_lemma formula-decl nil exp nil)
         (AND const-decl "[bool, bool -> bool]" booleans nil)
         (< const-decl "bool" reals nil)
         (numfield nonempty-type-eq-decl nil number_fields nil)
         (- const-decl "[numfield -> numfield]" number_fields nil)
         (smallreal nonempty-type-eq-decl nil prelude_aux nil))
-       nil))
+       nil
+       (cauchy_exp_dr_ subtype "exp.cauchy_exp_dr(exp.csx)"
+        "cauchy_posreal")))
      (cauchy_exp_TCC1 0
       (cauchy_exp_TCC1-1 nil 3394183332
        ("" (skosimp*)
@@ -1534,8 +1482,7 @@
             (("" (skosimp)
               ((""
                 (lemma "div_lemma"
-                 ("x" "x!1" "cx" "cx!1" "nzy" "ln(2)" "nzcy"
-                  "cauchy_ln2"))
+                 ("x" "x!1" "cx" "cx!1" "nzy" "ln(2)" "nzcy" "cauchy_ln2"))
                 (("1" (rewrite "cauchy_ln2_lemma")
                   (("1" (assert)
                     (("1" (expand "cauchy_prop" -1)
@@ -1544,20 +1491,11 @@
                           (("1" (rewrite "expt_x0")
                             (("1" (flatten)
                               (("1"
-                                (lemma
-                                 "mul_lemma"
-                                 ("x"
-                                  "n!1"
-                                  "cx"
-                                  "cauchy_int(n!1)"
-                                  "y"
-                                  "ln(2)"
-                                  "cy"
-                                  "cauchy_ln2"))
-                                (("1"
-                                  (rewrite "int_lemma")
-                                  (("1"
-                                    (rewrite "cauchy_ln2_lemma")
+                                (lemma "mul_lemma"
+                                 ("x" "n!1" "cx" "cauchy_int(n!1)" "y" "ln(2)"
+                                  "cy" "cauchy_ln2"))
+                                (("1" (rewrite "int_lemma")
+                                  (("1" (rewrite "cauchy_ln2_lemma")
                                     (("1"
                                       (lemma
                                        "sub_lemma"
@@ -1574,26 +1512,18 @@
                                         (("1"
                                           (replace -8 * rl)
                                           (("1"
-                                            (rewrite
-                                             "div_mult_pos_lt2"
-                                             -3)
+                                            (rewrite "div_mult_pos_lt2" -3)
                                             (("1"
-                                              (rewrite
-                                               "div_mult_pos_lt1"
-                                               -4)
+                                              (rewrite "div_mult_pos_lt1" -4)
                                               (("1"
                                                 (case "ln(2)<1")
                                                 (("1"
-                                                  (expand
-                                                   "cauchy_smallreal?")
+                                                  (expand "cauchy_smallreal?")
                                                   (("1"
                                                     (inst
                                                      +
                                                      "x!1 - n!1 * ln(2)")
-                                                    (("1"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                    (("1" (assert) nil nil))
                                                     nil))
                                                   nil)
                                                  ("2"
@@ -1601,10 +1531,7 @@
                                                   (("2"
                                                     (lemma
                                                      "ln_bounds"
-                                                     ("px"
-                                                      "2"
-                                                      "n"
-                                                      "2"))
+                                                     ("px" "2" "n" "2"))
                                                     (("2"
                                                       (flatten)
                                                       (("2"
@@ -1624,33 +1551,24 @@
                                                   nil))
                                                 nil)
                                                ("2"
-                                                (lemma
-                                                 "ln_strict_increasing")
+                                                (lemma "ln_strict_increasing")
                                                 (("2"
                                                   (expand
                                                    "strict_increasing?")
                                                   (("2"
                                                     (inst - "1" "2")
-                                                    (("2"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                    (("2" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
                                               nil)
                                              ("2"
-                                              (lemma
-                                               "ln_strict_increasing")
+                                              (lemma "ln_strict_increasing")
                                               (("2"
-                                                (expand
-                                                 "strict_increasing?")
+                                                (expand "strict_increasing?")
                                                 (("2"
                                                   (inst - "1" "2")
-                                                  (("2"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("2" (assert) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1670,8 +1588,7 @@
                   nil)
                  ("2" (lemma "ln_strict_increasing")
                   (("2" (expand "strict_increasing?")
-                    (("2" (inst - "1" "2") (("2" (assert) nil nil))
-                      nil))
+                    (("2" (inst - "1" "2") (("2" (assert) nil nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -1690,66 +1607,55 @@
         (real nonempty-type-from-decl nil reals nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (number nonempty-type-decl nil numbers nil)
         (NOT const-decl "[bool -> bool]" booleans nil)
         (bool nonempty-type-eq-decl nil booleans nil)
         (boolean nonempty-type-decl nil booleans nil)
         (cauchy_ln2_lemma formula-decl nil log nil)
-        (real_div_nzreal_is_real application-judgement "real" reals
-         nil)
+        (real_div_nzreal_is_real application-judgement "real" reals nil)
         (posint_exp application-judgement "posint" exponentiation nil)
         (cauchy_prop const-decl "bool" cauchy nil)
         (int_lemma formula-decl nil int nil)
-        (real_times_real_is_real application-judgement "real" reals
-         nil)
+        (real_times_real_is_real application-judgement "real" reals nil)
         (sub_lemma formula-decl nil sub nil)
         (cauchy_mul const-decl "cauchy_real" mul nil)
         (numfield nonempty-type-eq-decl nil number_fields nil)
-        (* const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
-        (+ const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+        (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
         (div_mult_pos_lt1 formula-decl nil real_props nil)
         (= const-decl "[T, T -> boolean]" equalities nil)
         (real_le_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
-        (nnint_plus_posint_is_posint application-judgement "posint"
-         integers nil)
-        (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+        (nnrat_exp application-judgement "nnrat" exponentiation nil)
+        (nnint_plus_posint_is_posint application-judgement "posint" integers
+         nil)
+        (nnreal_plus_posreal_is_posreal application-judgement "posreal"
          real_types nil)
         (posrat_times_posrat_is_posrat application-judgement "posrat"
          rationals nil)
-        (nnrat_exp application-judgement "nnrat" exponentiation nil)
+        (posrat_exp application-judgement "posrat" exponentiation nil)
+        (posrat_div_posrat_is_posrat application-judgement "posrat" rationals
+         nil)
         (posnat_expt application-judgement "posnat" exponentiation nil)
-        (posrat_div_posrat_is_posrat application-judgement "posrat"
-         rationals nil)
-        (int_times_int_is_int application-judgement "int" integers nil)
-        (posint_times_posint_is_posint application-judgement "posint"
-         integers nil)
-        (mult_divides1 application-judgement "(divides(n))" divides
+        (posint_times_posint_is_posint application-judgement "posint" integers
          nil)
-        (mult_divides2 application-judgement "(divides(m))" divides
-         nil)
-        (posreal_times_posreal_is_posreal application-judgement
-         "posreal" real_types nil)
-        (ln_ub const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}"
-         ln_approx "lnexp_fnd/")
-        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx
-         "lnexp_fnd/")
+        (posreal_times_posreal_is_posreal application-judgement "posreal"
+         real_types nil)
+        (ln_ub const-decl "real" ln_approx lnexp)
+        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}" ln_approx
+         lnexp)
+        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx lnexp)
         (ln12_alt_ub const-decl "{x: real | 0 <= x AND x >= ln(x12)}"
-         ln_approx "lnexp_fnd/")
+         ln_approx lnexp)
         (^ const-decl "real" exponentiation nil)
         (expt def-decl "real" exponentiation nil)
-        (ln_alt_series const-decl "posreal" ln_approx "lnexp_fnd/")
-        (ln_alt_series_it def-decl "real" ln_approx "lnexp_fnd/")
-        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx
-         "lnexp_fnd/")
-        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]"
-         log_nat "reals/")
-        (ln_bounds formula-decl nil ln_approx "lnexp_fnd/")
+        (ln_alt_series const-decl "posreal" ln_approx lnexp)
+        (ln_alt_series_it def-decl "real" ln_approx lnexp)
+        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx lnexp)
+        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]" log_nat
+         reals)
+        (ln_bounds formula-decl nil ln_approx lnexp)
         (cauchy_smallreal? const-decl "bool" cauchy nil)
         (real_plus_real_is_real application-judgement "real" reals nil)
         (n!1 skolem-const-decl "int" exp nil)
@@ -1757,14 +1663,12 @@
         (- const-decl "[numfield -> numfield]" number_fields nil)
         (smallreal nonempty-type-eq-decl nil prelude_aux nil)
         (< const-decl "bool" reals nil)
-        (strict_increasing? const-decl "bool" real_fun_preds "reals/")
-        (ln_1 formula-decl nil ln_exp "lnexp_fnd/")
-        (ln_strict_increasing formula-decl nil ln_exp "lnexp_fnd/")
-        (real_minus_real_is_real application-judgement "real" reals
-         nil)
+        (strict_increasing? const-decl "bool" real_fun_preds reals)
+        (ln_1 formula-decl nil ln_exp lnexp)
+        (ln_strict_increasing formula-decl nil ln_exp lnexp)
+        (real_minus_real_is_real application-judgement "real" reals nil)
         (div_mult_pos_lt2 formula-decl nil real_props nil)
-        (- const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
         (real_ge_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
         (real_gt_is_strict_total_order name-judgement
@@ -1788,8 +1692,8 @@
         (nonneg_real nonempty-type-eq-decl nil real_types nil)
         (> const-decl "bool" reals nil)
         (posreal nonempty-type-eq-decl nil real_types nil)
-        (ln const-decl "real" ln_exp "lnexp_fnd/"))
-       nil))
+        (ln const-decl "real" ln_exp lnexp))
+       nil (cauchy_exp subtype "exp.cy" "cauchy_smallreal")))
      (cauchy_exp_TCC2 0
       (cauchy_exp_TCC2-1 nil 3394183332
        ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -1798,7 +1702,7 @@
          real_props nil)
         (real_lt_is_strict_total_order name-judgement
          "(strict_total_order?[real])" real_props nil))
-       nil))
+       nil (cauchy_exp subtype "(number_fields.-)(exp.n)" "nat")))
      (cauchy_exp_TCC3 0
       (cauchy_exp_TCC3-1 nil 3394183332
        ("" (skosimp*)
@@ -1816,20 +1720,14 @@
                         (("1" (assert)
                           (("1" (expand "cauchy_prop" -1)
                             (("1" (inst - "0")
-                              (("1"
-                                (rewrite "expt_x0")
-                                (("1"
-                                  (replace -5 * rl)
-                                  (("1"
-                                    (flatten)
-                                    (("1"
-                                      (assert)
+                              (("1" (rewrite "expt_x0")
+                                (("1" (replace -5 * rl)
+                                  (("1" (flatten)
+                                    (("1" (assert)
                                       (("1"
                                         (rewrite "div_mult_pos_lt2" -1)
                                         (("1"
-                                          (rewrite
-                                           "div_mult_pos_lt1"
-                                           -2)
+                                          (rewrite "div_mult_pos_lt1" -2)
                                           (("1"
                                             (lemma
                                              "mul_lemma"
@@ -1844,8 +1742,7 @@
                                             (("1"
                                               (rewrite "int_lemma")
                                               (("1"
-                                                (rewrite
-                                                 "cauchy_ln2_lemma")
+                                                (rewrite "cauchy_ln2_lemma")
                                                 (("1"
                                                   (lemma
                                                    "sub_lemma"
@@ -1860,10 +1757,7 @@
                                                   (("1"
                                                     (assert)
                                                     (("1"
-                                                      (replace
-                                                       -10
-                                                       *
-                                                       rl)
+                                                      (replace -10 * rl)
                                                       (("1"
                                                         (expand
                                                          "cauchy_smallreal?")
@@ -1898,58 +1792,51 @@
               nil)
              ("2" (hide-all-but 1)
               (("2" (lemma "ln_bounds" ("px" "2" "n" "1"))
-                (("2" (name-replace "LN2" "ln(2)")
-                  (("2" (grind) nil nil)) nil))
+                (("2" (name-replace "LN2" "ln(2)") (("2" (grind) nil nil))
+                  nil))
                 nil))
               nil))
             nil))
           nil))
         nil)
        ((= const-decl "[T, T -> boolean]" equalities nil)
-        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]"
-         log_nat "reals/")
-        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx
-         "lnexp_fnd/")
-        (ln_alt_series_it def-decl "real" ln_approx "lnexp_fnd/")
-        (ln_alt_series const-decl "posreal" ln_approx "lnexp_fnd/")
+        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]" log_nat
+         reals)
+        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx lnexp)
+        (ln_alt_series_it def-decl "real" ln_approx lnexp)
+        (ln_alt_series const-decl "posreal" ln_approx lnexp)
         (ln12_alt_lb const-decl "{x: real | 0 <= x AND x <= ln(x12)}"
-         ln_approx "lnexp_fnd/")
-        (ln_2m_lb const-decl "{x: real | x <= m * ln(2)}" ln_approx
-         "lnexp_fnd/")
-        (ln_gt1_alt_lb const-decl "{x: nnreal | x <= ln(xge1)}"
-         ln_approx "lnexp_fnd/")
-        (ln_lb const-decl "real" ln_approx "lnexp_fnd/")
+         ln_approx lnexp)
+        (ln_2m_lb const-decl "{x: real | x <= m * ln(2)}" ln_approx lnexp)
+        (ln_gt1_alt_lb const-decl "{x: nnreal | x <= ln(xge1)}" ln_approx
+         lnexp)
+        (ln_lb const-decl "real" ln_approx lnexp)
         (expt def-decl "real" exponentiation nil)
         (^ const-decl "real" exponentiation nil)
         (ln12_alt_ub const-decl "{x: real | 0 <= x AND x >= ln(x12)}"
-         ln_approx "lnexp_fnd/")
-        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx
-         "lnexp_fnd/")
-        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}"
-         ln_approx "lnexp_fnd/")
-        (ln_ub const-decl "real" ln_approx "lnexp_fnd/")
-        (mult_divides2 application-judgement "(divides(m))" divides
+         ln_approx lnexp)
+        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx lnexp)
+        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}" ln_approx
+         lnexp)
+        (ln_ub const-decl "real" ln_approx lnexp)
+        (posint_times_posint_is_posint application-judgement "posint" integers
          nil)
-        (mult_divides1 application-judgement "(divides(n))" divides
-         nil)
-        (posint_times_posint_is_posint application-judgement "posint"
-         integers nil)
-        (int_times_int_is_int application-judgement "int" integers nil)
-        (posrat_div_posrat_is_posrat application-judgement "posrat"
-         rationals nil)
         (posnat_expt application-judgement "posnat" exponentiation nil)
-        (nnrat_exp application-judgement "nnrat" exponentiation nil)
+        (posrat_div_posrat_is_posrat application-judgement "posrat" rationals
+         nil)
+        (posrat_exp application-judgement "posrat" exponentiation nil)
         (posrat_times_posrat_is_posrat application-judgement "posrat"
          rationals nil)
-        (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+        (nnreal_plus_posreal_is_posreal application-judgement "posreal"
          real_types nil)
-        (posreal_times_posreal_is_posreal application-judgement
-         "posreal" real_types nil)
-        (nnint_plus_posint_is_posint application-judgement "posint"
-         integers nil)
+        (posreal_times_posreal_is_posreal application-judgement "posreal"
+         real_types nil)
+        (nnint_plus_posint_is_posint application-judgement "posint" integers
+         nil)
+        (nnrat_exp application-judgement "nnrat" exponentiation nil)
         (real_le_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
-        (ln_bounds formula-decl nil ln_approx "lnexp_fnd/")
+        (ln_bounds formula-decl nil ln_approx lnexp)
         (nonzero_real nonempty-type-eq-decl nil reals nil)
         (/= const-decl "boolean" notequal nil)
         (cauchy_ln2 const-decl "cauchy_posreal" log nil)
@@ -1963,36 +1850,30 @@
         (real_lt_is_strict_total_order name-judgement
          "(strict_total_order?[real])" real_props nil)
         (int_plus_int_is_int application-judgement "int" integers nil)
-        (real_times_real_is_real application-judgement "real" reals
-         nil)
+        (real_times_real_is_real application-judgement "real" reals nil)
         (int_minus_int_is_int application-judgement "int" integers nil)
-        (+ const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
         (div_mult_pos_lt1 formula-decl nil real_props nil)
         (int_lemma formula-decl nil int nil)
         (sub_lemma formula-decl nil sub nil)
         (cauchy_mul const-decl "cauchy_real" mul nil)
-        (* const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
         (smallreal nonempty-type-eq-decl nil prelude_aux nil)
         (- const-decl "[numfield -> numfield]" number_fields nil)
         (cauchy_smallreal? const-decl "bool" cauchy nil)
-        (real_minus_real_is_real application-judgement "real" reals
-         nil)
+        (real_minus_real_is_real application-judgement "real" reals nil)
         (real_plus_real_is_real application-judgement "real" reals nil)
         (cauchy_int const-decl "cauchy_real" int nil)
         (mul_lemma formula-decl nil mul nil)
         (div_mult_pos_lt2 formula-decl nil real_props nil)
         (numfield nonempty-type-eq-decl nil number_fields nil)
-        (- const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
         (real_ge_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
         (expt_x0 formula-decl nil exponentiation nil)
         (cauchy_prop const-decl "bool" cauchy nil)
         (posint_exp application-judgement "posint" exponentiation nil)
-        (real_div_nzreal_is_real application-judgement "real" reals
-         nil)
+        (real_div_nzreal_is_real application-judgement "real" reals nil)
         (cauchy_ln2_lemma formula-decl nil log nil)
         (NOT const-decl "[bool -> bool]" booleans nil)
         (rational_pred const-decl "[real -> boolean]" rationals nil)
@@ -2006,18 +1887,16 @@
         (bool nonempty-type-eq-decl nil booleans nil)
         (AND const-decl "[bool, bool -> bool]" booleans nil)
         (number nonempty-type-decl nil numbers nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (real nonempty-type-from-decl nil reals nil)
-        (< const-decl "bool" reals nil)
-        (>= const-decl "bool" reals nil)
+        (< const-decl "bool" reals nil) (>= const-decl "bool" reals nil)
         (nonneg_real nonempty-type-eq-decl nil real_types nil)
         (> const-decl "bool" reals nil)
         (posreal nonempty-type-eq-decl nil real_types nil)
-        (ln const-decl "real" ln_exp "lnexp_fnd/"))
-       nil))
+        (ln const-decl "real" ln_exp lnexp))
+       nil (cauchy_exp subtype "exp.cy" "cauchy_smallreal")))
      (cauchy_exp_TCC4 0
       (cauchy_exp_TCC4-1 nil 3394183332
        ("" (skosimp*) (("" (assert) nil nil)) nil)
@@ -2027,7 +1906,7 @@
          "(strict_total_order?[real])" real_props nil)
         (real_gt_is_strict_total_order name-judgement
          "(strict_total_order?[real])" real_props nil))
-       nil))
+       nil (cauchy_exp subtype "exp.n" "nat")))
      (cauchy_exp_TCC5 0
       (cauchy_exp_TCC5-1 nil 3394183332
        ("" (skosimp*)
@@ -2035,8 +1914,7 @@
           (("1" (hide -1 1 2)
             (("1"
               (lemma "mul_lemma"
-               ("x" "0" "cx" "cauchy_int(0)" "y" "ln(2)" "cy"
-                "cauchy_ln2"))
+               ("x" "0" "cx" "cauchy_int(0)" "y" "ln(2)" "cy" "cauchy_ln2"))
               (("1" (rewrite "int_lemma")
                 (("1" (rewrite "cauchy_ln2_lemma")
                   (("1"
@@ -2048,24 +1926,12 @@
                           (("1" (expand "cauchy_real?")
                             (("1" (skosimp)
                               (("1"
-                                (lemma
-                                 "sub_lemma"
-                                 ("x"
-                                  "x!1"
-                                  "cx"
-                                  "cx!1"
-                                  "y"
-                                  "0"
-                                  "cy"
+                                (lemma "sub_lemma"
+                                 ("x" "x!1" "cx" "cx!1" "y" "0" "cy"
                                   "cauchy_zero"))
-                                (("1"
-                                  (lemma
-                                   "unique_cauchy_zero"
-                                   ("x" "0"))
-                                  (("1"
-                                    (assert)
-                                    (("1"
-                                      (hide -1)
+                                (("1" (lemma "unique_cauchy_zero" ("x" "0"))
+                                  (("1" (assert)
+                                    (("1" (hide -1)
                                       (("1"
                                         (replace -6 * rl)
                                         (("1"
@@ -2082,24 +1948,17 @@
                                               "nzcy"
                                               "cauchy_ln2"))
                                             (("1"
-                                              (rewrite
-                                               "cauchy_ln2_lemma")
+                                              (rewrite "cauchy_ln2_lemma")
                                               (("1"
                                                 (assert)
                                                 (("1"
-                                                  (expand
-                                                   "cauchy_prop"
-                                                   -1)
+                                                  (expand "cauchy_prop" -1)
                                                   (("1"
                                                     (inst - "0")
                                                     (("1"
-                                                      (rewrite
-                                                       "expt_x0")
+                                                      (rewrite "expt_x0")
                                                       (("1"
-                                                        (replace
-                                                         -4
-                                                         *
-                                                         rl)
+                                                        (replace -4 * rl)
                                                         (("1"
                                                           (flatten)
                                                           (("1"
@@ -2197,17 +2056,12 @@
                                                 nil))
                                               nil)
                                              ("2"
-                                              (lemma
-                                               "ln_strict_increasing")
+                                              (lemma "ln_strict_increasing")
                                               (("2"
-                                                (expand
-                                                 "strict_increasing?")
+                                                (expand "strict_increasing?")
                                                 (("2"
                                                   (inst - "1" "2")
-                                                  (("2"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("2" (assert) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -2234,8 +2088,7 @@
        ((number nonempty-type-decl nil numbers nil)
         (boolean nonempty-type-decl nil booleans nil)
         (= const-decl "[T, T -> boolean]" equalities nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (real nonempty-type-from-decl nil reals nil)
@@ -2243,7 +2096,7 @@
         (rational nonempty-type-from-decl nil rationals nil)
         (integer_pred const-decl "[rational -> boolean]" integers nil)
         (int nonempty-type-eq-decl nil integers nil)
-        (ln const-decl "real" ln_exp "lnexp_fnd/")
+        (ln const-decl "real" ln_exp lnexp)
         (posreal nonempty-type-eq-decl nil real_types nil)
         (> const-decl "bool" reals nil)
         (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -2258,12 +2111,10 @@
         (bool nonempty-type-eq-decl nil booleans nil)
         (mul_lemma formula-decl nil mul nil)
         (cauchy_ln2_lemma formula-decl nil log nil)
-        (real_times_real_is_real application-judgement "real" reals
-         nil)
+        (real_times_real_is_real application-judgement "real" reals nil)
         (NOT const-decl "[bool -> bool]" booleans nil)
         (unique_cauchy_zero formula-decl nil cauchy nil)
-        (real_div_nzreal_is_real application-judgement "real" reals
-         nil)
+        (real_div_nzreal_is_real application-judgement "real" reals nil)
         (posint_exp application-judgement "posint" exponentiation nil)
         (cauchy_prop const-decl "bool" cauchy nil)
         (expt_x0 formula-decl nil exponentiation nil)
@@ -2273,68 +2124,59 @@
         (real_ge_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
         (div_mult_pos_lt2 formula-decl nil real_props nil)
-        (ln_strict_increasing formula-decl nil ln_exp "lnexp_fnd/")
-        (ln_1 formula-decl nil ln_exp "lnexp_fnd/")
-        (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+        (ln_strict_increasing formula-decl nil ln_exp lnexp)
+        (ln_1 formula-decl nil ln_exp lnexp)
+        (strict_increasing? const-decl "bool" real_fun_preds reals)
         (< const-decl "bool" reals nil)
         (smallreal nonempty-type-eq-decl nil prelude_aux nil)
         (- const-decl "[numfield -> numfield]" number_fields nil)
         (numfield nonempty-type-eq-decl nil number_fields nil)
         (x!1 skolem-const-decl "real" exp nil)
         (cauchy_smallreal? const-decl "bool" cauchy nil)
-        (ln_bounds formula-decl nil ln_approx "lnexp_fnd/")
+        (ln_bounds formula-decl nil ln_approx lnexp)
         (real_le_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
         (real_plus_real_is_real application-judgement "real" reals nil)
-        (nnint_plus_posint_is_posint application-judgement "posint"
-         integers nil)
-        (posreal_times_posreal_is_posreal application-judgement
-         "posreal" real_types nil)
-        (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+        (nnrat_exp application-judgement "nnrat" exponentiation nil)
+        (nnint_plus_posint_is_posint application-judgement "posint" integers
+         nil)
+        (posreal_times_posreal_is_posreal application-judgement "posreal"
+         real_types nil)
+        (nnreal_plus_posreal_is_posreal application-judgement "posreal"
          real_types nil)
         (posrat_times_posrat_is_posrat application-judgement "posrat"
          rationals nil)
-        (nnrat_exp application-judgement "nnrat" exponentiation nil)
+        (posrat_exp application-judgement "posrat" exponentiation nil)
+        (posrat_div_posrat_is_posrat application-judgement "posrat" rationals
+         nil)
         (posnat_expt application-judgement "posnat" exponentiation nil)
-        (posrat_div_posrat_is_posrat application-judgement "posrat"
-         rationals nil)
-        (int_times_int_is_int application-judgement "int" integers nil)
-        (posint_times_posint_is_posint application-judgement "posint"
-         integers nil)
-        (mult_divides1 application-judgement "(divides(n))" divides
+        (posint_times_posint_is_posint application-judgement "posint" integers
          nil)
-        (mult_divides2 application-judgement "(divides(m))" divides
-         nil)
-        (ln_ub const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}"
-         ln_approx "lnexp_fnd/")
-        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx
-         "lnexp_fnd/")
+        (ln_ub const-decl "real" ln_approx lnexp)
+        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}" ln_approx
+         lnexp)
+        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx lnexp)
         (ln12_alt_ub const-decl "{x: real | 0 <= x AND x >= ln(x12)}"
-         ln_approx "lnexp_fnd/")
+         ln_approx lnexp)
         (^ const-decl "real" exponentiation nil)
         (expt def-decl "real" exponentiation nil)
-        (ln_lb const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_gt1_alt_lb const-decl "{x: nnreal | x <= ln(xge1)}"
-         ln_approx "lnexp_fnd/")
-        (ln_2m_lb const-decl "{x: real | x <= m * ln(2)}" ln_approx
-         "lnexp_fnd/")
+        (ln_lb const-decl "real" ln_approx lnexp)
+        (ln_gt1_alt_lb const-decl "{x: nnreal | x <= ln(xge1)}" ln_approx
+         lnexp)
+        (ln_2m_lb const-decl "{x: real | x <= m * ln(2)}" ln_approx lnexp)
         (ln12_alt_lb const-decl "{x: real | 0 <= x AND x <= ln(x12)}"
-         ln_approx "lnexp_fnd/")
-        (ln_alt_series const-decl "posreal" ln_approx "lnexp_fnd/")
-        (ln_alt_series_it def-decl "real" ln_approx "lnexp_fnd/")
-        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx
-         "lnexp_fnd/")
-        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]"
-         log_nat "reals/")
+         ln_approx lnexp)
+        (ln_alt_series const-decl "posreal" ln_approx lnexp)
+        (ln_alt_series_it def-decl "real" ln_approx lnexp)
+        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx lnexp)
+        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]" log_nat
+         reals)
         (div_mult_pos_lt1 formula-decl nil real_props nil)
         (real_lt_is_strict_total_order name-judgement
          "(strict_total_order?[real])" real_props nil)
-        (even_minus_odd_is_odd application-judgement "odd_int" integers
-         nil)
-        (posint_plus_nnint_is_posint application-judgement "posint"
-         integers nil)
-        (odd_plus_even_is_odd application-judgement "odd_int" integers
+        (even_minus_odd_is_odd application-judgement "odd_int" integers nil)
+        (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
+        (posint_plus_nnint_is_posint application-judgement "posint" integers
          nil)
         (nonzero_real nonempty-type-eq-decl nil reals nil)
         (/= const-decl "boolean" notequal nil)
@@ -2348,7 +2190,7 @@
         (cauchy_mul const-decl "cauchy_real" mul nil)
         (unique_cauchy_zero3 formula-decl nil cauchy nil)
         (int_lemma formula-decl nil int nil))
-       nil))
+       nil (cauchy_exp subtype "exp.cy" "cauchy_smallreal")))
      (exp_lemma 0
       (exp_lemma-2 nil 3508599271
        ("" (skosimp)
@@ -2357,8 +2199,7 @@
             (("" (replace -1)
               ((""
                 (lemma "mul_lemma"
-                 ("x" "N" "cx" "cauchy_int(N)" "y" "ln(2)" "cy"
-                  "cauchy_ln2"))
+                 ("x" "N" "cx" "cauchy_int(N)" "y" "ln(2)" "cy" "cauchy_ln2"))
                 (("" (rewrite "int_lemma")
                   (("" (rewrite "cauchy_ln2_lemma")
                     ((""
@@ -2370,22 +2211,12 @@
                           (("1" (flatten)
                             (("1"
                               (lemma "div_lemma"
-                               ("x"
-                                "x!1"
-                                "cx"
-                                "cx!1"
-                                "nzy"
-                                "ln(2)"
-                                "nzcy"
+                               ("x" "x!1" "cx" "cx!1" "nzy" "ln(2)" "nzcy"
                                 "cauchy_ln2"))
-                              (("1"
-                                (rewrite "cauchy_ln2_lemma")
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (expand "cauchy_prop" -1)
-                                    (("1"
-                                      (inst - "0")
+                              (("1" (rewrite "cauchy_ln2_lemma")
+                                (("1" (assert)
+                                  (("1" (expand "cauchy_prop" -1)
+                                    (("1" (inst - "0")
                                       (("1"
                                         (rewrite "expt_x0")
                                         (("1"
@@ -2395,11 +2226,9 @@
                                             (("1"
                                               (assert)
                                               (("1"
-                                                (rewrite
-                                                 "div_mult_pos_lt1")
+                                                (rewrite "div_mult_pos_lt1")
                                                 (("1"
-                                                  (rewrite
-                                                   "div_mult_pos_lt2")
+                                                  (rewrite "div_mult_pos_lt2")
                                                   (("1"
                                                     (lemma
                                                      "exp_dr_lemma"
@@ -2530,10 +2359,7 @@
                                                           nil))
                                                         nil))
                                                       nil)
-                                                     ("2"
-                                                      (assert)
-                                                      nil
-                                                      nil)
+                                                     ("2" (assert) nil nil)
                                                      ("3"
                                                       (expand
                                                        "cauchy_smallreal?")
@@ -2562,12 +2388,9 @@
                               nil))
                             nil)
                            ("2" (hide-all-but 1)
-                            (("2"
-                              (lemma "ln_bounds" ("px" "2" "n" "2"))
-                              (("2"
-                                (name-replace "LN2" "ln(2)")
-                                (("2" (grind) nil nil))
-                                nil))
+                            (("2" (lemma "ln_bounds" ("px" "2" "n" "2"))
+                              (("2" (name-replace "LN2" "ln(2)")
+                                (("2" (grind) nil nil)) nil))
                               nil))
                             nil))
                           nil))
@@ -2582,24 +2405,19 @@
         nil)
        ((cauchy_exp const-decl "[nat -> int]" exp nil)
         (int_lemma formula-decl nil int nil)
-        (real_times_real_is_real application-judgement "real" reals
-         nil)
+        (real_times_real_is_real application-judgement "real" reals nil)
         (sub_lemma formula-decl nil sub nil)
         (cauchy_mul const-decl "cauchy_real" mul nil)
         (numfield nonempty-type-eq-decl nil number_fields nil)
-        (* const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
         (AND const-decl "[bool, bool -> bool]" booleans nil)
-        (< const-decl "bool" reals nil)
-        (div_lemma formula-decl nil div nil)
+        (< const-decl "bool" reals nil) (div_lemma formula-decl nil div nil)
         (/= const-decl "boolean" notequal nil)
         (nonzero_real nonempty-type-eq-decl nil reals nil)
-        (real_minus_real_is_real application-judgement "real" reals
-         nil)
+        (real_minus_real_is_real application-judgement "real" reals nil)
         (int_plus_int_is_int application-judgement "int" integers nil)
         (int_minus_int_is_int application-judgement "int" integers nil)
-        (- const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
         (div_mult_pos_lt2 formula-decl nil real_props nil)
         (N skolem-const-decl "int" exp nil)
         (x!1 skolem-const-decl "real" exp nil)
@@ -2615,22 +2433,18 @@
         (^ const-decl "real" exponentiation nil)
         (div2n const-decl "real" shift nil)
         (lemma_div2n formula-decl nil shift nil)
-        (exp_diff formula-decl nil ln_exp "lnexp_fnd/")
-        (nnrat_exp application-judgement "nnrat" exponentiation nil)
+        (exp_diff formula-decl nil ln_exp lnexp)
         (posrat_exp application-judgement "posrat" exponentiation nil)
-        (minus_odd_is_odd application-judgement "odd_int" integers nil)
         (posreal_div_posreal_is_posreal application-judgement "posreal"
          real_types nil)
-        (posreal_times_posreal_is_posreal application-judgement
-         "posreal" real_types nil)
-        (exp_ln formula-decl nil ln_exp "lnexp_fnd/")
-        (nzreal_exp application-judgement "nzreal" exponentiation nil)
-        (posreal_exp application-judgement "posreal" exponentiation
-         nil)
-        (exp_scal formula-decl nil ln_exp "lnexp_fnd/")
+        (posreal_times_posreal_is_posreal application-judgement "posreal"
+         real_types nil)
+        (exp_ln formula-decl nil ln_exp lnexp)
+        (posreal_exp application-judgement "posreal" exponentiation nil)
+        (exp_scal formula-decl nil ln_exp lnexp)
         (integer nonempty-type-from-decl nil integers nil)
         (mul2n const-decl "real" shift nil)
-        (exp const-decl "{py | x = ln(py)}" ln_exp "lnexp_fnd/")
+        (exp const-decl "{py | x = ln(py)}" ln_exp lnexp)
         (lemma_mul2n formula-decl nil shift nil)
         (nil application-judgement "cauchy_posreal" exp nil)
         (cauchy_exp_dr const-decl "int" exp nil)
@@ -2641,8 +2455,7 @@
         (cauchy_smallreal? const-decl "bool" cauchy nil)
         (exp_dr_lemma formula-decl nil exp nil)
         (div_mult_pos_lt1 formula-decl nil real_props nil)
-        (+ const-decl "[numfield, numfield -> numfield]" number_fields
-           nil)
+        (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
         (real_ge_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
         (real_gt_is_strict_total_order name-judgement
@@ -2650,46 +2463,38 @@
         (expt_x0 formula-decl nil exponentiation nil)
         (cauchy_prop const-decl "bool" cauchy nil)
         (posint_exp application-judgement "posint" exponentiation nil)
-        (real_div_nzreal_is_real application-judgement "real" reals
-         nil)
-        (ln_bounds formula-decl nil ln_approx "lnexp_fnd/")
+        (real_div_nzreal_is_real application-judgement "real" reals nil)
+        (ln_bounds formula-decl nil ln_approx lnexp)
         (real_le_is_total_order name-judgement "(total_order?[real])"
          real_props nil)
-        (nnint_plus_posint_is_posint application-judgement "posint"
-         integers nil)
-        (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+        (nnrat_exp application-judgement "nnrat" exponentiation nil)
+        (nnint_plus_posint_is_posint application-judgement "posint" integers
+         nil)
+        (nnreal_plus_posreal_is_posreal application-judgement "posreal"
          real_types nil)
+        (posrat_div_posrat_is_posrat application-judgement "posrat" rationals
+         nil)
         (posnat_expt application-judgement "posnat" exponentiation nil)
-        (posrat_div_posrat_is_posrat application-judgement "posrat"
-         rationals nil)
-        (int_times_int_is_int application-judgement "int" integers nil)
-        (posint_times_posint_is_posint application-judgement "posint"
-         integers nil)
-        (mult_divides1 application-judgement "(divides(n))" divides
+        (posint_times_posint_is_posint application-judgement "posint" integers
          nil)
-        (mult_divides2 application-judgement "(divides(m))" divides
-         nil)
-        (ln_ub const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}"
-         ln_approx "lnexp_fnd/")
-        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx
-         "lnexp_fnd/")
+        (ln_ub const-decl "real" ln_approx lnexp)
+        (ln_gt1_alt_ub const-decl "{x: nnreal | x >= ln(xge1)}" ln_approx
+         lnexp)
+        (ln_2m_ub const-decl "{x: real | x >= m * ln(2)}" ln_approx lnexp)
         (ln12_alt_ub const-decl "{x: real | 0 <= x AND x >= ln(x12)}"
-         ln_approx "lnexp_fnd/")
+         ln_approx lnexp)
         (expt def-decl "real" exponentiation nil)
-        (ln_lb const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_gt1_alt_lb const-decl "{x: nnreal | x <= ln(xge1)}"
-         ln_approx "lnexp_fnd/")
-        (ln_2m_lb const-decl "{x: real | x <= m * ln(2)}" ln_approx
-         "lnexp_fnd/")
+        (ln_lb const-decl "real" ln_approx lnexp)
+        (ln_gt1_alt_lb const-decl "{x: nnreal | x <= ln(xge1)}" ln_approx
+         lnexp)
+        (ln_2m_lb const-decl "{x: real | x <= m * ln(2)}" ln_approx lnexp)
         (ln12_alt_lb const-decl "{x: real | 0 <= x AND x <= ln(x12)}"
-         ln_approx "lnexp_fnd/")
-        (ln_alt_series const-decl "posreal" ln_approx "lnexp_fnd/")
-        (ln_alt_series_it def-decl "real" ln_approx "lnexp_fnd/")
-        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx
-         "lnexp_fnd/")
-        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]"
-         log_nat "reals/")
+         ln_approx lnexp)
+        (ln_alt_series const-decl "posreal" ln_approx lnexp)
+        (ln_alt_series_it def-decl "real" ln_approx lnexp)
+        (a const-decl "{x: posreal | x > 0 AND x <= 1 / 3}" ln_approx lnexp)
+        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]" log_nat
+         reals)
         (real_lt_is_strict_total_order name-judgement
          "(strict_total_order?[real])" real_props nil)
         (cauchy_ln2_lemma formula-decl nil log nil)
@@ -2698,12 +2503,11 @@
         (nonneg_real nonempty-type-eq-decl nil real_types nil)
         (> const-decl "bool" reals nil)
         (posreal nonempty-type-eq-decl nil real_types nil)
-        (ln const-decl "real" ln_exp "lnexp_fnd/")
+        (ln const-decl "real" ln_exp lnexp)
         (number nonempty-type-decl nil numbers nil)
         (boolean nonempty-type-decl nil booleans nil)
         (= const-decl "[T, T -> boolean]" equalities nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (real nonempty-type-from-decl nil reals nil)
@@ -2730,8 +2534,7 @@
             (("" (replace -1)
               ((""
                 (lemma "mul_lemma"
-                 ("x" "N" "cx" "cauchy_int(N)" "y" "ln(2)" "cy"
-                  "cauchy_ln2"))
+                 ("x" "N" "cx" "cauchy_int(N)" "y" "ln(2)" "cy" "cauchy_ln2"))
                 (("" (rewrite "int_lemma")
                   (("" (rewrite "cauchy_ln2_lemma")
                     ((""
@@ -2743,22 +2546,12 @@
                           (("1" (flatten)
                             (("1"
                               (lemma "div_lemma"
-                               ("x"
-                                "x!1"
-                                "cx"
-                                "cx!1"
-                                "nzy"
-                                "ln(2)"
-                                "nzcy"
+                               ("x" "x!1" "cx" "cx!1" "nzy" "ln(2)" "nzcy"
                                 "cauchy_ln2"))
-                              (("1"
-                                (rewrite "cauchy_ln2_lemma")
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (expand "cauchy_prop" -1)
-                                    (("1"
-                                      (inst - "0")
+                              (("1" (rewrite "cauchy_ln2_lemma")
+                                (("1" (assert)
+                                  (("1" (expand "cauchy_prop" -1)
+                                    (("1" (inst - "0")
                                       (("1"
                                         (rewrite "expt_x0")
                                         (("1"
@@ -2768,11 +2561,9 @@
                                             (("1"
                                               (assert)
                                               (("1"
-                                                (rewrite
-                                                 "div_mult_pos_lt1")
+                                                (rewrite "div_mult_pos_lt1")
                                                 (("1"
-                                                  (rewrite
-                                                   "div_mult_pos_lt2")
+                                                  (rewrite "div_mult_pos_lt2")
                                                   (("1"
                                                     (lemma
                                                      "exp_dr_lemma"
@@ -2903,10 +2694,7 @@
                                                           nil))
                                                         nil))
                                                       nil)
-                                                     ("2"
-                                                      (assert)
-                                                      nil
-                                                      nil)
+                                                     ("2" (assert) nil nil)
                                                      ("3"
                                                       (expand
                                                        "cauchy_smallreal?")
@@ -2935,12 +2723,9 @@
                               nil))
                             nil)
                            ("2" (hide-all-but 1)
-                            (("2"
-                              (lemma "ln_bounds" ("px" "2" "n" "2"))
-                              (("2"
-                                (name-replace "LN2" "ln(2)")
-                                (("2" (grind) nil nil))
-                                nil))
+                            (("2" (lemma "ln_bounds" ("px" "2" "n" "2"))
+                              (("2" (name-replace "LN2" "ln(2)")
+                                (("2" (grind) nil nil)) nil))
                               nil))
                             nil))
                           nil))
@@ -2959,28 +2744,19 @@
         (div_lemma formula-decl nil div nil)
         (div2n const-decl "real" shift nil)
         (lemma_div2n formula-decl nil shift nil)
-        (exp_diff formula-decl nil ln_exp "lnexp_fnd/")
-        (exp_ln formula-decl nil ln_exp "lnexp_fnd/")
-        (exp_scal formula-decl nil ln_exp "lnexp_fnd/")
         (mul2n const-decl "real" shift nil)
-        (exp const-decl "{py | x = ln(py)}" ln_exp "lnexp_fnd/")
         (lemma_mul2n formula-decl nil shift nil)
         (cauchy_smallreal? const-decl "bool" cauchy nil)
         (cauchy_smallreal nonempty-type-eq-decl nil cauchy nil)
         (cauchy_sub const-decl "cauchy_real" sub nil)
         (smallreal nonempty-type-eq-decl nil prelude_aux nil)
         (cauchy_prop const-decl "bool" cauchy nil)
-        (ln_bounds formula-decl nil ln_approx "lnexp_fnd/")
-        (ln_ub const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_lb const-decl "real" ln_approx "lnexp_fnd/")
-        (ln_estimate const-decl "real" ln_series "lnexp_fnd/")
-        (sigma def-decl "real" sigma "reals/")
-        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]"
-         log_nat "reals/")
+        (sigma def-decl "real" sigma reals)
+        (log_nat def-decl "[n: nat, {y | y < p AND x = p ^ n * y}]" log_nat
+         reals)
         (cauchy_ln2_lemma formula-decl nil log nil)
         (mul_lemma formula-decl nil mul nil)
         (cauchy_int const-decl "cauchy_real" int nil)
-        (ln const-decl "real" ln_exp "lnexp_fnd/")
         (cauchy_real? const-decl "bool" cauchy nil)
         (cauchy_real nonempty-type-eq-decl nil cauchy nil)
         (cauchy_nzreal? const-decl "bool" cauchy nil)
@@ -3017,19 +2793,20 @@
         (real nonempty-type-from-decl nil reals nil)
         (real_pred const-decl "[number_field -> boolean]" reals nil)
         (number_field nonempty-type-from-decl nil number_fields nil)
-        (number_field_pred const-decl "[number -> boolean]"
-         number_fields nil)
+        (number_field_pred const-decl "[number -> boolean]" number_fields nil)
         (number nonempty-type-decl nil numbers nil)
         (NOT const-decl "[bool -> bool]" booleans nil)
         (bool nonempty-type-eq-decl nil booleans nil)
         (boolean nonempty-type-decl nil booleans nil)
-        (exp const-decl "{py | x = ln(py)}" ln_exp "lnexp_fnd/")
-        (ln const-decl "real" ln_exp "lnexp_fnd/")
+        (exp const-decl "{py | x = ln(py)}" ln_exp lnexp)
+        (ln const-decl "real" ln_exp lnexp)
         (= const-decl "[T, T -> boolean]" equalities nil)
         (posreal nonempty-type-eq-decl nil real_types nil)
         (> const-decl "bool" reals nil)
         (nonneg_real nonempty-type-eq-decl nil real_types nil)
         (cauchy_posreal? const-decl "bool" cauchy nil)
         (exp_lemma formula-decl nil exp nil))
-       nil)))
+       nil
+       (cauchy_exp_is_posreal subtype "exp.cauchy_exp(exp.cx)"
+        "cauchy_posreal"))))
 

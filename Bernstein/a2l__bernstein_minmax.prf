@@ -10,10 +10,9 @@
               (("" (replace -14 :hide? t)
                 (("" (lemma "a2l__multibscoeff_homomorphism")
                   ((""
-                    (inst -1 "bsdegmono!1" "cf!1" "nvars!1" "terms!1"
-                     "mb!1" "bspoly!1" "f!1")
-                    (("" (replace -1 :hide? t) (("" (propax) nil nil))
-                      nil))
+                    (inst -1 "bsdegmono!1" "cf!1" "nvars!1" "terms!1" "mb!1"
+                     "bspoly!1" "f!1")
+                    (("" (replace -1 :hide? t) (("" (propax) nil nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -24,31 +23,27 @@
       nil))
     nil)
    ((Bern_coeffs_minmax_rec def-decl "{omm: Outminmax |
-              (FORALL (nf: CoeffMono):
-                 (FORALL (i: below(nvars)):
-                    nf(i) <= bsdegmono(i) AND
-                     (v <= i IMPLIES f(i) = nf(i)))
-                  IMPLIES
-                  omm`lb_min <=
-                   multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf)
-                   AND
-                   multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf) <=
-                    omm`ub_max)
-          AND unit_box_lb?(bspoly, bsdegmono, nvars, terms, cf, intendpts)
-                          (omm)
-          AND unit_box_ub?(bspoly, bsdegmono, nvars, terms, cf, intendpts)
-                          (omm)
-          AND length_eq?(nvars)(omm) AND omm`max_depth = depth}"
-     bernstein_minmax nil)
-    (a2l__multibscoeff_homomorphism formula-decl nil
-     a2l__multi_bernstein nil)
+        (FORALL (nf: CoeffMono):
+           (FORALL (i: below(nvars)):
+              nf(i) <= bsdegmono(i) AND (v <= i IMPLIES f(i) = nf(i)))
+            IMPLIES
+            omm`lb_min <=
+             multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf)
+             AND
+             multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf) <=
+              omm`ub_max)
+    AND unit_box_lb?(bspoly, bsdegmono, nvars, terms, cf, intendpts)(omm)
+    AND unit_box_ub?(bspoly, bsdegmono, nvars, terms, cf, intendpts)(omm)
+    AND length_eq?(nvars)(omm) AND (omm`max_depth = depth)}" bernstein_minmax
+     nil)
+    (a2l__multibscoeff_homomorphism formula-decl nil a2l__multi_bernstein nil)
     (Coeff type-eq-decl nil util nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (represents const-decl "bool" multibernstein_into_polylist nil)
     (MultiBernstein type-eq-decl nil util nil)
     (Polyproduct type-eq-decl nil util nil)
@@ -61,8 +56,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -81,27 +75,34 @@
      multibernstein_into_polylist nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (CoeffMono type-eq-decl nil util nil)
+    (<= const-decl "bool" reals nil) (CoeffMono type-eq-decl nil util nil)
     (IntervalEndpoints type-eq-decl nil util nil)
     (edge_point? const-decl "bool" util nil))
-   nil)
+   nil
+   (a2l__Bern_coeffs_minmax_rec subtype
+    "minmax.single_outminmax(a2l__bernstein_minmax.thiscoeff, a2l__bernstein_minmax.thisachval, a2l__bernstein_minmax.thisvar, a2l__bernstein_minmax.depth)"
+    "{omm: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb)): omm = bernstein_minmax.Bern_coeffs_minmax_rec(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.f, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, a2l__bernstein_minmax.v, a2l__bernstein_minmax.ep)}"))
   (a2l__Bern_coeffs_minmax_rec_TCC1-2 nil 3687261171
-   ("" (skeep :preds? t) (("" (hide -1) (("" (postpone) nil nil)) nil))
-    nil)
-   nil nil)
+   ("" (skeep :preds? t) (("" (hide -1) (("" (postpone) nil nil)) nil)) nil)
+   nil nil
+   (a2l__Bern_coeffs_minmax_rec subtype
+    "minmax.single_outminmax(a2l__bernstein_minmax.thiscoeff, a2l__bernstein_minmax.thisachval, a2l__bernstein_minmax.thisvar, a2l__bernstein_minmax.depth)"
+    "{omm: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb)): omm = bernstein_minmax.Bern_coeffs_minmax_rec(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.f, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, a2l__bernstein_minmax.v, a2l__bernstein_minmax.ep)}"))
   (a2l__Bern_coeffs_minmax_rec_TCC1-1 nil 3686059360
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (a2l__Bern_coeffs_minmax_rec subtype
+    "minmax.single_outminmax(a2l__bernstein_minmax.thiscoeff, a2l__bernstein_minmax.thisachval, a2l__bernstein_minmax.thisvar, a2l__bernstein_minmax.depth)"
+    "{omm: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb)): omm = bernstein_minmax.Bern_coeffs_minmax_rec(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.f, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, a2l__bernstein_minmax.v, a2l__bernstein_minmax.ep)}")))
  (a2l__Bern_coeffs_minmax_rec_TCC2 0
   (a2l__Bern_coeffs_minmax_rec_TCC2-2 nil 3687261179
    ("" (skosimp* :preds? t) (("" (assert) nil nil)) nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -110,8 +111,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -130,37 +130,39 @@
      multibernstein_into_polylist nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (CoeffMono type-eq-decl nil util nil)
+    (<= const-decl "bool" reals nil) (CoeffMono type-eq-decl nil util nil)
     (IntervalEndpoints type-eq-decl nil util nil)
     (edge_point? const-decl "bool" util nil))
-   nil)
+   nil
+   (a2l__Bern_coeffs_minmax_rec subtype
+    "(number_fields.-)(a2l__bernstein_minmax.v, 1)" "nat"))
   (a2l__Bern_coeffs_minmax_rec_TCC2-1 nil 3686059360
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (a2l__Bern_coeffs_minmax_rec subtype
+    "(number_fields.-)(a2l__bernstein_minmax.v, 1)" "nat")))
  (a2l__Bern_coeffs_minmax_rec_TCC3 0
   (a2l__Bern_coeffs_minmax_rec_TCC3-3 nil 3687278910
    ("" (skosimp* :preds? t)
     (("" (case "var_index!1=v!1 - 1")
       (("1" (replace -12 :hide? t) (("1" (assert) nil nil)) nil)
        ("2" (replace -11 :hide? t)
-        (("2" (assert) (("2" (inst -7 "var_index!1") nil nil)) nil))
-        nil))
+        (("2" (assert) (("2" (inst -7 "var_index!1") nil nil)) nil)) nil))
       nil))
     nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -172,8 +174,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -192,24 +193,27 @@
      multibernstein_into_polylist nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (CoeffMono type-eq-decl nil util nil)
+    (<= const-decl "bool" reals nil) (CoeffMono type-eq-decl nil util nil)
     (IntervalEndpoints type-eq-decl nil util nil)
     (edge_point? const-decl "bool" util nil))
-   nil)
+   nil
+   (a2l__Bern_coeffs_minmax_rec subtype "a2l__bernstein_minmax.nf"
+    "{f: util.CoeffMono | FORALL (var_index: naturalnumbers.below(a2l__bernstein_minmax.nvars)): reals.<=(f(var_index), a2l__bernstein_minmax.bsdegmono(var_index))}"))
   (a2l__Bern_coeffs_minmax_rec_TCC3-2 nil 3687261185
    ("" (skosimp* :preds? t)
     (("" (hide -2)
       (("" (expand "edge_point?" 2)
-        (("" (expand "edge_point?") (("" (postpone) nil nil)) nil))
-        nil))
+        (("" (expand "edge_point?") (("" (postpone) nil nil)) nil)) nil))
       nil))
     nil)
-   nil nil)
+   nil nil
+   (a2l__Bern_coeffs_minmax_rec subtype "a2l__bernstein_minmax.nf"
+    "{f: util.CoeffMono | FORALL (var_index: naturalnumbers.below(a2l__bernstein_minmax.nvars)): reals.<=(f(var_index), a2l__bernstein_minmax.bsdegmono(var_index))}"))
   (a2l__Bern_coeffs_minmax_rec_TCC3-1 nil 3686059360
    ("" (subtype-tcc) nil nil)
-   ((a2l__multibscoeff const-decl "real" a2l__multi_bernstein nil))
-   nil))
+   ((a2l__multibscoeff const-decl "real" a2l__multi_bernstein nil)) nil
+   (a2l__Bern_coeffs_minmax_rec subtype "a2l__bernstein_minmax.nf"
+    "{f: util.CoeffMono | FORALL (var_index: naturalnumbers.below(a2l__bernstein_minmax.nvars)): reals.<=(f(var_index), a2l__bernstein_minmax.bsdegmono(var_index))}")))
  (a2l__Bern_coeffs_minmax_rec_TCC4 0
   (a2l__Bern_coeffs_minmax_rec_TCC4-4 nil 3687281798
    ("" (skosimp*)
@@ -225,12 +229,9 @@
                       (("" (replace -4)
                         (("" (case "i!1 = v!1-1")
                           (("1" (replace -1)
-                            (("1" (assert) (("1" (ground) nil nil))
-                              nil))
-                            nil)
+                            (("1" (assert) (("1" (ground) nil nil)) nil)) nil)
                            ("2" (inst - "i!1")
-                            (("1" (assert) (("1" (ground) nil nil))
-                              nil)
+                            (("1" (assert) (("1" (ground) nil nil)) nil)
                              ("2" (assert) nil nil))
                             nil))
                           nil))
@@ -266,8 +267,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -279,12 +279,14 @@
      a2l__bernstein_minmax nil)
     (nvars!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (v!1 skolem-const-decl "nat" a2l__bernstein_minmax nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (edge_point? const-decl "bool" util nil))
-   nil)
+   nil
+   (a2l__Bern_coeffs_minmax_rec subtype "a2l__bernstein_minmax.nep"
+    "(util.edge_point?(a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1)))"))
   (a2l__Bern_coeffs_minmax_rec_TCC4-3 nil 3687261190
    ("" (skosimp* :preds? t) (("" (assert) nil nil)) nil)
    ((PolyList type-eq-decl nil util nil)
@@ -294,12 +296,23 @@
     (CoeffMono type-eq-decl nil util nil)
     (IntervalEndpoints type-eq-decl nil util nil)
     (edge_point? const-decl "bool" util nil))
-   nil)
-  (a2l__Bern_coeffs_minmax_rec_TCC4-2 nil 3687021982
-   ("" (postpone) nil nil) nil nil)
+   nil
+   (a2l__Bern_coeffs_minmax_rec subtype "a2l__bernstein_minmax.nep"
+    "(util.edge_point?(a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1)))"))
+  (a2l__Bern_coeffs_minmax_rec_TCC4-2 nil 3687021982 ("" (postpone) nil nil)
+   nil nil
+   (a2l__Bern_coeffs_minmax_rec subtype "a2l__bernstein_minmax.nep"
+    "(util.edge_point?(a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1)))"))
   (a2l__Bern_coeffs_minmax_rec_TCC4-1 nil 3686059360
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (a2l__Bern_coeffs_minmax_rec subtype "a2l__bernstein_minmax.nep"
+    "(util.edge_point?(a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1)))")))
  (a2l__Bern_coeffs_minmax_rec_TCC5 0
+  (a2l__Bern_coeffs_minmax_rec_TCC5-5 "" 3790097984
+   ("" (skosimp* :preds? t) (("" (assert) nil nil)) nil) nil shostak
+   (a2l__Bern_coeffs_minmax_rec termination
+    "a2l__bernstein_minmax.a2l__Bern_coeffs_minmax_rec(a2l__bernstein_minmax.bspoly, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1), a2l__bernstein_minmax.nep)"
+    "nil"))
   (a2l__Bern_coeffs_minmax_rec_TCC5-4 nil 3687278972
    ("" (skosimp* :preds? t)
     (("" (split)
@@ -309,17 +322,17 @@
     nil)
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -331,8 +344,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -351,17 +363,28 @@
      multibernstein_into_polylist nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (CoeffMono type-eq-decl nil util nil)
+    (<= const-decl "bool" reals nil) (CoeffMono type-eq-decl nil util nil)
     (IntervalEndpoints type-eq-decl nil util nil)
     (edge_point? const-decl "bool" util nil))
-   nil)
-  (a2l__Bern_coeffs_minmax_rec_TCC5-3 nil 3687261196
-   ("" (postpone) nil nil) nil nil)
-  (a2l__Bern_coeffs_minmax_rec_TCC5-2 nil 3687021050
-   ("" (postpone) nil nil) nil nil)
+   nil
+   (a2l__Bern_coeffs_minmax_rec termination
+    "a2l__bernstein_minmax.a2l__Bern_coeffs_minmax_rec(a2l__bernstein_minmax.bspoly, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1), a2l__bernstein_minmax.nep)"
+    "nil"))
+  (a2l__Bern_coeffs_minmax_rec_TCC5-3 nil 3687261196 ("" (postpone) nil nil)
+   nil nil
+   (a2l__Bern_coeffs_minmax_rec termination
+    "a2l__bernstein_minmax.a2l__Bern_coeffs_minmax_rec(a2l__bernstein_minmax.bspoly, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1), a2l__bernstein_minmax.nep)"
+    "nil"))
+  (a2l__Bern_coeffs_minmax_rec_TCC5-2 nil 3687021050 ("" (postpone) nil nil)
+   nil nil
+   (a2l__Bern_coeffs_minmax_rec termination
+    "a2l__bernstein_minmax.a2l__Bern_coeffs_minmax_rec(a2l__bernstein_minmax.bspoly, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1), a2l__bernstein_minmax.nep)"
+    "nil"))
   (a2l__Bern_coeffs_minmax_rec_TCC5-1 nil 3686059360
-   ("" (subtype-tcc) nil nil) nil nil))
+   ("" (subtype-tcc) nil nil) nil nil
+   (a2l__Bern_coeffs_minmax_rec termination
+    "a2l__bernstein_minmax.a2l__Bern_coeffs_minmax_rec(a2l__bernstein_minmax.bspoly, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1), a2l__bernstein_minmax.nep)"
+    "nil")))
  (a2l__Bern_coeffs_minmax_rec_TCC6 0
   (a2l__Bern_coeffs_minmax_rec_TCC6-1 nil 3687278865
    ("" (subtype-tcc) nil nil)
@@ -373,8 +396,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -393,15 +415,14 @@
      multibernstein_into_polylist nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (CoeffMono type-eq-decl nil util nil)
+    (<= const-decl "bool" reals nil) (CoeffMono type-eq-decl nil util nil)
     (IntervalEndpoints type-eq-decl nil util nil)
     (edge_point? const-decl "bool" util nil)
     (nvars!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (v!1 skolem-const-decl "nat" a2l__bernstein_minmax nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (/= const-decl "boolean" notequal nil)
@@ -411,21 +432,23 @@
     (PolyproductList type-eq-decl nil a2l__util nil)
     (Polynomial type-eq-decl nil util nil)
     (PolynomialList type-eq-decl nil a2l__util nil)
-    (represents const-decl "bool" arrays_into_lists "structures/")
+    (represents const-decl "bool" arrays_into_lists structures)
     (Coefficient type-eq-decl nil a2l__util nil)
-    (restrict const-decl "R" restrict nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (a2l__Bern_coeffs_minmax_rec subtype
+    "LAMBDA (d: naturalnumbers.upto(a2l__bernstein_minmax.bsdegmono((number_fields.-)(a2l__bernstein_minmax.v, 1)))): LET nf = LAMBDA (i: naturalnumbers.nat): IF i = (number_fields.-)(a2l__bernstein_minmax.v, 1) THEN d ELSE a2l__bernstein_minmax.f(i) ENDIF, nep = booleans.AND(a2l__bernstein_minmax.ep, (booleans.OR(booleans.AND(d = 0, a2l__bernstein_minmax.iepts`1), booleans.AND(a2l__bernstein_minmax.bsdegmono((number_fields.-)(a2l__bernstein_minmax.v, 1)) /= 0, booleans.AND(d = a2l__bernstein_minmax.bsdegmono((number_fields.-)(a2l__bernstein_minmax.v, 1)), a2l__bernstein_minmax.iepts`2))))) IN a2l__bernstein_minmax.a2l__Bern_coeffs_minmax_rec(a2l__bernstein_minmax.bspoly, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1), a2l__bernstein_minmax.nep)"
+    "for_iterate[Outminmax].IterateBody(0, a2l__bernstein_minmax.bsdegmono((number_fields.-)(a2l__bernstein_minmax.v, 1)))")))
  (a2l__Bern_coeffs_minmax_rec_TCC7 0
   (a2l__Bern_coeffs_minmax_rec_TCC7-1 nil 3687278865
    ("" (skosimp*)
@@ -475,8 +498,7 @@
                                                AND
                                                intendpts!1(v!1 - 1)`2))")
                 (("1"
-                  (lemma
-                   "extensionality[upto(bsdegmono!1(v!1-1)),Outminmax]")
+                  (lemma "extensionality[upto(bsdegmono!1(v!1-1)),Outminmax]")
                   (("1" (inst? -1 :where -2)
                     (("1" (assert) nil nil)
                      ("2" (hide 2)
@@ -494,12 +516,9 @@
                         (("3" (skeep :preds? t)
                           (("3" (inst -4 "d")
                             (("3" (inst -5 "d")
-                              (("3"
-                                (inst -5 "var_index")
-                                (("3"
-                                  (replace -4 :dir rl :hide? t)
-                                  (("3" (assert) nil nil))
-                                  nil))
+                              (("3" (inst -5 "var_index")
+                                (("3" (replace -4 :dir rl :hide? t)
+                                  (("3" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -515,10 +534,8 @@
                         (("1" (replace -7 1)
                           (("1" (replace -7 -1)
                             (("1" (inst -3 "d")
-                              (("1"
-                                (replace -3 :hide? t)
-                                (("1" (propax) nil nil))
-                                nil))
+                              (("1" (replace -3 :hide? t)
+                                (("1" (propax) nil nil)) nil))
                               nil))
                             nil))
                           nil))
@@ -528,8 +545,7 @@
                         (("3" (inst -2 "d")
                           (("3" (replace -2 :hide? t :dir rl)
                             (("3" (skeep)
-                              (("3" (inst -2 "var_index") nil nil))
-                              nil))
+                              (("3" (inst -2 "var_index") nil nil)) nil))
                             nil))
                           nil))
                         nil))
@@ -541,8 +557,8 @@
                     (("3" (replace -5 :hide? t)
                       (("3" (inst -3 "d")
                         (("3" (inst -1 "d")
-                          (("3" (replace -1 :hide? t)
-                            (("3" (propax) nil nil)) nil))
+                          (("3" (replace -1 :hide? t) (("3" (propax) nil nil))
+                            nil))
                           nil))
                         nil))
                       nil))
@@ -554,8 +570,8 @@
                     (("5" (inst -1 "d")
                       (("5" (inst -2 "d")
                         (("5" (replace -1 :hide? t :dir rl)
-                          (("5" (skeep)
-                            (("5" (inst -1 "var_index") nil nil)) nil))
+                          (("5" (skeep) (("5" (inst -1 "var_index") nil nil))
+                            nil))
                           nil))
                         nil))
                       nil))
@@ -591,8 +607,8 @@
            ("2" (hide-all-but 1)
             (("2" (skeep)
               (("2" (apply-extensionality)
-                (("2" (hide 2)
-                  (("2" (lift-if) (("2" (propax) nil nil)) nil)) nil))
+                (("2" (hide 2) (("2" (lift-if) (("2" (propax) nil nil)) nil))
+                  nil))
                 nil))
               nil))
             nil)
@@ -601,14 +617,14 @@
               (("3" (case "v!1 - 1 = var_index!1")
                 (("1" (assert) nil nil)
                  ("2" (assert)
-                  (("2" (typepred "f!1")
-                    (("2" (inst? -1 :where 2) nil nil)) nil))
+                  (("2" (typepred "f!1") (("2" (inst? -1 :where 2) nil nil))
+                    nil))
                   nil))
                 nil))
               nil))
             nil)
-           ("4" (hide 3)
-            (("4" (replace -2 1) (("4" (propax) nil nil)) nil)) nil)
+           ("4" (hide 3) (("4" (replace -2 1) (("4" (propax) nil nil)) nil))
+            nil)
            ("5" (hide 3)
             (("5" (skosimp :preds? t)
               (("5" (expand "edge_point?")
@@ -619,21 +635,13 @@
                         (("5" (flatten)
                           (("5" (assert)
                             (("5" (skosimp*)
-                              (("5"
-                                (case "i!1 = v!1-1")
-                                (("1"
-                                  (replace -1)
-                                  (("1"
-                                    (assert)
-                                    (("1" (ground) nil nil))
+                              (("5" (case "i!1 = v!1-1")
+                                (("1" (replace -1)
+                                  (("1" (assert) (("1" (ground) nil nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (inst - "i!1")
-                                  (("1"
-                                    (assert)
-                                    (("1" (ground) nil nil))
-                                    nil)
+                                 ("2" (inst - "i!1")
+                                  (("1" (assert) (("1" (ground) nil nil)) nil)
                                    ("2" (assert) nil nil))
                                   nil))
                                 nil))
@@ -652,22 +660,19 @@
       nil))
     nil)
    ((Bern_coeffs_minmax_rec def-decl "{omm: Outminmax |
-              (FORALL (nf: CoeffMono):
-                 (FORALL (i: below(nvars)):
-                    nf(i) <= bsdegmono(i) AND
-                     (v <= i IMPLIES f(i) = nf(i)))
-                  IMPLIES
-                  omm`lb_min <=
-                   multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf)
-                   AND
-                   multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf) <=
-                    omm`ub_max)
-          AND unit_box_lb?(bspoly, bsdegmono, nvars, terms, cf, intendpts)
-                          (omm)
-          AND unit_box_ub?(bspoly, bsdegmono, nvars, terms, cf, intendpts)
-                          (omm)
-          AND length_eq?(nvars)(omm) AND omm`max_depth = depth}"
-     bernstein_minmax nil)
+        (FORALL (nf: CoeffMono):
+           (FORALL (i: below(nvars)):
+              nf(i) <= bsdegmono(i) AND (v <= i IMPLIES f(i) = nf(i)))
+            IMPLIES
+            omm`lb_min <=
+             multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf)
+             AND
+             multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf) <=
+              omm`ub_max)
+    AND unit_box_lb?(bspoly, bsdegmono, nvars, terms, cf, intendpts)(omm)
+    AND unit_box_ub?(bspoly, bsdegmono, nvars, terms, cf, intendpts)(omm)
+    AND length_eq?(nvars)(omm) AND (omm`max_depth = depth)}" bernstein_minmax
+     nil)
     (/= const-decl "boolean" notequal nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -684,8 +689,7 @@
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (DegreeMono type-eq-decl nil util nil)
-    (<= const-decl "bool" reals nil)
+    (DegreeMono type-eq-decl nil util nil) (<= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -696,35 +700,31 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (TRUE const-decl "bool" booleans nil)
     (extensionality formula-decl nil functions nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (iepts!1 skolem-const-decl "[bool, bool]" a2l__bernstein_minmax
+    (le_realorder name-judgement "RealOrder" real_orders reals)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
+    (iepts!1 skolem-const-decl "[bool, bool]" a2l__bernstein_minmax nil)
     (ep!1 skolem-const-decl
      "(edge_point?(bsdegmono!1, nvars!1, f!1, intendpts!1, v!1))"
      a2l__bernstein_minmax nil)
-    (intendpts!1 skolem-const-decl "IntervalEndpoints"
-     a2l__bernstein_minmax nil)
+    (intendpts!1 skolem-const-decl "IntervalEndpoints" a2l__bernstein_minmax
+     nil)
     (f!1 skolem-const-decl "{f: CoeffMono |
-         FORALL (var_index: below(nvars!1)):
-           f(var_index) <= bsdegmono!1(var_index)}"
-     a2l__bernstein_minmax nil)
+   FORALL (var_index: below(nvars!1)):
+     f(var_index) <= bsdegmono!1(var_index)}" a2l__bernstein_minmax nil)
     (nvars!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (v!1 skolem-const-decl "nat" a2l__bernstein_minmax nil)
-    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax
-     nil)
+    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax nil)
     (length_eq? const-decl "bool" minmax nil)
     (unit_box_ub? const-decl "bool" bernstein_minmax nil)
     (unit_box_lb? const-decl "bool" bernstein_minmax nil)
@@ -735,20 +735,21 @@
     (Polynomial type-eq-decl nil util nil)
     (multipolynomial_represents? const-decl "bool"
      multibernstein_into_polylist nil)
-    (Coeff type-eq-decl nil util nil)
-    (PolyList type-eq-decl nil util nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
-    (Outminmax type-eq-decl nil minmax nil)
-    (list type-decl nil list_adt nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (Coeff type-eq-decl nil util nil) (PolyList type-eq-decl nil util nil)
+    (Outminmax type-eq-decl nil minmax nil) (list type-decl nil list_adt nil)
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (i!1 skolem-const-decl "subrange(v!1 - 1, nvars!1 - 1)"
      a2l__bernstein_minmax nil)
     (subrange type-eq-decl nil integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (a2l__Bern_coeffs_minmax_rec subtype
+    "for_iterate[Outminmax].iterate_left(0, a2l__bernstein_minmax.bsdegmono((number_fields.-)(a2l__bernstein_minmax.v, 1)), LAMBDA (d: naturalnumbers.upto(a2l__bernstein_minmax.bsdegmono((number_fields.-)(a2l__bernstein_minmax.v, 1)))): LET nf = LAMBDA (i: naturalnumbers.nat): IF i = (number_fields.-)(a2l__bernstein_minmax.v, 1) THEN d ELSE a2l__bernstein_minmax.f(i) ENDIF, nep = booleans.AND(a2l__bernstein_minmax.ep, (booleans.OR(booleans.AND(d = 0, a2l__bernstein_minmax.iepts`1), booleans.AND(a2l__bernstein_minmax.bsdegmono((number_fields.-)(a2l__bernstein_minmax.v, 1)) /= 0, booleans.AND(d = a2l__bernstein_minmax.bsdegmono((number_fields.-)(a2l__bernstein_minmax.v, 1)), a2l__bernstein_minmax.iepts`2))))) IN a2l__bernstein_minmax.a2l__Bern_coeffs_minmax_rec(a2l__bernstein_minmax.bspoly, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, (number_fields.-)(a2l__bernstein_minmax.v, 1), a2l__bernstein_minmax.nep), minmax.combine)"
+    "{omm: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb)): omm = bernstein_minmax.Bern_coeffs_minmax_rec(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.f, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, a2l__bernstein_minmax.v, a2l__bernstein_minmax.ep)}")))
  (a2l__Bern_coeffs_minmax_rec_TCC8 0
   (a2l__Bern_coeffs_minmax_rec_TCC8-1 nil 3687281087
    ("" (subtype-tcc) nil nil)
@@ -760,8 +761,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -780,14 +780,12 @@
      multibernstein_into_polylist nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (<= const-decl "bool" reals nil)
-    (CoeffMono type-eq-decl nil util nil)
+    (<= const-decl "bool" reals nil) (CoeffMono type-eq-decl nil util nil)
     (IntervalEndpoints type-eq-decl nil util nil)
     (edge_point? const-decl "bool" util nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (restrict const-decl "R" restrict nil)
     (Coefficient type-eq-decl nil a2l__util nil)
-    (represents const-decl "bool" arrays_into_lists "structures/")
+    (represents const-decl "bool" arrays_into_lists structures)
     (PolynomialList type-eq-decl nil a2l__util nil)
     (Polynomial type-eq-decl nil util nil)
     (PolyproductList type-eq-decl nil a2l__util nil)
@@ -796,28 +794,30 @@
     (represents? const-decl "bool" multibernstein_into_polylist nil)
     (/= const-decl "boolean" notequal nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/"))
-   nil))
+    (gt_realorder name-judgement "RealOrder" real_orders reals))
+   nil
+   (a2l__Bern_coeffs_minmax_rec subtype
+    "(number_fields.-)(a2l__bernstein_minmax.v, 1)" "nat")))
  (a2l__Bern_coeffs_minmax_TCC1 0
   (a2l__Bern_coeffs_minmax_TCC1-2 nil 3687261232
    ("" (skosimp* :preds? t) (("" (assert) nil nil)) nil)
-   ((real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+   ((real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (below type-eq-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -828,8 +828,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -846,26 +845,29 @@
     (DegreeMono type-eq-decl nil util nil)
     (multipolynomial_represents? const-decl "bool"
      multibernstein_into_polylist nil))
-   nil)
-  (a2l__Bern_coeffs_minmax_TCC1-1 nil 3686059360
-   ("" (subtype-tcc) nil nil)
+   nil
+   (a2l__Bern_coeffs_minmax subtype
+    "LAMBDA (i: naturalnumbers.nat) -> real: 0"
+    "{f: util.CoeffMono | FORALL (var_index: naturalnumbers.below(a2l__bernstein_minmax.nvars)): reals.<=(f(var_index), a2l__bernstein_minmax.bsdegmono(var_index))}"))
+  (a2l__Bern_coeffs_minmax_TCC1-1 nil 3686059360 ("" (subtype-tcc) nil nil)
    ((PolyList type-eq-decl nil util nil)
     (DegreeMono type-eq-decl nil util nil)
     (multipolynomial_represents? const-decl "bool"
      multibernstein_into_polylist nil)
     (edge_point? const-decl "bool" util nil))
-   nil))
+   nil
+   (a2l__Bern_coeffs_minmax subtype
+    "LAMBDA (i: naturalnumbers.nat) -> real: 0"
+    "{f: util.CoeffMono | FORALL (var_index: naturalnumbers.below(a2l__bernstein_minmax.nvars)): reals.<=(f(var_index), a2l__bernstein_minmax.bsdegmono(var_index))}")))
  (a2l__Bern_coeffs_minmax_TCC2 0
   (a2l__Bern_coeffs_minmax_TCC2-3 nil 3687261236
    ("" (skosimp* :preds? t)
     (("" (assert)
-      (("" (expand "edge_point?") (("" (skeep :preds? t) nil nil))
-        nil))
-      nil))
+      (("" (expand "edge_point?") (("" (skeep :preds? t) nil nil)) nil)) nil))
     nil)
    ((real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (edge_point? const-decl "bool" util nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -875,8 +877,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -893,11 +894,17 @@
     (DegreeMono type-eq-decl nil util nil)
     (multipolynomial_represents? const-decl "bool"
      multibernstein_into_polylist nil))
-   nil)
-  (a2l__Bern_coeffs_minmax_TCC2-2 nil 3687022156
-   ("" (postpone) nil nil) nil nil)
-  (a2l__Bern_coeffs_minmax_TCC2-1 nil 3686059360
-   ("" (subtype-tcc) nil nil) nil nil))
+   nil
+   (a2l__Bern_coeffs_minmax subtype "booleans.TRUE"
+    "(util.edge_point?(a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, LAMBDA (i: naturalnumbers.nat) -> real: 0, a2l__bernstein_minmax.intendpts, a2l__bernstein_minmax.nvars))"))
+  (a2l__Bern_coeffs_minmax_TCC2-2 nil 3687022156 ("" (postpone) nil nil) nil
+   nil
+   (a2l__Bern_coeffs_minmax subtype "booleans.TRUE"
+    "(util.edge_point?(a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, LAMBDA (i: naturalnumbers.nat) -> real: 0, a2l__bernstein_minmax.intendpts, a2l__bernstein_minmax.nvars))"))
+  (a2l__Bern_coeffs_minmax_TCC2-1 nil 3686059360 ("" (subtype-tcc) nil nil)
+   nil nil
+   (a2l__Bern_coeffs_minmax subtype "booleans.TRUE"
+    "(util.edge_point?(a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, LAMBDA (i: naturalnumbers.nat) -> real: 0, a2l__bernstein_minmax.intendpts, a2l__bernstein_minmax.nvars))")))
  (a2l__Bern_coeffs_minmax_TCC3 0
   (a2l__Bern_coeffs_minmax_TCC3-1 nil 3687281087
    ("" (skosimp* :preds? t)
@@ -910,16 +917,15 @@
         nil))
       nil))
     nil)
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+   ((real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (Outminmax type-eq-decl nil minmax nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (Coeff type-eq-decl nil util nil)
-    (CoeffMono type-eq-decl nil util nil)
+    (Coeff type-eq-decl nil util nil) (CoeffMono type-eq-decl nil util nil)
     (< const-decl "bool" reals nil)
     (below type-eq-decl nil naturalnumbers nil)
     (<= const-decl "bool" reals nil)
@@ -931,35 +937,31 @@
     (unit_box_ub? const-decl "bool" bernstein_minmax nil)
     (length_eq? const-decl "bool" minmax nil)
     (Bern_coeffs_minmax_rec def-decl "{omm: Outminmax |
-              (FORALL (nf: CoeffMono):
-                 (FORALL (i: below(nvars)):
-                    nf(i) <= bsdegmono(i) AND
-                     (v <= i IMPLIES f(i) = nf(i)))
-                  IMPLIES
-                  omm`lb_min <=
-                   multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf)
-                   AND
-                   multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf) <=
-                    omm`ub_max)
-          AND unit_box_lb?(bspoly, bsdegmono, nvars, terms, cf, intendpts)
-                          (omm)
-          AND unit_box_ub?(bspoly, bsdegmono, nvars, terms, cf, intendpts)
-                          (omm)
-          AND length_eq?(nvars)(omm) AND omm`max_depth = depth}"
-     bernstein_minmax nil)
+        (FORALL (nf: CoeffMono):
+           (FORALL (i: below(nvars)):
+              nf(i) <= bsdegmono(i) AND (v <= i IMPLIES f(i) = nf(i)))
+            IMPLIES
+            omm`lb_min <=
+             multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf)
+             AND
+             multibscoeff(bspoly, bsdegmono, cf, nvars, terms)(nf) <=
+              omm`ub_max)
+    AND unit_box_lb?(bspoly, bsdegmono, nvars, terms, cf, intendpts)(omm)
+    AND unit_box_ub?(bspoly, bsdegmono, nvars, terms, cf, intendpts)(omm)
+    AND length_eq?(nvars)(omm) AND (omm`max_depth = depth)}" bernstein_minmax
+     nil)
     (a2l__Bern_coeffs_minmax_rec def-decl "{omm: Outminmax |
-         FORALL (mb: MultiBernstein | represents(bspoly, mb)):
-           omm =
-            Bern_coeffs_minmax_rec(mb, bsdegmono, cf, nvars, terms, f,
-                                   depth, intendpts, v, ep)}"
-     a2l__bernstein_minmax nil)
+   FORALL (mb: MultiBernstein | represents(bspoly, mb)):
+     omm =
+      Bern_coeffs_minmax_rec(mb, bsdegmono, cf, nvars, terms, f, depth,
+                             intendpts, v, ep)}" a2l__bernstein_minmax nil)
     (TRUE const-decl "bool" booleans nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (Bern_coeffs_minmax const-decl
      "(sound?(bspoly, bsdegmono, nvars, terms, cf, intendpts))"
      bernstein_minmax nil)
@@ -975,8 +977,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -993,7 +994,10 @@
     (DegreeMono type-eq-decl nil util nil)
     (multipolynomial_represents? const-decl "bool"
      multibernstein_into_polylist nil))
-   nil))
+   nil
+   (a2l__Bern_coeffs_minmax subtype
+    "a2l__bernstein_minmax.a2l__Bern_coeffs_minmax_rec(a2l__bernstein_minmax.bspoly, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, LAMBDA (i: naturalnumbers.nat) -> real: 0, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts, a2l__bernstein_minmax.nvars, booleans.TRUE)"
+    "{result: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb)): result = bernstein_minmax.Bern_coeffs_minmax(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.intendpts)}")))
  (polylist_represents_translist_polylist 0
   (polylist_represents_translist_polylist-1 nil 3687022492
    ("" (skeep :preds? t)
@@ -1010,13 +1014,10 @@
                         (("1" (expand "represents")
                           (("1" (skolem 1 "i_2" (:skolem-typepreds? t))
                             (("1" (inst - "i_2")
-                              (("1"
-                                (expand "translist" 1)
-                                (("1"
-                                  (expand "polylist" 1)
+                              (("1" (expand "translist" 1)
+                                (("1" (expand "polylist" 1)
                                   (("1"
-                                    (lemma
-                                     "array2list_inv[list[list[real]]]")
+                                    (lemma "array2list_inv[list[list[real]]]")
                                     (("1"
                                       (inst
                                        -1
@@ -1032,8 +1033,7 @@
                                       (("1"
                                         (replace -1 1 :hide? t)
                                         (("1"
-                                          (lemma
-                                           "array2list_inv[list[real]]")
+                                          (lemma "array2list_inv[list[real]]")
                                           (("1"
                                             (inst
                                              -1
@@ -1045,8 +1045,7 @@
                                             (("1"
                                               (replace -1 1 :hide? t)
                                               (("1"
-                                                (lemma
-                                                 "array2list_inv[real]")
+                                                (lemma "array2list_inv[real]")
                                                 (("1"
                                                   (inst
                                                    -1
@@ -1055,37 +1054,18 @@
                                                    "1 + bsdegmono(i_1)"
                                                    "i_2")
                                                   (("1"
-                                                    (replace
-                                                     -1
-                                                     1
-                                                     :hide?
-                                                     t)
-                                                    (("1"
-                                                      (propax)
-                                                      nil
-                                                      nil))
+                                                    (replace -1 1 :hide? t)
+                                                    (("1" (propax) nil nil))
                                                     nil)
                                                    ("2"
                                                     (inst -9 "i" "i_1")
-                                                    (("1"
-                                                      (assert)
-                                                      nil
-                                                      nil)
+                                                    (("1" (assert) nil nil)
                                                      ("2"
                                                       (inst -8 "i")
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil)
-                                                       ("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("1" (assert) nil nil)
+                                                       ("2" (assert) nil nil))
                                                       nil)
-                                                     ("3"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                     ("3" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -1119,11 +1099,10 @@
         nil))
       nil))
     nil)
-   ((represents const-decl "bool" arrays_into_lists "structures/")
+   ((represents const-decl "bool" arrays_into_lists structures)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1146,21 +1125,19 @@
     (polylist const-decl "PolyList" util nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (bspoly skolem-const-decl "PolyList" a2l__bernstein_minmax nil)
-    (i skolem-const-decl "below(length(bspoly))" a2l__bernstein_minmax
-     nil)
+    (i skolem-const-decl "below(length(bspoly))" a2l__bernstein_minmax nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (terms skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (listn type-eq-decl nil listn "structures/")
+    (listn type-eq-decl nil listn structures)
     (array2list const-decl
-     "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}"
-     array2list "structures/")
+     "{l: listn(n) | FORALL (i: below(n)): a(i) = nth(l, i)}" array2list
+     structures)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (DegreeMono type-eq-decl nil util nil)
@@ -1171,22 +1148,34 @@
     (null adt-constructor-decl "(null?)" list_adt nil)
     (i_2 skolem-const-decl "below(length(nth(nth(bspoly, i), i_1)))"
      a2l__bernstein_minmax nil)
-    (bsdegmono skolem-const-decl "DegreeMono" a2l__bernstein_minmax
-     nil)
+    (bsdegmono skolem-const-decl "DegreeMono" a2l__bernstein_minmax nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (nvars skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (i_1 skolem-const-decl "below(length(nth(bspoly, i)))"
      a2l__bernstein_minmax nil)
-    (array2list_inv formula-decl nil array2list "structures/")
-    (translist const-decl "real" util nil)
-    (nth def-decl "T" list_props nil)
+    (array2list_inv formula-decl nil array2list structures)
+    (translist const-decl "real" util nil) (nth def-decl "T" list_props nil)
     (below type-eq-decl nil nat_types nil)
     (PolynomialList type-eq-decl nil a2l__util nil)
     (represents const-decl "bool" multibernstein_into_polylist nil))
    shostak))
  (a2l__Bern_split_left_mpoly__homomorphic 0
+  (a2l__Bern_split_left_mpoly__homomorphic-2 "" 3790097987
+   ("" (skeep :preds? t)
+    (("" (hide -1)
+      (("" (lemma "a2l__Bern_split_left_mpoly__homomorphism")
+        (("" (inst -1 "nvars" "terms" "bsdegmono" "i" "mb" "bspoly")
+          (("1" (expand "multipolynomial__represents")
+            (("1" (propax) nil nil)) nil)
+           ("2" (expand "multipolynomial__represents")
+            (("2" (propax) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (a2l__Bern_split_left_mpoly__homomorphic-1 nil 3687010698
    ("" (skeep :preds? t)
     (("" (hide -1)
@@ -1204,15 +1193,13 @@
         nil))
       nil))
     nil)
-   ((mb skolem-const-decl
-     "{mb: MultiBernstein | represents(bspoly, mb)}"
+   ((mb skolem-const-decl "{mb: MultiBernstein | represents(bspoly, mb)}"
      a2l__bernstein_minmax nil)
     (represents const-decl "bool" multibernstein_into_polylist nil)
     (bspoly skolem-const-decl "PolyList" a2l__bernstein_minmax nil)
     (multipolynomial__represents const-decl "bool"
      multibernstein_into_polylist nil)
-    (bsdegmono skolem-const-decl "DegreeMono" a2l__bernstein_minmax
-     nil)
+    (bsdegmono skolem-const-decl "DegreeMono" a2l__bernstein_minmax nil)
     (DegreeMono type-eq-decl nil util nil)
     (nvars skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (terms skolem-const-decl "posnat" a2l__bernstein_minmax nil)
@@ -1232,8 +1219,7 @@
     (PolyList type-eq-decl nil util nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
@@ -1247,6 +1233,20 @@
      a2l__multi_bernstein nil))
    shostak))
  (a2l__Bern_split_right_mpoly__homomorphic 0
+  (a2l__Bern_split_right_mpoly__homomorphic-2 "" 3790097987
+   ("" (skeep :preds? t)
+    (("" (hide -1)
+      (("" (lemma "a2l__Bern_split_right_mpoly__homomorphism")
+        (("" (inst -1 "nvars" "terms" "bsdegmono" "i" "mb" "bspoly")
+          (("1" (expand "multipolynomial__represents")
+            (("1" (propax) nil nil)) nil)
+           ("2" (expand "multipolynomial__represents")
+            (("2" (propax) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (a2l__Bern_split_right_mpoly__homomorphic-1 nil 3687017622
    ("" (skeep :preds? t)
     (("" (hide -1)
@@ -1264,15 +1264,13 @@
         nil))
       nil))
     nil)
-   ((mb skolem-const-decl
-     "{mb: MultiBernstein | represents(bspoly, mb)}"
+   ((mb skolem-const-decl "{mb: MultiBernstein | represents(bspoly, mb)}"
      a2l__bernstein_minmax nil)
     (represents const-decl "bool" multibernstein_into_polylist nil)
     (bspoly skolem-const-decl "PolyList" a2l__bernstein_minmax nil)
     (multipolynomial__represents const-decl "bool"
      multibernstein_into_polylist nil)
-    (bsdegmono skolem-const-decl "DegreeMono" a2l__bernstein_minmax
-     nil)
+    (bsdegmono skolem-const-decl "DegreeMono" a2l__bernstein_minmax nil)
     (DegreeMono type-eq-decl nil util nil)
     (nvars skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (terms skolem-const-decl "posnat" a2l__bernstein_minmax nil)
@@ -1292,8 +1290,7 @@
     (PolyList type-eq-decl nil util nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (every adt-def-decl "boolean" list_adt nil)
     (PRED type-eq-decl nil defined_types nil)
@@ -1307,11 +1304,16 @@
      a2l__multi_bernstein nil))
    shostak))
  (a2l__Bernstein_minmax_rec_TCC1 0
-  (a2l__Bernstein_minmax_rec_TCC1-1 nil 3686059360
-   ("" (subtype-tcc) nil nil) nil nil))
+  (a2l__Bernstein_minmax_rec_TCC1-1 nil 3686059360 ("" (subtype-tcc) nil nil)
+   nil nil
+   (a2l__Bernstein_minmax_rec subtype
+    "(number_fields.-)(a2l__bernstein_minmax.depth, a2l__bernstein_minmax.level)"
+    "naturalnumber")))
  (a2l__Bernstein_minmax_rec_TCC2 0
-  (a2l__Bernstein_minmax_rec_TCC2-1 nil 3686059360
-   ("" (subtype-tcc) nil nil) nil nil))
+  (a2l__Bernstein_minmax_rec_TCC2-1 nil 3686059360 ("" (subtype-tcc) nil nil)
+   nil nil
+   (a2l__Bernstein_minmax_rec subtype "a2l__bernstein_minmax.terms"
+    "{terms | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].multipolynomial_represents?(a2l__bernstein_minmax.bspoly)}")))
  (a2l__Bernstein_minmax_rec_TCC3 0
   (a2l__Bernstein_minmax_rec_TCC3-1 nil 3686059360
    ("" (skosimp*)
@@ -1323,8 +1325,7 @@
                                                           bsdegmono!1,
                                                           nvars!1,
                                                           terms!1))")
-        (("1" (expand "Bernstein_minmax_rec") (("1" (ground) nil nil))
-          nil)
+        (("1" (expand "Bernstein_minmax_rec") (("1" (ground) nil nil)) nil)
          ("2" (use "polylist_represents_translist_polylist") nil nil))
         nil))
       nil))
@@ -1333,8 +1334,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1374,23 +1374,22 @@
     (Bernstein_minmax_rec def-decl
      "(sound?(bspoly, bsdegmono, nvars, terms, cf, intendpts))"
      bernstein_minmax nil)
-    (mb!1 skolem-const-decl
-     "{mb: MultiBernstein | represents(bspoly!1, mb)}"
+    (mb!1 skolem-const-decl "{mb: MultiBernstein | represents(bspoly!1, mb)}"
      a2l__bernstein_minmax nil)
     (polylist const-decl "PolyList" util nil)
     (MultiPolynomial type-eq-decl nil util nil)
     (translist const-decl "real" util nil)
     (bspoly!1 skolem-const-decl "PolyList" a2l__bernstein_minmax nil)
-    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax
-     nil)
+    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax nil)
     (nvars!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (terms!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil))
-   nil))
+   nil
+   (a2l__Bernstein_minmax_rec subtype "a2l__bernstein_minmax.minmax"
+    "{result: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb), vs: vardirselector.VarSelector | vardirselector_into_a2lvardirselector.represents(a2l__bernstein_minmax.varselect, vs)): result = bernstein_minmax.Bernstein_minmax_rec(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.level, a2l__bernstein_minmax.localexit, a2l__bernstein_minmax.globalexit, a2l__bernstein_minmax.intendpts, vs, a2l__bernstein_minmax.omm)}")))
  (a2l__Bernstein_minmax_rec_TCC4 0
   (a2l__Bernstein_minmax_rec_TCC4-1 nil 3686059360
    ("" (skosimp*)
-    (("" (use "mod_pos") (("" (flatten) (("" (assert) nil nil)) nil))
-      nil))
+    (("" (use "mod_pos") (("" (flatten) (("" (assert) nil nil)) nil)) nil))
     nil)
    ((mod_pos formula-decl nil mod nil)
     (posnat nonempty-type-eq-decl nil integers nil)
@@ -1406,18 +1405,17 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (nil application-judgement "below(m)" mod nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/"))
-   nil))
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals))
+   nil (a2l__Bernstein_minmax_rec subtype "a2l__bernstein_minmax.v" "nat")))
  (a2l__Bernstein_minmax_rec_TCC5 0
   (a2l__Bernstein_minmax_rec_TCC5-1 nil 3686059360
    ("" (skosimp*)
@@ -1433,20 +1431,15 @@
                       (("1" (expand "represents?" -1)
                         (("1" (skosimp -1)
                           (("1"
-                            (inst -2 "bspoly!1" " bsdegmono!1"
-                             " nvars!1" " terms!1" " cf!1" "A!1" "v!1")
-                            (("1"
-                              (expand "multipolynomial_represents?")
-                              (("1"
-                                (expand "represents?")
+                            (inst -2 "bspoly!1" " bsdegmono!1" " nvars!1"
+                             " terms!1" " cf!1" "A!1" "v!1")
+                            (("1" (expand "multipolynomial_represents?")
+                              (("1" (expand "represents?")
                                 (("1"
-                                  (inst
-                                   1
+                                  (inst 1
                                    "LAMBDA (k: nat): Bern_split_left_mono(A!1(k), bsdegmono!1)(v!1)")
-                                  (("1"
-                                    (expand "represents")
-                                    (("1"
-                                      (assert)
+                                  (("1" (expand "represents")
+                                    (("1" (assert)
                                       (("1"
                                         (flatten)
                                         (("1"
@@ -1474,27 +1467,21 @@
            ("2" (flatten)
             (("2" (assert)
               (("2" (replace -6 :hide? t)
-                (("2"
-                  (lemma "a2l__Bern_split_right_mpoly__homomorphic")
+                (("2" (lemma "a2l__Bern_split_right_mpoly__homomorphic")
                   (("2" (typepred "cf!1")
                     (("2" (expand "multipolynomial_represents?" -1)
                       (("2" (expand "represents?" -1)
                         (("2" (skosimp -1)
                           (("2"
-                            (inst -2 "bspoly!1" " bsdegmono!1"
-                             " nvars!1" " terms!1" " cf!1" "A!1" "v!1")
-                            (("2"
-                              (expand "multipolynomial_represents?")
-                              (("2"
-                                (expand "represents?")
-                                (("2"
-                                  (expand "represents")
+                            (inst -2 "bspoly!1" " bsdegmono!1" " nvars!1"
+                             " terms!1" " cf!1" "A!1" "v!1")
+                            (("2" (expand "multipolynomial_represents?")
+                              (("2" (expand "represents?")
+                                (("2" (expand "represents")
                                   (("2"
-                                    (inst
-                                     2
+                                    (inst 2
                                      "LAMBDA (k: nat): Bern_split_right_mono(A!1(k), bsdegmono!1)(v!1)")
-                                    (("2"
-                                      (flatten)
+                                    (("2" (flatten)
                                       (("2"
                                         (split)
                                         (("1" (assert) nil nil)
@@ -1520,16 +1507,13 @@
         nil))
       nil))
     nil)
-   ((nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+   ((nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (nil application-judgement "below(m)" mod nil)
     (a2l__Bern_split_left_mpoly__homomorphic formula-decl nil
      a2l__bernstein_minmax nil)
     (Bern_split_left_mono const-decl "real" multi_bernstein nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -1538,17 +1522,16 @@
     (A!1 skolem-const-decl "MultiBernstein" a2l__bernstein_minmax nil)
     (bspoly!1 skolem-const-decl "PolyList" a2l__bernstein_minmax nil)
     (represents const-decl "bool" multibernstein_into_polylist nil)
-    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax
-     nil)
+    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax nil)
     (nvars!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (terms!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (MultiBernstein type-eq-decl nil util nil)
     (Polyproduct type-eq-decl nil util nil)
     (Polynomial type-eq-decl nil util nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (represents? const-decl "bool" multibernstein_into_polylist nil)
@@ -1560,8 +1543,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -1582,10 +1564,11 @@
      a2l__bernstein_minmax nil)
     (Bern_split_right_mono const-decl "real" multi_bernstein nil)
     (A!1 skolem-const-decl "MultiBernstein" a2l__bernstein_minmax nil))
-   nil))
+   nil
+   (a2l__Bernstein_minmax_rec subtype "a2l__bernstein_minmax.cf"
+    "{cf | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].multipolynomial_represents?(a2l__bernstein_minmax.LR1)}")))
  (a2l__Bernstein_minmax_rec_TCC6 0
-  (a2l__Bernstein_minmax_rec_TCC6-1 nil 3686059360
-   ("" (subtype-tcc) nil nil)
+  (a2l__Bernstein_minmax_rec_TCC6-1 nil 3686059360 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -1594,8 +1577,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -1614,45 +1596,41 @@
      multibernstein_into_polylist nil)
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (posint_times_posint_is_posint application-judgement "posint"
-     integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
+    (posint_times_posint_is_posint application-judgement "posint" integers
+     nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat" rationals nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat" rationals
+     nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}" real_defs
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (represents? const-decl "bool" multibernstein_into_polylist nil)
     (PolyproductList type-eq-decl nil a2l__util nil)
     (PolynomialList type-eq-decl nil a2l__util nil)
-    (represents const-decl "bool" arrays_into_lists "structures/")
+    (represents const-decl "bool" arrays_into_lists structures)
     (Coefficient type-eq-decl nil a2l__util nil)
-    (restrict const-decl "R" restrict nil)
     (posint nonempty-type-eq-decl nil integers nil)
     (< const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (Polynomial type-eq-decl nil util nil)
     (Polyproduct type-eq-decl nil util nil)
     (MultiBernstein type-eq-decl nil util nil)
@@ -1667,31 +1645,31 @@
      bernstein_minmax nil)
     (between? const-decl "bool" minmax nil)
     (a2l__Bern_coeffs_minmax const-decl "{result: Outminmax |
-         FORALL (mb: MultiBernstein | represents(bspoly, mb)):
-           result =
-            Bern_coeffs_minmax(mb, bsdegmono, cf, nvars, terms, depth,
-                               intendpts)}" a2l__bernstein_minmax nil)
+   FORALL (mb: MultiBernstein | represents(bspoly, mb)):
+     result =
+      Bern_coeffs_minmax(mb, bsdegmono, cf, nvars, terms, depth, intendpts)}"
+     a2l__bernstein_minmax nil)
     (mod const-decl "{k | abs(k) < abs(j)}" mod nil)
     (/= const-decl "boolean" notequal nil)
     (^ const-decl "real" exponentiation nil)
-    (C const-decl "posnat" binomial "reals/")
-    (map_with_index const-decl "list[T1]" map_with_index "structures/")
+    (C const-decl "posnat" binomial reals)
+    (map_with_index const-decl "list[T1]" map_with_index structures)
     (a2l__Bern_split_left_mono const-decl "PolyproductList"
      a2l__multi_bernstein nil)
-    (a2l__Bern_split_left_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
+    (a2l__Bern_split_left_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil)
     (a2l__Bern_split_right_mono const-decl "PolyproductList"
      a2l__multi_bernstein nil)
-    (a2l__Bern_split_right_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
+    (a2l__Bern_split_right_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil)
     (combine const-decl "Outminmax" minmax nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int" integers
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (a2l__Bernstein_minmax_rec subtype "a2l__bernstein_minmax.level"
+    "naturalnumbers.upto(a2l__bernstein_minmax.depth)")))
  (a2l__Bernstein_minmax_rec_TCC7 0
   (a2l__Bernstein_minmax_rec_TCC7-1 nil 3686059360
    ("" (termination-tcc) nil nil)
@@ -1703,8 +1681,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -1723,45 +1700,40 @@
      multibernstein_into_polylist nil)
     (<= const-decl "bool" reals nil)
     (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (posint_times_posint_is_posint application-judgement "posint"
-     integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (posint_times_posint_is_posint application-judgement "posint" integers
+     nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat" rationals nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat" rationals
+     nil)
     (minus_int_is_int application-judgement "int" integers nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
-    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}" real_defs
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (represents? const-decl "bool" multibernstein_into_polylist nil)
     (PolyproductList type-eq-decl nil a2l__util nil)
     (PolynomialList type-eq-decl nil a2l__util nil)
-    (represents const-decl "bool" arrays_into_lists "structures/")
+    (represents const-decl "bool" arrays_into_lists structures)
     (Coefficient type-eq-decl nil a2l__util nil)
-    (restrict const-decl "R" restrict nil)
     (posint nonempty-type-eq-decl nil integers nil)
     (< const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (Polynomial type-eq-decl nil util nil)
     (Polyproduct type-eq-decl nil util nil)
     (MultiBernstein type-eq-decl nil util nil)
@@ -1779,42 +1751,42 @@
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (combine const-decl "Outminmax" minmax nil)
-    (for const-decl "T" for_iterate "structures/")
-    (iterate_left const-decl "T" for_iterate "structures/")
+    (for const-decl "T" for_iterate structures)
+    (iterate_left const-decl "T" for_iterate structures)
     (a2l__Bern_coeffs_minmax_rec def-decl "{omm: Outminmax |
-         FORALL (mb: MultiBernstein | represents(bspoly, mb)):
-           omm =
-            Bern_coeffs_minmax_rec(mb, bsdegmono, cf, nvars, terms, f,
-                                   depth, intendpts, v, ep)}"
-     a2l__bernstein_minmax nil)
+   FORALL (mb: MultiBernstein | represents(bspoly, mb)):
+     omm =
+      Bern_coeffs_minmax_rec(mb, bsdegmono, cf, nvars, terms, f, depth,
+                             intendpts, v, ep)}" a2l__bernstein_minmax nil)
     (a2l__Bern_coeffs_minmax const-decl "{result: Outminmax |
-         FORALL (mb: MultiBernstein | represents(bspoly, mb)):
-           result =
-            Bern_coeffs_minmax(mb, bsdegmono, cf, nvars, terms, depth,
-                               intendpts)}" a2l__bernstein_minmax nil)
+   FORALL (mb: MultiBernstein | represents(bspoly, mb)):
+     result =
+      Bern_coeffs_minmax(mb, bsdegmono, cf, nvars, terms, depth, intendpts)}"
+     a2l__bernstein_minmax nil)
     (mod const-decl "{k | abs(k) < abs(j)}" mod nil)
-    (nth_ext const-decl "T" nth_ext "structures/")
+    (nth_ext const-decl "T" nth_ext structures)
     (^ const-decl "real" exponentiation nil)
-    (C const-decl "posnat" binomial "reals/")
-    (factorial def-decl "posnat" factorial "ints/")
-    (sigma def-decl "real" sigma "reals/")
-    (map_with_index const-decl "list[T1]" map_with_index "structures/")
+    (C const-decl "posnat" binomial reals)
+    (factorial def-decl "posnat" factorial ints)
+    (sigma def-decl "real" sigma reals)
+    (map_with_index const-decl "list[T1]" map_with_index structures)
     (a2l__Bern_split_left_mono const-decl "PolyproductList"
      a2l__multi_bernstein nil)
-    (a2l__Bern_split_left_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
+    (a2l__Bern_split_left_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil)
     (a2l__Bern_split_right_mono const-decl "PolyproductList"
      a2l__multi_bernstein nil)
-    (a2l__Bern_split_right_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
+    (a2l__Bern_split_right_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int" integers
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (posnat_expt application-judgement "posnat" exponentiation nil))
-   nil))
+   nil
+   (a2l__Bernstein_minmax_rec termination
+    "a2l__bernstein_minmax.a2l__Bernstein_minmax_rec(a2l__bernstein_minmax.LR1, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.level, a2l__bernstein_minmax.localexit, a2l__bernstein_minmax.globalexit, a2l__bernstein_minmax.LR1intendpts, a2l__bernstein_minmax.varselect, a2l__bernstein_minmax.newmm1)"
+    "nil")))
  (a2l__Bernstein_minmax_rec_TCC8 0
   (a2l__Bernstein_minmax_rec_TCC8-2 nil 3687112117
    ("" (skosimp*)
@@ -1840,20 +1812,14 @@
                         (("1" (replace -1 :hide? t)
                           (("1" (expand "Bernstein_minmax_rec")
                             (("1" (lift-if 5)
-                              (("1"
-                                (split 5)
-                                (("1"
-                                  (flatten)
-                                  (("1"
-                                    (hide 1)
-                                    (("1"
-                                      (split -1)
+                              (("1" (split 5)
+                                (("1" (flatten)
+                                  (("1" (hide 1)
+                                    (("1" (split -1)
                                       (("1"
                                         (hide 1)
                                         (("1"
-                                          (invoke
-                                           (typepred "%1")
-                                           (! -2 2))
+                                          (invoke (typepred "%1") (! -2 2))
                                           (("1"
                                             (inst
                                              -1
@@ -1873,9 +1839,7 @@
                                           nil))
                                         nil)
                                        ("2"
-                                        (invoke
-                                         (typepred "%1")
-                                         (! -2 2))
+                                        (invoke (typepred "%1") (! -2 2))
                                         (("2"
                                           (inst
                                            -1
@@ -1894,9 +1858,7 @@
                                           nil))
                                         nil)
                                        ("3"
-                                        (invoke
-                                         (typepred "%1")
-                                         (! -2 2))
+                                        (invoke (typepred "%1") (! -2 2))
                                         (("3"
                                           (inst
                                            -1
@@ -1917,12 +1879,9 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (flatten)
-                                  (("2"
-                                    (lift-if)
-                                    (("2"
-                                      (split 4)
+                                 ("2" (flatten)
+                                  (("2" (lift-if)
+                                    (("2" (split 4)
                                       (("1"
                                         (flatten)
                                         (("1"
@@ -1934,17 +1893,9 @@
                                               (("1"
                                                 (hide -10)
                                                 (("1"
-                                                  (replace
-                                                   -10
-                                                   *
-                                                   :hide?
-                                                   t)
+                                                  (replace -10 * :hide? t)
                                                   (("1"
-                                                    (replace
-                                                     -10
-                                                     *
-                                                     :hide?
-                                                     t)
+                                                    (replace -10 * :hide? t)
                                                     (("1"
                                                       (hide -10)
                                                       (("1"
@@ -1966,9 +1917,7 @@
                                                              :hide?
                                                              t)
                                                             (("1"
-                                                              (hide
-                                                               -7
-                                                               -9)
+                                                              (hide -7 -9)
                                                               (("1"
                                                                 (replace
                                                                  -6
@@ -2439,20 +2388,11 @@
                                                 (("2"
                                                   (replace -1 :hide? t)
                                                   (("2"
-                                                    (replace
-                                                     -1
-                                                     :hide?
-                                                     t)
+                                                    (replace -1 :hide? t)
                                                     (("2"
-                                                      (replace
-                                                       -1
-                                                       :hide?
-                                                       t)
+                                                      (replace -1 :hide? t)
                                                       (("2"
-                                                        (replace
-                                                         -1
-                                                         :hide?
-                                                         t)
+                                                        (replace -1 :hide? t)
                                                         (("2"
                                                           (hide -1)
                                                           (("2"
@@ -2466,8 +2406,7 @@
                                                                :hide?
                                                                t)
                                                               (("2"
-                                                                (hide
-                                                                 -1)
+                                                                (hide -1)
                                                                 (("2"
                                                                   (replace
                                                                    -1
@@ -2875,25 +2814,18 @@
                          ("2" (hide-all-but 1)
                           (("2" (typepred "vs!1")
                             (("2" (expand "represents" -1)
-                              (("2"
-                                (inst? -1 :where 1)
+                              (("2" (inst? -1 :where 1)
                                 (("2"
-                                  (inst
-                                   -1
-                                   "translist
+                                  (inst -1 "translist
                                                                                                                                (polylist
                                                                                                                                 (mb!1,
                                                                                                                                  bsdegmono!1,
                                                                                                                                  nvars!1,
                                                                                                                                  terms!1))")
                                   (("2"
-                                    (inst
-                                     -1
-                                     "nvars!1"
-                                     "terms!1"
+                                    (inst -1 "nvars!1" "terms!1"
                                      "bsdegmono!1")
-                                    (("2"
-                                      (split -1)
+                                    (("2" (split -1)
                                       (("1" (inst?) nil nil)
                                        ("2"
                                         (use
@@ -2911,11 +2843,10 @@
                       nil))
                     nil))
                   nil)
-                 ("2"
-                  (lemma "a2l__Bern_split_right_mpoly__homomorphic")
+                 ("2" (lemma "a2l__Bern_split_right_mpoly__homomorphic")
                   (("2"
-                    (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1"
-                     "terms!1" "cf!1" "_" "v!1")
+                    (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1" "terms!1"
+                     "cf!1" "_" "v!1")
                     (("2" (inst?)
                       (("2" (expand "multipolynomial_represents?")
                         (("2" (expand "represents?")
@@ -2930,13 +2861,12 @@
           nil)
          ("2" (lemma "a2l__Bern_split_left_mpoly__homomorphic")
           (("2"
-            (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1" "terms!1"
-             "cf!1" "_" "v!1")
+            (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1" "terms!1" "cf!1" "_"
+             "v!1")
             (("1" (inst?)
               (("1" (expand "multipolynomial_represents?")
                 (("1" (expand "represents?")
-                  (("1" (inst? 1 :where -1) (("1" (assert) nil nil))
-                    nil))
+                  (("1" (inst? 1 :where -1) (("1" (assert) nil nil)) nil))
                   nil))
                 nil))
               nil)
@@ -2948,9 +2878,9 @@
       nil))
     nil)
    ((represents? const-decl "bool" multibernstein_into_polylist nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
@@ -2960,33 +2890,31 @@
     (nonzero_integer nonempty-type-eq-decl nil integers nil)
     (mod const-decl "{k | abs(k) < abs(j)}" mod nil)
     (TRUE const-decl "bool" booleans nil)
-    (v!1 skolem-const-decl "{k | abs(k) < abs(nvars!1)}"
-     a2l__bernstein_minmax nil)
-    (varselect!1 skolem-const-decl "a2l__VarSelector"
-     a2l__bernstein_minmax nil)
-    (vs!1 skolem-const-decl
-     "{vs: VarSelector | represents(varselect!1, vs)}"
+    (v!1 skolem-const-decl "{k | abs(k) < abs(nvars!1)}" a2l__bernstein_minmax
+     nil)
+    (varselect!1 skolem-const-decl "a2l__VarSelector" a2l__bernstein_minmax
+     nil)
+    (vs!1 skolem-const-decl "{vs: VarSelector | represents(varselect!1, vs)}"
      a2l__bernstein_minmax nil)
     (cf!1 skolem-const-decl
      "{cf | multipolynomial_represents?[terms!1, nvars!1, bsdegmono!1](bspoly!1)}"
      a2l__bernstein_minmax nil)
     (depth!1 skolem-const-decl "nat" a2l__bernstein_minmax nil)
-    (level!1 skolem-const-decl "upto(depth!1)" a2l__bernstein_minmax
-     nil)
+    (level!1 skolem-const-decl "upto(depth!1)" a2l__bernstein_minmax nil)
     (a2l__Bern_split_left_mpoly__homomorphic formula-decl nil
      a2l__bernstein_minmax nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (a2l__Bern_split_right_mpoly__homomorphic formula-decl nil
      a2l__bernstein_minmax nil)
     (Bern_split_right_mono const-decl "real" multi_bernstein nil)
     (a2l__Bern_coeffs_minmax const-decl "{result: Outminmax |
-         FORALL (mb: MultiBernstein | represents(bspoly, mb)):
-           result =
-            Bern_coeffs_minmax(mb, bsdegmono, cf, nvars, terms, depth,
-                               intendpts)}" a2l__bernstein_minmax nil)
+   FORALL (mb: MultiBernstein | represents(bspoly, mb)):
+     result =
+      Bern_coeffs_minmax(mb, bsdegmono, cf, nvars, terms, depth, intendpts)}"
+     a2l__bernstein_minmax nil)
     (Bern_coeffs_minmax const-decl
      "(sound?(bspoly, bsdegmono, nvars, terms, cf, intendpts))"
      bernstein_minmax nil)
@@ -2996,12 +2924,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (polylist_represents_translist_polylist formula-decl nil
      a2l__bernstein_minmax nil)
-    (mb!1 skolem-const-decl
-     "{mb: MultiBernstein | represents(bspoly!1, mb)}"
+    (mb!1 skolem-const-decl "{mb: MultiBernstein | represents(bspoly!1, mb)}"
      a2l__bernstein_minmax nil)
     (bspoly!1 skolem-const-decl "PolyList" a2l__bernstein_minmax nil)
-    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax
-     nil)
+    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax nil)
     (nvars!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (terms!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (Bernstein_minmax_rec def-decl
@@ -3016,22 +2942,19 @@
     (Polyproduct type-eq-decl nil util nil)
     (MultiBernstein type-eq-decl nil util nil)
     (VarSelector type-eq-decl nil vardirselector nil)
-    (represents const-decl "bool" vardirselector_into_a2lvardirselector
-     nil)
+    (represents const-decl "bool" vardirselector_into_a2lvardirselector nil)
     (translist const-decl "real" util nil)
     (MultiPolynomial type-eq-decl nil util nil)
     (polylist const-decl "PolyList" util nil)
     (represents const-decl "bool" multibernstein_into_polylist nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (a2l__Bern_split_right_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (a2l__Bern_split_right_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil)
     (nil application-judgement "below(m)" mod nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -3039,8 +2962,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -3057,15 +2979,17 @@
     (DegreeMono type-eq-decl nil util nil)
     (multipolynomial_represents? const-decl "bool"
      multibernstein_into_polylist nil)
-    (a2l__Bern_split_left_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
+    (a2l__Bern_split_left_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil)
     (< const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil))
-   nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil))
+   nil
+   (a2l__Bernstein_minmax_rec subtype
+    "a2l__bernstein_minmax.combine_this(a2l__bernstein_minmax.v, a2l__bernstein_minmax.bslr1, a2l__bernstein_minmax.minmax)"
+    "{result: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb), vs: vardirselector.VarSelector | vardirselector_into_a2lvardirselector.represents(a2l__bernstein_minmax.varselect, vs)): result = bernstein_minmax.Bernstein_minmax_rec(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.level, a2l__bernstein_minmax.localexit, a2l__bernstein_minmax.globalexit, a2l__bernstein_minmax.intendpts, vs, a2l__bernstein_minmax.omm)}"))
   (a2l__Bernstein_minmax_rec_TCC8-1 nil 3686059360
    ("" (skosimp*)
     (("" (replace -1 :hide? t)
@@ -3090,20 +3014,14 @@
                         (("1" (replace -1 :hide? t)
                           (("1" (expand "Bernstein_minmax_rec")
                             (("1" (lift-if 5)
-                              (("1"
-                                (split 5)
-                                (("1"
-                                  (flatten)
-                                  (("1"
-                                    (hide 1)
-                                    (("1"
-                                      (split -1)
+                              (("1" (split 5)
+                                (("1" (flatten)
+                                  (("1" (hide 1)
+                                    (("1" (split -1)
                                       (("1"
                                         (hide 1)
                                         (("1"
-                                          (invoke
-                                           (typepred "%1")
-                                           (! -2 2))
+                                          (invoke (typepred "%1") (! -2 2))
                                           (("1"
                                             (inst
                                              -1
@@ -3123,9 +3041,7 @@
                                           nil))
                                         nil)
                                        ("2"
-                                        (invoke
-                                         (typepred "%1")
-                                         (! -2 2))
+                                        (invoke (typepred "%1") (! -2 2))
                                         (("2"
                                           (inst
                                            -1
@@ -3144,9 +3060,7 @@
                                           nil))
                                         nil)
                                        ("3"
-                                        (invoke
-                                         (typepred "%1")
-                                         (! -2 2))
+                                        (invoke (typepred "%1") (! -2 2))
                                         (("3"
                                           (inst
                                            -1
@@ -3167,12 +3081,9 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (flatten)
-                                  (("2"
-                                    (lift-if)
-                                    (("2"
-                                      (split 4)
+                                 ("2" (flatten)
+                                  (("2" (lift-if)
+                                    (("2" (split 4)
                                       (("1"
                                         (flatten)
                                         (("1"
@@ -3184,17 +3095,9 @@
                                               (("1"
                                                 (hide -10)
                                                 (("1"
-                                                  (replace
-                                                   -10
-                                                   *
-                                                   :hide?
-                                                   t)
+                                                  (replace -10 * :hide? t)
                                                   (("1"
-                                                    (replace
-                                                     -10
-                                                     *
-                                                     :hide?
-                                                     t)
+                                                    (replace -10 * :hide? t)
                                                     (("1"
                                                       (hide -10)
                                                       (("1"
@@ -3216,9 +3119,7 @@
                                                              :hide?
                                                              t)
                                                             (("1"
-                                                              (hide
-                                                               -7
-                                                               -9)
+                                                              (hide -7 -9)
                                                               (("1"
                                                                 (replace
                                                                  -6
@@ -3619,20 +3520,11 @@
                                                 (("2"
                                                   (replace -1 :hide? t)
                                                   (("2"
-                                                    (replace
-                                                     -1
-                                                     :hide?
-                                                     t)
+                                                    (replace -1 :hide? t)
                                                     (("2"
-                                                      (replace
-                                                       -1
-                                                       :hide?
-                                                       t)
+                                                      (replace -1 :hide? t)
                                                       (("2"
-                                                        (replace
-                                                         -1
-                                                         :hide?
-                                                         t)
+                                                        (replace -1 :hide? t)
                                                         (("2"
                                                           (hide -1)
                                                           (("2"
@@ -3646,8 +3538,7 @@
                                                                :hide?
                                                                t)
                                                               (("2"
-                                                                (hide
-                                                                 -1)
+                                                                (hide -1)
                                                                 (("2"
                                                                   (replace
                                                                    -1
@@ -3985,25 +3876,18 @@
                          ("2" (hide-all-but 1)
                           (("2" (typepred "vs!1")
                             (("2" (expand "represents" -1)
-                              (("2"
-                                (inst? -1 :where 1)
+                              (("2" (inst? -1 :where 1)
                                 (("2"
-                                  (inst
-                                   -1
-                                   "translist
+                                  (inst -1 "translist
                                                                                                                        (polylist
                                                                                                                         (mb!1,
                                                                                                                          bsdegmono!1,
                                                                                                                          nvars!1,
                                                                                                                          terms!1))")
                                   (("2"
-                                    (inst
-                                     -1
-                                     "nvars!1"
-                                     "terms!1"
+                                    (inst -1 "nvars!1" "terms!1"
                                      "maximum_degree(bsdegmono!1,nvars!1)")
-                                    (("2"
-                                      (split -1)
+                                    (("2" (split -1)
                                       (("1"
                                         (inst
                                          -1
@@ -4028,16 +3912,14 @@
                       nil))
                     nil))
                   nil)
-                 ("2"
-                  (lemma "a2l__Bern_split_right_mpoly__homomorphic")
+                 ("2" (lemma "a2l__Bern_split_right_mpoly__homomorphic")
                   (("2"
-                    (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1"
-                     "terms!1" "cf!1" "_" "v!1")
+                    (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1" "terms!1"
+                     "cf!1" "_" "v!1")
                     (("2" (inst?)
                       (("2" (expand "multipolynomial_represents?")
                         (("2" (expand "represents?")
-                          (("2"
-                            (expand "represents_polylist_multipolynomial")
+                          (("2" (expand "represents_polylist_multipolynomial")
                             (("2" (inst? 1 :where -1) nil nil)) nil))
                           nil))
                         nil))
@@ -4050,14 +3932,13 @@
           nil)
          ("2" (lemma "a2l__Bern_split_left_mpoly__homomorphic")
           (("2"
-            (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1" "terms!1"
-             "cf!1" "_" "v!1")
+            (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1" "terms!1" "cf!1" "_"
+             "v!1")
             (("1" (inst?)
               (("1" (expand "multipolynomial_represents?")
                 (("1" (expand "represents?")
                   (("1" (expand "represents_polylist_multipolynomial")
-                    (("1" (inst? 1 :where -1) (("1" (assert) nil nil))
-                      nil))
+                    (("1" (inst? 1 :where -1) (("1" (assert) nil nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -4069,7 +3950,7 @@
         nil))
       nil))
     nil)
-   ((represents? const-decl "bool" arrays_into_lists "structures/")
+   ((represents? const-decl "bool" arrays_into_lists structures)
     (combine const-decl "Outminmax" minmax nil)
     (Bern_split_left_mono const-decl "real" multi_bernstein nil)
     (Bern_split_right_mono const-decl "real" multi_bernstein nil)
@@ -4088,24 +3969,24 @@
     (Polyproduct type-eq-decl nil util nil)
     (MultiBernstein type-eq-decl nil util nil)
     (VarSelector type-eq-decl nil vardirselector nil)
-    (represents const-decl "bool" vardirselector_into_a2lvardirselector
-     nil)
+    (represents const-decl "bool" vardirselector_into_a2lvardirselector nil)
     (translist const-decl "real" util nil)
     (MultiPolynomial type-eq-decl nil util nil)
     (polylist const-decl "PolyList" util nil)
-    (a2l__Bern_split_right_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
-    (PolyList type-eq-decl nil util nil)
-    (CoeffMono type-eq-decl nil util nil)
-    (maximum_degree def-decl
-     "{n: nat | FORALL (i: below(nvars)): coeffmono(i) <= n}" a2l__util
+    (a2l__Bern_split_right_mpoly const-decl "PolyList" a2l__multi_bernstein
      nil)
+    (PolyList type-eq-decl nil util nil) (CoeffMono type-eq-decl nil util nil)
+    (maximum_degree def-decl
+     "{n: nat | FORALL (i: below(nvars)): coeffmono(i) <= n}" a2l__util nil)
     (DegreeMono type-eq-decl nil util nil)
     (multipolynomial_represents? const-decl "bool"
      multibernstein_into_polylist nil)
-    (a2l__Bern_split_left_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil))
-   nil))
+    (a2l__Bern_split_left_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil))
+   nil
+   (a2l__Bernstein_minmax_rec subtype
+    "a2l__bernstein_minmax.combine_this(a2l__bernstein_minmax.v, a2l__bernstein_minmax.bslr1, a2l__bernstein_minmax.minmax)"
+    "{result: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb), vs: vardirselector.VarSelector | vardirselector_into_a2lvardirselector.represents(a2l__bernstein_minmax.varselect, vs)): result = bernstein_minmax.Bernstein_minmax_rec(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.level, a2l__bernstein_minmax.localexit, a2l__bernstein_minmax.globalexit, a2l__bernstein_minmax.intendpts, vs, a2l__bernstein_minmax.omm)}")))
  (a2l__Bernstein_minmax_rec_TCC9 0
   (a2l__Bernstein_minmax_rec_TCC9-1 nil 3686059360
    ("" (skosimp*)
@@ -4115,27 +3996,21 @@
           (("1" (flatten)
             (("1" (assert)
               (("1" (replace -7 :hide? t)
-                (("1"
-                  (lemma "a2l__Bern_split_right_mpoly__homomorphic")
+                (("1" (lemma "a2l__Bern_split_right_mpoly__homomorphic")
                   (("1" (typepred "cf!1")
                     (("1" (expand "multipolynomial_represents?" -1)
                       (("1" (expand "represents?" -1)
                         (("1" (skosimp -1)
                           (("1"
-                            (inst -2 "bspoly!1" " bsdegmono!1"
-                             " nvars!1" " terms!1" " cf!1" "A!1" "v!1")
-                            (("1"
-                              (expand "multipolynomial_represents?")
-                              (("1"
-                                (expand "represents?")
+                            (inst -2 "bspoly!1" " bsdegmono!1" " nvars!1"
+                             " terms!1" " cf!1" "A!1" "v!1")
+                            (("1" (expand "multipolynomial_represents?")
+                              (("1" (expand "represents?")
                                 (("1"
-                                  (inst
-                                   1
+                                  (inst 1
                                    "LAMBDA (k: nat): Bern_split_right_mono(A!1(k), bsdegmono!1)(v!1)")
-                                  (("1"
-                                    (expand "represents")
-                                    (("1"
-                                      (assert)
+                                  (("1" (expand "represents")
+                                    (("1" (assert)
                                       (("1"
                                         (flatten)
                                         (("1"
@@ -4170,20 +4045,15 @@
                       (("2" (expand "represents?" -1)
                         (("2" (skosimp -1)
                           (("2"
-                            (inst -2 "bspoly!1" " bsdegmono!1"
-                             " nvars!1" " terms!1" " cf!1" "A!1" "v!1")
-                            (("2"
-                              (expand "multipolynomial_represents?")
-                              (("2"
-                                (expand "represents?")
-                                (("2"
-                                  (expand "represents")
+                            (inst -2 "bspoly!1" " bsdegmono!1" " nvars!1"
+                             " terms!1" " cf!1" "A!1" "v!1")
+                            (("2" (expand "multipolynomial_represents?")
+                              (("2" (expand "represents?")
+                                (("2" (expand "represents")
                                   (("2"
-                                    (inst
-                                     2
+                                    (inst 2
                                      "LAMBDA (k: nat): Bern_split_left_mono(A!1(k), bsdegmono!1)(v!1)")
-                                    (("2"
-                                      (flatten)
+                                    (("2" (flatten)
                                       (("2"
                                         (assert)
                                         (("2"
@@ -4210,16 +4080,13 @@
         nil))
       nil))
     nil)
-   ((nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+   ((nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (nil application-judgement "below(m)" mod nil)
     (a2l__Bern_split_right_mpoly__homomorphic formula-decl nil
      a2l__bernstein_minmax nil)
     (Bern_split_right_mono const-decl "real" multi_bernstein nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -4228,17 +4095,16 @@
     (A!1 skolem-const-decl "MultiBernstein" a2l__bernstein_minmax nil)
     (bspoly!1 skolem-const-decl "PolyList" a2l__bernstein_minmax nil)
     (represents const-decl "bool" multibernstein_into_polylist nil)
-    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax
-     nil)
+    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax nil)
     (nvars!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (terms!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (MultiBernstein type-eq-decl nil util nil)
     (Polyproduct type-eq-decl nil util nil)
     (Polynomial type-eq-decl nil util nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (represents? const-decl "bool" multibernstein_into_polylist nil)
@@ -4250,8 +4116,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -4272,7 +4137,9 @@
      a2l__bernstein_minmax nil)
     (Bern_split_left_mono const-decl "real" multi_bernstein nil)
     (A!1 skolem-const-decl "MultiBernstein" a2l__bernstein_minmax nil))
-   nil))
+   nil
+   (a2l__Bernstein_minmax_rec subtype "a2l__bernstein_minmax.cf"
+    "{cf | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].multipolynomial_represents?(a2l__bernstein_minmax.LR2)}")))
  (a2l__Bernstein_minmax_rec_TCC10 0
   (a2l__Bernstein_minmax_rec_TCC10-2 nil 3687112448
    ("" (skosimp*)
@@ -4336,14 +4203,10 @@
                                                     cf!1,
                                                     level!1)`2,
                                                    nvars!1)))")
-                              (("1"
-                                (assert)
-                                (("1"
-                                  (hide -1)
-                                  (("1"
-                                    (expand "Bernstein_minmax_rec")
-                                    (("1"
-                                      (lift-if 6)
+                              (("1" (assert)
+                                (("1" (hide -1)
+                                  (("1" (expand "Bernstein_minmax_rec")
+                                    (("1" (lift-if 6)
                                       (("1"
                                         (split 6)
                                         (("1"
@@ -4367,10 +4230,7 @@
                                                                                                                  bsdegmono!1,
                                                                                                                  nvars!1,
                                                                                                                  terms!1))")
-                                                    (("1"
-                                                      (assert)
-                                                      nil
-                                                      nil)
+                                                    (("1" (assert) nil nil)
                                                      ("2"
                                                       (use
                                                        "polylist_represents_translist_polylist")
@@ -4392,10 +4252,7 @@
                                                                                                                  bsdegmono!1,
                                                                                                                  nvars!1,
                                                                                                                  terms!1))")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil)
+                                                  (("1" (assert) nil nil)
                                                    ("2"
                                                     (use
                                                      "polylist_represents_translist_polylist")
@@ -4416,10 +4273,7 @@
                                                                                                                  bsdegmono!1,
                                                                                                                  nvars!1,
                                                                                                                  terms!1))")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil)
+                                                  (("1" (assert) nil nil)
                                                    ("2"
                                                     (use
                                                      "polylist_represents_translist_polylist")
@@ -5382,15 +5236,8 @@
                                                    ("2"
                                                     (hide 2)
                                                     (("2"
-                                                      (replace
-                                                       -3
-                                                       1
-                                                       :hide?
-                                                       t)
-                                                      (("2"
-                                                        (propax)
-                                                        nil
-                                                        nil))
+                                                      (replace -3 1 :hide? t)
+                                                      (("2" (propax) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -5398,20 +5245,13 @@
                                                ("2"
                                                 (flatten)
                                                 (("2"
-                                                  (case
-                                                   "NOT varsel!1`1")
+                                                  (case "NOT varsel!1`1")
                                                   (("1"
                                                     (assert)
                                                     (("1"
-                                                      (replace
-                                                       -19
-                                                       :hide?
-                                                       t)
+                                                      (replace -19 :hide? t)
                                                       (("1"
-                                                        (replace
-                                                         -18
-                                                         :hide?
-                                                         t)
+                                                        (replace -18 :hide? t)
                                                         (("1"
                                                           (replace
                                                            -17
@@ -5438,8 +5278,7 @@
                                                                    :hide?
                                                                    t)
                                                                   (("1"
-                                                                    (hide
-                                                                     -12)
+                                                                    (hide -12)
                                                                     (("1"
                                                                       (replace
                                                                        -11
@@ -6462,10 +6301,7 @@
                                                         nil))
                                                       nil))
                                                     nil)
-                                                   ("2"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                   ("2" (assert) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -6480,19 +6316,10 @@
                                 (lemma
                                  "a2l__Bern_split_left_mpoly__homomorphic")
                                 (("2"
-                                  (inst
-                                   -1
-                                   "bspoly!1"
-                                   " bsdegmono!1"
-                                   "nvars!1"
-                                   "terms!1"
-                                   "cf!1"
-                                   "_"
-                                   "_")
+                                  (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1"
+                                   "terms!1" "cf!1" "_" "_")
                                   (("2"
-                                    (inst
-                                     -1
-                                     "translist
+                                    (inst -1 "translist
                                                                            (polylist
                                                                             (mb!1,
                                                                              bsdegmono!1,
@@ -6511,8 +6338,7 @@
                                                                             cf!1,
                                                                             level!1)`2,
                                                                            nvars!1)")
-                                    (("2"
-                                      (hide 2)
+                                    (("2" (hide 2)
                                       (("2"
                                         (use
                                          "polylist_represents_translist_polylist")
@@ -6528,25 +6354,18 @@
                          ("2" (hide-all-but 1)
                           (("2" (typepred "vs!1")
                             (("2" (expand "represents" -1)
-                              (("2"
-                                (inst? -1 :where 1)
+                              (("2" (inst? -1 :where 1)
                                 (("2"
-                                  (inst
-                                   -1
-                                   "translist
+                                  (inst -1 "translist
                                                                                                                                                (polylist
                                                                                                                                                 (mb!1,
                                                                                                                                                  bsdegmono!1,
                                                                                                                                                  nvars!1,
                                                                                                                                                  terms!1))")
                                   (("2"
-                                    (inst
-                                     -1
-                                     "nvars!1"
-                                     "terms!1"
+                                    (inst -1 "nvars!1" "terms!1"
                                      "bsdegmono!1")
-                                    (("2"
-                                      (split -1)
+                                    (("2" (split -1)
                                       (("1" (inst?) nil nil)
                                        ("2"
                                         (use
@@ -6565,8 +6384,7 @@
                     nil))
                   nil)
                  ("2" (hide-all-but 1)
-                  (("2"
-                    (lemma "a2l__Bern_split_right_mpoly__homomorphic")
+                  (("2" (lemma "a2l__Bern_split_right_mpoly__homomorphic")
                     (("2" (expand "multipolynomial_represents?")
                       (("2" (expand "represents?")
                         (("2"
@@ -6590,8 +6408,8 @@
                 (("1" (expand "multipolynomial_represents?")
                   (("1" (expand "represents?")
                     (("1"
-                      (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1"
-                       "terms!1" "cf!1" "_" "_")
+                      (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1" "terms!1"
+                       "cf!1" "_" "_")
                       (("1" (inst -1 "mb!1" "v!1")
                         (("1" (inst? 1 :where -1) nil nil)) nil))
                       nil))
@@ -6616,34 +6434,32 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (posint nonempty-type-eq-decl nil integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (a2l__Bern_split_right_mpoly__homomorphic formula-decl nil
      a2l__bernstein_minmax nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (level!1 skolem-const-decl "upto(depth!1)" a2l__bernstein_minmax
-     nil)
+    (level!1 skolem-const-decl "upto(depth!1)" a2l__bernstein_minmax nil)
     (depth!1 skolem-const-decl "nat" a2l__bernstein_minmax nil)
     (cf!1 skolem-const-decl
      "{cf | multipolynomial_represents?[terms!1, nvars!1, bsdegmono!1](bspoly!1)}"
      a2l__bernstein_minmax nil)
-    (vs!1 skolem-const-decl
-     "{vs: VarSelector | represents(varselect!1, vs)}"
+    (vs!1 skolem-const-decl "{vs: VarSelector | represents(varselect!1, vs)}"
      a2l__bernstein_minmax nil)
-    (varselect!1 skolem-const-decl "a2l__VarSelector"
-     a2l__bernstein_minmax nil)
+    (varselect!1 skolem-const-decl "a2l__VarSelector" a2l__bernstein_minmax
+     nil)
     (Bern_split_right_mono const-decl "real" multi_bernstein nil)
     (a2l__Bern_coeffs_minmax const-decl "{result: Outminmax |
-         FORALL (mb: MultiBernstein | represents(bspoly, mb)):
-           result =
-            Bern_coeffs_minmax(mb, bsdegmono, cf, nvars, terms, depth,
-                               intendpts)}" a2l__bernstein_minmax nil)
+   FORALL (mb: MultiBernstein | represents(bspoly, mb)):
+     result =
+      Bern_coeffs_minmax(mb, bsdegmono, cf, nvars, terms, depth, intendpts)}"
+     a2l__bernstein_minmax nil)
     (Bern_coeffs_minmax const-decl
      "(sound?(bspoly, bsdegmono, nvars, terms, cf, intendpts))"
      bernstein_minmax nil)
@@ -6653,12 +6469,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (polylist_represents_translist_polylist formula-decl nil
      a2l__bernstein_minmax nil)
-    (mb!1 skolem-const-decl
-     "{mb: MultiBernstein | represents(bspoly!1, mb)}"
+    (mb!1 skolem-const-decl "{mb: MultiBernstein | represents(bspoly!1, mb)}"
      a2l__bernstein_minmax nil)
     (bspoly!1 skolem-const-decl "PolyList" a2l__bernstein_minmax nil)
-    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax
-     nil)
+    (bsdegmono!1 skolem-const-decl "DegreeMono" a2l__bernstein_minmax nil)
     (nvars!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (terms!1 skolem-const-decl "posnat" a2l__bernstein_minmax nil)
     (Bernstein_minmax_rec def-decl
@@ -6675,22 +6489,19 @@
     (Polyproduct type-eq-decl nil util nil)
     (MultiBernstein type-eq-decl nil util nil)
     (VarSelector type-eq-decl nil vardirselector nil)
-    (represents const-decl "bool" vardirselector_into_a2lvardirselector
-     nil)
+    (represents const-decl "bool" vardirselector_into_a2lvardirselector nil)
     (translist const-decl "real" util nil)
     (MultiPolynomial type-eq-decl nil util nil)
     (polylist const-decl "PolyList" util nil)
     (represents const-decl "bool" multibernstein_into_polylist nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (a2l__Bern_split_right_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (a2l__Bern_split_right_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil)
     (nil application-judgement "below(m)" mod nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -6698,8 +6509,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (every adt-def-decl "boolean" list_adt nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (PolyList type-eq-decl nil util nil)
@@ -6716,15 +6526,17 @@
     (DegreeMono type-eq-decl nil util nil)
     (multipolynomial_represents? const-decl "bool"
      multibernstein_into_polylist nil)
-    (a2l__Bern_split_left_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
+    (a2l__Bern_split_left_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil)
     (< const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil))
-   nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil))
+   nil
+   (a2l__Bernstein_minmax_rec subtype
+    "minmax.combine_lr(a2l__bernstein_minmax.v, a2l__bernstein_minmax.bslrleft, a2l__bernstein_minmax.bslrright)"
+    "{result: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb), vs: vardirselector.VarSelector | vardirselector_into_a2lvardirselector.represents(a2l__bernstein_minmax.varselect, vs)): result = bernstein_minmax.Bernstein_minmax_rec(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.level, a2l__bernstein_minmax.localexit, a2l__bernstein_minmax.globalexit, a2l__bernstein_minmax.intendpts, vs, a2l__bernstein_minmax.omm)}"))
   (a2l__Bernstein_minmax_rec_TCC10-1 nil 3686059360
    ("" (skosimp*)
     (("" (replace -1 :hide? t)
@@ -6787,14 +6599,10 @@
                                        cf!1,
                                        level!1)`2,
                                       nvars!1)))")
-                              (("1"
-                                (assert)
-                                (("1"
-                                  (hide -1)
-                                  (("1"
-                                    (expand "Bernstein_minmax_rec")
-                                    (("1"
-                                      (lift-if 6)
+                              (("1" (assert)
+                                (("1" (hide -1)
+                                  (("1" (expand "Bernstein_minmax_rec")
+                                    (("1" (lift-if 6)
                                       (("1"
                                         (split 6)
                                         (("1"
@@ -6818,10 +6626,7 @@
                                                                                                    bsdegmono!1,
                                                                                                    nvars!1,
                                                                                                    terms!1))")
-                                                    (("1"
-                                                      (assert)
-                                                      nil
-                                                      nil)
+                                                    (("1" (assert) nil nil)
                                                      ("2"
                                                       (use
                                                        "polylist_represents_translist_polylist")
@@ -6843,10 +6648,7 @@
                                                                                                    bsdegmono!1,
                                                                                                    nvars!1,
                                                                                                    terms!1))")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil)
+                                                  (("1" (assert) nil nil)
                                                    ("2"
                                                     (use
                                                      "polylist_represents_translist_polylist")
@@ -6867,10 +6669,7 @@
                                                                                                    bsdegmono!1,
                                                                                                    nvars!1,
                                                                                                    terms!1))")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil)
+                                                  (("1" (assert) nil nil)
                                                    ("2"
                                                     (use
                                                      "polylist_represents_translist_polylist")
@@ -7496,15 +7295,8 @@
                                                    ("2"
                                                     (hide 2)
                                                     (("2"
-                                                      (replace
-                                                       -3
-                                                       1
-                                                       :hide?
-                                                       t)
-                                                      (("2"
-                                                        (propax)
-                                                        nil
-                                                        nil))
+                                                      (replace -3 1 :hide? t)
+                                                      (("2" (propax) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -7512,20 +7304,13 @@
                                                ("2"
                                                 (flatten)
                                                 (("2"
-                                                  (case
-                                                   "NOT varsel!1`1")
+                                                  (case "NOT varsel!1`1")
                                                   (("1"
                                                     (assert)
                                                     (("1"
-                                                      (replace
-                                                       -19
-                                                       :hide?
-                                                       t)
+                                                      (replace -19 :hide? t)
                                                       (("1"
-                                                        (replace
-                                                         -18
-                                                         :hide?
-                                                         t)
+                                                        (replace -18 :hide? t)
                                                         (("1"
                                                           (replace
                                                            -17
@@ -7552,8 +7337,7 @@
                                                                    :hide?
                                                                    t)
                                                                   (("1"
-                                                                    (hide
-                                                                     -12)
+                                                                    (hide -12)
                                                                     (("1"
                                                                       (replace
                                                                        -11
@@ -8256,10 +8040,7 @@
                                                         nil))
                                                       nil))
                                                     nil)
-                                                   ("2"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                   ("2" (assert) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -8274,19 +8055,10 @@
                                 (lemma
                                  "a2l__Bern_split_left_mpoly__homomorphic")
                                 (("2"
-                                  (inst
-                                   -1
-                                   "bspoly!1"
-                                   " bsdegmono!1"
-                                   "nvars!1"
-                                   "terms!1"
-                                   "cf!1"
-                                   "_"
-                                   "_")
+                                  (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1"
+                                   "terms!1" "cf!1" "_" "_")
                                   (("2"
-                                    (inst
-                                     -1
-                                     "translist
+                                    (inst -1 "translist
                                                                  (polylist
                                                                   (mb!1,
                                                                    bsdegmono!1,
@@ -8305,8 +8077,7 @@
                                                                   cf!1,
                                                                   level!1)`2,
                                                                  nvars!1)")
-                                    (("2"
-                                      (hide 2)
+                                    (("2" (hide 2)
                                       (("2"
                                         (use
                                          "polylist_represents_translist_polylist")
@@ -8322,25 +8093,18 @@
                          ("2" (hide-all-but 1)
                           (("2" (typepred "vs!1")
                             (("2" (expand "represents" -1)
-                              (("2"
-                                (inst? -1 :where 1)
+                              (("2" (inst? -1 :where 1)
                                 (("2"
-                                  (inst
-                                   -1
-                                   "translist
+                                  (inst -1 "translist
                                                                                                                                        (polylist
                                                                                                                                         (mb!1,
                                                                                                                                          bsdegmono!1,
                                                                                                                                          nvars!1,
                                                                                                                                          terms!1))")
                                   (("2"
-                                    (inst
-                                     -1
-                                     "nvars!1"
-                                     "terms!1"
+                                    (inst -1 "nvars!1" "terms!1"
                                      "maximum_degree(bsdegmono!1,nvars!1)")
-                                    (("2"
-                                      (split -1)
+                                    (("2" (split -1)
                                       (("1"
                                         (inst
                                          -1
@@ -8366,15 +8130,13 @@
                     nil))
                   nil)
                  ("2" (hide-all-but 1)
-                  (("2"
-                    (lemma "a2l__Bern_split_right_mpoly__homomorphic")
+                  (("2" (lemma "a2l__Bern_split_right_mpoly__homomorphic")
                     (("2" (expand "multipolynomial_represents?")
-                      (("2"
-                        (expand "represents_polylist_multipolynomial")
+                      (("2" (expand "represents_polylist_multipolynomial")
                         (("2" (expand "represents?")
                           (("2"
-                            (inst -1 "bspoly!1" " bsdegmono!1"
-                             "nvars!1" "terms!1" "cf!1" "_" "_")
+                            (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1"
+                             "terms!1" "cf!1" "_" "_")
                             (("2" (inst -1 "mb!1" "v!1")
                               (("2" (inst? 1 :where -1) nil nil)) nil))
                             nil))
@@ -8395,8 +8157,8 @@
                   (("1" (expand "represents_polylist_multipolynomial")
                     (("1" (expand "represents?")
                       (("1"
-                        (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1"
-                         "terms!1" "cf!1" "_" "_")
+                        (inst -1 "bspoly!1" " bsdegmono!1" "nvars!1" "terms!1"
+                         "cf!1" "_" "_")
                         (("1" (inst -1 "mb!1" "v!1")
                           (("1" (inst? 1 :where -1) nil nil)) nil))
                         nil))
@@ -8412,7 +8174,7 @@
         nil))
       nil))
     nil)
-   ((represents? const-decl "bool" arrays_into_lists "structures/")
+   ((represents? const-decl "bool" arrays_into_lists structures)
     (Bern_split_left_mono const-decl "real" multi_bernstein nil)
     (combine const-decl "Outminmax" minmax nil)
     (Bern_split_right_mono const-decl "real" multi_bernstein nil)
@@ -8431,27 +8193,29 @@
     (Polyproduct type-eq-decl nil util nil)
     (MultiBernstein type-eq-decl nil util nil)
     (VarSelector type-eq-decl nil vardirselector nil)
-    (represents const-decl "bool" vardirselector_into_a2lvardirselector
-     nil)
+    (represents const-decl "bool" vardirselector_into_a2lvardirselector nil)
     (translist const-decl "real" util nil)
     (MultiPolynomial type-eq-decl nil util nil)
     (polylist const-decl "PolyList" util nil)
-    (a2l__Bern_split_right_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil)
-    (PolyList type-eq-decl nil util nil)
-    (CoeffMono type-eq-decl nil util nil)
-    (maximum_degree def-decl
-     "{n: nat | FORALL (i: below(nvars)): coeffmono(i) <= n}" a2l__util
+    (a2l__Bern_split_right_mpoly const-decl "PolyList" a2l__multi_bernstein
      nil)
+    (PolyList type-eq-decl nil util nil) (CoeffMono type-eq-decl nil util nil)
+    (maximum_degree def-decl
+     "{n: nat | FORALL (i: below(nvars)): coeffmono(i) <= n}" a2l__util nil)
     (DegreeMono type-eq-decl nil util nil)
     (multipolynomial_represents? const-decl "bool"
      multibernstein_into_polylist nil)
-    (a2l__Bern_split_left_mpoly const-decl "PolyList"
-     a2l__multi_bernstein nil))
-   nil))
+    (a2l__Bern_split_left_mpoly const-decl "PolyList" a2l__multi_bernstein
+     nil))
+   nil
+   (a2l__Bernstein_minmax_rec subtype
+    "minmax.combine_lr(a2l__bernstein_minmax.v, a2l__bernstein_minmax.bslrleft, a2l__bernstein_minmax.bslrright)"
+    "{result: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb), vs: vardirselector.VarSelector | vardirselector_into_a2lvardirselector.represents(a2l__bernstein_minmax.varselect, vs)): result = bernstein_minmax.Bernstein_minmax_rec(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.level, a2l__bernstein_minmax.localexit, a2l__bernstein_minmax.globalexit, a2l__bernstein_minmax.intendpts, vs, a2l__bernstein_minmax.omm)}")))
  (a2l__Bernstein_minmax_TCC1 0
-  (a2l__Bernstein_minmax_TCC1-1 nil 3686059464
-   ("" (subtype-tcc) nil nil) nil nil))
+  (a2l__Bernstein_minmax_TCC1-1 nil 3686059464 ("" (subtype-tcc) nil nil) nil
+   nil
+   (a2l__Bernstein_minmax subtype "0"
+    "naturalnumbers.upto(a2l__bernstein_minmax.depth)")))
  (a2l__Bernstein_minmax_TCC2 0
   (a2l__Bernstein_minmax_TCC2-1 nil 3686059464
    ("" (skosimp*)
@@ -8465,12 +8229,12 @@
      bernstein_minmax nil)
     (empty_minmax const-decl "Outminmax" minmax nil)
     (a2l__Bernstein_minmax_rec def-decl "{result: Outminmax |
-         FORALL (mb: MultiBernstein | represents(bspoly, mb),
-                 vs: VarSelector | represents(varselect, vs)):
-           result =
-            Bernstein_minmax_rec(mb, bsdegmono, nvars, terms, cf, depth,
-                                 level, localexit, globalexit, intendpts,
-                                 vs, omm)}" a2l__bernstein_minmax nil)
+   FORALL (mb: MultiBernstein | represents(bspoly, mb),
+           vs: VarSelector | represents(varselect, vs)):
+     result =
+      Bernstein_minmax_rec(mb, bsdegmono, nvars, terms, cf, depth, level,
+                           localexit, globalexit, intendpts, vs, omm)}"
+     a2l__bernstein_minmax nil)
     (Bernstein_minmax_rec def-decl
      "(sound?(bspoly, bsdegmono, nvars, terms, cf, intendpts))"
      bernstein_minmax nil)
@@ -8482,8 +8246,7 @@
      multibernstein_into_polylist nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (Outminmax type-eq-decl nil minmax nil)
-    (represents const-decl "bool" vardirselector_into_a2lvardirselector
-     nil)
+    (represents const-decl "bool" vardirselector_into_a2lvardirselector nil)
     (a2l__VarSelector type-eq-decl nil a2l__vardirselector nil)
     (VarSelector type-eq-decl nil vardirselector nil)
     (Coeff type-eq-decl nil util nil)
@@ -8509,11 +8272,13 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil)))
+   nil
+   (a2l__Bernstein_minmax subtype
+    "a2l__bernstein_minmax.a2l__Bernstein_minmax_rec(a2l__bernstein_minmax.bspoly, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.depth, 0, a2l__bernstein_minmax.localexit, a2l__bernstein_minmax.globalexit, a2l__bernstein_minmax.intendpts, a2l__bernstein_minmax.varselect, minmax.empty_minmax)"
+    "{omm: minmax.Outminmax | FORALL (mb: util.MultiBernstein | multibernstein_into_polylist[a2l__bernstein_minmax.terms, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.bsdegmono].represents(a2l__bernstein_minmax.bspoly, mb), vs: vardirselector.VarSelector | vardirselector_into_a2lvardirselector.represents(a2l__bernstein_minmax.varselect, vs)): omm = bernstein_minmax.Bernstein_minmax(mb, a2l__bernstein_minmax.bsdegmono, a2l__bernstein_minmax.nvars, a2l__bernstein_minmax.terms, a2l__bernstein_minmax.cf, a2l__bernstein_minmax.depth, a2l__bernstein_minmax.localexit, a2l__bernstein_minmax.globalexit, a2l__bernstein_minmax.intendpts, vs)}"))))
 

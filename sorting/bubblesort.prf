@@ -9,8 +9,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -21,26 +20,24 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil (bubbling subtype "bubblesort.l" "(list_adt[bubblesort.T].cons?)")))
  (bubbling_TCC2 0
   (bubbling_TCC2-1 nil 3638806625
    ("" (skeep)
     (("" (typepred "n")
       (("" (grind)
-        (("" (case "null?(l)")
-          (("1" (grind) nil nil) ("2" (grind) nil nil)) nil))
+        (("" (case "null?(l)") (("1" (grind) nil nil) ("2" (grind) nil nil))
+          nil))
         nil))
       nil))
     nil)
    ((list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (list type-decl nil list_adt nil)
+    (below type-eq-decl nil nat_types nil) (list type-decl nil list_adt nil)
     (T formal-type-decl nil bubblesort nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -52,19 +49,19 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (length def-decl "nat" list_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (bubbling subtype "list_adt[bubblesort.T].cdr(bubblesort.l)"
+    "(list_adt[bubblesort.T].cons?)")))
  (bubbling_TCC3 0
   (bubbling_TCC3-1 nil 3638806625
    ("" (subtype-tcc)
@@ -76,19 +73,17 @@
     nil)
    ((null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (length def-decl "nat" list_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (cdr adt-accessor-decl "[(cons?) -> list]" list_adt nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -99,8 +94,7 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (list type-decl nil list_adt nil)
-    (below type-eq-decl nil nat_types nil)
+    (list type-decl nil list_adt nil) (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (converse const-decl "pred[[T2, T1]]" relation_defs nil)
@@ -112,7 +106,9 @@
     (PRED type-eq-decl nil defined_types nil)
     (total_preorder? const-decl "bool" total_preorder nil)
     (<= formal-const-decl "(total_preorder?[T])" bubblesort nil))
-   nil))
+   nil
+   (bubbling subtype "(number_fields.-)(bubblesort.n, 1)"
+    "below[list2finseq[T](cons[T](car[T](l), cdr[T](cdr[T](l))))`length]")))
  (bubbling_TCC4 0
   (bubbling_TCC4-1 nil 3638806625 ("" (termination-tcc) nil nil)
    ((<= formal-const-decl "(total_preorder?[T])" bubblesort nil)
@@ -124,15 +120,37 @@
     (> const-decl "pred[[T, T]]" sorting nil)
     (< const-decl "bool" sorting nil)
     (converse const-decl "pred[[T2, T1]]" relation_defs nil))
-   nil))
+   nil
+   (bubbling termination
+    "bubblesort.bubbling(list_adt[bubblesort.T].cons(list_adt[bubblesort.T].car(bubblesort.l), list_adt[bubblesort.T].cdr(list_adt[bubblesort.T].cdr(bubblesort.l))), (number_fields.-)(bubblesort.n, 1))"
+    "nil")))
  (bubbling_TCC5 0
+  (bubbling_TCC5-2 "" 3790109218
+   ("" (skeep)
+    (("" (expand "list2finseq")
+      (("" (split)
+        (("1" (typepred "n")
+          (("1" (expand "list2finseq") (("1" (grind) nil nil)) nil)) nil)
+         ("2" (grind)
+          (("2" (hide -1)
+            (("2" (typepred "n")
+              (("2" (expand "list2finseq")
+                (("2" (expand "length" -1) (("2" (grind) nil nil)) nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (bubbling subtype "(number_fields.-)(bubblesort.n, 1)"
+    "below[list2finseq[T](cdr[T](l))`length]"))
   (bubbling_TCC5-1 nil 3638806625
    ("" (skeep)
     (("" (expand "list2finseq")
       (("" (split)
         (("1" (typepred "n")
-          (("1" (expand "list2finseq") (("1" (grind) nil nil)) nil))
-          nil)
+          (("1" (expand "list2finseq") (("1" (grind) nil nil)) nil)) nil)
          ("2" (grind)
           (("1" (hide -1)
             (("1" (typepred "n")
@@ -144,8 +162,7 @@
             nil)
            ("2" (typepred "n")
             (("2" (expand "list2finseq")
-              (("2" (expand "length" -1) (("2" (grind) nil nil)) nil))
-              nil))
+              (("2" (expand "length" -1) (("2" (grind) nil nil)) nil)) nil))
             nil))
           nil))
         nil))
@@ -154,8 +171,7 @@
    ((list2finseq const-decl "finseq[T]" list2finseq nil)
     (length def-decl "nat" list_props nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (list type-decl nil list_adt nil)
+    (below type-eq-decl nil nat_types nil) (list type-decl nil list_adt nil)
     (T formal-type-decl nil bubblesort nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -167,8 +183,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -180,11 +195,13 @@
     (< const-decl "bool" sorting nil)
     (converse const-decl "pred[[T2, T1]]" relation_defs nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (bubbling subtype "(number_fields.-)(bubblesort.n, 1)"
+    "below[list2finseq[T](cdr[T](l))`length]")))
  (bubbling_TCC6 0
   (bubbling_TCC6-1 nil 3638806625 ("" (termination-tcc) nil nil)
    ((<= formal-const-decl "(total_preorder?[T])" bubblesort nil)
@@ -196,7 +213,10 @@
     (> const-decl "pred[[T, T]]" sorting nil)
     (< const-decl "bool" sorting nil)
     (converse const-decl "pred[[T2, T1]]" relation_defs nil))
-   nil))
+   nil
+   (bubbling termination
+    "bubblesort.bubbling(list_adt[bubblesort.T].cdr(bubblesort.l), (number_fields.-)(bubblesort.n, 1))"
+    "nil")))
  (bubbling_preserves_length 0
   (bubbling_preserves_length-1 nil 3638809301
    ("" (measure-induct "length(l)" ("l"))
@@ -212,13 +232,13 @@
                     (("1" (replace -1)
                       (("1" (assert)
                         (("1" (inst -4 "cons(car(x), cdr(cdr(x)))")
-                          (("1" (assert)
-                            (("1" (inst -4 "n -1") nil nil)) nil))
+                          (("1" (assert) (("1" (inst -4 "n -1") nil nil))
+                            nil))
                           nil))
                         nil))
                       nil)
-                     ("2" (hide-all-but 1)
-                      (("2" (with-tccs (grind)) nil nil)) nil))
+                     ("2" (hide-all-but 1) (("2" (with-tccs (grind)) nil nil))
+                      nil))
                     nil))
                   nil)
                  ("2" (expand "length" 2 1)
@@ -227,11 +247,9 @@
                       (("2" (lift-if)
                         (("2" (assert)
                           (("2" (prop)
-                            (("1" (hide -3) (("1" (grind) nil nil))
-                              nil)
+                            (("1" (hide -3) (("1" (grind) nil nil)) nil)
                              ("2" (inst -2 "cdr(x)")
-                              (("2"
-                                (prop)
+                              (("2" (prop)
                                 (("1" (inst -1 "n - 1") nil nil)
                                  ("2" (grind) nil nil))
                                 nil))
@@ -256,12 +274,13 @@
     (PRED type-eq-decl nil defined_types nil)
     (total_preorder? const-decl "bool" total_preorder nil)
     (<= formal-const-decl "(total_preorder?[T])" bubblesort nil)
+    (bijective? const-decl "bool" functions nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -271,16 +290,14 @@
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (bubbling def-decl "list[T]" bubblesort nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (below type-eq-decl nil nat_types nil)
     (wf_nat formula-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil)
-    (length def-decl "nat" list_props nil)
+    (< const-decl "bool" reals nil) (length def-decl "nat" list_props nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -292,20 +309,17 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil)
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil)
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
    shostak))
  (bubbling_preserves_suffix_TCC1 0
   (bubbling_preserves_suffix_TCC1-1 nil 3638806625
-   ("" (subtype-tcc)
-    (("" (rewrite "bubbling_preserves_length") nil nil)) nil)
+   ("" (subtype-tcc) (("" (rewrite "bubbling_preserves_length") nil nil)) nil)
    ((bubbling_preserves_length formula-decl nil bubblesort nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -315,8 +329,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -327,21 +340,19 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil
+   (bubbling_preserves_suffix subtype "bubblesort.i" "below[length[T](l1)]")))
  (bubbling_preserves_suffix_TCC2 0
-  (bubbling_preserves_suffix_TCC2-1 nil 3638806625
-   ("" (subtype-tcc) nil nil)
+  (bubbling_preserves_suffix_TCC2-1 nil 3638806625 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -352,8 +363,7 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
@@ -361,9 +371,10 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (bubbling_preserves_suffix subtype "bubblesort.i" "below[length[T](l)]")))
  (bubbling_preserves_suffix 0
-  (bubbling_preserves_suffix-1 nil 3638806633
+  (bubbling_preserves_suffix-2 "" 3790109220
    ("" (measure-induct+ "length(l)" ("l"))
     (("1" (skeep)
       (("1" (skeep)
@@ -378,18 +389,12 @@
                       (("2" (lift-if)
                         (("2" (assert)
                           (("2" (case "i = 1")
-                            (("1" (replace -1) (("1" (assert) nil nil))
-                              nil)
-                             ("2"
-                              (inst -2 "cons(car(x!1), cdr(cdr(x!1)))")
-                              (("2"
-                                (inst -2 "n - 1")
-                                (("2"
-                                  (prop)
-                                  (("1"
-                                    (inst -1 "i - 1")
-                                    (("1"
-                                      (prop)
+                            (("1" (replace -1) (("1" (assert) nil nil)) nil)
+                             ("2" (inst -2 "cons(car(x!1), cdr(cdr(x!1)))")
+                              (("2" (inst -2 "n - 1")
+                                (("2" (prop)
+                                  (("1" (inst -1 "i - 1")
+                                    (("1" (prop)
                                       (("1"
                                         (expand "nth" -1 2)
                                         (("1"
@@ -399,8 +404,7 @@
                                         nil)
                                        ("2" (assert) nil nil))
                                       nil)
-                                     ("2"
-                                      (hide -1 4)
+                                     ("2" (hide -1 4)
                                       (("2"
                                         (typepred "i")
                                         (("2"
@@ -419,10 +423,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (hide -1 4)
-                                    (("2"
-                                      (expand "length")
+                                   ("2" (hide -1 4)
+                                    (("2" (expand "length")
                                       (("2"
                                         (typepred "i" "n")
                                         (("2"
@@ -460,33 +462,18 @@
                           (("1" (inst? -1)
                             (("1" (prop) (("1" (assert) nil nil)) nil)
                              ("2" (typepred "i")
-                              (("2"
-                                (hide 3 2)
-                                (("2"
-                                  (grind)
-                                  (("2"
-                                    (expand "length" -1)
-                                    (("2" (grind) nil nil))
-                                    nil))
+                              (("2" (hide 3 2)
+                                (("2" (grind)
+                                  (("2" (expand "length" -1)
+                                    (("2" (grind) nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
                             nil)
                            ("2" (expand "length" 1 2)
                             (("2" (grind)
-                              (("1"
-                                (typepred "n")
-                                (("1"
-                                  (hide 2 1)
-                                  (("1" (grind) nil nil))
-                                  nil))
-                                nil)
-                               ("2"
-                                (typepred "i")
-                                (("2"
-                                  (hide-all-but (-1 1))
-                                  (("2" (grind) nil nil))
-                                  nil))
+                              (("2" (typepred "n")
+                                (("2" (hide 2 1) (("2" (grind) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -518,13 +505,159 @@
         nil))
       nil)
      ("4" (skeep)
-      (("4" (typepred "i")
-        (("4" (hide -2 -3 2) (("4" (grind) nil nil)) nil)) nil))
+      (("4" (typepred "i") (("4" (hide -2 -3 2) (("4" (grind) nil nil)) nil))
+        nil))
       nil)
      ("5" (skeep)
       (("5" (typepred "i")
-        (("5" (grind)
-          (("5" (rewrite "bubbling_preserves_length") nil nil)) nil))
+        (("5" (grind) (("5" (rewrite "bubbling_preserves_length") nil nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
+  (bubbling_preserves_suffix-1 nil 3638806633
+   ("" (measure-induct+ "length(l)" ("l"))
+    (("1" (skeep)
+      (("1" (skeep)
+        (("1" (expand "bubbling" 1)
+          (("1" (lift-if)
+            (("1" (prop)
+              (("1" (expand "nth" 1 1)
+                (("1" (lift-if)
+                  (("1" (prop)
+                    (("1" (assert) nil nil)
+                     ("2" (expand "nth" 2 2)
+                      (("2" (lift-if)
+                        (("2" (assert)
+                          (("2" (case "i = 1")
+                            (("1" (replace -1) (("1" (assert) nil nil)) nil)
+                             ("2" (inst -2 "cons(car(x!1), cdr(cdr(x!1)))")
+                              (("2" (inst -2 "n - 1")
+                                (("2" (prop)
+                                  (("1" (inst -1 "i - 1")
+                                    (("1" (prop)
+                                      (("1"
+                                        (expand "nth" -1 2)
+                                        (("1"
+                                          (expand "nth" 3 2)
+                                          (("1" (propax) nil nil))
+                                          nil))
+                                        nil)
+                                       ("2" (assert) nil nil))
+                                      nil)
+                                     ("2" (hide -1 4)
+                                      (("2"
+                                        (typepred "i")
+                                        (("2"
+                                          (grind)
+                                          (("2"
+                                            (expand "length" -1)
+                                            (("2"
+                                              (grind)
+                                              (("2"
+                                                (expand "length" -1)
+                                                (("2" (grind) nil nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil)
+                                   ("2" (hide -1 4)
+                                    (("2" (expand "length")
+                                      (("2"
+                                        (typepred "i" "n")
+                                        (("2"
+                                          (grind)
+                                          (("2"
+                                            (expand "length" 1 2)
+                                            (("2"
+                                              (grind)
+                                              (("2"
+                                                (expand "length")
+                                                (("2" (grind) nil nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (expand "nth" 2 1)
+                (("2" (lift-if)
+                  (("2" (assert)
+                    (("2" (expand "nth" 2 2)
+                      (("2" (inst? -1)
+                        (("2" (prop)
+                          (("1" (inst? -1)
+                            (("1" (prop) (("1" (assert) nil nil)) nil)
+                             ("2" (typepred "i")
+                              (("2" (hide 3 2)
+                                (("2" (grind)
+                                  (("2" (expand "length" -1)
+                                    (("2" (grind) nil nil)) nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (expand "length" 1 2)
+                            (("2" (grind)
+                              (("1" (typepred "n")
+                                (("1" (hide 2 1) (("1" (grind) nil nil)) nil))
+                                nil)
+                               ("2" (typepred "i")
+                                (("2" (hide-all-but (-1 1))
+                                  (("2" (grind) nil nil)) nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil)
+     ("2" (skeep)
+      (("2" (typepred "i")
+        (("2" (hide-all-but (-1 1))
+          (("2" (lemma "bubbling_preserves_length")
+            (("2" (inst? -1) (("2" (grind) nil nil)) nil)) nil))
+          nil))
+        nil))
+      nil)
+     ("3" (skeep)
+      (("3" (typepred "i")
+        (("3" (hide 2 -2)
+          (("3" (rewrite "bubbling_preserves_length")
+            (("3" (hide -2 -3) (("3" (grind) nil nil)) nil)) nil))
+          nil))
+        nil))
+      nil)
+     ("4" (skeep)
+      (("4" (typepred "i") (("4" (hide -2 -3 2) (("4" (grind) nil nil)) nil))
+        nil))
+      nil)
+     ("5" (skeep)
+      (("5" (typepred "i")
+        (("5" (grind) (("5" (rewrite "bubbling_preserves_length") nil nil))
+          nil))
         nil))
       nil))
     nil)
@@ -534,20 +667,17 @@
     (car adt-accessor-decl "[(cons?) -> T]" list_adt nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (i skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort
-     nil)
+    (i skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort nil)
     (x!1 skolem-const-decl "list[T]" bubblesort nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (converse const-decl "pred[[T2, T1]]" relation_defs nil)
@@ -556,8 +686,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (total_preorder? const-decl "bool" total_preorder nil)
     (<= formal-const-decl "(total_preorder?[T])" bubblesort nil)
-    (nth def-decl "T" list_props nil)
-    (below type-eq-decl nil nat_types nil)
+    (nth def-decl "T" list_props nil) (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -565,8 +694,7 @@
     (bubbling def-decl "list[T]" bubblesort nil)
     (> const-decl "bool" reals nil)
     (wf_nat formula-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil)
-    (length def-decl "nat" list_props nil)
+    (< const-decl "bool" reals nil) (length def-decl "nat" list_props nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -578,12 +706,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil)
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil)
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
@@ -593,23 +719,21 @@
    ("" (subtype-tcc)
     (("" (lemma "bubbling_preserves_length")
       (("" (inst?)
-        (("" (replace -1) (("" (hide -1) (("" (grind) nil nil)) nil))
-          nil))
+        (("" (replace -1) (("" (hide -1) (("" (grind) nil nil)) nil)) nil))
         nil))
       nil))
     nil)
    ((bubbling_preserves_length formula-decl nil bubblesort nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -620,15 +744,18 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil
+   (bubblesort_aux subtype "(number_fields.-)(bubblesort.n, 1)"
+    "below[list2finseq[T](bubbling(l, n))`length]")))
  (bubblesort_aux_TCC2 0
-  (bubblesort_aux_TCC2-1 nil 3638806625 ("" (termination-tcc) nil nil)
-   nil nil))
+  (bubblesort_aux_TCC2-1 nil 3638806625 ("" (termination-tcc) nil nil) nil nil
+   (bubblesort_aux termination
+    "bubblesort.bubblesort_aux(bubblesort.bubbling(bubblesort.l, bubblesort.n), (number_fields.-)(bubblesort.n, 1))"
+    "nil")))
  (bubblesort_aux_preserves_length 0
   (bubblesort_aux_preserves_length-1 nil 3639083378
    ("" (measure-induct+ "n" ("l" "n"))
@@ -640,8 +767,7 @@
               (("" (replace -1 2 rl)
                 (("" (inst? -2)
                   (("1" (prop)
-                    (("1" (hide -1 3) (("1" (assert) nil nil)) nil))
-                    nil)
+                    (("1" (hide -1 3) (("1" (assert) nil nil)) nil)) nil)
                    ("2" (hide -1 3) (("2" (assert) nil nil)) nil))
                   nil))
                 nil))
@@ -651,14 +777,13 @@
         nil))
       nil))
     nil)
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+   ((real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (x!1 skolem-const-decl "list[T]" bubblesort nil)
-    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort
-     nil)
+    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort nil)
     (bubbling def-decl "list[T]" bubblesort nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -671,8 +796,7 @@
     (naturalnumber type-eq-decl nil naturalnumbers nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil) (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -683,12 +807,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil)
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil)
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
@@ -697,13 +819,15 @@
   (bubblesort_TCC1-1 nil 3638806625
    ("" (subtype-tcc) (("" (grind) nil nil)) nil)
    ((length def-decl "nat" list_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil
+   (bubblesort subtype
+    "(number_fields.-)(list2finseq[bubblesort.T].list2finseq(bubblesort.l)`length, 1)"
+    "below[list2finseq[T](l)`length]")))
  (bubbling_preseves_contents 0
   (bubbling_preseves_contents-1 nil 3639002259
    ("" (measure-induct+ "n" ("l" "n"))
@@ -725,12 +849,9 @@
                         (("1" (expand "elim_list" -1)
                           (("1" (lift-if)
                             (("1" (assert)
-                              (("1"
-                                (expand "elim_list" -1)
-                                (("1"
-                                  (prop)
-                                  (("1"
-                                    (replace -1 1 rl)
+                              (("1" (expand "elim_list" -1)
+                                (("1" (prop)
+                                  (("1" (replace -1 1 rl)
                                     (("1"
                                       (case
                                        "cons(car(cdr(x!1)), cdr(cdr(x!1))) = cdr(x!1)")
@@ -740,10 +861,7 @@
                                         nil)
                                        ("2"
                                         (typepred "x!2")
-                                        (("2"
-                                          (with-tccs (grind))
-                                          nil
-                                          nil))
+                                        (("2" (with-tccs (grind)) nil nil))
                                         nil))
                                       nil))
                                     nil))
@@ -755,20 +873,13 @@
                          ("2" (hide -2 2)
                           (("2" (grind)
                             (("2" (expand "member")
-                              (("2"
-                                (grind)
-                                (("1"
-                                  (typepred "x!2")
-                                  (("1" (grind) nil nil))
+                              (("2" (grind)
+                                (("1" (typepred "x!2") (("1" (grind) nil nil))
                                   nil)
-                                 ("2"
-                                  (expand "member")
-                                  (("2"
-                                    (grind)
-                                    (("2"
-                                      (typepred "x!2")
-                                      (("2" (grind) nil nil))
-                                      nil))
+                                 ("2" (expand "member")
+                                  (("2" (grind)
+                                    (("2" (typepred "x!2")
+                                      (("2" (grind) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -791,13 +902,9 @@
                             (inst -2 "cons(car(x!1), cdr(cdr(x!1)))"
                              "x!2 - 1")
                             (("1" (prop)
-                              (("1"
-                                (hide 2 -1)
-                                (("1" (grind) nil nil))
-                                nil))
+                              (("1" (hide 2 -1) (("1" (grind) nil nil)) nil))
                               nil)
-                             ("2" (hide -1 2) (("2" (grind) nil nil))
-                              nil))
+                             ("2" (hide -1 2) (("2" (grind) nil nil)) nil))
                             nil))
                           nil))
                         nil)
@@ -824,8 +931,7 @@
                         nil))
                       nil))
                     nil)
-                   ("2" (hide-all-but (1 3)) (("2" (grind) nil nil))
-                    nil))
+                   ("2" (hide-all-but (1 3)) (("2" (grind) nil nil)) nil))
                   nil))
                 nil)
                ("2" (hide -1 2)
@@ -842,14 +948,13 @@
         nil))
       nil))
     nil)
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+   ((real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (x!1 skolem-const-decl "list[T]" bubblesort nil)
-    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort
-     nil)
+    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort nil)
     (cdr adt-accessor-decl "[(cons?) -> list]" list_adt nil)
     (car adt-accessor-decl "[(cons?) -> T]" list_adt nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
@@ -858,8 +963,9 @@
     (member def-decl "bool" list_props nil)
     (elim_list def-decl "list[T]" sorting nil)
     (TRUE const-decl "bool" booleans nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (converse const-decl "pred[[T2, T1]]" relation_defs nil)
     (< const-decl "bool" sorting nil)
     (> const-decl "pred[[T, T]]" sorting nil)
@@ -867,8 +973,7 @@
     (length def-decl "nat" list_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (cons_elim_is_permutation formula-decl nil sorting nil)
     (permutations_is_transitive formula-decl nil sorting nil)
@@ -885,8 +990,7 @@
     (naturalnumber type-eq-decl nil naturalnumbers nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil) (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -897,25 +1001,21 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil)
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil)
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
    shostak))
  (bubbling_preserves_prefix_TCC1 0
-  (bubbling_preserves_prefix_TCC1-1 nil 3639146808
-   ("" (subtype-tcc) nil nil)
+  (bubbling_preserves_prefix_TCC1-1 nil 3639146808 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -926,8 +1026,7 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
@@ -935,26 +1034,23 @@
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil))
-   nil))
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil))
+   nil
+   (bubbling_preserves_prefix subtype "bubblesort.i" "below[length[T](l)]")))
  (bubbling_preserves_prefix_TCC2 0
   (bubbling_preserves_prefix_TCC2-1 nil 3639146808
    ("" (subtype-tcc)
-    (("" (rewrite "bubbling_preserves_length") (("" (grind) nil nil))
-      nil))
+    (("" (rewrite "bubbling_preserves_length") (("" (grind) nil nil)) nil))
     nil)
    ((bubbling_preserves_length formula-decl nil bubblesort nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -965,23 +1061,23 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields
-       nil))
-   nil))
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil))
+   nil
+   (bubbling_preserves_prefix subtype "bubblesort.j"
+    "below[length[T](bubbling(l, n))]")))
  (bubbling_preserves_prefix 0
   (bubbling_preserves_prefix-2 nil 3654272128
    ("" (measure-induct+ "n" ("l" "n"))
     (("1" (skeep)
       (("1" (typepred "x!2")
         (("1" (case "x!2 = 0")
-          (("1" (hide -3)
-            (("1" (replaces -1) (("1" (grind) nil nil)) nil)) nil)
+          (("1" (hide -3) (("1" (replaces -1) (("1" (grind) nil nil)) nil))
+            nil)
            ("2" (case "i=0")
             (("1" (replaces -1)
               (("1" (expand "nth" 2 1)
@@ -990,23 +1086,17 @@
                     (("1" (case "NOT  car(x!1) > car(cdr(x!1))")
                       (("1" (assert)
                         (("1" (inst 3 0)
-                          (("1" (hide -2) (("1" (grind) nil nil)) nil))
-                          nil))
+                          (("1" (hide -2) (("1" (grind) nil nil)) nil)) nil))
                         nil)
                        ("2" (assert)
                         (("2" (inst? -3)
                           (("1" (inst -3 0)
                             (("1" (prop)
-                              (("1"
-                                (expand "nth" -1 1)
-                                (("1"
-                                  (skeep)
-                                  (("1"
-                                    (inst 2 "j+1")
-                                    (("1"
-                                      (expand "nth" 2)
-                                      (("1" (propax) nil nil))
-                                      nil))
+                              (("1" (expand "nth" -1 1)
+                                (("1" (skeep)
+                                  (("1" (inst 2 "j+1")
+                                    (("1" (expand "nth" 2)
+                                      (("1" (propax) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil)
@@ -1015,16 +1105,11 @@
                             nil)
                            ("2" (hide 3 -1)
                             (("2" (grind)
-                              (("2"
-                                (expand "length" -1)
-                                (("2"
-                                  (lift-if)
-                                  (("2"
-                                    (grind)
-                                    (("2"
-                                      (expand "length" -1)
-                                      (("2" (grind) nil nil))
-                                      nil))
+                              (("2" (expand "length" -1)
+                                (("2" (lift-if)
+                                  (("2" (grind)
+                                    (("2" (expand "length" -1)
+                                      (("2" (grind) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1034,8 +1119,8 @@
                         nil)
                        ("3" (hide -2 3)
                         (("3" (grind)
-                          (("3" (expand "length" -1)
-                            (("3" (grind) nil nil)) nil))
+                          (("3" (expand "length" -1) (("3" (grind) nil nil))
+                            nil))
                           nil))
                         nil)
                        ("4" (hide -2 3) (("4" (grind) nil nil)) nil))
@@ -1053,12 +1138,9 @@
                         (("1" (inst -2 "i -1")
                           (("1" (prop)
                             (("1" (skeep)
-                              (("1"
-                                (inst 4 " j + 1")
-                                (("1"
-                                  (expand "nth" 4 2)
-                                  (("1" (propax) nil nil))
-                                  nil))
+                              (("1" (inst 4 " j + 1")
+                                (("1" (expand "nth" 4 2)
+                                  (("1" (propax) nil nil)) nil))
                                 nil))
                               nil)
                              ("2" (assert) nil nil))
@@ -1066,8 +1148,8 @@
                           nil)
                          ("2" (hide 5 2)
                           (("2" (expand "list2finseq")
-                            (("2" (expand "length" -1)
-                              (("2" (grind) nil nil)) nil))
+                            (("2" (expand "length" -1) (("2" (grind) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -1077,12 +1159,9 @@
                         (("1" (replaces -1)
                           (("1" (assert)
                             (("1" (expand "nth" 3 1)
-                              (("1"
-                                (inst 3 0)
-                                (("1"
-                                  (expand "nth" 3)
-                                  (("1" (propax) nil nil))
-                                  nil))
+                              (("1" (inst 3 0)
+                                (("1" (expand "nth" 3)
+                                  (("1" (propax) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1090,14 +1169,10 @@
                          ("2" (inst? -3)
                           (("1" (inst -3 "i - 1")
                             (("1" (prop)
-                              (("1"
-                                (skeep)
-                                (("1"
-                                  (expand "nth" -1 1)
-                                  (("1"
-                                    (assert)
-                                    (("1"
-                                      (expand "nth" 4 1)
+                              (("1" (skeep)
+                                (("1" (expand "nth" -1 1)
+                                  (("1" (assert)
+                                    (("1" (expand "nth" 4 1)
                                       (("1"
                                         (inst 4 " j + 1")
                                         (("1"
@@ -1114,12 +1189,9 @@
                             nil)
                            ("2" (hide -1 5)
                             (("2" (expand "list2finseq")
-                              (("2"
-                                (expand "length" -1)
-                                (("2"
-                                  (expand "length" -1)
-                                  (("2" (grind) nil nil))
-                                  nil))
+                              (("2" (expand "length" -1)
+                                (("2" (expand "length" -1)
+                                  (("2" (grind) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1128,8 +1200,8 @@
                       nil)
                      ("3" (hide -2 4)
                       (("3" (expand "list2finseq")
-                        (("3" (expand "length" -1)
-                          (("3" (grind) nil nil)) nil))
+                        (("3" (expand "length" -1) (("3" (grind) nil nil))
+                          nil))
                         nil))
                       nil)
                      ("4" (hide -2 4) (("4" (grind) nil nil)) nil))
@@ -1144,52 +1216,47 @@
      ("2" (hide -2 2)
       (("2" (rewrite "bubbling_preserves_length")
         (("2" (skeep)
-          (("2" (typepred "j" "y!1" "y!2" "x!2")
-            (("2" (grind) nil nil)) nil))
+          (("2" (typepred "j" "y!1" "y!2" "x!2") (("2" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
      ("3" (hide -2 2)
       (("3" (skeep)
-        (("3" (typepred "i!1" "y!1" "y!2" "x!2")
-          (("3" (grind) nil nil)) nil))
+        (("3" (typepred "i!1" "y!1" "y!2" "x!2") (("3" (grind) nil nil)) nil))
         nil))
       nil)
      ("4" (hide 2)
       (("4" (skeep)
         (("4" (rewrite "bubbling_preserves_length")
-          (("4" (typepred "j" "y!1" "y!2" "x!2")
-            (("4" (grind) nil nil)) nil))
+          (("4" (typepred "j" "y!1" "y!2" "x!2") (("4" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
      ("5" (hide 2)
       (("5" (skeep)
-        (("5" (typepred "i" "y!1" "y!2" "x!2") (("5" (grind) nil nil))
-          nil))
+        (("5" (typepred "i" "y!1" "y!2" "x!2") (("5" (grind) nil nil)) nil))
         nil))
       nil)
      ("6" (hide -1 2)
       (("6" (skeep)
         (("6" (rewrite "bubbling_preserves_length")
           (("6" (typepred "j1" "x!1`1")
-            (("6" (typepred "x!1`2") (("6" (grind) nil nil)) nil))
-            nil))
+            (("6" (typepred "x!1`2") (("6" (grind) nil nil)) nil)) nil))
           nil))
         nil))
       nil)
      ("7" (hide -2 3)
       (("7" (rewrite "bubbling_preserves_length")
         (("7" (skeep)
-          (("7" (typepred "j" "y!1`1" "y!1`2" "x!1`2")
-            (("7" (grind) nil nil)) nil))
+          (("7" (typepred "j" "y!1`1" "y!1`2" "x!1`2") (("7" (grind) nil nil))
+            nil))
           nil))
         nil))
       nil)
      ("8" (hide -2 3)
       (("8" (skeep)
-        (("8" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2")
-          (("8" (grind) nil nil)) nil))
+        (("8" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2") (("8" (grind) nil nil))
+          nil))
         nil))
       nil)
      ("9" (hide -1 2)
@@ -1222,8 +1289,8 @@
       nil)
      ("13" (hide 2)
       (("13" (skeep)
-        (("13" (typepred "i" "x!1`2" "y!1`1" "y!1`2")
-          (("13" (grind) nil nil)) nil))
+        (("13" (typepred "i" "x!1`2" "y!1`1" "y!1`2") (("13" (grind) nil nil))
+          nil))
         nil))
       nil)
      ("14" (hide 2)
@@ -1251,15 +1318,13 @@
     (< const-decl "bool" sorting nil)
     (converse const-decl "pred[[T2, T1]]" relation_defs nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (x!1 skolem-const-decl "list[T]" bubblesort nil)
-    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort
-     nil)
+    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort nil)
     (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (nth def-decl "T" list_props nil)
@@ -1268,14 +1333,12 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (length def-decl "nat" list_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (wf_nat formula-decl nil naturalnumbers nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil) (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -1286,12 +1349,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil)
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil)
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
@@ -1301,8 +1362,8 @@
     (("1" (skeep)
       (("1" (typepred "x!2")
         (("1" (case "x!2 = 0")
-          (("1" (hide -3)
-            (("1" (replaces -1) (("1" (grind) nil nil)) nil)) nil)
+          (("1" (hide -3) (("1" (replaces -1) (("1" (grind) nil nil)) nil))
+            nil)
            ("2" (case "i=0")
             (("1" (replaces -1)
               (("1" (expand "nth" 2 1)
@@ -1311,23 +1372,17 @@
                     (("1" (case "NOT  car(x!1) > car(cdr(x!1))")
                       (("1" (assert)
                         (("1" (inst 3 0)
-                          (("1" (hide -2) (("1" (grind) nil nil)) nil))
-                          nil))
+                          (("1" (hide -2) (("1" (grind) nil nil)) nil)) nil))
                         nil)
                        ("2" (assert)
                         (("2" (inst? -3)
                           (("1" (inst -3 0)
                             (("1" (prop)
-                              (("1"
-                                (expand "nth" -1 1)
-                                (("1"
-                                  (skeep)
-                                  (("1"
-                                    (inst 2 "j+1")
-                                    (("1"
-                                      (expand "nth" 2)
-                                      (("1" (propax) nil nil))
-                                      nil))
+                              (("1" (expand "nth" -1 1)
+                                (("1" (skeep)
+                                  (("1" (inst 2 "j+1")
+                                    (("1" (expand "nth" 2)
+                                      (("1" (propax) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil)
@@ -1336,16 +1391,11 @@
                             nil)
                            ("2" (hide 3 -1)
                             (("2" (grind)
-                              (("2"
-                                (expand "length" -1)
-                                (("2"
-                                  (lift-if)
-                                  (("2"
-                                    (grind)
-                                    (("2"
-                                      (expand "length" -1)
-                                      (("2" (grind) nil nil))
-                                      nil))
+                              (("2" (expand "length" -1)
+                                (("2" (lift-if)
+                                  (("2" (grind)
+                                    (("2" (expand "length" -1)
+                                      (("2" (grind) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1355,8 +1405,8 @@
                         nil)
                        ("3" (hide -3 3)
                         (("3" (grind)
-                          (("3" (expand "length" -1)
-                            (("3" (grind) nil nil)) nil))
+                          (("3" (expand "length" -1) (("3" (grind) nil nil))
+                            nil))
                           nil))
                         nil)
                        ("4" (hide -2 3) (("4" (grind) nil nil)) nil))
@@ -1374,12 +1424,9 @@
                         (("1" (inst -2 "i -1")
                           (("1" (prop)
                             (("1" (skeep)
-                              (("1"
-                                (inst 4 " j + 1")
-                                (("1"
-                                  (expand "nth" 4 2)
-                                  (("1" (propax) nil nil))
-                                  nil))
+                              (("1" (inst 4 " j + 1")
+                                (("1" (expand "nth" 4 2)
+                                  (("1" (propax) nil nil)) nil))
                                 nil))
                               nil)
                              ("2" (assert) nil nil))
@@ -1387,8 +1434,8 @@
                           nil)
                          ("2" (hide 5 2)
                           (("2" (expand "list2finseq")
-                            (("2" (expand "length" -1)
-                              (("2" (grind) nil nil)) nil))
+                            (("2" (expand "length" -1) (("2" (grind) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -1398,12 +1445,9 @@
                         (("1" (replaces -1)
                           (("1" (assert)
                             (("1" (expand "nth" 3 1)
-                              (("1"
-                                (inst 3 0)
-                                (("1"
-                                  (expand "nth" 3)
-                                  (("1" (propax) nil nil))
-                                  nil))
+                              (("1" (inst 3 0)
+                                (("1" (expand "nth" 3)
+                                  (("1" (propax) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1411,14 +1455,10 @@
                          ("2" (inst? -3)
                           (("1" (inst -3 "i - 1")
                             (("1" (prop)
-                              (("1"
-                                (skeep)
-                                (("1"
-                                  (expand "nth" -1 1)
-                                  (("1"
-                                    (assert)
-                                    (("1"
-                                      (expand "nth" 4 1)
+                              (("1" (skeep)
+                                (("1" (expand "nth" -1 1)
+                                  (("1" (assert)
+                                    (("1" (expand "nth" 4 1)
                                       (("1"
                                         (inst 4 " j + 1")
                                         (("1"
@@ -1435,12 +1475,9 @@
                             nil)
                            ("2" (hide -1 5)
                             (("2" (expand "list2finseq")
-                              (("2"
-                                (expand "length" -1)
-                                (("2"
-                                  (expand "length" -1)
-                                  (("2" (grind) nil nil))
-                                  nil))
+                              (("2" (expand "length" -1)
+                                (("2" (expand "length" -1)
+                                  (("2" (grind) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1449,8 +1486,8 @@
                       nil)
                      ("3" (hide -2 4)
                       (("3" (expand "list2finseq")
-                        (("3" (expand "length" -1)
-                          (("3" (grind) nil nil)) nil))
+                        (("3" (expand "length" -1) (("3" (grind) nil nil))
+                          nil))
                         nil))
                       nil)
                      ("4" (hide -2 4) (("4" (grind) nil nil)) nil))
@@ -1465,52 +1502,47 @@
      ("2" (hide -2 2)
       (("2" (rewrite "bubbling_preserves_length")
         (("2" (skeep)
-          (("2" (typepred "j" "y!1" "y!2" "x!2")
-            (("2" (grind) nil nil)) nil))
+          (("2" (typepred "j" "y!1" "y!2" "x!2") (("2" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
      ("3" (hide -2 2)
       (("3" (skeep)
-        (("3" (typepred "i!1" "y!1" "y!2" "x!2")
-          (("3" (grind) nil nil)) nil))
+        (("3" (typepred "i!1" "y!1" "y!2" "x!2") (("3" (grind) nil nil)) nil))
         nil))
       nil)
      ("4" (hide 2)
       (("4" (skeep)
         (("4" (rewrite "bubbling_preserves_length")
-          (("4" (typepred "j" "y!1" "y!2" "x!2")
-            (("4" (grind) nil nil)) nil))
+          (("4" (typepred "j" "y!1" "y!2" "x!2") (("4" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
      ("5" (hide 2)
       (("5" (skeep)
-        (("5" (typepred "i" "y!1" "y!2" "x!2") (("5" (grind) nil nil))
-          nil))
+        (("5" (typepred "i" "y!1" "y!2" "x!2") (("5" (grind) nil nil)) nil))
         nil))
       nil)
      ("6" (hide -1 2)
       (("6" (skeep)
         (("6" (rewrite "bubbling_preserves_length")
           (("6" (typepred "j1" "x!1`1")
-            (("6" (typepred "x!1`2") (("6" (grind) nil nil)) nil))
-            nil))
+            (("6" (typepred "x!1`2") (("6" (grind) nil nil)) nil)) nil))
           nil))
         nil))
       nil)
      ("7" (hide -2 3)
       (("7" (rewrite "bubbling_preserves_length")
         (("7" (skeep)
-          (("7" (typepred "j" "y!1`1" "y!1`2" "x!1`2")
-            (("7" (grind) nil nil)) nil))
+          (("7" (typepred "j" "y!1`1" "y!1`2" "x!1`2") (("7" (grind) nil nil))
+            nil))
           nil))
         nil))
       nil)
      ("8" (hide -2 3)
       (("8" (skeep)
-        (("8" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2")
-          (("8" (grind) nil nil)) nil))
+        (("8" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2") (("8" (grind) nil nil))
+          nil))
         nil))
       nil)
      ("9" (hide -1 2)
@@ -1543,8 +1575,8 @@
       nil)
      ("13" (hide 2)
       (("13" (skeep)
-        (("13" (typepred "i" "x!1`2" "y!1`1" "y!1`2")
-          (("13" (grind) nil nil)) nil))
+        (("13" (typepred "i" "x!1`2" "y!1`1" "y!1`2") (("13" (grind) nil nil))
+          nil))
         nil))
       nil)
      ("14" (hide 2)
@@ -1562,22 +1594,20 @@
  (bubbling_bubbles_TCC1 0
   (bubbling_bubbles_TCC1-1 nil 3638806625
    ("" (subtype-tcc)
-    (("" (rewrite "bubbling_preserves_length") (("" (grind) nil nil))
-      nil))
+    (("" (rewrite "bubbling_preserves_length") (("" (grind) nil nil)) nil))
     nil)
    ((bubbling_preserves_length formula-decl nil bubblesort nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1588,29 +1618,26 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil (bubbling_bubbles subtype "bubblesort.i" "below[length[T](l1)]")))
  (bubbling_bubbles_TCC2 0
   (bubbling_bubbles_TCC2-1 nil 3638806625
-   ("" (subtype-tcc)
-    (("" (rewrite "bubbling_preserves_length") nil nil)) nil)
+   ("" (subtype-tcc) (("" (rewrite "bubbling_preserves_length") nil nil)) nil)
    ((bubbling_preserves_length formula-decl nil bubblesort nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1621,12 +1648,11 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil (bubbling_bubbles subtype "bubblesort.n" "below[length[T](l1)]")))
  (bubbling_bubbles 0
   (bubbling_bubbles-2 nil 3731694240
    ("" (measure-induct+ "n" ("l" "n"))
@@ -1655,14 +1681,10 @@
                         (("1" (lift-if)
                           (("1" (prop)
                             (("1" (expand "nth" 1)
-                              (("1"
-                                (assert)
-                                (("1"
-                                  (lemma "bubbling_preserves_prefix")
-                                  (("1"
-                                    (inst? -1)
-                                    (("1"
-                                      (inst -1 0)
+                              (("1" (assert)
+                                (("1" (lemma "bubbling_preserves_prefix")
+                                  (("1" (inst? -1)
+                                    (("1" (inst -1 0)
                                       (("1"
                                         (skeep)
                                         (("1"
@@ -1685,13 +1707,11 @@
                                                       (("1"
                                                         (flatten)
                                                         (("1"
-                                                          (expand
-                                                           "preorder?")
+                                                          (expand "preorder?")
                                                           (("1"
                                                             (flatten)
                                                             (("1"
-                                                              (expand
-                                                               ">")
+                                                              (expand ">")
                                                               (("1"
                                                                 (expand
                                                                  "converse")
@@ -1737,15 +1757,9 @@
                                                   nil)
                                                  ("2"
                                                   (typepred "j")
-                                                  (("2"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("2" (assert) nil nil))
                                                   nil)
-                                                 ("3"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                 ("3" (assert) nil nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -1763,14 +1777,10 @@
                         (("2" (lift-if)
                           (("2" (prop)
                             (("2" (expand "nth" 1 2)
-                              (("2"
-                                (lift-if)
-                                (("2"
-                                  (assert)
-                                  (("2"
-                                    (inst? -3)
-                                    (("2"
-                                      (prop)
+                              (("2" (lift-if)
+                                (("2" (assert)
+                                  (("2" (inst? -3)
+                                    (("2" (prop)
                                       (("1" (assert) nil nil)
                                        ("2" (assert) nil nil))
                                       nil))
@@ -1791,14 +1801,10 @@
                         (("1" (lift-if)
                           (("1" (prop)
                             (("1" (expand "nth" 2)
-                              (("1"
-                                (lift-if)
-                                (("1"
-                                  (prop)
-                                  (("1"
-                                    (lemma "bubbling_preserves_prefix")
-                                    (("1"
-                                      (inst? -1)
+                              (("1" (lift-if)
+                                (("1" (prop)
+                                  (("1" (lemma "bubbling_preserves_prefix")
+                                    (("1" (inst? -1)
                                       (("1"
                                         (inst -1 0)
                                         (("1"
@@ -1814,13 +1820,11 @@
                                                   (("1"
                                                     (expand ">")
                                                     (("1"
-                                                      (expand
-                                                       "converse")
+                                                      (expand "converse")
                                                       (("1"
                                                         (expand "<")
                                                         (("1"
-                                                          (typepred
-                                                           "<=")
+                                                          (typepred "<=")
                                                           (("1"
                                                             (expand
                                                              "total_preorder?")
@@ -1864,14 +1868,8 @@
                                                         nil))
                                                       nil))
                                                     nil)
-                                                   ("2"
-                                                    (assert)
-                                                    nil
-                                                    nil)
-                                                   ("3"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                   ("2" (assert) nil nil)
+                                                   ("3" (assert) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1892,14 +1890,10 @@
                         (("2" (lift-if)
                           (("2" (prop)
                             (("2" (expand "nth" 2 2)
-                              (("2"
-                                (lift-if)
-                                (("2"
-                                  (prop)
-                                  (("2"
-                                    (inst? -1)
-                                    (("1"
-                                      (prop)
+                              (("2" (lift-if)
+                                (("2" (prop)
+                                  (("2" (inst? -1)
+                                    (("1" (prop)
                                       (("1" (assert) nil nil)
                                        ("2" (assert) nil nil))
                                       nil)
@@ -1934,62 +1928,52 @@
      ("5" (hide 2)
       (("5" (skeep)
         (("5" (rewrite "bubbling_preserves_length")
-          (("5" (typepred "y!2" "i" "x!2") (("5" (grind) nil nil))
-            nil))
-          nil))
+          (("5" (typepred "y!2" "i" "x!2") (("5" (grind) nil nil)) nil)) nil))
         nil))
       nil)
      ("6" (hide -1 2)
       (("6" (skeep)
         (("6" (rewrite "bubbling_preserves_length")
-          (("6" (typepred "x!1`2" i1) (("6" (grind) nil nil)) nil))
-          nil))
+          (("6" (typepred "x!1`2" i1) (("6" (grind) nil nil)) nil)) nil))
         nil))
       nil)
      ("7" (hide -3 2 3)
       (("7" (rewrite "bubbling_preserves_length")
-        (("7" (typepred "y!1`2" "i!1" "x!1`2") (("7" (grind) nil nil))
-          nil))
+        (("7" (typepred "y!1`2" "i!1" "x!1`2") (("7" (grind) nil nil)) nil))
         nil))
       nil)
      ("8" (hide -3 2 3)
       (("8" (rewrite "bubbling_preserves_length")
-        (("8" (typepred "y!1`2" "i!1" "x!1`2") (("8" (grind) nil nil))
-          nil))
+        (("8" (typepred "y!1`2" "i!1" "x!1`2") (("8" (grind) nil nil)) nil))
         nil))
       nil)
      ("9" (hide -1 2)
       (("9" (skeep)
         (("9" (rewrite "bubbling_preserves_length")
-          (("9" (typepred "i1" "x!1`2") (("9" (grind) nil nil)) nil))
-          nil))
+          (("9" (typepred "i1" "x!1`2") (("9" (grind) nil nil)) nil)) nil))
         nil))
       nil)
      ("10" (hide -3 2 3)
       (("10" (rewrite "bubbling_preserves_length")
-        (("10" (typepred "y!1`2" "i!1" "x!1`2")
-          (("10" (grind) nil nil)) nil))
+        (("10" (typepred "y!1`2" "i!1" "x!1`2") (("10" (grind) nil nil)) nil))
         nil))
       nil)
      ("11" (hide -3 2 3)
       (("11" (rewrite "bubbling_preserves_length")
-        (("11" (typepred "y!1`2" "i!1" "x!1`2")
-          (("11" (grind) nil nil)) nil))
+        (("11" (typepred "y!1`2" "i!1" "x!1`2") (("11" (grind) nil nil)) nil))
         nil))
       nil)
      ("12" (hide 2)
       (("12" (skeep)
         (("12" (rewrite "bubbling_preserves_length")
-          (("12" (typepred "y!1`2" "i" "x!1`2")
-            (("12" (grind) nil nil)) nil))
+          (("12" (typepred "y!1`2" "i" "x!1`2") (("12" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
      ("13" (hide 2)
       (("13" (skeep)
         (("13" (rewrite "bubbling_preserves_length")
-          (("13" (typepred "y!1`2" "i" "x!1`2")
-            (("13" (grind) nil nil)) nil))
+          (("13" (typepred "y!1`2" "i" "x!1`2") (("13" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
@@ -2007,8 +1991,7 @@
       (("15" (skeep)
         (("15" (replace -1 1)
           (("15" (rewrite "bubbling_preserves_length")
-            (("15" (typepred "i" "n!1") (("15" (grind) nil nil)) nil))
-            nil))
+            (("15" (typepred "i" "n!1") (("15" (grind) nil nil)) nil)) nil))
           nil))
         nil))
       nil))
@@ -2022,12 +2005,11 @@
     (reflexive? const-decl "bool" relations nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (x!1 skolem-const-decl "list[T]" bubblesort nil)
-    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort
-     nil)
+    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort nil)
     (i skolem-const-decl "nat" bubblesort nil)
     (bubbling_preserves_prefix formula-decl nil bubblesort nil)
     (> const-decl "pred[[T, T]]" sorting nil)
@@ -2037,8 +2019,8 @@
     (cdr adt-accessor-decl "[(cons?) -> list]" list_adt nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (nth def-decl "T" list_props nil)
@@ -2048,14 +2030,12 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (bubbling def-decl "list[T]" bubblesort nil)
-    (<= const-decl "bool" reals nil)
-    (length def-decl "nat" list_props nil)
+    (<= const-decl "bool" reals nil) (length def-decl "nat" list_props nil)
     (wf_nat formula-decl nil naturalnumbers nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil) (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -2066,12 +2046,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil)
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil)
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
@@ -2103,14 +2081,10 @@
                         (("1" (lift-if)
                           (("1" (prop)
                             (("1" (expand "nth" 1)
-                              (("1"
-                                (assert)
-                                (("1"
-                                  (lemma "bubbling_preserves_prefix")
-                                  (("1"
-                                    (inst? -1)
-                                    (("1"
-                                      (inst -1 0)
+                              (("1" (assert)
+                                (("1" (lemma "bubbling_preserves_prefix")
+                                  (("1" (inst? -1)
+                                    (("1" (inst -1 0)
                                       (("1"
                                         (skeep)
                                         (("1"
@@ -2128,8 +2102,7 @@
                                                   (("1"
                                                     (typepred "<=")
                                                     (("1"
-                                                      (expand
-                                                       "total_order?")
+                                                      (expand "total_order?")
                                                       (("1"
                                                         (flatten)
                                                         (("1"
@@ -2143,8 +2116,7 @@
                                                               (("1"
                                                                 (flatten)
                                                                 (("1"
-                                                                  (expand
-                                                                   ">")
+                                                                  (expand ">")
                                                                   (("1"
                                                                     (expand
                                                                      "converse")
@@ -2190,15 +2162,9 @@
                                                   nil)
                                                  ("2"
                                                   (typepred "j")
-                                                  (("2"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("2" (assert) nil nil))
                                                   nil)
-                                                 ("3"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                 ("3" (assert) nil nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -2216,14 +2182,10 @@
                         (("2" (lift-if)
                           (("2" (prop)
                             (("2" (expand "nth" 1 2)
-                              (("2"
-                                (lift-if)
-                                (("2"
-                                  (assert)
-                                  (("2"
-                                    (inst? -3)
-                                    (("2"
-                                      (prop)
+                              (("2" (lift-if)
+                                (("2" (assert)
+                                  (("2" (inst? -3)
+                                    (("2" (prop)
                                       (("1" (assert) nil nil)
                                        ("2" (assert) nil nil))
                                       nil))
@@ -2244,14 +2206,10 @@
                         (("1" (lift-if)
                           (("1" (prop)
                             (("1" (expand "nth" 2)
-                              (("1"
-                                (lift-if)
-                                (("1"
-                                  (prop)
-                                  (("1"
-                                    (lemma "bubbling_preserves_prefix")
-                                    (("1"
-                                      (inst? -1)
+                              (("1" (lift-if)
+                                (("1" (prop)
+                                  (("1" (lemma "bubbling_preserves_prefix")
+                                    (("1" (inst? -1)
                                       (("1"
                                         (inst -1 0)
                                         (("1"
@@ -2267,16 +2225,14 @@
                                                   (("1"
                                                     (expand ">")
                                                     (("1"
-                                                      (expand
-                                                       "converse")
+                                                      (expand "converse")
                                                       (("1"
                                                         (expand "<")
                                                         (("1"
                                                           (expand
                                                            "difference")
                                                           (("1"
-                                                            (expand
-                                                             "member")
+                                                            (expand "member")
                                                             (("1"
                                                               (prop)
                                                               (("1"
@@ -2346,15 +2302,9 @@
                                                     nil)
                                                    ("2"
                                                     (hide 2)
-                                                    (("2"
-                                                      (grind)
-                                                      nil
-                                                      nil))
+                                                    (("2" (grind) nil nil))
                                                     nil)
-                                                   ("3"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                   ("3" (assert) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -2375,14 +2325,10 @@
                         (("2" (lift-if)
                           (("2" (prop)
                             (("2" (expand "nth" 2 2)
-                              (("2"
-                                (lift-if)
-                                (("2"
-                                  (prop)
-                                  (("2"
-                                    (inst? -1)
-                                    (("1"
-                                      (prop)
+                              (("2" (lift-if)
+                                (("2" (prop)
+                                  (("2" (inst? -1)
+                                    (("1" (prop)
                                       (("1" (assert) nil nil)
                                        ("2" (assert) nil nil))
                                       nil)
@@ -2417,62 +2363,52 @@
      ("5" (hide 2)
       (("5" (skeep)
         (("5" (rewrite "bubbling_preserves_length")
-          (("5" (typepred "y!2" "i" "x!2") (("5" (grind) nil nil))
-            nil))
-          nil))
+          (("5" (typepred "y!2" "i" "x!2") (("5" (grind) nil nil)) nil)) nil))
         nil))
       nil)
      ("6" (hide -1 2)
       (("6" (skeep)
         (("6" (rewrite "bubbling_preserves_length")
-          (("6" (typepred "x!1`2" i1) (("6" (grind) nil nil)) nil))
-          nil))
+          (("6" (typepred "x!1`2" i1) (("6" (grind) nil nil)) nil)) nil))
         nil))
       nil)
      ("7" (hide -3 2 3)
       (("7" (rewrite "bubbling_preserves_length")
-        (("7" (typepred "y!1`2" "i!1" "x!1`2") (("7" (grind) nil nil))
-          nil))
+        (("7" (typepred "y!1`2" "i!1" "x!1`2") (("7" (grind) nil nil)) nil))
         nil))
       nil)
      ("8" (hide -3 2 3)
       (("8" (rewrite "bubbling_preserves_length")
-        (("8" (typepred "y!1`2" "i!1" "x!1`2") (("8" (grind) nil nil))
-          nil))
+        (("8" (typepred "y!1`2" "i!1" "x!1`2") (("8" (grind) nil nil)) nil))
         nil))
       nil)
      ("9" (hide -1 2)
       (("9" (skeep)
         (("9" (rewrite "bubbling_preserves_length")
-          (("9" (typepred "i1" "x!1`2") (("9" (grind) nil nil)) nil))
-          nil))
+          (("9" (typepred "i1" "x!1`2") (("9" (grind) nil nil)) nil)) nil))
         nil))
       nil)
      ("10" (hide -3 2 3)
       (("10" (rewrite "bubbling_preserves_length")
-        (("10" (typepred "y!1`2" "i!1" "x!1`2")
-          (("10" (grind) nil nil)) nil))
+        (("10" (typepred "y!1`2" "i!1" "x!1`2") (("10" (grind) nil nil)) nil))
         nil))
       nil)
      ("11" (hide -3 2 3)
       (("11" (rewrite "bubbling_preserves_length")
-        (("11" (typepred "y!1`2" "i!1" "x!1`2")
-          (("11" (grind) nil nil)) nil))
+        (("11" (typepred "y!1`2" "i!1" "x!1`2") (("11" (grind) nil nil)) nil))
         nil))
       nil)
      ("12" (hide 2)
       (("12" (skeep)
         (("12" (rewrite "bubbling_preserves_length")
-          (("12" (typepred "y!1`2" "i" "x!1`2")
-            (("12" (grind) nil nil)) nil))
+          (("12" (typepred "y!1`2" "i" "x!1`2") (("12" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
      ("13" (hide 2)
       (("13" (skeep)
         (("13" (rewrite "bubbling_preserves_length")
-          (("13" (typepred "y!1`2" "i" "x!1`2")
-            (("13" (grind) nil nil)) nil))
+          (("13" (typepred "y!1`2" "i" "x!1`2") (("13" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
@@ -2490,8 +2426,7 @@
       (("15" (skeep)
         (("15" (replace -1 1)
           (("15" (rewrite "bubbling_preserves_length")
-            (("15" (typepred "i" "n!1") (("15" (grind) nil nil)) nil))
-            nil))
+            (("15" (typepred "i" "n!1") (("15" (grind) nil nil)) nil)) nil))
           nil))
         nil))
       nil))
@@ -2512,8 +2447,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -2524,12 +2458,13 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil
+   (bubblesort_aux_preserves_suffix subtype "bubblesort.i"
+    "below[length[T](l1)]")))
  (bubblesort_aux_preserves_suffix_TCC2 0
   (bubblesort_aux_preserves_suffix_TCC2-1 nil 3639014491
    ("" (subtype-tcc) nil nil)
@@ -2537,8 +2472,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -2549,8 +2483,7 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
@@ -2558,7 +2491,9 @@
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil
+   (bubblesort_aux_preserves_suffix subtype "bubblesort.i"
+    "below[length[T](l)]")))
  (bubblesort_aux_preserves_suffix 0
   (bubblesort_aux_preserves_suffix-1 nil 3639077936
    ("" (measure-induct+ "n" ("l" "n"))
@@ -2573,8 +2508,7 @@
                     (("1" (inst -1 "x!1" "x!2")
                       (("1" (assert)
                         (("1" (inst? -1)
-                          (("1" (prop) (("1" (assert) nil nil)) nil))
-                          nil))
+                          (("1" (prop) (("1" (assert) nil nil)) nil)) nil))
                         nil))
                       nil))
                     nil)
@@ -2583,8 +2517,8 @@
                  ("2" (hide 3)
                   (("2" (lemma "bubbling_preserves_length")
                     (("2" (inst?)
-                      (("2" (typepred "i" "x!1" "x!2")
-                        (("2" (grind) nil nil)) nil))
+                      (("2" (typepred "i" "x!1" "x!2") (("2" (grind) nil nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -2596,56 +2530,52 @@
         nil))
       nil)
      ("2" (hide -3 2)
-      (("2" (typepred "i!1" "y!1" "y!2" "x!2" "i!1")
-        (("2" (grind) nil nil)) nil))
+      (("2" (typepred "i!1" "y!1" "y!2" "x!2" "i!1") (("2" (grind) nil nil))
+        nil))
       nil)
      ("3" (hide -3 2)
       (("3" (rewrite "bubblesort_aux_preserves_length")
-        (("3" (typepred "i!1" "y!1" "y!2" "x!2" "i!1")
-          (("3" (grind) nil nil)) nil))
+        (("3" (typepred "i!1" "y!1" "y!2" "x!2" "i!1") (("3" (grind) nil nil))
+          nil))
         nil))
       nil)
      ("4" (hide 2)
       (("4" (skeep)
-        (("4" (typepred "i" "y!1" "y!2" "x!2") (("4" (grind) nil nil))
-          nil))
+        (("4" (typepred "i" "y!1" "y!2" "x!2") (("4" (grind) nil nil)) nil))
         nil))
       nil)
      ("5" (hide 2)
       (("5" (skeep)
         (("5" (rewrite "bubblesort_aux_preserves_length")
-          (("5" (typepred "i" "y!1" "y!2" "x!2")
-            (("5" (grind) nil nil)) nil))
+          (("5" (typepred "i" "y!1" "y!2" "x!2") (("5" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
      ("6" (hide -1 2)
       (("6" (skeep)
-        (("6" (typepred "i1" "x!1`1" "x!1`2") (("6" (grind) nil nil))
-          nil))
+        (("6" (typepred "i1" "x!1`1" "x!1`2") (("6" (grind) nil nil)) nil))
         nil))
       nil)
      ("7" (hide -3 2 3)
-      (("7" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2")
-        (("7" (grind) nil nil)) nil))
+      (("7" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2") (("7" (grind) nil nil))
+        nil))
       nil)
      ("8" (hide 2 3 -3)
       (("8" (rewrite "bubblesort_aux_preserves_length")
-        (("8" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2")
-          (("8" (grind) nil nil)) nil))
+        (("8" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2") (("8" (grind) nil nil))
+          nil))
         nil))
       nil)
      ("9" (hide -1 2)
       (("9" (skeep)
         (("9" (rewrite "bubblesort_aux_preserves_length")
-          (("9" (typepred "i1" "x!1`1" "x!1`2") (("9" (grind) nil nil))
-            nil))
+          (("9" (typepred "i1" "x!1`1" "x!1`2") (("9" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
      ("10" (hide 2 3 -3)
-      (("10" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2")
-        (("10" (grind) nil nil)) nil))
+      (("10" (typepred "i!1" "y!1`1" "y!1`2" "x!1`2") (("10" (grind) nil nil))
+        nil))
       nil)
      ("11" (hide 2 3 -3)
       (("11" (rewrite "bubblesort_aux_preserves_length")
@@ -2655,8 +2585,8 @@
       nil)
      ("12" (hide 2)
       (("12" (skeep)
-        (("12" (typepred "i" "y!1`1" "y!1`2" "x!1`2")
-          (("12" (grind) nil nil)) nil))
+        (("12" (typepred "i" "y!1`1" "y!1`2" "x!1`2") (("12" (grind) nil nil))
+          nil))
         nil))
       nil)
      ("13" (hide 2)
@@ -2669,38 +2599,32 @@
       nil)
      ("14" (hide 2)
       (("14" (skeep)
-        (("14" (typepred "i" "l!1" "n!1") (("14" (grind) nil nil))
-          nil))
-        nil))
+        (("14" (typepred "i" "l!1" "n!1") (("14" (grind) nil nil)) nil)) nil))
       nil)
      ("15" (hide 2)
       (("15" (skeep)
         (("15" (typepred "i" "l!1" "l1!1" "n!1")
           (("15" (grind)
-            (("15" (rewrite "bubblesort_aux_preserves_length") nil
-              nil))
-            nil))
+            (("15" (rewrite "bubblesort_aux_preserves_length") nil nil)) nil))
           nil))
         nil))
       nil))
     nil)
    ((bubblesort_aux_preserves_length formula-decl nil bubblesort nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (x!1 skolem-const-decl "list[T]" bubblesort nil)
-    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort
-     nil)
+    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort nil)
     (bubbling def-decl "list[T]" bubblesort nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bubbling_preserves_length formula-decl nil bubblesort nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (bubbling_preserves_suffix formula-decl nil bubblesort nil)
-    (i skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort
-     nil)
+    (i skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -2708,14 +2632,12 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (bubblesort_aux def-decl "list[T]" bubblesort nil)
-    (> const-decl "bool" reals nil)
-    (length def-decl "nat" list_props nil)
+    (> const-decl "bool" reals nil) (length def-decl "nat" list_props nil)
     (wf_nat formula-decl nil naturalnumbers nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil) (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -2726,12 +2648,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil)
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil)
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
@@ -2761,14 +2681,13 @@
         nil))
       nil))
     nil)
-   ((real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+   ((real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (x!1 skolem-const-decl "list[T]" bubblesort nil)
-    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort
-     nil)
+    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort nil)
     (bubbling def-decl "list[T]" bubblesort nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -2785,8 +2704,7 @@
     (naturalnumber type-eq-decl nil naturalnumbers nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil) (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -2797,12 +2715,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil)
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil)
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
@@ -2810,12 +2726,11 @@
  (bubblesort_aux_preserves_prefix_TCC1 0
   (bubblesort_aux_preserves_prefix_TCC1-1 nil 3639079535
    ("" (subtype-tcc)
-    (("" (rewrite "bubblesort_aux_preserves_length")
-      (("" (grind) nil nil)) nil))
+    (("" (rewrite "bubblesort_aux_preserves_length") (("" (grind) nil nil))
+      nil))
     nil)
    ((bubblesort_aux_preserves_length formula-decl nil bubblesort nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -2825,8 +2740,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -2837,12 +2751,13 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil
+   (bubblesort_aux_preserves_prefix subtype "bubblesort.i"
+    "below[length[T](l1)]")))
  (bubblesort_aux_preserves_prefix_TCC2 0
   (bubblesort_aux_preserves_prefix_TCC2-1 nil 3639079535
    ("" (subtype-tcc) nil nil)
@@ -2850,8 +2765,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -2862,18 +2776,18 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil))
-   nil))
+   nil
+   (bubblesort_aux_preserves_prefix subtype "bubblesort.j"
+    "below[length[T](l)]")))
  (bubblesort_aux_preserves_prefix 0
   (bubblesort_aux_preserves_prefix-1 nil 3639209466
    ("" (skeep)
@@ -2884,23 +2798,18 @@
             (("" (assert)
               (("" (lemma "permutations_of_app_pref")
                 ((""
-                  (inst -1 "prefix(l,n+1)"
-                   "prefix(bubblesort_aux(l, n), n+1)" "suffix(l,n+1)"
-                   "suffix(bubblesort_aux(l, n), n+1)")
+                  (inst -1 "prefix(l,n+1)" "prefix(bubblesort_aux(l, n), n+1)"
+                   "suffix(l,n+1)" "suffix(bubblesort_aux(l, n), n+1)")
                   (("1" (prop)
                     (("1" (rewrite "permutations_is_commutative")
                       (("1" (lemma "permutations_preserve_contents")
                         (("1" (inst?)
                           (("1" (inst -1 "i")
                             (("1" (assert)
-                              (("1"
-                                (skeep)
-                                (("1"
-                                  (inst 1 "j")
-                                  (("1"
-                                    (lemma "contents_prefix")
-                                    (("1"
-                                      (copy -1)
+                              (("1" (skeep)
+                                (("1" (inst 1 "j")
+                                  (("1" (lemma "contents_prefix")
+                                    (("1" (copy -1)
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -2917,21 +2826,15 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (typepred "j")
-                                    (("2"
-                                      (rewrite "length_prefix")
-                                      nil
-                                      nil))
+                                   ("2" (typepred "j")
+                                    (("2" (rewrite "length_prefix") nil nil))
                                     nil))
                                   nil))
                                 nil))
                               nil)
                              ("2" (rewrite "length_prefix")
-                              (("2"
-                                (typepred "i" "n")
-                                (("2" (propax) nil nil))
-                                nil))
+                              (("2" (typepred "i" "n")
+                                (("2" (propax) nil nil)) nil))
                               nil))
                             nil))
                           nil))
@@ -2942,14 +2845,10 @@
                         (("1" (prop)
                           (("1" (skeep)
                             (("1" (lemma "contents_suffix")
-                              (("1"
-                                (inst? -1)
-                                (("1"
-                                  (inst? -1)
-                                  (("1"
-                                    (replace -1 1)
-                                    (("1"
-                                      (lemma "contents_suffix")
+                              (("1" (inst? -1)
+                                (("1" (inst? -1)
+                                  (("1" (replace -1 1)
+                                    (("1" (lemma "contents_suffix")
                                       (("1"
                                         (inst
                                          -1
@@ -2965,18 +2864,14 @@
                                               (("1"
                                                 (prop)
                                                 (("1" (assert) nil nil)
-                                                 ("2"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                 ("2" (assert) nil nil))
                                                 nil)
                                                ("2"
                                                 (typepred "i!1" "n")
                                                 (("2"
                                                   (hide 2 3 4)
                                                   (("2"
-                                                    (lemma
-                                                     "length_suffix")
+                                                    (lemma "length_suffix")
                                                     (("2"
                                                       (inst?)
                                                       (("2"
@@ -3001,8 +2896,7 @@
                                             (("2"
                                               (typepred "i!1" "l" "n")
                                               (("2"
-                                                (rewrite
-                                                 "length_suffix")
+                                                (rewrite "length_suffix")
                                                 nil
                                                 nil))
                                               nil))
@@ -3011,10 +2905,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (hide-all-but 1)
-                                    (("2"
-                                      (typepred "i!1" "l" "n")
+                                   ("2" (hide-all-but 1)
+                                    (("2" (typepred "i!1" "l" "n")
                                       (("2"
                                         (rewrite "length_suffix")
                                         nil
@@ -3027,17 +2919,12 @@
                             nil))
                           nil)
                          ("2" (hide-all-but 1)
-                          (("2"
-                            (lemma "bubblesort_aux_preserves_length")
+                          (("2" (lemma "bubblesort_aux_preserves_length")
                             (("2" (inst?)
-                              (("2"
-                                (lemma "length_suffix")
-                                (("2"
-                                  (copy -1)
-                                  (("2"
-                                    (inst?)
-                                    (("2"
-                                      (replaces -1)
+                              (("2" (lemma "length_suffix")
+                                (("2" (copy -1)
+                                  (("2" (inst?)
+                                    (("2" (replaces -1)
                                       (("2"
                                         (inst?)
                                         (("2" (assert) nil nil))
@@ -3055,15 +2942,11 @@
                       (("3" (copy -1)
                         (("3" (inst? -1)
                           (("3" (replace -1 1 rl)
-                            (("3"
-                              (inst -2 "bubblesort_aux(l, n)" "n +1")
-                              (("3"
-                                (replace -2 1 rl)
+                            (("3" (inst -2 "bubblesort_aux(l, n)" "n +1")
+                              (("3" (replace -2 1 rl)
                                 (("3"
-                                  (rewrite
-                                   "bubblesort_aux_is_permutation")
-                                  nil
-                                  nil))
+                                  (rewrite "bubblesort_aux_is_permutation")
+                                  nil nil))
                                 nil))
                               nil))
                             nil))
@@ -3074,8 +2957,7 @@
                    ("2" (hide -1 2)
                     (("2" (expand "list2finseq")
                       (("2" (rewrite "bubblesort_aux_preserves_length")
-                        (("2" (typepred "n") (("2" (grind) nil nil))
-                          nil))
+                        (("2" (typepred "n") (("2" (grind) nil nil)) nil))
                         nil))
                       nil))
                     nil))
@@ -3088,12 +2970,10 @@
       nil))
     nil)
    ((bubblesort_aux_preserves_suffix formula-decl nil bubblesort nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (l skolem-const-decl "list[T]" bubblesort nil)
@@ -3105,10 +2985,8 @@
     (bubblesort_aux_is_permutation formula-decl nil bubblesort nil)
     (permutations_is_ext_reflexive formula-decl nil sorting nil)
     (contents_suffix formula-decl nil sorting nil)
-    (i!1 skolem-const-decl "below[length(suffix(l, 1 + n))]" bubblesort
-     nil)
+    (i!1 skolem-const-decl "below[length(suffix(l, 1 + n))]" bubblesort nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (bubblesort_aux_preserves_length formula-decl nil bubblesort nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -3117,8 +2995,7 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (permutations_is_commutative formula-decl nil sorting nil)
-    (j skolem-const-decl "below[length(prefix(l, 1 + n))]" bubblesort
-     nil)
+    (j skolem-const-decl "below[length(prefix(l, 1 + n))]" bubblesort nil)
     (length_prefix formula-decl nil sorting nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (contents_prefix formula-decl nil sorting nil)
@@ -3131,8 +3008,7 @@
     (permutations_of_app_pref formula-decl nil sorting nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil) (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -3143,12 +3019,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil))
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil))
    shostak))
  (bubblesort_is_permutation 0
   (bubblesort_is_permutation-1 nil 3639009162
@@ -3171,15 +3045,13 @@
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil bubblesort nil)
     (permutations const-decl "bool" sorting nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (length def-decl "nat" list_props nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil) (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (int nonempty-type-eq-decl nil integers nil)
@@ -3189,20 +3061,19 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (list type-decl nil list_adt nil)
     (bubblesort_aux_is_permutation formula-decl nil bubblesort nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil))
    shostak))
  (bubblesort_aux_sorts_prefix_TCC1 0
   (bubblesort_aux_sorts_prefix_TCC1-1 nil 3639011941
    ("" (subtype-tcc)
-    (("" (rewrite "bubblesort_aux_preserves_length")
-      (("" (grind) nil nil)) nil))
+    (("" (rewrite "bubblesort_aux_preserves_length") (("" (grind) nil nil))
+      nil))
     nil)
    ((bubblesort_aux_preserves_length formula-decl nil bubblesort nil)
     (real_lt_is_strict_total_order name-judgement
@@ -3211,8 +3082,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -3223,29 +3093,28 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil
+   (bubblesort_aux_sorts_prefix subtype "bubblesort.i"
+    "below[length[T](bubblesort_aux(l, n))]")))
  (bubblesort_aux_sorts_prefix_TCC2 0
   (bubblesort_aux_sorts_prefix_TCC2-1 nil 3639011941
    ("" (subtype-tcc)
-    (("" (rewrite "bubblesort_aux_preserves_length")
-      (("" (grind) nil nil)) nil))
+    (("" (rewrite "bubblesort_aux_preserves_length") (("" (grind) nil nil))
+      nil))
     nil)
    ((bubblesort_aux_preserves_length formula-decl nil bubblesort nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -3256,12 +3125,13 @@
     (int nonempty-type-eq-decl nil integers nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (below type-eq-decl nil nat_types nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil))
-   nil))
+   nil
+   (bubblesort_aux_sorts_prefix subtype "(number_fields.+)(bubblesort.i, 1)"
+    "below[length[T](bubblesort_aux(l, n))]")))
  (bubblesort_aux_sorts_prefix 0
   (bubblesort_aux_sorts_prefix-1 nil 3639013577
    ("" (measure-induct+ "n" ("l" "n"))
@@ -3279,14 +3149,10 @@
                         (("1" (assert)
                           (("1" (inst -1 "x!2")
                             (("1" (prop)
-                              (("1"
-                                (replace -1 2)
-                                (("1"
-                                  (hide -1)
-                                  (("1"
-                                    (lemma "bubbling_bubbles")
-                                    (("1"
-                                      (inst?)
+                              (("1" (replace -1 2)
+                                (("1" (hide -1)
+                                  (("1" (lemma "bubbling_bubbles")
+                                    (("1" (inst?)
                                       (("1"
                                         (assert)
                                         (("1"
@@ -3307,8 +3173,7 @@
                                                       (("1"
                                                         (prop)
                                                         (("1"
-                                                          (typepred
-                                                           "j")
+                                                          (typepred "j")
                                                           (("1"
                                                             (assert)
                                                             nil
@@ -3327,18 +3192,11 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (hide 3)
-                                (("2" (grind) nil nil))
-                                nil))
+                               ("2" (hide 3) (("2" (grind) nil nil)) nil))
                               nil)
                              ("2" (hide-all-but (-2 1))
-                              (("2"
-                                (lemma "bubbling_preserves_length")
-                                (("2"
-                                  (inst?)
-                                  (("2" (grind) nil nil))
-                                  nil))
+                              (("2" (lemma "bubbling_preserves_length")
+                                (("2" (inst?) (("2" (grind) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -3347,8 +3205,7 @@
                       nil))
                     nil))
                   nil)
-                 ("2" (hide-all-but (-2 1 2)) (("2" (grind) nil nil))
-                  nil))
+                 ("2" (hide-all-but (-2 1 2)) (("2" (grind) nil nil)) nil))
                 nil))
               nil))
             nil))
@@ -3357,21 +3214,18 @@
       nil)
      ("2" (rewrite "bubblesort_aux_preserves_length")
       (("2" (hide -2 2)
-        (("2" (typepred "y!2" "x!2" "i!1" "y!1")
-          (("2" (grind) nil nil)) nil))
+        (("2" (typepred "y!2" "x!2" "i!1" "y!1") (("2" (grind) nil nil)) nil))
         nil))
       nil)
      ("3" (hide -2 2)
       (("3" (rewrite "bubblesort_aux_preserves_length")
-        (("3" (typepred "y!2" "x!2" "i!1" "y!1")
-          (("3" (grind) nil nil)) nil))
+        (("3" (typepred "y!2" "x!2" "i!1" "y!1") (("3" (grind) nil nil)) nil))
         nil))
       nil)
      ("4" (hide 2)
       (("4" (skeep)
         (("4" (rewrite "bubblesort_aux_preserves_length")
-          (("4" (typepred "y!2" "x!2" "i" "y!1")
-            (("4" (grind) nil nil)) nil))
+          (("4" (typepred "y!2" "x!2" "i" "y!1") (("4" (grind) nil nil)) nil))
           nil))
         nil))
       nil)
@@ -3387,8 +3241,8 @@
       (("6" (rewrite "bubblesort_aux_preserves_length")
         (("6" (skeep)
           (("6" (hide - 2)
-            (("6" (typepred "i1" "x!1`1" "x!1`2")
-              (("6" (grind) nil nil)) nil))
+            (("6" (typepred "i1" "x!1`1" "x!1`2") (("6" (grind) nil nil))
+              nil))
             nil))
           nil))
         nil))
@@ -3449,18 +3303,16 @@
       nil)
      ("15" (hide 2)
       (("15" (rewrite "bubblesort_aux_preserves_length")
-        (("15" (typepred "i!1" "l!1" "n!1") (("15" (grind) nil nil))
-          nil))
+        (("15" (typepred "i!1" "l!1" "n!1") (("15" (grind) nil nil)) nil))
         nil))
       nil))
     nil)
    ((bubblesort_aux_preserves_length formula-decl nil bubblesort nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (i skolem-const-decl "below[x!2]" bubblesort nil)
-    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort
-     nil)
+    (x!2 skolem-const-decl "below[list2finseq(x!1)`length]" bubblesort nil)
     (x!1 skolem-const-decl "list[T]" bubblesort nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -3472,15 +3324,14 @@
     (> const-decl "pred[[T, T]]" sorting nil)
     (bubbling_preserves_length formula-decl nil bubblesort nil)
     (bubblesort_aux_preserves_prefix formula-decl nil bubblesort nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (bubbling_bubbles formula-decl nil bubblesort nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (nth def-decl "T" list_props nil)
@@ -3491,14 +3342,12 @@
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (bubblesort_aux def-decl "list[T]" bubblesort nil)
     (length def-decl "nat" list_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (wf_nat formula-decl nil naturalnumbers nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil) (< const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -3509,12 +3358,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (list type-decl nil list_adt nil)
-    (T formal-type-decl nil bubblesort nil)
+    (list type-decl nil list_adt nil) (T formal-type-decl nil bubblesort nil)
     (measure_induction formula-decl nil measure_induction nil)
     (well_founded? const-decl "bool" orders nil)
     (pred type-eq-decl nil defined_types nil))
@@ -3556,12 +3403,10 @@
     (k skolem-const-decl
      "below[list2finseq(bubblesort_aux(l, list2finseq(l)`length - 1))`length]"
      bubblesort nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (bubblesort_aux_preserves_length formula-decl nil bubblesort nil)
     (< const-decl "bool" reals nil)
     (int nonempty-type-eq-decl nil integers nil)
@@ -3569,8 +3414,7 @@
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -3584,10 +3428,9 @@
     (list2finseq const-decl "finseq[T]" list2finseq nil)
     (l skolem-const-decl "list[T]" bubblesort nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
+    (odd_minus_odd_is_even application-judgement "even_int" integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (is_sorted? const-decl "bool" sorting nil)
     (T formal-type-decl nil bubblesort nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -3595,8 +3438,7 @@
     (PRED type-eq-decl nil defined_types nil)
     (total_preorder? const-decl "bool" total_preorder nil)
     (<= formal-const-decl "(total_preorder?[T])" bubblesort nil)
-    (nth def-decl "T" list_props nil)
-    (length def-decl "nat" list_props nil))
+    (nth def-decl "T" list_props nil) (length def-decl "nat" list_props nil))
    shostak))
  (bubblesort_works 0
   (bubblesort_works-1 nil 3639009015
@@ -3605,8 +3447,7 @@
       (("" (rewrite "bubblesort_is_sorted") nil nil)) nil))
     nil)
    ((bubblesort_is_permutation formula-decl nil bubblesort nil)
-    (T formal-type-decl nil bubblesort nil)
-    (list type-decl nil list_adt nil)
+    (T formal-type-decl nil bubblesort nil) (list type-decl nil list_adt nil)
     (bubblesort_is_sorted formula-decl nil bubblesort nil))
    shostak)))
 

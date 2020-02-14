@@ -2,18 +2,21 @@
  (IMP_sigma_TCC1 0
   (IMP_sigma_TCC1-1 nil 3537537618
    ("" (lemma "connected_domain1") (("" (propax) nil nil)) nil)
-   ((connected_domain1 formula-decl nil mixed_sigmas nil)) nil))
+   ((connected_domain1 formula-decl nil mixed_sigmas nil)) nil
+   (IMP_sigma assuming "sigma[T].sigma"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (IMP_sigma_TCC2 0
   (IMP_sigma_TCC2-1 nil 3537537618
    ("" (lemma "connected_domain2") (("" (propax) nil nil)) nil)
-   ((connected_domain2 formula-decl nil mixed_sigmas nil)) nil))
+   ((connected_domain2 formula-decl nil mixed_sigmas nil)) nil
+   (IMP_sigma assuming "sigma[H].sigma"
+    "connected_domain: ASSUMPTION (FORALL (x, y: sigma.T), (z: integers.integer): booleans.IMPLIES(booleans.AND(reals.<=(x, z), reals.<=(z, y)), sigma.T_pred(z)))")))
  (mixed_sigmas_const_eq_TCC1 0
   (mixed_sigmas_const_eq_TCC1-1 nil 3537536439
    ("" (skeep)
     (("" (lemma "T_pred_lem[T]")
       (("" (inst - thigh tlow _)
-        (("" (skeep) (("" (inst?) (("" (assert) nil nil)) nil)) nil))
-        nil))
+        (("" (skeep) (("" (inst?) (("" (assert) nil nil)) nil)) nil)) nil))
       nil))
     nil)
    ((T formal-subtype-decl nil mixed_sigmas nil)
@@ -25,25 +28,25 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (T_pred_lem formula-decl nil sigma nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (T_low type-eq-decl nil sigma nil)
-    (T_high type-eq-decl nil sigma nil)
+    (T_low type-eq-decl nil sigma nil) (T_high type-eq-decl nil sigma nil)
     (<= const-decl "bool" reals nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil))
-   nil))
+   nil
+   (mixed_sigmas_const_eq subtype
+    "(number_fields.+)(mixed_sigmas.tlow, mixed_sigmas.i)" "T")))
  (mixed_sigmas_const_eq_TCC2 0
   (mixed_sigmas_const_eq_TCC2-1 nil 3537536439
    ("" (skeep)
@@ -56,11 +59,10 @@
     nil)
    ((bool nonempty-type-eq-decl nil booleans nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil)
-    (T_high type-eq-decl nil sigma nil)
+    (<= const-decl "bool" reals nil) (T_high type-eq-decl nil sigma nil)
     (T_low type-eq-decl nil sigma nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -70,8 +72,7 @@
     (T_pred_lem formula-decl nil sigma nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -81,7 +82,9 @@
     (int nonempty-type-eq-decl nil integers nil)
     (H_pred const-decl "[int -> boolean]" mixed_sigmas nil)
     (H formal-subtype-decl nil mixed_sigmas nil))
-   nil))
+   nil
+   (mixed_sigmas_const_eq subtype
+    "(number_fields.+)(mixed_sigmas.hlow, mixed_sigmas.i)" "H")))
  (mixed_sigmas_const_eq 0
   (mixed_sigmas_const_eq-1 nil 3537536793
    (""
@@ -99,8 +102,7 @@
             (("1" (inst - "thigh-tlow")
               (("1" (assert) nil nil)
                ("2" (assert)
-                (("2" (expand "sigma" +) (("2" (propax) nil nil)) nil))
-                nil))
+                (("2" (expand "sigma" +) (("2" (propax) nil nil)) nil)) nil))
               nil))
             nil))
           nil))
@@ -113,28 +115,26 @@
             (("1" (flatten)
               (("1" (expand "sigma" +)
                 (("1" (expand "sigma" +)
-                  (("1" (inst - "0") (("1" (assert) nil nil)) nil))
-                  nil))
+                  (("1" (inst - "0") (("1" (assert) nil nil)) nil)) nil))
                 nil))
               nil))
             nil)
            ("2" (skeep)
             (("2" (assert)
               (("2" (expand "sigma" +)
-                (("2" (inst - "1+j") (("2" (assert) nil nil)) nil))
-                nil))
+                (("2" (inst - "1+j") (("2" (assert) nil nil)) nil)) nil))
               nil))
             nil)
            ("3" (skeep)
             (("3" (lemma "T_pred_lem[H]")
-              (("3" (inst - "hhigh" "hlow" "i+hlow")
-                (("3" (assert) nil nil)) nil))
+              (("3" (inst - "hhigh" "hlow" "i+hlow") (("3" (assert) nil nil))
+                nil))
               nil))
             nil)
            ("4" (skeep)
             (("4" (lemma "T_pred_lem[T]")
-              (("4" (inst - "thigh" "tlow" "i+tlow")
-                (("4" (assert) nil nil)) nil))
+              (("4" (inst - "thigh" "tlow" "i+tlow") (("4" (assert) nil nil))
+                nil))
               nil))
             nil))
           nil))
@@ -144,8 +144,8 @@
       (("3" (skeep)
         (("3" (skeep)
           (("3" (lemma "T_pred_lem[H]")
-            (("3" (inst - "hhigh" "hlow" "hlow + i1")
-              (("3" (assert) nil nil)) nil))
+            (("3" (inst - "hhigh" "hlow" "hlow + i1") (("3" (assert) nil nil))
+              nil))
             nil))
           nil))
         nil))
@@ -154,8 +154,8 @@
       (("4" (skeep)
         (("4" (skeep)
           (("4" (lemma "T_pred_lem[T]")
-            (("4" (inst - "thigh" "tlow" "i1+tlow")
-              (("4" (assert) nil nil)) nil))
+            (("4" (inst - "thigh" "tlow" "i1+tlow") (("4" (assert) nil nil))
+              nil))
             nil))
           nil))
         nil))
@@ -164,8 +164,8 @@
       (("5" (skeep)
         (("5" (skeep)
           (("5" (lemma "T_pred_lem[H]")
-            (("5" (inst - "hhigh" "hlow" "hlow + i")
-              (("5" (assert) nil nil)) nil))
+            (("5" (inst - "hhigh" "hlow" "hlow + i") (("5" (assert) nil nil))
+              nil))
             nil))
           nil))
         nil))
@@ -174,8 +174,8 @@
       (("6" (skeep)
         (("6" (skeep)
           (("6" (lemma "T_pred_lem[T]")
-            (("6" (inst - "thigh" "tlow" "i+tlow")
-              (("6" (assert) nil nil)) nil))
+            (("6" (inst - "thigh" "tlow" "i+tlow") (("6" (assert) nil nil))
+              nil))
             nil))
           nil))
         nil))
@@ -186,25 +186,22 @@
     (hlow skolem-const-decl "T_low[H]" mixed_sigmas nil)
     (pred type-eq-decl nil defined_types nil)
     (nat_induction formula-decl nil naturalnumbers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (T_pred_lem formula-decl nil sigma nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (thigh skolem-const-decl "T_high[T]" mixed_sigmas nil)
     (tlow skolem-const-decl "T_low[T]" mixed_sigmas nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -218,8 +215,7 @@
     (H formal-subtype-decl nil mixed_sigmas nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil)
-    (T_high type-eq-decl nil sigma nil)
+    (<= const-decl "bool" reals nil) (T_high type-eq-decl nil sigma nil)
     (T_low type-eq-decl nil sigma nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -245,8 +241,7 @@
     nil)
    ((number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)

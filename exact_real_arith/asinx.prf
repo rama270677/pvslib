@@ -1,5 +1,13 @@
 (asinx
  (cauchy_real_abs_le1_TCC1 0
+  (cauchy_real_abs_le1_TCC1-2 "" 3790106046
+   ("" (expand "cauchy_real_abs_le1?")
+    (("" (inst + "0")
+      (("" (expand "cauchy_prop") (("" (propax) nil nil)) nil)) nil))
+    nil)
+   nil shostak
+   (cauchy_real_abs_le1 subtype "(LAMBDA (p: naturalnumbers.nat): 0)"
+    "cauchy_real_abs_le1"))
   (cauchy_real_abs_le1_TCC1-1 nil 3288581630
    ("" (expand "cauchy_real_abs_le1?")
     (("" (inst + "0")
@@ -9,8 +17,7 @@
     nil)
    ((number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -19,11 +26,13 @@
     (<= const-decl "bool" reals nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (real_abs_le1 nonempty-type-eq-decl nil trig_types "trig/")
+    (real_abs_le1 nonempty-type-eq-decl nil trig_types trig)
     (cauchy_prop const-decl "bool" cauchy nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (cauchy_real_abs_le1? const-decl "bool" asinx nil))
-   shostak))
+   shostak
+   (cauchy_real_abs_le1 subtype "(LAMBDA (p: naturalnumbers.nat): 0)"
+    "cauchy_real_abs_le1")))
  (subtype_TCC1 0
   (subtype_TCC1-1 nil 3288581630
    ("" (skosimp*)
@@ -45,19 +54,18 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (cauchy_real? const-decl "bool" cauchy nil)
-    (real_abs_le1 nonempty-type-eq-decl nil trig_types "trig/")
+    (real_abs_le1 nonempty-type-eq-decl nil trig_types trig)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil))
-   shostak))
+   shostak (subtype_ subtype "asinx.x" "cauchy_real")))
  (cauchy_asin_TCC1 0
   (cauchy_asin_TCC1-1 nil 3393224859
    ("" (skosimp)
@@ -77,27 +85,15 @@
                         "cauchy_mul(cx!1, cx!1)"))
                       (("" (rewrite "int_lemma")
                         (("" (assert)
-                          ((""
-                            (lemma "sq_le"
-                             ("nna" "abs(x!1)" "nnb" "1"))
+                          (("" (lemma "sq_le" ("nna" "abs(x!1)" "nnb" "1"))
                             (("" (rewrite "sq_abs")
-                              ((""
-                                (assert)
-                                ((""
-                                  (case "1-sq(x!1)>=0")
-                                  (("1"
-                                    (expand "cauchy_nnreal?")
-                                    (("1"
-                                      (inst + "1-sq(x!1)")
-                                      nil
-                                      nil))
-                                    nil)
-                                   ("2"
-                                    (assert)
-                                    (("2"
-                                      (hide-all-but (-3 -4 2))
-                                      (("2" (grind) nil nil))
-                                      nil))
+                              (("" (assert)
+                                (("" (case "1-sq(x!1)>=0")
+                                  (("1" (expand "cauchy_nnreal?")
+                                    (("1" (inst + "1-sq(x!1)") nil nil)) nil)
+                                   ("2" (assert)
+                                    (("2" (hide-all-but (-3 -4 2))
+                                      (("2" (grind) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -126,46 +122,44 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (sq const-decl "nonneg_real" sq "reals/")
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (sq const-decl "nonneg_real" sq reals)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (cauchy_mul const-decl "cauchy_real" mul nil)
     (cauchy_int const-decl "cauchy_real" int nil)
-    (sub_lemma formula-decl nil sub nil)
-    (sq_abs formula-decl nil sq "reals/")
+    (sub_lemma formula-decl nil sub nil) (sq_abs formula-decl nil sq reals)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (nnreal type-eq-decl nil real_types nil)
     (x!1 skolem-const-decl "real_abs_le1" asinx nil)
     (cauchy_nnreal? const-decl "bool" cauchy nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (sq_1 formula-decl nil sq "reals/")
+    (sq_1 formula-decl nil sq reals)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (sq_nz_pos application-judgement "posreal" sq "reals/")
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (sq_le formula-decl nil sq "reals/")
-    (int_lemma formula-decl nil int nil)
-    (sq_rew formula-decl nil sq "reals/")
-    (mul_lemma formula-decl nil mul nil)
+    (sq_nz_pos application-judgement "posreal" sq reals)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
+    (sq_le formula-decl nil sq reals) (int_lemma formula-decl nil int nil)
+    (sq_rew formula-decl nil sq reals) (mul_lemma formula-decl nil mul nil)
     (cauchy_real? const-decl "bool" cauchy nil)
     (cauchy_real nonempty-type-eq-decl nil cauchy nil)
-    (real_abs_le1 nonempty-type-eq-decl nil trig_types "trig/")
+    (real_abs_le1 nonempty-type-eq-decl nil trig_types trig)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (<= const-decl "bool" reals nil))
-   nil))
+   nil
+   (cauchy_asin subtype
+    "sub.cauchy_sub(int.cauchy_int(1), mul.cauchy_mul(asinx.cx, asinx.cx))"
+    "cauchy_nnreal")))
  (cauchy_asin_TCC2 0
   (cauchy_asin_TCC2-1 nil 3393224859
    ("" (skosimp*)
@@ -181,25 +175,15 @@
                      ("x" "x!1" "y" "x!1" "cx" "cx!1" "cy" "cx!1"))
                     (("1" (assert)
                       (("1" (rewrite "sq_rew")
-                        (("1"
-                          (lemma "sq_lt" ("nna" "abs(x!1)" "nnb" "1"))
+                        (("1" (lemma "sq_lt" ("nna" "abs(x!1)" "nnb" "1"))
                           (("1" (rewrite "sq_abs")
                             (("1" (assert)
                               (("1"
-                                (lemma
-                                 "sub_lemma"
-                                 ("x"
-                                  "1"
-                                  "y"
-                                  "sq(x!1)"
-                                  "cx"
-                                  "cauchy_int(1)"
-                                  "cy"
-                                  "cauchy_mul(cx!1, cx!1)"))
-                                (("1"
-                                  (rewrite "int_lemma")
-                                  (("1"
-                                    (assert)
+                                (lemma "sub_lemma"
+                                 ("x" "1" "y" "sq(x!1)" "cx" "cauchy_int(1)"
+                                  "cy" "cauchy_mul(cx!1, cx!1)"))
+                                (("1" (rewrite "int_lemma")
+                                  (("1" (assert)
                                     (("1"
                                       (lemma
                                        "sqrt_lemma"
@@ -212,9 +196,7 @@
                                         (("1"
                                           (expand "cauchy_nzreal?")
                                           (("1"
-                                            (inst
-                                             +
-                                             "sqrt(1 - sq(x!1))")
+                                            (inst + "sqrt(1 - sq(x!1))")
                                             (("1" (assert) nil nil)
                                              ("2" (assert) nil nil))
                                             nil))
@@ -236,8 +218,7 @@
                     (("2" (inst - "0")
                       (("2" (rewrite "expt_x0")
                         (("2" (flatten)
-                          (("2" (assert) (("2" (grind) nil nil)) nil))
-                          nil))
+                          (("2" (assert) (("2" (grind) nil nil)) nil)) nil))
                         nil))
                       nil))
                     nil))
@@ -260,17 +241,11 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
-     nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
-     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
@@ -279,10 +254,9 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (sq_lt formula-decl nil sq "reals/")
-    (sq_nz_pos application-judgement "posreal" sq "reals/")
-    (sq_1 formula-decl nil sq "reals/")
-    (int_lemma formula-decl nil int nil)
+    (sq_lt formula-decl nil sq reals)
+    (sq_nz_pos application-judgement "posreal" sq reals)
+    (sq_1 formula-decl nil sq reals) (int_lemma formula-decl nil int nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (sqrt_lemma formula-decl nil sqrtx nil)
@@ -291,34 +265,31 @@
     (cauchy_sub const-decl "cauchy_real" sub nil)
     (nnreal type-eq-decl nil real_types nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (cauchy_nzreal? const-decl "bool" cauchy nil)
     (nzreal nonempty-type-eq-decl nil reals nil)
     (x!1 skolem-const-decl "real_abs_le1" asinx nil)
-    (sqrt const-decl "{nnz: nnreal | nnz * nnz = nnx}" sqrt "reals/")
+    (sqrt const-decl "{nnz: nnreal | nnz * nnz = nnx}" sqrt reals)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (/= const-decl "boolean" notequal nil)
-    (sq const-decl "nonneg_real" sq "reals/")
+    (sq const-decl "nonneg_real" sq reals)
     (cauchy_mul const-decl "cauchy_real" mul nil)
     (cauchy_int const-decl "cauchy_real" int nil)
-    (sub_lemma formula-decl nil sub nil)
-    (sq_abs formula-decl nil sq "reals/")
-    (sq_rew formula-decl nil sq "reals/")
+    (sub_lemma formula-decl nil sub nil) (sq_abs formula-decl nil sq reals)
+    (sq_rew formula-decl nil sq reals)
     (cauchy_real nonempty-type-eq-decl nil cauchy nil)
     (cauchy_real? const-decl "bool" cauchy nil)
-    (mul_lemma formula-decl nil mul nil)
-    (< const-decl "bool" reals nil)
+    (mul_lemma formula-decl nil mul nil) (< const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (<= const-decl "bool" reals nil)
-    (real_abs_le1 nonempty-type-eq-decl nil trig_types "trig/"))
-   nil))
+    (real_abs_le1 nonempty-type-eq-decl nil trig_types trig))
+   nil (cauchy_asin subtype "asinx.s" "cauchy_nzreal")))
  (cauchy_asin_TCC3 0
   (cauchy_asin_TCC3-1 nil 3508998293
    ("" (skosimp*)
@@ -335,14 +306,10 @@
                         (("1" (expand "cauchy_prop" -1)
                           (("1" (inst - "0")
                             (("1" (rewrite "expt_x0")
-                              (("1"
-                                (flatten)
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (expand "cauchy_nzreal?")
-                                    (("1" (inst + "x!1") nil nil))
-                                    nil))
+                              (("1" (flatten)
+                                (("1" (assert)
+                                  (("1" (expand "cauchy_nzreal?")
+                                    (("1" (inst + "x!1") nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -356,12 +323,8 @@
                         (("3" (inst + "x!1")
                           (("3" (expand "cauchy_prop")
                             (("3" (inst - "0")
-                              (("3"
-                                (rewrite "expt_x0")
-                                (("3"
-                                  (flatten)
-                                  (("3" (assert) nil nil))
-                                  nil))
+                              (("3" (rewrite "expt_x0")
+                                (("3" (flatten) (("3" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -388,8 +351,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -400,8 +362,8 @@
     (cauchy_prop const-decl "bool" cauchy nil)
     (expt_x0 formula-decl nil exponentiation nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
@@ -412,12 +374,12 @@
     (nzreal nonempty-type-eq-decl nil reals nil)
     (/= const-decl "boolean" notequal nil)
     (cauchy_nzreal? const-decl "bool" cauchy nil)
-    (real_abs_le1 nonempty-type-eq-decl nil trig_types "trig/")
+    (real_abs_le1 nonempty-type-eq-decl nil trig_types trig)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (<= const-decl "bool" reals nil))
-   nil))
+   nil (cauchy_asin subtype "asinx.cx" "cauchy_nzreal")))
  (asin_lemma 0
   (asin_lemma-1 nil 3288581645
    ("" (skosimp)
@@ -435,23 +397,17 @@
                       (("" (assert)
                         ((""
                           (lemma "sub_lemma"
-                           ("x" "1" "y" "sq(x!1)" "cx" "cauchy_int(1)"
-                            "cy" "cauchy_mul(cx!1, cx!1)"))
+                           ("x" "1" "y" "sq(x!1)" "cx" "cauchy_int(1)" "cy"
+                            "cauchy_mul(cx!1, cx!1)"))
                           (("" (rewrite "int_lemma")
                             (("" (assert)
-                              ((""
-                                (hide -2)
-                                ((""
-                                  (case "1-sq(x!1)>=0")
+                              (("" (hide -2)
+                                (("" (case "1-sq(x!1)>=0")
                                   (("1"
-                                    (lemma
-                                     "sqrt_lemma"
-                                     ("nnx"
-                                      "1-sq(x!1)"
-                                      "nncx"
+                                    (lemma "sqrt_lemma"
+                                     ("nnx" "1-sq(x!1)" "nncx"
                                       "cauchy_sub(cauchy_int(1), cauchy_mul(cx!1, cx!1))"))
-                                    (("1"
-                                      (assert)
+                                    (("1" (assert)
                                       (("1"
                                         (name-replace
                                          "CY"
@@ -479,16 +435,14 @@
                                                   (("1"
                                                     (expand "div2n")
                                                     (("1"
-                                                      (rewrite
-                                                       "expt_x1")
+                                                      (rewrite "expt_x1")
                                                       (("1"
                                                         (hide -2)
                                                         (("1"
                                                           (case-replace
                                                            "TT=0")
                                                           (("1"
-                                                            (case
-                                                             "sq(x!1)<1")
+                                                            (case "sq(x!1)<1")
                                                             (("1"
                                                               (lemma
                                                                "sqrt_pos"
@@ -539,9 +493,7 @@
                                                               nil)
                                                              ("2"
                                                               (hide-all-but
-                                                               (-5
-                                                                -6
-                                                                1))
+                                                               (-5 -6 1))
                                                               (("2"
                                                                 (lemma
                                                                  "sq_lt"
@@ -574,8 +526,7 @@
                                                            ("2"
                                                             (assert)
                                                             (("2"
-                                                              (case
-                                                               "x!1/=0")
+                                                              (case "x!1/=0")
                                                               (("1"
                                                                 (case-replace
                                                                  "TT > 0")
@@ -583,8 +534,7 @@
                                                                   (case
                                                                    "x!1>0")
                                                                   (("1"
-                                                                    (hide
-                                                                     1)
+                                                                    (hide 1)
                                                                     (("1"
                                                                       (lemma
                                                                        "div_lemma"
@@ -642,8 +592,7 @@
                                                                     nil))
                                                                   nil)
                                                                  ("2"
-                                                                  (replace
-                                                                   1)
+                                                                  (replace 1)
                                                                   (("2"
                                                                     (case
                                                                      "TT<0")
@@ -740,19 +689,14 @@
                                         nil))
                                       nil)
                                      ("2" (propax) nil nil)
-                                     ("3"
-                                      (hide 2)
+                                     ("3" (hide 2)
                                       (("3"
                                         (expand "cauchy_nnreal?")
-                                        (("3"
-                                          (inst + "1-sq(x!1)")
-                                          nil
-                                          nil))
+                                        (("3" (inst + "1-sq(x!1)") nil nil))
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (hide-all-but 1)
+                                   ("2" (hide-all-but 1)
                                     (("2"
                                       (lemma
                                        "sq_lt"
@@ -789,68 +733,60 @@
     (cauchy_real_abs_le1 nonempty-type-eq-decl nil asinx nil)
     (cauchy_real_abs_le1? const-decl "bool" asinx nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (sq_rew formula-decl nil sq "reals/")
-    (sub_lemma formula-decl nil sub nil)
+    (sq_rew formula-decl nil sq reals) (sub_lemma formula-decl nil sub nil)
     (cauchy_int const-decl "cauchy_real" int nil)
     (cauchy_mul const-decl "cauchy_real" mul nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (sq const-decl "nonneg_real" sq "reals/")
+    (sq const-decl "nonneg_real" sq reals)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (x!1 skolem-const-decl "real_abs_le1" asinx nil)
     (lemma_div2n formula-decl nil shift nil)
     (cauchy_pi const-decl "cauchy_real" atanx nil)
     (> const-decl "bool" reals nil) (< const-decl "bool" reals nil)
-    (cos const-decl "real" sincos_def "trig/")
+    (cos const-decl "real" sincos_def trig)
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (pi const-decl "{x: real | x > 2 AND x < 4 AND cos(x / 2) = 0}"
-     pi_def "trig/")
+    (pi const-decl "{x: real | x > 2 AND x < 4 AND cos(x / 2) = 0}" pi_def
+     trig)
     (cauchy_div2n const-decl "cauchy_real" shift nil)
     (expt_x1 formula-decl nil exponentiation nil)
-    (sq_abs formula-decl nil sq "reals/")
-    (sq_1 formula-decl nil sq "reals/")
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (sq_lt formula-decl nil sq "reals/")
-    (sqrt_pos judgement-tcc nil sqrt "reals/")
+    (sq_abs formula-decl nil sq reals) (sq_1 formula-decl nil sq reals)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
+    (sq_lt formula-decl nil sq reals) (sqrt_pos judgement-tcc nil sqrt reals)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
+    (even_minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal" real_types
      nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
     (div_lemma formula-decl nil div nil)
     (cauchy_nzreal? const-decl "bool" cauchy nil)
     (cauchy_nzreal nonempty-type-eq-decl nil cauchy nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (sqrt const-decl "{nnz: nnreal | nnz * nnz = nnx}" sqrt "reals/")
+    (sqrt const-decl "{nnz: nnreal | nnz * nnz = nnx}" sqrt reals)
     (atan_lemma formula-decl nil atanx nil)
     (cauchy_div const-decl "cauchy_real" div nil)
-    (asin const-decl "real_abs_le_pi2" asin "trig/")
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
+    (asin const-decl "real_abs_le_pi2" asin trig)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
     (cauchy_neg const-decl "cauchy_real" neg nil)
-    (asin_neg_restrict formula-decl nil asin "trig/")
+    (asin_neg_restrict formula-decl nil asin trig)
     (neg_lemma formula-decl nil neg nil)
     (cauchy_atan const-decl "cauchy_real" atanx nil)
-    (real_abs_lt_pi2 nonempty-type-eq-decl nil trig_types "trig/")
-    (tan_restrict const-decl "real" trig_basic "trig/")
-    (atan const-decl "{x: real_abs_lt_pi2 | y = tan_restrict(x)}" atan
-          "trig/")
-    (asin_pos_restrict formula-decl nil asin "trig/")
-    (div2n const-decl "real" shift nil)
-    (pi_lemma formula-decl nil atanx nil)
+    (real_abs_lt_pi2 nonempty-type-eq-decl nil trig_types trig)
+    (tan_restrict const-decl "real" trig_basic trig)
+    (atan const-decl "{x: real_abs_lt_pi2 | y = tan_restrict(x)}" atan trig)
+    (asin_pos_restrict formula-decl nil asin trig)
+    (div2n const-decl "real" shift nil) (pi_lemma formula-decl nil atanx nil)
     (cauchy_sqrt const-decl "cauchy_nnreal" sqrtx nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (nnreal type-eq-decl nil real_types nil)
     (cauchy_sub const-decl "cauchy_real" sub nil)
     (cauchy_nnreal nonempty-type-eq-decl nil cauchy nil)
@@ -864,9 +800,8 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (pi_bound name-judgement
-     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def "trig/")
-    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
-     nil)
+     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def trig)
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types nil)
     (mul_lemma formula-decl nil mul nil)
     (cauchy_real? const-decl "bool" cauchy nil)
     (cauchy_real nonempty-type-eq-decl nil cauchy nil)
@@ -874,7 +809,7 @@
     (<= const-decl "bool" reals nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (real_abs_le1 nonempty-type-eq-decl nil trig_types "trig/")
+    (real_abs_le1 nonempty-type-eq-decl nil trig_types trig)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -885,8 +820,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    shostak)))

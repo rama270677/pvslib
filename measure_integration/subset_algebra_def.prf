@@ -19,18 +19,14 @@
                           (("1" (expand "union")
                             (("1" (assert)
                               (("1"
-                                (case-replace
-                                 "{x: T |
+                                (case-replace "{x: T |
              EXISTS (a:
                        (LAMBDA (t: setof[T]):
                           IF (S!1)(t) THEN U(t) ELSE FALSE ENDIF)):
                a(x)} = {x: T | member(x, x!1) OR member(x, y!1)}")
-                                (("1"
-                                  (hide 2)
-                                  (("1"
-                                    (apply-extensionality 1 :hide? t)
-                                    (("1"
-                                      (expand "member")
+                                (("1" (hide 2)
+                                  (("1" (apply-extensionality 1 :hide? t)
+                                    (("1" (expand "member")
                                       (("1"
                                         (case-replace "x!1(x!2)")
                                         (("1"
@@ -43,10 +39,7 @@
                                                 (expand "union")
                                                 (("1"
                                                   (expand "member")
-                                                  (("1"
-                                                    (propax)
-                                                    nil
-                                                    nil))
+                                                  (("1" (propax) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -66,10 +59,7 @@
                                                     (expand "union")
                                                     (("1"
                                                       (expand "member")
-                                                      (("1"
-                                                        (propax)
-                                                        nil
-                                                        nil))
+                                                      (("1" (propax) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -86,14 +76,11 @@
                                                     (("2"
                                                       (expand "U" -1)
                                                       (("2"
-                                                        (expand
-                                                         "singleton")
+                                                        (expand "singleton")
                                                         (("2"
-                                                          (expand
-                                                           "union")
+                                                          (expand "union")
                                                           (("2"
-                                                            (expand
-                                                             "member")
+                                                            (expand "member")
                                                             (("2"
                                                               (propax)
                                                               nil
@@ -125,14 +112,10 @@
                             (inst +
                              "lambda (x:setof[T]): IF x = x!1 THEN 0 ELSE 1 ENDIF")
                             (("2" (expand "injective?")
-                              (("2"
-                                (skosimp*)
-                                (("2"
-                                  (expand "restrict")
-                                  (("2"
-                                    (typepred "x1!1")
-                                    (("2"
-                                      (typepred "x2!1")
+                              (("2" (skosimp*)
+                                (("2" (expand "restrict")
+                                  (("2" (typepred "x1!1")
+                                    (("2" (typepred "x2!1")
                                       (("2"
                                         (assert)
                                         (("2"
@@ -144,31 +127,18 @@
                                               (("2"
                                                 (expand "member")
                                                 (("2"
-                                                  (hide-all-but
-                                                   (-1 -3 -5 1))
+                                                  (hide-all-but (-1 -3 -5 1))
                                                   (("2"
                                                     (split -1)
                                                     (("1"
                                                       (split -2)
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil)
-                                                       ("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("1" (assert) nil nil)
+                                                       ("2" (assert) nil nil))
                                                       nil)
                                                      ("2"
                                                       (split -2)
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil)
-                                                       ("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("1" (assert) nil nil)
+                                                       ("2" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -192,8 +162,8 @@
                       (("2" (typepred "x!2")
                         (("2" (expand "extend")
                           (("2" (case-replace "S!1(x!2)")
-                            (("1" (expand "member")
-                              (("1" (propax) nil nil)) nil)
+                            (("1" (expand "member") (("1" (propax) nil nil))
+                              nil)
                              ("2" (assert) nil nil))
                             nil))
                           nil))
@@ -220,16 +190,15 @@
     (finite_set type-eq-decl nil finite_sets nil)
     (is_finite const-decl "bool" finite_sets nil)
     (singleton const-decl "(singleton?)" sets nil)
-    (singleton? const-decl "bool" sets nil)
-    (union const-decl "set" sets nil)
+    (singleton? const-decl "bool" sets nil) (union const-decl "set" sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (set type-eq-decl nil sets nil)
-    (nonempty_finite_union1 application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
+    (nonempty_finite_union2 application-judgement "non_empty_finite_set[T]"
+     countable_props sets_aux)
+    (nonempty_singleton_finite application-judgement "non_empty_finite_set[T]"
+     countable_props sets_aux)
     (member const-decl "bool" sets nil)
-    (is_countable const-decl "bool" countability "sets_aux/")
+    (is_countable const-decl "bool" countability sets_aux)
     (restrict const-decl "R" restrict nil)
     (injective? const-decl "bool" functions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -241,20 +210,17 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (Union const-decl "set" sets nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (y!1 skolem-const-decl "(S!1)" subset_algebra_def nil)
     (S!1 skolem-const-decl "setofsets[T]" subset_algebra_def nil)
-    (U skolem-const-decl "non_empty_finite_set[(S!1)]"
-     subset_algebra_def nil)
+    (U skolem-const-decl "non_empty_finite_set[(S!1)]" subset_algebra_def nil)
     (x!1 skolem-const-decl "(S!1)" subset_algebra_def nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (FALSE const-decl "bool" booleans nil)
-    (extend const-decl "R" extend nil)
+    (FALSE const-decl "bool" booleans nil) (extend const-decl "R" extend nil)
     (subset_algebra_union? const-decl "bool" subset_algebra_def nil))
    shostak))
  (sigma_algebra_implies_subset_algebra 0
@@ -264,15 +230,13 @@
       (("" (expand "subset_algebra?")
         (("" (flatten)
           (("" (assert)
-            (("" (rewrite "sigma_union_implies_subset_union") nil nil))
-            nil))
+            (("" (rewrite "sigma_union_implies_subset_union") nil nil)) nil))
           nil))
         nil))
       nil))
     nil)
    ((sigma_algebra? const-decl "bool" subset_algebra_def nil)
-    (sigma_union_implies_subset_union formula-decl nil
-     subset_algebra_def nil)
+    (sigma_union_implies_subset_union formula-decl nil subset_algebra_def nil)
     (T formal-type-decl nil subset_algebra_def nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -296,14 +260,10 @@
                         (("" (expand "member")
                           (("" (expand "emptyset")
                             (("" (split)
-                              (("1"
-                                (skosimp*)
-                                (("1"
-                                  (apply-extensionality :hide? t)
-                                  (("1"
-                                    (apply-extensionality :hide? t)
-                                    (("1"
-                                      (typepred "x!1")
+                              (("1" (skosimp*)
+                                (("1" (apply-extensionality :hide? t)
+                                  (("1" (apply-extensionality :hide? t)
+                                    (("1" (typepred "x!1")
                                       (("1"
                                         (split)
                                         (("1"
@@ -319,14 +279,10 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (skosimp*)
-                                (("2"
-                                  (apply-extensionality :hide? t)
-                                  (("2"
-                                    (apply-extensionality :hide? t)
-                                    (("2"
-                                      (typepred "x!1")
+                               ("2" (skosimp*)
+                                (("2" (apply-extensionality :hide? t)
+                                  (("2" (apply-extensionality :hide? t)
+                                    (("2" (typepred "x!1")
                                       (("2"
                                         (typepred "y!1")
                                         (("2"
@@ -338,10 +294,7 @@
                                               (("1"
                                                 (split -2)
                                                 (("1" (assert) nil nil)
-                                                 ("2"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                 ("2" (assert) nil nil))
                                                 nil))
                                               nil))
                                             nil)
@@ -373,8 +326,7 @@
    ((emptyset const-decl "set" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
     (member const-decl "bool" sets nil)
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
-     nil)
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
     (subset_algebra_union? const-decl "bool" subset_algebra_def nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil subset_algebra_def nil)
@@ -387,15 +339,16 @@
     (TRUE const-decl "bool" booleans nil)
     (complement const-decl "set" sets nil)
     (subset_algebra_empty? const-decl "bool" subset_algebra_def nil)
-    (union const-decl "set" sets nil)
-    (fullset const-decl "set" sets nil)
+    (union const-decl "set" sets nil) (fullset const-decl "set" sets nil)
     (subset_algebra? const-decl "bool" subset_algebra_def nil)
-    (nonempty_finite_union1 application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
+    (nonempty_finite_union2 application-judgement "non_empty_finite_set[T]"
+     countable_props sets_aux)
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
     (finite_emptyset name-judgement "finite_set" finite_sets nil))
-   nil))
+   nil
+   (trivial_subset_algebra subtype
+    "sets[set[T]].union(sets[set[T]].singleton(sets[subset_algebra_def.T].emptyset), sets[set[T]].singleton(sets[subset_algebra_def.T].fullset))"
+    "(subset_algebra_def.subset_algebra?)")))
  (sigma_algebra_TCC1 0
   (sigma_algebra_TCC1-1 nil 3426521314
    ("" (expand "trivial_subset_algebra")
@@ -412,14 +365,10 @@
                         (("" (expand "sigma_algebra_union?")
                           (("" (expand "Union")
                             (("" (expand "member")
-                              ((""
-                                (split)
-                                (("1"
-                                  (skosimp*)
-                                  (("1"
-                                    (apply-extensionality :hide? t)
-                                    (("1"
-                                      (apply-extensionality :hide? t)
+                              (("" (split)
+                                (("1" (skosimp*)
+                                  (("1" (apply-extensionality :hide? t)
+                                    (("1" (apply-extensionality :hide? t)
                                       (("1"
                                         (typepred "x!1")
                                         (("1"
@@ -431,12 +380,9 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (skosimp*)
-                                  (("2"
-                                    (apply-extensionality :hide? t)
-                                    (("2"
-                                      (apply-extensionality :hide? t)
+                                 ("2" (skosimp*)
+                                  (("2" (apply-extensionality :hide? t)
+                                    (("2" (apply-extensionality :hide? t)
                                       (("2"
                                         (skosimp)
                                         (("2"
@@ -448,10 +394,7 @@
                                               (("1" (assert) nil nil)
                                                ("2"
                                                 (inst + "a!1")
-                                                (("2"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                (("2" (assert) nil nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -478,8 +421,7 @@
    ((emptyset const-decl "set" sets nil)
     (singleton const-decl "(singleton?)" sets nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def nil)
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
-     nil)
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
     (sigma_algebra_union? const-decl "bool" subset_algebra_def nil)
     (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
@@ -492,20 +434,19 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (T formal-type-decl nil subset_algebra_def nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (Union const-decl "set" sets nil)
-    (complement const-decl "set" sets nil)
+    (Union const-decl "set" sets nil) (complement const-decl "set" sets nil)
     (member const-decl "bool" sets nil)
     (subset_algebra_empty? const-decl "bool" subset_algebra_def nil)
-    (union const-decl "set" sets nil)
-    (fullset const-decl "set" sets nil)
-    (trivial_subset_algebra const-decl "(subset_algebra?)"
-     subset_algebra_def nil)
-    (nonempty_finite_union1 application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
+    (union const-decl "set" sets nil) (fullset const-decl "set" sets nil)
+    (trivial_subset_algebra const-decl "(subset_algebra?)" subset_algebra_def
+     nil)
+    (nonempty_finite_union2 application-judgement "non_empty_finite_set[T]"
+     countable_props sets_aux)
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
     (finite_emptyset name-judgement "finite_set" finite_sets nil))
-   nil))
+   nil
+   (sigma_algebra subtype "subset_algebra_def.trivial_subset_algebra"
+    "sigma_algebra")))
  (sigma_algebra_is_subset_algebra 0
   (sigma_algebra_is_subset_algebra-1 nil 3426521314
    ("" (skolem + ("A"))
@@ -518,25 +459,19 @@
                 (("" (expand "subset_algebra_union?")
                   (("" (expand "sigma_algebra_union?")
                     (("" (skosimp)
-                      ((""
-                        (inst -
-                         "add[set[T]](x!1,singleton[set[T]](y!1))")
+                      (("" (inst - "add[set[T]](x!1,singleton[set[T]](y!1))")
                         ((""
                           (case-replace
                            "Union(add[set[T]](x!1, singleton[set[T]](y!1)))=union(x!1, y!1)")
                           (("1" (split -4)
                             (("1" (propax) nil nil)
-                             ("2" (rewrite "finite_countable[set[T]]")
-                              nil nil)
+                             ("2" (rewrite "finite_countable[set[T]]") nil
+                              nil)
                              ("3" (hide-all-but 1)
-                              (("3"
-                                (skosimp)
-                                (("3"
-                                  (typepred "x!2")
-                                  (("3"
-                                    (expand "singleton")
-                                    (("3"
-                                      (expand "add")
+                              (("3" (skosimp)
+                                (("3" (typepred "x!2")
+                                  (("3" (expand "singleton")
+                                    (("3" (expand "add")
                                       (("3"
                                         (expand "member")
                                         (("3"
@@ -553,14 +488,10 @@
                             nil)
                            ("2" (hide-all-but 1)
                             (("2" (apply-extensionality :hide? t)
-                              (("2"
-                                (expand "union")
-                                (("2"
-                                  (expand "singleton")
-                                  (("2"
-                                    (expand "add")
-                                    (("2"
-                                      (expand "member")
+                              (("2" (expand "union")
+                                (("2" (expand "singleton")
+                                  (("2" (expand "add")
+                                    (("2" (expand "member")
                                       (("2"
                                         (expand "Union")
                                         (("2"
@@ -568,10 +499,7 @@
                                           (("1" (inst + "x!1") nil nil)
                                            ("2"
                                             (case-replace "y!1(x!2)")
-                                            (("1"
-                                              (inst + "y!1")
-                                              nil
-                                              nil)
+                                            (("1" (inst + "y!1") nil nil)
                                              ("2"
                                               (assert)
                                               (("2"
@@ -580,14 +508,8 @@
                                                   (typepred "a!1")
                                                   (("2"
                                                     (split)
-                                                    (("1"
-                                                      (assert)
-                                                      nil
-                                                      nil)
-                                                     ("2"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                    (("1" (assert) nil nil)
+                                                     ("2" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -624,54 +546,50 @@
     (subset_algebra_union? const-decl "bool" subset_algebra_def nil)
     (union const-decl "set" sets nil) (Union const-decl "set" sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (nonempty_add_finite application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
+    (nonempty_add_finite application-judgement "non_empty_finite_set[T]"
+     countable_props sets_aux)
     (member const-decl "bool" sets nil)
     (finite_set type-eq-decl nil finite_sets nil)
     (is_finite const-decl "bool" finite_sets nil)
-    (finite_countable judgement-tcc nil countable_props "sets_aux/")
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
-    (nonempty_singleton_finite application-judgement
-     "non_empty_finite_set[T]" countable_props "sets_aux/")
+    (finite_countable judgement-tcc nil countable_props sets_aux)
+    (Union_surjective name-judgement "(surjective?[setofsets[T], set[T]])"
+     sets_lemmas nil)
+    (nonempty_singleton_finite application-judgement "non_empty_finite_set[T]"
+     countable_props sets_aux)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (singleton const-decl "(singleton?)" sets nil)
     (singleton? const-decl "bool" sets nil)
     (add const-decl "(nonempty?)" sets nil)
-    (nonempty? const-decl "bool" sets nil)
-    (set type-eq-decl nil sets nil)
+    (nonempty? const-decl "bool" sets nil) (set type-eq-decl nil sets nil)
     (sigma_algebra_union? const-decl "bool" subset_algebra_def nil)
     (subset_algebra? const-decl "bool" subset_algebra_def nil))
-   nil))
+   nil
+   (sigma_algebra_is_subset_algebra subtype "subset_algebra_def.x"
+    "subset_algebra")))
  (powerset_is_sigma_algebra 0
   (powerset_is_sigma_algebra-1 nil 3426523512
    ("" (expand "sigma_algebra?")
     (("" (split)
-      (("1" (expand "subset_algebra_empty?") (("1" (grind) nil nil))
-        nil)
+      (("1" (expand "subset_algebra_empty?") (("1" (grind) nil nil)) nil)
        ("2" (grind) nil nil) ("3" (grind) nil nil))
       nil))
     nil)
-   ((emptyset const-decl "set" sets nil)
-    (member const-decl "bool" sets nil)
-    (fullset const-decl "set" sets nil)
-    (subset? const-decl "bool" sets nil)
+   ((emptyset const-decl "set" sets nil) (member const-decl "bool" sets nil)
+    (fullset const-decl "set" sets nil) (subset? const-decl "bool" sets nil)
     (powerset const-decl "setofsets" sets nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
     (subset_algebra_empty? const-decl "bool" subset_algebra_def nil)
     (complement const-decl "set" sets nil)
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
-     nil)
-    (is_countable const-decl "bool" countability "sets_aux/")
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
+    (is_countable const-decl "bool" countability sets_aux)
     (Union const-decl "set" sets nil)
     (sigma_algebra_union? const-decl "bool" subset_algebra_def nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def nil)
-    (nonempty_powerset application-judgement "(nonempty?[set[T]])"
-     sets_lemmas nil))
+    (nonempty_powerset application-judgement "(nonempty?[set[T]])" sets_lemmas
+     nil))
    shostak))
  (generated_sigma_algebra_TCC1 0
   (generated_sigma_algebra_TCC1-1 nil 3426521314
@@ -686,8 +604,7 @@
                   (("1" (expand "sigma_algebra?")
                     (("1" (flatten)
                       (("1" (expand "subset_algebra_empty?")
-                        (("1" (expand "member")
-                          (("1" (propax) nil nil)) nil))
+                        (("1" (expand "member") (("1" (propax) nil nil)) nil))
                         nil))
                       nil))
                     nil))
@@ -705,10 +622,8 @@
                         (("2" (expand "subset_algebra_complement?")
                           (("2" (expand "member")
                             (("2" (typepred "x!1")
-                              (("2"
-                                (inst - "a!1")
-                                (("2" (inst - "x!1") nil nil))
-                                nil))
+                              (("2" (inst - "a!1")
+                                (("2" (inst - "x!1") nil nil)) nil))
                               nil))
                             nil))
                           nil))
@@ -729,14 +644,10 @@
                         (("3" (expand "sigma_algebra_union?")
                           (("3" (inst - "X!2")
                             (("3" (assert)
-                              (("3"
-                                (expand "member")
-                                (("3"
-                                  (skosimp)
-                                  (("3"
-                                    (typepred "x!1")
-                                    (("3"
-                                      (expand "subset?")
+                              (("3" (expand "member")
+                                (("3" (skosimp)
+                                  (("3" (typepred "x!1")
+                                    (("3" (expand "subset?")
                                       (("3"
                                         (inst - "x!1")
                                         (("3"
@@ -745,10 +656,7 @@
                                             (expand "member")
                                             (("3"
                                               (inst - "x!1")
-                                              (("3"
-                                                (inst - "a!1")
-                                                nil
-                                                nil))
+                                              (("3" (inst - "a!1") nil nil))
                                               nil))
                                             nil))
                                           nil))
@@ -773,10 +681,8 @@
     nil)
    ((Intersection const-decl "set" sets nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (member const-decl "bool" sets nil)
-    (subset? const-decl "bool" sets nil)
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
+    (member const-decl "bool" sets nil) (subset? const-decl "bool" sets nil)
     (set type-eq-decl nil sets nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (setofsets type-eq-decl nil sets nil)
@@ -793,15 +699,17 @@
     (x!1 skolem-const-decl "({x |
     FORALL (a: ({Y | sigma_algebra?(Y) AND subset?[setof[T]](X!1, Y)})):
       a(x)})" subset_algebra_def nil)
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
-     nil)
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
+    (Union_surjective name-judgement "(surjective?[setofsets[T], set[T]])"
+     sets_lemmas nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (sigma_algebra_union? const-decl "bool" subset_algebra_def nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def nil))
-   nil))
+   nil
+   (generated_sigma_algebra subtype
+    "sets[setof[T]].Intersection({Y | booleans.AND(subset_algebra_def.sigma_algebra?(subset_algebra_def.Y), sets[setof[T]].subset?(subset_algebra_def.X, subset_algebra_def.Y))})"
+    "sigma_algebra")))
  (generated_sigma_algebra_subset1 0
   (generated_sigma_algebra_subset1-1 nil 3426523538
    ("" (skosimp)
@@ -812,8 +720,7 @@
             (("" (skosimp*)
               (("" (typepred "a!1")
                 (("" (inst - "x!1")
-                  (("" (expand "member") (("" (assert) nil nil)) nil))
-                  nil))
+                  (("" (expand "member") (("" (assert) nil nil)) nil)) nil))
                 nil))
               nil))
             nil))
@@ -821,8 +728,8 @@
         nil))
       nil))
     nil)
-   ((generated_sigma_algebra const-decl "sigma_algebra"
-     subset_algebra_def nil)
+   ((generated_sigma_algebra const-decl "sigma_algebra" subset_algebra_def
+     nil)
     (Intersection const-decl "set" sets nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -843,15 +750,15 @@
       (("" (expand "Intersection")
         (("" (expand "subset?" 1 1)
           (("" (expand "member")
-            (("" (skosimp)
-              (("" (inst - "Y!1") (("" (assert) nil nil)) nil)) nil))
+            (("" (skosimp) (("" (inst - "Y!1") (("" (assert) nil nil)) nil))
+              nil))
             nil))
           nil))
         nil))
       nil))
     nil)
-   ((generated_sigma_algebra const-decl "sigma_algebra"
-     subset_algebra_def nil)
+   ((generated_sigma_algebra const-decl "sigma_algebra" subset_algebra_def
+     nil)
     (subset? const-decl "bool" sets nil)
     (Y!1 skolem-const-decl "setofsets[T]" subset_algebra_def nil)
     (X!1 skolem-const-decl "setofsets[T]" subset_algebra_def nil)
@@ -871,8 +778,7 @@
  (generated_sigma_algebra_idempotent 0
   (generated_sigma_algebra_idempotent-1 nil 3426523706
    ("" (skosimp)
-    ((""
-      (lemma "generated_sigma_algebra_subset2" ("X" "A!1" "Y" "A!1"))
+    (("" (lemma "generated_sigma_algebra_subset2" ("X" "A!1" "Y" "A!1"))
       (("" (assert)
         (("" (rewrite "subset_reflexive")
           (("" (lemma "generated_sigma_algebra_subset1" ("X" "A!1"))
@@ -892,15 +798,13 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil subset_algebra_def nil)
-    (generated_sigma_algebra_subset2 formula-decl nil
-     subset_algebra_def nil)
+    (generated_sigma_algebra_subset2 formula-decl nil subset_algebra_def nil)
     (subset_reflexive formula-decl nil sets_lemmas nil)
     (set type-eq-decl nil sets nil)
     (subset_antisymmetric formula-decl nil sets_lemmas nil)
-    (generated_sigma_algebra const-decl "sigma_algebra"
-     subset_algebra_def nil)
-    (generated_sigma_algebra_subset1 formula-decl nil
-     subset_algebra_def nil)
+    (generated_sigma_algebra const-decl "sigma_algebra" subset_algebra_def
+     nil)
+    (generated_sigma_algebra_subset1 formula-decl nil subset_algebra_def nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil))
    shostak))
@@ -915,16 +819,15 @@
               (("" (expand "member")
                 (("" (split)
                   (("1" (expand "subset_algebra_empty?")
-                    (("1" (expand "member") (("1" (assert) nil nil))
-                      nil))
+                    (("1" (expand "member") (("1" (assert) nil nil)) nil))
                     nil)
                    ("2" (expand "subset_algebra_complement?")
                     (("2" (skosimp)
                       (("2" (typepred "x!1")
                         (("2" (inst - "x!1")
                           (("2" (inst - "x!1")
-                            (("2" (expand "member")
-                              (("2" (assert) nil nil)) nil))
+                            (("2" (expand "member") (("2" (assert) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -936,25 +839,17 @@
                         (("3" (inst -5 "X!1")
                           (("3" (inst -8 "X!1")
                             (("3" (assert)
-                              (("3"
-                                (split -5)
-                                (("1"
-                                  (split -8)
+                              (("3" (split -5)
+                                (("1" (split -8)
                                   (("1" (assert) nil nil)
-                                   ("2"
-                                    (skosimp)
-                                    (("2"
-                                      (inst - "x!1")
-                                      (("2" (flatten) nil nil))
-                                      nil))
+                                   ("2" (skosimp)
+                                    (("2" (inst - "x!1")
+                                      (("2" (flatten) nil nil)) nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (skosimp)
-                                  (("2"
-                                    (inst - "x!1")
-                                    (("2" (flatten) nil nil))
-                                    nil))
+                                 ("2" (skosimp)
+                                  (("2" (inst - "x!1")
+                                    (("2" (flatten) nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -981,14 +876,12 @@
     (boolean nonempty-type-decl nil booleans nil)
     (intersection const-decl "set" sets nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
     (subset_algebra_empty? const-decl "bool" subset_algebra_def nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
-     nil)
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
+    (Union_surjective name-judgement "(surjective?[setofsets[T], set[T]])"
+     sets_lemmas nil)
     (sigma_algebra_union? const-decl "bool" subset_algebra_def nil)
     (member const-decl "bool" sets nil))
    shostak))
@@ -1008,8 +901,7 @@
                         (("" (expand "subset?")
                           (("" (expand "member")
                             (("" (inst - "x!1")
-                              ((""
-                                (split -2)
+                              (("" (split -2)
                                 (("1" (propax) nil nil)
                                  ("2" (inst + "A!1") nil nil))
                                 nil))
@@ -1028,8 +920,8 @@
       nil))
     nil)
    ((extend const-decl "R" extend nil)
-    (generated_sigma_algebra const-decl "sigma_algebra"
-     subset_algebra_def nil)
+    (generated_sigma_algebra const-decl "sigma_algebra" subset_algebra_def
+     nil)
     (subset? const-decl "bool" sets nil)
     (I!1 skolem-const-decl "set[sigma_algebra]" subset_algebra_def nil)
     (A!1 skolem-const-decl "sigma_algebra" subset_algebra_def nil)
@@ -1045,8 +937,7 @@
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def nil)
     (FALSE const-decl "bool" booleans nil)
-    (Intersection const-decl "set" sets nil)
-    (Union const-decl "set" sets nil)
+    (Intersection const-decl "set" sets nil) (Union const-decl "set" sets nil)
     (sigma const-decl "sigma_algebra" subset_algebra_def nil)
     (member const-decl "bool" sets nil))
    shostak))
@@ -1056,11 +947,9 @@
     (("" (lemma "sigma_algebra_is_subset_algebra")
       (("" (inst - "powerset(fullset[T])") nil nil)) nil))
     nil)
-   ((sigma_algebra_is_subset_algebra judgement-tcc nil
-     subset_algebra_def nil)
+   ((sigma_algebra_is_subset_algebra judgement-tcc nil subset_algebra_def nil)
     (fullset const-decl "set" sets nil)
-    (powerset const-decl "setofsets" sets nil)
-    (set type-eq-decl nil sets nil)
+    (powerset const-decl "setofsets" sets nil) (set type-eq-decl nil sets nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def nil)
     (setofsets type-eq-decl nil sets nil)
@@ -1068,74 +957,66 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil subset_algebra_def nil)
-    (nonempty_powerset application-judgement "(nonempty?[set[T]])"
-     sets_lemmas nil)
-    (powerset_is_sigma_algebra formula-decl nil subset_algebra_def
-     nil))
+    (nonempty_powerset application-judgement "(nonempty?[set[T]])" sets_lemmas
+     nil)
+    (powerset_is_sigma_algebra formula-decl nil subset_algebra_def nil))
    shostak))
  (generated_subset_algebra_TCC1 0
-  (generated_subset_algebra_TCC1-1 nil 3449732913
-   ("" (subtype-tcc) nil nil)
+  (generated_subset_algebra_TCC1-1 nil 3449732913 ("" (subtype-tcc) nil nil)
    ((a!1 skolem-const-decl "({Y |
     (Y(emptyset[T]) AND
       (FORALL (x: (Y)): Y(complement(x))) AND
-       (FORALL (x, y: (Y)): Y(union(x, y))))
-     AND (FORALL (x: setof[T]): X!1(x) => Y(x))})" subset_algebra_def
-     nil)
+       FORALL (x, y: (Y)): Y(union(x, y)))
+     AND FORALL (x: setof[T]): X!1(x) => Y(x)})" subset_algebra_def nil)
     (x!1 skolem-const-decl "(Intersection[setof[T]]
      ({Y |
          (Y(emptyset[T]) AND
            (FORALL (x: (Y)): Y(complement(x))) AND
-            (FORALL (x, y: (Y)): Y(union(x, y))))
-          AND (FORALL (x: setof[T]): X!1(x) => Y(x))}))"
-     subset_algebra_def nil)
+            FORALL (x, y: (Y)): Y(union(x, y)))
+          AND FORALL (x: setof[T]): X!1(x) => Y(x)}))" subset_algebra_def nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (T formal-type-decl nil subset_algebra_def nil)
     (setof type-eq-decl nil defined_types nil)
-    (setofsets type-eq-decl nil sets nil)
-    (set type-eq-decl nil sets nil)
+    (setofsets type-eq-decl nil sets nil) (set type-eq-decl nil sets nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (emptyset const-decl "set" sets nil)
-    (complement const-decl "set" sets nil)
-    (union const-decl "set" sets nil)
+    (complement const-decl "set" sets nil) (union const-decl "set" sets nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (X!1 skolem-const-decl "setofsets[T]" subset_algebra_def nil)
     (a!1 skolem-const-decl "({Y |
     (Y(emptyset[T]) AND
       (FORALL (x: (Y)): Y(complement(x))) AND
-       (FORALL (x, y: (Y)): Y(union(x, y))))
-     AND (FORALL (x: setof[T]): X!1(x) => Y(x))})" subset_algebra_def
-     nil)
+       FORALL (x, y: (Y)): Y(union(x, y)))
+     AND FORALL (x: setof[T]): X!1(x) => Y(x)})" subset_algebra_def nil)
     (x!1 skolem-const-decl "(Intersection[setof[T]]
      ({Y |
          (Y(emptyset[T]) AND
            (FORALL (x: (Y)): Y(complement(x))) AND
-            (FORALL (x, y: (Y)): Y(union(x, y))))
-          AND (FORALL (x: setof[T]): X!1(x) => Y(x))}))"
-     subset_algebra_def nil)
+            FORALL (x, y: (Y)): Y(union(x, y)))
+          AND FORALL (x: setof[T]): X!1(x) => Y(x)}))" subset_algebra_def nil)
     (y!1 skolem-const-decl "(Intersection[setof[T]]
      ({Y |
          (Y(emptyset[T]) AND
            (FORALL (x: (Y)): Y(complement(x))) AND
-            (FORALL (x, y: (Y)): Y(union(x, y))))
-          AND (FORALL (x: setof[T]): X!1(x) => Y(x))}))"
-     subset_algebra_def nil)
+            FORALL (x, y: (Y)): Y(union(x, y)))
+          AND FORALL (x: setof[T]): X!1(x) => Y(x)}))" subset_algebra_def nil)
     (Intersection_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
     (member const-decl "bool" sets nil)
     (subset_algebra_empty? const-decl "bool" subset_algebra_def nil)
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
-     nil)
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
     (subset_algebra_union? const-decl "bool" subset_algebra_def nil)
     (subset_algebra? const-decl "bool" subset_algebra_def nil)
     (subset? const-decl "bool" sets nil)
     (Intersection const-decl "set" sets nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/"))
-   nil))
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux))
+   nil
+   (generated_subset_algebra subtype
+    "sets[setof[T]].Intersection({Y | booleans.AND(subset_algebra_def.subset_algebra?(subset_algebra_def.Y), sets[setof[T]].subset?(subset_algebra_def.X, subset_algebra_def.Y))})"
+    "subset_algebra")))
  (generated_subset_algebra_subset1 0
   (generated_subset_algebra_subset1-1 nil 3449732987
    ("" (skosimp)
@@ -1148,8 +1029,7 @@
                 (("" (typepred "a!1")
                   (("" (expand "subset?")
                     (("" (inst - "x!1")
-                      (("" (expand "member") (("" (assert) nil nil))
-                        nil))
+                      (("" (expand "member") (("" (assert) nil nil)) nil))
                       nil))
                     nil))
                   nil))
@@ -1161,8 +1041,7 @@
       nil))
     nil)
    ((subset? const-decl "bool" sets nil)
-    (Intersection const-decl "set" sets nil)
-    (set type-eq-decl nil sets nil)
+    (Intersection const-decl "set" sets nil) (set type-eq-decl nil sets nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (subset_algebra? const-decl "bool" subset_algebra_def nil)
     (setofsets type-eq-decl nil sets nil)
@@ -1171,8 +1050,8 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (generated_subset_algebra const-decl "subset_algebra"
-     subset_algebra_def nil)
+    (generated_subset_algebra const-decl "subset_algebra" subset_algebra_def
+     nil)
     (member const-decl "bool" sets nil))
    shostak))
  (generated_subset_algebra_subset2 0
@@ -1203,8 +1082,8 @@
     (T formal-type-decl nil subset_algebra_def nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
-    (generated_subset_algebra const-decl "subset_algebra"
-     subset_algebra_def nil)
+    (generated_subset_algebra const-decl "subset_algebra" subset_algebra_def
+     nil)
     (member const-decl "bool" sets nil))
    shostak))
  (generated_subset_algebra_idempotent 0
@@ -1212,9 +1091,7 @@
    ("" (skosimp)
     (("" (typepred "B!1")
       (("" (lemma "generated_subset_algebra_subset1" ("X" "B!1"))
-        ((""
-          (lemma "generated_subset_algebra_subset2"
-           ("X" "B!1" "Y" "B!1"))
+        (("" (lemma "generated_subset_algebra_subset2" ("X" "B!1" "Y" "B!1"))
           (("" (assert)
             (("" (rewrite "subset_reflexive")
               ((""
@@ -1235,17 +1112,16 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (generated_subset_algebra_subset2 formula-decl nil
-     subset_algebra_def nil)
+    (generated_subset_algebra_subset2 formula-decl nil subset_algebra_def nil)
     (set type-eq-decl nil sets nil)
     (subset_reflexive formula-decl nil sets_lemmas nil)
-    (generated_subset_algebra const-decl "subset_algebra"
-     subset_algebra_def nil)
+    (generated_subset_algebra const-decl "subset_algebra" subset_algebra_def
+     nil)
     (subset_antisymmetric formula-decl nil sets_lemmas nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
-    (generated_subset_algebra_subset1 formula-decl nil
-     subset_algebra_def nil))
+    (generated_subset_algebra_subset1 formula-decl nil subset_algebra_def
+     nil))
    shostak))
  (intersection_subset_algebra 0
   (intersection_subset_algebra-1 nil 3449733399
@@ -1258,8 +1134,7 @@
               (("1" (expand "subset_algebra_empty?")
                 (("1" (expand "member")
                   (("1" (expand "intersection")
-                    (("1" (expand "member") (("1" (assert) nil nil))
-                      nil))
+                    (("1" (expand "member") (("1" (assert) nil nil)) nil))
                     nil))
                   nil))
                 nil)
@@ -1272,27 +1147,19 @@
                           (("2" (inst - "x!1")
                             (("1" (inst - "x!1")
                               (("1" (assert) nil nil)
-                               ("2"
-                                (typepred "x!1")
-                                (("2"
-                                  (expand "intersection")
-                                  (("2"
-                                    (flatten)
-                                    (("2"
-                                      (expand "member")
-                                      (("2" (propax) nil nil))
-                                      nil))
+                               ("2" (typepred "x!1")
+                                (("2" (expand "intersection")
+                                  (("2" (flatten)
+                                    (("2" (expand "member")
+                                      (("2" (propax) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
                               nil)
                              ("2" (typepred "x!1")
-                              (("2"
-                                (expand "intersection")
-                                (("2"
-                                  (expand "member")
-                                  (("2" (flatten) nil nil))
-                                  nil))
+                              (("2" (expand "intersection")
+                                (("2" (expand "member")
+                                  (("2" (flatten) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1310,10 +1177,8 @@
                         (("3" (expand "member")
                           (("3" (flatten)
                             (("3" (inst - "x!1" "y!1")
-                              (("3"
-                                (inst - "x!1" "y!1")
-                                (("3" (assert) nil nil))
-                                nil))
+                              (("3" (inst - "x!1" "y!1")
+                                (("3" (assert) nil nil)) nil))
                               nil))
                             nil))
                           nil))
@@ -1337,23 +1202,18 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
     (member const-decl "bool" sets nil)
     (intersection const-decl "set" sets nil)
     (subset_algebra_empty? const-decl "bool" subset_algebra_def nil)
     (B!1 skolem-const-decl "subset_algebra" subset_algebra_def nil)
     (set type-eq-decl nil sets nil)
     (A!1 skolem-const-decl "subset_algebra" subset_algebra_def nil)
-    (x!1 skolem-const-decl "(intersection(A!1, B!1))"
-     subset_algebra_def nil)
+    (x!1 skolem-const-decl "(intersection(A!1, B!1))" subset_algebra_def nil)
     (complement const-decl "set" sets nil)
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
-     nil)
-    (x!1 skolem-const-decl "(intersection(A!1, B!1))"
-     subset_algebra_def nil)
-    (y!1 skolem-const-decl "(intersection(A!1, B!1))"
-     subset_algebra_def nil)
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
+    (x!1 skolem-const-decl "(intersection(A!1, B!1))" subset_algebra_def nil)
+    (y!1 skolem-const-decl "(intersection(A!1, B!1))" subset_algebra_def nil)
     (subset_algebra_union? const-decl "bool" subset_algebra_def nil))
    shostak))
  (subset_member 0
@@ -1372,12 +1232,9 @@
                         (("" (inst - "x!1")
                           (("" (assert)
                             (("" (hide 2)
-                              ((""
-                                (expand "extend")
-                                ((""
-                                  (expand "Union")
-                                  (("" (inst + "B!1") nil nil))
-                                  nil))
+                              (("" (expand "extend")
+                                (("" (expand "Union")
+                                  (("" (inst + "B!1") nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1393,13 +1250,12 @@
         nil))
       nil))
     nil)
-   ((subset? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
-    (generated_subset_algebra const-decl "subset_algebra"
-     subset_algebra_def nil)
+   ((subset? const-decl "bool" sets nil) (member const-decl "bool" sets nil)
+    (generated_subset_algebra const-decl "subset_algebra" subset_algebra_def
+     nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    (Union_surjective name-judgement "(surjective?[setofsets[T], set[T]])"
+     sets_lemmas nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -1410,8 +1266,7 @@
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (set type-eq-decl nil sets nil) (Union const-decl "set" sets nil)
     (subset_algebra nonempty-type-eq-decl nil subset_algebra_def nil)
-    (FALSE const-decl "bool" booleans nil)
-    (extend const-decl "R" extend nil)
+    (FALSE const-decl "bool" booleans nil) (extend const-decl "R" extend nil)
     (Intersection const-decl "set" sets nil)
     (subset const-decl "subset_algebra" subset_algebra_def nil))
    shostak))
@@ -1431,14 +1286,10 @@
                         (("" (skosimp)
                           (("" (inst - "i!1")
                             (("" (flatten)
-                              ((""
-                                (assert)
-                                ((""
-                                  (expand "member")
-                                  ((""
-                                    (replace -3)
-                                    ((""
-                                      (expand "empty?")
+                              (("" (assert)
+                                (("" (expand "member")
+                                  (("" (replace -3)
+                                    (("" (expand "empty?")
                                       ((""
                                         (expand "member")
                                         (("" (propax) nil nil))
@@ -1462,21 +1313,18 @@
       nil))
     nil)
    ((finite_disjoint_union? const-decl "bool" subset_algebra_def nil)
-    (set type-eq-decl nil sets nil)
-    (setofsets type-eq-decl nil sets nil)
+    (set type-eq-decl nil sets nil) (setofsets type-eq-decl nil sets nil)
     (setof type-eq-decl nil defined_types nil)
     (T formal-type-decl nil subset_algebra_def nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (empty? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
-    (finite_disjoint_union_of? const-decl "bool" subset_algebra_def
-     nil)
+    (empty? const-decl "bool" sets nil) (member const-decl "bool" sets nil)
+    (finite_disjoint_union_of? const-decl "bool" subset_algebra_def nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -1487,11 +1335,13 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (nonempty? const-decl "bool" sets nil))
-   nil))
+   nil
+   (card subtype
+    "{n: naturalnumbers.nat | EXISTS E: subset_algebra_def.finite_disjoint_union_of?(subset_algebra_def.X)(subset_algebra_def.a)(subset_algebra_def.E, n)}"
+    "(sets[nat].nonempty?)")))
  (disjoint_algebra_construction 0
   (disjoint_algebra_construction-1 nil 3450336806
    ("" (skosimp*)
@@ -1517,16 +1367,12 @@
                           (("2" (prop)
                             (("2" (expand "finite_disjoint_union?")
                               (("2"
-                                (inst
-                                 +
+                                (inst +
                                  "lambda n: if n=0 then x!1 else emptyset[T] endif"
                                  "1")
-                                (("2"
-                                  (split)
-                                  (("1"
-                                    (expand "disjoint?")
-                                    (("1"
-                                      (expand "emptyset")
+                                (("2" (split)
+                                  (("1" (expand "disjoint?")
+                                    (("1" (expand "emptyset")
                                       (("1"
                                         (expand "disjoint?")
                                         (("1"
@@ -1541,10 +1387,7 @@
                                                   (skosimp)
                                                   (("1"
                                                     (assert)
-                                                    (("1"
-                                                      (grind)
-                                                      nil
-                                                      nil))
+                                                    (("1" (grind) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -1554,10 +1397,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (apply-extensionality :hide? t)
-                                    (("2"
-                                      (expand "emptyset")
+                                   ("2" (apply-extensionality :hide? t)
+                                    (("2" (expand "emptyset")
                                       (("2"
                                         (expand "IUnion")
                                         (("2"
@@ -1568,15 +1409,12 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("3"
-                                    (skosimp)
-                                    (("3"
-                                      (expand "member")
+                                   ("3" (skosimp)
+                                    (("3" (expand "member")
                                       (("3"
                                         (rewrite "emptyset_is_empty?")
                                         (("3"
-                                          (rewrite
-                                           "emptyset_is_empty?")
+                                          (rewrite "emptyset_is_empty?")
                                           (("3"
                                             (case-replace "i!1 < 1")
                                             (("1" (assert) nil nil)
@@ -1609,8 +1447,8 @@
                     (("1" (expand "subset_algebra?")
                       (("1" (split)
                         (("1" (expand "subset_algebra_empty?")
-                          (("1" (expand "member")
-                            (("1" (propax) nil nil)) nil))
+                          (("1" (expand "member") (("1" (propax) nil nil))
+                            nil))
                           nil)
                          ("2" (expand "subset_algebra_complement?")
                           (("2" (skosimp)
@@ -1621,24 +1459,16 @@
                          ("3" (expand "subset_algebra_union?")
                           (("3" (expand "member")
                             (("3" (skosimp)
-                              (("3"
-                                (inst-cp - "y!1")
-                                (("3"
-                                  (inst-cp - "x!1")
+                              (("3" (inst-cp - "y!1")
+                                (("3" (inst-cp - "x!1")
                                   (("3"
-                                    (inst
-                                     -
-                                     "complement(x!1)"
+                                    (inst - "complement(x!1)"
                                      "complement(y!1)")
-                                    (("3"
-                                      (rewrite "demorgan1" -5 :dir rl)
+                                    (("3" (rewrite "demorgan1" -5 :dir rl)
                                       (("3"
-                                        (inst
-                                         -
-                                         "complement(union(x!1, y!1))")
+                                        (inst - "complement(union(x!1, y!1))")
                                         (("3"
-                                          (rewrite
-                                           "complement_complement")
+                                          (rewrite "complement_complement")
                                           nil
                                           nil))
                                         nil))
@@ -1656,16 +1486,10 @@
                         (("2" (typepred "a!1")
                           (("2" (expand "finite_disjoint_unions" -1)
                             (("2" (expand "fullset")
-                              (("2"
-                                (expand "extend")
-                                (("2"
-                                  (prop)
-                                  (("2"
-                                    (expand
-                                     "finite_disjoint_union?"
-                                     -1)
-                                    (("2"
-                                      (skosimp)
+                              (("2" (expand "extend")
+                                (("2" (prop)
+                                  (("2" (expand "finite_disjoint_union?" -1)
+                                    (("2" (skosimp)
                                       (("2"
                                         (expand "member")
                                         (("2"
@@ -1673,8 +1497,7 @@
                                           (("1"
                                             (assert)
                                             (("1"
-                                              (case-replace
-                                               "a!1=emptyset")
+                                              (case-replace "a!1=emptyset")
                                               (("1"
                                                 (rewrite
                                                  "complement_emptyset"
@@ -1684,21 +1507,15 @@
                                                   (("1"
                                                     (typepred "NX!1")
                                                     (("1"
-                                                      (expand
-                                                       "nonempty?")
+                                                      (expand "nonempty?")
                                                       (("1"
-                                                        (expand
-                                                         "empty?"
-                                                         1)
+                                                        (expand "empty?" 1)
                                                         (("1"
                                                           (skosimp)
                                                           (("1"
-                                                            (expand
-                                                             "member")
+                                                            (expand "member")
                                                             (("1"
-                                                              (inst
-                                                               -5
-                                                               "x!1")
+                                                              (inst -5 "x!1")
                                                               (("1"
                                                                 (expand
                                                                  "finite_disjoint_union?"
@@ -2111,16 +1928,11 @@
                                                       (("2"
                                                         (skosimp)
                                                         (("2"
-                                                          (inst
-                                                           -5
-                                                           "i!1")
+                                                          (inst -5 "i!1")
                                                           (("2"
-                                                            (expand
-                                                             "empty?")
+                                                            (expand "empty?")
                                                             (("2"
-                                                              (inst
-                                                               -5
-                                                               "x!1")
+                                                              (inst -5 "x!1")
                                                               (("2"
                                                                 (assert)
                                                                 (("2"
@@ -2147,9 +1959,7 @@
                                             (("1"
                                               (hide 1)
                                               (("1"
-                                                (name
-                                                 "FF"
-                                                 "IComplement(E!1)")
+                                                (name "FF" "IComplement(E!1)")
                                                 (("1"
                                                   (name
                                                    "F"
@@ -2164,23 +1974,16 @@
                                                         (case
                                                          "FORALL n: n < n!1 => finite_disjoint_unions(NX!1)(F(n))")
                                                         (("1"
-                                                          (replace
-                                                           -8
-                                                           1)
+                                                          (replace -8 1)
                                                           (("1"
                                                             (lemma
                                                              "IDemorgan1")
                                                             (("1"
-                                                              (inst
-                                                               -
-                                                               "E!1")
+                                                              (inst - "E!1")
                                                               (("1"
-                                                                (replace
-                                                                 -1
-                                                                 1)
+                                                                (replace -1 1)
                                                                 (("1"
-                                                                  (hide
-                                                                   -1)
+                                                                  (hide -1)
                                                                   (("1"
                                                                     (case
                                                                      "IIntersection(IComplement(E!1))=F(n!1-1)")
@@ -2202,8 +2005,7 @@
                                                                         nil))
                                                                       nil)
                                                                      ("2"
-                                                                      (hide
-                                                                       2)
+                                                                      (hide 2)
                                                                       (("2"
                                                                         (apply-extensionality
                                                                          :hide?
@@ -2367,13 +2169,11 @@
                                                          ("2"
                                                           (hide 2)
                                                           (("2"
-                                                            (induct
-                                                             "n")
+                                                            (induct "n")
                                                             (("1"
                                                               (flatten)
                                                               (("1"
-                                                                (replace
-                                                                 -3)
+                                                                (replace -3)
                                                                 (("1"
                                                                   (inst
                                                                    -9
@@ -2464,8 +2264,7 @@
                                                           nil))
                                                         nil)
                                                        ("2"
-                                                        (hide-all-but
-                                                         1)
+                                                        (hide-all-but 1)
                                                         (("2"
                                                           (skosimp)
                                                           (("2"
@@ -2473,11 +2272,9 @@
                                                              :hide?
                                                              t)
                                                             (("2"
-                                                              (expand
-                                                               "F")
+                                                              (expand "F")
                                                               (("2"
-                                                                (expand
-                                                                 "FF")
+                                                                (expand "FF")
                                                                 (("2"
                                                                   (expand
                                                                    "IComplement")
@@ -2657,8 +2454,7 @@
                                                         nil))
                                                       nil)
                                                      ("2"
-                                                      (hide-all-but
-                                                       (-3 1))
+                                                      (hide-all-but (-3 1))
                                                       (("2"
                                                         (expand "F")
                                                         (("2"
@@ -2667,8 +2463,7 @@
                                                             (expand
                                                              "IComplement")
                                                             (("2"
-                                                              (expand
-                                                               "image")
+                                                              (expand "image")
                                                               (("2"
                                                                 (expand
                                                                  "complement")
@@ -2777,25 +2572,16 @@
                         (("2" (expand "extend")
                           (("2" (prop)
                             (("2" (expand "finite_disjoint_union?")
-                              (("2"
-                                (inst + "lambda i: emptyset[T]" "0")
-                                (("2"
-                                  (split 1)
-                                  (("1"
-                                    (hide-all-but 1)
-                                    (("1" (grind) nil nil))
+                              (("2" (inst + "lambda i: emptyset[T]" "0")
+                                (("2" (split 1)
+                                  (("1" (hide-all-but 1)
+                                    (("1" (grind) nil nil)) nil)
+                                   ("2" (apply-extensionality :hide? t)
+                                    (("2" (hide-all-but 1)
+                                      (("2" (grind) nil nil)) nil))
                                     nil)
-                                   ("2"
-                                    (apply-extensionality :hide? t)
-                                    (("2"
-                                      (hide-all-but 1)
-                                      (("2" (grind) nil nil))
-                                      nil))
-                                    nil)
-                                   ("3"
-                                    (skosimp)
-                                    (("3"
-                                      (assert)
+                                   ("3" (skosimp)
+                                    (("3" (assert)
                                       (("3"
                                         (rewrite "emptyset_is_empty?")
                                         nil
@@ -2815,20 +2601,14 @@
                   (("2" (skosimp)
                     (("2" (typepred "b!1")
                       (("2" (typepred "a!1")
-                        (("2"
-                          (expand "finite_disjoint_unions" (-1 -2 1))
+                        (("2" (expand "finite_disjoint_unions" (-1 -2 1))
                           (("2" (expand "fullset")
                             (("2" (expand "extend")
-                              (("2"
-                                (prop)
+                              (("2" (prop)
                                 (("2"
-                                  (expand
-                                   "finite_disjoint_union?"
-                                   (-1 -2 1))
-                                  (("2"
-                                    (skolem - ("AA" "mm"))
-                                    (("2"
-                                      (skolem - ("BB" "nn"))
+                                  (expand "finite_disjoint_union?" (-1 -2 1))
+                                  (("2" (skolem - ("AA" "mm"))
+                                    (("2" (skolem - ("BB" "nn"))
                                       (("2"
                                         (flatten)
                                         (("2"
@@ -2846,32 +2626,24 @@
                                                   (split)
                                                   (("1"
                                                     (hide-all-but 1)
-                                                    (("1"
-                                                      (grind)
-                                                      nil
-                                                      nil))
+                                                    (("1" (grind) nil nil))
                                                     nil)
                                                    ("2"
                                                     (apply-extensionality
                                                      :hide?
                                                      t)
                                                     (("2"
-                                                      (expand
-                                                       "intersection")
+                                                      (expand "intersection")
                                                       (("2"
-                                                        (expand
-                                                         "IUnion")
+                                                        (expand "IUnion")
                                                         (("2"
-                                                          (expand
-                                                           "emptyset")
+                                                          (expand "emptyset")
                                                           (("2"
-                                                            (expand
-                                                             "member")
+                                                            (expand "member")
                                                             (("2"
                                                               (flatten)
                                                               (("2"
-                                                                (replace
-                                                                 -5)
+                                                                (replace -5)
                                                                 (("2"
                                                                   (assert)
                                                                   (("2"
@@ -2932,8 +2704,7 @@
                                                     (("1"
                                                       (split)
                                                       (("1"
-                                                        (hide-all-but
-                                                         1)
+                                                        (hide-all-but 1)
                                                         (("1"
                                                           (grind)
                                                           nil
@@ -2947,8 +2718,7 @@
                                                           (expand
                                                            "intersection")
                                                           (("2"
-                                                            (expand
-                                                             "member")
+                                                            (expand "member")
                                                             (("2"
                                                               (expand
                                                                "IUnion")
@@ -3510,10 +3280,7 @@
                                                           nil))
                                                         nil))
                                                       nil)
-                                                     ("2"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                     ("2" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil)
@@ -3550,14 +3317,10 @@
                         (("2" (expand "Intersection")
                           (("2" (skosimp)
                             (("2" (typepred "a!1")
-                              (("2"
-                                (expand "finite_disjoint_union?" -3)
-                                (("2"
-                                  (skosimp)
-                                  (("2"
-                                    (expand "member")
-                                    (("2"
-                                      (case "forall i: a!1(E!1(i))")
+                              (("2" (expand "finite_disjoint_union?" -3)
+                                (("2" (skosimp)
+                                  (("2" (expand "member")
+                                    (("2" (case "forall i: a!1(E!1(i))")
                                       (("1"
                                         (name
                                          "F"
@@ -3566,21 +3329,15 @@
                                           (case
                                            "forall n: F(n+1) = union(F(n),E!1(n+1))")
                                           (("1"
-                                            (case
-                                             "IUnion(E!1) = F(n!1)")
+                                            (case "IUnion(E!1) = F(n!1)")
                                             (("1"
-                                              (case
-                                               "forall n: a!1(F(n))")
+                                              (case "forall n: a!1(F(n))")
                                               (("1"
                                                 (inst - "n!1")
-                                                (("1"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                (("1" (assert) nil nil))
                                                 nil)
                                                ("2"
-                                                (hide-all-but
-                                                 (1 -2 -4 -5 -9))
+                                                (hide-all-but (1 -2 -4 -5 -9))
                                                 (("2"
                                                   (induct "n")
                                                   (("1"
@@ -3715,17 +3472,14 @@
                                                     (("2"
                                                       (expand "Union")
                                                       (("2"
-                                                        (expand
-                                                         "IUnion")
+                                                        (expand "IUnion")
                                                         (("2"
                                                           (case-replace
                                                            "EXISTS (i: nat): E!1(i)(x!2)")
                                                           (("1"
                                                             (skosimp)
                                                             (("1"
-                                                              (inst
-                                                               -
-                                                               "i!1")
+                                                              (inst - "i!1")
                                                               (("1"
                                                                 (flatten)
                                                                 (("1"
@@ -3793,9 +3547,7 @@
                                                               nil))
                                                             nil)
                                                            ("2"
-                                                            (replace
-                                                             1
-                                                             2)
+                                                            (replace 1 2)
                                                             (("2"
                                                               (assert)
                                                               (("2"
@@ -3842,11 +3594,9 @@
                                                     (("2"
                                                       (expand "member")
                                                       (("2"
-                                                        (expand
-                                                         "image")
+                                                        (expand "image")
                                                         (("2"
-                                                          (expand
-                                                           "Union")
+                                                          (expand "Union")
                                                           (("2"
                                                             (case-replace
                                                              "E!1(1 + n!2)(x!2)")
@@ -3982,8 +3732,7 @@
                                                           (expand
                                                            "subset_algebra_empty?")
                                                           (("2"
-                                                            (expand
-                                                             "member")
+                                                            (expand "member")
                                                             (("2"
                                                               (rewrite
                                                                "emptyset_is_empty?")
@@ -4029,37 +3778,31 @@
         nil))
       nil))
     nil)
-   ((generated_subset_algebra const-decl "subset_algebra"
-     subset_algebra_def nil)
+   ((generated_subset_algebra const-decl "subset_algebra" subset_algebra_def
+     nil)
     (subset_algebra nonempty-type-eq-decl nil subset_algebra_def nil)
     (subset_algebra? const-decl "bool" subset_algebra_def nil)
     (nonempty? const-decl "bool" sets nil)
-    (finite_disjoint_unions const-decl "setofsets[T]"
-     subset_algebra_def nil)
-    (setofsets type-eq-decl nil sets nil)
-    (subset? const-decl "bool" sets nil)
-    (set type-eq-decl nil sets nil)
-    (setof type-eq-decl nil defined_types nil)
+    (finite_disjoint_unions const-decl "setofsets[T]" subset_algebra_def nil)
+    (setofsets type-eq-decl nil sets nil) (subset? const-decl "bool" sets nil)
+    (set type-eq-decl nil sets nil) (setof type-eq-decl nil defined_types nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T formal-type-decl nil subset_algebra_def nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (subset_antisymmetric formula-decl nil sets_lemmas nil)
-    (extend const-decl "R" extend nil)
-    (member const-decl "bool" sets nil)
+    (extend const-decl "R" extend nil) (member const-decl "bool" sets nil)
     (finite_disjoint_union? const-decl "bool" subset_algebra_def nil)
     (intersection const-decl "set" sets nil)
-    (empty? const-decl "bool" sets nil)
-    (disjoint? const-decl "bool" sets nil)
-    (disjoint? const-decl "bool" indexed_sets_aux "sets_aux/")
+    (empty? const-decl "bool" sets nil) (disjoint? const-decl "bool" sets nil)
+    (disjoint? const-decl "bool" indexed_sets_aux sets_aux)
     (IUnion const-decl "set[T]" indexed_sets nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (< const-decl "bool" reals nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
     (emptyset_is_empty? formula-decl nil sets_lemmas nil)
     (emptyset const-decl "set" sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -4074,13 +3817,12 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (fullset const-decl "set" sets nil)
     (le_times_le_pos formula-decl nil real_props nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int" integers
+     nil)
     (rem_def formula-decl nil modulo_arithmetic nil)
     (both_sides_times1 formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
@@ -4088,34 +3830,30 @@
     (both_sides_times_pos_le1 formula-decl nil real_props nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (ndiv const-decl "{q: int | x = b * q + rem(b)(x)}"
-     modulo_arithmetic nil)
-    (rem const-decl "{r: mod(b) | EXISTS q: x = b * q + r}"
-         modulo_arithmetic nil)
+    (ndiv const-decl "{q: int | x = b * q + rem(b)(x)}" modulo_arithmetic nil)
+    (rem const-decl "{r: mod(b) | EXISTS q: x = b * q + r}" modulo_arithmetic
+         nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (mod nonempty-type-eq-decl nil euclidean_division nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
     (nn skolem-const-decl "nat" subset_algebra_def nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
     (nil application-judgement "upto(n)" modulo_arithmetic nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int" integers
+     nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (x!1 skolem-const-decl "set[T]" subset_algebra_def nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (extensionality_postulate formula-decl nil functions nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (complement_emptyset formula-decl nil sets_lemmas nil)
     (Intersection const-decl "set" sets nil)
     (image const-decl "set[R]" function_image nil)
@@ -4123,66 +3861,59 @@
     (Intersection_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
     (j!1 skolem-const-decl "nat" subset_algebra_def nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
-     nil)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
     (FF skolem-const-decl "[nat -> set[T]]" subset_algebra_def nil)
     (F skolem-const-decl "[nat -> set[T]]" subset_algebra_def nil)
     (E!1 skolem-const-decl "sequence[set[T]]" subset_algebra_def nil)
     (i!1 skolem-const-decl "nat" subset_algebra_def nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (n!1 skolem-const-decl "nat" subset_algebra_def nil)
     (IIntersection const-decl "set[T]" indexed_sets nil)
-    (IDemorgan1 formula-decl nil indexed_sets_aux "sets_aux/")
+    (IDemorgan1 formula-decl nil indexed_sets_aux sets_aux)
     (n!2 skolem-const-decl "nat" subset_algebra_def nil)
     (a!2 skolem-const-decl "({y: set[T] |
-    EXISTS (x_1: ({i | i <= n!2})): y = ({x | NOT member(x, E!1(x_1))})})"
+    EXISTS (x_1: ({i | i <= n!2})): y = {x | NOT member(x, E!1(x_1))}})"
      subset_algebra_def nil)
-    (x!2 skolem-const-decl "({i | i <= 1 + n!2})" subset_algebra_def
-     nil)
+    (x!2 skolem-const-decl "({i | i <= 1 + n!2})" subset_algebra_def nil)
     (a!2 skolem-const-decl "({y: set[T] |
     EXISTS (x_1: ({i | i <= 1 + n!2})):
       y = ({x: T | NOT member(x, E!1(x_1))})})" subset_algebra_def nil)
-    (IComplement const-decl "set[T]" indexed_sets_aux "sets_aux/")
+    (IComplement const-decl "set[T]" indexed_sets_aux sets_aux)
     (> const-decl "bool" reals nil)
     (subset_algebra_union? const-decl "bool" subset_algebra_def nil)
     (demorgan1 formula-decl nil sets_lemmas nil)
     (complement_complement formula-decl nil sets_lemmas nil)
     (union const-decl "set" sets nil)
-    (y!1 skolem-const-decl "(finite_disjoint_unions(NX!1))"
-     subset_algebra_def nil)
-    (x!1 skolem-const-decl "(finite_disjoint_unions(NX!1))"
-     subset_algebra_def nil)
-    (NX!1 skolem-const-decl "(nonempty?[set[T]])" subset_algebra_def
+    (y!1 skolem-const-decl "(finite_disjoint_unions(NX!1))" subset_algebra_def
      nil)
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
+    (x!1 skolem-const-decl "(finite_disjoint_unions(NX!1))" subset_algebra_def
      nil)
+    (NX!1 skolem-const-decl "(nonempty?[set[T]])" subset_algebra_def nil)
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
     (subset_algebra_empty? const-decl "bool" subset_algebra_def nil)
     (complement const-decl "set" sets nil)
     (/= const-decl "boolean" notequal nil)
     (finite_intersection2 application-judgement "finite_set[T]"
-     countable_props "sets_aux/")
-    (generated_subset_algebra_subset2 formula-decl nil
-     subset_algebra_def nil)
+     countable_props sets_aux)
+    (generated_subset_algebra_subset2 formula-decl nil subset_algebra_def nil)
     (n!1 skolem-const-decl "nat" subset_algebra_def nil)
     (i!1 skolem-const-decl "nat" subset_algebra_def nil)
     (trich_lt formula-decl nil real_props nil)
     (F skolem-const-decl "[nat -> set[T]]" subset_algebra_def nil)
     (TRUE const-decl "bool" booleans nil)
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
-    (a!1 skolem-const-decl
-     "({Y | subset_algebra?(Y) AND subset?(NX!1, Y)})"
+    (Union_surjective name-judgement "(surjective?[setofsets[T], set[T]])"
+     sets_lemmas nil)
+    (a!1 skolem-const-decl "({Y | subset_algebra?(Y) AND subset?(NX!1, Y)})"
      subset_algebra_def nil)
     (j!1 skolem-const-decl "nat" subset_algebra_def nil)
     (E!1 skolem-const-decl "sequence[set[T]]" subset_algebra_def nil)
     (x!3 skolem-const-decl "({i | i <= n!2})" subset_algebra_def nil)
-    (x!3 skolem-const-decl "({i | i <= 1 + n!2})" subset_algebra_def
-     nil)
+    (x!3 skolem-const-decl "({i | i <= 1 + n!2})" subset_algebra_def nil)
     (n!2 skolem-const-decl "nat" subset_algebra_def nil)
     (Union const-decl "set" sets nil))
    shostak))
@@ -4202,16 +3933,11 @@
                         (("1" (hide 2)
                           (("1" (expand "IUnion")
                             (("1" (apply-extensionality :hide? t)
-                              (("1"
-                                (expand "emptyset")
-                                (("1"
-                                  (skosimp)
-                                  (("1"
-                                    (inst - "i!1")
-                                    (("1"
-                                      (replace -2 -1)
-                                      (("1" (assert) nil nil))
-                                      nil))
+                              (("1" (expand "emptyset")
+                                (("1" (skosimp)
+                                  (("1" (inst - "i!1")
+                                    (("1" (replace -2 -1)
+                                      (("1" (assert) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -4221,14 +3947,10 @@
                          ("2" (assert)
                           (("2" (skosimp)
                             (("2" (inst - "n!1")
-                              (("2"
-                                (assert)
-                                (("2"
-                                  (hide-all-but (-2 3))
-                                  (("2"
-                                    (apply-extensionality :hide? t)
-                                    (("2"
-                                      (expand "fullset")
+                              (("2" (assert)
+                                (("2" (hide-all-but (-2 3))
+                                  (("2" (apply-extensionality :hide? t)
+                                    (("2" (expand "fullset")
                                       (("2"
                                         (expand "IUnion")
                                         (("2"
@@ -4265,16 +3987,11 @@
                         (("1" (hide-all-but (-1 2))
                           (("1" (expand "fullset")
                             (("1" (expand "IIntersection")
-                              (("1"
-                                (apply-extensionality :hide? t)
-                                (("1"
-                                  (skosimp)
-                                  (("1"
-                                    (inst - "i!1")
-                                    (("1"
-                                      (replace -1)
-                                      (("1" (assert) nil nil))
-                                      nil))
+                              (("1" (apply-extensionality :hide? t)
+                                (("1" (skosimp)
+                                  (("1" (inst - "i!1")
+                                    (("1" (replace -1)
+                                      (("1" (assert) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -4284,14 +4001,10 @@
                          ("2" (skosimp)
                           (("2" (inst - "n!1")
                             (("2" (assert)
-                              (("2"
-                                (hide-all-but (-2 2))
-                                (("2"
-                                  (apply-extensionality :hide? t)
-                                  (("2"
-                                    (expand "emptyset")
-                                    (("2"
-                                      (expand "IIntersection")
+                              (("2" (hide-all-but (-2 2))
+                                (("2" (apply-extensionality :hide? t)
+                                  (("2" (expand "emptyset")
+                                    (("2" (expand "IIntersection")
                                       (("2"
                                         (inst - "n!1")
                                         (("2"
@@ -4319,18 +4032,16 @@
     nil)
    ((IIntersection const-decl "set[T]" indexed_sets nil)
     (TRUE const-decl "bool" booleans nil)
-    (trivial_subset_algebra const-decl "(subset_algebra?)"
-     subset_algebra_def nil)
+    (trivial_subset_algebra const-decl "(subset_algebra?)" subset_algebra_def
+     nil)
     (singleton const-decl "(singleton?)" sets nil)
     (fullset const-decl "set" sets nil)
-    (IUnion const-decl "set[T]" indexed_sets nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
+    (IUnion const-decl "set[T]" indexed_sets nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -4345,11 +4056,12 @@
     (set type-eq-decl nil sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (sequence type-eq-decl nil sequences nil)
-    (emptyset const-decl "set" sets nil)
-    (union const-decl "set" sets nil)
+    (emptyset const-decl "set" sets nil) (union const-decl "set" sets nil)
     (member const-decl "bool" sets nil)
     (monotone? const-decl "bool" subset_algebra_def nil))
-   nil))
+   nil
+   (monotone_class subtype "subset_algebra_def.trivial_subset_algebra"
+    "monotone_class")))
  (powerset_is_monotone 0
   (powerset_is_monotone-1 nil 3449818847
    ("" (expand "monotone?")
@@ -4360,9 +4072,7 @@
             (("1" (expand "fullset")
               (("1" (expand "powerset")
                 (("1" (expand "subset?")
-                  (("1" (expand "member") (("1" (propax) nil nil))
-                    nil))
-                  nil))
+                  (("1" (expand "member") (("1" (propax) nil nil)) nil)) nil))
                 nil))
               nil))
             nil)
@@ -4370,9 +4080,7 @@
             (("2" (expand "fullset")
               (("2" (expand "powerset")
                 (("2" (expand "subset?")
-                  (("2" (expand "member") (("2" (propax) nil nil))
-                    nil))
-                  nil))
+                  (("2" (expand "member") (("2" (propax) nil nil)) nil)) nil))
                 nil))
               nil))
             nil))
@@ -4380,8 +4088,7 @@
         nil))
       nil))
     nil)
-   ((fullset const-decl "set" sets nil)
-    (subset? const-decl "bool" sets nil)
+   ((fullset const-decl "set" sets nil) (subset? const-decl "bool" sets nil)
     (powerset const-decl "setofsets" sets nil)
     (member const-decl "bool" sets nil)
     (monotone? const-decl "bool" subset_algebra_def nil))
@@ -4404,14 +4111,10 @@
                             (("1"
                               (case-replace
                                "Union(image(E!1, fullset[nat]))=IUnion(E!1)")
-                              (("1"
-                                (hide-all-but 1)
-                                (("1"
-                                  (apply-extensionality :hide? t)
-                                  (("1"
-                                    (expand "IUnion")
-                                    (("1"
-                                      (expand "fullset")
+                              (("1" (hide-all-but 1)
+                                (("1" (apply-extensionality :hide? t)
+                                  (("1" (expand "IUnion")
+                                    (("1" (expand "fullset")
                                       (("1"
                                         (expand "image")
                                         (("1"
@@ -4423,10 +4126,7 @@
                                               (skosimp)
                                               (("1"
                                                 (inst + "E!1(i!1)")
-                                                (("1"
-                                                  (inst + "i!1")
-                                                  nil
-                                                  nil))
+                                                (("1" (inst + "i!1") nil nil))
                                                 nil))
                                               nil)
                                              ("2"
@@ -4442,9 +4142,7 @@
                                                       (("2"
                                                         (replace -1 -2)
                                                         (("2"
-                                                          (inst
-                                                           +
-                                                           "x!2")
+                                                          (inst + "x!2")
                                                           nil
                                                           nil))
                                                         nil))
@@ -4464,18 +4162,12 @@
                             nil)
                            ("2" (hide-all-but 1)
                             (("2" (lemma "countable_image[nat,set[T]]")
-                              (("2"
-                                (inst - "fullset[nat]" "E!1")
-                                (("2"
-                                  (split)
-                                  (("1"
-                                    (expand "image" -1)
-                                    (("1" (propax) nil nil))
-                                    nil)
-                                   ("2"
-                                    (hide 2)
-                                    (("2"
-                                      (expand "fullset")
+                              (("2" (inst - "fullset[nat]" "E!1")
+                                (("2" (split)
+                                  (("1" (expand "image" -1)
+                                    (("1" (propax) nil nil)) nil)
+                                   ("2" (hide 2)
+                                    (("2" (expand "fullset")
                                       (("2"
                                         (expand "is_countable")
                                         (("2"
@@ -4494,22 +4186,15 @@
                             nil)
                            ("3" (hide 2)
                             (("3" (skosimp)
-                              (("3"
-                                (typepred "x!1")
-                                (("3"
-                                  (expand "member")
-                                  (("3"
-                                    (expand "fullset")
-                                    (("3"
-                                      (expand "image")
+                              (("3" (typepred "x!1")
+                                (("3" (expand "member")
+                                  (("3" (expand "fullset")
+                                    (("3" (expand "image")
                                       (("3"
                                         (skosimp)
                                         (("3"
                                           (replace -1)
-                                          (("3"
-                                            (inst - "x!2")
-                                            nil
-                                            nil))
+                                          (("3" (inst - "x!2") nil nil))
                                           nil))
                                         nil))
                                       nil))
@@ -4531,31 +4216,23 @@
                   (("2" (flatten)
                     (("2" (expand "subset_algebra_complement?")
                       (("2" (expand "member")
-                        (("2"
-                          (inst-cp - "complement(IIntersection(E!1))")
-                          (("1" (rewrite "complement_complement") nil
-                            nil)
+                        (("2" (inst-cp - "complement(IIntersection(E!1))")
+                          (("1" (rewrite "complement_complement") nil nil)
                            ("2" (hide 2)
                             (("2" (rewrite "IDemorgan2" +)
-                              (("2"
-                                (expand "sigma_algebra_union?")
+                              (("2" (expand "sigma_algebra_union?")
                                 (("2"
-                                  (inst
-                                   -
+                                  (inst -
                                    "image(IComplement(E!1),fullset[nat])")
-                                  (("2"
-                                    (expand "member")
-                                    (("2"
-                                      (split -3)
+                                  (("2" (expand "member")
+                                    (("2" (split -3)
                                       (("1"
                                         (case-replace
                                          "Union(image(IComplement(E!1), fullset[nat]))=IUnion(IComplement(E!1))")
                                         (("1"
                                           (hide-all-but 1)
                                           (("1"
-                                            (apply-extensionality
-                                             :hide?
-                                             t)
+                                            (apply-extensionality :hide? t)
                                             (("1"
                                               (expand "fullset")
                                               (("1"
@@ -4567,11 +4244,9 @@
                                                     (("1"
                                                       (expand "image")
                                                       (("1"
-                                                        (expand
-                                                         "IUnion")
+                                                        (expand "IUnion")
                                                         (("1"
-                                                          (expand
-                                                           "Union")
+                                                          (expand "Union")
                                                           (("1"
                                                             (case-replace
                                                              "(EXISTS (i_1: nat): NOT E!1(i_1)(x!1))")
@@ -4610,9 +4285,7 @@
                                                                 nil))
                                                               nil)
                                                              ("2"
-                                                              (replace
-                                                               1
-                                                               2)
+                                                              (replace 1 2)
                                                               (("2"
                                                                 (assert)
                                                                 (("2"
@@ -4665,25 +4338,20 @@
                                               (split)
                                               (("1"
                                                 (expand "image" -1)
-                                                (("1"
-                                                  (propax)
-                                                  nil
-                                                  nil))
+                                                (("1" (propax) nil nil))
                                                 nil)
                                                ("2"
                                                 (hide 2)
                                                 (("2"
                                                   (expand "fullset")
                                                   (("2"
-                                                    (expand
-                                                     "is_countable")
+                                                    (expand "is_countable")
                                                     (("2"
                                                       (inst
                                                        +
                                                        "lambda (n:nat): n")
                                                       (("2"
-                                                        (expand
-                                                         "injective?")
+                                                        (expand "injective?")
                                                         (("2"
                                                           (skosimp)
                                                           nil
@@ -4708,16 +4376,13 @@
                                               (("3"
                                                 (skosimp)
                                                 (("3"
-                                                  (expand
-                                                   "IComplement")
+                                                  (expand "IComplement")
                                                   (("3"
                                                     (replace -1)
                                                     (("3"
-                                                      (hide-all-but
-                                                       (1 -4))
+                                                      (hide-all-but (1 -4))
                                                       (("3"
-                                                        (typepred
-                                                         "A!1")
+                                                        (typepred "A!1")
                                                         (("3"
                                                           (expand
                                                            "sigma_algebra?")
@@ -4779,30 +4444,29 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
-     nil)
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
     (IIntersection const-decl "set[T]" indexed_sets nil)
     (complement const-decl "set" sets nil)
     (A!1 skolem-const-decl "sigma_algebra" subset_algebra_def nil)
     (complement_complement formula-decl nil sets_lemmas nil)
-    (IDemorgan2 formula-decl nil indexed_sets_aux "sets_aux/")
-    (IComplement const-decl "set[T]" indexed_sets_aux "sets_aux/")
+    (IDemorgan2 formula-decl nil indexed_sets_aux sets_aux)
+    (IComplement const-decl "set[T]" indexed_sets_aux sets_aux)
     (i!1 skolem-const-decl "nat" subset_algebra_def nil)
-    (x!2 skolem-const-decl "({x | TRUE})" subset_algebra_def nil)
+    (x!2 skolem-const-decl "nat" subset_algebra_def nil)
     (member const-decl "bool" sets nil)
     (sigma_algebra_union? const-decl "bool" subset_algebra_def nil)
     (IUnion const-decl "set[T]" indexed_sets nil)
     (Union const-decl "set" sets nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    (Union_surjective name-judgement "(surjective?[setofsets[T], set[T]])"
+     sets_lemmas nil)
     (i!1 skolem-const-decl "nat" subset_algebra_def nil)
     (E!1 skolem-const-decl "sequence[set[T]]" subset_algebra_def nil)
     (TRUE const-decl "bool" booleans nil)
-    (countable_image formula-decl nil countable_image "sets_aux/")
+    (countable_image formula-decl nil countable_image sets_aux)
     (image const-decl "set[R]" function_image nil)
     (injective? const-decl "bool" functions nil)
-    (is_countable const-decl "bool" countability "sets_aux/")
+    (is_countable const-decl "bool" countability sets_aux)
     (fullset const-decl "set" sets nil)
     (sequence type-eq-decl nil sequences nil)
     (image const-decl "set[R]" function_image nil)
@@ -4816,11 +4480,12 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (monotone? const-decl "bool" subset_algebra_def nil))
-   nil))
+   nil
+   (sigma_algebra_is_monotone_class subtype "subset_algebra_def.x"
+    "monotone_class")))
  (monotone_algebra_is_sigma 0
   (monotone_algebra_is_sigma-1 nil 3449799687
    ("" (skosimp)
@@ -4838,16 +4503,10 @@
                         (("3" (replace -1)
                           (("3" (expand "member")
                             (("3" (expand "monotone?")
-                              (("3"
-                                (expand "member")
-                                (("3"
-                                  (lemma
-                                   "increasing_IUnion"
-                                   ("A" "YS!1"))
-                                  (("3"
-                                    (skosimp)
-                                    (("3"
-                                      (inst -12 "B!1")
+                              (("3" (expand "member")
+                                (("3" (lemma "increasing_IUnion" ("A" "YS!1"))
+                                  (("3" (skosimp)
+                                    (("3" (inst -12 "B!1")
                                       (("3"
                                         (replace -1)
                                         (("3"
@@ -4870,8 +4529,7 @@
                                                       (expand
                                                        "subset_algebra_empty?")
                                                       (("1"
-                                                        (expand
-                                                         "member")
+                                                        (expand "member")
                                                         (("1"
                                                           (rewrite
                                                            "emptyset_is_empty?")
@@ -4883,9 +4541,7 @@
                                                         nil))
                                                       nil)
                                                      ("2"
-                                                      (inst
-                                                       -8
-                                                       "YS!1(0)")
+                                                      (inst -8 "YS!1(0)")
                                                       nil
                                                       nil))
                                                     nil))
@@ -4987,11 +4643,10 @@
     nil)
    ((subset_algebra? const-decl "bool" subset_algebra_def nil)
     (sigma_algebra_union? const-decl "bool" subset_algebra_def nil)
-    (Union_surjective name-judgement
-     "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
+    (Union_surjective name-judgement "(surjective?[setofsets[T], set[T]])"
+     sets_lemmas nil)
     (monotone? const-decl "bool" subset_algebra_def nil)
-    (sequence type-eq-decl nil sequences nil)
-    (set type-eq-decl nil sets nil)
+    (sequence type-eq-decl nil sequences nil) (set type-eq-decl nil sets nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (int nonempty-type-eq-decl nil integers nil)
@@ -5001,34 +4656,29 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
-    (increasing_IUnion formula-decl nil nat_indexed_sets "sets_aux/")
+    (increasing_IUnion formula-decl nil nat_indexed_sets sets_aux)
     (pred type-eq-decl nil defined_types nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (Y!1 skolem-const-decl "setofsets[T]" subset_algebra_def nil)
     (YS!1 skolem-const-decl "sequence[set[T]]" subset_algebra_def nil)
     (subset_algebra_empty? const-decl "bool" subset_algebra_def nil)
     (emptyset_is_empty? formula-decl nil sets_lemmas nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (j!1 skolem-const-decl "nat" subset_algebra_def nil)
     (B!1 skolem-const-decl "sequence[set[T]]" subset_algebra_def nil)
     (X!1 skolem-const-decl "setofsets[T]" subset_algebra_def nil)
     (subset_algebra_union? const-decl "bool" subset_algebra_def nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
-     nil)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (member const-decl "bool" sets nil)
-    (Union_IUnion formula-decl nil countable_indexed_sets "sets_aux/")
+    (Union_IUnion formula-decl nil countable_indexed_sets sets_aux)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (setof type-eq-decl nil defined_types nil)
@@ -5052,18 +4702,11 @@
                         (("1" (expand "monotone?")
                           (("1" (expand "member")
                             (("1" (inst - "E!1")
-                              (("1"
-                                (split -2)
-                                (("1"
-                                  (flatten)
-                                  (("1" (assert) nil nil))
-                                  nil)
-                                 ("2"
-                                  (skosimp)
-                                  (("2"
-                                    (inst - "n!1")
-                                    (("2" (inst - "a!1") nil nil))
-                                    nil))
+                              (("1" (split -2)
+                                (("1" (flatten) (("1" (assert) nil nil)) nil)
+                                 ("2" (skosimp)
+                                  (("2" (inst - "n!1")
+                                    (("2" (inst - "a!1") nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -5080,21 +4723,14 @@
                         (("2" (expand "monotone?")
                           (("2" (inst - "E!1")
                             (("2" (split -2)
-                              (("1"
-                                (flatten)
-                                (("1"
-                                  (expand "member")
-                                  (("1" (propax) nil nil))
-                                  nil))
+                              (("1" (flatten)
+                                (("1" (expand "member")
+                                  (("1" (propax) nil nil)) nil))
                                 nil)
-                               ("2"
-                                (skosimp)
-                                (("2"
-                                  (expand "member")
-                                  (("2"
-                                    (inst - "n!1")
-                                    (("2" (inst - "a!1") nil nil))
-                                    nil))
+                               ("2" (skosimp)
+                                (("2" (expand "member")
+                                  (("2" (inst - "n!1")
+                                    (("2" (inst - "a!1") nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -5113,8 +4749,7 @@
     nil)
    ((extend const-decl "R" extend nil)
     (monotone? const-decl "bool" subset_algebra_def nil)
-    (member const-decl "bool" sets nil)
-    (FALSE const-decl "bool" booleans nil)
+    (member const-decl "bool" sets nil) (FALSE const-decl "bool" booleans nil)
     (set type-eq-decl nil sets nil)
     (monotone_class nonempty-type-eq-decl nil subset_algebra_def nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
@@ -5126,8 +4761,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -5155,28 +4789,19 @@
                                IF monotone?(t) THEN MM(t) ELSE FALSE ENDIF)")
                     (("1" (case "subset?(A!1,M)")
                       (("1" (case "subset?(M,C!1)")
-                        (("1"
-                          (case "subset?(M,generated_sigma_algebra(A!1))")
+                        (("1" (case "subset?(M,generated_sigma_algebra(A!1))")
                           (("1"
                             (case "subset?(generated_sigma_algebra(A!1), M)")
                             (("1"
                               (lemma "subset_antisymmetric"
-                               ("a"
-                                "generated_sigma_algebra(A!1)"
-                                "b"
-                                "M"))
+                               ("a" "generated_sigma_algebra(A!1)" "b" "M"))
                               (("1" (assert) nil nil)) nil)
                              ("2" (hide 2)
                               (("2"
-                                (lemma
-                                 "monotone_algebra_is_sigma"
-                                 ("X" "M"))
-                                (("2"
-                                  (replace -5 -6)
-                                  (("2"
-                                    (replace -6 -1)
-                                    (("2"
-                                      (split -1)
+                                (lemma "monotone_algebra_is_sigma" ("X" "M"))
+                                (("2" (replace -5 -6)
+                                  (("2" (replace -6 -1)
+                                    (("2" (split -1)
                                       (("1"
                                         (lemma
                                          "generated_sigma_algebra_subset2"
@@ -5580,12 +5205,9 @@
                                                                 (expand
                                                                  "member")
                                                                 (("2"
-                                                                  (hide
-                                                                   -4
-                                                                   -8)
+                                                                  (hide -4 -8)
                                                                   (("2"
-                                                                    (split
-                                                                     1)
+                                                                    (split 1)
                                                                     (("1"
                                                                       (flatten)
                                                                       (("1"
@@ -6443,11 +6065,9 @@
                                                         (expand
                                                          "subset_algebra_empty?")
                                                         (("2"
-                                                          (expand
-                                                           "member")
+                                                          (expand "member")
                                                           (("2"
-                                                            (expand
-                                                             "subset?")
+                                                            (expand "subset?")
                                                             (("2"
                                                               (inst
                                                                -
@@ -6767,17 +6387,12 @@
                             nil)
                            ("2" (hide 2)
                             (("2" (hide -3 -4)
-                              (("2"
-                                (typepred
-                                 "generated_sigma_algebra(A!1)")
+                              (("2" (typepred "generated_sigma_algebra(A!1)")
                                 (("2"
-                                  (lemma
-                                   "sigma_algebra_is_monotone_class"
-                                   ("x"
-                                    "generated_sigma_algebra(A!1)"))
+                                  (lemma "sigma_algebra_is_monotone_class"
+                                   ("x" "generated_sigma_algebra(A!1)"))
                                   (("2"
-                                    (lemma
-                                     "generated_sigma_algebra_subset1"
+                                    (lemma "generated_sigma_algebra_subset1"
                                      ("X" "A!1"))
                                     (("2"
                                       (name-replace
@@ -6799,10 +6414,7 @@
                                                     (assert)
                                                     (("2"
                                                       (expand "MM")
-                                                      (("2"
-                                                        (propax)
-                                                        nil
-                                                        nil))
+                                                      (("2" (propax) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -6821,14 +6433,10 @@
                          ("2" (hide 2 -2)
                           (("2" (expand "subset?" 1)
                             (("2" (skosimp)
-                              (("2"
-                                (expand "member")
-                                (("2"
-                                  (expand "M" -1)
-                                  (("2"
-                                    (expand "Intersection")
-                                    (("2"
-                                      (inst - "C!1")
+                              (("2" (expand "member")
+                                (("2" (expand "M" -1)
+                                  (("2" (expand "Intersection")
+                                    (("2" (inst - "C!1")
                                       (("2"
                                         (expand "MM")
                                         (("2" (propax) nil nil))
@@ -6845,14 +6453,10 @@
                         (("2" (expand "subset?" 1)
                           (("2" (skosimp)
                             (("2" (expand "member")
-                              (("2"
-                                (replace -2 1 rl)
-                                (("2"
-                                  (hide -2)
-                                  (("2"
-                                    (expand "Intersection")
-                                    (("2"
-                                      (skosimp)
+                              (("2" (replace -2 1 rl)
+                                (("2" (hide -2)
+                                  (("2" (expand "Intersection")
+                                    (("2" (skosimp)
                                       (("2"
                                         (typepred "a!1")
                                         (("2"
@@ -6867,10 +6471,7 @@
                                                   (expand "member")
                                                   (("2"
                                                     (inst - "x!1")
-                                                    (("2"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                    (("2" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -6898,16 +6499,11 @@
                         (("2" (inst - "powerset(fullset[T])")
                           (("2" (hide-all-but 1)
                             (("2" (expand "MM")
-                              (("2"
-                                (expand "fullset")
-                                (("2"
-                                  (expand "powerset")
-                                  (("2"
-                                    (expand "subset?")
-                                    (("2"
-                                      (expand "member")
-                                      (("2" (propax) nil nil))
-                                      nil))
+                              (("2" (expand "fullset")
+                                (("2" (expand "powerset")
+                                  (("2" (expand "subset?")
+                                    (("2" (expand "member")
+                                      (("2" (propax) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -6927,26 +6523,22 @@
     nil)
    ((monotone_class nonempty-type-eq-decl nil subset_algebra_def nil)
     (monotone? const-decl "bool" subset_algebra_def nil)
-    (nonempty? const-decl "bool" sets nil)
-    (extend const-decl "R" extend nil)
+    (nonempty? const-decl "bool" sets nil) (extend const-decl "R" extend nil)
     (C!1 skolem-const-decl "monotone_class" subset_algebra_def nil)
     (sigma_algebra? const-decl "bool" subset_algebra_def nil)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def nil)
-    (generated_sigma_algebra const-decl "sigma_algebra"
-     subset_algebra_def nil)
-    (generated_sigma_algebra_subset2 formula-decl nil
-     subset_algebra_def nil)
+    (generated_sigma_algebra const-decl "sigma_algebra" subset_algebra_def
+     nil)
+    (generated_sigma_algebra_subset2 formula-decl nil subset_algebra_def nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (union const-decl "set" sets nil)
-    (difference const-decl "set" sets nil)
+    (union const-decl "set" sets nil) (difference const-decl "set" sets nil)
     (union_commutative formula-decl nil sets_lemmas nil)
     (x!2 skolem-const-decl "setof[T]" subset_algebra_def nil)
-    (MM skolem-const-decl "[monotone_class -> bool]" subset_algebra_def
-     nil)
+    (MM skolem-const-decl "[monotone_class -> bool]" subset_algebra_def nil)
     (a!2 skolem-const-decl "(M)" subset_algebra_def nil)
     (M skolem-const-decl "set[setof[T]]" subset_algebra_def nil)
-    (KK skolem-const-decl "[set[T] -> [set[T] -> boolean]]"
-     subset_algebra_def nil)
+    (KK skolem-const-decl "[set[T] -> [set[T] -> boolean]]" subset_algebra_def
+     nil)
     (x!1 skolem-const-decl "setof[T]" subset_algebra_def nil)
     (member const-decl "bool" sets nil)
     (complement_emptyset formula-decl nil sets_lemmas nil)
@@ -6955,14 +6547,12 @@
     (emptyset const-decl "set" sets nil)
     (A!1 skolem-const-decl "subset_algebra" subset_algebra_def nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (subset_algebra_complement? const-decl "bool" subset_algebra_def
-     nil)
+    (finite_emptyset name-judgement "finite_set[T]" countable_props sets_aux)
+    (subset_algebra_complement? const-decl "bool" subset_algebra_def nil)
     (subset_algebra_union? const-decl "bool" subset_algebra_def nil)
     (b!1 skolem-const-decl "(A!1)" subset_algebra_def nil)
     (IIntersection const-decl "set[T]" indexed_sets nil)
-    (decreasing? const-decl "bool" fun_preds_partial "structures/")
+    (decreasing? const-decl "bool" fun_preds_partial structures)
     (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -6973,13 +6563,12 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (IUnion const-decl "set[T]" indexed_sets nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (increasing? const-decl "bool" fun_preds_partial "structures/")
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (increasing? const-decl "bool" fun_preds_partial structures)
     (subset_algebra_empty? const-decl "bool" subset_algebra_def nil)
     (complement_complement formula-decl nil sets_lemmas nil)
     (b!1 skolem-const-decl "(A!1)" subset_algebra_def nil)
@@ -6996,24 +6585,20 @@
      sets_lemmas nil)
     (Intersection_surjective name-judgement
      "(surjective?[setofsets[T], set[T]])" sets_lemmas nil)
-    (sigma_algebra_is_monotone_class judgement-tcc nil
-     subset_algebra_def nil)
+    (sigma_algebra_is_monotone_class judgement-tcc nil subset_algebra_def nil)
     (SA skolem-const-decl "sigma_algebra" subset_algebra_def nil)
-    (generated_sigma_algebra_subset1 formula-decl nil
-     subset_algebra_def nil)
+    (generated_sigma_algebra_subset1 formula-decl nil subset_algebra_def nil)
     (FALSE const-decl "bool" booleans nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (Intersection const-decl "set" sets nil)
-    (monotone_class_Intersection formula-decl nil subset_algebra_def
-     nil)
+    (monotone_class_Intersection formula-decl nil subset_algebra_def nil)
     (empty? const-decl "bool" sets nil)
-    (nonempty_powerset application-judgement "(nonempty?[set[T]])"
-     sets_lemmas nil)
+    (nonempty_powerset application-judgement "(nonempty?[set[T]])" sets_lemmas
+     nil)
     (powerset const-decl "setofsets" sets nil)
     (powerset_is_monotone formula-decl nil subset_algebra_def nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (set type-eq-decl nil sets nil)
-    (subset? const-decl "bool" sets nil)
+    (set type-eq-decl nil sets nil) (subset? const-decl "bool" sets nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)

@@ -2,7 +2,10 @@
  (IMP_substitution_TCC1 0
   (IMP_substitution_TCC1-1 nil 3455272043
    ("" (lemma "var_countable") (("" (propax) nil nil)) nil)
-   ((var_countable formula-decl nil replace_positions nil)) nil))
+   ((var_countable formula-decl nil replace_positions nil)) nil
+   (IMP_substitution assuming
+    "substitution[replace_positions.variable, replace_positions.symbol, replace_positions.arity].substitution"
+    "var_countable: ASSUMPTION countability[term_adt[substitution.variable, substitution.symbol, substitution.arity].term].is_countably_infinite(variables_term[substitution.variable, substitution.symbol, substitution.arity].V)")))
  (replace_pos_TCC1 0
   (replace_pos_TCC1-1 nil 3455272043 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -11,8 +14,7 @@
     (variable formal-nonempty-type-decl nil replace_positions nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -23,8 +25,7 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
-    (term type-decl nil term_adt nil)
-    (below type-eq-decl nil nat_types nil)
+    (term type-decl nil term_adt nil) (below type-eq-decl nil nat_types nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
@@ -32,12 +33,11 @@
     (finseq type-eq-decl nil finite_sequences nil)
     (SPP? const-decl "bool" positions nil)
     (SPP type-eq-decl nil positions nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (SP? const-decl "bool" positions nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (replace_pos subtype "0" "below[length(fssp)]")))
  (replace_pos_TCC2 0
   (replace_pos_TCC2-1 nil 3455272043 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -46,8 +46,7 @@
     (variable formal-nonempty-type-decl nil replace_positions nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -58,8 +57,7 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
-    (term type-decl nil term_adt nil)
-    (below type-eq-decl nil nat_types nil)
+    (term type-decl nil term_adt nil) (below type-eq-decl nil nat_types nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
@@ -69,11 +67,12 @@
     (SPP type-eq-decl nil positions nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (SP? const-decl "bool" positions nil)
-    (< const-decl "bool" reals nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil))
-   nil))
+    (SP? const-decl "bool" positions nil) (< const-decl "bool" reals nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil))
+   nil
+   (replace_pos subtype
+    "finite_sequences[position[variable, symbol, arity]].finseq_appl(replace_positions.fssp)(0)"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].positions?(replace_positions.s)")))
  (replace_pos_TCC3 0
   (replace_pos_TCC3-1 nil 3455272043
    ("" (skosimp*)
@@ -92,14 +91,10 @@
                         (("2" (assert)
                           (("2" (expand "finseq_appl")
                             (("2" (inst -1 "i!1")
-                              (("1"
-                                (replace -1 2 rl)
-                                (("1"
-                                  (hide -1)
-                                  (("1"
-                                    (copy -2)
-                                    (("1"
-                                      (inst -1 "0")
+                              (("1" (replace -1 2 rl)
+                                (("1" (hide -1)
+                                  (("1" (copy -2)
+                                    (("1" (inst -1 "0")
                                       (("1"
                                         (inst -3 "1 + i!1")
                                         (("1"
@@ -116,10 +111,7 @@
                                                  "fssp!1`seq(1 + i!1)"
                                                  "s!1"
                                                  "t!1")
-                                                (("1"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                (("1" (assert) nil nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -129,11 +121,8 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (hide-all-but 1)
-                                (("2"
-                                  (typepred "i!1")
-                                  (("2" (grind) nil nil))
+                               ("2" (hide-all-but 1)
+                                (("2" (typepred "i!1") (("2" (grind) nil nil))
                                   nil))
                                 nil))
                               nil))
@@ -157,8 +146,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -169,26 +157,22 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (variable formal-nonempty-type-decl nil replace_positions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (SP? const-decl "bool" positions nil)
-    (< const-decl "bool" reals nil)
-    (rest const-decl "finseq" seq_extras "structures/")
+    (SP? const-decl "bool" positions nil) (< const-decl "bool" reals nil)
+    (rest const-decl "finseq" seq_extras structures)
     (^ const-decl "finseq" finite_sequences nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (rest_pos formula-decl nil seq_extras "structures/")
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (rest_pos formula-decl nil seq_extras structures)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
@@ -197,22 +181,23 @@
      replace_positions nil)
     (fssp!1 skolem-const-decl "SPP[variable, symbol, arity](s!1)"
      replace_positions nil)
-    (s!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (s!1 skolem-const-decl "term" replace_positions nil)
     (replace_preserv_parallel_pos formula-decl nil replacement nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}" real_defs
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (rest_of_PP_is_PP formula-decl nil positions nil)
-    (PP? const-decl "bool" positions nil)
-    (PP type-eq-decl nil positions nil))
-   nil))
+    (PP? const-decl "bool" positions nil) (PP type-eq-decl nil positions nil))
+   nil
+   (replace_pos subtype
+    "seq_extras[position[variable, symbol, arity]].rest(replace_positions.fssp)"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].SPP(replacement[replace_positions.variable, replace_positions.symbol, replace_positions.arity].replaceTerm(replace_positions.s, replace_positions.t, finite_sequences[position[variable, symbol, arity]].finseq_appl(replace_positions.fssp)(0)))")))
  (replace_pos_TCC4 0
   (replace_pos_TCC4-1 nil 3455272043 ("" (termination-tcc) nil nil)
    ((NOT const-decl "[bool -> bool]" booleans nil)
@@ -221,15 +206,14 @@
     (SPP? const-decl "bool" positions nil)
     (SPP type-eq-decl nil positions nil)
     (/= const-decl "boolean" notequal nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (O const-decl "finseq" finite_sequences nil)
     (<= const-decl "bool" positions nil)
     (parallel const-decl "bool" positions nil)
     (PP? const-decl "bool" positions nil)
     (SP? const-decl "bool" positions nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -254,16 +238,17 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (below type-eq-decl nil nat_types nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (rest const-decl "finseq" seq_extras "structures/")
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil))
-   nil))
+    (rest const-decl "finseq" seq_extras structures)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil))
+   nil
+   (replace_pos termination
+    "replace_positions.replace_pos(replacement[replace_positions.variable, replace_positions.symbol, replace_positions.arity].replaceTerm(replace_positions.s, replace_positions.t, finite_sequences[position[variable, symbol, arity]].finseq_appl(replace_positions.fssp)(0)), replace_positions.t, seq_extras[position[variable, symbol, arity]].rest(replace_positions.fssp))"
+    "nil")))
  (replace_pos_is_stable_TCC1 0
   (replace_pos_is_stable_TCC1-1 nil 3455272043
    ("" (skosimp*)
@@ -274,8 +259,8 @@
             (("" (hide -1)
               (("" (expand "SP?")
                 (("" (skosimp*)
-                  (("" (inst?)
-                    (("" (rewrite "ext_preserv_pos") nil nil)) nil))
+                  (("" (inst?) (("" (rewrite "ext_preserv_pos") nil nil))
+                    nil))
                   nil))
                 nil))
               nil))
@@ -291,8 +276,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -303,8 +287,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (variable formal-nonempty-type-decl nil replace_positions nil)
@@ -312,23 +295,22 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (ext_preserv_pos formula-decl nil substitution nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (set type-eq-decl nil sets nil)
     (V const-decl "set[term]" variables_term nil)
     (Sub? const-decl "bool" substitution nil)
-    (Sub type-eq-decl nil substitution nil)
-    (< const-decl "bool" reals nil)
+    (Sub type-eq-decl nil substitution nil) (< const-decl "bool" reals nil)
     (SP? const-decl "bool" positions nil))
-   nil))
+   nil
+   (replace_pos_is_stable subtype "replace_positions.fss"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].SPP(substitution[replace_positions.variable, replace_positions.symbol, replace_positions.arity].ext(replace_positions.sig)(replace_positions.s))")))
  (replace_pos_is_stable 0
   (replace_pos_is_stable-1 nil 3455272189
    ("" (measure-induct+ "length(fss)" ("s" "fss"))
     (("1" (skosimp*)
       (("1" (case "length(x!2) = 0")
         (("1" (hide -2)
-          (("1" (expand "replace_pos") (("1" (assert) nil nil)) nil))
-          nil)
+          (("1" (expand "replace_pos") (("1" (assert) nil nil)) nil)) nil)
          ("2" (expand "replace_pos" 2 1)
           (("2" (assert)
             (("2" (inst -1 "replaceTerm(x!1, t!1, x!2(0))" "rest(x!2)")
@@ -342,11 +324,8 @@
                         (("2" (typepred "x!2")
                           (("2" (expand "SPP?")
                             (("2" (flatten)
-                              (("2"
-                                (hide -1)
-                                (("2"
-                                  (expand "SP?")
-                                  (("2" (inst?) nil nil))
+                              (("2" (hide -1)
+                                (("2" (expand "SP?") (("2" (inst?) nil nil))
                                   nil))
                                 nil))
                               nil))
@@ -370,8 +349,8 @@
               (("2" (hide -1)
                 (("2" (expand "SP?")
                   (("2" (skosimp*)
-                    (("2" (inst?)
-                      (("2" (rewrite "ext_preserv_pos") nil nil)) nil))
+                    (("2" (inst?) (("2" (rewrite "ext_preserv_pos") nil nil))
+                      nil))
                     nil))
                   nil))
                 nil))
@@ -381,32 +360,31 @@
         nil))
       nil)
      ("3" (hide (-1 2))
-      (("3" (skosimp*)
-        (("3" (rewrite "replace_pos_is_stable_TCC1") nil nil)) nil))
+      (("3" (skosimp*) (("3" (rewrite "replace_pos_is_stable_TCC1") nil nil))
+        nil))
       nil)
      ("4" (hide (-1 2))
-      (("4" (skosimp*)
-        (("4" (rewrite "replace_pos_is_stable_TCC1") nil nil)) nil))
+      (("4" (skosimp*) (("4" (rewrite "replace_pos_is_stable_TCC1") nil nil))
+        nil))
       nil)
      ("5" (hide-all-but 1)
       (("5" (rewrite "replace_pos_is_stable_TCC1") nil nil)) nil)
      ("6" (hide (-1 2))
-      (("6" (skosimp*)
-        (("6" (rewrite "replace_pos_is_stable_TCC1") nil nil)) nil))
+      (("6" (skosimp*) (("6" (rewrite "replace_pos_is_stable_TCC1") nil nil))
+        nil))
       nil)
-     ("7" (hide 2)
-      (("7" (rewrite "replace_pos_is_stable_TCC1") nil nil)) nil))
+     ("7" (hide 2) (("7" (rewrite "replace_pos_is_stable_TCC1") nil nil))
+      nil))
     nil)
    ((replace_pos_is_stable_TCC1 subtype-tcc nil replace_positions nil)
     (ext_preserv_pos formula-decl nil substitution nil)
-    (rest const-decl "finseq" seq_extras "structures/")
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (rest const-decl "finseq" seq_extras structures)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (replaceTerm def-decl "term" replacement nil)
     (positions? type-eq-decl nil positions nil)
     (positionsOF def-decl "positions" positions nil)
     (positions type-eq-decl nil positions nil)
-    (length_rest formula-decl nil seq_extras "structures/")
+    (length_rest formula-decl nil seq_extras structures)
     (ext_replace_ext formula-decl nil substitution nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (SP? const-decl "bool" positions nil)
@@ -429,8 +407,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -442,8 +419,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -459,21 +435,17 @@
       (("" (expand "SPP?")
         (("" (flatten)
           (("" (split)
-            (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil
-              nil)
-             ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil
-              nil))
+            (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil nil)
+             ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
             nil))
           nil))
         nil))
       nil))
     nil)
    ((add_first_parallel_pos_to_SP_is_SP formula-decl nil positions nil)
-    (SP? const-decl "bool" positions nil)
-    (SP type-eq-decl nil positions nil)
+    (SP? const-decl "bool" positions nil) (SP type-eq-decl nil positions nil)
     (add_first_parallel_pos_to_PP_is_PP formula-decl nil positions nil)
-    (PP? const-decl "bool" positions nil)
-    (PP type-eq-decl nil positions nil)
+    (PP? const-decl "bool" positions nil) (PP type-eq-decl nil positions nil)
     (positions? type-eq-decl nil positions nil)
     (positionsOF def-decl "positions" positions nil)
     (positions type-eq-decl nil positions nil)
@@ -484,8 +456,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -496,15 +467,17 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (variable formal-nonempty-type-decl nil replace_positions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (preserv_first_position subtype
+    "seq_extras[position[variable, symbol, arity]].add_first(replace_positions.q, replace_positions.fss)"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].SPP(replace_positions.s)")))
  (preserv_first_position 0
   (preserv_first_position-1 nil 3455272317
    ("" (measure-induct+ "length(fss)" ("s" "fss"))
@@ -512,8 +485,8 @@
       (("1" (expand "replace_pos" 1)
         (("1" (prop)
           (("1" (hide-all-but -1)
-            (("1" (expand* "add_first" "insert?")
-              (("1" (assert) nil nil)) nil))
+            (("1" (expand* "add_first" "insert?") (("1" (assert) nil nil))
+              nil))
             nil)
            ("2" (lemma "fspos.rest_add_first")
             (("2" (inst -1 "x!2" "q!1")
@@ -525,14 +498,10 @@
                         (("1" (hide -3)
                           (("1" (expand "replace_pos")
                             (("1" (prop)
-                              (("1"
-                                (hide-all-but 1)
-                                (("1"
-                                  (lemma "replace_preserv_pos")
-                                  (("1"
-                                    (inst -1 "q!1" "x!1" "t!1")
-                                    (("1" (assert) nil nil))
-                                    nil))
+                              (("1" (hide-all-but 1)
+                                (("1" (lemma "replace_preserv_pos")
+                                  (("1" (inst -1 "q!1" "x!1" "t!1")
+                                    (("1" (assert) nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -541,20 +510,10 @@
                          ("2" (expand "replace_pos" 3)
                           (("2" (prop)
                             (("2" (lemma "replace_commutativity")
-                              (("2"
-                                (inst
-                                 -1
-                                 "q!1"
-                                 "x!2(0)"
-                                 "t!1"
-                                 "x!1"
-                                 "t!1")
-                                (("2"
-                                  (typepred "q!1" "x!2")
-                                  (("2"
-                                    (expand "SPP?")
-                                    (("2"
-                                      (flatten)
+                              (("2" (inst -1 "q!1" "x!2(0)" "t!1" "x!1" "t!1")
+                                (("2" (typepred "q!1" "x!2")
+                                  (("2" (expand "SPP?")
+                                    (("2" (flatten)
                                       (("2"
                                         (copy -3)
                                         (("2"
@@ -568,8 +527,7 @@
                                                 (("2"
                                                   (assert)
                                                   (("2"
-                                                    (rewrite
-                                                     "parallel_comm")
+                                                    (rewrite "parallel_comm")
                                                     (("2"
                                                       (replace -6 2)
                                                       (("2"
@@ -577,12 +535,7 @@
                                                          "length(rest(x!2)) = 0")
                                                         (("1"
                                                           (hide-all-but
-                                                           (-1
-                                                            -3
-                                                            -4
-                                                            -10
-                                                            2
-                                                            3))
+                                                           (-1 -3 -4 -10 2 3))
                                                           (("1"
                                                             (expand
                                                              "replace_pos")
@@ -692,10 +645,7 @@
                                                                 nil)
                                                                ("2"
                                                                 (hide-all-but
-                                                                 (-1
-                                                                  1
-                                                                  2
-                                                                  3))
+                                                                 (-1 1 2 3))
                                                                 (("2"
                                                                   (skosimp*)
                                                                   (("2"
@@ -767,14 +717,9 @@
                                                             nil)
                                                            ("2"
                                                             (hide-all-but
-                                                             (-2
-                                                              -4
-                                                              1
-                                                              2
-                                                              3))
+                                                             (-2 -4 1 2 3))
                                                             (("2"
-                                                              (expand
-                                                               "SPP?")
+                                                              (expand "SPP?")
                                                               (("2"
                                                                 (split)
                                                                 (("1"
@@ -783,8 +728,7 @@
                                                                   nil
                                                                   nil)
                                                                  ("2"
-                                                                  (copy
-                                                                   -1)
+                                                                  (copy -1)
                                                                   (("2"
                                                                     (expand
                                                                      "SP?")
@@ -937,10 +881,8 @@
         (("2" (expand "SPP?")
           (("2" (flatten)
             (("2" (split)
-              (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil
-                nil)
-               ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil nil)
+               ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -952,10 +894,8 @@
           (("3" (expand "SPP?")
             (("3" (flatten)
               (("3" (split)
-                (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-                  nil nil)
-                 ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP")
-                  nil nil))
+                (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil nil)
+                 ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
                 nil))
               nil))
             nil))
@@ -968,10 +908,8 @@
           (("4" (expand "SPP?")
             (("4" (flatten)
               (("4" (split)
-                (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-                  nil nil)
-                 ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP")
-                  nil nil))
+                (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil nil)
+                 ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
                 nil))
               nil))
             nil))
@@ -983,10 +921,8 @@
         (("5" (expand "SPP?")
           (("5" (flatten)
             (("5" (split)
-              (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil
-                nil)
-               ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil nil)
+               ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -998,10 +934,8 @@
           (("6" (expand "SPP?")
             (("6" (flatten)
               (("6" (split)
-                (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-                  nil nil)
-                 ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP")
-                  nil nil))
+                (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil nil)
+                 ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
                 nil))
               nil))
             nil))
@@ -1013,10 +947,8 @@
         (("7" (expand "SPP?")
           (("7" (flatten)
             (("7" (split)
-              (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil
-                nil)
-               ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("1" (rewrite "add_first_parallel_pos_to_PP_is_PP") nil nil)
+               ("2" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -1026,60 +958,54 @@
    ((add_first_parallel_pos_to_PP_is_PP formula-decl nil positions nil)
     (add_first_parallel_pos_to_SP_is_SP formula-decl nil positions nil)
     (SP type-eq-decl nil positions nil)
-    (insert? const-decl "finseq" seq_extras "structures/")
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (nth_add_first formula-decl nil seq_extras "structures/")
+    (insert? const-decl "finseq" seq_extras structures)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (nth_add_first formula-decl nil seq_extras structures)
     (replace_commutativity formula-decl nil replacement nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (SP? const-decl "bool" positions nil)
-    (t!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (t!1 skolem-const-decl "term" replace_positions nil)
     (^ const-decl "finseq" finite_sequences nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}" real_defs
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (rest_pos formula-decl nil seq_extras "structures/")
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (rest_pos formula-decl nil seq_extras structures)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int" integers
+     nil)
     (<= const-decl "bool" positions nil)
     (O const-decl "finseq" finite_sequences nil)
-    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions
-     nil)
-    (length_rest formula-decl nil seq_extras "structures/")
+    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions nil)
+    (length_rest formula-decl nil seq_extras structures)
     (i!1 skolem-const-decl
      "below[length(rest[position[variable, symbol, arity]](x!2))]"
      replace_positions nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (/= const-decl "boolean" notequal nil)
-    (PP type-eq-decl nil positions nil)
+    (/= const-decl "boolean" notequal nil) (PP type-eq-decl nil positions nil)
     (PP? const-decl "bool" positions nil)
     (rest_of_PP_is_PP formula-decl nil positions nil)
     (replaceTerm def-decl "term" replacement nil)
     (replace_preserv_parallel_pos formula-decl nil replacement nil)
-    (rest const-decl "finseq" seq_extras "structures/")
+    (rest const-decl "finseq" seq_extras structures)
     (parallel_comm formula-decl nil positions nil)
     (replace_preserv_pos formula-decl nil replacement nil)
     (x!2 skolem-const-decl "SPP[variable, symbol, arity](x!1)"
      replace_positions nil)
-    (x!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (x!1 skolem-const-decl "term" replace_positions nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (TRUE const-decl "bool" booleans nil)
-    (rest_add_first formula-decl nil seq_extras "structures/")
+    (rest_add_first formula-decl nil seq_extras structures)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (replace_pos def-decl "term" replace_positions nil)
@@ -1088,9 +1014,8 @@
     (positions? type-eq-decl nil positions nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (parallel const-decl "bool" positions nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
-    (add_first const-decl "finseq" seq_extras "structures/")
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
+    (add_first const-decl "finseq" seq_extras structures)
     (wf_nat formula-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
@@ -1101,8 +1026,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -1114,8 +1038,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -1131,8 +1054,7 @@
       (("" (case "length(x!2) = 0")
         (("1" (hide (-2 -3))
           (("1" (typepred "q!1")
-            (("1" (expand "replace_pos") (("1" (assert) nil nil)) nil))
-            nil))
+            (("1" (expand "replace_pos") (("1" (assert) nil nil)) nil)) nil))
           nil)
          ("2" (expand "replace_pos" 2)
           (("2" (assert)
@@ -1146,14 +1068,10 @@
                          ("2" (skosimp*)
                           (("2" (lemma "fspos.rest_pos")
                             (("2" (expand "finseq_appl")
-                              (("2"
-                                (inst?)
-                                (("2"
-                                  (assert)
-                                  (("2"
-                                    (inst -1 "i!1")
-                                    (("1"
-                                      (inst -2 "i!1 + 1")
+                              (("2" (inst?)
+                                (("2" (assert)
+                                  (("2" (inst -1 "i!1")
+                                    (("1" (inst -2 "i!1 + 1")
                                       (("1" (assert) nil nil)
                                        ("2"
                                         (hide-all-but 1)
@@ -1163,8 +1081,7 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (hide-all-but 1)
+                                     ("2" (hide-all-but 1)
                                       (("2"
                                         (typepred "i!1")
                                         (("2" (grind) nil nil))
@@ -1187,16 +1104,11 @@
                         (("2" (inst -1 "x!2(0)" "q!1" "x!1" "t!1")
                           (("2" (assert)
                             (("2" (hide-all-but 1)
-                              (("2"
-                                (typepred "x!2")
-                                (("2"
-                                  (expand "SPP?")
-                                  (("2"
-                                    (flatten)
-                                    (("2"
-                                      (expand "SP?")
-                                      (("2" (inst -2 "0") nil nil))
-                                      nil))
+                              (("2" (typepred "x!2")
+                                (("2" (expand "SPP?")
+                                  (("2" (flatten)
+                                    (("2" (expand "SP?")
+                                      (("2" (inst -2 "0") nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1214,19 +1126,17 @@
         nil))
       nil))
     nil)
-   ((rest const-decl "finseq" seq_extras "structures/")
+   ((rest const-decl "finseq" seq_extras structures)
     (replaceTerm def-decl "term" replacement nil)
     (SP? const-decl "bool" positions nil)
     (replace_preserv_parallel_pos formula-decl nil replacement nil)
-    (length_rest formula-decl nil seq_extras "structures/")
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (length_rest formula-decl nil seq_extras structures)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions
-     nil)
-    (rest_pos formula-decl nil seq_extras "structures/")
+    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions nil)
+    (rest_pos formula-decl nil seq_extras structures)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (<= const-decl "bool" positions nil)
@@ -1235,27 +1145,23 @@
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}" real_defs
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (q!1 skolem-const-decl "positions?[variable, symbol, arity](x!1)"
      replace_positions nil)
     (x!2 skolem-const-decl "SPP[variable, symbol, arity](x!1)"
      replace_positions nil)
-    (t!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
-    (x!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (t!1 skolem-const-decl "term" replace_positions nil)
+    (x!1 skolem-const-decl "term" replace_positions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (replace_pos def-decl "term" replace_positions nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (parallel const-decl "bool" positions nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (positions? type-eq-decl nil positions nil)
@@ -1271,8 +1177,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -1284,8 +1189,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -1310,8 +1214,8 @@
                       (("1" (inst?)
                         (("1" (assert)
                           (("1" (replace -1 -2 rl)
-                            (("1" (expand "first")
-                              (("1" (propax) nil nil)) nil))
+                            (("1" (expand "first") (("1" (propax) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -1321,15 +1225,11 @@
                         (("2" (flatten)
                           (("2" (hide (-2 -3 3))
                             (("2" (expand "PP?")
-                              (("2"
-                                (prop)
+                              (("2" (prop)
                                 (("1" (grind) nil nil)
-                                 ("2"
-                                  (skosimp*)
-                                  (("2"
-                                    (inst -1 "i!2 + 1" "0")
-                                    (("1"
-                                      (assert)
+                                 ("2" (skosimp*)
+                                  (("2" (inst -1 "i!2 + 1" "0")
+                                    (("1" (assert)
                                       (("1"
                                         (lemma "fspos.rest_pos")
                                         (("1"
@@ -1344,20 +1244,14 @@
                                                   (expand*
                                                    "first"
                                                    "finseq_appl")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("1" (assert) nil nil))
                                                   nil))
                                                 nil)
                                                ("2"
                                                 (hide-all-but 1)
                                                 (("2"
                                                   (typepred "i!2")
-                                                  (("2"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("2" (grind) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1365,8 +1259,7 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (hide-all-but 1)
+                                     ("2" (hide-all-but 1)
                                       (("2"
                                         (typepred "i!2")
                                         (("2" (grind) nil nil))
@@ -1387,9 +1280,7 @@
                         (("2" (hide (-1 -3 3))
                           (("2" (expand "SP?")
                             (("2" (inst -1 "0")
-                              (("2"
-                                (expand "first")
-                                (("2" (propax) nil nil))
+                              (("2" (expand "first") (("2" (propax) nil nil))
                                 nil))
                               nil))
                             nil))
@@ -1403,8 +1294,7 @@
                         (("3" (flatten)
                           (("3" (split)
                             (("1" (rewrite "rest_of_PP_is_PP") nil nil)
-                             ("2" (rewrite "rest_of_SP_is_SP") nil
-                              nil))
+                             ("2" (rewrite "rest_of_SP_is_SP") nil nil))
                             nil))
                           nil))
                         nil))
@@ -1422,12 +1312,9 @@
                         (("1" (lemma "fspos.rest_pos")
                           (("1" (inst?)
                             (("1" (assert)
-                              (("1"
-                                (inst -1 "i!1 - 1")
-                                (("1"
-                                  (expand "finseq_appl")
-                                  (("1" (assert) nil nil))
-                                  nil))
+                              (("1" (inst -1 "i!1 - 1")
+                                (("1" (expand "finseq_appl")
+                                  (("1" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1439,14 +1326,10 @@
                         (("2" (expand "replace_pos")
                           (("2" (expand "replace_pos")
                             (("2" (prop)
-                              (("2"
-                                (typepred "x!2")
-                                (("2"
-                                  (expand "SPP?")
-                                  (("2"
-                                    (flatten)
-                                    (("2"
-                                      (expand "PP?")
+                              (("2" (typepred "x!2")
+                                (("2" (expand "SPP?")
+                                  (("2" (flatten)
+                                    (("2" (expand "PP?")
                                       (("2"
                                         (prop)
                                         (("1"
@@ -1478,9 +1361,7 @@
                                                         (("2"
                                                           (inst -1 "0")
                                                           (("2"
-                                                            (inst
-                                                             -2
-                                                             "i!1")
+                                                            (inst -2 "i!1")
                                                             (("2"
                                                               (assert)
                                                               nil
@@ -1518,14 +1399,10 @@
                          ("2" (expand "SP?")
                           (("2" (skosimp*)
                             (("2" (lemma "fspos.rest_pos")
-                              (("2"
-                                (inst?)
-                                (("2"
-                                  (assert)
-                                  (("2"
-                                    (inst -1 "i!2")
-                                    (("1"
-                                      (expand "finseq_appl")
+                              (("2" (inst?)
+                                (("2" (assert)
+                                  (("2" (inst -1 "i!2")
+                                    (("1" (expand "finseq_appl")
                                       (("1"
                                         (replace -1 1 rl)
                                         (("1"
@@ -1549,11 +1426,9 @@
                                                     (("1"
                                                       (assert)
                                                       (("1"
-                                                        (hide
-                                                         (-1 -3 2))
+                                                        (hide (-1 -3 2))
                                                         (("1"
-                                                          (expand
-                                                           "PP?")
+                                                          (expand "PP?")
                                                           (("1"
                                                             (inst
                                                              -1
@@ -1589,10 +1464,7 @@
                                                 (hide (-1 -2 2))
                                                 (("2"
                                                   (typepred "i!2")
-                                                  (("2"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("2" (grind) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1600,8 +1472,7 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (hide 2)
+                                     ("2" (hide 2)
                                       (("2"
                                         (typepred "i!2")
                                         (("2" (grind) nil nil))
@@ -1620,8 +1491,7 @@
                 nil)
                ("3" (typepred "x!2")
                 (("3" (expand* "SPP?" "SP?")
-                  (("3" (flatten) (("3" (inst -2 "0") nil nil)) nil))
-                  nil))
+                  (("3" (flatten) (("3" (inst -2 "0") nil nil)) nil)) nil))
                 nil))
               nil))
             nil))
@@ -1630,43 +1500,39 @@
       nil))
     nil)
    ((replaceTerm def-decl "term" replacement nil)
-    (t skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
-    (length_rest formula-decl nil seq_extras "structures/")
+    (t skolem-const-decl "term" replace_positions nil)
+    (length_rest formula-decl nil seq_extras structures)
     (replace_preserv_parallel_pos formula-decl nil replacement nil)
     (i!1 skolem-const-decl "below[x!2`length]" replace_positions nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (i!2 skolem-const-decl
      "below[length(rest[position[variable, symbol, arity]](x!2))]"
      replace_positions nil)
-    (x!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
-    (rest const-decl "finseq" seq_extras "structures/")
+    (x!1 skolem-const-decl "term" replace_positions nil)
+    (rest const-decl "finseq" seq_extras structures)
     (x!2 skolem-const-decl "SPP[variable, symbol, arity](x!1)"
      replace_positions nil)
     (/= const-decl "boolean" notequal nil)
-    (not_empty_seq type-eq-decl nil seq_extras "structures/")
-    (first const-decl "T" seq_extras "structures/")
+    (not_empty_seq type-eq-decl nil seq_extras structures)
+    (first const-decl "T" seq_extras structures)
     (positions? type-eq-decl nil positions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (PP? const-decl "bool" positions nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}" real_defs
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (rest_pos formula-decl nil seq_extras "structures/")
-    (i!2 skolem-const-decl "below[length(rest(x!2))]" replace_positions
-     nil)
+    (rest_pos formula-decl nil seq_extras structures)
+    (i!2 skolem-const-decl "below[length(rest(x!2))]" replace_positions nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
@@ -1674,19 +1540,16 @@
     (O const-decl "finseq" finite_sequences nil)
     (<= const-decl "bool" positions nil)
     (parallel const-decl "bool" positions nil)
-    (seq_first_rest formula-decl nil seq_extras "structures/")
-    (SP? const-decl "bool" positions nil)
-    (SP type-eq-decl nil positions nil)
+    (seq_first_rest formula-decl nil seq_extras structures)
+    (SP? const-decl "bool" positions nil) (SP type-eq-decl nil positions nil)
     (rest_of_SP_is_SP formula-decl nil positions nil)
     (PP type-eq-decl nil positions nil)
     (rest_of_PP_is_PP formula-decl nil positions nil)
     (preserv_first_position formula-decl nil replace_positions nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (replace_pos def-decl "term" replace_positions nil)
     (positionsOF def-decl "positions" positions nil)
     (positions type-eq-decl nil positions nil)
@@ -1700,8 +1563,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -1713,8 +1575,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -1725,16 +1586,14 @@
    shostak))
  (preserv_unchanged_subterms_TCC1 0
   (preserv_unchanged_subterms_TCC1-1 nil 3455272043
-   ("" (skosimp*)
-    (("" (rewrite "preserv_all_parallel_positions") nil nil)) nil)
-   ((preserv_all_parallel_positions formula-decl nil replace_positions
-     nil)
+   ("" (skosimp*) (("" (rewrite "preserv_all_parallel_positions") nil nil))
+    nil)
+   ((preserv_all_parallel_positions formula-decl nil replace_positions nil)
     (variable formal-nonempty-type-decl nil replace_positions nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1746,8 +1605,7 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
-    (term type-decl nil term_adt nil)
-    (below type-eq-decl nil nat_types nil)
+    (term type-decl nil term_adt nil) (below type-eq-decl nil nat_types nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
@@ -1758,15 +1616,16 @@
     (positions type-eq-decl nil positions nil)
     (positionsOF def-decl "positions" positions nil)
     (positions? type-eq-decl nil positions nil))
-   nil))
+   nil
+   (preserv_unchanged_subterms subtype "replace_positions.q"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].positions?(replace_positions.replace_pos(replace_positions.s, replace_positions.t, replace_positions.fss))")))
  (preserv_unchanged_subterms 0
   (preserv_unchanged_subterms-1 nil 3455272651
    ("" (measure-induct+ "length(fss)" ("s" "fss"))
     (("1" (skosimp*)
       (("1" (case "length(x!2) = 0")
         (("1" (hide (-2 -3))
-          (("1" (expand "replace_pos") (("1" (assert) nil nil)) nil))
-          nil)
+          (("1" (expand "replace_pos") (("1" (assert) nil nil)) nil)) nil)
          ("2" (expand "replace_pos" 2)
           (("2" (assert)
             (("2" (inst -1 "replaceTerm(x!1, t!1, x!2(0))" "rest(x!2)")
@@ -1778,14 +1637,10 @@
                         (("1" (inst -1 "x!2(0)" "q!1" "x!1" "t!1")
                           (("1" (assert)
                             (("1" (hide 3)
-                              (("1"
-                                (typepred "x!2")
-                                (("1"
-                                  (expand "SPP?")
-                                  (("1"
-                                    (flatten)
-                                    (("1"
-                                      (expand "SP?")
+                              (("1" (typepred "x!2")
+                                (("1" (expand "SPP?")
+                                  (("1" (flatten)
+                                    (("1" (expand "SP?")
                                       (("1"
                                         (inst -2 "0")
                                         (("1"
@@ -1808,14 +1663,10 @@
                          ("2" (skosimp*)
                           (("2" (lemma "fspos.rest_pos")
                             (("2" (expand "finseq_appl")
-                              (("2"
-                                (inst?)
-                                (("2"
-                                  (assert)
-                                  (("2"
-                                    (inst -1 "i!1")
-                                    (("1"
-                                      (inst -2 "i!1 + 1")
+                              (("2" (inst?)
+                                (("2" (assert)
+                                  (("2" (inst -1 "i!1")
+                                    (("1" (inst -2 "i!1 + 1")
                                       (("1" (assert) nil nil)
                                        ("2"
                                         (hide-all-but 1)
@@ -1825,8 +1676,7 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (hide-all-but 1)
+                                     ("2" (hide-all-but 1)
                                       (("2"
                                         (typepred "i!1")
                                         (("2" (grind) nil nil))
@@ -1849,22 +1699,11 @@
                         (("2" (hide -1)
                           (("2" (expand "SP?")
                             (("2" (inst -1 "0")
-                              (("2"
-                                (inst -2 "0")
-                                (("2"
-                                  (typepred "q!1")
-                                  (("2"
-                                    (lemma
-                                     "replace_preserv_parallel_pos")
-                                    (("2"
-                                      (inst
-                                       -1
-                                       "x!2(0)"
-                                       "q!1"
-                                       "x!1"
-                                       "t!1")
-                                      (("2" (assert) nil nil))
-                                      nil))
+                              (("2" (inst -2 "0")
+                                (("2" (typepred "q!1")
+                                  (("2" (lemma "replace_preserv_parallel_pos")
+                                    (("2" (inst -1 "x!2(0)" "q!1" "x!1" "t!1")
+                                      (("2" (assert) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1885,52 +1724,45 @@
       (("2" (rewrite "preserv_all_parallel_positions") nil nil)) nil)
      ("3" (hide (-1 2))
       (("3" (skosimp*)
-        (("3" (rewrite "preserv_all_parallel_positions") nil nil))
-        nil))
+        (("3" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
       nil)
      ("4" (hide (-1 2))
       (("4" (skosimp*)
-        (("4" (rewrite "preserv_all_parallel_positions") nil nil))
-        nil))
+        (("4" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
       nil)
      ("5" (hide-all-but (-1 1))
       (("5" (rewrite "preserv_all_parallel_positions") nil nil)) nil)
      ("6" (hide (-1 2))
       (("6" (skosimp*)
-        (("6" (rewrite "preserv_all_parallel_positions") nil nil))
-        nil))
+        (("6" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
       nil)
-     ("7" (hide 2)
-      (("7" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
+     ("7" (hide 2) (("7" (rewrite "preserv_all_parallel_positions") nil nil))
+      nil))
     nil)
-   ((preserv_all_parallel_positions formula-decl nil replace_positions
-     nil)
-    (rest const-decl "finseq" seq_extras "structures/")
+   ((preserv_all_parallel_positions formula-decl nil replace_positions nil)
+    (rest const-decl "finseq" seq_extras structures)
     (replaceTerm def-decl "term" replacement nil)
     (replace_preserv_parallel_pos formula-decl nil replacement nil)
-    (length_rest formula-decl nil seq_extras "structures/")
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (length_rest formula-decl nil seq_extras structures)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions
-     nil)
-    (rest_pos formula-decl nil seq_extras "structures/")
+    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions nil)
+    (rest_pos formula-decl nil seq_extras structures)
     (<= const-decl "bool" positions nil)
     (O const-decl "finseq" finite_sequences nil)
     (^ const-decl "finseq" finite_sequences nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}" real_defs
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (TRUE const-decl "bool" booleans nil)
     (SP? const-decl "bool" positions nil)
     (real_lt_is_strict_total_order name-judgement
@@ -1941,10 +1773,8 @@
      replace_positions nil)
     (x!2 skolem-const-decl "SPP[variable, symbol, arity](x!1)"
      replace_positions nil)
-    (t!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
-    (x!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (t!1 skolem-const-decl "term" replace_positions nil)
+    (x!1 skolem-const-decl "term" replace_positions nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (subtermOF def-decl "term" subterm nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -1953,8 +1783,7 @@
     (positions? type-eq-decl nil positions nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (parallel const-decl "bool" positions nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (replace_pos def-decl "term" replace_positions nil)
     (wf_nat formula-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
@@ -1966,8 +1795,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -1979,8 +1807,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -1998,8 +1825,7 @@
     (variable formal-nonempty-type-decl nil replace_positions nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -2010,22 +1836,22 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
-    (term type-decl nil term_adt nil)
-    (below type-eq-decl nil nat_types nil)
+    (term type-decl nil term_adt nil) (below type-eq-decl nil nat_types nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (position type-eq-decl nil positions nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (SPP? const-decl "bool" positions nil)
-    (SPP type-eq-decl nil positions nil)
-    (< const-decl "bool" reals nil)
+    (SPP type-eq-decl nil positions nil) (< const-decl "bool" reals nil)
     (SP? const-decl "bool" positions nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil))
-   nil))
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil))
+   nil
+   (replace_pos_subterm_to_term subtype
+    "finite_sequences[position[variable, symbol, arity]].finseq_appl(replace_positions.fss)(replace_positions.i)"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].positions?(replace_positions.s)")))
  (replace_pos_subterm_to_term 0
   (replace_pos_subterm_to_term-1 nil 3457522958
    ("" (measure-induct+ "length(fss)" ("s" "fss"))
@@ -2040,24 +1866,18 @@
             (("2" (assert)
               (("2" (expand "finseq_appl")
                 (("2"
-                  (inst -1 "replaceTerm(x!1, t!1, x!2`seq(0))"
-                   "rest(x!2)")
+                  (inst -1 "replaceTerm(x!1, t!1, x!2`seq(0))" "rest(x!2)")
                   (("2" (inst -1 "t!1")
                     (("2" (prop)
                       (("1" (inst -2 "0")
-                        (("1"
-                          (case "replaceTerm(x!1, t!1, x!2`seq(0)) = x!1")
+                        (("1" (case "replaceTerm(x!1, t!1, x!2`seq(0)) = x!1")
                           (("1" (replaces -1) nil nil)
                            ("2" (hide (-1 3))
                             (("2" (replace -1 1 rl)
-                              (("2"
-                                (rewrite "replace_subterm_of_term")
-                                (("2"
-                                  (hide (-1 2))
-                                  (("2"
-                                    (typepred "x!2")
-                                    (("2"
-                                      (expand "SPP?")
+                              (("2" (rewrite "replace_subterm_of_term")
+                                (("2" (hide (-1 2))
+                                  (("2" (typepred "x!2")
+                                    (("2" (expand "SPP?")
                                       (("2"
                                         (flatten)
                                         (("2"
@@ -2084,14 +1904,10 @@
                           (("2" (copy -1)
                             (("2" (inst -1 "0")
                               (("2"
-                                (case
-                                 "replaceTerm(x!1, t!1, x!2`seq(0)) = x!1")
-                                (("1"
-                                  (replaces -1)
-                                  (("1"
-                                    (hide -1)
-                                    (("1"
-                                      (lemma "rest_pos[position]")
+                                (case "replaceTerm(x!1, t!1, x!2`seq(0)) = x!1")
+                                (("1" (replaces -1)
+                                  (("1" (hide -1)
+                                    (("1" (lemma "rest_pos[position]")
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -2104,18 +1920,12 @@
                                                 (replace -1 1 rl)
                                                 (("1"
                                                   (inst -2 "i!1 + 1")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil)
+                                                  (("1" (assert) nil nil)
                                                    ("2"
                                                     (hide (-1 2))
                                                     (("2"
                                                       (typepred "i!1")
-                                                      (("2"
-                                                        (grind)
-                                                        nil
-                                                        nil))
+                                                      (("2" (grind) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -2135,10 +1945,7 @@
                                               (expand "subtermOF")
                                               (("2"
                                                 (lift-if)
-                                                (("2"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                (("2" (assert) nil nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -2147,13 +1954,9 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (hide (-2 2))
-                                  (("2"
-                                    (replace -1 1 rl)
-                                    (("2"
-                                      (rewrite
-                                       "replace_subterm_of_term")
+                                 ("2" (hide (-2 2))
+                                  (("2" (replace -1 1 rl)
+                                    (("2" (rewrite "replace_subterm_of_term")
                                       (("2"
                                         (hide (-1 2))
                                         (("2"
@@ -2167,12 +1970,8 @@
                                                 (("2"
                                                   (inst -2 "0")
                                                   (("2"
-                                                    (expand
-                                                     "finseq_appl")
-                                                    (("2"
-                                                      (propax)
-                                                      nil
-                                                      nil))
+                                                    (expand "finseq_appl")
+                                                    (("2" (propax) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -2207,8 +2006,8 @@
               (("2" (flatten)
                 (("2" (expand "SP?")
                   (("2" (inst -2 "i!1")
-                    (("2" (expand "finseq_appl")
-                      (("2" (propax) nil nil)) nil))
+                    (("2" (expand "finseq_appl") (("2" (propax) nil nil))
+                      nil))
                     nil))
                   nil))
                 nil))
@@ -2222,9 +2021,7 @@
         (("3" (typepred "y!2")
           (("3" (expand "SPP?")
             (("3" (flatten)
-              (("3" (expand "SP?") (("3" (inst -2 "i!1") nil nil))
-                nil))
-              nil))
+              (("3" (expand "SP?") (("3" (inst -2 "i!1") nil nil)) nil)) nil))
             nil))
           nil))
         nil))
@@ -2234,8 +2031,7 @@
         (("4" (typepred "x!1`2")
           (("4" (expand "SPP?")
             (("4" (flatten)
-              (("4" (expand "SP?") (("4" (inst -2 "i1!1") nil nil))
-                nil))
+              (("4" (expand "SP?") (("4" (inst -2 "i1!1") nil nil)) nil))
               nil))
             nil))
           nil))
@@ -2246,9 +2042,7 @@
         (("5" (typepred "y!1`2")
           (("5" (expand "SPP?")
             (("5" (flatten)
-              (("5" (expand "SP?") (("5" (inst -2 "i!1") nil nil))
-                nil))
-              nil))
+              (("5" (expand "SP?") (("5" (inst -2 "i!1") nil nil)) nil)) nil))
             nil))
           nil))
         nil))
@@ -2258,9 +2052,7 @@
         (("6" (typepred "y!1`2")
           (("6" (expand "SPP?")
             (("6" (flatten)
-              (("6" (expand "SP?") (("6" (inst -2 "i!1") nil nil))
-                nil))
-              nil))
+              (("6" (expand "SP?") (("6" (inst -2 "i!1") nil nil)) nil)) nil))
             nil))
           nil))
         nil))
@@ -2269,49 +2061,42 @@
       (("7" (typepred "fss!1")
         (("7" (expand "SPP?")
           (("7" (flatten)
-            (("7" (expand "SP?") (("7" (inst -2 "i!1") nil nil)) nil))
-            nil))
+            (("7" (expand "SP?") (("7" (inst -2 "i!1") nil nil)) nil)) nil))
           nil))
         nil))
       nil))
     nil)
-   ((rest const-decl "finseq" seq_extras "structures/")
+   ((rest const-decl "finseq" seq_extras structures)
     (replaceTerm def-decl "term" replacement nil)
     (SP? const-decl "bool" positions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (replace_subterm_of_term formula-decl nil replacement nil)
     (TRUE const-decl "bool" booleans nil)
-    (rest_pos formula-decl nil seq_extras "structures/")
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (rest_pos formula-decl nil seq_extras structures)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (^ const-decl "finseq" finite_sequences nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}" real_defs
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions
-     nil)
+    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions nil)
     (x!2 skolem-const-decl "SPP[variable, symbol, arity](x!1)"
      replace_positions nil)
-    (x!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (x!1 skolem-const-decl "term" replace_positions nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
-     nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
-     nil)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (odd_minus_odd_is_even application-judgement "even_int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (length_rest formula-decl nil seq_extras "structures/")
+    (length_rest formula-decl nil seq_extras structures)
     (replace_pos def-decl "term" replace_positions nil)
     (subtermOF def-decl "term" subterm nil)
     (positions? type-eq-decl nil positions nil)
@@ -2319,8 +2104,7 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (positions type-eq-decl nil positions nil)
     (positionsOF def-decl "positions" positions nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (wf_nat formula-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
@@ -2331,8 +2115,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -2344,8 +2127,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -2371,8 +2153,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -2380,7 +2161,10 @@
     (Pos_var_is_finite formula-decl nil subterm nil)
     (V const-decl "set[term]" variables_term nil)
     (set type-eq-decl nil sets nil) (term type-decl nil term_adt nil))
-   nil))
+   nil
+   (replace_pos_to_term subtype
+    "subterm[replace_positions.variable, replace_positions.symbol, replace_positions.arity].Pos_var(replace_positions.s, replace_positions.x)"
+    "finite_set[position[variable, symbol, arity]]")))
  (replace_pos_to_term_TCC2 0
   (replace_pos_to_term_TCC2-1 nil 3456672662
    ("" (skosimp*)
@@ -2406,8 +2190,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -2415,7 +2198,10 @@
     (pos_occ_var_HAStypePP formula-decl nil subterm nil)
     (V const-decl "set[term]" variables_term nil)
     (set type-eq-decl nil sets nil) (term type-decl nil term_adt nil))
-   nil))
+   nil
+   (replace_pos_to_term subtype
+    "set2seq[position[variable, symbol, arity]].set2seq(subterm[replace_positions.variable, replace_positions.symbol, replace_positions.arity].Pos_var(replace_positions.s, replace_positions.x))"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].SPP(replace_positions.s)")))
  (replace_pos_to_term 0
   (replace_pos_to_term-1 nil 3456672663
    ("" (skosimp*)
@@ -2432,22 +2218,15 @@
                         (("" (inst -1 "i!1")
                           (("1" (expand "finseq_appl")
                             (("1" (replaces -2)
-                              (("1"
-                                (expand "Pos_var")
-                                (("1"
-                                  (expand "extend")
-                                  (("1" (propax) nil nil))
-                                  nil))
+                              (("1" (expand "Pos_var")
+                                (("1" (expand "extend")
+                                  (("1" (propax) nil nil)) nil))
                                 nil))
                               nil))
                             nil)
                            ("2" (typepred "i!1")
                             (("2" (replaces -2 :dir rl)
-                              (("2"
-                                (rewrite "set2seq_length")
-                                nil
-                                nil))
-                              nil))
+                              (("2" (rewrite "set2seq_length") nil nil)) nil))
                             nil))
                           nil))
                         nil))
@@ -2465,8 +2244,7 @@
     (below type-eq-decl nil nat_types nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -2488,7 +2266,7 @@
     (set type-eq-decl nil sets nil)
     (is_finite const-decl "bool" finite_sets nil)
     (finite_set type-eq-decl nil finite_sets nil)
-    (set2seq def-decl "finite_sequence[T]" set2seq "structures/")
+    (set2seq def-decl "finite_sequence[T]" set2seq structures)
     (term type-decl nil term_adt nil)
     (V const-decl "set[term]" variables_term nil)
     (positions type-eq-decl nil positions nil)
@@ -2496,28 +2274,24 @@
     (SPP type-eq-decl nil positions nil)
     (SPP? const-decl "bool" positions nil)
     (finseq type-eq-decl nil finite_sequences nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (< const-decl "bool" reals nil)
     (fss skolem-const-decl
-     "finite_sequence[position[variable, symbol, arity]]"
-     replace_positions nil)
+     "finite_sequence[position[variable, symbol, arity]]" replace_positions
+     nil)
     (i!1 skolem-const-decl "below[length(fss)]" replace_positions nil)
     (Card const-decl "nat" finite_sets nil)
     (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (s!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (s!1 skolem-const-decl "term" replace_positions nil)
     (x!1 skolem-const-decl "(V)" replace_positions nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (set2seq_length formula-decl nil set2seq "structures/")
-    (TRUE const-decl "bool" booleans nil)
-    (extend const-decl "R" extend nil)
+    (set2seq_length formula-decl nil set2seq structures)
+    (TRUE const-decl "bool" booleans nil) (extend const-decl "R" extend nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (set2seq_lem formula-decl nil set2seq "structures/")
-    (replace_pos_subterm_to_term formula-decl nil replace_positions
-     nil))
+    (set2seq_lem formula-decl nil set2seq structures)
+    (replace_pos_subterm_to_term formula-decl nil replace_positions nil))
    shostak))
  (CP_lemma_aux2a_TCC1 0
   (CP_lemma_aux2a_TCC1-1 nil 3455272825
@@ -2526,10 +2300,8 @@
       (("" (expand "SPP?")
         (("" (flatten)
           (("" (split)
-            (("1" (rewrite "add_last_parallel_pos_to_PP_is_PP") nil
-              nil)
-             ("2" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil
-              nil))
+            (("1" (rewrite "add_last_parallel_pos_to_PP_is_PP") nil nil)
+             ("2" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil nil))
             nil))
           nil))
         nil))
@@ -2542,8 +2314,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -2554,8 +2325,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (variable formal-nonempty-type-decl nil replace_positions nil)
@@ -2563,15 +2333,16 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (add_last_parallel_pos_to_SP_is_SP formula-decl nil positions nil)
-    (SP? const-decl "bool" positions nil)
-    (SP type-eq-decl nil positions nil)
+    (SP? const-decl "bool" positions nil) (SP type-eq-decl nil positions nil)
     (add_last_parallel_pos_to_PP_is_PP formula-decl nil positions nil)
-    (PP? const-decl "bool" positions nil)
-    (PP type-eq-decl nil positions nil)
+    (PP? const-decl "bool" positions nil) (PP type-eq-decl nil positions nil)
     (positions type-eq-decl nil positions nil)
     (positionsOF def-decl "positions" positions nil)
     (positions? type-eq-decl nil positions nil))
-   nil))
+   nil
+   (CP_lemma_aux2a subtype
+    "seq_extras[position[variable, symbol, arity]].add_last(replace_positions.fss, replace_positions.q)"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].SPP(replace_positions.s)")))
  (CP_lemma_aux2a 0
   (CP_lemma_aux2a-1 nil 3455272867
    ("" (measure-induct+ "length(fss)" ("s" "fss"))
@@ -2605,15 +2376,11 @@
                           (("1" (rewrite "length_rest")
                             (("1" (prop)
                               (("1"
-                                (name-replace
-                                 "RTq"
+                                (name-replace "RTq"
                                  "replaceTerm(x!1, t!1, add_last(x!2, q!1)(0))")
-                                (("1"
-                                  (replaces -1)
-                                  (("1"
-                                    (expand "RTq")
-                                    (("1"
-                                      (lemma "fspos.nth_add_last")
+                                (("1" (replaces -1)
+                                  (("1" (expand "RTq")
+                                    (("1" (lemma "fspos.nth_add_last")
                                       (("1"
                                         (inst -1 "x!2" "q!1" "0")
                                         (("1"
@@ -2621,10 +2388,7 @@
                                           (("1"
                                             (replaces -1)
                                             (("1"
-                                              (expand
-                                               "replace_pos"
-                                               2
-                                               2)
+                                              (expand "replace_pos" 2 2)
                                               (("1" (propax) nil nil))
                                               nil))
                                             nil))
@@ -2634,18 +2398,11 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (hide-all-but (-1 1 3))
-                                (("2"
-                                  (case "length(rest(x!2)) = 0")
-                                  (("1"
-                                    (hide -2)
-                                    (("1" (grind) nil nil))
-                                    nil)
-                                   ("2"
-                                    (skosimp*)
-                                    (("2"
-                                      (expand "finseq_appl")
+                               ("2" (hide-all-but (-1 1 3))
+                                (("2" (case "length(rest(x!2)) = 0")
+                                  (("1" (hide -2) (("1" (grind) nil nil)) nil)
+                                   ("2" (skosimp*)
+                                    (("2" (expand "finseq_appl")
                                       (("2"
                                         (lemma "fspos.rest_pos")
                                         (("2"
@@ -2658,18 +2415,12 @@
                                                 (expand "finseq_appl")
                                                 (("1"
                                                   (inst -2 "i!1 + 1")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil)
+                                                  (("1" (assert) nil nil)
                                                    ("2"
                                                     (hide-all-but 1)
                                                     (("2"
                                                       (typepred "i!1")
-                                                      (("2"
-                                                        (grind)
-                                                        nil
-                                                        nil))
+                                                      (("2" (grind) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -2678,10 +2429,7 @@
                                                 (hide-all-but 1)
                                                 (("2"
                                                   (typepred "i!1")
-                                                  (("2"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("2" (grind) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -2696,14 +2444,10 @@
                             nil)
                            ("2" (expand "finseq_appl")
                             (("2" (hide-all-but (-1 1 4))
-                              (("2"
-                                (lemma "fspos.nth_add_last")
-                                (("2"
-                                  (inst -1 "x!2" "q!1" "0")
-                                  (("2"
-                                    (assert)
-                                    (("2"
-                                      (expand "finseq_appl")
+                              (("2" (lemma "fspos.nth_add_last")
+                                (("2" (inst -1 "x!2" "q!1" "0")
+                                  (("2" (assert)
+                                    (("2" (expand "finseq_appl")
                                       (("2"
                                         (replaces -1)
                                         (("2"
@@ -2721,8 +2465,7 @@
                                                     (("2"
                                                       (inst -1 "0")
                                                       (("2"
-                                                        (typepred
-                                                         "q!1")
+                                                        (typepred "q!1")
                                                         (("2"
                                                           (lemma
                                                            "replace_preserv_parallel_pos")
@@ -2762,21 +2505,16 @@
                          ("2" (hide (-1 2 3))
                           (("2" (lemma "fspos.nth_add_last")
                             (("2" (inst -1 "x!2" "q!1" "0")
-                              (("2"
-                                (assert)
-                                (("2"
-                                  (replaces -1)
-                                  (("2"
-                                    (typepred "x!2")
-                                    (("2"
-                                      (expand "SPP?")
+                              (("2" (assert)
+                                (("2" (replaces -1)
+                                  (("2" (typepred "x!2")
+                                    (("2" (expand "SPP?")
                                       (("2"
                                         (flatten)
                                         (("2"
                                           (split)
                                           (("1"
-                                            (rewrite
-                                             "rest_of_PP_is_PP")
+                                            (rewrite "rest_of_PP_is_PP")
                                             nil
                                             nil)
                                            ("2"
@@ -2787,8 +2525,7 @@
                                                 (prop)
                                                 (("1" (grind) nil nil)
                                                  ("2"
-                                                  (lemma
-                                                   "fspos.rest_pos")
+                                                  (lemma "fspos.rest_pos")
                                                   (("2"
                                                     (inst?)
                                                     (("2"
@@ -2796,9 +2533,7 @@
                                                       (("1"
                                                         (skosimp*)
                                                         (("1"
-                                                          (inst
-                                                           -1
-                                                           "i!1")
+                                                          (inst -1 "i!1")
                                                           (("1"
                                                             (inst
                                                              -2
@@ -2807,8 +2542,7 @@
                                                             (("1"
                                                               (assert)
                                                               (("1"
-                                                                (copy
-                                                                 -3)
+                                                                (copy -3)
                                                                 (("1"
                                                                   (inst
                                                                    -1
@@ -2865,11 +2599,9 @@
                                                               nil))
                                                             nil)
                                                            ("2"
-                                                            (hide-all-but
-                                                             1)
+                                                            (hide-all-but 1)
                                                             (("2"
-                                                              (typepred
-                                                               "i!1")
+                                                              (typepred "i!1")
                                                               (("2"
                                                                 (grind)
                                                                 nil
@@ -2918,8 +2650,7 @@
         (("3" (expand "SPP?")
           (("3" (flatten)
             (("3" (rewrite "add_last_parallel_pos_to_PP_is_PP")
-              (("3" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("3" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -2927,8 +2658,7 @@
       nil)
      ("4" (hide-all-but 1)
       (("4" (skosimp*)
-        (("4" (rewrite "preserv_all_parallel_positions") nil nil))
-        nil))
+        (("4" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
       nil)
      ("5" (hide-all-but 1)
       (("5" (skosimp*)
@@ -2936,8 +2666,7 @@
           (("5" (expand "SPP?")
             (("5" (flatten)
               (("5" (rewrite "add_last_parallel_pos_to_PP_is_PP")
-                (("5" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil
-                  nil))
+                (("5" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil nil))
                 nil))
               nil))
             nil))
@@ -2946,8 +2675,7 @@
       nil)
      ("6" (hide-all-but 1)
       (("6" (skosimp*)
-        (("6" (rewrite "preserv_all_parallel_positions") nil nil))
-        nil))
+        (("6" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
       nil)
      ("7" (hide-all-but (-1 1))
       (("7" (rewrite "preserv_all_parallel_positions") nil nil)) nil)
@@ -2956,8 +2684,7 @@
         (("8" (expand "SPP?")
           (("8" (flatten)
             (("8" (rewrite "add_last_parallel_pos_to_PP_is_PP")
-              (("8" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("8" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -2969,8 +2696,7 @@
           (("9" (expand "SPP?")
             (("9" (flatten)
               (("9" (rewrite "add_last_parallel_pos_to_PP_is_PP")
-                (("9" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil
-                  nil))
+                (("9" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil nil))
                 nil))
               nil))
             nil))
@@ -2984,8 +2710,7 @@
         (("11" (expand "SPP?")
           (("11" (flatten)
             (("11" (rewrite "add_last_parallel_pos_to_PP_is_PP")
-              (("11" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("11" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -2993,8 +2718,7 @@
       nil)
      ("12" (hide-all-but 1)
       (("12" (skosimp*)
-        (("12" (rewrite "preserv_all_parallel_positions") nil nil))
-        nil))
+        (("12" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
       nil)
      ("13" (hide-all-but 1)
       (("13" (skosimp*)
@@ -3002,8 +2726,7 @@
           (("13" (expand "SPP?")
             (("13" (flatten)
               (("13" (rewrite "add_last_parallel_pos_to_PP_is_PP")
-                (("13" (rewrite "add_last_parallel_pos_to_SP_is_SP")
-                  nil nil))
+                (("13" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil nil))
                 nil))
               nil))
             nil))
@@ -3017,8 +2740,7 @@
         (("15" (expand "SPP?")
           (("15" (flatten)
             (("15" (rewrite "add_last_parallel_pos_to_PP_is_PP")
-              (("15" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("15" (rewrite "add_last_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -3028,59 +2750,52 @@
    ((add_last_parallel_pos_to_PP_is_PP formula-decl nil positions nil)
     (add_last_parallel_pos_to_SP_is_SP formula-decl nil positions nil)
     (SP type-eq-decl nil positions nil)
-    (preserv_all_parallel_positions formula-decl nil replace_positions
-     nil)
+    (preserv_all_parallel_positions formula-decl nil replace_positions nil)
     (TRUE const-decl "bool" booleans nil)
     (rest_of_PP_is_PP formula-decl nil positions nil)
-    (PP? const-decl "bool" positions nil)
-    (PP type-eq-decl nil positions nil)
+    (PP? const-decl "bool" positions nil) (PP type-eq-decl nil positions nil)
     (i!1 skolem-const-decl
      "below[length(rest[position[variable, symbol, arity]](x!2))]"
      replace_positions nil)
-    (nth_add_last formula-decl nil seq_extras "structures/")
+    (nth_add_last formula-decl nil seq_extras structures)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (RTq skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (RTq skolem-const-decl "term[variable, symbol, arity]" replace_positions
+     nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (O const-decl "finseq" finite_sequences nil)
     (<= const-decl "bool" positions nil)
-    (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
-     real_defs nil)
+    (nat_min application-judgement "{k: nat | k <= i AND k <= j}" real_defs
+     nil)
     (even_plus_odd_is_odd application-judgement "odd_int" integers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions
-     nil)
+    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (rest_pos formula-decl nil seq_extras "structures/")
-    (length_rest formula-decl nil seq_extras "structures/")
+    (rest_pos formula-decl nil seq_extras structures)
+    (length_rest formula-decl nil seq_extras structures)
     (replace_preserv_parallel_pos formula-decl nil replacement nil)
     (SP? const-decl "bool" positions nil)
     (q!1 skolem-const-decl "positions?[variable, symbol, arity](x!1)"
      replace_positions nil)
     (x!2 skolem-const-decl "SPP[variable, symbol, arity](x!1)"
      replace_positions nil)
-    (t!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
-    (x!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
-    (rest_add_last formula-decl nil seq_extras "structures/")
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (insert? const-decl "finseq" seq_extras "structures/")
+    (t!1 skolem-const-decl "term" replace_positions nil)
+    (x!1 skolem-const-decl "term" replace_positions nil)
+    (rest_add_last formula-decl nil seq_extras structures)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (insert? const-decl "finseq" seq_extras structures)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}" real_defs
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (rest const-decl "finseq" seq_extras "structures/")
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (rest const-decl "finseq" seq_extras structures)
     (^ const-decl "finseq" finite_sequences nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -3092,9 +2807,8 @@
     (positions? type-eq-decl nil positions nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (parallel const-decl "bool" positions nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
-    (add_last const-decl "finseq" seq_extras "structures/")
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
+    (add_last const-decl "finseq" seq_extras structures)
     (wf_nat formula-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
@@ -3105,8 +2819,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -3118,8 +2831,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -3167,20 +2879,12 @@
                         (("1" (lift-if)
                           (("1" (assert)
                             (("1" (expand "finseq_appl")
-                              (("1"
-                                (lemma "replace_commutativity")
+                              (("1" (lemma "replace_commutativity")
                                 (("1"
-                                  (inst
-                                   -1
-                                   "q!1"
-                                   "x!2`seq(0)"
-                                   "t!1"
-                                   "x!1"
+                                  (inst -1 "q!1" "x!2`seq(0)" "t!1" "x!1"
                                    "t!1")
-                                  (("1"
-                                    (prop)
-                                    (("1"
-                                      (replaces -1)
+                                  (("1" (prop)
+                                    (("1" (replaces -1)
                                       (("1"
                                         (inst
                                          -1
@@ -3193,21 +2897,14 @@
                                             (("1"
                                               (prop)
                                               (("1"
-                                                (expand
-                                                 "replace_pos"
-                                                 -1
-                                                 1)
+                                                (expand "replace_pos" -1 1)
                                                 (("1"
                                                   (lift-if)
                                                   (("1"
                                                     (prop)
                                                     (("1"
-                                                      (hide-all-but
-                                                       (-1 3))
-                                                      (("1"
-                                                        (grind)
-                                                        nil
-                                                        nil))
+                                                      (hide-all-but (-1 3))
+                                                      (("1" (grind) nil nil))
                                                       nil)
                                                      ("2"
                                                       (rewrite
@@ -3218,11 +2915,9 @@
                                                         (("2"
                                                           (inst?)
                                                           (("1"
-                                                            (replaces
-                                                             -1)
+                                                            (replaces -1)
                                                             (("1"
-                                                              (replaces
-                                                               -1)
+                                                              (replaces -1)
                                                               (("1"
                                                                 (expand
                                                                  "replace_pos"
@@ -3256,24 +2951,18 @@
                                                    "length(rest(x!2)) = 0")
                                                   (("1"
                                                     (hide -2)
-                                                    (("1"
-                                                      (grind)
-                                                      nil
-                                                      nil))
+                                                    (("1" (grind) nil nil))
                                                     nil)
                                                    ("2"
                                                     (skosimp*)
                                                     (("2"
-                                                      (lemma
-                                                       "fspos.rest_pos")
+                                                      (lemma "fspos.rest_pos")
                                                       (("2"
                                                         (inst?)
                                                         (("2"
                                                           (assert)
                                                           (("2"
-                                                            (inst
-                                                             -1
-                                                             "i!1")
+                                                            (inst -1 "i!1")
                                                             (("1"
                                                               (expand
                                                                "finseq_appl")
@@ -3300,8 +2989,7 @@
                                                                 nil))
                                                               nil)
                                                              ("2"
-                                                              (hide-all-but
-                                                               1)
+                                                              (hide-all-but 1)
                                                               (("2"
                                                                 (typepred
                                                                  "i!1")
@@ -3330,18 +3018,12 @@
                                               (("2"
                                                 (flatten)
                                                 (("2"
-                                                  (rewrite
-                                                   "rest_of_PP_is_PP")
+                                                  (rewrite "rest_of_PP_is_PP")
                                                   (("2"
-                                                    (expand*
-                                                     "PP?"
-                                                     "SP?")
+                                                    (expand* "PP?" "SP?")
                                                     (("2"
                                                       (prop)
-                                                      (("1"
-                                                        (grind)
-                                                        nil
-                                                        nil)
+                                                      (("1" (grind) nil nil)
                                                        ("2"
                                                         (lemma
                                                          "fspos.rest_pos")
@@ -3436,9 +3118,7 @@
                                                               nil)
                                                              ("2"
                                                               (hide-all-but
-                                                               (-1
-                                                                2
-                                                                3))
+                                                               (-1 2 3))
                                                               (("2"
                                                                 (grind)
                                                                 nil
@@ -3456,12 +3136,9 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (typepred "q!1")
-                                      (("2" (propax) nil nil))
-                                      nil)
-                                     ("3"
-                                      (hide-all-but (-2 1 4))
+                                     ("2" (typepred "q!1")
+                                      (("2" (propax) nil nil)) nil)
+                                     ("3" (hide-all-but (-2 1 4))
                                       (("3"
                                         (typepred "x!2")
                                         (("3"
@@ -3475,12 +3152,8 @@
                                                 (("3"
                                                   (inst -1 "0")
                                                   (("3"
-                                                    (expand
-                                                     "finseq_appl")
-                                                    (("3"
-                                                      (propax)
-                                                      nil
-                                                      nil))
+                                                    (expand "finseq_appl")
+                                                    (("3" (propax) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -3489,8 +3162,7 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("4"
-                                      (hide-all-but (-2 1))
+                                     ("4" (hide-all-but (-2 1))
                                       (("4"
                                         (inst -1 "0")
                                         (("4"
@@ -3523,8 +3195,7 @@
         (("3" (expand "SPP?")
           (("3" (flatten)
             (("3" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-              (("3" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("3" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -3532,8 +3203,7 @@
       nil)
      ("4" (hide-all-but 1)
       (("4" (skosimp*)
-        (("4" (rewrite "preserv_all_parallel_positions") nil nil))
-        nil))
+        (("4" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
       nil)
      ("5" (hide-all-but 1)
       (("5" (skosimp*)
@@ -3541,8 +3211,7 @@
           (("5" (expand "SPP?")
             (("5" (flatten)
               (("5" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-                (("5" (rewrite "add_first_parallel_pos_to_SP_is_SP")
-                  nil nil))
+                (("5" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
                 nil))
               nil))
             nil))
@@ -3551,8 +3220,7 @@
       nil)
      ("6" (hide-all-but 1)
       (("6" (skosimp*)
-        (("6" (rewrite "preserv_all_parallel_positions") nil nil))
-        nil))
+        (("6" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
       nil)
      ("7" (hide-all-but (-1 1))
       (("7" (rewrite "preserv_all_parallel_positions") nil nil)) nil)
@@ -3561,8 +3229,7 @@
         (("8" (expand "SPP?")
           (("8" (flatten)
             (("8" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-              (("8" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("8" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -3574,8 +3241,7 @@
           (("9" (expand "SPP?")
             (("9" (flatten)
               (("9" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-                (("9" (rewrite "add_first_parallel_pos_to_SP_is_SP")
-                  nil nil))
+                (("9" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
                 nil))
               nil))
             nil))
@@ -3589,8 +3255,7 @@
         (("11" (expand "SPP?")
           (("11" (flatten)
             (("11" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-              (("11" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("11" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -3598,8 +3263,7 @@
       nil)
      ("12" (hide-all-but 1)
       (("12" (skosimp*)
-        (("12" (rewrite "preserv_all_parallel_positions") nil nil))
-        nil))
+        (("12" (rewrite "preserv_all_parallel_positions") nil nil)) nil))
       nil)
      ("13" (hide-all-but 1)
       (("13" (skosimp*)
@@ -3607,8 +3271,8 @@
           (("13" (expand "SPP?")
             (("13" (flatten)
               (("13" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-                (("13" (rewrite "add_first_parallel_pos_to_SP_is_SP")
-                  nil nil))
+                (("13" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil
+                  nil))
                 nil))
               nil))
             nil))
@@ -3622,8 +3286,7 @@
         (("15" (expand "SPP?")
           (("15" (flatten)
             (("15" (rewrite "add_first_parallel_pos_to_PP_is_PP")
-              (("15" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil
-                nil))
+              (("15" (rewrite "add_first_parallel_pos_to_SP_is_SP") nil nil))
               nil))
             nil))
           nil))
@@ -3633,11 +3296,9 @@
    ((add_first_parallel_pos_to_PP_is_PP formula-decl nil positions nil)
     (add_first_parallel_pos_to_SP_is_SP formula-decl nil positions nil)
     (SP type-eq-decl nil positions nil)
-    (preserv_all_parallel_positions formula-decl nil replace_positions
-     nil)
+    (preserv_all_parallel_positions formula-decl nil replace_positions nil)
     (parallel_comm formula-decl nil positions nil)
-    (PP type-eq-decl nil positions nil)
-    (PP? const-decl "bool" positions nil)
+    (PP type-eq-decl nil positions nil) (PP? const-decl "bool" positions nil)
     (rest_of_PP_is_PP formula-decl nil positions nil)
     (replace_preserv_parallel_pos formula-decl nil replacement nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
@@ -3649,40 +3310,35 @@
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
+    (int_min application-judgement "{k: int | k <= i AND k <= j}" real_defs
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (O const-decl "finseq" finite_sequences nil)
     (<= const-decl "bool" positions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (rest_pos formula-decl nil seq_extras "structures/")
+    (rest_pos formula-decl nil seq_extras structures)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions
-     nil)
-    (length_rest formula-decl nil seq_extras "structures/")
-    (rest const-decl "finseq" seq_extras "structures/")
-    (t!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (i!1 skolem-const-decl "below[length(rest(x!2))]" replace_positions nil)
+    (length_rest formula-decl nil seq_extras structures)
+    (rest const-decl "finseq" seq_extras structures)
+    (t!1 skolem-const-decl "term" replace_positions nil)
     (replace_commutativity formula-decl nil replacement nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
-    (insert? const-decl "finseq" seq_extras "structures/")
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (insert? const-decl "finseq" seq_extras structures)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (x!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (x!1 skolem-const-decl "term" replace_positions nil)
     (x!2 skolem-const-decl "SPP[variable, symbol, arity](x!1)"
      replace_positions nil)
-    (rest_add_first formula-decl nil seq_extras "structures/")
+    (rest_add_first formula-decl nil seq_extras structures)
     (TRUE const-decl "bool" booleans nil)
-    (nth_add_first formula-decl nil seq_extras "structures/")
+    (nth_add_first formula-decl nil seq_extras structures)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (replaceTerm def-decl "term" replacement nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -3692,9 +3348,8 @@
     (positions? type-eq-decl nil positions nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (parallel const-decl "bool" positions nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
-    (add_first const-decl "finseq" seq_extras "structures/")
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
+    (add_first const-decl "finseq" seq_extras structures)
     (wf_nat formula-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
@@ -3705,8 +3360,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -3718,8 +3372,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -3739,20 +3392,17 @@
       nil))
     nil)
    ((delete_of_PP_is_PP formula-decl nil positions nil)
-    (PP? const-decl "bool" positions nil)
-    (PP type-eq-decl nil positions nil)
+    (PP? const-decl "bool" positions nil) (PP type-eq-decl nil positions nil)
     (delete_of_SP_is_SP formula-decl nil positions nil)
-    (SP? const-decl "bool" positions nil)
-    (SP type-eq-decl nil positions nil) (< const-decl "bool" reals nil)
-    (SPP type-eq-decl nil positions nil)
+    (SP? const-decl "bool" positions nil) (SP type-eq-decl nil positions nil)
+    (< const-decl "bool" reals nil) (SPP type-eq-decl nil positions nil)
     (SPP? const-decl "bool" positions nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (position type-eq-decl nil positions nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -3763,15 +3413,17 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (variable formal-nonempty-type-decl nil replace_positions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (CP_lemma_aux2a2 subtype
+    "seq_extras[position[variable, symbol, arity]].delete(replace_positions.fss, replace_positions.i)"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].SPP(replace_positions.s)")))
  (CP_lemma_aux2a2_TCC2 0
   (CP_lemma_aux2a2_TCC2-1 nil 3455272825
    ("" (skolem-typepred)
@@ -3787,15 +3439,12 @@
                     (("2" (expand* "delete" "finseq_appl")
                       (("2" (lift-if)
                         (("2" (prop)
-                          (("1" (inst -2 "i!2" "i!1")
-                            (("1" (assert) nil nil)) nil)
+                          (("1" (inst -2 "i!2" "i!1") (("1" (assert) nil nil))
+                            nil)
                            ("2" (inst -1 "i!2 + 1" "i!1")
                             (("1" (assert) nil nil)
                              ("2" (typepred "i!2")
-                              (("2"
-                                (hide 3)
-                                (("2" (grind) nil nil))
-                                nil))
+                              (("2" (hide 3) (("2" (grind) nil nil)) nil))
                               nil))
                             nil))
                           nil))
@@ -3806,8 +3455,7 @@
                 nil)
                ("2" (hide (-1 2))
                 (("2" (inst -1 "i!1")
-                  (("2" (expand "finseq_appl") (("2" (propax) nil nil))
-                    nil))
+                  (("2" (expand "finseq_appl") (("2" (propax) nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -3816,11 +3464,9 @@
         nil))
       nil))
     nil)
-   ((finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
-    (preserv_all_parallel_positions formula-decl nil replace_positions
-     nil)
-    (delete const-decl "finseq" seq_extras "structures/")
+   ((finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
+    (preserv_all_parallel_positions formula-decl nil replace_positions nil)
+    (delete const-decl "finseq" seq_extras structures)
     (positions type-eq-decl nil positions nil)
     (positionsOF def-decl "positions" positions nil)
     (positions? type-eq-decl nil positions nil)
@@ -3830,24 +3476,19 @@
     (parallel const-decl "bool" positions nil)
     (<= const-decl "bool" positions nil)
     (O const-decl "finseq" finite_sequences nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (i!2 skolem-const-decl
      "below[length(delete[position[variable, symbol, arity]](fss!1, i!1))]"
      replace_positions nil)
-    (i!1 skolem-const-decl "below[length(fss!1)]" replace_positions
-     nil)
+    (i!1 skolem-const-decl "below[length(fss!1)]" replace_positions nil)
     (fss!1 skolem-const-decl "SPP[variable, symbol, arity](s!1)"
      replace_positions nil)
-    (s!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (s!1 skolem-const-decl "term" replace_positions nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (PP? const-decl "bool" positions nil)
-    (SP? const-decl "bool" positions nil)
-    (< const-decl "bool" reals nil)
+    (SP? const-decl "bool" positions nil) (< const-decl "bool" reals nil)
     (SPP type-eq-decl nil positions nil)
     (SPP? const-decl "bool" positions nil)
     (finseq type-eq-decl nil finite_sequences nil)
@@ -3855,8 +3496,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -3867,21 +3507,23 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
     (variable formal-nonempty-type-decl nil replace_positions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (CP_lemma_aux2a2 subtype
+    "finite_sequences[position[variable, symbol, arity]].finseq_appl(replace_positions.fss)(replace_positions.i)"
+    "positions[replace_positions.variable, replace_positions.symbol, replace_positions.arity].positions?(replace_positions.replace_pos(replace_positions.s, replace_positions.t, seq_extras[position[variable, symbol, arity]].delete(replace_positions.fss, replace_positions.i)))")))
  (CP_lemma_aux2a2 0
   (CP_lemma_aux2a2-1 nil 3455273190
    ("" (measure-induct+ "length(fss)" ("s" "fss"))
     (("1" (case "length(x!2) = 0")
-      (("1" (hide -2)
-        (("1" (skolem 1 ("t" "_")) (("1" (grind) nil nil)) nil)) nil)
+      (("1" (hide -2) (("1" (skolem 1 ("t" "_")) (("1" (grind) nil nil)) nil))
+        nil)
        ("2" (skosimp*)
         (("2" (expand* "finseq_appl")
           (("2" (case-replace "i!1 = 0")
@@ -3894,29 +3536,20 @@
                         (("1" (inst?)
                           (("1" (prop)
                             (("1" (lemma "fspos.seq_first_rest")
-                              (("1"
-                                (inst?)
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (expand* "first" "finseq_appl")
-                                    (("1"
-                                      (replace -1 -2 rl)
-                                      (("1" (propax) nil nil))
-                                      nil))
+                              (("1" (inst?)
+                                (("1" (assert)
+                                  (("1" (expand* "first" "finseq_appl")
+                                    (("1" (replace -1 -2 rl)
+                                      (("1" (propax) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
                               nil)
                              ("2" (hide 3)
-                              (("2"
-                                (expand "finseq_appl")
-                                (("2"
-                                  (typepred "x!2")
-                                  (("2"
-                                    (expand "SPP?")
-                                    (("2"
-                                      (flatten)
+                              (("2" (expand "finseq_appl")
+                                (("2" (typepred "x!2")
+                                  (("2" (expand "SPP?")
+                                    (("2" (flatten)
                                       (("2"
                                         (hide -2)
                                         (("2"
@@ -3931,19 +3564,15 @@
                                                 (("1"
                                                   (assert)
                                                   (("1"
-                                                    (expand
-                                                     "finseq_appl")
+                                                    (expand "finseq_appl")
                                                     (("1"
-                                                      (lemma
-                                                       "fspos.rest_pos")
+                                                      (lemma "fspos.rest_pos")
                                                       (("1"
                                                         (inst?)
                                                         (("1"
                                                           (prop)
                                                           (("1"
-                                                            (inst
-                                                             -1
-                                                             "i!2")
+                                                            (inst -1 "i!2")
                                                             (("1"
                                                               (expand
                                                                "finseq_appl")
@@ -3981,10 +3610,7 @@
                                                   (hide-all-but (1 4))
                                                   (("2"
                                                     (typepred "i!2")
-                                                    (("2"
-                                                      (grind)
-                                                      nil
-                                                      nil))
+                                                    (("2" (grind) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -4000,14 +3626,10 @@
                             nil)
                            ("2" (hide 3)
                             (("2" (typepred "x!2")
-                              (("2"
-                                (expand "SPP?")
-                                (("2"
-                                  (flatten)
-                                  (("2"
-                                    (hide -1)
-                                    (("2"
-                                      (expand "SP?")
+                              (("2" (expand "SPP?")
+                                (("2" (flatten)
+                                  (("2" (hide -1)
+                                    (("2" (expand "SP?")
                                       (("2"
                                         (inst -1 "0")
                                         (("2"
@@ -4031,22 +3653,17 @@
              ("2" (expand "replace_pos" 3 1)
               (("2" (expand "finseq_appl")
                 (("2"
-                  (inst -1 "replaceTerm(x!1, t!1, x!2`seq(0))"
-                   "rest(x!2)")
+                  (inst -1 "replaceTerm(x!1, t!1, x!2`seq(0))" "rest(x!2)")
                   (("2" (inst -1 "t!1" "i!1 - 1")
                     (("1" (rewrite "length_rest")
                       (("1" (lemma "fspos.rest_pos")
                         (("1" (inst?)
                           (("1" (prop)
                             (("1" (inst -1 "i!1 - 1")
-                              (("1"
-                                (expand "finseq_appl")
-                                (("1"
-                                  (replace -1 -2 rl)
-                                  (("1"
-                                    (hide -1)
-                                    (("1"
-                                      (lemma "fspos.delete_rest")
+                              (("1" (expand "finseq_appl")
+                                (("1" (replace -1 -2 rl)
+                                  (("1" (hide -1)
+                                    (("1" (lemma "fspos.delete_rest")
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -4054,32 +3671,21 @@
                                           (("1"
                                             (replaces -1)
                                             (("1"
-                                              (expand
-                                               "replace_pos"
-                                               3
-                                               2)
+                                              (expand "replace_pos" 3 2)
                                               (("1"
                                                 (lift-if)
                                                 (("1"
                                                   (prop)
                                                   (("1"
                                                     (hide (-2 1))
-                                                    (("1"
-                                                      (grind)
-                                                      nil
-                                                      nil))
+                                                    (("1" (grind) nil nil))
                                                     nil)
                                                    ("2"
-                                                    (expand
-                                                     "finseq_appl")
+                                                    (expand "finseq_appl")
                                                     (("2"
-                                                      (expand
-                                                       "delete"
-                                                       2
-                                                       1)
+                                                      (expand "delete" 2 1)
                                                       (("2"
-                                                        (expand
-                                                         "finseq_appl")
+                                                        (expand "finseq_appl")
                                                         (("2"
                                                           (propax)
                                                           nil
@@ -4099,15 +3705,13 @@
                                 nil)
                                ("2" (assert) nil nil))
                               nil)
-                             ("2" (hide (-2 3)) (("2" (grind) nil nil))
-                              nil))
+                             ("2" (hide (-2 3)) (("2" (grind) nil nil)) nil))
                             nil))
                           nil))
                         nil))
                       nil)
                      ("2" (hide 4)
-                      (("2" (typepred "i!1") (("2" (grind) nil nil))
-                        nil))
+                      (("2" (typepred "i!1") (("2" (grind) nil nil)) nil))
                       nil))
                     nil))
                   nil))
@@ -4132,25 +3736,17 @@
                           (("2" (prop)
                             (("1" (grind) nil nil)
                              ("2" (case "i!2 < i!1")
-                              (("1"
-                                (expand* "delete" "finseq_appl")
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (inst -2 "i!2" "i!1")
-                                    (("1" (assert) nil nil))
-                                    nil))
+                              (("1" (expand* "delete" "finseq_appl")
+                                (("1" (assert)
+                                  (("1" (inst -2 "i!2" "i!1")
+                                    (("1" (assert) nil nil)) nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (expand* "delete" "finseq_appl")
-                                (("2"
-                                  (assert)
-                                  (("2"
-                                    (inst -1 "i!2 + 1" "i!1")
+                               ("2" (expand* "delete" "finseq_appl")
+                                (("2" (assert)
+                                  (("2" (inst -1 "i!2 + 1" "i!1")
                                     (("1" (assert) nil nil)
-                                     ("2"
-                                      (typepred "i!2")
+                                     ("2" (typepred "i!2")
                                       (("2"
                                         (hide 5)
                                         (("2" (grind) nil nil))
@@ -4174,8 +3770,7 @@
           (("2" (expand "SPP?")
             (("2" (flatten)
               (("2" (hide (-1 2))
-                (("2" (expand "SP?") (("2" (inst -1 "i!1") nil nil))
-                  nil))
+                (("2" (expand "SP?") (("2" (inst -1 "i!1") nil nil)) nil))
                 nil))
               nil))
             nil))
@@ -4207,24 +3802,16 @@
                           (("2" (expand "PP?")
                             (("2" (prop)
                               (("1" (grind) nil nil)
-                               ("2"
-                                (case "i!2 < i!1")
-                                (("1"
-                                  (expand* "delete" "finseq_appl")
-                                  (("1"
-                                    (assert)
-                                    (("1"
-                                      (inst -2 "i!2" "i!1")
-                                      (("1" (assert) nil nil))
-                                      nil))
+                               ("2" (case "i!2 < i!1")
+                                (("1" (expand* "delete" "finseq_appl")
+                                  (("1" (assert)
+                                    (("1" (inst -2 "i!2" "i!1")
+                                      (("1" (assert) nil nil)) nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (expand* "delete" "finseq_appl")
-                                  (("2"
-                                    (assert)
-                                    (("2"
-                                      (inst -1 "i!2 + 1" "i!1")
+                                 ("2" (expand* "delete" "finseq_appl")
+                                  (("2" (assert)
+                                    (("2" (inst -1 "i!2 + 1" "i!1")
                                       (("1" (assert) nil nil)
                                        ("2"
                                         (typepred "i!2")
@@ -4251,8 +3838,7 @@
             (("2" (expand "SPP?")
               (("2" (flatten)
                 (("2" (hide (-1 2))
-                  (("2" (expand "SP?") (("2" (inst -1 "i!1") nil nil))
-                    nil))
+                  (("2" (expand "SP?") (("2" (inst -1 "i!1") nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -4289,18 +3875,12 @@
                           (("2" (expand "PP?")
                             (("2" (prop)
                               (("1" (grind) nil nil)
-                               ("2"
-                                (expand* "delete" "finseq_appl")
-                                (("2"
-                                  (lift-if)
-                                  (("2"
-                                    (prop)
-                                    (("1"
-                                      (inst -2 "i!1" "i1!1")
-                                      (("1" (assert) nil nil))
-                                      nil)
-                                     ("2"
-                                      (inst -1 "i!1 + 1" "i1!1")
+                               ("2" (expand* "delete" "finseq_appl")
+                                (("2" (lift-if)
+                                  (("2" (prop)
+                                    (("1" (inst -2 "i!1" "i1!1")
+                                      (("1" (assert) nil nil)) nil)
+                                     ("2" (inst -1 "i!1 + 1" "i1!1")
                                       (("1" (assert) nil nil)
                                        ("2"
                                         (typepred "i!1")
@@ -4328,8 +3908,8 @@
               (("2" (expand "SPP?")
                 (("2" (flatten)
                   (("2" (hide -1)
-                    (("2" (expand "SP?")
-                      (("2" (inst -1 "i1!1") nil nil)) nil))
+                    (("2" (expand "SP?") (("2" (inst -1 "i1!1") nil nil))
+                      nil))
                     nil))
                   nil))
                 nil))
@@ -4352,19 +3932,12 @@
                         (("2" (expand* "delete" "finseq_appl")
                           (("2" (lift-if)
                             (("2" (prop)
-                              (("1"
-                                (inst -2 "i!2" "i!1")
-                                (("1" (assert) nil nil))
-                                nil)
-                               ("2"
-                                (inst -1 "i!2 + 1" "i!1")
+                              (("1" (inst -2 "i!2" "i!1")
+                                (("1" (assert) nil nil)) nil)
+                               ("2" (inst -1 "i!2 + 1" "i!1")
                                 (("1" (assert) nil nil)
-                                 ("2"
-                                  (typepred "i!2")
-                                  (("2"
-                                    (hide 3)
-                                    (("2" (grind) nil nil))
-                                    nil))
+                                 ("2" (typepred "i!2")
+                                  (("2" (hide 3) (("2" (grind) nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -4375,8 +3948,8 @@
                     nil)
                    ("2" (hide (-1 2))
                     (("2" (inst -1 "i!1")
-                      (("2" (expand "finseq_appl")
-                        (("2" (propax) nil nil)) nil))
+                      (("2" (expand "finseq_appl") (("2" (propax) nil nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -4425,12 +3998,8 @@
                               (("1" (assert) nil nil)) nil)
                              ("2" (inst -1 "i!2 + 1" "i!1")
                               (("1" (assert) nil nil)
-                               ("2"
-                                (typepred "i!2")
-                                (("2"
-                                  (hide 3)
-                                  (("2" (grind) nil nil))
-                                  nil))
+                               ("2" (typepred "i!2")
+                                (("2" (hide 3) (("2" (grind) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -4439,8 +4008,7 @@
                       nil))
                     nil))
                   nil)
-                 ("2" (hide (-1 2)) (("2" (inst -1 "i!1") nil nil))
-                  nil))
+                 ("2" (hide (-1 2)) (("2" (inst -1 "i!1") nil nil)) nil))
                 nil))
               nil))
             nil))
@@ -4473,19 +4041,12 @@
                         (("2" (expand* "delete" "finseq_appl")
                           (("2" (lift-if)
                             (("2" (prop)
-                              (("1"
-                                (inst -2 "i!2" "i!1")
-                                (("1" (assert) nil nil))
-                                nil)
-                               ("2"
-                                (inst -1 "i!2 + 1" "i!1")
+                              (("1" (inst -2 "i!2" "i!1")
+                                (("1" (assert) nil nil)) nil)
+                               ("2" (inst -1 "i!2 + 1" "i!1")
                                 (("1" (assert) nil nil)
-                                 ("2"
-                                  (typepred "i!2")
-                                  (("2"
-                                    (hide 3)
-                                    (("2" (grind) nil nil))
-                                    nil))
+                                 ("2" (typepred "i!2")
+                                  (("2" (hide 3) (("2" (grind) nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -4494,8 +4055,7 @@
                         nil))
                       nil))
                     nil)
-                   ("2" (hide (-1 2)) (("2" (inst -1 "i!1") nil nil))
-                    nil))
+                   ("2" (hide (-1 2)) (("2" (inst -1 "i!1") nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -4534,12 +4094,8 @@
                               (("1" (assert) nil nil)) nil)
                              ("2" (inst -1 "i!2 + 1" "i!1")
                               (("1" (assert) nil nil)
-                               ("2"
-                                (typepred "i!2")
-                                (("2"
-                                  (hide 3)
-                                  (("2" (grind) nil nil))
-                                  nil))
+                               ("2" (typepred "i!2")
+                                (("2" (hide 3) (("2" (grind) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -4548,8 +4104,7 @@
                       nil))
                     nil))
                   nil)
-                 ("2" (hide (-1 2)) (("2" (inst -1 "i!1") nil nil))
-                  nil))
+                 ("2" (hide (-1 2)) (("2" (inst -1 "i!1") nil nil)) nil))
                 nil))
               nil))
             nil))
@@ -4569,49 +4124,38 @@
         nil))
       nil))
     nil)
-   ((s!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+   ((s!1 skolem-const-decl "term" replace_positions nil)
     (fss!1 skolem-const-decl "SPP[variable, symbol, arity](s!1)"
      replace_positions nil)
-    (i!1 skolem-const-decl "below[length(fss!1)]" replace_positions
-     nil)
+    (i!1 skolem-const-decl "below[length(fss!1)]" replace_positions nil)
     (i!2 skolem-const-decl
      "below[length(delete[position[variable, symbol, arity]](fss!1, i!1))]"
      replace_positions nil)
     (i!2 skolem-const-decl
      "below[length(delete[position[variable, symbol, arity]](y!1`2, i!1))]"
      replace_positions nil)
-    (i!1 skolem-const-decl "below[length(y!1`2)]" replace_positions
-     nil)
-    (y!1 skolem-const-decl
-     "[s: term[variable, symbol, arity], SPP[variable, symbol, arity](s)]"
+    (i!1 skolem-const-decl "below[length(y!1`2)]" replace_positions nil)
+    (y!1 skolem-const-decl "[s: term, SPP[variable, symbol, arity](s)]"
      replace_positions nil)
-    (y!1 skolem-const-decl
-     "[s: term[variable, symbol, arity], SPP[variable, symbol, arity](s)]"
+    (y!1 skolem-const-decl "[s: term, SPP[variable, symbol, arity](s)]"
      replace_positions nil)
-    (i!1 skolem-const-decl "below[length(y!1`2)]" replace_positions
-     nil)
+    (i!1 skolem-const-decl "below[length(y!1`2)]" replace_positions nil)
     (i!2 skolem-const-decl
      "below[length(delete[position[variable, symbol, arity]](y!1`2, i!1))]"
      replace_positions nil)
     (i!2 skolem-const-decl
      "below[length(delete[position[variable, symbol, arity]](y!1`2, i!1))]"
      replace_positions nil)
-    (i!1 skolem-const-decl "below[length(y!1`2)]" replace_positions
-     nil)
-    (y!1 skolem-const-decl
-     "[s: term[variable, symbol, arity], SPP[variable, symbol, arity](s)]"
+    (i!1 skolem-const-decl "below[length(y!1`2)]" replace_positions nil)
+    (y!1 skolem-const-decl "[s: term, SPP[variable, symbol, arity](s)]"
      replace_positions nil)
-    (x!1 skolem-const-decl
-     "[s: term[variable, symbol, arity], SPP[variable, symbol, arity](s)]"
+    (x!1 skolem-const-decl "[s: term, SPP[variable, symbol, arity](s)]"
      replace_positions nil)
-    (i1!1 skolem-const-decl "below[length(x!1`2)]" replace_positions
-     nil)
+    (i1!1 skolem-const-decl "below[length(x!1`2)]" replace_positions nil)
     (i!1 skolem-const-decl
      "below[length(delete[position[variable, symbol, arity]](x!1`2, i1!1))]"
      replace_positions nil)
-    (y!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (y!1 skolem-const-decl "term" replace_positions nil)
     (y!2 skolem-const-decl "SPP[variable, symbol, arity](y!1)"
      replace_positions nil)
     (i!1 skolem-const-decl "below[length(y!2)]" replace_positions nil)
@@ -4628,39 +4172,33 @@
     (i!1 skolem-const-decl "below[length(y!2)]" replace_positions nil)
     (y!2 skolem-const-decl "SPP[variable, symbol, arity](y!1)"
      replace_positions nil)
-    (y!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
-    (preserv_all_parallel_positions formula-decl nil replace_positions
-     nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (length_rest formula-decl nil seq_extras "structures/")
+    (y!1 skolem-const-decl "term" replace_positions nil)
+    (preserv_all_parallel_positions formula-decl nil replace_positions nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (length_rest formula-decl nil seq_extras structures)
     (i!1 skolem-const-decl "below[length(x!2)]" replace_positions nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (TRUE const-decl "bool" booleans nil)
-    (x!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (x!1 skolem-const-decl "term" replace_positions nil)
     (x!2 skolem-const-decl "SPP[variable, symbol, arity](x!1)"
      replace_positions nil)
-    (rest const-decl "finseq" seq_extras "structures/")
+    (rest const-decl "finseq" seq_extras structures)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (PP? const-decl "bool" positions nil)
-    (rest_pos formula-decl nil seq_extras "structures/")
+    (rest_pos formula-decl nil seq_extras structures)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (i!2 skolem-const-decl "below[length(rest(x!2))]" replace_positions
+    (int_min application-judgement "{k: int | k <= i AND k <= j}" real_defs
      nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (i!2 skolem-const-decl "below[length(rest(x!2))]" replace_positions nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
-     integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (empty_seq const-decl "finseq" finite_sequences nil)
@@ -4669,11 +4207,11 @@
     (<= const-decl "bool" positions nil)
     (parallel const-decl "bool" positions nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (seq_first_rest formula-decl nil seq_extras "structures/")
-    (first const-decl "T" seq_extras "structures/")
+    (seq_first_rest formula-decl nil seq_extras structures)
+    (first const-decl "T" seq_extras structures)
     (SP? const-decl "bool" positions nil)
     (CP_lemma_aux2a1 formula-decl nil replace_positions nil)
-    (delete_rest formula-decl nil seq_extras "structures/")
+    (delete_rest formula-decl nil seq_extras structures)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (replaceTerm def-decl "term" replacement nil)
     (positions? type-eq-decl nil positions nil)
@@ -4681,9 +4219,8 @@
     (positions type-eq-decl nil positions nil)
     (positionsOF def-decl "positions" positions nil)
     (replace_pos def-decl "term" replace_positions nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
-    (delete const-decl "finseq" seq_extras "structures/")
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
+    (delete const-decl "finseq" seq_extras structures)
     (wf_nat formula-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
     (naturalnumber type-eq-decl nil naturalnumbers nil)
@@ -4694,8 +4231,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -4707,8 +4243,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)
@@ -4726,8 +4261,7 @@
           (("" (flatten)
             (("" (case-replace "length(x!2) = 0")
               (("1" (hide-all-but (-1 -2 -4 1))
-                (("1" (expand "replace_pos") (("1" (assert) nil nil))
-                  nil))
+                (("1" (expand "replace_pos") (("1" (assert) nil nil)) nil))
                 nil)
                ("2" (lemma "CP_lemma_aux2a2")
                 (("2" (copy -1)
@@ -4737,17 +4271,11 @@
                         (("1" (skosimp*)
                           (("1" (expand "finseq_appl")
                             (("1" (inst -1 "t!1" "x!1" "fss2!1" "j!1")
-                              (("1"
-                                (replaces -1)
-                                (("1"
-                                  (replace -6 2)
-                                  (("1"
-                                    (inst -2 "x!1" "delete(x!2, 0)")
+                              (("1" (replaces -1)
+                                (("1" (replace -6 2)
+                                  (("1" (inst -2 "x!1" "delete(x!2, 0)")
                                     (("1"
-                                      (inst
-                                       -2
-                                       "t!1"
-                                       "delete(fss2!1, j!1)")
+                                      (inst -2 "t!1" "delete(fss2!1, j!1)")
                                       (("1"
                                         (prop)
                                         (("1" (assert) nil nil)
@@ -4761,10 +4289,7 @@
                                                 (hide (-2 -3 -4))
                                                 (("1"
                                                   (expand "delete")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                  (("1" (assert) nil nil))
                                                   nil))
                                                 nil)
                                                ("2"
@@ -4798,8 +4323,7 @@
                                                   nil))
                                                 nil)
                                                ("3"
-                                                (hide-all-but
-                                                 (-3 -5 1 2))
+                                                (hide-all-but (-3 -5 1 2))
                                                 (("3"
                                                   (replaces -2)
                                                   (("3"
@@ -4808,8 +4332,7 @@
                                                     (("3"
                                                       (skosimp*)
                                                       (("3"
-                                                        (expand
-                                                         "delete")
+                                                        (expand "delete")
                                                         (("3"
                                                           (expand
                                                            "finseq_appl")
@@ -4877,8 +4400,7 @@
                                                ("4"
                                                 (skosimp*)
                                                 (("4"
-                                                  (expand
-                                                   "finseq_appl")
+                                                  (expand "finseq_appl")
                                                   (("4"
                                                     (hide (-5 -6 -7))
                                                     (("4"
@@ -4969,25 +4491,22 @@
     nil)
    ((TRUE const-decl "bool" booleans nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (different_elements const-decl "bool" seq_extras "structures/")
+    (different_elements const-decl "bool" seq_extras structures)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (delete_equivalent formula-decl nil seq_extras "structures/")
-    (delete const-decl "finseq" seq_extras "structures/")
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (delete_equivalent formula-decl nil seq_extras structures)
+    (delete const-decl "finseq" seq_extras structures)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
     (x!2 skolem-const-decl "SPP[variable, symbol, arity](x!1)"
      replace_positions nil)
-    (x!1 skolem-const-decl "term[variable, symbol, arity]"
-     replace_positions nil)
+    (x!1 skolem-const-decl "term" replace_positions nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (CP_lemma_aux2a2 formula-decl nil replace_positions nil)
     (replace_pos def-decl "term" replace_positions nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (equivalent const-decl "bool" seq_extras "structures/")
+    (equivalent const-decl "bool" seq_extras structures)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (wf_nat formula-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
@@ -4999,8 +4518,7 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (below type-eq-decl nil nat_types nil)
-    (term type-decl nil term_adt nil)
+    (below type-eq-decl nil nat_types nil) (term type-decl nil term_adt nil)
     (arity formal-const-decl "[symbol -> nat]" replace_positions nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -5012,8 +4530,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (symbol formal-nonempty-type-decl nil replace_positions nil)

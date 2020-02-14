@@ -1,10 +1,16 @@
 (homomorphism_lemmas
  (G_TCC1 0
   (G_TCC1-1 nil 3530720894 ("" (rewrite "T1_is_group") nil nil)
-   ((T1_is_group formula-decl nil homomorphism_lemmas nil)) nil))
+   ((T1_is_group formula-decl nil homomorphism_lemmas nil)) nil
+   (G assuming
+    "algebra@group[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1].group"
+    "fullset_is_group: ASSUMPTION group_def[group.T, group.*, group.one].group?(sets[group.T].fullset)")))
  (GP_TCC1 0
   (GP_TCC1-1 nil 3528505895 ("" (rewrite "T2_is_group") nil nil)
-   ((T2_is_group formula-decl nil homomorphism_lemmas nil)) nil))
+   ((T2_is_group formula-decl nil homomorphism_lemmas nil)) nil
+   (GP assuming
+    "algebra@group[homomorphism_lemmas.T2, homomorphism_lemmas.o, homomorphism_lemmas.one2].group"
+    "fullset_is_group: ASSUMPTION group_def[group.T, group.*, group.one].group?(sets[group.T].fullset)")))
  (natural_homo_TCC1 0
   (natural_homo_TCC1-1 nil 3524654775
    ("" (skosimp)
@@ -16,55 +22,58 @@
         nil))
       nil))
     nil)
-   ((G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
-     nil)
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
+   ((G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (left_coset_one formula-decl nil cosets "algebra/")
-    (monoid? const-decl "bool" monoid_def "algebra/")
+    (normal_subgroup type-eq-decl nil normal_subgroups algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (left_coset_one formula-decl nil cosets algebra)
+    (monoid? const-decl "bool" monoid_def algebra)
     (member const-decl "bool" sets nil)
-    (monad? const-decl "bool" monad_def "algebra/")
+    (monad? const-decl "bool" monad_def algebra)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (natural_homo subtype "homomorphism_lemmas.K"
+    "cosets[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1].left_cosets(homomorphism_lemmas.G, homomorphism_lemmas.K)")))
  (natural_homo_TCC2 0
   (natural_homo_TCC2-1 nil 3524789060
-   ("" (skosimp*)
-    (("" (rewrite "left_cosets_group[T1, *, one1]") nil nil)) nil)
-   ((left_cosets_group formula-decl nil factor_groups "algebra/")
+   ("" (skosimp*) (("" (rewrite "left_cosets_group[T1, *, one1]") nil nil))
+    nil)
+   ((left_cosets_group formula-decl nil factor_groups algebra)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (set type-eq-decl nil sets nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (normal_subgroup type-eq-decl nil normal_subgroups algebra)
     (T1 formal-type-decl nil homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil))
-   nil))
+   nil
+   (natural_homo assuming
+    "algebra@homomorphisms[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1, cosets[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1].left_cosets(homomorphism_lemmas.G, homomorphism_lemmas.K), factor_groups[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1].mult(homomorphism_lemmas.G, homomorphism_lemmas.K), homomorphism_lemmas.K].homomorphisms"
+    "T2_is_group: ASSUMPTION group_def[homomorphisms.T2, homomorphisms.o, homomorphisms.one2].group?(sets[homomorphisms.T2].fullset)")))
  (natural_homo 0
   (natural_homo-1 nil 3524654777
    ("" (skosimp*)
     (("" (inst 1 "(LAMBDA (x:(G!1)): *[T1, *, one1](x, K!1))")
       (("1" (prop)
         (("1" (expand "homomorphism?")
-          (("1" (skosimp*)
-            (("1" (rewrite "mult_lem[T1, *, one1]") nil nil)) nil))
+          (("1" (skosimp*) (("1" (rewrite "mult_lem[T1, *, one1]") nil nil))
+            nil))
           nil)
          ("2" (expand "surjective?")
           (("2" (skosimp*)
             (("2" (typepred "y!1")
               (("2" (skosimp*)
-                (("2" (inst 1 "a!1") (("2" (assert) nil nil)) nil))
-                nil))
+                (("2" (inst 1 "a!1") (("2" (assert) nil nil)) nil)) nil))
               nil))
             nil))
           nil)
@@ -77,8 +86,7 @@
                     (("1" (flatten)
                       (("1" (expand "subgroup?")
                         (("1" (expand* "subset?" "member")
-                          (("1" (inst -2 "x!1")
-                            (("1" (assert) nil nil)) nil))
+                          (("1" (inst -2 "x!1") (("1" (assert) nil nil)) nil))
                           nil))
                         nil))
                       nil))
@@ -91,14 +99,10 @@
                         (("1" (skosimp)
                           (("1" (replaces -1)
                             (("1" (typepred "h!1" "K!1")
-                              (("1"
-                                (expand* "group?" "monoid?" "monad?")
-                                (("1"
-                                  (flatten)
-                                  (("1"
-                                    (hide-all-but (-1 -2 -8 1))
-                                    (("1"
-                                      (expand "star_closed?")
+                              (("1" (expand* "group?" "monoid?" "monad?")
+                                (("1" (flatten)
+                                  (("1" (hide-all-but (-1 -2 -8 1))
+                                    (("1" (expand "star_closed?")
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -116,22 +120,16 @@
                          ("2" (inst 1 "inv[T1, *, one1](x!1) * x!2")
                           (("1" (rewrite "assoc[T1, *, one1]")
                             (("1" (rewrite "inv_right[T1, *, one1]")
-                              (("1"
-                                (rewrite "one_left[T1, *, one1]")
-                                nil
+                              (("1" (rewrite "one_left[T1, *, one1]") nil
                                 nil))
                               nil))
                             nil)
                            ("2" (typepred "K!1")
                             (("2" (expand* "group?" "monoid?" "monad?")
-                              (("2"
-                                (flatten)
-                                (("2"
-                                  (hide-all-but (-1 -7 -8 1))
-                                  (("2"
-                                    (expand* "star_closed?" "member")
-                                    (("2"
-                                      (lemma "inv_in[T1, *, one1]")
+                              (("2" (flatten)
+                                (("2" (hide-all-but (-1 -7 -8 1))
+                                  (("2" (expand* "star_closed?" "member")
+                                    (("2" (lemma "inv_in[T1, *, one1]")
                                       (("2"
                                         (inst -1 "K!1" "x!1")
                                         (("2" (inst?) nil nil))
@@ -153,17 +151,12 @@
                       (("3" (iff)
                         (("3" (prop)
                           (("3" (inst 2 "one1")
-                            (("1" (rewrite "one_right[T1, *, one1]")
-                              nil nil)
+                            (("1" (rewrite "one_right[T1, *, one1]") nil nil)
                              ("2" (typepred "K!1")
-                              (("2"
-                                (expand* "group?" "monoid?" "monad?")
-                                (("2"
-                                  (flatten)
-                                  (("2"
-                                    (expand "member")
-                                    (("2" (propax) nil nil))
-                                    nil))
+                              (("2" (expand* "group?" "monoid?" "monad?")
+                                (("2" (flatten)
+                                  (("2" (expand "member")
+                                    (("2" (propax) nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -186,82 +179,55 @@
               nil))
             nil)
            ("5" (expand "homomorphism?")
-            (("5" (skosimp*)
-              (("5" (rewrite "mult_lem[T1, *, one1]") nil nil)) nil))
+            (("5" (skosimp*) (("5" (rewrite "mult_lem[T1, *, one1]") nil nil))
+              nil))
             nil)
            ("6" (skosimp*)
-            (("6" (prop)
-              (("1" (inst 1 "x!1") nil nil) ("2" (grind) nil nil))
+            (("6" (prop) (("1" (inst 1 "x!1") nil nil) ("2" (grind) nil nil))
               nil))
             nil))
           nil))
         nil)
        ("2" (skosimp)
-        (("2" (prop)
-          (("1" (inst 1 "x!1") nil nil) ("2" (grind) nil nil)) nil))
+        (("2" (prop) (("1" (inst 1 "x!1") nil nil) ("2" (grind) nil nil))
+          nil))
         nil))
       nil))
     nil)
-   ((/ const-decl "group[left_cosets(G, N), mult(G, N), N]"
+   ((/ const-decl "group[left_cosets[T, *, one](G, N), mult(G, N), N]"
        right_left_cosets nil)
-    (mult const-decl "left_cosets(G, H)" factor_groups "algebra/")
-    (left_cosets type-eq-decl nil cosets "algebra/")
-    (K!1 skolem-const-decl "normal_subgroup[T1, *, one1](G!1)"
-     homomorphism_lemmas nil)
-    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (* const-decl "set[T]" cosets "algebra/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
-     nil)
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
-    (one1 formal-const-decl "T1" homomorphism_lemmas nil)
-    (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
-    (set type-eq-decl nil sets nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (fullset const-decl "set" sets nil)
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (subgroup type-eq-decl nil group "algebra/")
-    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms
-     "algebra/")
-    (one_right formula-decl nil group "algebra/")
-    (inv const-decl "{y | x * y = one AND y * x = one}" group
-     "algebra/")
-    (x!1 skolem-const-decl "T1" homomorphism_lemmas nil)
-    (x!2 skolem-const-decl "T1" homomorphism_lemmas nil)
-    (inv_right formula-decl nil group "algebra/")
-    (one_left formula-decl nil group "algebra/")
-    (assoc formula-decl nil group "algebra/")
-    (inv_in formula-decl nil group "algebra/")
-    (star_closed? const-decl "bool" groupoid_def "algebra/")
-    (monad? const-decl "bool" monad_def "algebra/")
-    (monoid? const-decl "bool" monoid_def "algebra/")
-    (TRUE const-decl "bool" booleans nil)
-    (member const-decl "bool" sets nil)
-    (subset? const-decl "bool" sets nil)
-    (left_cosets_group formula-decl nil factor_groups "algebra/")
-    (T1_is_group formula-decl nil homomorphism_lemmas nil)
-    (left_coset_one formula-decl nil cosets "algebra/")
-    (restrict const-decl "R" restrict nil)
+    (mult const-decl "left_cosets(G, H)" factor_groups algebra)
+    (left_cosets type-eq-decl nil cosets algebra)
+    (normal_subgroup type-eq-decl nil normal_subgroups algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms algebra)
+    (one_right formula-decl nil group algebra)
+    (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
+    (inv_right formula-decl nil group algebra)
+    (one_left formula-decl nil group algebra)
+    (assoc formula-decl nil group algebra)
+    (inv_in formula-decl nil group algebra)
+    (star_closed? const-decl "bool" groupoid_def algebra)
+    (monad? const-decl "bool" monad_def algebra)
+    (monoid? const-decl "bool" monoid_def algebra)
+    (left_cosets_group formula-decl nil factor_groups algebra)
+    (left_coset_one formula-decl nil cosets algebra)
     (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
-    (surjective? const-decl "bool" functions nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
-    (mult_lem formula-decl nil factor_groups "algebra/"))
+    (homomorphism? const-decl "bool" homomorphisms algebra)
+    (mult_lem formula-decl nil factor_groups algebra))
    shostak))
  (homo_inv_TCC1 0
   (homo_inv_TCC1-1 nil 3524504949
    ("" (skosimp*)
-    (("" (typepred "x!1")
-      (("" (rewrite "inv_in[T1, *, one1]") nil nil)) nil))
+    (("" (typepred "x!1") (("" (rewrite "inv_in[T1, *, one1]") nil nil)) nil))
     nil)
-   ((group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
+   ((group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (set type-eq-decl nil sets nil)
@@ -269,9 +235,47 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (inv_in formula-decl nil group "algebra/"))
-   nil))
+    (inv_in formula-decl nil group algebra))
+   nil
+   (homo_inv subtype
+    "group[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1].inv(homomorphism_lemmas.x)"
+    "(homomorphism_lemmas.G)")))
  (homo_inv 0
+  (homo_inv-2 "" 3790334652
+   ("" (skosimp*)
+    (("" (lemma "inv_left[T1, *, one1]")
+      (("" (lemma "inv_right[T1, *, one1]")
+        (("" (inst?)
+          (("" (inst?)
+            (("" (typepred "phi!1")
+              (("" (expand "homomorphism?")
+                (("" (copy -1)
+                  (("" (inst -1 "x!1" "inv[T1, *, one1](x!1)")
+                    (("" (inst -2 "inv[T1, *, one1](x!1)" "x!1")
+                      (("" (replaces -3)
+                        (("" (replaces -3)
+                          (("" (lemma "homo_one[T1,*,one1,T2,o,one2]")
+                            (("" (inst -1 "G!1" "GP!1" "phi!1")
+                              (("" (replaces -1)
+                                (("" (lemma "unique_inv[T2, o, one2]")
+                                  (("" (inst?) (("" (assert) nil nil)) nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (homo_inv-1 nil 3524504972
    ("" (skosimp*)
     (("" (lemma "inv_left[T1, *, one1]")
@@ -287,14 +291,9 @@
                         (("1" (replaces -3)
                           (("1" (lemma "homo_one[T1,*,one1,T2,o,one2]")
                             (("1" (inst -1 "G!1" "GP!1" "phi!1")
-                              (("1"
-                                (replaces -1)
-                                (("1"
-                                  (lemma "unique_inv[T2, o, one2]")
-                                  (("1"
-                                    (inst?)
-                                    (("1" (assert) nil nil))
-                                    nil))
+                              (("1" (replaces -1)
+                                (("1" (lemma "unique_inv[T2, o, one2]")
+                                  (("1" (inst?) (("1" (assert) nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -316,30 +315,25 @@
    ((one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (inv_left formula-decl nil group "algebra/")
+    (inv_left formula-decl nil group algebra)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (set type-eq-decl nil sets nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (unique_inv formula-decl nil group "algebra/")
-    (homo_one formula-decl nil homomorphisms "algebra/")
+    (unique_inv formula-decl nil group algebra)
+    (homo_one formula-decl nil homomorphisms algebra)
     (TRUE const-decl "bool" booleans nil)
-    (inv_in formula-decl nil group "algebra/")
-    (x!1 skolem-const-decl "(G!1)" homomorphism_lemmas nil)
-    (inv const-decl "{y | x * y = one AND y * x = one}" group
-     "algebra/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
-     nil)
-    (inv_right formula-decl nil group "algebra/"))
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
+    (inv_right formula-decl nil group algebra))
    shostak))
  (kernel_normal 0
   (kernel_normal-1 nil 3524504993
@@ -356,19 +350,13 @@
                       (("1" (typepred "phi")
                         (("1" (expand "homomorphism?")
                           (("1" (copy -1)
-                            (("1"
-                              (inst -1 "inv[T1, *, one1](a) * h!2" "a")
-                              (("1"
-                                (replaces -1)
-                                (("1"
-                                  (inst -1 "inv[T1, *, one1](a)" "h!2")
-                                  (("1"
-                                    (replaces -1)
-                                    (("1"
-                                      (replaces -2)
+                            (("1" (inst -1 "inv[T1, *, one1](a) * h!2" "a")
+                              (("1" (replaces -1)
+                                (("1" (inst -1 "inv[T1, *, one1](a)" "h!2")
+                                  (("1" (replaces -1)
+                                    (("1" (replaces -2)
                                       (("1"
-                                        (lemma
-                                         "one_right[T2, o, one2]")
+                                        (lemma "one_right[T2, o, one2]")
                                         (("1"
                                           (inst?)
                                           (("1"
@@ -382,10 +370,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (hide-all-but 1)
-                                    (("2"
-                                      (typepred "a")
+                                   ("2" (hide-all-but 1)
+                                    (("2" (typepred "a")
                                       (("2"
                                         (rewrite "inv_in[T1, *, one1]")
                                         nil
@@ -394,14 +380,10 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (hide-all-but 1)
-                                (("2"
-                                  (typepred "a")
-                                  (("2"
-                                    (lemma "inv_in[T1, *, one1]")
-                                    (("2"
-                                      (inst?)
+                               ("2" (hide-all-but 1)
+                                (("2" (typepred "a")
+                                  (("2" (lemma "inv_in[T1, *, one1]")
+                                    (("2" (inst?)
                                       (("2"
                                         (typepred "G")
                                         (("2"
@@ -417,8 +399,7 @@
                                                   (("2"
                                                     (flatten)
                                                     (("2"
-                                                      (expand
-                                                       "star_closed?")
+                                                      (expand "star_closed?")
                                                       (("2"
                                                         (hide-all-but
                                                          (-1 -6 -7 1))
@@ -450,14 +431,10 @@
                         (("2" (typepred "a")
                           (("2" (lemma "inv_in[T1, *, one1]")
                             (("2" (inst?)
-                              (("2"
-                                (typepred "G")
-                                (("2"
-                                  (expand "group?")
-                                  (("2"
-                                    (flatten)
-                                    (("2"
-                                      (expand "monoid?")
+                              (("2" (typepred "G")
+                                (("2" (expand "group?")
+                                  (("2" (flatten)
+                                    (("2" (expand "monoid?")
                                       (("2"
                                         (flatten)
                                         (("2"
@@ -467,8 +444,7 @@
                                             (("2"
                                               (expand "star_closed?")
                                               (("2"
-                                                (hide-all-but
-                                                 (-1 -6 -7 -8 1))
+                                                (hide-all-but (-1 -6 -7 -8 1))
                                                 (("2"
                                                   (copy -1)
                                                   (("2"
@@ -512,6 +488,8 @@
       nil))
     nil)
    ((TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
@@ -520,44 +498,37 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (subgroup type-eq-decl nil group "algebra/")
-    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms
-     "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (subset? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
-    (* const-decl "set[T]" cosets "algebra/")
+    (homomorphism? const-decl "bool" homomorphisms algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (subset? const-decl "bool" sets nil) (member const-decl "bool" sets nil)
+    (* const-decl "set[T]" cosets algebra)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (* const-decl "set[T]" cosets "algebra/")
+    (* const-decl "set[T]" cosets algebra)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (inv const-decl "{y | x * y = one AND y * x = one}" group
-     "algebra/")
+    (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
     (G skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
     (a skolem-const-decl "(G)" homomorphism_lemmas nil)
     (GP skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas nil)
-    (phi skolem-const-decl
-     "homomorphism[T1, *, one1, T2, o, one2](G, GP)"
+    (phi skolem-const-decl "homomorphism[T1, *, one1, T2, o, one2](G, GP)"
      homomorphism_lemmas nil)
-    (h!2 skolem-const-decl "(kernel(G, GP)(phi))" homomorphism_lemmas
-     nil)
+    (h!2 skolem-const-decl "(kernel(G, GP)(phi))" homomorphism_lemmas nil)
     (homo_inv formula-decl nil homomorphism_lemmas nil)
-    (one_right formula-decl nil group "algebra/")
-    (inv_in formula-decl nil group "algebra/")
-    (monoid? const-decl "bool" monoid_def "algebra/")
-    (monad? const-decl "bool" monad_def "algebra/")
-    (star_closed? const-decl "bool" groupoid_def "algebra/")
-    (h!2 skolem-const-decl "(kernel(G, GP)(phi))" homomorphism_lemmas
-     nil)
-    (K skolem-const-decl "subgroup[T1, *, one1](G)" homomorphism_lemmas
-     nil))
+    (one_right formula-decl nil group algebra)
+    (inv_in formula-decl nil group algebra)
+    (monoid? const-decl "bool" monoid_def algebra)
+    (monad? const-decl "bool" monad_def algebra)
+    (star_closed? const-decl "bool" groupoid_def algebra)
+    (h!2 skolem-const-decl "(kernel(G, GP)(phi))" homomorphism_lemmas nil)
+    (K skolem-const-decl "subgroup[T1, *, one1](G)" homomorphism_lemmas nil))
    shostak))
  (homo_image 0
   (homo_image-1 nil 3524526933
@@ -575,14 +546,10 @@
                         (("1" (typepred "GP!1")
                           (("1" (expand "group?")
                             (("1" (flatten)
-                              (("1"
-                                (expand "monoid?")
-                                (("1"
-                                  (flatten)
-                                  (("1"
-                                    (expand "monad?")
-                                    (("1"
-                                      (flatten)
+                              (("1" (expand "monoid?")
+                                (("1" (flatten)
+                                  (("1" (expand "monad?")
+                                    (("1" (flatten)
                                       (("1"
                                         (hide-all-but (-2 1))
                                         (("1"
@@ -607,8 +574,7 @@
                                                       (("1"
                                                         (flatten)
                                                         (("1"
-                                                          (expand
-                                                           "monoid?")
+                                                          (expand "monoid?")
                                                           (("1"
                                                             (flatten)
                                                             (("1"
@@ -636,13 +602,11 @@
                                                     (("2"
                                                       (typepred "H!1")
                                                       (("2"
-                                                        (expand
-                                                         "group?")
+                                                        (expand "group?")
                                                         (("2"
                                                           (flatten)
                                                           (("2"
-                                                            (expand
-                                                             "monoid?")
+                                                            (expand "monoid?")
                                                             (("2"
                                                               (flatten)
                                                               (("2"
@@ -687,8 +651,7 @@
                ("2" (expand "subset?")
                 (("2" (skosimp*)
                   (("2" (expand "member")
-                    (("2" (expand "extend") (("2" (assert) nil nil))
-                      nil))
+                    (("2" (expand "extend") (("2" (assert) nil nil)) nil))
                     nil))
                   nil))
                 nil)
@@ -700,14 +663,10 @@
                         (("1" (typepred "x!1")
                           (("1" (typepred "y!1")
                             (("1" (expand "extend")
-                              (("1"
-                                (prop)
-                                (("1"
-                                  (expand "image")
-                                  (("1"
-                                    (skosimp)
-                                    (("1"
-                                      (skosimp)
+                              (("1" (prop)
+                                (("1" (expand "image")
+                                  (("1" (skosimp)
+                                    (("1" (skosimp)
                                       (("1"
                                         (inst 1 "x!2 * x!3")
                                         (("1"
@@ -733,21 +692,16 @@
                                                   (("1"
                                                     (flatten)
                                                     (("1"
-                                                      (expand
-                                                       "monoid?")
+                                                      (expand "monoid?")
                                                       (("1"
                                                         (flatten)
                                                         (("1"
-                                                          (expand
-                                                           "monad?")
+                                                          (expand "monad?")
                                                           (("1"
                                                             (flatten)
                                                             (("1"
                                                               (hide-all-but
-                                                               (-1
-                                                                -6
-                                                                -8
-                                                                1))
+                                                               (-1 -6 -8 1))
                                                               (("1"
                                                                 (expand
                                                                  "star_closed?")
@@ -786,13 +740,11 @@
                                                     (("2"
                                                       (flatten)
                                                       (("2"
-                                                        (expand
-                                                         "monoid?")
+                                                        (expand "monoid?")
                                                         (("2"
                                                           (flatten)
                                                           (("2"
-                                                            (expand
-                                                             "monad?")
+                                                            (expand "monad?")
                                                             (("2"
                                                               (flatten)
                                                               (("2"
@@ -834,14 +786,10 @@
                          ("2" (typepred "GP!1")
                           (("2" (expand "group?")
                             (("2" (flatten)
-                              (("2"
-                                (expand "monoid?")
-                                (("2"
-                                  (flatten)
-                                  (("2"
-                                    (expand "monad?")
-                                    (("2"
-                                      (flatten)
+                              (("2" (expand "monoid?")
+                                (("2" (flatten)
+                                  (("2" (expand "monad?")
+                                    (("2" (flatten)
                                       (("2"
                                         (typepred "x!1")
                                         (("2"
@@ -855,8 +803,7 @@
                                             (("2"
                                               (prop)
                                               (("2"
-                                                (hide-all-but
-                                                 (-1 -3 -5 1))
+                                                (hide-all-but (-1 -3 -5 1))
                                                 (("2" (inst?) nil nil))
                                                 nil))
                                               nil))
@@ -883,31 +830,17 @@
                         (("1" (expand* "extend" "image" "restrict")
                           (("1" (prop)
                             (("1" (skosimp)
-                              (("1"
-                                (typepred "x!2")
-                                (("1"
-                                  (inst 1 "inv[T1, *, one1](x!2)")
-                                  (("1"
-                                    (rewrite "homo_inv")
-                                    (("1" (assert) nil nil))
-                                    nil)
-                                   ("2"
-                                    (prop)
-                                    (("1"
-                                      (hide-all-but (-1 1))
-                                      (("1"
-                                        (rewrite "inv_in")
-                                        nil
-                                        nil))
-                                      nil)
-                                     ("2"
-                                      (expand "restrict")
+                              (("1" (typepred "x!2")
+                                (("1" (inst 1 "inv[T1, *, one1](x!2)")
+                                  (("1" (rewrite "homo_inv")
+                                    (("1" (assert) nil nil)) nil)
+                                   ("2" (prop)
+                                    (("1" (hide-all-but (-1 1))
+                                      (("1" (rewrite "inv_in") nil nil)) nil)
+                                     ("2" (expand "restrict")
                                       (("2"
                                         (hide-all-but (-2 1))
-                                        (("2"
-                                          (rewrite "inv_in")
-                                          nil
-                                          nil))
+                                        (("2" (rewrite "inv_in") nil nil))
                                         nil))
                                       nil))
                                     nil))
@@ -919,8 +852,8 @@
                         nil)
                        ("2" (typepred "x!1")
                         (("2" (expand "extend")
-                          (("2" (prop)
-                            (("2" (rewrite "inv_in") nil nil)) nil))
+                          (("2" (prop) (("2" (rewrite "inv_in") nil nil))
+                            nil))
                           nil))
                         nil))
                       nil))
@@ -936,64 +869,70 @@
    ((one2 formal-const-decl "T2" homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
-    (subgroup_def formula-decl nil group "algebra/")
+    (subgroup_def formula-decl nil group algebra)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (empty? const-decl "bool" sets nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (homo_one formula-decl nil homomorphisms "algebra/")
-    (H!1 skolem-const-decl "subgroup[T1, *, one1](G!1)"
-     homomorphism_lemmas nil)
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
+    (homo_one formula-decl nil homomorphisms algebra)
+    (H!1 skolem-const-decl "subgroup[T1, *, one1](G!1)" homomorphism_lemmas
      nil)
+    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (monad? const-decl "bool" monad_def "algebra/")
-    (monoid? const-decl "bool" monoid_def "algebra/")
-    (member const-decl "bool" sets nil)
-    (nonempty? const-decl "bool" sets nil)
+    (monad? const-decl "bool" monad_def algebra)
+    (monoid? const-decl "bool" monoid_def algebra)
+    (member const-decl "bool" sets nil) (nonempty? const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil)
     (x!1 skolem-const-decl "(extend[T2, (GP!1), bool, FALSE]
-     (image(phi!1, restrict[T1, (G!1), boolean](H!1))))"
-     homomorphism_lemmas nil)
+     (image(phi!1, restrict[T1, (G!1), bool](H!1))))" homomorphism_lemmas nil)
     (y!1 skolem-const-decl "(extend[T2, (GP!1), bool, FALSE]
-     (image(phi!1, restrict[T1, (G!1), boolean](H!1))))"
-     homomorphism_lemmas nil)
+     (image(phi!1, restrict[T1, (G!1), bool](H!1))))" homomorphism_lemmas nil)
     (phi!1 skolem-const-decl
-     "homomorphism[T1, *, one1, T2, o, one2](G!1, GP!1)"
-     homomorphism_lemmas nil)
-    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas
+     "homomorphism[T1, *, one1, T2, o, one2](G!1, GP!1)" homomorphism_lemmas
      nil)
-    (x!3 skolem-const-decl "(restrict[T1, (G!1), boolean](H!1))"
+    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas nil)
+    (x!3 skolem-const-decl "(restrict[T1, (G!1), bool](H!1))"
      homomorphism_lemmas nil)
-    (x!2 skolem-const-decl "(restrict[T1, (G!1), boolean](H!1))"
+    (x!2 skolem-const-decl "(restrict[T1, (G!1), bool](H!1))"
      homomorphism_lemmas nil)
-    (star_closed? const-decl "bool" groupoid_def "algebra/")
+    (star_closed? const-decl "bool" groupoid_def algebra)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (inv const-decl "{y | x * y = one AND y * x = one}" group
-     "algebra/")
-    (x!2 skolem-const-decl "(restrict[T1, (G!1), boolean](H!1))"
+    (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
+    (x!2 skolem-const-decl "(restrict[T1, (G!1), bool](H!1))"
      homomorphism_lemmas nil)
     (homo_inv formula-decl nil homomorphism_lemmas nil)
-    (inv_in formula-decl nil group "algebra/")
-    (inv_closed? const-decl "bool" group "algebra/")
-    (subgroup type-eq-decl nil group "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
+    (inv_in formula-decl nil group algebra)
+    (inv_closed? const-decl "bool" group algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
     (restrict const-decl "R" restrict nil)
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
     (image const-decl "set[R]" function_image nil)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (extend const-decl "R" extend nil)
-    (FALSE const-decl "bool" booleans nil)
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
+    (extend const-decl "R" extend nil) (FALSE const-decl "bool" booleans nil)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
    shostak))
  (homo_image_normal_TCC1 0
+  (homo_image_normal_TCC1-2 "" 3790334653
+   ("" (skosimp*)
+    (("" (lemma "homo_image")
+      (("" (inst?)
+        (("" (lemma "subgroup_is_group[T2, o, one2]")
+          (("" (inst?) (("" (assert) nil nil)) nil)) nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (homo_image_normal subtype
+    "extend[homomorphism_lemmas.T2, (homomorphism_lemmas.GP), booleans.bool, booleans.FALSE].extend(function_image[(homomorphism_lemmas.G), (homomorphism_lemmas.GP)].image(homomorphism_lemmas.phi, restrict[homomorphism_lemmas.T1, (homomorphism_lemmas.G), booleans.bool].restrict(homomorphism_lemmas.H)))"
+    "group[T2, o, one2]"))
   (homo_image_normal_TCC1-1 nil 3530914988
    ("" (skosimp*)
     (("" (lemma "homo_image")
@@ -1002,42 +941,38 @@
           (("1" (inst?) (("1" (assert) nil nil)) nil)) nil)
          ("2" (hide 2)
           (("2" (typepred "H!1")
-            (("2" (expand "normal_subgroup?") (("2" (assert) nil nil))
-              nil))
+            (("2" (expand "normal_subgroup?") (("2" (assert) nil nil)) nil))
             nil))
           nil))
         nil))
       nil))
     nil)
    ((homo_image formula-decl nil homomorphism_lemmas nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (subgroup_is_group formula-decl nil group "algebra/")
-    (FALSE const-decl "bool" booleans nil)
-    (extend const-decl "R" extend nil)
-    (image const-decl "set[R]" function_image nil)
+    (subgroup_is_group formula-decl nil group algebra)
     (restrict const-decl "R" restrict nil)
-    (subgroup type-eq-decl nil group "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (image const-decl "set[R]" function_image nil)
+    (extend const-decl "R" extend nil) (FALSE const-decl "bool" booleans nil)
+    (normal_subgroup type-eq-decl nil normal_subgroups algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
-    (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
-     nil)
-    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (H!1 skolem-const-decl "normal_subgroup[T1, *, one1](G!1)"
-     homomorphism_lemmas nil))
-   nil))
+    (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T1 formal-type-decl nil homomorphism_lemmas nil))
+   nil
+   (homo_image_normal subtype
+    "extend[homomorphism_lemmas.T2, (homomorphism_lemmas.GP), booleans.bool, booleans.FALSE].extend(function_image[(homomorphism_lemmas.G), (homomorphism_lemmas.GP)].image(homomorphism_lemmas.phi, restrict[homomorphism_lemmas.T1, (homomorphism_lemmas.G), booleans.bool].restrict(homomorphism_lemmas.H)))"
+    "group[T2, o, one2]")))
  (homo_image_normal 0
   (homo_image_normal-1 nil 3530915201
    ("" (skosimp*)
@@ -1054,14 +989,10 @@
                         (("" (expand "extend" 1)
                           (("" (prop)
                             (("1" (expand "surjective?")
-                              (("1"
-                                (expand "*" -5)
-                                (("1"
-                                  (skosimp)
-                                  (("1"
-                                    (typepred "h!1")
-                                    (("1"
-                                      (skosimp)
+                              (("1" (expand "*" -5)
+                                (("1" (skosimp)
+                                  (("1" (typepred "h!1")
+                                    (("1" (skosimp)
                                       (("1"
                                         (replaces -1)
                                         (("1"
@@ -1084,13 +1015,9 @@
                                                          "inv[T1, *, one1](x!3) * x!2 * x!3")
                                                         (("1"
                                                           (hide-all-but
-                                                           (-2
-                                                            -6
-                                                            -7
-                                                            1))
+                                                           (-2 -6 -7 1))
                                                           (("1"
-                                                            (typepred
-                                                             "phi!1")
+                                                            (typepred "phi!1")
                                                             (("1"
                                                               (expand
                                                                "homomorphism?")
@@ -1154,8 +1081,7 @@
                                                                     (rewrite
                                                                      "product_in[T1, *, one1]")
                                                                     (("2"
-                                                                      (hide
-                                                                       2)
+                                                                      (hide 2)
                                                                       (("2"
                                                                         (rewrite
                                                                          "inv_in")
@@ -1171,20 +1097,17 @@
                                                          ("2"
                                                           (prop)
                                                           (("1"
-                                                            (hide-all-but
-                                                             1)
+                                                            (hide-all-but 1)
                                                             (("1"
                                                               (rewrite
                                                                "product_in[T1, *, one1]")
                                                               (("1"
-                                                                (hide
-                                                                 2)
+                                                                (hide 2)
                                                                 (("1"
                                                                   (rewrite
                                                                    "product_in[T1, *, one1]")
                                                                   (("1"
-                                                                    (hide
-                                                                     2)
+                                                                    (hide 2)
                                                                     (("1"
                                                                       (rewrite
                                                                        "inv_in")
@@ -1208,8 +1131,7 @@
                                                                   (expand
                                                                    "restrict")
                                                                   (("2"
-                                                                    (hide
-                                                                     -1)
+                                                                    (hide -1)
                                                                     (("2"
                                                                       (inst
                                                                        -2
@@ -1263,14 +1185,10 @@
                                 nil))
                               nil)
                              ("2" (hide (-1 -2 -3))
-                              (("2"
-                                (expand "*")
-                                (("2"
-                                  (skosimp)
-                                  (("2"
-                                    (typepred "h!1" "a!1")
-                                    (("2"
-                                      (skosimp)
+                              (("2" (expand "*")
+                                (("2" (skosimp)
+                                  (("2" (typepred "h!1" "a!1")
+                                    (("2" (skosimp)
                                       (("2"
                                         (replaces -1)
                                         (("2"
@@ -1294,8 +1212,7 @@
                                                         (("2"
                                                           (hide 2)
                                                           (("2"
-                                                            (rewrite
-                                                             "inv_in")
+                                                            (rewrite "inv_in")
                                                             nil
                                                             nil))
                                                           nil))
@@ -1326,10 +1243,10 @@
         nil))
       nil))
     nil)
-   ((normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
+   ((normal_subgroup type-eq-decl nil normal_subgroups algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (set type-eq-decl nil sets nil)
@@ -1338,37 +1255,34 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (homo_image formula-decl nil homomorphism_lemmas nil)
-    (member const-decl "bool" sets nil)
-    (subset? const-decl "bool" sets nil)
+    (member const-decl "bool" sets nil) (subset? const-decl "bool" sets nil)
     (extend const-decl "R" extend nil)
     (surjective? const-decl "bool" functions nil)
-    (product_in formula-decl nil group "algebra/")
+    (product_in formula-decl nil group algebra)
     (homo_inv formula-decl nil homomorphism_lemmas nil)
-    (inv_in formula-decl nil group "algebra/")
-    (x!2 skolem-const-decl "(restrict[T1, (G!1), boolean](H!1))"
+    (inv_in formula-decl nil group algebra)
+    (x!2 skolem-const-decl "(restrict[T1, (G!1), bool](H!1))"
+     homomorphism_lemmas nil)
+    (H!1 skolem-const-decl "normal_subgroup[T1, *, one1](G!1)"
      homomorphism_lemmas nil)
     (x!3 skolem-const-decl "(G!1)" homomorphism_lemmas nil)
+    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
     (TRUE const-decl "bool" booleans nil)
-    (inv const-decl "{y | x * y = one AND y * x = one}" group
-     "algebra/")
+    (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (restrict const-decl "R" restrict nil)
     (image const-decl "set[R]" function_image nil)
     (FALSE const-decl "bool" booleans nil)
-    (* const-decl "set[T]" cosets "algebra/")
-    (* const-decl "set[T]" cosets "algebra/")
-    (subgroup type-eq-decl nil group "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (* const-decl "set[T]" cosets algebra)
+    (* const-decl "set[T]" cosets algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
-    (T2 formal-type-decl nil homomorphism_lemmas nil)
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
-     nil)
-    (H!1 skolem-const-decl "normal_subgroup[T1, *, one1](G!1)"
-     homomorphism_lemmas nil))
+    (T2 formal-type-decl nil homomorphism_lemmas nil))
    shostak))
  (homo_inv_image 0
   (homo_inv_image-1 nil 3530878347
@@ -1386,20 +1300,14 @@
                         (("1" (typepred "G!1")
                           (("1" (expand "group?")
                             (("1" (flatten)
-                              (("1"
-                                (expand "monoid?")
-                                (("1"
-                                  (flatten)
-                                  (("1"
-                                    (expand "monad?")
-                                    (("1"
-                                      (flatten)
+                              (("1" (expand "monoid?")
+                                (("1" (flatten)
+                                  (("1" (expand "monad?")
+                                    (("1" (flatten)
                                       (("1"
                                         (hide-all-but (-2 1))
                                         (("1"
-                                          (expand*
-                                           "inverse_image"
-                                           "member")
+                                          (expand* "inverse_image" "member")
                                           (("1"
                                             (assert)
                                             (("1"
@@ -1411,13 +1319,11 @@
                                                   (("1"
                                                     (flatten)
                                                     (("1"
-                                                      (expand
-                                                       "monoid?")
+                                                      (expand "monoid?")
                                                       (("1"
                                                         (flatten)
                                                         (("1"
-                                                          (expand
-                                                           "monad?")
+                                                          (expand "monad?")
                                                           (("1"
                                                             (flatten)
                                                             (("1"
@@ -1459,8 +1365,7 @@
                ("2" (expand "subset?")
                 (("2" (skosimp*)
                   (("2" (expand "member")
-                    (("2" (expand "extend") (("2" (assert) nil nil))
-                      nil))
+                    (("2" (expand "extend") (("2" (assert) nil nil)) nil))
                     nil))
                   nil))
                 nil)
@@ -1472,14 +1377,10 @@
                         (("3" (typepred "y!1")
                           (("3" (expand "extend")
                             (("3" (expand "inverse_image")
-                              (("3"
-                                (expand "member")
-                                (("3"
-                                  (prop)
-                                  (("1"
-                                    (hide (-1 -2 -4))
-                                    (("1"
-                                      (typepred "phi!1")
+                              (("3" (expand "member")
+                                (("3" (prop)
+                                  (("1" (hide (-1 -2 -4))
+                                    (("1" (typepred "phi!1")
                                       (("1"
                                         (expand "homomorphism?")
                                         (("1"
@@ -1495,21 +1396,16 @@
                                                   (("1"
                                                     (flatten)
                                                     (("1"
-                                                      (expand
-                                                       "monoid?")
+                                                      (expand "monoid?")
                                                       (("1"
                                                         (flatten)
                                                         (("1"
-                                                          (expand
-                                                           "monad?")
+                                                          (expand "monad?")
                                                           (("1"
                                                             (flatten)
                                                             (("1"
                                                               (hide-all-but
-                                                               (-1
-                                                                -6
-                                                                -7
-                                                                1))
+                                                               (-1 -6 -7 1))
                                                               (("1"
                                                                 (expand*
                                                                  "star_closed?"
@@ -1533,13 +1429,9 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (hide (-2 -4))
-                                    (("2"
-                                      (rewrite
-                                       "product_in[T1, *, one1]")
-                                      nil
-                                      nil))
+                                   ("2" (hide (-2 -4))
+                                    (("2" (rewrite "product_in[T1, *, one1]")
+                                      nil nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1559,15 +1451,11 @@
                         (("4" (prop)
                           (("1" (hide (-1 -2))
                             (("1" (rewrite "homo_inv")
-                              (("1"
-                                (rewrite "inv_in[T2, o, one2]")
-                                nil
-                                nil))
+                              (("1" (rewrite "inv_in[T2, o, one2]") nil nil))
                               nil))
                             nil)
                            ("2" (hide -2)
-                            (("2" (rewrite "inv_in[T1, *, one1]") nil
-                              nil))
+                            (("2" (rewrite "inv_in[T1, *, one1]") nil nil))
                             nil))
                           nil))
                         nil))
@@ -1584,16 +1472,15 @@
    ((one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (subgroup_def formula-decl nil group "algebra/")
+    (subgroup_def formula-decl nil group algebra)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (empty? const-decl "bool" sets nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (homo_one formula-decl nil homomorphisms "algebra/")
-    (monad? const-decl "bool" monad_def "algebra/")
-    (monoid? const-decl "bool" monoid_def "algebra/")
-    (member const-decl "bool" sets nil)
-    (nonempty? const-decl "bool" sets nil)
+    (homo_one formula-decl nil homomorphisms algebra)
+    (monad? const-decl "bool" monad_def algebra)
+    (monoid? const-decl "bool" monoid_def algebra)
+    (member const-decl "bool" sets nil) (nonempty? const-decl "bool" sets nil)
     (subset? const-decl "bool" sets nil)
     (x!1 skolem-const-decl
      "(extend[T1, (G!1), bool, FALSE](inverse_image(phi!1, K!1)))"
@@ -1602,37 +1489,47 @@
      "(extend[T1, (G!1), bool, FALSE](inverse_image(phi!1, K!1)))"
      homomorphism_lemmas nil)
     (phi!1 skolem-const-decl
-     "homomorphism[T1, *, one1, T2, o, one2](G!1, GP!1)"
-     homomorphism_lemmas nil)
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
+     "homomorphism[T1, *, one1, T2, o, one2](G!1, GP!1)" homomorphism_lemmas
      nil)
-    (K!1 skolem-const-decl "subgroup[T2, o, one2](GP!1)"
-     homomorphism_lemmas nil)
-    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas
+    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
+    (K!1 skolem-const-decl "subgroup[T2, o, one2](GP!1)" homomorphism_lemmas
      nil)
+    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas nil)
     (TRUE const-decl "bool" booleans nil)
-    (product_in formula-decl nil group "algebra/")
-    (star_closed? const-decl "bool" groupoid_def "algebra/")
+    (product_in formula-decl nil group algebra)
+    (star_closed? const-decl "bool" groupoid_def algebra)
     (homo_inv formula-decl nil homomorphism_lemmas nil)
-    (inv_in formula-decl nil group "algebra/")
-    (inv_closed? const-decl "bool" group "algebra/")
-    (subgroup type-eq-decl nil group "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (inv_in formula-decl nil group algebra)
+    (inv_closed? const-decl "bool" group algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (inverse_image const-decl "set[D]" function_image nil)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
-    (extend const-decl "R" extend nil)
-    (FALSE const-decl "bool" booleans nil)
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
+    (extend const-decl "R" extend nil) (FALSE const-decl "bool" booleans nil)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
    shostak))
  (homo_inv_image_normal_TCC1 0
+  (homo_inv_image_normal_TCC1-2 "" 3790334655
+   ("" (skosimp*)
+    (("" (lemma "homo_inv_image")
+      (("" (inst?)
+        (("" (lemma "subgroup_is_group[T1, *, one1]")
+          (("" (inst?) (("" (assert) nil nil)) nil)) nil))
+        nil))
+      nil))
+    nil)
+   nil shostak
+   (homo_inv_image_normal subtype
+    "extend[homomorphism_lemmas.T1, (homomorphism_lemmas.G), booleans.bool, booleans.FALSE].extend(function_image[(homomorphism_lemmas.G), homomorphism_lemmas.T2].inverse_image(homomorphism_lemmas.phi, homomorphism_lemmas.K))"
+    "group[T1, *, one1]"))
   (homo_inv_image_normal_TCC1-1 nil 3530920596
    ("" (skosimp*)
     (("" (lemma "homo_inv_image")
@@ -1641,41 +1538,37 @@
           (("1" (inst?) (("1" (assert) nil nil)) nil)) nil)
          ("2" (hide 2)
           (("2" (typepred "K!1")
-            (("2" (expand "normal_subgroup?") (("2" (assert) nil nil))
-              nil))
+            (("2" (expand "normal_subgroup?") (("2" (assert) nil nil)) nil))
             nil))
           nil))
         nil))
       nil))
     nil)
    ((homo_inv_image formula-decl nil homomorphism_lemmas nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (subgroup_is_group formula-decl nil group "algebra/")
-    (FALSE const-decl "bool" booleans nil)
-    (extend const-decl "R" extend nil)
+    (subgroup_is_group formula-decl nil group algebra)
+    (FALSE const-decl "bool" booleans nil) (extend const-decl "R" extend nil)
     (inverse_image const-decl "set[D]" function_image nil)
-    (subgroup type-eq-decl nil group "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (normal_subgroup type-eq-decl nil normal_subgroups algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
+    (one2 formal-const-decl "T2" homomorphism_lemmas nil)
+    (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
+    (T2 formal-type-decl nil homomorphism_lemmas nil)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
-    (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (T2 formal-type-decl nil homomorphism_lemmas nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
     (set type-eq-decl nil sets nil)
-    (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
-    (one2 formal-const-decl "T2" homomorphism_lemmas nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas
-     nil)
-    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (K!1 skolem-const-decl "normal_subgroup[T2, o, one2](GP!1)"
-     homomorphism_lemmas nil))
-   nil))
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T1 formal-type-decl nil homomorphism_lemmas nil))
+   nil
+   (homo_inv_image_normal subtype
+    "extend[homomorphism_lemmas.T1, (homomorphism_lemmas.G), booleans.bool, booleans.FALSE].extend(function_image[(homomorphism_lemmas.G), homomorphism_lemmas.T2].inverse_image(homomorphism_lemmas.phi, homomorphism_lemmas.K))"
+    "group[T1, *, one1]")))
  (homo_inv_image_normal 0
   (homo_inv_image_normal-1 nil 3530920597
    ("" (skosimp*)
@@ -1692,14 +1585,10 @@
                         (("" (expand "extend" 1)
                           (("" (prop)
                             (("1" (expand "inverse_image")
-                              (("1"
-                                (expand "member")
-                                (("1"
-                                  (expand "*" -4)
-                                  (("1"
-                                    (skosimp)
-                                    (("1"
-                                      (typepred "h!1")
+                              (("1" (expand "member")
+                                (("1" (expand "*" -4)
+                                  (("1" (skosimp)
+                                    (("1" (typepred "h!1")
                                       (("1"
                                         (skosimp)
                                         (("1"
@@ -1711,13 +1600,9 @@
                                               (("1"
                                                 (prop)
                                                 (("1"
-                                                  (inst
-                                                   -5
-                                                   "phi!1(a!1)")
+                                                  (inst -5 "phi!1(a!1)")
                                                   (("1"
-                                                    (inst
-                                                     -5
-                                                     "phi!1(x!1)")
+                                                    (inst -5 "phi!1(x!1)")
                                                     (("1"
                                                       (assert)
                                                       (("1"
@@ -1729,8 +1614,7 @@
                                                              1
                                                              "inv[T2, o, one2](phi!1(a!1)) o phi!1(h!2)")
                                                             (("1"
-                                                              (replaces
-                                                               -5)
+                                                              (replaces -5)
                                                               (("1"
                                                                 (hide-all-but
                                                                  1)
@@ -1823,14 +1707,10 @@
                                 nil))
                               nil)
                              ("2" (hide (-1 -2))
-                              (("2"
-                                (expand "*")
-                                (("2"
-                                  (skosimp)
-                                  (("2"
-                                    (typepred "h!1" "a!1")
-                                    (("2"
-                                      (skosimp)
+                              (("2" (expand "*")
+                                (("2" (skosimp)
+                                  (("2" (typepred "h!1" "a!1")
+                                    (("2" (skosimp)
                                       (("2"
                                         (typepred "h!2")
                                         (("2"
@@ -1854,8 +1734,7 @@
                                                         (("2"
                                                           (hide 2)
                                                           (("2"
-                                                            (rewrite
-                                                             "inv_in")
+                                                            (rewrite "inv_in")
                                                             nil
                                                             nil))
                                                           nil))
@@ -1886,10 +1765,10 @@
         nil))
       nil))
     nil)
-   ((normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
+   ((normal_subgroup type-eq-decl nil normal_subgroups algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (set type-eq-decl nil sets nil)
@@ -1898,41 +1777,37 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (homo_inv_image formula-decl nil homomorphism_lemmas nil)
-    (member const-decl "bool" sets nil)
-    (subset? const-decl "bool" sets nil)
+    (member const-decl "bool" sets nil) (subset? const-decl "bool" sets nil)
     (extend const-decl "R" extend nil)
     (inverse_image const-decl "set[D]" function_image nil)
-    (* const-decl "set[T]" cosets "algebra/")
-    (* const-decl "set[T]" cosets "algebra/")
+    (* const-decl "set[T]" cosets algebra)
+    (* const-decl "set[T]" cosets algebra)
     (FALSE const-decl "bool" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (inv const-decl "{y | x * y = one AND y * x = one}" group
-     "algebra/")
+    (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
     (TRUE const-decl "bool" booleans nil)
-    (inv_in formula-decl nil group "algebra/")
+    (inv_in formula-decl nil group algebra)
     (homo_inv formula-decl nil homomorphism_lemmas nil)
-    (product_in formula-decl nil group "algebra/")
+    (product_in formula-decl nil group algebra)
     (h!2 skolem-const-decl
      "(extend[T1, (G!1), bool, FALSE]({x: (G!1) | K!1(phi!1(x))}))"
      homomorphism_lemmas nil)
     (a!1 skolem-const-decl "(G!1)" homomorphism_lemmas nil)
     (phi!1 skolem-const-decl
-     "homomorphism[T1, *, one1, T2, o, one2](G!1, GP!1)"
-     homomorphism_lemmas nil)
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
+     "homomorphism[T1, *, one1, T2, o, one2](G!1, GP!1)" homomorphism_lemmas
      nil)
-    (subgroup type-eq-decl nil group "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
+    (K!1 skolem-const-decl "normal_subgroup[T2, o, one2](GP!1)"
+     homomorphism_lemmas nil)
+    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas nil)
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
-    (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas
-     nil)
-    (K!1 skolem-const-decl "normal_subgroup[T2, o, one2](GP!1)"
-     homomorphism_lemmas nil))
+    (T1 formal-type-decl nil homomorphism_lemmas nil))
    shostak))
  (kernel_in_inv_image 0
   (kernel_in_inv_image-1 nil 3530890201
@@ -1950,14 +1825,10 @@
                         (("" (expand "member")
                           (("" (replaces -4)
                             (("" (expand "kernel")
-                              ((""
-                                (replaces -3)
-                                ((""
-                                  (typepred "S!1")
-                                  ((""
-                                    (expand "group?")
-                                    ((""
-                                      (flatten)
+                              (("" (replaces -3)
+                                (("" (typepred "S!1")
+                                  (("" (expand "group?")
+                                    (("" (flatten)
                                       ((""
                                         (expand "monoid?")
                                         ((""
@@ -1990,6 +1861,8 @@
       nil))
     nil)
    ((TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
@@ -1998,36 +1871,32 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (subgroup type-eq-decl nil group "algebra/")
-    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms
-     "algebra/")
-    (inverse_image const-decl "set[D]" function_image nil)
-    (extend const-decl "R" extend nil)
-    (FALSE const-decl "bool" booleans nil)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms algebra)
     (subset? const-decl "bool" sets nil)
+    (FALSE const-decl "bool" booleans nil) (extend const-decl "R" extend nil)
+    (inverse_image const-decl "set[D]" function_image nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (monad? const-decl "bool" monad_def "algebra/")
-    (monoid? const-decl "bool" monoid_def "algebra/")
+    (monad? const-decl "bool" monad_def algebra)
+    (monoid? const-decl "bool" monoid_def algebra)
     (member const-decl "bool" sets nil))
    shostak))
  (homo_inv_image_image 0
-  (homo_inv_image_image-1 nil 3530891648
+  (homo_inv_image_image-2 "" 3790334659
    ("" (skosimp*)
     (("" (skoletin* 1 "!1")
       (("" (decompose-equality 1)
         (("" (iff)
           (("" (prop)
-            (("1"
-              (expand* "inverse_image" "image" "prod" "member"
-               "restrict")
+            (("1" (expand* "inverse_image" "image" "prod" "member" "restrict")
               (("1" (skosimp)
                 (("1" (lemma "cancel_left[T2,o,one2]")
                   (("1"
@@ -2038,14 +1907,10 @@
                         (("1" (rewrite "inv_left")
                           (("1" (rewrite "homo_inv" :dir rl)
                             (("1" (typepred "phi!1")
-                              (("1"
-                                (expand "homomorphism?")
-                                (("1"
-                                  (inst?)
-                                  (("1"
-                                    (replaces -2)
-                                    (("1"
-                                      (typepred "x!2")
+                              (("1" (expand "homomorphism?")
+                                (("1" (inst?)
+                                  (("1" (replaces -2)
+                                    (("1" (typepred "x!2")
                                       (("1"
                                         (hide -1)
                                         (("1"
@@ -2056,8 +1921,141 @@
                                              "x!2"
                                              "inv[T1, *, one1](x!2) * x!1")
                                             (("1"
-                                              (rewrite
-                                               "assoc[T1, *, one1]")
+                                              (rewrite "assoc[T1, *, one1]")
+                                              (("1"
+                                                (rewrite
+                                                 "inv_right[T1, *, one1]")
+                                                (("1"
+                                                  (rewrite
+                                                   "one_left[T1, *, one1]")
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (hide -3)
+                                              (("2"
+                                                (replaces -3)
+                                                (("2"
+                                                  (expand "kernel")
+                                                  (("2"
+                                                    (assert)
+                                                    (("2"
+                                                      (hide (-1 -2))
+                                                      (("2"
+                                                        (rewrite
+                                                         "product_in[T1, *, one1]")
+                                                        (("2"
+                                                          (hide 2)
+                                                          (("2"
+                                                            (rewrite
+                                                             "inv_in[T1, *, one1]")
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (expand* "inverse_image" "image" "prod" "member" "restrict")
+              (("2" (skosimp)
+                (("2" (inst 1 "h!1")
+                  (("1" (replaces -1)
+                    (("1" (typepred "k!1")
+                      (("1" (replaces -2)
+                        (("1" (expand "kernel")
+                          (("1" (flatten)
+                            (("1" (typepred "phi!1")
+                              (("1" (expand "homomorphism?")
+                                (("1" (inst?)
+                                  (("1" (replaces -1)
+                                    (("1" (replaces -2)
+                                      (("1"
+                                        (rewrite "one_right[T2, o, one2]")
+                                        nil
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (typepred "h!1")
+                    (("2" (expand "restrict")
+                      (("2" (typepred "H!1")
+                        (("2" (hide (-1 -4 -5))
+                          (("2" (expand "subgroup?")
+                            (("2" (expand "subset?")
+                              (("2" (inst?) (("2" (assert) nil nil)) nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
+  (homo_inv_image_image-1 nil 3530891648
+   ("" (skosimp*)
+    (("" (skoletin* 1 "!1")
+      (("" (decompose-equality 1)
+        (("" (iff)
+          (("" (prop)
+            (("1" (expand* "inverse_image" "image" "prod" "member" "restrict")
+              (("1" (skosimp)
+                (("1" (lemma "cancel_left[T2,o,one2]")
+                  (("1"
+                    (inst -1 "phi!1(x!1)" "phi!1(x!2)"
+                     "inv[T2, o, one2](phi!1(x!2))")
+                    (("1" (prop)
+                      (("1" (hide -2)
+                        (("1" (rewrite "inv_left")
+                          (("1" (rewrite "homo_inv" :dir rl)
+                            (("1" (typepred "phi!1")
+                              (("1" (expand "homomorphism?")
+                                (("1" (inst?)
+                                  (("1" (replaces -2)
+                                    (("1" (typepred "x!2")
+                                      (("1"
+                                        (hide -1)
+                                        (("1"
+                                          (expand "restrict")
+                                          (("1"
+                                            (inst
+                                             1
+                                             "x!2"
+                                             "inv[T1, *, one1](x!2) * x!1")
+                                            (("1"
+                                              (rewrite "assoc[T1, *, one1]")
                                               (("1"
                                                 (rewrite
                                                  "inv_right[T1, *, one1]")
@@ -2113,9 +2111,7 @@
                   nil))
                 nil))
               nil)
-             ("2"
-              (expand* "inverse_image" "image" "prod" "member"
-               "restrict")
+             ("2" (expand* "inverse_image" "image" "prod" "member" "restrict")
               (("2" (skosimp)
                 (("2" (inst 1 "h!1")
                   (("1" (replaces -1)
@@ -2124,17 +2120,12 @@
                         (("1" (expand "kernel")
                           (("1" (flatten)
                             (("1" (typepred "phi!1")
-                              (("1"
-                                (expand "homomorphism?")
-                                (("1"
-                                  (inst?)
-                                  (("1"
-                                    (replaces -1)
-                                    (("1"
-                                      (replaces -2)
+                              (("1" (expand "homomorphism?")
+                                (("1" (inst?)
+                                  (("1" (replaces -1)
+                                    (("1" (replaces -2)
                                       (("1"
-                                        (rewrite
-                                         "one_right[T2, o, one2]")
+                                        (rewrite "one_right[T2, o, one2]")
                                         nil
                                         nil))
                                       nil))
@@ -2153,10 +2144,7 @@
                         (("2" (hide (-1 -4 -5))
                           (("2" (expand "subgroup?")
                             (("2" (expand "subset?")
-                              (("2"
-                                (inst?)
-                                (("2" (assert) nil nil))
-                                nil))
+                              (("2" (inst?) (("2" (assert) nil nil)) nil))
                               nil))
                             nil))
                           nil))
@@ -2172,6 +2160,8 @@
       nil))
     nil)
    ((TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
@@ -2180,46 +2170,42 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (subgroup type-eq-decl nil group "algebra/")
-    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms
-     "algebra/")
-    (prod const-decl "set[T]" products_subgroups nil)
-    (restrict const-decl "R" restrict nil)
-    (image const-decl "set[R]" function_image nil)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms algebra)
     (inverse_image const-decl "set[D]" function_image nil)
+    (image const-decl "set[R]" function_image nil)
+    (restrict const-decl "R" restrict nil)
+    (prod const-decl "set[T]" products_subgroups nil)
     (h!1 skolem-const-decl "(H!1)" homomorphism_lemmas nil)
-    (one_right formula-decl nil group "algebra/")
-    (subset? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
-    (cancel_left formula-decl nil group "algebra/")
-    (inv_left formula-decl nil group "algebra/")
+    (one_right formula-decl nil group algebra)
+    (subset? const-decl "bool" sets nil) (member const-decl "bool" sets nil)
+    (cancel_left formula-decl nil group algebra)
+    (inv_left formula-decl nil group algebra)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (inv_in formula-decl nil group "algebra/")
-    (product_in formula-decl nil group "algebra/")
-    (assoc formula-decl nil group "algebra/")
-    (one_left formula-decl nil group "algebra/")
-    (inv_right formula-decl nil group "algebra/")
+    (inv_in formula-decl nil group algebra)
+    (product_in formula-decl nil group algebra)
+    (assoc formula-decl nil group algebra)
+    (one_left formula-decl nil group algebra)
+    (inv_right formula-decl nil group algebra)
     (x!1 skolem-const-decl "(G!1)" homomorphism_lemmas nil)
-    (K!1 skolem-const-decl "subgroup[T1, *, one1](G!1)"
-     homomorphism_lemmas nil)
-    (x!2 skolem-const-decl "(restrict[T1, (G!1), boolean](H!1))"
-     homomorphism_lemmas nil)
-    (H!1 skolem-const-decl "subgroup[T1, *, one1](G!1)"
-     homomorphism_lemmas nil)
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
+    (K!1 skolem-const-decl "subgroup[T1, *, one1](G!1)" homomorphism_lemmas
      nil)
+    (x!2 skolem-const-decl "(restrict[T1, (G!1), bool](H!1))"
+     homomorphism_lemmas nil)
+    (H!1 skolem-const-decl "subgroup[T1, *, one1](G!1)" homomorphism_lemmas
+     nil)
+    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
     (homo_inv formula-decl nil homomorphism_lemmas nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (inv const-decl "{y | x * y = one AND y * x = one}" group
-     "algebra/"))
+    (inv const-decl "{y | x * y = one AND y * x = one}" group algebra))
    shostak))
  (homo_inv_image_image_cor 0
   (homo_inv_image_image_cor-1 nil 3530893730
@@ -2236,25 +2222,17 @@
                       (("1" (inst?)
                         (("1" (iff)
                           (("1" (prop)
-                            (("1" (expand "restrict")
-                              (("1" (propax) nil nil)) nil)
+                            (("1" (expand "restrict") (("1" (propax) nil nil))
+                              nil)
                              ("2" (expand "restrict")
-                              (("2"
-                                (expand "prod")
-                                (("2"
-                                  (inst 2 "one1" "x!1")
-                                  (("1"
-                                    (rewrite "one_left[T1,*,one1]")
-                                    nil
+                              (("2" (expand "prod")
+                                (("2" (inst 2 "one1" "x!1")
+                                  (("1" (rewrite "one_left[T1,*,one1]") nil
                                     nil)
                                    ("2" (assert) nil nil)
-                                   ("3"
-                                    (typepred "H!1")
+                                   ("3" (typepred "H!1")
                                     (("3"
-                                      (expand*
-                                       "group?"
-                                       "monoid?"
-                                       "monad?")
+                                      (expand* "group?" "monoid?" "monad?")
                                       (("3"
                                         (flatten)
                                         (("3"
@@ -2273,8 +2251,8 @@
                             nil))
                           nil)
                          ("2" (replaces -2)
-                          (("2" (expand "kernel")
-                            (("2" (assert) nil nil)) nil))
+                          (("2" (expand "kernel") (("2" (assert) nil nil))
+                            nil))
                           nil))
                         nil))
                       nil))
@@ -2286,21 +2264,15 @@
                       (("1" (expand "restrict")
                         (("1" (expand "prod")
                           (("1" (skosimp)
-                            (("1"
-                              (expand* "subgroup?" "subset?" "member")
-                              (("1"
-                                (inst -2 "k!1")
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (replaces -1)
-                                    (("1"
-                                      (hide -2)
+                            (("1" (expand* "subgroup?" "subset?" "member")
+                              (("1" (inst -2 "k!1")
+                                (("1" (assert)
+                                  (("1" (replaces -1)
+                                    (("1" (hide -2)
                                       (("1"
                                         (typepred "h!1")
                                         (("1"
-                                          (rewrite
-                                           "product_in[T1, *, one1]")
+                                          (rewrite "product_in[T1, *, one1]")
                                           nil
                                           nil))
                                         nil))
@@ -2315,20 +2287,12 @@
                        ("2" (expand "restrict")
                         (("2" (expand "prod")
                           (("2" (inst 1 "x!1" "one1")
-                            (("1" (rewrite "one_right[T1,*,one1]") nil
-                              nil)
+                            (("1" (rewrite "one_right[T1,*,one1]") nil nil)
                              ("2" (hide-all-but 1)
-                              (("2"
-                                (expand "kernel")
-                                (("2"
-                                  (typepred "G!1")
-                                  (("2"
-                                    (expand*
-                                     "group?"
-                                     "monoid?"
-                                     "monad?")
-                                    (("2"
-                                      (flatten)
+                              (("2" (expand "kernel")
+                                (("2" (typepred "G!1")
+                                  (("2" (expand* "group?" "monoid?" "monad?")
+                                    (("2" (flatten)
                                       (("2"
                                         (hide-all-but (-2 1))
                                         (("2"
@@ -2362,6 +2326,8 @@
       nil))
     nil)
    ((TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
@@ -2370,41 +2336,37 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (subgroup type-eq-decl nil group "algebra/")
-    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms
-     "algebra/")
-    (restrict const-decl "R" restrict nil)
-    (image const-decl "set[R]" function_image nil)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms algebra)
     (inverse_image const-decl "set[D]" function_image nil)
-    (product_in formula-decl nil group "algebra/")
-    (homo_one formula-decl nil homomorphisms "algebra/")
-    (one_right formula-decl nil group "algebra/")
+    (image const-decl "set[R]" function_image nil)
+    (restrict const-decl "R" restrict nil)
+    (product_in formula-decl nil group algebra)
+    (homo_one formula-decl nil homomorphisms algebra)
+    (one_right formula-decl nil group algebra)
     (x!1 skolem-const-decl "(G!1)" homomorphism_lemmas nil)
-    (subset? const-decl "bool" sets nil)
-    (member const-decl "bool" sets nil)
+    (subset? const-decl "bool" sets nil) (member const-decl "bool" sets nil)
     (prod const-decl "set[T]" products_subgroups nil)
-    (H!1 skolem-const-decl "subgroup[T1, *, one1](G!1)"
-     homomorphism_lemmas nil)
-    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas
+    (H!1 skolem-const-decl "subgroup[T1, *, one1](G!1)" homomorphism_lemmas
      nil)
+    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas nil)
     (phi!1 skolem-const-decl
-     "homomorphism[T1, *, one1, T2, o, one2](G!1, GP!1)"
-     homomorphism_lemmas nil)
-    (one_left formula-decl nil group "algebra/")
-    (monoid? const-decl "bool" monoid_def "algebra/")
-    (monad? const-decl "bool" monad_def "algebra/")
+     "homomorphism[T1, *, one1, T2, o, one2](G!1, GP!1)" homomorphism_lemmas
+     nil)
+    (one_left formula-decl nil group algebra)
+    (monoid? const-decl "bool" monoid_def algebra)
+    (monad? const-decl "bool" monad_def algebra)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (x!1 skolem-const-decl "T1" homomorphism_lemmas nil)
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
-     nil)
+    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
     (homo_inv_image_image formula-decl nil homomorphism_lemmas nil))
    shostak))
  (first_isomorphism_th_TCC1 0
@@ -2414,20 +2376,22 @@
       (("" (inst?) (("" (assert) nil nil)) nil)) nil))
     nil)
    ((kernel_normal formula-decl nil homomorphism_lemmas nil)
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T1 formal-type-decl nil homomorphism_lemmas nil))
-   nil))
+   nil
+   (first_isomorphism_th subtype "homomorphism_lemmas.K"
+    "normal_subgroups[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1].normal_subgroup(homomorphism_lemmas.G)")))
  (first_isomorphism_th_TCC2 0
   (first_isomorphism_th_TCC2-1 nil 3524797513
    ("" (skosimp*)
@@ -2435,18 +2399,17 @@
       (("" (inst?)
         (("1" (expand "subgroup?") (("1" (assert) nil nil)) nil)
          ("2" (hide (-1 2))
-          (("2" (rewrite "group_is_subgroup[T1, *, one1]") nil nil))
-          nil))
+          (("2" (rewrite "group_is_subgroup[T1, *, one1]") nil nil)) nil))
         nil))
       nil))
     nil)
    ((homo_image formula-decl nil homomorphism_lemmas nil)
-    (group_is_subgroup formula-decl nil group "algebra/")
+    (group_is_subgroup formula-decl nil group algebra)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
-    (subgroup type-eq-decl nil group "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (subgroup type-eq-decl nil group algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
@@ -2456,12 +2419,14 @@
     (set type-eq-decl nil sets nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
-     nil))
-   nil))
+    (group? const-decl "bool" group_def algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil))
+   nil
+   (first_isomorphism_th subtype
+    "extend[homomorphism_lemmas.T2, (homomorphism_lemmas.GP), booleans.bool, booleans.FALSE].extend(function_image[(homomorphism_lemmas.G), (homomorphism_lemmas.GP)].image(homomorphism_lemmas.phi, restrict[homomorphism_lemmas.T1, (homomorphism_lemmas.G), booleans.bool].restrict(homomorphism_lemmas.G)))"
+    "group[T2, o, one2]")))
  (first_isomorphism_th_TCC3 0
   (first_isomorphism_th_TCC3-1 nil 3524797513
    ("" (skosimp*)
@@ -2474,8 +2439,7 @@
               (("2" (flatten)
                 (("2" (expand "monad?")
                   (("2" (flatten)
-                    (("2" (expand "member") (("2" (propax) nil nil))
-                      nil))
+                    (("2" (expand "member") (("2" (propax) nil nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -2485,24 +2449,25 @@
         nil))
       nil))
     nil)
-   ((G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
-     nil)
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
+   ((G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (subgroup type-eq-decl nil group "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (left_coset_one formula-decl nil cosets "algebra/")
-    (monoid? const-decl "bool" monoid_def "algebra/")
-    (monad? const-decl "bool" monad_def "algebra/")
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (left_coset_one formula-decl nil cosets algebra)
+    (monoid? const-decl "bool" monoid_def algebra)
+    (monad? const-decl "bool" monad_def algebra)
     (member const-decl "bool" sets nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (first_isomorphism_th subtype "homomorphism_lemmas.K"
+    "cosets[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1].left_cosets(homomorphism_lemmas.G, homomorphism_lemmas.K)")))
  (first_isomorphism_th_TCC4 0
   (first_isomorphism_th_TCC4-1 nil 3530924567
    ("" (skosimp*)
@@ -2518,35 +2483,36 @@
    ((one1 formal-const-decl "T1" homomorphism_lemmas nil)
     (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
     (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (left_cosets_group formula-decl nil factor_groups "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
+    (left_cosets_group formula-decl nil factor_groups algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
     (one2 formal-const-decl "T2" homomorphism_lemmas nil)
     (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
     (T2 formal-type-decl nil homomorphism_lemmas nil)
     (kernel_normal formula-decl nil homomorphism_lemmas nil)
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
+    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas nil)
+    (K!1 skolem-const-decl "subgroup[T1, *, one1](G!1)" homomorphism_lemmas
      nil)
-    (K!1 skolem-const-decl "subgroup[T1, *, one1](G!1)"
-     homomorphism_lemmas nil)
-    (subgroup type-eq-decl nil group "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (group? const-decl "bool" group_def "algebra/")
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (normal_subgroup type-eq-decl nil normal_subgroups algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra)
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil
+   (first_isomorphism_th assuming
+    "algebra@homomorphisms[cosets[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1].left_cosets(homomorphism_lemmas.G, homomorphism_lemmas.K), factor_groups[homomorphism_lemmas.T1, homomorphism_lemmas.*, homomorphism_lemmas.one1].mult(homomorphism_lemmas.G, homomorphism_lemmas.K), homomorphism_lemmas.K, homomorphism_lemmas.T2, homomorphism_lemmas.o, homomorphism_lemmas.one2].homomorphisms"
+    "T1_is_group: ASSUMPTION group_def[homomorphisms.T1, homomorphisms.*, homomorphisms.one1].group?(sets[homomorphisms.T1].fullset)")))
  (first_isomorphism_th 0
   (first_isomorphism_th-1 nil 3524797650
    ("" (skosimp*)
     (("" (skoletin* 1)
       (("1" (expand "isomorphic?")
         (("1"
-          (inst 1
-           "(LAMBDA (A: left_cosets(G!1,K)): phi!1(lc_gen(G!1,K,A)))")
+          (inst 1 "(LAMBDA (A: left_cosets(G!1,K)): phi!1(lc_gen(G!1,K,A)))")
           (("1" (expand "isomorphism?")
             (("1" (prop)
               (("1" (expand "bijective?")
@@ -2560,32 +2526,24 @@
                              "lc_gen(G!1, K, x2!1)")
                             (("1" (assert)
                               (("1"
-                                (inst
-                                 1
+                                (inst 1
                                  "inv[T1, *, one1](lc_gen(G!1, K, x2!1)) * lc_gen(G!1, K, x1!1)")
-                                (("1"
-                                  (lemma "inv_right[T1, *, one1]")
-                                  (("1"
-                                    (inst?)
-                                    (("1"
-                                      (rewrite "assoc[T1, *, one1]")
+                                (("1" (lemma "inv_right[T1, *, one1]")
+                                  (("1" (inst?)
+                                    (("1" (rewrite "assoc[T1, *, one1]")
                                       (("1"
                                         (replaces -1)
                                         (("1"
-                                          (rewrite
-                                           "one_left[T1,*,one1]")
+                                          (rewrite "one_left[T1,*,one1]")
                                           nil
                                           nil))
                                         nil))
                                       nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (expand "K" 1)
-                                  (("2"
-                                    (expand "kernel" 1 1)
-                                    (("2"
-                                      (prop)
+                                 ("2" (expand "K" 1)
+                                  (("2" (expand "kernel" 1 1)
+                                    (("2" (prop)
                                       (("1"
                                         (replace -2 1 rl)
                                         (("1"
@@ -2609,13 +2567,11 @@
                                                     (("1"
                                                       (typepred "G!1")
                                                       (("1"
-                                                        (expand
-                                                         "group?")
+                                                        (expand "group?")
                                                         (("1"
                                                           (flatten)
                                                           (("1"
-                                                            (expand
-                                                             "monoid?")
+                                                            (expand "monoid?")
                                                             (("1"
                                                               (flatten)
                                                               (("1"
@@ -2713,12 +2669,9 @@
                         (("2" (expand "extend" -1)
                           (("2" (prop)
                             (("2" (expand "image")
-                              (("2"
-                                (skosimp)
-                                (("2"
-                                  (inst 1 "*[T1, *, one1](x!1, K)")
-                                  (("1"
-                                    (expand "restrict")
+                              (("2" (skosimp)
+                                (("2" (inst 1 "*[T1, *, one1](x!1, K)")
+                                  (("1" (expand "restrict")
                                     (("1"
                                       (typepred
                                        "lc_gen(G!1, K, *[T1, *, one1](x!1, K))")
@@ -2740,20 +2693,15 @@
                                                 (("1"
                                                   (expand "K" -1)
                                                   (("1"
-                                                    (expand
-                                                     "kernel"
-                                                     -1)
+                                                    (expand "kernel" -1)
                                                     (("1"
                                                       (flatten)
                                                       (("1"
                                                         (replace -3 -7)
                                                         (("1"
-                                                          (replace
-                                                           -7
-                                                           1)
+                                                          (replace -7 1)
                                                           (("1"
-                                                            (typepred
-                                                             "phi!1")
+                                                            (typepred "phi!1")
                                                             (("1"
                                                               (expand
                                                                "homomorphism?")
@@ -2787,12 +2735,9 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (prop)
+                                   ("2" (prop)
                                     (("1" (inst 1 "x!1") nil nil)
-                                     ("2"
-                                      (expand "/")
-                                      (("2" (grind) nil nil))
+                                     ("2" (expand "/") (("2" (grind) nil nil))
                                       nil))
                                     nil))
                                   nil))
@@ -2808,37 +2753,25 @@
                ("2" (expand "homomorphism?")
                 (("2" (skosimp*)
                   (("2" (expand "restrict")
-                    (("2"
-                      (typepred
-                       "lc_gen(G!1, K, mult(G!1, K)(a!1, b!1))")
+                    (("2" (typepred "lc_gen(G!1, K, mult(G!1, K)(a!1, b!1))")
                       (("2" (typepred "a!1")
                         (("2" (typepred "b!1")
                           (("2" (skosimp*)
                             (("2"
                               (name-replace "J"
                                "lc_gen(G!1, K, mult(G!1, K)(a!1, b!1))")
-                              (("2"
-                                (replace -1 -6)
-                                (("2"
-                                  (replace -3 -6)
-                                  (("2"
-                                    (rewrite "mult_lem[T1, *, one1]")
-                                    (("2"
-                                      (lemma "lc_eq[T1, *, one1]")
+                              (("2" (replace -1 -6)
+                                (("2" (replace -3 -6)
+                                  (("2" (rewrite "mult_lem[T1, *, one1]")
+                                    (("2" (lemma "lc_eq[T1, *, one1]")
                                       (("2"
-                                        (inst
-                                         -1
-                                         "G!1"
-                                         "K"
-                                         "a!3 * a!2"
-                                         "J")
+                                        (inst -1 "G!1" "K" "a!3 * a!2" "J")
                                         (("2"
                                           (assert)
                                           (("2"
                                             (skosimp)
                                             (("2"
-                                              (lemma
-                                               "divby_r[T1,*,one1]")
+                                              (lemma "divby_r[T1,*,one1]")
                                               (("1"
                                                 (inst?)
                                                 (("1"
@@ -2856,9 +2789,7 @@
                                                           (("1"
                                                             (inst?)
                                                             (("1"
-                                                              (inst
-                                                               -1
-                                                               "G!1")
+                                                              (inst -1 "G!1")
                                                               (("1"
                                                                 (assert)
                                                                 (("1"
@@ -3196,8 +3127,7 @@
                                                ("2"
                                                 (hide-all-but 1)
                                                 (("2"
-                                                  (rewrite
-                                                   "T1_is_group")
+                                                  (rewrite "T1_is_group")
                                                   nil
                                                   nil))
                                                 nil))
@@ -3223,8 +3153,7 @@
             (("2" (expand "extend")
               (("2" (expand "image")
                 (("2" (inst 1 "lc_gen[T1, *, one1](G!1, K, x1!1)")
-                  (("2" (expand "restrict") (("2" (propax) nil nil))
-                    nil))
+                  (("2" (expand "restrict") (("2" (propax) nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -3235,8 +3164,7 @@
             (("4" (expand "extend")
               (("4" (expand "image")
                 (("4" (inst 1 "lc_gen[T1, *, one1](G!1, K, A!1)")
-                  (("4" (expand "restrict") (("4" (propax) nil nil))
-                    nil))
+                  (("4" (expand "restrict") (("4" (propax) nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -3261,9 +3189,7 @@
           (("5" (inst?)
             (("1" (expand "subgroup?") (("1" (assert) nil nil)) nil)
              ("2" (hide 2)
-              (("2" (rewrite "group_is_subgroup[T1, *, one1]") nil
-                nil))
-              nil))
+              (("2" (rewrite "group_is_subgroup[T1, *, one1]") nil nil)) nil))
             nil))
           nil))
         nil)
@@ -3273,90 +3199,37 @@
         nil))
       nil))
     nil)
-   ((boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (bijective? const-decl "bool" functions nil)
-    (id const-decl "(bijective?[T, T])" identity nil)
-    (TRUE const-decl "bool" booleans nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (T1 formal-type-decl nil homomorphism_lemmas nil)
-    (set type-eq-decl nil sets nil)
-    (* formal-const-decl "[T1, T1 -> T1]" homomorphism_lemmas nil)
-    (one1 formal-const-decl "T1" homomorphism_lemmas nil)
-    (group? const-decl "bool" group_def "algebra/")
-    (group nonempty-type-eq-decl nil group "algebra/")
-    (subgroup? const-decl "bool" group_def "algebra/")
-    (subgroup type-eq-decl nil group "algebra/")
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (T2 formal-type-decl nil homomorphism_lemmas nil)
-    (O formal-const-decl "[T2, T2 -> T2]" homomorphism_lemmas nil)
-    (one2 formal-const-decl "T2" homomorphism_lemmas nil)
-    (homomorphism? const-decl "bool" homomorphisms "algebra/")
-    (homomorphism type-eq-decl nil homomorphisms "algebra/")
-    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms
-     "algebra/")
-    (normal_subgroup? const-decl "boolean" normal_subgroups "algebra/")
-    (FALSE const-decl "bool" booleans nil)
-    (extend const-decl "R" extend nil)
-    (image const-decl "set[R]" function_image nil)
-    (restrict const-decl "R" restrict nil)
-    (* const-decl "set[T]" cosets "algebra/")
-    (left_cosets type-eq-decl nil cosets "algebra/")
-    (normal_subgroup type-eq-decl nil normal_subgroups "algebra/")
-    (mult const-decl "left_cosets(G, H)" factor_groups "algebra/")
-    (fullset const-decl "set" sets nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (isomorphic? const-decl "bool" homomorphisms "algebra/")
-    (/ const-decl "group[left_cosets(G, N), mult(G, N), N]"
+   ((group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (subgroup type-eq-decl nil group algebra)
+    (homomorphism? const-decl "bool" homomorphisms algebra)
+    (homomorphism type-eq-decl nil homomorphisms algebra)
+    (kernel const-decl "subgroup[T1, *, one1](G)" homomorphisms algebra)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (left_cosets type-eq-decl nil cosets algebra)
+    (normal_subgroup type-eq-decl nil normal_subgroups algebra)
+    (mult const-decl "left_cosets(G, H)" factor_groups algebra)
+    (isomorphic? const-decl "bool" homomorphisms algebra)
+    (/ const-decl "group[left_cosets[T, *, one](G, N), mult(G, N), N]"
        right_left_cosets nil)
-    (G!1 skolem-const-decl "group[T1, *, one1]" homomorphism_lemmas
-     nil)
-    (K skolem-const-decl "subgroup[T1, *, one1](G!1)"
-     homomorphism_lemmas nil)
-    (GP!1 skolem-const-decl "group[T2, o, one2]" homomorphism_lemmas
-     nil)
-    (phi!1 skolem-const-decl
-     "homomorphism[T1, *, one1, T2, o, one2](G!1, GP!1)"
-     homomorphism_lemmas nil)
-    (lc_gen const-decl "{a: T | G(a) AND lc = a * H}" cosets
-     "algebra/")
-    (lc_is_eq formula-decl nil cosets "algebra/")
-    (inv_in formula-decl nil group "algebra/")
-    (star_closed? const-decl "bool" groupoid_def "algebra/")
-    (member const-decl "bool" sets nil)
-    (monad? const-decl "bool" monad_def "algebra/")
-    (monoid? const-decl "bool" monoid_def "algebra/")
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (homo_inv formula-decl nil homomorphism_lemmas nil)
-    (inv_left formula-decl nil group "algebra/")
-    (inv_right formula-decl nil group "algebra/")
-    (assoc formula-decl nil group "algebra/")
-    (one_left formula-decl nil group "algebra/")
-    (x1!1 skolem-const-decl "(G!1 / K)" homomorphism_lemmas nil)
-    (x2!1 skolem-const-decl "(G!1 / K)" homomorphism_lemmas nil)
-    (inv const-decl "{y | x * y = one AND y * x = one}" group
-     "algebra/")
-    (injective? const-decl "bool" functions nil)
-    (x!1 skolem-const-decl "(restrict[T1, (G!1), boolean](G!1))"
-     homomorphism_lemmas nil)
-    (one_right formula-decl nil group "algebra/")
-    (lc_eq formula-decl nil cosets "algebra/")
+    (lc_gen const-decl "{a: T | G(a) AND lc = a * H}" cosets algebra)
+    (lc_is_eq formula-decl nil cosets algebra)
+    (inv_in formula-decl nil group algebra)
+    (star_closed? const-decl "bool" groupoid_def algebra)
+    (monad? const-decl "bool" monad_def algebra)
+    (monoid? const-decl "bool" monoid_def algebra)
+    (inv_left formula-decl nil group algebra)
+    (inv_right formula-decl nil group algebra)
+    (assoc formula-decl nil group algebra)
+    (one_left formula-decl nil group algebra)
+    (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
+    (one_right formula-decl nil group algebra)
+    (lc_eq formula-decl nil cosets algebra)
     (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
-    (surjective? const-decl "bool" functions nil)
     (divby_r formula-decl nil groups_scaf nil)
-    (h!3 skolem-const-decl "(K)" homomorphism_lemmas nil)
-    (h!2 skolem-const-decl "(K)" homomorphism_lemmas nil)
-    (a!2 skolem-const-decl "(G!1)" homomorphism_lemmas nil)
-    (a!3 skolem-const-decl "(G!1)" homomorphism_lemmas nil)
-    (h!1 skolem-const-decl "(K)" homomorphism_lemmas nil)
-    (inv_one formula-decl nil group "algebra/")
-    (T1_is_group formula-decl nil homomorphism_lemmas nil)
-    (mult_lem formula-decl nil factor_groups "algebra/")
-    (isomorphism? const-decl "bool" homomorphisms "algebra/")
-    (x1!1 skolem-const-decl "(G!1 / K)" homomorphism_lemmas nil)
-    (kernel_normal formula-decl nil homomorphism_lemmas nil)
-    (A!1 skolem-const-decl "left_cosets[T1, *, one1](G!1, K)"
-     homomorphism_lemmas nil))
+    (inv_one formula-decl nil group algebra)
+    (mult_lem formula-decl nil factor_groups algebra)
+    (isomorphism? const-decl "bool" homomorphisms algebra))
    shostak)))
 

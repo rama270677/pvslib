@@ -4,18 +4,15 @@
    ("" (typepred "S")
     (("" (expand "sigma_algebra?")
       (("" (flatten)
-        (("" (expand "subset_algebra_empty?") (("" (assert) nil nil))
-          nil))
+        (("" (expand "subset_algebra_empty?") (("" (assert) nil nil)) nil))
         nil))
       nil))
     nil)
    ((subset_algebra_empty? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
+    (finite_emptyset name-judgement "finite_set" countable_props sets_aux)
+    (finite_emptyset name-judgement "finite_set" countable_setofsets sets_aux)
     (member const-decl "bool" sets nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -23,12 +20,14 @@
     (T formal-type-decl nil minkowski_scaf nil)
     (setof type-eq-decl nil defined_types nil)
     (setofsets type-eq-decl nil sets nil)
-    (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+    (sigma_algebra? const-decl "bool" subset_algebra_def measure_integration)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
+     measure_integration)
     (S formal-const-decl "sigma_algebra[T]" minkowski_scaf nil))
-   nil))
+   nil
+   (mu assuming
+    "measure_integration@generalized_measure_def[minkowski_scaf.T, minkowski_scaf.S].generalized_measure_def"
+    "S_empty: ASSUMPTION generalized_measure_def.S(sets[generalized_measure_def.T].emptyset)")))
  (minkowski_scaf 0
   (minkowski_scaf-1 nil 3477583588
    ("" (skosimp)
@@ -49,14 +48,10 @@
                         (("1" (expand "norm")
                           (("1" (typepred "p")
                             (("1" (expand ">=" -1)
-                              (("1"
-                                (expand "<=" -1)
-                                (("1"
-                                  (split -1)
-                                  (("1"
-                                    (name "q" "p/(p-1)")
-                                    (("1"
-                                      (case "q>1 & 1/p+1/q =1")
+                              (("1" (expand "<=" -1)
+                                (("1" (split -1)
+                                  (("1" (name "q" "p/(p-1)")
+                                    (("1" (case "q>1 & 1/p+1/q =1")
                                       (("1"
                                         (flatten -1)
                                         (("1"
@@ -83,10 +78,7 @@
                                                       (("1"
                                                         (lemma
                                                          "holder_scaf[T,S,mu,p,p / (p - 1)]"
-                                                         ("f"
-                                                          "f!1"
-                                                          "g"
-                                                          "CH"))
+                                                         ("f" "f!1" "g" "CH"))
                                                         (("1"
                                                           (lemma
                                                            "holder_scaf[T,S,mu,p,p / (p - 1)]"
@@ -95,8 +87,7 @@
                                                             "g"
                                                             "CH"))
                                                           (("1"
-                                                            (replace
-                                                             -3)
+                                                            (replace -3)
                                                             (("1"
                                                               (case
                                                                "forall (f:p_integrable[T,S,mu,1]): integral.integrable?(abs(f)) & norm[T, S, mu, 1](f) = integral.integral(abs(f))")
@@ -789,8 +780,7 @@
                                                               nil))
                                                             nil)
                                                            ("2"
-                                                            (replace
-                                                             -9)
+                                                            (replace -9)
                                                             (("2"
                                                               (assert)
                                                               nil
@@ -812,8 +802,7 @@
                                                        ("2"
                                                         (hide 2)
                                                         (("2"
-                                                          (expand
-                                                           "norm")
+                                                          (expand "norm")
                                                           (("2"
                                                             (case-replace
                                                              "abs(CH) ^ (p / (p - 1))=abs(f!1 + g!1) ^ p")
@@ -891,13 +880,9 @@
                                                                 nil))
                                                               nil)
                                                              ("2"
-                                                              (replace
-                                                               -4
-                                                               1)
+                                                              (replace -4 1)
                                                               (("2"
-                                                                (replace
-                                                                 -7
-                                                                 1)
+                                                                (replace -7 1)
                                                                 (("2"
                                                                   (case-replace
                                                                    "abs(CH)=H")
@@ -936,8 +921,7 @@
                                                              ("3"
                                                               (assert)
                                                               (("3"
-                                                                (replace
-                                                                 -7)
+                                                                (replace -7)
                                                                 (("3"
                                                                   (assert)
                                                                   nil
@@ -950,10 +934,7 @@
                                                        ("3"
                                                         (lemma
                                                          "posreal_div_posreal_is_posreal"
-                                                         ("px"
-                                                          "p"
-                                                          "py"
-                                                          "q"))
+                                                         ("px" "p" "py" "q"))
                                                         (("1"
                                                           (assert)
                                                           nil
@@ -963,14 +944,8 @@
                                                           nil
                                                           nil))
                                                         nil)
-                                                       ("4"
-                                                        (propax)
-                                                        nil
-                                                        nil)
-                                                       ("5"
-                                                        (propax)
-                                                        nil
-                                                        nil))
+                                                       ("4" (propax) nil nil)
+                                                       ("5" (propax) nil nil))
                                                       nil)
                                                      ("2"
                                                       (hide 2)
@@ -1131,15 +1106,12 @@
                                                               nil))
                                                             nil)
                                                            ("2"
-                                                            (replace
-                                                             -6
-                                                             1)
+                                                            (replace -6 1)
                                                             (("2"
                                                               (case-replace
                                                                "abs(CH) ^ q=abs(f!1 + g!1) ^ p")
                                                               (("1"
-                                                                (replace
-                                                                 -3)
+                                                                (replace -3)
                                                                 (("1"
                                                                   (hide-all-but
                                                                    1)
@@ -1147,8 +1119,7 @@
                                                                     (case-replace
                                                                      "abs(CH)=H")
                                                                     (("1"
-                                                                      (hide
-                                                                       2)
+                                                                      (hide 2)
                                                                       (("1"
                                                                         (apply-extensionality
                                                                          :hide?
@@ -1205,8 +1176,7 @@
                                                 nil))
                                               nil)
                                              ("2"
-                                              (hide-all-but
-                                               (-1 -2 -3 -4 1))
+                                              (hide-all-but (-1 -2 -3 -4 1))
                                               (("2"
                                                 (apply-extensionality
                                                  :hide?
@@ -1265,10 +1235,7 @@
                                                   (hide -1)
                                                   (("1"
                                                     (split -1)
-                                                    (("1"
-                                                      (assert)
-                                                      nil
-                                                      nil)
+                                                    (("1" (assert) nil nil)
                                                      ("2"
                                                       (hide 2)
                                                       (("2"
@@ -1330,13 +1297,10 @@
                                       nil)
                                      ("2" (assert) nil nil))
                                     nil)
-                                   ("2"
-                                    (replace -1 * rl)
-                                    (("2"
-                                      (rewrite "div_simp")
+                                   ("2" (replace -1 * rl)
+                                    (("2" (rewrite "div_simp")
                                       (("2"
-                                        (case
-                                         "forall f: abs(f) ^ 1=abs(f)")
+                                        (case "forall f: abs(f) ^ 1=abs(f)")
                                         (("1"
                                           (inst-cp - "f!1")
                                           (("1"
@@ -1348,23 +1312,17 @@
                                                 (("1"
                                                   (typepred "g!1")
                                                   (("1"
-                                                    (expand
-                                                     "p_integrable?")
+                                                    (expand "p_integrable?")
                                                     (("1"
                                                       (flatten)
                                                       (("1"
-                                                        (replace
-                                                         -8
-                                                         *
-                                                         rl)
+                                                        (replace -8 * rl)
                                                         (("1"
                                                           (replace -5)
                                                           (("1"
-                                                            (replace
-                                                             -6)
+                                                            (replace -6)
                                                             (("1"
-                                                              (replace
-                                                               -7)
+                                                              (replace -7)
                                                               (("1"
                                                                 (rewrite
                                                                  "real_expt_x1"
@@ -1454,8 +1412,7 @@
                                                                       nil)
                                                                      ("2"
                                                                       (hide-all-but
-                                                                       (1
-                                                                        -2))
+                                                                       (1 -2))
                                                                       (("2"
                                                                         (lemma
                                                                          "integral_nonneg"
@@ -1480,8 +1437,7 @@
                                                                     nil)
                                                                    ("2"
                                                                     (hide-all-but
-                                                                     (1
-                                                                      -4))
+                                                                     (1 -4))
                                                                     (("2"
                                                                       (lemma
                                                                        "integral_nonneg"
@@ -1506,8 +1462,7 @@
                                                                   nil)
                                                                  ("2"
                                                                   (hide-all-but
-                                                                   (-10
-                                                                    1))
+                                                                   (-10 1))
                                                                   (("2"
                                                                     (lemma
                                                                      "integral_nonneg"
@@ -1550,16 +1505,13 @@
                                           (("2"
                                             (skosimp)
                                             (("2"
-                                              (apply-extensionality
-                                               :hide?
-                                               t)
+                                              (apply-extensionality :hide? t)
                                               (("2"
                                                 (expand "^")
                                                 (("2"
                                                   (expand "abs")
                                                   (("2"
-                                                    (rewrite
-                                                     "real_expt_x1")
+                                                    (rewrite "real_expt_x1")
                                                     nil
                                                     nil))
                                                   nil))
@@ -1578,25 +1530,16 @@
                          ("2" (hide 2)
                           (("2" (expand "p_integrable?")
                             (("2" (replace -1)
-                              (("2"
-                                (rewrite "sum_complex_measurable")
-                                (("1"
-                                  (typepred "g!1")
-                                  (("1"
-                                    (expand "p_integrable?")
-                                    (("1"
-                                      (flatten)
-                                      (("1" (assert) nil nil))
+                              (("2" (rewrite "sum_complex_measurable")
+                                (("1" (typepred "g!1")
+                                  (("1" (expand "p_integrable?")
+                                    (("1" (flatten) (("1" (assert) nil nil))
                                       nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (typepred "f!1")
-                                  (("2"
-                                    (expand "p_integrable?")
-                                    (("2"
-                                      (flatten)
-                                      (("2" (assert) nil nil))
+                                 ("2" (typepred "f!1")
+                                  (("2" (expand "p_integrable?")
+                                    (("2" (flatten) (("2" (assert) nil nil))
                                       nil))
                                     nil))
                                   nil))
@@ -1619,14 +1562,10 @@
                           (("1" (assert) nil nil)
                            ("2" (expand "+" 1)
                             (("2" (expand "^" 1 3)
-                              (("2"
-                                (expand "*" 1)
-                                (("2"
-                                  (expand "^" 1 2)
-                                  (("2"
-                                    (inst - "x!1")
-                                    (("2"
-                                      (hide -1)
+                              (("2" (expand "*" 1)
+                                (("2" (expand "^" 1 2)
+                                  (("2" (inst - "x!1")
+                                    (("2" (hide -1)
                                       (("2"
                                         (expand "+ " -1)
                                         (("2"
@@ -1644,10 +1583,7 @@
                                                   (("1"
                                                     (lemma
                                                      "real_expt_pos"
-                                                     ("px"
-                                                      "2"
-                                                      "a"
-                                                      "p"))
+                                                     ("px" "2" "a" "p"))
                                                     (("1"
                                                       (lemma
                                                        "both_sides_times_pos_le1"
@@ -1686,10 +1622,7 @@
                                                             nil))
                                                           nil))
                                                         nil)
-                                                       ("2"
-                                                        (propax)
-                                                        nil
-                                                        nil))
+                                                       ("2" (propax) nil nil))
                                                       nil))
                                                     nil)
                                                    ("2"
@@ -1699,18 +1632,11 @@
                                                       (("2"
                                                         (expand "max")
                                                         (("2"
-                                                          (expand
-                                                           "abs"
-                                                           1
-                                                           1)
+                                                          (expand "abs" 1 1)
                                                           (("2"
-                                                            (expand
-                                                             "abs"
-                                                             1
-                                                             2)
+                                                            (expand "abs" 1 2)
                                                             (("2"
-                                                              (expand
-                                                               "max")
+                                                              (expand "max")
                                                               (("2"
                                                                 (case-replace
                                                                  "abs(f!1(x!1)) < abs(g!1(x!1))")
@@ -1729,14 +1655,8 @@
                                                         nil))
                                                       nil))
                                                     nil)
-                                                   ("3"
-                                                    (assert)
-                                                    nil
-                                                    nil)
-                                                   ("4"
-                                                    (assert)
-                                                    nil
-                                                    nil))
+                                                   ("3" (assert) nil nil)
+                                                   ("4" (assert) nil nil))
                                                   nil))
                                                 nil)
                                                ("2" (assert) nil nil))
@@ -1767,27 +1687,20 @@
                           (lemma "sum_complex_measurable"
                            ("g1" "f!1" "g2" "g!1"))
                           (("1"
-                            (lemma "abs_complex_measurable"
-                             ("g" "f!1+g!1"))
+                            (lemma "abs_complex_measurable" ("g" "f!1+g!1"))
                             (("1" (rewrite "expt_measurable")
-                              (("1"
-                                (expand "nn_measurable?")
-                                (("1"
-                                  (hide-all-but 1)
-                                  (("1"
-                                    (skosimp)
-                                    (("1"
-                                      (expand "abs")
-                                      (("1" (assert) nil nil))
-                                      nil))
+                              (("1" (expand "nn_measurable?")
+                                (("1" (hide-all-but 1)
+                                  (("1" (skosimp)
+                                    (("1" (expand "abs")
+                                      (("1" (assert) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
                               nil)
                              ("2" (assert) nil nil))
                             nil)
-                           ("2" (assert) nil nil)
-                           ("3" (assert) nil nil))
+                           ("2" (assert) nil nil) ("3" (assert) nil nil))
                           nil))
                         nil))
                       nil))
@@ -1805,14 +1718,10 @@
                           (("1" (expand "abs" 1)
                             (("1"
                               (lemma "both_sides_times_pos_ge1"
-                               ("pz"
-                                "2^p"
-                                "x"
-                                "abs(f!1(x!1)) ^ p+abs(g!1(x!1)) ^ p"
-                                "y"
+                               ("pz" "2^p" "x"
+                                "abs(f!1(x!1)) ^ p+abs(g!1(x!1)) ^ p" "y"
                                 "0"))
-                              (("1" (assert) nil nil)
-                               ("2" (assert) nil nil))
+                              (("1" (assert) nil nil) ("2" (assert) nil nil))
                               nil))
                             nil))
                           nil))
@@ -1832,12 +1741,9 @@
                         (("1" (skolem + "x!1")
                           (("1" (expand "FF")
                             (("1" (expand "^" 1)
-                              (("1"
-                                (expand "+" 1)
-                                (("1"
-                                  (expand "abs" 1)
-                                  (("1" (assert) nil nil))
-                                  nil))
+                              (("1" (expand "+" 1)
+                                (("1" (expand "abs" 1)
+                                  (("1" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1846,14 +1752,10 @@
                           (("2" (inst - "FF")
                             (("2" (split)
                               (("1" (propax) nil nil)
-                               ("2"
-                                (skosimp)
-                                (("2"
-                                  (hide-all-but 1)
-                                  (("2"
-                                    (expand "FF")
-                                    (("2"
-                                      (expand "+")
+                               ("2" (skosimp)
+                                (("2" (hide-all-but 1)
+                                  (("2" (expand "FF")
+                                    (("2" (expand "+")
                                       (("2"
                                         (expand "^")
                                         (("2"
@@ -1882,8 +1784,7 @@
               (("2" (typepred "g!1")
                 (("2" (expand "p_integrable?")
                   (("2" (flatten)
-                    (("2" (rewrite "integral.integrable_add" +) nil
-                      nil))
+                    (("2" (rewrite "integral.integrable_add" +) nil nil))
                     nil))
                   nil))
                 nil))
@@ -1902,8 +1803,7 @@
                         (("2" (expand "max")
                           (("2" (assert)
                             (("2" (lift-if)
-                              (("2"
-                                (prop)
+                              (("2" (prop)
                                 (("1" (assert) nil nil)
                                  ("2" (assert) nil nil))
                                 nil))
@@ -1923,199 +1823,87 @@
     nil)
    ((p_integrable nonempty-type-eq-decl nil p_integrable_def nil)
     (p_integrable? const-decl "bool" p_integrable_def nil)
-    (p formal-const-decl "{x: real | x >= 1}" minkowski_scaf nil)
-    (mu formal-const-decl "measure_type[T, S]" minkowski_scaf nil)
     (measure_type nonempty-type-eq-decl nil generalized_measure_def
-     "measure_integration/")
-    (measure? const-decl "bool" generalized_measure_def
-     "measure_integration/")
+     measure_integration)
+    (measure? const-decl "bool" generalized_measure_def measure_integration)
     (extended_nnreal nonempty-type-eq-decl nil extended_nnreal
-     "extended_nnreal/")
-    (nnreal type-eq-decl nil real_types nil)
-    (S formal-const-decl "sigma_algebra[T]" minkowski_scaf nil)
+     extended_nnreal)
     (sigma_algebra nonempty-type-eq-decl nil subset_algebra_def
-     "measure_integration/")
-    (sigma_algebra? const-decl "bool" subset_algebra_def
-     "measure_integration/")
+     measure_integration)
+    (sigma_algebra? const-decl "bool" subset_algebra_def measure_integration)
     (setofsets type-eq-decl nil sets nil)
-    (setof type-eq-decl nil defined_types nil)
-    (abs const-decl "[T -> nonneg_real]" complex_fun_ops
-         "complex_alt/")
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (complex type-eq-decl nil complex_types "complex_alt/")
-    (max const-decl "[T -> real]" real_fun_ops_aux "reals/")
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (T formal-type-decl nil minkowski_scaf nil)
-    (nonneg_real_max application-judgement
-     "{z: nonneg_real | z >= x AND z >= y}" real_defs nil)
-    (integrable? const-decl "bool" integral "measure_integration/")
-    (+ const-decl "[T -> real]" real_fun_ops "reals/")
-    (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (^ const-decl "[T -> nnreal]" real_fun_power "power/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
+    (abs const-decl "[T -> nonneg_real]" complex_fun_ops complex_alt)
+    (complex type-eq-decl nil complex_types complex_alt)
+    (max const-decl "[T -> real]" real_fun_ops_aux reals)
+    (integrable? const-decl "bool" integral measure_integration)
+    (^ const-decl "[T -> nnreal]" real_fun_power power)
     (nn_integrable_is_nn_integrable formula-decl nil integral
-     "measure_integration/")
-    (FF skolem-const-decl "[T -> real]" minkowski_scaf nil)
-    (nn_integrable_scal judgement-tcc nil nn_integral
-     "measure_integration/")
-    (both_sides_times_pos_ge1 formula-decl nil real_props nil)
+     measure_integration)
+    (nn_integrable_scal judgement-tcc nil nn_integral measure_integration)
     (nn_integrable_is_integrable judgement-tcc nil integral
-     "measure_integration/")
-    (integral_nn formula-decl nil integral "measure_integration/")
+     measure_integration)
+    (integral_nn formula-decl nil integral measure_integration)
     (norm const-decl "nnreal" p_integrable_def nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (q skolem-const-decl "real" minkowski_scaf nil)
-    (complex_ const-decl "complex" complex_types "complex_alt/")
-    (Im const-decl "[T -> real]" complex_fun_ops "complex_alt/")
+    (complex_ const-decl "complex" complex_types complex_alt)
+    (Im const-decl "[T -> real]" complex_fun_ops complex_alt)
     (sum_complex_measurable judgement-tcc nil complex_measurable nil)
-    (complex_measurable nonempty-type-eq-decl nil complex_measurable
-     nil)
-    (Im_fun_add1 formula-decl nil complex_fun_ops "complex_alt/")
-    (Re_fun_add1 formula-decl nil complex_fun_ops "complex_alt/")
+    (complex_measurable nonempty-type-eq-decl nil complex_measurable nil)
+    (Im_fun_add1 formula-decl nil complex_fun_ops complex_alt)
+    (Re_fun_add1 formula-decl nil complex_fun_ops complex_alt)
     (abs_complex_measurable judgement-tcc nil complex_measurable nil)
     (nn_measurable nonempty-type-eq-decl nil measure_space
-     "measure_integration/")
-    (nn_measurable? const-decl "bool" measure_space
-     "measure_integration/")
-    (expt_measurable judgement-tcc nil measure_space
-     "measure_integration/")
-    (H skolem-const-decl "[T -> nnreal]" minkowski_scaf nil)
-    (const_measurable formula-decl nil measure_space
-     "measure_integration/")
-    (Re const-decl "[T -> real]" complex_fun_ops "complex_alt/")
+     measure_integration)
+    (nn_measurable? const-decl "bool" measure_space measure_integration)
+    (expt_measurable judgement-tcc nil measure_space measure_integration)
+    (const_measurable formula-decl nil measure_space measure_integration)
+    (Re const-decl "[T -> real]" complex_fun_ops complex_alt)
     (complex_measurable? const-decl "bool" complex_measurable nil)
-    (integrable nonempty-type-eq-decl nil integral
-     "measure_integration/")
-    (integral const-decl "real" integral "measure_integration/")
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (complex_abs_mul formula-decl nil complex_fun_ops "complex_alt/")
-    (integral_ae_le formula-decl nil integral "measure_integration/")
-    (real_expt_pos formula-decl nil real_expt "power/")
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (both_sides_times_pos_le1 formula-decl nil real_props nil)
-    (real_expt_x1 formula-decl nil real_expt "power/")
-    (real_expt_plus formula-decl nil real_expt "power/")
-    (posreal_div_posreal_is_posreal judgement-tcc nil real_types nil)
-    (real_expt_0x formula-decl nil real_expt "power/")
-    (RHS skolem-const-decl "nnreal" minkowski_scaf nil)
-    (real_expt_times formula-decl nil real_expt "power/")
-    (integral_nonneg formula-decl nil integral "measure_integration/")
-    (ae_le? const-decl "bool" measure_theory "measure_integration/")
-    (subset_algebra_fullset name-judgement "(S)" minkowski_scaf nil)
-    (measurable_fullset name-judgement "measurable_set[T, S]"
-     minkowski_scaf nil)
-    (ae? const-decl "bool" measure_theory "measure_integration/")
-    (ae_in? const-decl "bool" measure_theory "measure_integration/")
-    (sqrt_sq formula-decl nil sqrt "reals/")
-    (sqrt const-decl "{nnz: nnreal | nnz * nnz = nnx}" sqrt "reals/")
-    (sqrt_square formula-decl nil sqrt "reals/")
-    (abs_triangle formula-decl nil polar "complex_alt/")
-    (sq const-decl "nonneg_real" sq "reals/")
-    (Im_rew formula-decl nil complex_types "complex_alt/")
-    (sq_0 formula-decl nil sq "reals/")
-    (Re_rew formula-decl nil complex_types "complex_alt/")
-    (sqrt_0 formula-decl nil sqrt "reals/")
-    (sq_abs const-decl "nnreal" complex_types "complex_alt/")
-    (abs_mult formula-decl nil polar "complex_alt/")
-    (TRUE const-decl "bool" booleans nil)
-    (abs const-decl "nnreal" polar "complex_alt/")
-    (+ const-decl "complex" complex_types "complex_alt/")
+    (integrable nonempty-type-eq-decl nil integral measure_integration)
+    (integral const-decl "real" integral measure_integration)
+    (complex_abs_mul formula-decl nil complex_fun_ops complex_alt)
+    (integral_ae_le formula-decl nil integral measure_integration)
+    (real_expt_pos formula-decl nil real_expt power)
+    (real_expt_x1 formula-decl nil real_expt power)
+    (real_expt_plus formula-decl nil real_expt power)
+    (real_expt_0x formula-decl nil real_expt power)
+    (real_expt_times formula-decl nil real_expt power)
+    (integral_nonneg formula-decl nil integral measure_integration)
+    (ae_le? const-decl "bool" measure_theory measure_integration)
+    (ae_in? const-decl "bool" measure_theory measure_integration)
+    (sqrt_sq formula-decl nil sqrt reals)
+    (sqrt const-decl "{nnz: nnreal | nnz * nnz = nnx}" sqrt reals)
+    (sqrt_square formula-decl nil sqrt reals)
+    (abs_triangle formula-decl nil polar complex_alt)
+    (sq const-decl "nonneg_real" sq reals)
+    (Im_rew formula-decl nil complex_types complex_alt)
+    (sq_0 formula-decl nil sq reals)
+    (Re_rew formula-decl nil complex_types complex_alt)
+    (sqrt_0 formula-decl nil sqrt reals)
+    (sq_abs const-decl "nnreal" complex_types complex_alt)
+    (abs_mult formula-decl nil polar complex_alt)
+    (abs const-decl "nnreal" polar complex_alt)
+    (+ const-decl "complex" complex_types complex_alt)
     (member const-decl "bool" sets nil) (set type-eq-decl nil sets nil)
-    (negligible_set? const-decl "bool" measure_theory
-     "measure_integration/")
-    (negligible nonempty-type-eq-decl nil measure_theory
-     "measure_integration/")
+    (negligible_set? const-decl "bool" measure_theory measure_integration)
+    (negligible nonempty-type-eq-decl nil measure_theory measure_integration)
     (emptyset const-decl "set" sets nil)
     (finite_emptyset name-judgement "finite_set" finite_sets nil)
-    (finite_emptyset name-judgement "finite_set[T]" countable_props
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" countable_setofsets
-     "sets_aux/")
-    (finite_emptyset name-judgement "finite_set[T]" sigma_countable
-     "sigma_set/")
-    (finite_emptyset name-judgement "finite_set[T]" step_fun_props
-     "analysis/")
-    (subset_algebra_emptyset name-judgement "(S)" minkowski_scaf nil)
-    (null_emptyset name-judgement "null_set[T, S, mu]" minkowski_scaf
-     nil)
     (fullset const-decl "set" sets nil)
-    (pointwise_ae? const-decl "bool" measure_theory
-     "measure_integration/")
-    (integral_add formula-decl nil integral "measure_integration/")
-    (integrable_add judgement-tcc nil integral "measure_integration/")
-    (* const-decl "[T -> complex]" complex_fun_ops "complex_alt/")
+    (pointwise_ae? const-decl "bool" measure_theory measure_integration)
+    (integral_add formula-decl nil integral measure_integration)
+    (integrable_add judgement-tcc nil integral measure_integration)
     (complex_measurable_def formula-decl nil complex_measurable nil)
     (holder_scaf formula-decl nil holder_scaf nil)
-    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
-     real_types nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (CH skolem-const-decl "[T -> complex]" minkowski_scaf nil)
-    (div_cancel4 formula-decl nil real_props nil)
-    (times_div2 formula-decl nil real_props nil)
-    (times_div1 formula-decl nil real_props nil)
-    (div_cancel3 formula-decl nil real_props nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (div_times formula-decl nil real_props nil)
-    (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (div_simp formula-decl nil real_props nil)
-    (f!1 skolem-const-decl "p_integrable[T, S, mu, p]" minkowski_scaf
-     nil)
-    (g!1 skolem-const-decl "p_integrable[T, S, mu, p]" minkowski_scaf
-     nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (mult_real_expt formula-decl nil real_expt "power/")
-    (both_sides_real_expt_le formula-decl nil real_expt "power/")
-    (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
-    (< const-decl "bool" reals nil)
-    (KK skolem-const-decl "[T -> real]" minkowski_scaf nil)
+    (mult_real_expt formula-decl nil real_expt power)
+    (both_sides_real_expt_le formula-decl nil real_expt power)
     (measurable_function nonempty-type-eq-decl nil measure_space_def
-     "measure_integration/")
+     measure_integration)
     (measurable_function? const-decl "bool" measure_space_def
-     "measure_integration/")
-    (^ const-decl "nnreal" real_expt "power/")
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (* const-decl "[T -> real]" real_fun_ops "reals/")
-    (nn_integrable nonempty-type-eq-decl nil nn_integral
-     "measure_integration/")
-    (nn_integrable? const-decl "bool" nn_integral
-     "measure_integration/")
-    (nn_integrable_le formula-decl nil nn_integral
-     "measure_integration/")
-    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil)
-    (+ const-decl "[T -> complex]" complex_fun_ops "complex_alt/")
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields
-       nil))
+     measure_integration)
+    (^ const-decl "nnreal" real_expt power)
+    (nn_integrable nonempty-type-eq-decl nil nn_integral measure_integration)
+    (nn_integrable? const-decl "bool" nn_integral measure_integration)
+    (nn_integrable_le formula-decl nil nn_integral measure_integration)
+    (+ const-decl "[T -> complex]" complex_fun_ops complex_alt))
    shostak)))
 

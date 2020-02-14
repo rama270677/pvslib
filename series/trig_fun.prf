@@ -1,7 +1,9 @@
 (trig_fun
  (useful_prep_TCC1 0
   (useful_prep_TCC1-1 nil 3298132328 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)) nil))
+   ((/= const-decl "boolean" notequal nil)) nil
+   (useful_prep subtype "trig_fun.n"
+    "{i: integers.int | booleans.OR((real_defs.abs(trig_fun.x)) /= 0, reals.>=(i, 0))}")))
  (useful_prep 0
   (useful_prep-1 nil 3298132328
    ("" (skosimp*)
@@ -11,13 +13,11 @@
    ((real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (simple_conv formula-decl nil power_series_conv nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
@@ -37,18 +37,13 @@
         nil))
       nil))
     nil)
-   ((mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (nzint_times_nzint_is_nzint application-judgement "nzint" integers
-     nil)
+   ((nzint_times_nzint_is_nzint application-judgement "nzint" integers nil)
     (int_exp application-judgement "int" exponentiation nil)
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
-    (nzreal_expt application-judgement "nzreal" exponentiation nil)
-    (int_expt application-judgement "int" exponentiation nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (int_expt application-judgement "int" exponentiation nil)
+    (nzreal_expt application-judgement "nzreal" exponentiation nil)
     (expt def-decl "real" exponentiation nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
@@ -68,8 +63,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil))
@@ -80,8 +74,7 @@
    ((even_div2 formula-decl nil naturalnumbers nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -92,7 +85,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil))
-   nil))
+   nil
+   (altsign subtype "(number_fields./(trig_fun.n, 2))"
+    "{i: integers.int | booleans.TRUE}")))
  (altsign_TCC2 0
   (altsign_TCC2-1 nil 3298132328
    ("" (case "(FORALL n: integer_pred((-1)^n))")
@@ -100,18 +95,15 @@
       (("1" (inst?)
         (("1" (assert)
           (("1" (case "(FORALL n: (-1) ^ (n) = -1 OR (-1) ^ (n) = 1)")
-            (("1" (inst -1 "n!1/2")
-              (("1" (rewrite "even_div2") nil nil)) nil)
+            (("1" (inst -1 "n!1/2") (("1" (rewrite "even_div2") nil nil)) nil)
              ("2" (hide 2)
               (("2" (induct "n")
                 (("1" (expand "^")
-                  (("1" (expand "expt") (("1" (propax) nil nil)) nil))
-                  nil)
+                  (("1" (expand "expt") (("1" (propax) nil nil)) nil)) nil)
                  ("2" (skosimp*)
                   (("2" (expand "^")
                     (("2" (expand "expt" 1)
-                      (("2" (expand "expt" 2) (("2" (assert) nil nil))
-                        nil))
+                      (("2" (expand "expt" 2) (("2" (assert) nil nil)) nil))
                       nil))
                     nil))
                   nil))
@@ -120,20 +112,15 @@
             nil))
           nil)
          ("2" (hide 2)
-          (("2" (assert) (("2" (rewrite "even_div2") nil nil)) nil))
-          nil))
+          (("2" (assert) (("2" (rewrite "even_div2") nil nil)) nil)) nil))
         nil))
       nil)
-     ("2" (hide 2) (("2" (skosimp*) (("2" (assert) nil nil)) nil))
-      nil))
+     ("2" (hide 2) (("2" (skosimp*) (("2" (assert) nil nil)) nil)) nil))
     nil)
    ((rat_exp application-judgement "rat" exponentiation nil)
     (nzreal_expt application-judgement "nzreal" exponentiation nil)
     (int_expt application-judgement "int" exponentiation nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (nzint_times_nzint_is_nzint application-judgement "nzint" integers
-     nil)
+    (nzint_times_nzint_is_nzint application-judgement "nzint" integers nil)
     (expt def-decl "real" exponentiation nil)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
@@ -142,17 +129,16 @@
     (n!1 skolem-const-decl "nat" trig_fun nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat" rationals
+     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (int_exp application-judgement "int" exponentiation nil)
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -168,7 +154,10 @@
     (^ const-decl "real" exponentiation nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil))
-   nil))
+   nil
+   (altsign subtype
+    "exponentiation.^(((number_fields.-)(1)), (number_fields./(trig_fun.n, 2)))"
+    "{i: integers.int | booleans.OR(i = (number_fields.-)(1), i = 1)}")))
  (altsign_TCC3 0
   (altsign_TCC3-1 nil 3298132328
    ("" (skosimp*)
@@ -180,8 +169,7 @@
    ((odd_div2 formula-decl nil naturalnumbers nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -195,7 +183,9 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (even_iff_not_odd formula-decl nil naturalnumbers nil))
-   nil))
+   nil
+   (altsign subtype "(number_fields./(((number_fields.-)(trig_fun.n, 1)), 2))"
+    "{i: integers.int | booleans.TRUE}")))
  (altsign_TCC4 0
   (altsign_TCC4-1 nil 3298132328
    ("" (skosimp*)
@@ -211,8 +201,7 @@
                       (("1" (inst?) (("1" (assert) nil nil)) nil)) nil)
                      ("2" (hide 3)
                       (("2" (lemma "altsign_prep")
-                        (("2" (inst?) (("2" (assert) nil nil)) nil))
-                        nil))
+                        (("2" (inst?) (("2" (assert) nil nil)) nil)) nil))
                       nil))
                     nil))
                   nil))
@@ -239,8 +228,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
@@ -249,13 +237,16 @@
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (^ const-decl "real" exponentiation nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (rat_exp application-judgement "rat" exponentiation nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (even_iff_not_odd formula-decl nil naturalnumbers nil))
-   nil))
+   nil
+   (altsign subtype
+    "exponentiation.^(((number_fields.-)(1)), (number_fields./(((number_fields.-)(trig_fun.n, 1)), 2)))"
+    "{i: integers.int | booleans.OR(i = (number_fields.-)(1), i = 1)}")))
  (abs_altsign 0
   (abs_altsign-1 nil 3298132884
    ("" (skosimp*)
@@ -269,8 +260,7 @@
                   (("1" (assert) nil nil)
                    ("2" (expand "even?")
                     (("2" (skosimp*)
-                      (("2" (replace -1) (("2" (assert) nil nil)) nil))
-                      nil))
+                      (("2" (replace -1) (("2" (assert) nil nil)) nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -284,8 +274,7 @@
                   (("1" (expand "abs")
                     (("1" (rewrite "expt_1i")
                       (("1" (lemma "odd_div2")
-                        (("1" (inst?) (("1" (assert) nil nil)) nil))
-                        nil))
+                        (("1" (inst?) (("1" (assert) nil nil)) nil)) nil))
                       nil))
                     nil)
                    ("2" (lemma "odd_div2")
@@ -305,20 +294,16 @@
      real_defs nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (n!1 skolem-const-decl "nat" trig_fun nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (even_times_int_is_even application-judgement "even_int" integers
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat" rationals
      nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
+    (n!1 skolem-const-decl "nat" trig_fun nil)
+    (even_times_int_is_even application-judgement "even_int" integers nil)
     (even? const-decl "bool" integers nil)
     (expt_1i formula-decl nil exponentiation nil)
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}" real_defs
+     nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (nzreal nonempty-type-eq-decl nil reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -335,11 +320,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (abs_hat formula-decl nil exponent_props "reals/")
+    (abs_hat formula-decl nil exponent_props reals)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (odd_div2 formula-decl nil naturalnumbers nil)
     (odd_iff_not_even formula-decl nil naturalnumbers nil))
@@ -347,29 +331,32 @@
  (sin_conv_TCC1 0
   (sin_conv_TCC1-1 nil 3298204091
    ("" (expand "not_one_element?")
-    (("" (skosimp*) (("" (inst + "x!1+1") (("" (assert) nil nil)) nil))
-      nil))
+    (("" (skosimp*) (("" (inst + "x!1+1") (("" (assert) nil nil)) nil)) nil))
     nil)
    ((+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (not_one_element? const-decl "bool" deriv_domain_def "analysis/"))
-   shostak))
+    (not_one_element? const-decl "bool" deriv_domain_def analysis))
+   shostak
+   (sin_conv assuming "power_series_conv[real].power_series_conv"
+    "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (sin_conv_TCC2 0
   (sin_conv_TCC2-1 nil 3298204091
    ("" (lemma "deriv_domain_real") (("" (propax) nil nil)) nil)
-   ((deriv_domain_real formula-decl nil deriv_domain "analysis/"))
-   shostak))
+   ((deriv_domain_real formula-decl nil deriv_domain analysis)) shostak
+   (sin_conv assuming "power_series_conv[real].power_series_conv"
+    "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (sin_conv_TCC3 0
-  (sin_conv_TCC3-1 nil 3298204091
-   ("" (skosimp*) (("" (assert) nil nil)) nil) nil shostak))
+  (sin_conv_TCC3-1 nil 3298204091 ("" (skosimp*) (("" (assert) nil nil)) nil)
+   nil shostak
+   (sin_conv assuming "power_series_conv[real].power_series_conv"
+    "open: ASSUMPTION FORALL (x: power_series_conv.T): EXISTS (delta: real_types.posreal): FORALL (y: reals.real): booleans.IMPLIES(reals.<(real_defs.abs((number_fields.-)(x, y)), delta), power_series_conv.T_pred(y))")))
  (sin_conv 0
   (sin_conv-3 nil 3352095508
    ("" (expand "conv_powerseries?")
@@ -388,25 +375,16 @@
                         (("" (rewrite "apow_rew")
                           (("" (expand "apowerseq")
                             (("" (expand "sin_coef")
-                              ((""
-                                (lift-if)
-                                ((""
-                                  (ground)
-                                  (("1"
-                                    (expand "abs" 1 1)
-                                    (("1" (assert) nil nil))
+                              (("" (lift-if)
+                                (("" (ground)
+                                  (("1" (expand "abs" 1 1)
+                                    (("1" (assert) nil nil)) nil)
+                                   ("2" (rewrite "abs_mult")
+                                    (("2" (rewrite "abs_0")
+                                      (("2" (assert) nil nil)) nil))
                                     nil)
-                                   ("2"
-                                    (rewrite "abs_mult")
-                                    (("2"
-                                      (rewrite "abs_0")
-                                      (("2" (assert) nil nil))
-                                      nil))
-                                    nil)
-                                   ("3"
-                                    (rewrite "abs_mult")
-                                    (("3"
-                                      (rewrite "abs_div")
+                                   ("3" (rewrite "abs_mult")
+                                    (("3" (rewrite "abs_div")
                                       (("3"
                                         (expand "abs" 2 2)
                                         (("3"
@@ -422,10 +400,7 @@
                                                   (assert)
                                                   (("2"
                                                     (rewrite "abs_0")
-                                                    (("2"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                    (("2" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -454,39 +429,37 @@
    ((nnreal_exp application-judgement "nnreal" exponentiation nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
-    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal" real_types
+     nil)
     (powerseries const-decl "sequence[real]" power_series nil)
     (apow_rew formula-decl nil power_series nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
-    (abs_0 formula-decl nil abs_lems "reals/")
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
+    (abs_0 formula-decl nil abs_lems reals)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
+     nil)
     (abs_mult formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (abs_div formula-decl nil real_props nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}" real_defs
+     nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat" rationals
+     nil)
     (abs_altsign formula-decl nil trig_fun nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
+    (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat" rationals
+     nil)
     (hat_02n formula-decl nil power_series nil)
     (nat_exp application-judgement "nat" exponentiation nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (abs_hat formula-decl nil exponent_props "reals/")
+    (posrat_div_posrat_is_posrat application-judgement "posrat" rationals nil)
+    (abs_hat formula-decl nil exponent_props reals)
     (nzreal nonempty-type-eq-decl nil reals nil)
     (rat_abs_is_nonneg application-judgement "{r: nonneg_rat | r >= q}"
      real_defs nil)
@@ -495,12 +468,11 @@
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (apowerseq const-decl "sequence[real]" power_series nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -541,25 +513,16 @@
                         (("" (skosimp*)
                           (("" (expand "powerseq")
                             (("" (expand "sin_coef")
-                              ((""
-                                (lift-if)
-                                ((""
-                                  (ground)
-                                  (("1"
-                                    (expand "abs" 1 1)
-                                    (("1" (assert) nil nil))
+                              (("" (lift-if)
+                                (("" (ground)
+                                  (("1" (expand "abs" 1 1)
+                                    (("1" (assert) nil nil)) nil)
+                                   ("2" (rewrite "abs_mult")
+                                    (("2" (rewrite "abs_0")
+                                      (("2" (assert) nil nil)) nil))
                                     nil)
-                                   ("2"
-                                    (rewrite "abs_mult")
-                                    (("2"
-                                      (rewrite "abs_0")
-                                      (("2" (assert) nil nil))
-                                      nil))
-                                    nil)
-                                   ("3"
-                                    (rewrite "abs_mult")
-                                    (("3"
-                                      (rewrite "abs_div")
+                                   ("3" (rewrite "abs_mult")
+                                    (("3" (rewrite "abs_div")
                                       (("3"
                                         (expand "abs" 2 2)
                                         (("3"
@@ -574,14 +537,10 @@
                                                 (("2"
                                                   (assert)
                                                   (("2"
-                                                    (rewrite
-                                                     "zero_hat")
+                                                    (rewrite "zero_hat")
                                                     (("2"
                                                       (rewrite "abs_0")
-                                                      (("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("2" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -608,8 +567,8 @@
         nil))
       nil))
     nil)
-   ((abs_hat formula-decl nil exponent_props "reals/")
-    (zero_hat formula-decl nil exponent_props "reals/")
+   ((abs_hat formula-decl nil exponent_props reals)
+    (zero_hat formula-decl nil exponent_props reals)
     (powerseq const-decl "sequence[real]" power_series nil)
     (comparison_test formula-decl nil series nil))
    nil)
@@ -630,25 +589,16 @@
                         (("" (expand "powerseq")
                           (("" (expand "sin_coef")
                             (("" (lift-if)
-                              ((""
-                                (ground)
-                                (("1"
-                                  (expand "abs" 1 1)
-                                  (("1" (assert) nil nil))
+                              (("" (ground)
+                                (("1" (expand "abs" 1 1)
+                                  (("1" (assert) nil nil)) nil)
+                                 ("2" (rewrite "abs_mult")
+                                  (("2" (rewrite "abs_0")
+                                    (("2" (assert) nil nil)) nil))
                                   nil)
-                                 ("2"
-                                  (rewrite "abs_mult")
-                                  (("2"
-                                    (rewrite "abs_0")
-                                    (("2" (assert) nil nil))
-                                    nil))
-                                  nil)
-                                 ("3"
-                                  (rewrite "abs_mult")
-                                  (("3"
-                                    (rewrite "abs_div")
-                                    (("3"
-                                      (expand "abs" 2 2)
+                                 ("3" (rewrite "abs_mult")
+                                  (("3" (rewrite "abs_div")
+                                    (("3" (expand "abs" 2 2)
                                       (("3"
                                         (rewrite "abs_altsign")
                                         (("3"
@@ -664,10 +614,7 @@
                                                   (rewrite "zero_hat")
                                                   (("2"
                                                     (rewrite "abs_0")
-                                                    (("2"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                    (("2" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -693,8 +640,8 @@
         nil))
       nil))
     nil)
-   ((abs_hat formula-decl nil exponent_props "reals/")
-    (zero_hat formula-decl nil exponent_props "reals/")
+   ((abs_hat formula-decl nil exponent_props reals)
+    (zero_hat formula-decl nil exponent_props reals)
     (powerseq const-decl "sequence[real]" power_series nil)
     (comparison_test formula-decl nil series nil))
    nil))
@@ -705,8 +652,7 @@
       (("" (expand "conv_powerseries?")
         (("" (inst?)
           (("" (expand "powerseries")
-            (("" (expand "conv_series?") (("" (propax) nil nil)) nil))
-            nil))
+            (("" (expand "conv_series?") (("" (propax) nil nil)) nil)) nil))
           nil))
         nil))
       nil))
@@ -714,15 +660,16 @@
    ((sin_conv formula-decl nil trig_fun nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
     (conv_series? const-decl "bool" series nil)
     (powerseries const-decl "sequence[real]" power_series nil)
     (conv_powerseries? const-decl "bool" power_series_conv nil))
-   nil))
+   nil
+   (sin subtype "power_series.powerseq(trig_fun.sin_coef, trig_fun.x)"
+        "(series.conv_series?)")))
  (cos_conv 0
   (cos_conv-2 nil 3352095538
    ("" (expand "conv_powerseries?")
@@ -741,15 +688,11 @@
                         (("" (rewrite "apow_rew")
                           (("" (expand "apowerseq")
                             (("" (expand "cos_coef")
-                              ((""
-                                (lift-if)
-                                ((""
-                                  (ground)
-                                  (("1"
-                                    (rewrite "abs_div")
+                              (("" (lift-if)
+                                (("" (ground)
+                                  (("1" (rewrite "abs_div")
                                     (("1"
-                                      (case-replace
-                                       "abs(altsign(n!1)) = 1")
+                                      (case-replace "abs(altsign(n!1)) = 1")
                                       (("1"
                                         (expand "abs" 1 1)
                                         (("1"
@@ -763,21 +706,15 @@
                                                 (("1"
                                                   (assert)
                                                   (("1"
-                                                    (expand
-                                                     "factorial")
+                                                    (expand "factorial")
                                                     (("1"
-                                                      (expand
-                                                       "abs"
-                                                       1
-                                                       1)
+                                                      (expand "abs" 1 1)
                                                       (("1"
                                                         (assert)
                                                         (("1"
-                                                          (typepred
-                                                           "x!1")
+                                                          (typepred "x!1")
                                                           (("1"
-                                                            (replace
-                                                             -3)
+                                                            (replace -3)
                                                             (("1"
                                                               (assert)
                                                               nil
@@ -805,10 +742,7 @@
                                                 (expand "abs")
                                                 (("2"
                                                   (lift-if)
-                                                  (("2"
-                                                    (ground)
-                                                    nil
-                                                    nil))
+                                                  (("2" (ground) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -817,13 +751,10 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (rewrite "abs_mult")
-                                    (("2"
-                                      (rewrite "abs_hat_nat")
+                                   ("2" (rewrite "abs_mult")
+                                    (("2" (rewrite "abs_hat_nat")
                                       (("2"
-                                        (case-replace
-                                         "abs(altsign(n!1)) = 1")
+                                        (case-replace "abs(altsign(n!1)) = 1")
                                         (("1"
                                           (rewrite "abs_div")
                                           (("1"
@@ -846,10 +777,7 @@
                                                   (expand "abs")
                                                   (("1"
                                                     (lift-if)
-                                                    (("1"
-                                                      (ground)
-                                                      nil
-                                                      nil))
+                                                    (("1" (ground) nil nil))
                                                     nil))
                                                   nil)
                                                  ("2"
@@ -857,18 +785,14 @@
                                                   (("2"
                                                     (assert)
                                                     (("2"
-                                                      (rewrite
-                                                       "abs_div")
+                                                      (rewrite "abs_div")
                                                       (("2"
                                                         (assert)
                                                         (("2"
                                                           (rewrite
                                                            "abs_altsign")
                                                           (("2"
-                                                            (expand
-                                                             "abs"
-                                                             1
-                                                             1)
+                                                            (expand "abs" 1 1)
                                                             (("2"
                                                               (assert)
                                                               nil
@@ -886,10 +810,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("3"
-                                    (rewrite "abs_0")
-                                    (("3" (assert) nil nil))
-                                    nil))
+                                   ("3" (rewrite "abs_0")
+                                    (("3" (assert) nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -909,24 +831,22 @@
    ((nnreal_exp application-judgement "nnreal" exponentiation nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
-    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal" real_types
+     nil)
     (powerseries const-decl "sequence[real]" power_series nil)
     (apow_rew formula-decl nil power_series nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (factorial_0 formula-decl nil factorial "ints/")
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (factorial_0 formula-decl nil factorial ints)
     (rat_abs_is_nonneg application-judgement "{r: nonneg_rat | r >= q}"
      real_defs nil)
     (abs_hat_nat formula-decl nil exponentiation nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
-     nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (rat_exp application-judgement "rat" exponentiation nil)
     (expt_x0 formula-decl nil exponentiation nil)
@@ -937,38 +857,36 @@
     (minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (minus_rat_is_rat application-judgement "rat" rationals nil)
     (altsign_prep formula-decl nil trig_fun nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat" rationals
+     nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
-    (nzrat_abs_is_pos application-judgement "{r: posrat | r >= q}"
-     real_defs nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}" real_defs
+     nil)
+    (nzrat_abs_is_pos application-judgement "{r: posrat | r >= q}" real_defs
+     nil)
     (abs_div formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (altsign const-decl "{i: int | i = -1 OR i = 1}" trig_fun nil)
     (n!1 skolem-const-decl "nat" trig_fun nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat" rationals nil)
     (abs_altsign formula-decl nil trig_fun nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
+     nil)
     (abs_mult formula-decl nil real_props nil)
-    (abs_0 formula-decl nil abs_lems "reals/")
+    (abs_0 formula-decl nil abs_lems reals)
     (apowerseq const-decl "sequence[real]" power_series nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -1009,15 +927,10 @@
                         (("" (expand "powerseq")
                           (("" (expand "cos_coef")
                             (("" (lift-if)
-                              ((""
-                                (ground)
-                                (("1"
-                                  (rewrite "abs_div")
-                                  (("1"
-                                    (case-replace
-                                     "abs(altsign(n!1)) = 1")
-                                    (("1"
-                                      (expand "abs" 1 1)
+                              (("" (ground)
+                                (("1" (rewrite "abs_div")
+                                  (("1" (case-replace "abs(altsign(n!1)) = 1")
+                                    (("1" (expand "abs" 1 1)
                                       (("1"
                                         (rewrite "abs_hat_nat")
                                         (("1"
@@ -1035,8 +948,7 @@
                                                     (("1"
                                                       (assert)
                                                       (("1"
-                                                        (typepred
-                                                         "x!1")
+                                                        (typepred "x!1")
                                                         (("1"
                                                           (replace -3)
                                                           (("1"
@@ -1054,8 +966,7 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (hide 2)
+                                     ("2" (hide 2)
                                       (("2"
                                         (expand "altsign")
                                         (("2"
@@ -1066,10 +977,7 @@
                                               (expand "abs")
                                               (("2"
                                                 (lift-if)
-                                                (("2"
-                                                  (ground)
-                                                  nil
-                                                  nil))
+                                                (("2" (ground) nil nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -1078,13 +986,10 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (rewrite "abs_mult")
-                                  (("2"
-                                    (rewrite "abs_hat_nat")
+                                 ("2" (rewrite "abs_mult")
+                                  (("2" (rewrite "abs_hat_nat")
                                     (("2"
-                                      (case-replace
-                                       "abs(altsign(n!1)) = 1")
+                                      (case-replace "abs(altsign(n!1)) = 1")
                                       (("1"
                                         (rewrite "abs_div")
                                         (("1"
@@ -1107,24 +1012,19 @@
                                                 (expand "abs")
                                                 (("1"
                                                   (lift-if)
-                                                  (("1"
-                                                    (ground)
-                                                    nil
-                                                    nil))
+                                                  (("1" (ground) nil nil))
                                                   nil))
                                                 nil)
                                                ("2"
                                                 (reveal 1)
                                                 (("2"
-                                                  (lemma
-                                                   "not_even_int")
+                                                  (lemma "not_even_int")
                                                   (("2"
                                                     (inst?)
                                                     (("2"
                                                       (assert)
                                                       (("2"
-                                                        (rewrite
-                                                         "abs_div")
+                                                        (rewrite "abs_div")
                                                         (("2"
                                                           (assert)
                                                           (("2"
@@ -1154,10 +1054,8 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("3"
-                                  (rewrite "abs_0")
-                                  (("3" (assert) nil nil))
-                                  nil))
+                                 ("3" (rewrite "abs_0")
+                                  (("3" (assert) nil nil)) nil))
                                 nil))
                               nil))
                             nil))
@@ -1183,8 +1081,7 @@
       (("" (lemma "cos_conv")
         (("" (expand "conv_powerseries?")
           (("" (inst?)
-            (("" (expand "powerseries") (("" (propax) nil nil)) nil))
-            nil))
+            (("" (expand "powerseries") (("" (propax) nil nil)) nil)) nil))
           nil))
         nil))
       nil))
@@ -1195,12 +1092,13 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (cos_conv formula-decl nil trig_fun nil))
-   nil))
+   nil
+   (cos subtype "power_series.powerseq(trig_fun.cos_coef, trig_fun.x)"
+        "(series.conv_series?)")))
  (tan_TCC1 0
   (tan_TCC1-1 nil 3298132328 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1208,20 +1106,72 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (/= const-decl "boolean" notequal nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
     (tan_domain type-eq-decl nil trig_fun nil)
     (series const-decl "sequence[real]" series nil)
-    (convergence const-decl "bool" convergence_sequences "analysis/")
-    (limit const-decl "real" convergence_sequences "analysis/")
+    (convergence const-decl "bool" convergence_sequences analysis)
+    (limit const-decl "real" convergence_sequences analysis)
     (inf_sum const-decl "real" series nil)
     (cos const-decl "real" trig_fun nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil (tan subtype "trig_fun.cos(trig_fun.x)" "nznum")))
  (sin_0 0
+  (sin_0-2 "" 3790091654
+   ("" (expand "sin")
+    (("" (expand "inf_sum")
+      (("" (lemma "limit_series_shift")
+        (("" (inst?)
+          (("" (inst -1 "1")
+            (("" (split -1)
+              (("1" (assert)
+                (("1" (replace -1)
+                  (("1" (hide -1)
+                    (("1" (expand "sigma")
+                      (("1" (expand "powerseq")
+                        (("1" (case-replace "sin_coef(0) * 0 ^ 0 = 0")
+                          (("1" (hide -1)
+                            (("1" (assert)
+                              (("1"
+                                (case-replace
+                                 "(LAMBDA n: sin_coef(1 + n) * 0 ^ (1 + n)) = (LAMBDA n: 0)")
+                                (("1" (hide -1)
+                                  (("1" (rewrite "zero_series_limit") nil
+                                    nil))
+                                  nil)
+                                 ("2" (hide 2)
+                                  (("2" (apply-extensionality 1 :hide? t) nil
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (hide 2)
+                            (("2" (expand "sin_coef") (("2" (grind) nil nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (hide 2)
+                (("2" (lemma "sin_conv")
+                  (("2" (expand "conv_powerseries?")
+                    (("2" (expand "powerseries") (("2" (inst?) nil nil)) nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
   (sin_0-1 nil 3298132328
    ("" (expand "sin")
     (("" (expand "inf_sum")
@@ -1240,12 +1190,9 @@
                               (("1"
                                 (case-replace
                                  "(LAMBDA n: sin_coef(1 + n) * 0 ^ (1 + n)) = (LAMBDA n: 0)")
-                                (("1"
-                                  (hide -1)
-                                  (("1"
-                                    (rewrite "zero_series_limit")
-                                    (("1"
-                                      (expand "sin_coef")
+                                (("1" (hide -1)
+                                  (("1" (rewrite "zero_series_limit")
+                                    (("1" (expand "sin_coef")
                                       (("1"
                                         (expand "sigma")
                                         (("1" (propax) nil nil))
@@ -1253,19 +1200,16 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2"
-                                  (hide 2)
-                                  (("2"
-                                    (apply-extensionality 1 :hide? t)
-                                    nil
+                                 ("2" (hide 2)
+                                  (("2" (apply-extensionality 1 :hide? t) nil
                                     nil))
                                   nil))
                                 nil))
                               nil))
                             nil)
                            ("2" (hide 2)
-                            (("2" (expand "sin_coef")
-                              (("2" (grind) nil nil)) nil))
+                            (("2" (expand "sin_coef") (("2" (grind) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -1276,8 +1220,7 @@
                ("2" (hide 2)
                 (("2" (lemma "sin_conv")
                   (("2" (expand "conv_powerseries?")
-                    (("2" (expand "powerseries")
-                      (("2" (inst?) nil nil)) nil))
+                    (("2" (expand "powerseries") (("2" (inst?) nil nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -1290,8 +1233,7 @@
    ((inf_sum const-decl "real" series nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1305,7 +1247,7 @@
     (sequence type-eq-decl nil sequences nil)
     (powerseq const-decl "sequence[real]" power_series nil)
     (sin_coef const-decl "real" trig_fun nil)
-    (sigma def-decl "real" sigma "reals/")
+    (sigma def-decl "real" sigma reals)
     (^ const-decl "real" exponentiation nil)
     (/= const-decl "boolean" notequal nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
@@ -1313,32 +1255,25 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (hat_02n formula-decl nil power_series nil)
-    (sigma_0_neg formula-decl nil sigma_nat "reals/")
+    (sigma_0_neg formula-decl nil sigma_nat reals)
     (zero_series_limit formula-decl nil series nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers
+    (even_times_int_is_even application-judgement "even_int" integers nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int" integers
      nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (nat_expt application-judgement "nat" exponentiation nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
-     nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (expt def-decl "real" exponentiation nil)
     (nat_exp application-judgement "nat" exponentiation nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
+    (odd_minus_odd_is_even application-judgement "even_int" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (sin_conv formula-decl nil trig_fun nil)
     (powerseries const-decl "sequence[real]" power_series nil)
     (conv_powerseries? const-decl "bool" power_series_conv nil)
@@ -1349,7 +1284,7 @@
     (sin const-decl "real" trig_fun nil))
    nil))
  (cos_0 0
-  (cos_0-1 nil 3298132328
+  (cos_0-2 "" 3790091654
    ("" (expand "cos")
     (("" (expand "inf_sum")
       (("" (lemma "limit_series_shift")
@@ -1367,35 +1302,12 @@
                               (("1"
                                 (case-replace
                                  "(LAMBDA n: cos_coef(1 + n) * 0 ^ (1 + n)) = (LAMBDA n: 0)")
-                                (("1"
-                                  (hide -1)
-                                  (("1"
-                                    (rewrite "zero_series_limit")
-                                    (("1"
-                                      (expand "cos_coef")
-                                      (("1" (grind) nil nil))
-                                      nil))
+                                (("1" (hide -1)
+                                  (("1" (rewrite "zero_series_limit") nil
                                     nil))
                                   nil)
-                                 ("2"
-                                  (hide 2)
-                                  (("2"
-                                    (apply-extensionality 1 :hide? t)
-                                    (("2"
-                                      (typepred "x!1")
-                                      (("2"
-                                        (expand "cos_coef")
-                                        (("2"
-                                          (case-replace
-                                           "0 ^ (1 + x!1) = 0")
-                                          (("1" (assert) nil nil)
-                                           ("2"
-                                            (hide 2)
-                                            (("2" (grind) nil nil))
-                                            nil))
-                                          nil))
-                                        nil))
-                                      nil))
+                                 ("2" (hide 2)
+                                  (("2" (apply-extensionality 1 :hide? t) nil
                                     nil))
                                   nil))
                                 nil))
@@ -1403,14 +1315,10 @@
                             nil)
                            ("2" (hide 2)
                             (("2" (expand "cos_coef")
-                              (("2"
-                                (expand "factorial")
-                                (("2"
-                                  (expand "^")
-                                  (("2"
-                                    (expand "expt")
-                                    (("2"
-                                      (assert)
+                              (("2" (expand "factorial")
+                                (("2" (expand "^")
+                                  (("2" (expand "expt")
+                                    (("2" (assert)
                                       (("2"
                                         (expand "altsign")
                                         (("2" (assert) nil nil))
@@ -1430,8 +1338,87 @@
                ("2" (hide 2)
                 (("2" (lemma "cos_conv")
                   (("2" (expand "conv_powerseries?")
-                    (("2" (expand "powerseries")
-                      (("2" (inst?) nil nil)) nil))
+                    (("2" (expand "powerseries") (("2" (inst?) nil nil)) nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   nil shostak)
+  (cos_0-1 nil 3298132328
+   ("" (expand "cos")
+    (("" (expand "inf_sum")
+      (("" (lemma "limit_series_shift")
+        (("" (inst?)
+          (("" (inst -1 "1")
+            (("" (split -1)
+              (("1" (assert)
+                (("1" (replace -1)
+                  (("1" (hide -1)
+                    (("1" (expand "sigma")
+                      (("1" (expand "powerseq")
+                        (("1" (case-replace "cos_coef(0) * 0 ^ 0 = 1")
+                          (("1" (hide -1)
+                            (("1" (assert)
+                              (("1"
+                                (case-replace
+                                 "(LAMBDA n: cos_coef(1 + n) * 0 ^ (1 + n)) = (LAMBDA n: 0)")
+                                (("1" (hide -1)
+                                  (("1" (rewrite "zero_series_limit")
+                                    (("1" (expand "cos_coef")
+                                      (("1" (grind) nil nil)) nil))
+                                    nil))
+                                  nil)
+                                 ("2" (hide 2)
+                                  (("2" (apply-extensionality 1 :hide? t)
+                                    (("2" (typepred "x!1")
+                                      (("2"
+                                        (expand "cos_coef")
+                                        (("2"
+                                          (case-replace "0 ^ (1 + x!1) = 0")
+                                          (("1" (assert) nil nil)
+                                           ("2"
+                                            (hide 2)
+                                            (("2" (grind) nil nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (hide 2)
+                            (("2" (expand "cos_coef")
+                              (("2" (expand "factorial")
+                                (("2" (expand "^")
+                                  (("2" (expand "expt")
+                                    (("2" (assert)
+                                      (("2"
+                                        (expand "altsign")
+                                        (("2" (assert) nil nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil)
+               ("2" (hide 2)
+                (("2" (lemma "cos_conv")
+                  (("2" (expand "conv_powerseries?")
+                    (("2" (expand "powerseries") (("2" (inst?) nil nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -1444,8 +1431,7 @@
    ((inf_sum const-decl "real" series nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1459,7 +1445,7 @@
     (sequence type-eq-decl nil sequences nil)
     (powerseq const-decl "sequence[real]" power_series nil)
     (cos_coef const-decl "real" trig_fun nil)
-    (sigma def-decl "real" sigma "reals/")
+    (sigma def-decl "real" sigma reals)
     (^ const-decl "real" exponentiation nil)
     (/= const-decl "boolean" notequal nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
@@ -1467,30 +1453,26 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
     (hat_02n formula-decl nil power_series nil)
-    (sigma_0_neg formula-decl nil sigma_nat "reals/")
+    (sigma_0_neg formula-decl nil sigma_nat reals)
     (zero_series_limit formula-decl nil series nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (expt_x0 formula-decl nil exponentiation nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (nzreal_exp application-judgement "nzreal" exponentiation nil)
     (int_exp application-judgement "int" exponentiation nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
-     nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals nil)
     (altsign const-decl "{i: int | i = -1 OR i = 1}" trig_fun nil)
     (expt def-decl "real" exponentiation nil)
-    (factorial def-decl "posnat" factorial "ints/")
+    (factorial def-decl "posnat" factorial ints)
     (nat_exp application-judgement "nat" exponentiation nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
+    (odd_minus_odd_is_even application-judgement "even_int" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (cos_conv formula-decl nil trig_fun nil)
     (powerseries const-decl "sequence[real]" power_series nil)
     (conv_powerseries? const-decl "bool" power_series_conv nil)

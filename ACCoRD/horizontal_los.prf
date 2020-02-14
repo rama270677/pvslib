@@ -8,8 +8,8 @@
          ("2" (hide 2)
           (("2" (rewrite "sq_norm" :dir rl)
             (("2" (rewrite "sq_lt")
-              (("2" (expand "sq" 1)
-                (("2" (cancel-by 1 "norm(s)") nil nil)) nil))
+              (("2" (expand "sq" 1) (("2" (cancel-by 1 "norm(s)") nil nil))
+                nil))
               nil))
             nil))
           nil))
@@ -19,54 +19,49 @@
    ((LoS_vect2 type-eq-decl nil horizontal nil)
     (D formal-const-decl "posreal" horizontal_los nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (sq const-decl "nonneg_real" sq "reals/")
+    (> const-decl "bool" reals nil) (sq const-decl "nonneg_real" sq reals)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (nnreal type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil) (< const-decl "bool" reals nil)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (nnreal type-eq-decl nil real_types nil) (>= const-decl "bool" reals nil)
+    (< const-decl "bool" reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
     (/= const-decl "boolean" notequal nil)
-    (Vector type-eq-decl nil vectors_2D "vectors/")
+    (Vector type-eq-decl nil vectors_2D vectors)
     (real nonempty-type-from-decl nil reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (sq_lt formula-decl nil sq "reals/")
-    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
+    (sq_lt formula-decl nil sq reals)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal" real_types
+     nil)
     (zero_div formula-decl nil extra_tegies nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (id const-decl "(bijective?[T, T])" identity nil)
-    (bijective? const-decl "bool" functions nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
+     nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
-    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal" real_types
      nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (TRUE const-decl "bool" booleans nil)
-    (sq_norm formula-decl nil vectors_2D "vectors/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (sq_nz_pos application-judgement "posreal" sq "reals/")
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (sq_norm formula-decl nil vectors_2D vectors)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (sq_nz_pos application-judgement "posreal" sq reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D "vectors/")
-    (nz_norm_gt_0 application-judgement "posreal" vectors_2D
-     "vectors/")
+    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D vectors)
+    (nz_norm_gt_0 application-judgement "posreal" vectors_2D vectors)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (real_gt_is_strict_total_order name-judgement
@@ -75,11 +70,17 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (norm const-decl "nnreal" vectors_2D "vectors/"))
-   nil)
-  (sDs_TCC1-1 nil 3527334792 ("" (subtype-tcc) nil nil) nil nil))
+    (norm const-decl "nnreal" vectors_2D vectors))
+   nil
+   (sDs subtype
+    "(number_fields.-)(number_fields.*(vectors_2D.norm(horizontal_los.s), horizontal_los.D), vectors_2D.sqv(horizontal_los.s))"
+    "posreal"))
+  (sDs_TCC1-1 nil 3527334792 ("" (subtype-tcc) nil nil) nil nil
+   (sDs subtype
+    "(number_fields.-)(number_fields.*(vectors_2D.norm(horizontal_los.s), horizontal_los.D), vectors_2D.sqv(horizontal_los.s))"
+    "posreal")))
  (gs_los_TCC1 0
-  (gs_los_TCC1-2 nil 3443981844
+  (gs_los_TCC1-3 "" 3790107919
    ("" (skeep)
     (("" (lemma "max_segment_point_in_slice_def")
       (("" (inst?)
@@ -94,44 +95,28 @@
                         (("" (replace -3 2)
                           (("" (assert)
                             (("" (split +)
-                              (("1"
-                                (expand "gs_only?")
-                                (("1"
-                                  (inst + "t/norm(vo)")
+                              (("1" (expand "gs_only?")
+                                (("1" (inst + "t/norm(vo)")
                                   (("1" (assert) nil nil)
-                                   ("2"
-                                    (assert)
-                                    (("2"
-                                      (split +)
-                                      (("1" (cross-mult 1) nil nil)
-                                       ("2" (cross-mult 1) nil nil))
-                                      nil))
+                                   ("2" (split +)
+                                    (("1" (cross-mult 1) nil nil)
+                                     ("2" (cross-mult 1) nil nil))
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (rewrite "norm_scal")
-                                (("2"
-                                  (rewrite "abs_mult")
-                                  (("2"
-                                    (rewrite "abs_div")
-                                    (("2"
-                                      (expand "abs")
-                                      (("2" (assert) nil nil))
-                                      nil))
+                               ("2" (rewrite "norm_scal")
+                                (("2" (rewrite "abs_mult")
+                                  (("2" (rewrite "abs_div")
+                                    (("2" (expand "abs")
+                                      (("2" (assert) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil)
-                               ("3"
-                                (rewrite "norm_scal")
-                                (("3"
-                                  (rewrite "abs_mult")
-                                  (("3"
-                                    (rewrite "abs_div")
-                                    (("3"
-                                      (expand "abs")
-                                      (("3" (assert) nil nil))
-                                      nil))
+                               ("3" (rewrite "norm_scal")
+                                (("3" (rewrite "abs_mult")
+                                  (("3" (rewrite "abs_div")
+                                    (("3" (expand "abs")
+                                      (("3" (assert) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -149,14 +134,71 @@
         nil))
       nil))
     nil)
-   ((max_segment_point_in_slice_def formula-decl nil wedge_optimum_2D
+   nil shostak
+   (gs_los subtype "(vectors_2D.+)(horizontal_los.nv, horizontal_los.vi)"
+    "{nvo | booleans.=>(horizontal_los.nvo /= vectors_2D.zero, booleans.AND(definitions.gs_only?(horizontal_los.vo)(horizontal_los.nvo), booleans.AND(reals.<=(horizontal_los.MinGS, vectors_2D.norm(horizontal_los.nvo)), reals.<=(vectors_2D.norm(horizontal_los.nvo), horizontal_los.MaxGS))))}"))
+  (gs_los_TCC1-2 nil 3443981844
+   ("" (skeep)
+    (("" (lemma "max_segment_point_in_slice_def")
+      (("" (inst?)
+        (("" (assert)
+          (("" (rewrite "intersects_segment_fun_def")
+            (("" (assert)
+              (("" (flatten)
+                (("" (expand "on_segment_in_wedge?")
+                  (("" (replace -5 :dir rl)
+                    (("" (skeep -1)
+                      (("" (assert)
+                        (("" (replace -3 2)
+                          (("" (assert)
+                            (("" (split +)
+                              (("1" (expand "gs_only?")
+                                (("1" (inst + "t/norm(vo)")
+                                  (("1" (assert) nil nil)
+                                   ("2" (assert)
+                                    (("2" (split +)
+                                      (("1" (cross-mult 1) nil nil)
+                                       ("2" (cross-mult 1) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2" (rewrite "norm_scal")
+                                (("2" (rewrite "abs_mult")
+                                  (("2" (rewrite "abs_div")
+                                    (("2" (expand "abs")
+                                      (("2" (assert) nil nil)) nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("3" (rewrite "norm_scal")
+                                (("3" (rewrite "abs_mult")
+                                  (("3" (rewrite "abs_div")
+                                    (("3" (expand "abs")
+                                      (("3" (assert) nil nil)) nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((max_segment_point_in_slice_def formula-decl nil wedge_optimum_2D nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D
-     "vectors/")
-    (neg_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (sub_zero_right formula-decl nil vectors_2D "vectors/")
+    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D vectors)
+    (neg_nzv application-judgement "Nz_vector" vectors_2D vectors)
+    (sub_zero_right formula-decl nil vectors_2D vectors)
     (on_segment_in_wedge? const-decl "bool" wedge_optimum_2D nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -166,40 +208,39 @@
     (vo skolem-const-decl "Nz_vect2" horizontal_los nil)
     (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
     (div_mult_pos_ge1 formula-decl nil real_props nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
+     nil)
     (gs_only? const-decl "bool" definitions nil)
     (abs_mult formula-decl nil real_props nil)
     (nonzero_abs_is_pos application-judgement "{y: posreal | y >= x}"
      real_defs nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
-     real_defs nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
-    (nzrat_abs_is_pos application-judgement "{r: posrat | r >= q}"
-     real_defs nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}" real_defs
+     nil)
+    (nzrat_abs_is_pos application-judgement "{r: posrat | r >= q}" real_defs
+     nil)
     (abs_div formula-decl nil real_props nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (norm_scal formula-decl nil vectors_2D "vectors/")
+    (norm_scal formula-decl nil vectors_2D vectors)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (add_cancel_neg formula-decl nil vectors_2D "vectors/")
-    (dot_scal_right formula-decl nil vectors_2D "vectors/")
-    (scal_assoc formula-decl nil vectors_2D "vectors/")
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
+    (add_cancel_neg formula-decl nil vectors_2D vectors)
+    (dot_scal_right formula-decl nil vectors_2D vectors)
+    (scal_assoc formula-decl nil vectors_2D vectors)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (intersects_segment_fun_def formula-decl nil wedge_optimum_2D nil)
-    (- const-decl "Vector" vectors_2D "vectors/")
-    (norm const-decl "nnreal" vectors_2D "vectors/")
+    (- const-decl "Vector" vectors_2D vectors)
+    (norm const-decl "nnreal" vectors_2D vectors)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
-    (perpR const-decl "Vect2" perpendicular_2D "vectors/")
-    (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-    (Sign type-eq-decl nil sign "reals/")
+    (perpR const-decl "Vect2" perpendicular_2D vectors)
+    (Vect2 type-eq-decl nil vectors_2D_def vectors)
+    (Sign type-eq-decl nil sign reals)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -209,17 +250,16 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (* const-decl "Vector" vectors_2D "vectors/")
+    (* const-decl "Vector" vectors_2D vectors)
     (LoS_vect2 type-eq-decl nil horizontal nil)
     (D formal-const-decl "posreal" horizontal_los nil)
-    (sq const-decl "nonneg_real" sq "reals/")
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (nnreal type-eq-decl nil real_types nil)
-    (< const-decl "bool" reals nil)
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
+    (sq const-decl "nonneg_real" sq reals)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (nnreal type-eq-decl nil real_types nil) (< const-decl "bool" reals nil)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
     (/= const-decl "boolean" notequal nil)
-    (Vector type-eq-decl nil vectors_2D "vectors/")
+    (Vector type-eq-decl nil vectors_2D vectors)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -228,28 +268,35 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (nz_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (nz_norm_gt_0 application-judgement "posreal" vectors_2D
-     "vectors/")
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil))
-   nil)
-  (gs_los_TCC1-1 nil 3443981813 ("" (subtype-tcc) nil nil) nil nil))
+    (nz_nzv application-judgement "Nz_vector" vectors_2D vectors)
+    (nz_norm_gt_0 application-judgement "posreal" vectors_2D vectors)
+    (posreal_div_posreal_is_posreal application-judgement "posreal" real_types
+     nil))
+   nil
+   (gs_los subtype "(vectors_2D.+)(horizontal_los.nv, horizontal_los.vi)"
+    "{nvo | booleans.=>(horizontal_los.nvo /= vectors_2D.zero, booleans.AND(definitions.gs_only?(horizontal_los.vo)(horizontal_los.nvo), booleans.AND(reals.<=(horizontal_los.MinGS, vectors_2D.norm(horizontal_los.nvo)), reals.<=(vectors_2D.norm(horizontal_los.nvo), horizontal_los.MaxGS))))}"))
+  (gs_los_TCC1-1 nil 3443981813 ("" (subtype-tcc) nil nil) nil nil
+   (gs_los subtype "(vectors_2D.+)(horizontal_los.nv, horizontal_los.vi)"
+    "{nvo | booleans.=>(horizontal_los.nvo /= vectors_2D.zero, booleans.AND(definitions.gs_only?(horizontal_los.vo)(horizontal_los.nvo), booleans.AND(reals.<=(horizontal_los.MinGS, vectors_2D.norm(horizontal_los.nvo)), reals.<=(vectors_2D.norm(horizontal_los.nvo), horizontal_los.MaxGS))))}")))
  (gs_los_TCC2 0
+  (gs_los_TCC2-2 "" 3790107919 ("" (skeep) nil nil) nil shostak
+   (gs_los subtype "vectors_2D.zero"
+    "{nvo | booleans.=>(horizontal_los.nvo /= vectors_2D.zero, booleans.AND(definitions.gs_only?(horizontal_los.vo)(horizontal_los.nvo), booleans.AND(reals.<=(horizontal_los.MinGS, vectors_2D.norm(horizontal_los.nvo)), reals.<=(vectors_2D.norm(horizontal_los.nvo), horizontal_los.MaxGS))))}"))
   (gs_los_TCC2-1 nil 3447153768
-   ("" (skeep) (("" (rewrite "gs_only_id") nil nil)) nil) nil nil))
+   ("" (skeep) (("" (rewrite "gs_only_id") nil nil)) nil) nil nil
+   (gs_los subtype "vectors_2D.zero"
+    "{nvo | booleans.=>(horizontal_los.nvo /= vectors_2D.zero, booleans.AND(definitions.gs_only?(horizontal_los.vo)(horizontal_los.nvo), booleans.AND(reals.<=(horizontal_los.MinGS, vectors_2D.norm(horizontal_los.nvo)), reals.<=(vectors_2D.norm(horizontal_los.nvo), horizontal_los.MaxGS))))}")))
  (gs_los_def 0
   (gs_los_def-2 nil 3531498662
    ("" (skeep)
     (("" (assert)
       (("" (lemma "max_segment_point_in_slice_def")
         ((""
-          (inst - "MinGS" "MaxGS" "s" "irt*perpR(s)" "zero"
-           "(1/norm(vo))*vo" "-vi")
+          (inst - "MinGS" "MaxGS" "s" "irt*perpR(s)" "zero" "(1/norm(vo))*vo"
+           "-vi")
           ((""
             (name "vv" "max_segment_point_in_slice(zero,
                                                             -vi,
@@ -267,14 +314,10 @@
                         (("" (case "NOT norm(vv)>=MinRelSpeed")
                           (("1" (assert)
                             (("1" (skeep 2)
-                              (("1"
-                                (inst - "nvo2-vi")
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (hide (-1 -2))
-                                    (("1"
-                                      (expand "on_segment_in_wedge?")
+                              (("1" (inst - "nvo2-vi")
+                                (("1" (assert)
+                                  (("1" (hide (-1 -2))
+                                    (("1" (expand "on_segment_in_wedge?")
                                       (("1"
                                         (expand "gs_only?")
                                         (("1"
@@ -290,15 +333,11 @@
                                                   (("1"
                                                     (assert)
                                                     (("1"
-                                                      (replace
-                                                       -1
-                                                       :dir
-                                                       rl)
+                                                      (replace -1 :dir rl)
                                                       (("1"
                                                         (split +)
                                                         (("1"
-                                                          (hide-all-but
-                                                           1)
+                                                          (hide-all-but 1)
                                                           (("1"
                                                             (grind)
                                                             nil
@@ -321,8 +360,7 @@
                                                            ("2"
                                                             (flatten)
                                                             (("2"
-                                                              (replace
-                                                               -1)
+                                                              (replace -1)
                                                               (("2"
                                                                 (assert)
                                                                 nil
@@ -362,22 +400,15 @@
                                                                       MaxGS,
                                                                       s,
                                                                       irt * perpR(s))")
-                              (("1"
-                                (assert)
-                                (("1"
-                                  (split +)
-                                  (("1"
-                                    (flatten)
+                              (("1" (assert)
+                                (("1" (split +)
+                                  (("1" (flatten)
                                     (("1"
-                                      (rewrite
-                                       "intersects_segment_fun_def")
+                                      (rewrite "intersects_segment_fun_def")
                                       (("1"
                                         (assert)
                                         (("1"
-                                          (expand
-                                           "on_segment_in_wedge?"
-                                           -
-                                           1)
+                                          (expand "on_segment_in_wedge?" - 1)
                                           (("1"
                                             (skeep -4)
                                             (("1"
@@ -392,10 +423,7 @@
                                                      "(t * (1 / norm(vo)))")
                                                     (("1"
                                                       (replace -6 +)
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("1" (assert) nil nil))
                                                       nil)
                                                      ("2"
                                                       (case
@@ -403,14 +431,12 @@
                                                       (("1"
                                                         (rewrite -1)
                                                         (("1"
-                                                          (cross-mult
-                                                           1)
+                                                          (cross-mult 1)
                                                           nil
                                                           nil))
                                                         nil)
                                                        ("2"
-                                                        (hide-all-but
-                                                         1)
+                                                        (hide-all-but 1)
                                                         (("2"
                                                           (skosimp*)
                                                           (("2"
@@ -427,19 +453,13 @@
                                                   (("2"
                                                     (assert)
                                                     (("2"
-                                                      (rewrite
-                                                       "norm_scal"
-                                                       +)
+                                                      (rewrite "norm_scal" +)
                                                       (("2"
-                                                        (rewrite
-                                                         "abs_mult")
+                                                        (rewrite "abs_mult")
                                                         (("2"
-                                                          (rewrite
-                                                           "abs_div")
+                                                          (rewrite "abs_div")
                                                           (("2"
-                                                            (expand
-                                                             "abs"
-                                                             +)
+                                                            (expand "abs" +)
                                                             (("2"
                                                               (assert)
                                                               nil
@@ -455,19 +475,13 @@
                                                   (("3"
                                                     (assert)
                                                     (("3"
-                                                      (rewrite
-                                                       "norm_scal"
-                                                       +)
+                                                      (rewrite "norm_scal" +)
                                                       (("3"
-                                                        (rewrite
-                                                         "abs_mult")
+                                                        (rewrite "abs_mult")
                                                         (("3"
-                                                          (rewrite
-                                                           "abs_div")
+                                                          (rewrite "abs_div")
                                                           (("3"
-                                                            (expand
-                                                             "abs"
-                                                             +)
+                                                            (expand "abs" +)
                                                             (("3"
                                                               (assert)
                                                               nil
@@ -480,10 +494,7 @@
                                                   nil)
                                                  ("4"
                                                   (hide-all-but (-7 1))
-                                                  (("4"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("4" (grind) nil nil))
                                                   nil)
                                                  ("5"
                                                   (rewrite
@@ -492,30 +503,20 @@
                                                    :dir
                                                    rl)
                                                   (("1"
-                                                    (hide-all-but
-                                                     (-7 1))
-                                                    (("1"
-                                                      (grind)
-                                                      nil
-                                                      nil))
+                                                    (hide-all-but (-7 1))
+                                                    (("1" (grind) nil nil))
                                                     nil)
                                                    ("2"
                                                     (flatten)
                                                     (("2"
                                                       (replace -1)
-                                                      (("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("2" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil)
                                                  ("6"
                                                   (hide-all-but (-8 1))
-                                                  (("6"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("6" (grind) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -524,11 +525,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (rewrite
-                                     "intersects_segment_fun_def")
-                                    (("2"
-                                      (assert)
+                                   ("2" (rewrite "intersects_segment_fun_def")
+                                    (("2" (assert)
                                       (("2"
                                         (skeep)
                                         (("2"
@@ -551,8 +549,7 @@
                                                       (("2"
                                                         (assert)
                                                         (("2"
-                                                          (case
-                                                           "t > 0")
+                                                          (case "t > 0")
                                                           (("1"
                                                             (hide-all-but
                                                              (-1 -2))
@@ -608,9 +605,7 @@
                                                   (("2"
                                                     (skeep -1)
                                                     (("2"
-                                                      (inst
-                                                       +
-                                                       "l*norm(vo)")
+                                                      (inst + "l*norm(vo)")
                                                       (("2"
                                                         (assert)
                                                         (("2"
@@ -619,8 +614,7 @@
                                                             (rewrite
                                                              "norm_scal")
                                                             (("2"
-                                                              (expand
-                                                               "abs")
+                                                              (expand "abs")
                                                               (("2"
                                                                 (assert)
                                                                 (("2"
@@ -629,8 +623,7 @@
                                                                    :dir
                                                                    rl)
                                                                   (("2"
-                                                                    (split
-                                                                     +)
+                                                                    (split +)
                                                                     (("1"
                                                                       (hide-all-but
                                                                        1)
@@ -668,8 +661,7 @@
                                                                       nil)
                                                                      ("3"
                                                                       (hide-all-but
-                                                                       (-5
-                                                                        1))
+                                                                       (-5 1))
                                                                       (("3"
                                                                         (grind)
                                                                         nil
@@ -694,15 +686,12 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (assert)
-                                (("2"
-                                  (skeep 2)
+                               ("2" (assert)
+                                (("2" (skeep 2)
                                   (("2"
                                     (lemma
                                      "max_segment_point_in_slice_complete")
-                                    (("2"
-                                      (inst?)
+                                    (("2" (inst?)
                                       (("2"
                                         (replace -3)
                                         (("2"
@@ -717,8 +706,7 @@
                                                 (("2"
                                                   (split -1)
                                                   (("1"
-                                                    (hide-all-but
-                                                     (-1 1))
+                                                    (hide-all-but (-1 1))
                                                     (("1"
                                                       (expand
                                                        "on_segment_in_wedge?")
@@ -728,9 +716,7 @@
                                                           (expand
                                                            "intersects_segment?")
                                                           (("1"
-                                                            (inst
-                                                             +
-                                                             "t")
+                                                            (inst + "t")
                                                             (("1"
                                                               (assert)
                                                               nil
@@ -743,8 +729,7 @@
                                                    ("2"
                                                     (hide (-2 -3 -4))
                                                     (("2"
-                                                      (expand
-                                                       "gs_only?")
+                                                      (expand "gs_only?")
                                                       (("2"
                                                         (skeep -2)
                                                         (("2"
@@ -755,8 +740,7 @@
                                                              +
                                                              "l*norm(vo)")
                                                             (("2"
-                                                              (replace
-                                                               -2)
+                                                              (replace -2)
                                                               (("2"
                                                                 (rewrite
                                                                  "norm_scal")
@@ -853,19 +837,17 @@
       nil))
     nil)
    ((real_times_real_is_real application-judgement "real" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (posreal_div_posreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (nz_norm_gt_0 application-judgement "posreal" vectors_2D
-     "vectors/")
-    (nz_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal" real_types
+     nil)
+    (nz_norm_gt_0 application-judgement "posreal" vectors_2D vectors)
+    (nz_nzv application-judgement "Nz_vector" vectors_2D vectors)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -874,17 +856,16 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (Vector type-eq-decl nil vectors_2D "vectors/")
+    (Vector type-eq-decl nil vectors_2D vectors)
     (/= const-decl "boolean" notequal nil)
-    (zero const-decl "Vector" vectors_2D "vectors/")
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (< const-decl "bool" reals nil)
-    (nnreal type-eq-decl nil real_types nil)
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (sq const-decl "nonneg_real" sq "reals/")
+    (zero const-decl "Vector" vectors_2D vectors)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (< const-decl "bool" reals nil) (nnreal type-eq-decl nil real_types nil)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (sq const-decl "nonneg_real" sq reals)
     (D formal-const-decl "posreal" horizontal_los nil)
     (LoS_vect2 type-eq-decl nil horizontal nil)
-    (* const-decl "Vector" vectors_2D "vectors/")
+    (* const-decl "Vector" vectors_2D vectors)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -894,46 +875,45 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (Sign type-eq-decl nil sign "reals/")
-    (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-    (perpR const-decl "Vect2" perpendicular_2D "vectors/")
+    (Sign type-eq-decl nil sign reals)
+    (Vect2 type-eq-decl nil vectors_2D_def vectors)
+    (perpR const-decl "Vect2" perpendicular_2D vectors)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (norm const-decl "nnreal" vectors_2D "vectors/")
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (norm const-decl "nnreal" vectors_2D vectors)
+    (- const-decl "Vector" vectors_2D vectors)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (on_segment_in_wedge? const-decl "bool" wedge_optimum_2D nil)
-    (norm_scal formula-decl nil vectors_2D "vectors/")
+    (norm_scal formula-decl nil vectors_2D vectors)
     (nonzero_abs_is_pos application-judgement "{y: posreal | y >= x}"
      real_defs nil)
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (det const-decl "real" det_2D "vectors/")
+    (det const-decl "real" det_2D vectors)
     (dot_nneg_divergent formula-decl nil definitions nil)
-    (* const-decl "real" vectors_2D "vectors/")
-    (dot_zero_left formula-decl nil vectors_2D "vectors/")
+    (* const-decl "real" vectors_2D vectors)
+    (dot_zero_left formula-decl nil vectors_2D vectors)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (+ const-decl "Vector" vectors_2D "vectors/")
-    (dot_scal_right formula-decl nil vectors_2D "vectors/")
-    (scal_assoc formula-decl nil vectors_2D "vectors/")
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
+    (+ const-decl "Vector" vectors_2D vectors)
+    (dot_scal_right formula-decl nil vectors_2D vectors)
+    (scal_assoc formula-decl nil vectors_2D vectors)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (gs_only? const-decl "bool" definitions nil)
-    (- const-decl "Vector" vectors_2D "vectors/")
-    (norm_neg formula-decl nil vectors_2D "vectors/")
-    (sub_zero_left formula-decl nil vectors_2D "vectors/")
+    (- const-decl "Vector" vectors_2D vectors)
+    (norm_neg formula-decl nil vectors_2D vectors)
+    (sub_zero_left formula-decl nil vectors_2D vectors)
     (intersects_segment_fun? const-decl "bool" wedge_optimum_2D nil)
     (intersects_segment_fun_def formula-decl nil wedge_optimum_2D nil)
-    (add_zero_left formula-decl nil vectors_2D "vectors/")
+    (add_zero_left formula-decl nil vectors_2D vectors)
     (abs_div formula-decl nil real_props nil)
-    (nzrat_abs_is_pos application-judgement "{r: posrat | r >= q}"
-     real_defs nil)
+    (nzrat_abs_is_pos application-judgement "{r: posrat | r >= q}" real_defs
+     nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}" real_defs
+     nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
-     real_defs nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}"
      real_defs nil)
     (abs_mult formula-decl nil real_props nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -941,40 +921,37 @@
     (times_div1 formula-decl nil real_props nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (add_cancel_neg formula-decl nil vectors_2D "vectors/")
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
+     nil)
+    (add_cancel_neg formula-decl nil vectors_2D vectors)
     (vo skolem-const-decl "Nz_vect2" horizontal_los nil)
     (t skolem-const-decl "real" horizontal_los nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (norm_eq_0 formula-decl nil vectors_2D "vectors/")
-    (add_cancel_neg2 formula-decl nil vectors_2D "vectors/")
+    (norm_eq_0 formula-decl nil vectors_2D vectors)
+    (add_cancel_neg2 formula-decl nil vectors_2D vectors)
     (intersects_segment? const-decl "bool" wedge_optimum_2D nil)
-    (max_segment_point_in_slice_complete formula-decl nil
-     wedge_optimum_2D nil)
-    (norm_zero formula-decl nil vectors_2D "vectors/")
-    (gs_los const-decl "{nvo |
-         nvo /= zero =>
-          gs_only?(vo)(nvo) AND MinGS <= norm(nvo) AND norm(nvo) <= MaxGS}"
-     horizontal_los nil)
-    (sub_zero_right formula-decl nil vectors_2D "vectors/")
-    (neg_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D
-     "vectors/")
-    (max_segment_point_in_slice const-decl "Vect2" wedge_optimum_2D
+    (max_segment_point_in_slice_complete formula-decl nil wedge_optimum_2D
      nil)
-    (max_segment_point_in_slice_def formula-decl nil wedge_optimum_2D
-     nil))
+    (norm_zero formula-decl nil vectors_2D vectors)
+    (gs_los const-decl "{nvo |
+   nvo /= zero =>
+    gs_only?(vo)(nvo) AND MinGS <= norm(nvo) AND norm(nvo) <= MaxGS}"
+     horizontal_los nil)
+    (sub_zero_right formula-decl nil vectors_2D vectors)
+    (neg_nzv application-judgement "Nz_vector" vectors_2D vectors)
+    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D vectors)
+    (max_segment_point_in_slice const-decl "Vect2" wedge_optimum_2D nil)
+    (max_segment_point_in_slice_def formula-decl nil wedge_optimum_2D nil))
    nil)
   (gs_los_def-1 nil 3531498583
    ("" (skeep)
     (("" (assert)
       (("" (lemma "max_segment_point_in_slice_def")
         ((""
-          (inst - "MinGS" "MaxGS" "s" "irt*perpR(s)" "zero"
-           "(1/norm(vo))*vo" "-vi")
+          (inst - "MinGS" "MaxGS" "s" "irt*perpR(s)" "zero" "(1/norm(vo))*vo"
+           "-vi")
           ((""
             (name "vv" "max_segment_point_in_slice(zero,
                                                      -vi,
@@ -992,14 +969,10 @@
                         (("" (case "NOT norm(vv)>=MinRelSpeed")
                           (("1" (assert)
                             (("1" (skeep 2)
-                              (("1"
-                                (inst - "nvo2-vi")
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (hide (-1 -2))
-                                    (("1"
-                                      (expand "on_segment_in_wedge?")
+                              (("1" (inst - "nvo2-vi")
+                                (("1" (assert)
+                                  (("1" (hide (-1 -2))
+                                    (("1" (expand "on_segment_in_wedge?")
                                       (("1"
                                         (expand "gs_only?")
                                         (("1"
@@ -1015,15 +988,11 @@
                                                   (("1"
                                                     (assert)
                                                     (("1"
-                                                      (replace
-                                                       -1
-                                                       :dir
-                                                       rl)
+                                                      (replace -1 :dir rl)
                                                       (("1"
                                                         (split +)
                                                         (("1"
-                                                          (hide-all-but
-                                                           1)
+                                                          (hide-all-but 1)
                                                           (("1"
                                                             (grind)
                                                             nil
@@ -1046,8 +1015,7 @@
                                                            ("2"
                                                             (flatten)
                                                             (("2"
-                                                              (replace
-                                                               -1)
+                                                              (replace -1)
                                                               (("2"
                                                                 (assert)
                                                                 nil
@@ -1087,22 +1055,15 @@
                                                              MaxGS,
                                                              s,
                                                              irt * perpR(s))")
-                              (("1"
-                                (assert)
-                                (("1"
-                                  (split +)
-                                  (("1"
-                                    (flatten)
+                              (("1" (assert)
+                                (("1" (split +)
+                                  (("1" (flatten)
                                     (("1"
-                                      (rewrite
-                                       "intersects_segment_fun_def")
+                                      (rewrite "intersects_segment_fun_def")
                                       (("1"
                                         (assert)
                                         (("1"
-                                          (expand
-                                           "on_segment_in_wedge?"
-                                           -
-                                           1)
+                                          (expand "on_segment_in_wedge?" - 1)
                                           (("1"
                                             (skeep -4)
                                             (("1"
@@ -1117,10 +1078,7 @@
                                                      "(t * (1 / norm(vo)))")
                                                     (("1"
                                                       (replace -6 +)
-                                                      (("1"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("1" (assert) nil nil))
                                                       nil)
                                                      ("2"
                                                       (case
@@ -1128,14 +1086,12 @@
                                                       (("1"
                                                         (rewrite -1)
                                                         (("1"
-                                                          (cross-mult
-                                                           1)
+                                                          (cross-mult 1)
                                                           nil
                                                           nil))
                                                         nil)
                                                        ("2"
-                                                        (hide-all-but
-                                                         1)
+                                                        (hide-all-but 1)
                                                         (("2"
                                                           (skosimp*)
                                                           (("2"
@@ -1152,19 +1108,13 @@
                                                   (("2"
                                                     (assert)
                                                     (("2"
-                                                      (rewrite
-                                                       "norm_scal"
-                                                       +)
+                                                      (rewrite "norm_scal" +)
                                                       (("2"
-                                                        (rewrite
-                                                         "abs_mult")
+                                                        (rewrite "abs_mult")
                                                         (("2"
-                                                          (rewrite
-                                                           "abs_div")
+                                                          (rewrite "abs_div")
                                                           (("2"
-                                                            (expand
-                                                             "abs"
-                                                             +)
+                                                            (expand "abs" +)
                                                             (("2"
                                                               (assert)
                                                               nil
@@ -1180,19 +1130,13 @@
                                                   (("3"
                                                     (assert)
                                                     (("3"
-                                                      (rewrite
-                                                       "norm_scal"
-                                                       +)
+                                                      (rewrite "norm_scal" +)
                                                       (("3"
-                                                        (rewrite
-                                                         "abs_mult")
+                                                        (rewrite "abs_mult")
                                                         (("3"
-                                                          (rewrite
-                                                           "abs_div")
+                                                          (rewrite "abs_div")
                                                           (("3"
-                                                            (expand
-                                                             "abs"
-                                                             +)
+                                                            (expand "abs" +)
                                                             (("3"
                                                               (assert)
                                                               nil
@@ -1205,10 +1149,7 @@
                                                   nil)
                                                  ("4"
                                                   (hide-all-but (-7 1))
-                                                  (("4"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("4" (grind) nil nil))
                                                   nil)
                                                  ("5"
                                                   (rewrite
@@ -1217,30 +1158,20 @@
                                                    :dir
                                                    rl)
                                                   (("1"
-                                                    (hide-all-but
-                                                     (-7 1))
-                                                    (("1"
-                                                      (grind)
-                                                      nil
-                                                      nil))
+                                                    (hide-all-but (-7 1))
+                                                    (("1" (grind) nil nil))
                                                     nil)
                                                    ("2"
                                                     (flatten)
                                                     (("2"
                                                       (replace -1)
-                                                      (("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                      (("2" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil)
                                                  ("6"
                                                   (hide-all-but (-8 1))
-                                                  (("6"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("6" (grind) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1249,11 +1180,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (rewrite
-                                     "intersects_segment_fun_def")
-                                    (("2"
-                                      (assert)
+                                   ("2" (rewrite "intersects_segment_fun_def")
+                                    (("2" (assert)
                                       (("2"
                                         (skeep)
                                         (("2"
@@ -1276,8 +1204,7 @@
                                                       (("2"
                                                         (assert)
                                                         (("2"
-                                                          (case
-                                                           "t > 0")
+                                                          (case "t > 0")
                                                           (("1"
                                                             (hide-all-but
                                                              (-1 -2))
@@ -1333,9 +1260,7 @@
                                                   (("2"
                                                     (skeep -1)
                                                     (("2"
-                                                      (inst
-                                                       +
-                                                       "l*norm(vo)")
+                                                      (inst + "l*norm(vo)")
                                                       (("2"
                                                         (assert)
                                                         (("2"
@@ -1344,8 +1269,7 @@
                                                             (rewrite
                                                              "norm_scal")
                                                             (("2"
-                                                              (expand
-                                                               "abs")
+                                                              (expand "abs")
                                                               (("2"
                                                                 (assert)
                                                                 (("2"
@@ -1354,8 +1278,7 @@
                                                                    :dir
                                                                    rl)
                                                                   (("2"
-                                                                    (split
-                                                                     +)
+                                                                    (split +)
                                                                     (("1"
                                                                       (hide-all-but
                                                                        1)
@@ -1393,8 +1316,7 @@
                                                                       nil)
                                                                      ("3"
                                                                       (hide-all-but
-                                                                       (-5
-                                                                        1))
+                                                                       (-5 1))
                                                                       (("3"
                                                                         (grind)
                                                                         nil
@@ -1419,15 +1341,12 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (assert)
-                                (("2"
-                                  (skeep 2)
+                               ("2" (assert)
+                                (("2" (skeep 2)
                                   (("2"
                                     (lemma
                                      "max_segment_point_in_slice_complete")
-                                    (("2"
-                                      (inst?)
+                                    (("2" (inst?)
                                       (("2"
                                         (replace -3)
                                         (("2"
@@ -1442,8 +1361,7 @@
                                                 (("2"
                                                   (split -1)
                                                   (("1"
-                                                    (hide-all-but
-                                                     (-1 1))
+                                                    (hide-all-but (-1 1))
                                                     (("1"
                                                       (expand
                                                        "on_segment_in_wedge?")
@@ -1453,9 +1371,7 @@
                                                           (expand
                                                            "intersects_segment?")
                                                           (("1"
-                                                            (inst
-                                                             +
-                                                             "t")
+                                                            (inst + "t")
                                                             (("1"
                                                               (assert)
                                                               nil
@@ -1468,8 +1384,7 @@
                                                    ("2"
                                                     (hide (-2 -3 -4))
                                                     (("2"
-                                                      (expand
-                                                       "gs_only?")
+                                                      (expand "gs_only?")
                                                       (("2"
                                                         (skeep -2)
                                                         (("2"
@@ -1480,8 +1395,7 @@
                                                              +
                                                              "l*norm(vo)")
                                                             (("2"
-                                                              (replace
-                                                               -2)
+                                                              (replace -2)
                                                               (("2"
                                                                 (rewrite
                                                                  "norm_scal")
@@ -1577,51 +1491,47 @@
         nil))
       nil))
     nil)
-   ((max_segment_point_in_slice_def formula-decl nil wedge_optimum_2D
+   ((max_segment_point_in_slice_def formula-decl nil wedge_optimum_2D nil)
+    (max_segment_point_in_slice const-decl "Vect2" wedge_optimum_2D nil)
+    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D vectors)
+    (neg_nzv application-judgement "Nz_vector" vectors_2D vectors)
+    (sub_zero_right formula-decl nil vectors_2D vectors)
+    (norm_zero formula-decl nil vectors_2D vectors)
+    (max_segment_point_in_slice_complete formula-decl nil wedge_optimum_2D
      nil)
-    (max_segment_point_in_slice const-decl "Vect2" wedge_optimum_2D
-     nil)
-    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D
-     "vectors/")
-    (neg_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (sub_zero_right formula-decl nil vectors_2D "vectors/")
-    (norm_zero formula-decl nil vectors_2D "vectors/")
-    (max_segment_point_in_slice_complete formula-decl nil
-     wedge_optimum_2D nil)
     (intersects_segment? const-decl "bool" wedge_optimum_2D nil)
-    (add_cancel_neg2 formula-decl nil vectors_2D "vectors/")
-    (norm_eq_0 formula-decl nil vectors_2D "vectors/")
-    (add_cancel_neg formula-decl nil vectors_2D "vectors/")
-    (abs_nat formula-decl nil abs_lems "reals/")
-    (add_zero_left formula-decl nil vectors_2D "vectors/")
+    (add_cancel_neg2 formula-decl nil vectors_2D vectors)
+    (norm_eq_0 formula-decl nil vectors_2D vectors)
+    (add_cancel_neg formula-decl nil vectors_2D vectors)
+    (abs_nat formula-decl nil abs_lems reals)
+    (add_zero_left formula-decl nil vectors_2D vectors)
     (intersects_segment_fun_def formula-decl nil wedge_optimum_2D nil)
     (intersects_segment_fun? const-decl "bool" wedge_optimum_2D nil)
-    (sub_zero_left formula-decl nil vectors_2D "vectors/")
-    (norm_neg formula-decl nil vectors_2D "vectors/")
+    (sub_zero_left formula-decl nil vectors_2D vectors)
+    (norm_neg formula-decl nil vectors_2D vectors)
     (gs_only? const-decl "bool" definitions nil)
-    (scal_assoc formula-decl nil vectors_2D "vectors/")
-    (dot_scal_right formula-decl nil vectors_2D "vectors/")
-    (+ const-decl "Vector" vectors_2D "vectors/")
-    (dot_zero_left formula-decl nil vectors_2D "vectors/")
-    (* const-decl "real" vectors_2D "vectors/")
+    (scal_assoc formula-decl nil vectors_2D vectors)
+    (dot_scal_right formula-decl nil vectors_2D vectors)
+    (+ const-decl "Vector" vectors_2D vectors)
+    (dot_zero_left formula-decl nil vectors_2D vectors)
+    (* const-decl "real" vectors_2D vectors)
     (dot_nneg_divergent formula-decl nil definitions nil)
-    (det const-decl "real" det_2D "vectors/")
-    (norm_scal formula-decl nil vectors_2D "vectors/")
+    (det const-decl "real" det_2D vectors)
+    (norm_scal formula-decl nil vectors_2D vectors)
     (on_segment_in_wedge? const-decl "bool" wedge_optimum_2D nil)
-    (norm const-decl "nnreal" vectors_2D "vectors/")
-    (perpR const-decl "Vect2" perpendicular_2D "vectors/")
-    (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-    (Sign type-eq-decl nil sign "reals/")
-    (* const-decl "Vector" vectors_2D "vectors/")
+    (norm const-decl "nnreal" vectors_2D vectors)
+    (perpR const-decl "Vect2" perpendicular_2D vectors)
+    (Vect2 type-eq-decl nil vectors_2D_def vectors)
+    (Sign type-eq-decl nil sign reals)
+    (* const-decl "Vector" vectors_2D vectors)
     (LoS_vect2 type-eq-decl nil horizontal nil)
-    (sq const-decl "nonneg_real" sq "reals/")
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
-    (Vector type-eq-decl nil vectors_2D "vectors/")
-    (nz_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (nz_norm_gt_0 application-judgement "posreal" vectors_2D
-     "vectors/"))
+    (sq const-decl "nonneg_real" sq reals)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
+    (Vector type-eq-decl nil vectors_2D vectors)
+    (nz_nzv application-judgement "Nz_vector" vectors_2D vectors)
+    (nz_norm_gt_0 application-judgement "posreal" vectors_2D vectors))
    nil))
  (trk_los_TCC1 0
   (trk_los_TCC1-2 nil 3443981980
@@ -1633,8 +1543,7 @@
             (("" (flatten)
               (("" (split -)
                 (("1" (flatten)
-                  (("1" (hide-all-but (-1 2)) (("1" (grind) nil nil))
-                    nil))
+                  (("1" (hide-all-but (-1 2)) (("1" (grind) nil nil)) nil))
                   nil)
                  ("2" (propax) nil nil))
                 nil))
@@ -1644,28 +1553,26 @@
         nil))
       nil))
     nil)
-   ((max_circle_point_in_slice_def formula-decl nil circle_optimum_2D
-     nil)
+   ((max_circle_point_in_slice_def formula-decl nil circle_optimum_2D nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D
-     "vectors/")
-    (neg_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (sub_zero_right formula-decl nil vectors_2D "vectors/")
-    (dot_scal_right formula-decl nil vectors_2D "vectors/")
-    (* const-decl "real" vectors_2D "vectors/")
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D vectors)
+    (neg_nzv application-judgement "Nz_vector" vectors_2D vectors)
+    (sub_zero_right formula-decl nil vectors_2D vectors)
+    (dot_scal_right formula-decl nil vectors_2D vectors)
+    (* const-decl "real" vectors_2D vectors)
+    (- const-decl "Vector" vectors_2D vectors)
     (circle? const-decl "bool" circle_optimum_2D nil)
-    (+ const-decl "Vector" vectors_2D "vectors/")
+    (+ const-decl "Vector" vectors_2D vectors)
     (trk_only? const-decl "bool" definitions nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D "vectors/")
-    (sqrt_pos application-judgement "posreal" sqrt "reals/")
+    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D vectors)
+    (sqrt_pos application-judgement "posreal" sqrt reals)
     (minus_real_is_real application-judgement "real" reals nil)
-    (perpR const-decl "Vect2" perpendicular_2D "vectors/")
-    (Sign type-eq-decl nil sign "reals/")
+    (perpR const-decl "Vect2" perpendicular_2D vectors)
+    (Sign type-eq-decl nil sign reals)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -1675,20 +1582,19 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (* const-decl "Vector" vectors_2D "vectors/")
+    (* const-decl "Vector" vectors_2D vectors)
     (LoS_vect2 type-eq-decl nil horizontal nil)
     (D formal-const-decl "posreal" horizontal_los nil)
-    (sq const-decl "nonneg_real" sq "reals/")
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (< const-decl "bool" reals nil)
-    (- const-decl "Vector" vectors_2D "vectors/")
-    (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
+    (sq const-decl "nonneg_real" sq reals)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (< const-decl "bool" reals nil) (- const-decl "Vector" vectors_2D vectors)
+    (Vect2 type-eq-decl nil vectors_2D_def vectors)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
     (/= const-decl "boolean" notequal nil)
-    (norm const-decl "nnreal" vectors_2D "vectors/")
+    (norm const-decl "nnreal" vectors_2D vectors)
     (nnreal type-eq-decl nil real_types nil)
-    (Vector type-eq-decl nil vectors_2D "vectors/")
+    (Vector type-eq-decl nil vectors_2D vectors)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -1697,18 +1603,25 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (nz_norm_gt_0 application-judgement "posreal" vectors_2D
-     "vectors/")
-    (nz_nzv application-judgement "Nz_vector" vectors_2D "vectors/"))
-   nil)
-  (trk_los_TCC1-1 nil 3443981892 ("" (subtype-tcc) nil nil) nil nil))
+    (nz_norm_gt_0 application-judgement "posreal" vectors_2D vectors)
+    (nz_nzv application-judgement "Nz_vector" vectors_2D vectors))
+   nil
+   (trk_los subtype "(vectors_2D.+)(horizontal_los.nv, horizontal_los.vi)"
+    "{nvo | booleans.=>(horizontal_los.nvo /= vectors_2D.zero, definitions.trk_only?(horizontal_los.vo)(horizontal_los.nvo))}"))
+  (trk_los_TCC1-1 nil 3443981892 ("" (subtype-tcc) nil nil) nil nil
+   (trk_los subtype "(vectors_2D.+)(horizontal_los.nv, horizontal_los.vi)"
+    "{nvo | booleans.=>(horizontal_los.nvo /= vectors_2D.zero, definitions.trk_only?(horizontal_los.vo)(horizontal_los.nvo))}")))
  (trk_los_TCC2 0
+  (trk_los_TCC2-2 "" 3790107923 ("" (skeep) nil nil) nil shostak
+   (trk_los subtype "vectors_2D.zero"
+    "{nvo | booleans.=>(horizontal_los.nvo /= vectors_2D.zero, definitions.trk_only?(horizontal_los.vo)(horizontal_los.nvo))}"))
   (trk_los_TCC2-1 nil 3447155644
-   ("" (skeep) (("" (rewrite "trk_only_id") nil nil)) nil) nil nil))
+   ("" (skeep) (("" (rewrite "trk_only_id") nil nil)) nil) nil nil
+   (trk_los subtype "vectors_2D.zero"
+    "{nvo | booleans.=>(horizontal_los.nvo /= vectors_2D.zero, definitions.trk_only?(horizontal_los.vo)(horizontal_los.nvo))}")))
  (trk_los_def 0
   (trk_los_def-2 nil 3530545864
    ("" (skeep)
@@ -1727,14 +1640,10 @@
                         (("" (case "NOT norm(vv)>=MinRelSpeed")
                           (("1" (assert)
                             (("1" (skeep 2)
-                              (("1"
-                                (inst - "nvo2-vi")
-                                (("1"
-                                  (assert)
-                                  (("1"
-                                    (split +)
-                                    (("1"
-                                      (expand "circle?" +)
+                              (("1" (inst - "nvo2-vi")
+                                (("1" (assert)
+                                  (("1" (split +)
+                                    (("1" (expand "circle?" +)
                                       (("1"
                                         (assert)
                                         (("1"
@@ -1748,10 +1657,7 @@
                                                 (replace -1)
                                                 (("1"
                                                   (hide -)
-                                                  (("1"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("1" (grind) nil nil))
                                                   nil))
                                                 nil)
                                                ("2" (assert) nil nil))
@@ -1760,8 +1666,7 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2"
-                                      (lemma "dot_nneg_divergent")
+                                     ("2" (lemma "dot_nneg_divergent")
                                       (("2"
                                         (inst - "nvo2-vi" "s")
                                         (("1"
@@ -1780,10 +1685,8 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("3"
-                                      (hide-all-but (-5 1))
-                                      (("3" (grind) nil nil))
-                                      nil))
+                                     ("3" (hide-all-but (-5 1))
+                                      (("3" (grind) nil nil)) nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1792,14 +1695,10 @@
                            ("2" (assert)
                             (("2"
                               (case "intersects_circle_fun?(vv, -vi, norm(vo))")
-                              (("1"
-                                (assert)
-                                (("1"
-                                  (split +)
-                                  (("1"
-                                    (flatten)
-                                    (("1"
-                                      (split +)
+                              (("1" (assert)
+                                (("1" (split +)
+                                  (("1" (flatten)
+                                    (("1" (split +)
                                       (("1"
                                         (assert)
                                         (("1"
@@ -1842,10 +1741,8 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (skeep)
-                                    (("2"
-                                      (inst - "nvo2-vi")
+                                   ("2" (skeep)
+                                    (("2" (inst - "nvo2-vi")
                                       (("2"
                                         (assert)
                                         (("2"
@@ -1857,12 +1754,8 @@
                                               (("1"
                                                 (expand "circle?" +)
                                                 (("1"
-                                                  (case
-                                                   "nvo2-vi--vi = nvo2")
-                                                  (("1"
-                                                    (assert)
-                                                    nil
-                                                    nil)
+                                                  (case "nvo2-vi--vi = nvo2")
+                                                  (("1" (assert) nil nil)
                                                    ("2"
                                                     (hide-all-but 1)
                                                     (("2"
@@ -1878,10 +1771,7 @@
                                                             nil))
                                                           nil))
                                                         nil)
-                                                       ("2"
-                                                        (assert)
-                                                        nil
-                                                        nil))
+                                                       ("2" (assert) nil nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -1894,19 +1784,13 @@
                                                  rl)
                                                 (("1"
                                                   (hide-all-but (-2 1))
-                                                  (("1"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("1" (grind) nil nil))
                                                   nil)
                                                  ("2"
                                                   (flatten)
                                                   (("2"
                                                     (replace -1)
-                                                    (("2"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                    (("2" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil)
@@ -1917,8 +1801,7 @@
                                               nil))
                                             nil)
                                            ("2"
-                                            (case
-                                             "norm(vv+vi) = norm(vo)")
+                                            (case "norm(vv+vi) = norm(vo)")
                                             (("1"
                                               (replace -2)
                                               (("1" (assert) nil nil))
@@ -1934,15 +1817,12 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (assert)
-                                (("2"
-                                  (skeep 2)
+                               ("2" (assert)
+                                (("2" (skeep 2)
                                   (("2"
                                     (lemma
                                      "max_circle_point_in_slice_complete")
-                                    (("2"
-                                      (inst?)
+                                    (("2" (inst?)
                                       (("2"
                                         (replace -3)
                                         (("2"
@@ -1956,12 +1836,8 @@
                                                 (("1"
                                                   (expand "circle?")
                                                   (("1"
-                                                    (hide-all-but
-                                                     (-3 1))
-                                                    (("1"
-                                                      (grind)
-                                                      nil
-                                                      nil))
+                                                    (hide-all-but (-3 1))
+                                                    (("1" (grind) nil nil))
                                                     nil))
                                                   nil))
                                                 nil)
@@ -1972,19 +1848,13 @@
                                                  rl)
                                                 (("1"
                                                   (hide-all-but (-5 1))
-                                                  (("1"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (("1" (grind) nil nil))
                                                   nil)
                                                  ("2"
                                                   (flatten)
                                                   (("2"
                                                     (replace -1)
-                                                    (("2"
-                                                      (assert)
-                                                      nil
-                                                      nil))
+                                                    (("2" (assert) nil nil))
                                                     nil))
                                                   nil))
                                                 nil)
@@ -2015,17 +1885,15 @@
       nil))
     nil)
    ((real_times_real_is_real application-judgement "real" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (nz_norm_gt_0 application-judgement "posreal" vectors_2D
-     "vectors/")
-    (nz_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (nz_norm_gt_0 application-judgement "posreal" vectors_2D vectors)
+    (nz_nzv application-judgement "Nz_vector" vectors_2D vectors)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -2034,20 +1902,19 @@
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (Vector type-eq-decl nil vectors_2D "vectors/")
+    (Vector type-eq-decl nil vectors_2D vectors)
     (nnreal type-eq-decl nil real_types nil)
-    (norm const-decl "nnreal" vectors_2D "vectors/")
+    (norm const-decl "nnreal" vectors_2D vectors)
     (/= const-decl "boolean" notequal nil)
-    (zero const-decl "Vector" vectors_2D "vectors/")
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-    (- const-decl "Vector" vectors_2D "vectors/")
-    (< const-decl "bool" reals nil)
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (sq const-decl "nonneg_real" sq "reals/")
+    (zero const-decl "Vector" vectors_2D vectors)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (Vect2 type-eq-decl nil vectors_2D_def vectors)
+    (- const-decl "Vector" vectors_2D vectors) (< const-decl "bool" reals nil)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (sq const-decl "nonneg_real" sq reals)
     (D formal-const-decl "posreal" horizontal_los nil)
     (LoS_vect2 type-eq-decl nil horizontal nil)
-    (* const-decl "Vector" vectors_2D "vectors/")
+    (* const-decl "Vector" vectors_2D vectors)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -2057,45 +1924,42 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (Sign type-eq-decl nil sign "reals/")
-    (perpR const-decl "Vect2" perpendicular_2D "vectors/")
+    (Sign type-eq-decl nil sign reals)
+    (perpR const-decl "Vect2" perpendicular_2D vectors)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (det const-decl "real" det_2D "vectors/")
+    (det const-decl "real" det_2D vectors)
     (dot_nneg_divergent formula-decl nil definitions nil)
-    (dot_zero_left formula-decl nil vectors_2D "vectors/")
-    (* const-decl "real" vectors_2D "vectors/")
+    (dot_zero_left formula-decl nil vectors_2D vectors)
+    (* const-decl "real" vectors_2D vectors)
     (vi skolem-const-decl "Nz_vect2" horizontal_los nil)
     (nvo2 skolem-const-decl "Vect2" horizontal_los nil)
     (circle? const-decl "bool" circle_optimum_2D nil)
-    (+ const-decl "Vector" vectors_2D "vectors/")
+    (+ const-decl "Vector" vectors_2D vectors)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (minus_real_is_real application-judgement "real" reals nil)
-    (comp_zero_y formula-decl nil vectors_2D "vectors/")
-    (comp_zero_x formula-decl nil vectors_2D "vectors/")
-    (add_zero_right formula-decl nil vectors_2D "vectors/")
-    (- const-decl "Vector" vectors_2D "vectors/")
-    (norm_neg formula-decl nil vectors_2D "vectors/")
-    (sub_zero_left formula-decl nil vectors_2D "vectors/")
+    (comp_zero_y formula-decl nil vectors_2D vectors)
+    (comp_zero_x formula-decl nil vectors_2D vectors)
+    (add_zero_right formula-decl nil vectors_2D vectors)
+    (- const-decl "Vector" vectors_2D vectors)
+    (norm_neg formula-decl nil vectors_2D vectors)
+    (sub_zero_left formula-decl nil vectors_2D vectors)
     (intersects_circle_fun? const-decl "bool" circle_optimum_2D nil)
-    (add_zero_left formula-decl nil vectors_2D "vectors/")
-    (sqrt_pos application-judgement "posreal" sqrt "reals/")
-    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D "vectors/")
-    (add_cancel_neg2 formula-decl nil vectors_2D "vectors/")
-    (max_circle_point_in_slice_complete formula-decl nil
-     circle_optimum_2D nil)
-    (norm_zero formula-decl nil vectors_2D "vectors/")
+    (add_zero_left formula-decl nil vectors_2D vectors)
+    (sqrt_pos application-judgement "posreal" sqrt reals)
+    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D vectors)
+    (add_cancel_neg2 formula-decl nil vectors_2D vectors)
+    (max_circle_point_in_slice_complete formula-decl nil circle_optimum_2D
+     nil)
+    (norm_zero formula-decl nil vectors_2D vectors)
     (trk_los const-decl "{nvo | nvo /= zero => trk_only?(vo)(nvo)}"
      horizontal_los nil)
-    (dot_scal_right formula-decl nil vectors_2D "vectors/")
-    (sub_zero_right formula-decl nil vectors_2D "vectors/")
-    (neg_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D
-     "vectors/")
-    (max_circle_point_in_slice const-decl "Vect2" circle_optimum_2D
-     nil)
-    (max_circle_point_in_slice_def formula-decl nil circle_optimum_2D
-     nil))
+    (dot_scal_right formula-decl nil vectors_2D vectors)
+    (sub_zero_right formula-decl nil vectors_2D vectors)
+    (neg_nzv application-judgement "Nz_vector" vectors_2D vectors)
+    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D vectors)
+    (max_circle_point_in_slice const-decl "Vect2" circle_optimum_2D nil)
+    (max_circle_point_in_slice_def formula-decl nil circle_optimum_2D nil))
    nil)
   (trk_los_def-1 nil 3530545765
    ("" (skeep)
@@ -2115,14 +1979,10 @@
                           (case "intersects_circle_fun?(vv, -vi, norm(vo))")
                           (("1" (assert)
                             (("1" (split +)
-                              (("1"
-                                (flatten)
-                                (("1"
-                                  (split +)
-                                  (("1"
-                                    (assert)
-                                    (("1"
-                                      (expand "circle?" -3)
+                              (("1" (flatten)
+                                (("1" (split +)
+                                  (("1" (assert)
+                                    (("1" (expand "circle?" -3)
                                       (("1"
                                         (case "vv--vi = vv+vi")
                                         (("1" (assert) nil nil)
@@ -2133,38 +1993,25 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2"
-                                    (hide-all-but (-4 1))
-                                    (("2" (grind) nil nil))
-                                    nil)
-                                   ("3"
-                                    (flatten)
+                                   ("2" (hide-all-but (-4 1))
+                                    (("2" (grind) nil nil)) nil)
+                                   ("3" (flatten)
                                     (("3"
-                                      (rewrite
-                                       "dot_nneg_divergent"
-                                       2
-                                       :dir
-                                       rl)
+                                      (rewrite "dot_nneg_divergent" 2 :dir rl)
                                       (("3"
                                         (hide-all-but (-4 2))
                                         (("3" (grind) nil nil))
                                         nil))
                                       nil))
                                     nil)
-                                   ("4"
-                                    (hide-all-but (-5 1))
-                                    (("4" (grind) nil nil))
-                                    nil))
+                                   ("4" (hide-all-but (-5 1))
+                                    (("4" (grind) nil nil)) nil))
                                   nil))
                                 nil)
-                               ("2"
-                                (skeep)
-                                (("2"
-                                  (inst - "nvo2-vi")
-                                  (("2"
-                                    (assert)
-                                    (("2"
-                                      (split +)
+                               ("2" (skeep)
+                                (("2" (inst - "nvo2-vi")
+                                  (("2" (assert)
+                                    (("2" (split +)
                                       (("1"
                                         (assert)
                                         (("1"
@@ -2172,22 +2019,14 @@
                                           (("1"
                                             (expand "circle?" +)
                                             (("1"
-                                              (case
-                                               "nvo2-vi--vi = nvo2")
+                                              (case "nvo2-vi--vi = nvo2")
                                               (("1" (assert) nil nil)
                                                ("2"
                                                 (hide-all-but 1)
                                                 (("2"
-                                                  (decompose-equality
-                                                   +)
-                                                  (("1"
-                                                    (grind)
-                                                    nil
-                                                    nil)
-                                                   ("2"
-                                                    (grind)
-                                                    nil
-                                                    nil))
+                                                  (decompose-equality +)
+                                                  (("1" (grind) nil nil)
+                                                   ("2" (grind) nil nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -2206,10 +2045,7 @@
                                               (flatten)
                                               (("2"
                                                 (replace -1)
-                                                (("2"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                (("2" (assert) nil nil))
                                                 nil))
                                               nil))
                                             nil)
@@ -2239,14 +2075,10 @@
                            ("2" (assert)
                             (("2" (skeep 2)
                               (("2"
-                                (lemma
-                                 "max_circle_point_in_slice_complete")
-                                (("2"
-                                  (inst?)
-                                  (("2"
-                                    (replace -2)
-                                    (("2"
-                                      (assert)
+                                (lemma "max_circle_point_in_slice_complete")
+                                (("2" (inst?)
+                                  (("2" (replace -2)
+                                    (("2" (assert)
                                       (("2"
                                         (inst - "nvo2-vi")
                                         (("2"
@@ -2274,10 +2106,7 @@
                                               (flatten)
                                               (("2"
                                                 (replace -1)
-                                                (("2"
-                                                  (assert)
-                                                  nil
-                                                  nil))
+                                                (("2" (assert) nil nil))
                                                 nil))
                                               nil))
                                             nil)
@@ -2305,44 +2134,40 @@
         nil))
       nil))
     nil)
-   ((max_circle_point_in_slice_def formula-decl nil circle_optimum_2D
+   ((max_circle_point_in_slice_def formula-decl nil circle_optimum_2D nil)
+    (max_circle_point_in_slice const-decl "Vect2" circle_optimum_2D nil)
+    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D vectors)
+    (neg_nzv application-judgement "Nz_vector" vectors_2D vectors)
+    (sub_zero_right formula-decl nil vectors_2D vectors)
+    (dot_scal_right formula-decl nil vectors_2D vectors)
+    (norm_zero formula-decl nil vectors_2D vectors)
+    (sub_zero_left formula-decl nil vectors_2D vectors)
+    (norm_neg formula-decl nil vectors_2D vectors)
+    (max_circle_point_in_slice_complete formula-decl nil circle_optimum_2D
      nil)
-    (max_circle_point_in_slice const-decl "Vect2" circle_optimum_2D
-     nil)
-    (perpR_nz application-judgement "Nz_vect2" perpendicular_2D
-     "vectors/")
-    (neg_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (sub_zero_right formula-decl nil vectors_2D "vectors/")
-    (dot_scal_right formula-decl nil vectors_2D "vectors/")
-    (norm_zero formula-decl nil vectors_2D "vectors/")
-    (sub_zero_left formula-decl nil vectors_2D "vectors/")
-    (norm_neg formula-decl nil vectors_2D "vectors/")
-    (max_circle_point_in_slice_complete formula-decl nil
-     circle_optimum_2D nil)
-    (add_cancel_neg2 formula-decl nil vectors_2D "vectors/")
-    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D "vectors/")
-    (sqrt_pos application-judgement "posreal" sqrt "reals/")
-    (dot_zero_left formula-decl nil vectors_2D "vectors/")
-    (det const-decl "real" det_2D "vectors/")
+    (add_cancel_neg2 formula-decl nil vectors_2D vectors)
+    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D vectors)
+    (sqrt_pos application-judgement "posreal" sqrt reals)
+    (dot_zero_left formula-decl nil vectors_2D vectors)
+    (det const-decl "real" det_2D vectors)
     (dot_nneg_divergent formula-decl nil definitions nil)
-    (* const-decl "real" vectors_2D "vectors/")
-    (+ const-decl "Vector" vectors_2D "vectors/")
+    (* const-decl "real" vectors_2D vectors)
+    (+ const-decl "Vector" vectors_2D vectors)
     (circle? const-decl "bool" circle_optimum_2D nil)
     (intersects_circle_fun? const-decl "bool" circle_optimum_2D nil)
-    (perpR const-decl "Vect2" perpendicular_2D "vectors/")
-    (Sign type-eq-decl nil sign "reals/")
-    (* const-decl "Vector" vectors_2D "vectors/")
+    (perpR const-decl "Vect2" perpendicular_2D vectors)
+    (Sign type-eq-decl nil sign reals)
+    (* const-decl "Vector" vectors_2D vectors)
     (LoS_vect2 type-eq-decl nil horizontal nil)
-    (sq const-decl "nonneg_real" sq "reals/")
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
-    (norm const-decl "nnreal" vectors_2D "vectors/")
-    (Vector type-eq-decl nil vectors_2D "vectors/")
-    (nz_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
-    (nz_norm_gt_0 application-judgement "posreal" vectors_2D
-     "vectors/"))
+    (sq const-decl "nonneg_real" sq reals)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (Vect2 type-eq-decl nil vectors_2D_def vectors)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
+    (norm const-decl "nnreal" vectors_2D vectors)
+    (Vector type-eq-decl nil vectors_2D vectors)
+    (nz_nzv application-judgement "Nz_vector" vectors_2D vectors)
+    (nz_norm_gt_0 application-judgement "posreal" vectors_2D vectors))
    nil))
  (los_recovery_meets_criteria 0
   (los_recovery_meets_criteria-2 nil 3488119072
@@ -2360,12 +2185,8 @@
                         (("1" (assert)
                           (("1" (flatten)
                             (("1" (assert)
-                              (("1"
-                                (hide-all-but 2)
-                                (("1"
-                                  (grind :exclude ("det" "-"))
-                                  nil
-                                  nil))
+                              (("1" (hide-all-but 2)
+                                (("1" (grind :exclude ("det" "-")) nil nil))
                                 nil))
                               nil))
                             nil))
@@ -2387,9 +2208,7 @@
                         (("2" (assert)
                           (("2" (flatten)
                             (("2" (assert)
-                              (("2"
-                                (hide-all-but 2)
-                                (("2" (grind) nil nil))
+                              (("2" (hide-all-but 2) (("2" (grind) nil nil))
                                 nil))
                               nil))
                             nil))
@@ -2405,27 +2224,25 @@
         nil))
       nil))
     nil)
-   ((sign_neg_clos application-judgement "Sign" sign "reals/")
-    (horizontal_los_crit? const-decl "bool" old_horiz_los_criterion
-     nil)
+   ((sign_neg_clos application-judgement "Sign" sign reals)
+    (horizontal_los_crit? const-decl "bool" old_horiz_los_criterion nil)
     (gs_los_def formula-decl nil horizontal_los nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (sign const-decl "Sign" sign "reals/")
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (sign const-decl "Sign" sign reals)
     (LoS_vect2 type-eq-decl nil horizontal nil)
     (D formal-const-decl "posreal" horizontal_los nil)
-    (sq const-decl "nonneg_real" sq "reals/")
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (nnreal type-eq-decl nil real_types nil)
-    (< const-decl "bool" reals nil)
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
-    (Vector type-eq-decl nil vectors_2D "vectors/")
-    (Sign type-eq-decl nil sign "reals/")
+    (sq const-decl "nonneg_real" sq reals)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (nnreal type-eq-decl nil real_types nil) (< const-decl "bool" reals nil)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
+    (Vector type-eq-decl nil vectors_2D vectors)
+    (Sign type-eq-decl nil sign reals)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -2444,18 +2261,16 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (gs_los? const-decl "bool" horizontal_los nil)
     (trk_los_def formula-decl nil horizontal_los nil)
-    (nz_norm_gt_0 application-judgement "posreal" vectors_2D
-     "vectors/")
+    (nz_norm_gt_0 application-judgement "posreal" vectors_2D vectors)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (- const-decl "Vector" vectors_2D "vectors/")
-    (det const-decl "real" det_2D "vectors/")
+    (- const-decl "Vector" vectors_2D vectors)
+    (det const-decl "real" det_2D vectors)
     (trk_los? const-decl "bool" horizontal_los nil)
     (los_recovery? const-decl "bool" horizontal_los nil))
    nil)
@@ -2465,27 +2280,27 @@
       (("" (expand "horivertical_los_criterion?")
         (("" (split -1)
           (("1" (use "gs_los_dot")
-            (("1" (assert)
-              (("1" (flatten) (("1" (assert) nil nil)) nil)) nil))
+            (("1" (assert) (("1" (flatten) (("1" (assert) nil nil)) nil))
+              nil))
             nil)
            ("2" (use "trk_los_dot")
-            (("2" (assert)
-              (("2" (flatten) (("2" (assert) nil nil)) nil)) nil))
+            (("2" (assert) (("2" (flatten) (("2" (assert) nil nil)) nil))
+              nil))
             nil)
            ("3" (use "opt_los_dot")
-            (("3" (assert)
-              (("3" (flatten) (("3" (assert) nil nil)) nil)) nil))
+            (("3" (assert) (("3" (flatten) (("3" (assert) nil nil)) nil))
+              nil))
             nil))
           nil))
         nil))
       nil))
     nil)
-   ((Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-    (Vector type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (sq const-decl "nonneg_real" sq "reals/")
+   ((Vect2 type-eq-decl nil vectors_2D_def vectors)
+    (Vector type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (sq const-decl "nonneg_real" sq reals)
     (LoS_vect2 type-eq-decl nil horizontal nil))
    shostak))
  (los_recovery_independence 0
@@ -2517,31 +2332,29 @@
       nil))
     nil)
    ((los_recovery_meets_criteria formula-decl nil horizontal_los nil)
-    (- const-decl "Vector" vectors_2D "vectors/")
+    (- const-decl "Vector" vectors_2D vectors)
     (nvo skolem-const-decl "Vect2" horizontal_los nil)
     (vi skolem-const-decl "Nz_vect2" horizontal_los nil)
-    (horizontal_los_crit? const-decl "bool" old_horiz_los_criterion
-     nil)
+    (horizontal_los_crit? const-decl "bool" old_horiz_los_criterion nil)
     (real_times_real_is_real application-judgement "real" reals nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (sign_neg_clos application-judgement "Sign" sign "reals/")
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (norm_zero formula-decl nil vectors_2D "vectors/")
-    (dot_zero_right formula-decl nil vectors_2D "vectors/")
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (sign_neg_clos application-judgement "Sign" sign reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (norm_zero formula-decl nil vectors_2D vectors)
+    (dot_zero_right formula-decl nil vectors_2D vectors)
     (dot_nneg_divergent formula-decl nil definitions nil)
     (LoS_vect2 type-eq-decl nil horizontal nil)
     (D formal-const-decl "posreal" horizontal_los nil)
-    (sq const-decl "nonneg_real" sq "reals/")
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (nnreal type-eq-decl nil real_types nil)
-    (< const-decl "bool" reals nil)
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
+    (sq const-decl "nonneg_real" sq reals)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (nnreal type-eq-decl nil real_types nil) (< const-decl "bool" reals nil)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
     (/= const-decl "boolean" notequal nil)
-    (Vector type-eq-decl nil vectors_2D "vectors/")
-    (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
+    (Vector type-eq-decl nil vectors_2D vectors)
+    (Vect2 type-eq-decl nil vectors_2D_def vectors)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -2550,8 +2363,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    nil)
@@ -2572,34 +2384,33 @@
    nil nil))
  (los_recovery_coordination_TCC1 0
   (los_recovery_coordination_TCC1-1 nil 3450458331
-   ("" (skeep)
-    (("" (typepred "s") (("" (rewrite "sqv_neg") nil nil)) nil)) nil)
+   ("" (skeep) (("" (typepred "s") (("" (rewrite "sqv_neg") nil nil)) nil))
+    nil)
    ((LoS_vect2 type-eq-decl nil horizontal nil)
     (D formal-const-decl "posreal" horizontal_los nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (sq const-decl "nonneg_real" sq "reals/")
+    (> const-decl "bool" reals nil) (sq const-decl "nonneg_real" sq reals)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (nnreal type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil) (< const-decl "bool" reals nil)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (nnreal type-eq-decl nil real_types nil) (>= const-decl "bool" reals nil)
+    (< const-decl "bool" reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
     (number nonempty-type-decl nil numbers nil)
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
     (/= const-decl "boolean" notequal nil)
-    (Vector type-eq-decl nil vectors_2D "vectors/")
+    (Vector type-eq-decl nil vectors_2D vectors)
     (real nonempty-type-from-decl nil reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (sqv_neg formula-decl nil vectors_2D "vectors/")
-    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D
-     "vectors/"))
-   nil))
+    (sqv_neg formula-decl nil vectors_2D vectors)
+    (nz_sqv_gt_0 application-judgement "posreal" vectors_2D vectors))
+   nil
+   (los_recovery_coordination subtype "(vectors_2D.-)(horizontal_los.s)"
+    "LoS_vect2[D]")))
  (los_recovery_coordination 0
   (quit "y" 3450460990
         ("" (skeep)
@@ -2614,12 +2425,9 @@
                          (("" (hide -1)
                            (("" (reveal "eg3")
                              (("" (inst?)
-                               ((""
-                                 (assert)
-                                 ((""
-                                   (flatten)
-                                   ((""
-                                     (lemma "dot_nneg_divergent")
+                               (("" (assert)
+                                 (("" (flatten)
+                                   (("" (lemma "dot_nneg_divergent")
                                      ((""
                                        (inst - "nvo-nvi" "s")
                                        ((""
@@ -2629,8 +2437,7 @@
                                            ((""
                                              (inst - "nvo-vi" "s")
                                              (("1"
-                                               (lemma
-                                                "dot_nneg_divergent")
+                                               (lemma "dot_nneg_divergent")
                                                (("1"
                                                  (inst - "nvi-vo" "-s")
                                                  (("1"
@@ -2638,20 +2445,14 @@
                                                    (("1"
                                                      (hide-all-but
                                                       (-1 -2 -8 1))
-                                                     (("1"
-                                                       (grind)
-                                                       nil
-                                                       nil))
+                                                     (("1" (grind) nil nil))
                                                      nil))
                                                    nil)
                                                   ("2"
                                                    (flatten)
                                                    (("2"
                                                      (replace -1)
-                                                     (("2"
-                                                       (assert)
-                                                       nil
-                                                       nil))
+                                                     (("2" (assert) nil nil))
                                                      nil))
                                                    nil))
                                                  nil))
@@ -2660,10 +2461,7 @@
                                                (flatten)
                                                (("2"
                                                  (replace -1)
-                                                 (("2"
-                                                   (assert)
-                                                   nil
-                                                   nil))
+                                                 (("2" (assert) nil nil))
                                                  nil))
                                                nil))
                                              nil))
@@ -2685,12 +2483,11 @@
              nil))
            nil))
          nil)
-        ((los_recovery_independence formula-decl nil horizontal_los
-          nil)
+        ((los_recovery_independence formula-decl nil horizontal_los nil)
          (number nonempty-type-decl nil numbers nil)
          (boolean nonempty-type-decl nil booleans nil)
-         (number_field_pred const-decl "[number -> boolean]"
-          number_fields nil)
+         (number_field_pred const-decl "[number -> boolean]" number_fields
+          nil)
          (number_field nonempty-type-from-decl nil number_fields nil)
          (real_pred const-decl "[number_field -> boolean]" reals nil)
          (real nonempty-type-from-decl nil reals nil)
@@ -2699,27 +2496,24 @@
          (nonneg_real nonempty-type-eq-decl nil real_types nil)
          (> const-decl "bool" reals nil)
          (posreal nonempty-type-eq-decl nil real_types nil)
-         (Vect2 type-eq-decl nil vectors_2D_def "vectors/")
-         (Vector type-eq-decl nil vectors_2D "vectors/")
+         (Vect2 type-eq-decl nil vectors_2D_def vectors)
+         (Vector type-eq-decl nil vectors_2D vectors)
          (/= const-decl "boolean" notequal nil)
-         (zero const-decl "Vector" vectors_2D "vectors/")
-         (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
+         (zero const-decl "Vector" vectors_2D vectors)
+         (Nz_vect2 type-eq-decl nil vectors_2D vectors)
          (< const-decl "bool" reals nil)
          (nnreal type-eq-decl nil real_types nil)
-         (sqv const-decl "nnreal" vectors_2D "vectors/")
-         (sq const-decl "nonneg_real" sq "reals/")
+         (sqv const-decl "nnreal" vectors_2D vectors)
+         (sq const-decl "nonneg_real" sq reals)
          (D formal-const-decl "posreal" horizontal_los nil)
          (LoS_vect2 type-eq-decl nil horizontal nil)
-         (neg_nzv application-judgement "Nz_vector" vectors_2D
-          "vectors/")
-         (- const-decl "Vector" vectors_2D "vectors/")
-         (- const-decl "Vector" vectors_2D "vectors/")
-         (norm_zero formula-decl nil vectors_2D "vectors/")
-         (* const-decl "real" vectors_2D "vectors/")
-         (real_plus_real_is_real application-judgement "real" reals
-          nil)
-         (real_minus_real_is_real application-judgement "real" reals
-          nil)
+         (neg_nzv application-judgement "Nz_vector" vectors_2D vectors)
+         (- const-decl "Vector" vectors_2D vectors)
+         (- const-decl "Vector" vectors_2D vectors)
+         (norm_zero formula-decl nil vectors_2D vectors)
+         (* const-decl "real" vectors_2D vectors)
+         (real_plus_real_is_real application-judgement "real" reals nil)
+         (real_minus_real_is_real application-judgement "real" reals nil)
          (minus_real_is_real application-judgement "real" reals nil)
          (vo skolem-const-decl "Nz_vect2" horizontal_los nil)
          (nvi skolem-const-decl "Vect2" horizontal_los nil)
@@ -2728,10 +2522,8 @@
          (dot_nneg_divergent formula-decl nil definitions nil)
          (real_ge_is_total_order name-judgement "(total_order?[real])"
           real_props nil)
-         (real_times_real_is_real application-judgement "real" reals
-          nil)
-         (minus_odd_is_odd application-judgement "odd_int" integers
-          nil))
+         (real_times_real_is_real application-judgement "real" reals nil)
+         (minus_odd_is_odd application-judgement "odd_int" integers nil))
         shostak)
   (los_recovery_coordination-1 nil 3445471430
    ("" (skeep)
@@ -2748,14 +2540,10 @@
                         (("" (inst -5 "t2")
                           (("" (assert)
                             (("" (hide-all-but (-3 -5 1))
-                              ((""
-                                (rewrite "sqv_add")
-                                ((""
-                                  (rewrite "sqv_add")
-                                  ((""
-                                    (rewrite "sqv_add")
-                                    (("" (postpone) nil nil))
-                                    nil))
+                              (("" (rewrite "sqv_add")
+                                (("" (rewrite "sqv_add")
+                                  (("" (rewrite "sqv_add")
+                                    (("" (postpone) nil nil)) nil))
                                   nil))
                                 nil))
                               nil))
@@ -2772,13 +2560,13 @@
         nil))
       nil))
     nil)
-   ((neg_nzv application-judgement "Nz_vector" vectors_2D "vectors/")
+   ((neg_nzv application-judgement "Nz_vector" vectors_2D vectors)
     (LoS_vect2 type-eq-decl nil horizontal nil)
-    (sq const-decl "nonneg_real" sq "reals/")
-    (sqv const-decl "nnreal" vectors_2D "vectors/")
-    (Nz_vect2 type-eq-decl nil vectors_2D "vectors/")
-    (zero const-decl "Vector" vectors_2D "vectors/")
-    (Vector type-eq-decl nil vectors_2D "vectors/")
-    (Vect2 type-eq-decl nil vectors_2D_def "vectors/"))
+    (sq const-decl "nonneg_real" sq reals)
+    (sqv const-decl "nnreal" vectors_2D vectors)
+    (Nz_vect2 type-eq-decl nil vectors_2D vectors)
+    (zero const-decl "Vector" vectors_2D vectors)
+    (Vector type-eq-decl nil vectors_2D vectors)
+    (Vect2 type-eq-decl nil vectors_2D_def vectors))
    nil)))
 

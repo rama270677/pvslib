@@ -40,7 +40,9 @@
     (T formal-type-decl nil partitions nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (partition? const-decl "bool" partitions nil))
-   nil))
+   nil
+   (partition subtype
+    "sets[set[T]].singleton(sets[partitions.T].fullset)" "partition")))
  (finite_partition_TCC1 0
   (finite_partition_TCC1-1 nil 3390454630
    ("" (expand "finite_partition?")
@@ -49,7 +51,10 @@
     (finite_partition? const-decl "bool" partitions nil)
     (nonempty_singleton_finite application-judgement
      "non_empty_finite_set" finite_sets nil))
-   nil))
+   nil
+   (finite_partition subtype
+    "sets[set[T]].singleton(sets[partitions.T].fullset)"
+    "finite_partition")))
  (join_TCC1 0
   (join_TCC1-1 nil 3394989455
    ("" (skosimp)
@@ -470,7 +475,7 @@
     (a!2 skolem-const-decl "(p2!1)" partitions nil)
     (member const-decl "bool" sets nil)
     (partition? const-decl "bool" partitions nil)
-    (is_finite_cross formula-decl nil finite_cross "finite_sets/")
+    (is_finite_cross formula-decl nil finite_cross finite_sets)
     (is_finite const-decl "bool" finite_sets nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (is_finite_surj formula-decl nil finite_sets nil)
@@ -497,5 +502,8 @@
     (is_finite_type const-decl "bool" finite_sets nil)
     (injective? const-decl "bool" functions nil)
     (restrict const-decl "R" restrict nil))
-   nil)))
+   nil
+   (join subtype
+    "{a | EXISTS (a1: (partitions.p1), a2: (partitions.p2)): partitions.a = sets[partitions.T].intersection(a1, a2)}"
+    "finite_partition"))))
 
