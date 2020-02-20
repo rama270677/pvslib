@@ -12,7 +12,8 @@
     "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (chain_rule_cnvg_TCC2 0
   (chain_rule_cnvg_TCC2-2 "" 3790090074
-   ("" (lemma not_one_element1) (("" (propax) nil nil)) nil) nil shostak
+   ("" (lemma not_one_element1) (("" (propax) nil nil)) nil) nil
+   shostak
    (chain_rule_cnvg assuming "derivatives_def[T1].derivatives_def"
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?"))
   (chain_rule_cnvg_TCC2-1 nil 3475835686
@@ -23,8 +24,8 @@
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (chain_rule_cnvg_TCC3 0
   (chain_rule_cnvg_TCC3-2 "" 3790090074
-   ("" (skosimp*) (("" (lemma deriv_domain2) (("" (propax) nil nil)) nil))
-    nil)
+   ("" (skosimp*)
+    (("" (lemma deriv_domain2) (("" (propax) nil nil)) nil)) nil)
    nil shostak
    (chain_rule_cnvg assuming "derivatives_def[T2].derivatives_def"
     "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?"))
@@ -38,13 +39,15 @@
     "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (chain_rule_cnvg_TCC4 0
   (chain_rule_cnvg_TCC4-2 "" 3790090074
-   ("" (lemma not_one_element2) (("" (skosimp*) nil nil)) nil) nil shostak
+   ("" (lemma not_one_element2) (("" (skosimp*) nil nil)) nil) nil
+   shostak
    (chain_rule_cnvg assuming "derivatives_def[T2].derivatives_def"
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?"))
   (chain_rule_cnvg_TCC4-1 nil 3475835686
    ("" (lemma not_one_element2)
     (("" (skosimp*)
-      (("" (expand "not_one_element?") (("" (inst?) nil nil)) nil)) nil))
+      (("" (expand "not_one_element?") (("" (inst?) nil nil)) nil))
+      nil))
     nil)
    ((not_one_element2 formula-decl nil chain_rule nil)) nil
    (chain_rule_cnvg assuming "derivatives_def[T2].derivatives_def"
@@ -53,9 +56,9 @@
   (chain_rule_cnvg-1 nil 3475835691
    ("" (skosimp)
     ((""
-      (auto-rewrite "deriv_TCC[T1]" "deriv_TCC[T2]" "adherence_fullset[T1]"
-                    "adherence_fullset[T2]")
-      (("1" (use "derivative_equivalence1[T1]")
+      (auto-rewrite "deriv_TCC[T1]" "deriv_TCC[T2]"
+                    "adherence_fullset[T1]" "adherence_fullset[T2]")
+      (("" (use "derivative_equivalence1[T1]")
         (("1" (replace -2)
           (("1" (prop)
             (("1" (forward-chain "derivable_continuous[T1]")
@@ -70,11 +73,15 @@
                              "DG!1 * phi!1 + DF!1 * (phi!2 o f!1) + phi!1 * (phi!2 o f!1)")
                             (("1" (prop)
                               (("1"
-                                (use "convergence_composition"
-                                     ("f" "f!1" "g" "phi!2" "x" "x!1"))
-                                (("1" (assert)
-                                  (("1" (delete -4 -5 -6)
-                                    (("1" (lemma "cv_sum[T1]")
+                                (use
+                                 "convergence_composition"
+                                 ("f" "f!1" "g" "phi!2" "x" "x!1"))
+                                (("1"
+                                  (assert)
+                                  (("1"
+                                    (delete -4 -5 -6)
+                                    (("1"
+                                      (lemma "cv_sum[T1]")
                                       (("1"
                                         (inst
                                          -
@@ -102,7 +109,10 @@
                                                    "DG!1"
                                                    "phi!1"
                                                    "0")
-                                                  (("2" (assert) nil nil))
+                                                  (("2"
+                                                    (assert)
+                                                    nil
+                                                    nil))
                                                   nil))
                                                 nil))
                                               nil)
@@ -123,7 +133,8 @@
                                                     (("3"
                                                       (hide 2)
                                                       (("3"
-                                                        (lemma "cv_scal[T1]")
+                                                        (lemma
+                                                         "cv_scal[T1]")
                                                         (("3"
                                                           (inst
                                                            -
@@ -165,10 +176,14 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2" (delete -1 -2 -4)
-                                (("2" (skolem!)
-                                  (("2" (inst -1 "y!1")
-                                    (("2" (inst -2 "f!1(y!1)")
+                               ("2"
+                                (delete -1 -2 -4)
+                                (("2"
+                                  (skolem!)
+                                  (("2"
+                                    (inst -1 "y!1")
+                                    (("2"
+                                      (inst -2 "f!1(y!1)")
                                       (("2"
                                         (expand "o ")
                                         (("2"
@@ -191,56 +206,74 @@
                           nil)
                          ("2" (lemma "deriv_domain2")
                           (("2" (lemma "not_one_element2")
-                            (("2" (expand "not_one_element?")
-                              (("2" (propax) nil nil)) nil))
-                            nil))
-                          nil))
+                            (("2" (propax) nil nil)) nil))
+                          nil)
+                         ("3" (lemma "deriv_domain2")
+                          (("3" (propax) nil nil)) nil))
                         nil)
                        ("2" (lemma "not_one_element1")
-                        (("2" (expand "not_one_element?")
-                          (("2" (propax) nil nil)) nil))
-                        nil)
-                       ("3" (lemma "deriv_domain1  ") (("3" (propax) nil nil))
-                        nil))
+                        (("2" (propax) nil nil)) nil)
+                       ("3" (lemma "deriv_domain1  ")
+                        (("3" (propax) nil nil)) nil))
                       nil)
                      ("2" (lemma "not_one_element1")
-                      (("2" (expand "not_one_element?")
-                        (("2" (propax) nil nil)) nil))
-                      nil)
-                     ("3" (lemma "deriv_domain1  ") (("3" (propax) nil nil))
-                      nil))
+                      (("2" (propax) nil nil)) nil)
+                     ("3" (lemma "deriv_domain1  ")
+                      (("3" (propax) nil nil)) nil))
                     nil))
                   nil))
                 nil))
               nil))
             nil))
           nil)
-         ("2" (lemma "not_one_element1")
-          (("2" (expand "not_one_element?") (("2" (propax) nil nil)) nil))
-          nil)
+         ("2" (lemma "not_one_element1") (("2" (propax) nil nil)) nil)
          ("3" (lemma "deriv_domain1  ") (("3" (propax) nil nil)) nil))
-        nil)
-       ("2" (lemma "not_one_element2") (("2" (propax) nil nil)) nil)
-       ("3" (lemma "deriv_domain2  ") (("3" (propax) nil nil)) nil))
+        nil))
       nil))
     nil)
-   ((deriv_domain? const-decl "bool" deriv_domain_def nil)
+   ((bool nonempty-type-eq-decl nil booleans nil)
     (not_one_element? const-decl "bool" deriv_domain_def nil)
-    (derivable_continuous formula-decl nil derivatives_def nil)
-    (continuity_def formula-decl nil continuous_functions nil)
-    (cv_sum formula-decl nil lim_of_functions nil)
-    (cv_prod formula-decl nil lim_of_functions nil)
-    (cv_scal formula-decl nil lim_of_functions nil)
-    (convergence_composition formula-decl nil lim_of_composition nil)
+    (deriv_domain? const-decl "bool" deriv_domain_def nil)
+    (derivative_equivalence1 formula-decl nil derivatives_alt nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (T1_pred const-decl "[real -> boolean]" chain_rule nil)
+    (T1 formal-subtype-decl nil chain_rule nil)
+    (T2 formal-subtype-decl nil chain_rule nil)
+    (T2_pred const-decl "[real -> boolean]" chain_rule nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
     (derivative_equivalence2 formula-decl nil derivatives_alt nil)
-    (derivative_equivalence1 formula-decl nil derivatives_alt nil))
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (deriv_domain1 formula-decl nil chain_rule nil)
+    (not_one_element1 formula-decl nil chain_rule nil)
+    (* const-decl "[T -> real]" real_fun_ops reals)
+    (* const-decl "[T -> real]" real_fun_ops reals)
+    (+ const-decl "[T -> real]" real_fun_ops reals)
+    (convergence_composition formula-decl nil lim_of_composition nil)
+    (cv_scal formula-decl nil lim_of_functions nil)
+    (cv_prod formula-decl nil lim_of_functions nil)
+    (cv_sum formula-decl nil lim_of_functions nil)
+    (not_one_element2 formula-decl nil chain_rule nil)
+    (deriv_domain2 formula-decl nil chain_rule nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (O const-decl "T3" function_props nil)
+    (continuity_def formula-decl nil continuous_functions nil)
+    (derivable_continuous formula-decl nil derivatives_def nil))
    nil))
  (composition_derivable_TCC1 0
   (composition_derivable_TCC1-2 "" 3790090075
-   ("" (skosimp) (("" (lemma "deriv_domain2") (("" (propax) nil nil)) nil))
-    nil)
+   ("" (skosimp)
+    (("" (lemma "deriv_domain2") (("" (propax) nil nil)) nil)) nil)
    nil shostak
-   (composition_derivable assuming "derivatives_def[T2].derivatives_def"
+   (composition_derivable assuming
+    "derivatives_def[T2].derivatives_def"
     "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?"))
   (composition_derivable_TCC1-1 nil 3313840193
    ("" (skosimp)
@@ -248,29 +281,34 @@
       (("" (expand "deriv_domain?") (("" (propax) nil nil)) nil)) nil))
     nil)
    ((deriv_domain2 formula-decl nil chain_rule nil)) nil
-   (composition_derivable assuming "derivatives_def[T2].derivatives_def"
+   (composition_derivable assuming
+    "derivatives_def[T2].derivatives_def"
     "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (composition_derivable_TCC2 0
   (composition_derivable_TCC2-2 "" 3790090076
-   ("" (skosimp) (("" (lemma "not_one_element2") (("" (propax) nil nil)) nil))
-    nil)
+   ("" (skosimp)
+    (("" (lemma "not_one_element2") (("" (propax) nil nil)) nil)) nil)
    nil shostak
-   (composition_derivable assuming "derivatives_def[T2].derivatives_def"
+   (composition_derivable assuming
+    "derivatives_def[T2].derivatives_def"
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?"))
   (composition_derivable_TCC2-1 nil 3313840193
    ("" (skosimp)
     (("" (lemma "not_one_element2")
-      (("" (expand "not_one_element?") (("" (propax) nil nil)) nil)) nil))
+      (("" (expand "not_one_element?") (("" (propax) nil nil)) nil))
+      nil))
     nil)
    ((not_one_element2 formula-decl nil chain_rule nil)) nil
-   (composition_derivable assuming "derivatives_def[T2].derivatives_def"
+   (composition_derivable assuming
+    "derivatives_def[T2].derivatives_def"
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (composition_derivable 0
   (composition_derivable-3 nil 3475836001
    ("" (expand "derivable?")
     (("" (expand "convergent?")
       (("" (skosimp*)
-        (("" (forward-chain "chain_rule_cnvg") (("" (inst?) nil nil)) nil))
+        (("" (forward-chain "chain_rule_cnvg") (("" (inst?) nil nil))
+          nil))
         nil))
       nil))
     nil)
@@ -278,7 +316,8 @@
     (chain_rule_cnvg formula-decl nil chain_rule nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -295,7 +334,8 @@
    ("" (expand "derivable?")
     (("" (expand "convergent?")
       (("" (skosimp*)
-        (("" (forward-chain "chain_rule") (("" (inst?) nil nil)) nil)) nil))
+        (("" (forward-chain "chain_rule") (("" (inst?) nil nil)) nil))
+        nil))
       nil))
     nil)
    ((convergent? const-decl "bool" lim_of_functions nil)
@@ -305,21 +345,22 @@
    ("" (expand "derivable")
     (("" (expand "convergent?")
       (("" (skosimp*)
-        (("" (forward-chain "chain_rule") (("" (inst?) nil nil)) nil)) nil))
+        (("" (forward-chain "chain_rule") (("" (inst?) nil nil)) nil))
+        nil))
       nil))
     nil)
    ((convergent? const-decl "bool" lim_of_functions nil)) nil))
  (composition_derivable_fun_TCC1 0
   (composition_derivable_fun_TCC1-1 nil 3313840193
-   ("" (skosimp*) (("" (lemma "deriv_domain2") (("" (propax) nil nil)) nil))
-    nil)
+   ("" (skosimp*)
+    (("" (lemma "deriv_domain2") (("" (propax) nil nil)) nil)) nil)
    ((deriv_domain2 formula-decl nil chain_rule nil)) nil
    (composition_derivable_fun assuming "derivatives[T2].derivatives"
     "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (composition_derivable_fun_TCC2 0
   (composition_derivable_fun_TCC2-1 nil 3313840193
-   ("" (skosimp*) (("" (lemma not_one_element2) (("" (propax) nil nil)) nil))
-    nil)
+   ("" (skosimp*)
+    (("" (lemma not_one_element2) (("" (propax) nil nil)) nil)) nil)
    ((not_one_element2 formula-decl nil chain_rule nil)) nil
    (composition_derivable_fun assuming "derivatives[T2].derivatives"
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
@@ -338,7 +379,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (composition_derivable formula-decl nil chain_rule nil)
@@ -353,7 +395,9 @@
   (deriv_composition_TCC1-1 nil 3313840193
    ("" (lemma "composition_derivable")
     (("" (skosimp*)
-      (("" (inst?) (("" (expand "O") (("" (assert) nil nil)) nil)) nil)) nil))
+      (("" (inst?) (("" (expand "O") (("" (assert) nil nil)) nil))
+        nil))
+      nil))
     nil)
    ((composition_derivable formula-decl nil chain_rule nil)) nil
    (deriv_composition subtype "chain_rule.x"
@@ -391,12 +435,15 @@
           nil)
          ("2" (skosimp*)
           (("2" (lemma "not_one_element2")
-            (("2" (expand "not_one_element?") (("2" (inst?) nil nil)) nil))
+            (("2" (expand "not_one_element?") (("2" (inst?) nil nil))
+              nil))
             nil))
           nil)
          ("3" (lemma "deriv_domain2  ")
           (("3" (skosimp*)
-            (("3" (expand "deriv_domain?") (("3" (inst?) nil nil)) nil)) nil))
+            (("3" (expand "deriv_domain?") (("3" (inst?) nil nil))
+              nil))
+            nil))
           nil))
         nil))
       nil))
@@ -404,7 +451,8 @@
    ((composition_derivable formula-decl nil chain_rule nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -422,7 +470,8 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (nzreal nonempty-type-eq-decl nil reals nil)
     (/= const-decl "boolean" notequal nil)
-    (lim const-decl "{l: real | convergence(f, x0, l)}" lim_of_functions nil)
+    (lim const-decl "{l: real | convergence(f, x0, l)}"
+     lim_of_functions nil)
     (convergence const-decl "bool" lim_of_functions nil)
     (convergent? const-decl "bool" lim_of_functions nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -445,11 +494,13 @@
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (deriv_comp_fun_TCC1 0
   (deriv_comp_fun_TCC1-1 nil 3313840193
-   ("" (skosimp) (("" (rewrite "composition_derivable_fun") nil nil)) nil)
+   ("" (skosimp) (("" (rewrite "composition_derivable_fun") nil nil))
+    nil)
    ((composition_derivable_fun formula-decl nil chain_rule nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -474,7 +525,8 @@
               (("" (expand "o" 1 2)
                 (("" (expand "deriv")
                   (("" (rewrite "deriv_composition")
-                    (("1" (inst? -1) nil nil) ("2" (inst? -2) nil nil)) nil))
+                    (("1" (inst? -1) nil nil) ("2" (inst? -2) nil nil))
+                    nil))
                   nil))
                 nil))
               nil))
@@ -487,8 +539,7 @@
     (deriv_composition formula-decl nil chain_rule nil)
     (deriv_fun type-eq-decl nil derivatives nil)
     (deriv const-decl "[T -> real]" derivatives nil)
-    (O const-decl "T3" function_props nil)
-    (* const-decl "[T -> real]" real_fun_ops reals)
+    (O const-decl "T3" function_props nil) nil
     (T2 formal-subtype-decl nil chain_rule nil)
     (T2_pred const-decl "[real -> boolean]" chain_rule nil)
     (derivable? const-decl "bool" derivatives nil)
@@ -497,7 +548,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -507,13 +559,15 @@
   (comp_derivable_fun-1 nil 3475834576
    ("" (skosimp*)
     (("" (lemma "composition_derivable_fun")
-      (("" (expand "o ") (("" (inst?) (("" (assert) nil nil)) nil)) nil))
+      (("" (expand "o ") (("" (inst?) (("" (assert) nil nil)) nil))
+        nil))
       nil))
     nil)
    ((composition_derivable_fun formula-decl nil chain_rule nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -526,8 +580,8 @@
  (chain_rule_TCC1 0
   (chain_rule_TCC1-1 nil 3475835726
    ("" (skosimp*)
-    (("" (lemma comp_derivable_fun) (("" (inst?) (("" (assert) nil nil)) nil))
-      nil))
+    (("" (lemma comp_derivable_fun)
+      (("" (inst?) (("" (assert) nil nil)) nil)) nil))
     nil)
    ((comp_derivable_fun formula-decl nil chain_rule nil)
     (derivable? const-decl "bool" derivatives nil)
@@ -539,7 +593,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    nil
@@ -562,7 +617,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (O const-decl "T3" function_props nil))
@@ -595,7 +651,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    nil)))
