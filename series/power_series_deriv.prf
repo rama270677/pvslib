@@ -3,14 +3,16 @@
   (deriv_domain-1 nil 3472465975
    ("" (lemma "connected_deriv_domain[T]")
     (("" (lemma "connected_domain")
-      (("" (lemma "not_one_element") (("" (assert) nil nil)) nil)) nil))
+      (("" (lemma "not_one_element") (("" (assert) nil nil)) nil))
+      nil))
     nil)
    ((connected_domain formula-decl nil power_series_deriv nil)
     (not_one_element formula-decl nil power_series_deriv nil)
     (connected_deriv_domain formula-decl nil deriv_domain_def analysis)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -37,7 +39,8 @@
    ((open formula-decl nil power_series_deriv nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -59,8 +62,7 @@
     "ball: ASSUMPTION FORALL (x: power_series_deriv_scaf.T): booleans.IMPLIES(power_series_deriv_scaf.T_pred(x), power_series_deriv_scaf.T_pred((number_fields.-)(x)))")))
  (powerseries_deriv_TCC1 0
   (powerseries_deriv_TCC1-1 nil 3297517343 ("" (subtype-tcc) nil nil)
-   ((powerseries const-decl "sequence[real]" power_series nil)
-    (series const-decl "sequence[real]" series nil)
+   (nil nil
     (convergence const-decl "bool" convergence_sequences analysis)
     (convergent? const-decl "bool" convergence_sequences analysis)
     (T formal-subtype-decl nil power_series_deriv nil)
@@ -68,10 +70,10 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (conv_powerseries? const-decl "bool" power_series_conv nil)
+    (number nonempty-type-decl nil numbers nil) nil
     (real_minus_real_is_real application-judgement "real" reals nil))
    shostak
    (powerseries_deriv subtype
@@ -80,8 +82,8 @@
  (powerseries_deriv_TCC2 0
   (powerseries_deriv_TCC2-1 nil 3297517343
    ("" (skosimp*)
-    (("" (assert) (("" (lemma "deriv_domain[T]") (("" (inst?) nil nil)) nil))
-      nil))
+    (("" (assert)
+      (("" (lemma "deriv_domain[T]") (("" (inst?) nil nil)) nil)) nil))
     nil)
    nil shostak
    (powerseries_deriv subtype
@@ -98,14 +100,16 @@
   (powerseries_deriv_TCC3-1 nil 3299589853
    ("" (skosimp*)
     (("" (lemma "deriv_powerseries_conv")
-      (("" (inst?) (("" (assert) (("" (inst?) nil nil)) nil)) nil)) nil))
+      (("" (inst?) (("" (assert) (("" (inst?) nil nil)) nil)) nil))
+      nil))
     nil)
    ((T formal-subtype-decl nil power_series_deriv nil)
     (T_pred const-decl "[real -> boolean]" power_series_deriv nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (deriv_powerseries_conv formula-decl nil power_series_derivseq nil)
@@ -117,7 +121,8 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil))
-   shostak (powerseries_deriv subtype "power_series_deriv.f" "deriv_fun[T]")))
+   shostak
+   (powerseries_deriv subtype "power_series_deriv.f" "deriv_fun[T]")))
  (powerseries_deriv 0
   (powerseries_deriv-11 nil 3445341646
    ("" (skosimp*)
@@ -139,15 +144,18 @@
                             (("2"
                               (name "FA"
                                     "(LAMBDA x: limit(powerseries(a!1)(x)))")
-                              (("1" (replace -1)
+                              (("1"
+                                (replace -1)
                                 (("1"
-                                  (name "FG"
-                                        "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+                                  (name
+                                   "FG"
+                                   "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
                                   (("1"
                                     (case-replace
                                      "limit(series(deriv_powerseq(a!1, x!1))) = FG(x!1)")
                                     (("1"
-                                      (lemma "derivative_squeeze_delta[T]")
+                                      (lemma
+                                       "derivative_squeeze_delta[T]")
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -166,7 +174,8 @@
                                                   (("1"
                                                     (hide -2 -3)
                                                     (("1"
-                                                      (case "xp!1 /= 0")
+                                                      (case
+                                                       "xp!1 /= 0")
                                                       (("1"
                                                         (flatten)
                                                         (("1"
@@ -277,7 +286,8 @@
                                                                   nil))
                                                                 nil)
                                                                ("2"
-                                                                (hide 2)
+                                                                (hide
+                                                                 2)
                                                                 (("2"
                                                                   (expand
                                                                    "conv_series?")
@@ -1014,7 +1024,8 @@
                                                                 nil)
                                                                ("2"
                                                                 (hide-all-but
-                                                                 (-1 1))
+                                                                 (-1
+                                                                  1))
                                                                 (("2"
                                                                   (grind)
                                                                   nil
@@ -1050,7 +1061,8 @@
                                                           nil))
                                                         nil)
                                                        ("2"
-                                                        (hide-all-but (-1 1))
+                                                        (hide-all-but
+                                                         (-1 1))
                                                         (("2"
                                                           (grind)
                                                           nil
@@ -1068,7 +1080,9 @@
                                                       (("1"
                                                         (lemma "open")
                                                         (("1"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("1"
                                                             (skosimp*)
                                                             (("1"
@@ -1096,7 +1110,9 @@
                                                        ("2"
                                                         (lemma "open")
                                                         (("2"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("2"
                                                             (skosimp*)
                                                             (("2"
@@ -1137,9 +1153,13 @@
                                                   (("1"
                                                     (expand "NQ")
                                                     (("1"
-                                                      (expand "inf_sum")
+                                                      (expand
+                                                       "inf_sum")
                                                       (("1"
-                                                        (replace -2 * rl)
+                                                        (replace
+                                                         -2
+                                                         *
+                                                         rl)
                                                         (("1"
                                                           (case-replace
                                                            "(FA(x!1 + x!2) - FA(x!1)) / x!2 =
@@ -1948,7 +1968,10 @@
                                                            ("3"
                                                             (hide 2)
                                                             (("3"
-                                                              (hide -1 -2 -3)
+                                                              (hide
+                                                               -1
+                                                               -2
+                                                               -3)
                                                               (("3"
                                                                 (expand
                                                                  "conv_series?")
@@ -1990,7 +2013,8 @@
                                                    ("2"
                                                     (skosimp*)
                                                     (("2"
-                                                      (lemma "Gseq_conv[T]")
+                                                      (lemma
+                                                       "Gseq_conv[T]")
                                                       (("2"
                                                         (inst?)
                                                         (("2"
@@ -2004,11 +2028,13 @@
                                                       nil))
                                                     nil)
                                                    ("3"
-                                                    (lemma "not_one_element")
+                                                    (lemma
+                                                     "not_one_element")
                                                     (("3"
                                                       (skosimp*)
                                                       (("3"
-                                                        (lemma "deriv_domain")
+                                                        (lemma
+                                                         "deriv_domain")
                                                         (("3"
                                                           (propax)
                                                           nil
@@ -2021,15 +2047,21 @@
                                                ("3"
                                                 (hide 2)
                                                 (("3"
-                                                  (lemma "deriv_domain")
+                                                  (lemma
+                                                   "deriv_domain")
                                                   (("3"
-                                                    (expand "deriv_domain?")
+                                                    (expand
+                                                     "deriv_domain?")
                                                     (("3"
                                                       (skosimp*)
                                                       (("3"
-                                                        (lemma "Gseq_conv")
+                                                        (lemma
+                                                         "Gseq_conv")
                                                         (("3"
-                                                          (inst - "a!1" "x!1")
+                                                          (inst
+                                                           -
+                                                           "a!1"
+                                                           "x!1")
                                                           (("3"
                                                             (assert)
                                                             (("3"
@@ -2075,8 +2107,10 @@
                                         (("2" (propax) nil nil))
                                         nil))
                                       nil)
-                                     ("2" (replace -1 * rl)
-                                      (("2" (assert) nil nil)) nil))
+                                     ("2"
+                                      (replace -1 * rl)
+                                      (("2" (assert) nil nil))
+                                      nil))
                                     nil)
                                    ("2" (propax) nil nil))
                                   nil))
@@ -2088,7 +2122,8 @@
                         nil))
                       nil))
                     nil)
-                   ("2" (lemma "deriv_domain") (("2" (propax) nil nil)) nil))
+                   ("2" (lemma "deriv_domain") (("2" (propax) nil nil))
+                    nil))
                   nil))
                 nil))
               nil))
@@ -2101,8 +2136,10 @@
     (deriv_fun_def formula-decl nil derivatives analysis)
     (deriv_domain? const-decl "bool" deriv_domain_def analysis)
     (not_one_element? const-decl "bool" deriv_domain_def analysis)
-    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq nil)
-    (derivative_squeeze_delta formula-decl nil derivatives_alt analysis)
+    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq
+     nil)
+    (derivative_squeeze_delta formula-decl nil derivatives_alt
+     analysis)
     (Gseq const-decl "real" power_series_deriv_scaf nil)
     (NQ const-decl "real" derivatives_def analysis)
     (A const-decl "setof[nzreal]" derivatives_def analysis)
@@ -2136,7 +2173,8 @@
     (conv_scaf3 formula-decl nil power_series_deriv_scaf nil)
     (lim_deriv_alt formula-decl nil power_series_derivseq nil)
     (series_m_diff formula-decl nil series nil)
-    (T_low type-eq-decl nil sigma reals) (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals)
     (sigma def-decl "real" sigma reals)
     (sigma_first formula-decl nil sigma reals)
     (series_m_eq formula-decl nil series nil)
@@ -2174,15 +2212,18 @@
                             (("2"
                               (name "FA"
                                     "(LAMBDA x: limit(powerseries(a!1)(x)))")
-                              (("1" (replace -1)
+                              (("1"
+                                (replace -1)
                                 (("1"
-                                  (name "FG"
-                                        "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+                                  (name
+                                   "FG"
+                                   "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
                                   (("1"
                                     (case-replace
                                      "limit(series(deriv_powerseq(a!1, x!1))) = FG(x!1)")
                                     (("1"
-                                      (lemma "derivative_squeeze_delta[T]")
+                                      (lemma
+                                       "derivative_squeeze_delta[T]")
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -2201,7 +2242,8 @@
                                                   (("1"
                                                     (hide -2 -3)
                                                     (("1"
-                                                      (case "xp!1 /= 0")
+                                                      (case
+                                                       "xp!1 /= 0")
                                                       (("1"
                                                         (flatten)
                                                         (("1"
@@ -2269,7 +2311,8 @@
                                                                   nil))
                                                                 nil)
                                                                ("2"
-                                                                (hide 2)
+                                                                (hide
+                                                                 2)
                                                                 (("2"
                                                                   (expand
                                                                    "conv_series?")
@@ -2991,7 +3034,8 @@
                                                                 nil)
                                                                ("2"
                                                                 (hide-all-but
-                                                                 (-1 1))
+                                                                 (-1
+                                                                  1))
                                                                 (("2"
                                                                   (grind)
                                                                   nil
@@ -3027,7 +3071,8 @@
                                                           nil))
                                                         nil)
                                                        ("2"
-                                                        (hide-all-but (-1 1))
+                                                        (hide-all-but
+                                                         (-1 1))
                                                         (("2"
                                                           (grind)
                                                           nil
@@ -3045,7 +3090,9 @@
                                                       (("1"
                                                         (lemma "open")
                                                         (("1"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("1"
                                                             (skosimp*)
                                                             (("1"
@@ -3073,7 +3120,9 @@
                                                        ("2"
                                                         (lemma "open")
                                                         (("2"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("2"
                                                             (skosimp*)
                                                             (("2"
@@ -3114,9 +3163,13 @@
                                                   (("1"
                                                     (expand "NQ")
                                                     (("1"
-                                                      (expand "inf_sum")
+                                                      (expand
+                                                       "inf_sum")
                                                       (("1"
-                                                        (replace -2 * rl)
+                                                        (replace
+                                                         -2
+                                                         *
+                                                         rl)
                                                         (("1"
                                                           (case-replace
                                                            "(FA(x!1 + x!2) - FA(x!1)) / x!2 =
@@ -3925,7 +3978,10 @@
                                                            ("3"
                                                             (hide 2)
                                                             (("3"
-                                                              (hide -1 -2 -3)
+                                                              (hide
+                                                               -1
+                                                               -2
+                                                               -3)
                                                               (("3"
                                                                 (expand
                                                                  "conv_series?")
@@ -3967,7 +4023,8 @@
                                                    ("2"
                                                     (skosimp*)
                                                     (("2"
-                                                      (lemma "Gseq_conv[T]")
+                                                      (lemma
+                                                       "Gseq_conv[T]")
                                                       (("2"
                                                         (inst?)
                                                         (("2"
@@ -3981,10 +4038,17 @@
                                                       nil))
                                                     nil)
                                                    ("3"
-                                                    (lemma "not_one_element")
-                                                    (("3" (skosimp*) nil nil))
+                                                    (lemma
+                                                     "not_one_element")
+                                                    (("3"
+                                                      (skosimp*)
+                                                      nil
+                                                      nil))
                                                     nil)
-                                                   ("4" (skosimp*) nil nil))
+                                                   ("4"
+                                                    (skosimp*)
+                                                    nil
+                                                    nil))
                                                   nil))
                                                 nil)
                                                ("3"
@@ -4008,16 +4072,22 @@
                                                 nil)
                                                ("4" (skosimp*) nil nil)
                                                ("5"
-                                                (lemma "connected_domain")
-                                                (("5" (skosimp*) nil nil))
+                                                (lemma
+                                                 "connected_domain")
+                                                (("5"
+                                                  (skosimp*)
+                                                  nil
+                                                  nil))
                                                 nil))
                                               nil))
                                             nil))
                                           nil))
                                         nil))
                                       nil)
-                                     ("2" (replace -1 * rl)
-                                      (("2" (assert) nil nil)) nil))
+                                     ("2"
+                                      (replace -1 * rl)
+                                      (("2" (assert) nil nil))
+                                      nil))
                                     nil)
                                    ("2" (propax) nil nil))
                                   nil))
@@ -4053,7 +4123,8 @@
     (conv_scaf2 formula-decl nil power_series_deriv_scaf nil)
     (series_m_eq formula-decl nil series nil)
     (sigma_first formula-decl nil sigma reals)
-    (sigma def-decl "real" sigma reals) (T_high type-eq-decl nil sigma reals)
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
     (T_low type-eq-decl nil sigma reals)
     (series_m_diff formula-decl nil series nil)
     (lim_deriv_alt formula-decl nil power_series_derivseq nil)
@@ -4085,9 +4156,11 @@
     (A const-decl "setof[nzreal]" derivatives_def analysis)
     (NQ const-decl "real" derivatives_def analysis)
     (Gseq const-decl "real" power_series_deriv_scaf nil)
-    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq nil)
+    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq
+     nil)
     (deriv_fun_def formula-decl nil derivatives analysis)
-    (deriv_powerseries_conv formula-decl nil power_series_derivseq nil))
+    (deriv_powerseries_conv formula-decl nil power_series_derivseq
+     nil))
    nil)
   (powerseries_deriv-9 nil 3299837690
    ("" (skosimp*)
@@ -4109,15 +4182,18 @@
                             (("2"
                               (name "FA"
                                     "(LAMBDA x: limit(powerseries(a!1)(x)))")
-                              (("1" (replace -1)
+                              (("1"
+                                (replace -1)
                                 (("1"
-                                  (name "FG"
-                                        "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+                                  (name
+                                   "FG"
+                                   "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
                                   (("1"
                                     (case-replace
                                      "limit(series(deriv_powerseq(a!1, x!1))) = FG(x!1)")
                                     (("1"
-                                      (lemma "derivative_squeeze_delta[T]")
+                                      (lemma
+                                       "derivative_squeeze_delta[T]")
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -4136,7 +4212,8 @@
                                                   (("1"
                                                     (hide -2 -3)
                                                     (("1"
-                                                      (case "xp!1 /= 0")
+                                                      (case
+                                                       "xp!1 /= 0")
                                                       (("1"
                                                         (flatten)
                                                         (("1"
@@ -4212,7 +4289,8 @@
                                                                   nil))
                                                                 nil)
                                                                ("2"
-                                                                (hide 2)
+                                                                (hide
+                                                                 2)
                                                                 (("2"
                                                                   (expand
                                                                    "conv_series?")
@@ -4934,7 +5012,8 @@
                                                                 nil)
                                                                ("2"
                                                                 (hide-all-but
-                                                                 (-1 1))
+                                                                 (-1
+                                                                  1))
                                                                 (("2"
                                                                   (grind)
                                                                   nil
@@ -4970,7 +5049,8 @@
                                                           nil))
                                                         nil)
                                                        ("2"
-                                                        (hide-all-but (-1 1))
+                                                        (hide-all-but
+                                                         (-1 1))
                                                         (("2"
                                                           (grind)
                                                           nil
@@ -4988,7 +5068,9 @@
                                                       (("1"
                                                         (lemma "open")
                                                         (("1"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("1"
                                                             (skosimp*)
                                                             (("1"
@@ -5016,7 +5098,9 @@
                                                        ("2"
                                                         (lemma "open")
                                                         (("2"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("2"
                                                             (skosimp*)
                                                             (("2"
@@ -5057,9 +5141,13 @@
                                                   (("1"
                                                     (expand "NQ")
                                                     (("1"
-                                                      (expand "inf_sum")
+                                                      (expand
+                                                       "inf_sum")
                                                       (("1"
-                                                        (replace -2 * rl)
+                                                        (replace
+                                                         -2
+                                                         *
+                                                         rl)
                                                         (("1"
                                                           (case-replace
                                                            "(FA(x!1 + x!2) - FA(x!1)) / x!2 =
@@ -5894,7 +5982,10 @@
                                                            ("3"
                                                             (hide 2)
                                                             (("3"
-                                                              (hide -1 -2 -3)
+                                                              (hide
+                                                               -1
+                                                               -2
+                                                               -3)
                                                               (("3"
                                                                 (expand
                                                                  "conv_series?")
@@ -5936,7 +6027,8 @@
                                                    ("2"
                                                     (skosimp*)
                                                     (("2"
-                                                      (lemma "Gseq_conv[T]")
+                                                      (lemma
+                                                       "Gseq_conv[T]")
                                                       (("2"
                                                         (inst?)
                                                         (("2"
@@ -5950,10 +6042,17 @@
                                                       nil))
                                                     nil)
                                                    ("3"
-                                                    (lemma "not_one_element")
-                                                    (("3" (skosimp*) nil nil))
+                                                    (lemma
+                                                     "not_one_element")
+                                                    (("3"
+                                                      (skosimp*)
+                                                      nil
+                                                      nil))
                                                     nil)
-                                                   ("4" (skosimp*) nil nil))
+                                                   ("4"
+                                                    (skosimp*)
+                                                    nil
+                                                    nil))
                                                   nil))
                                                 nil)
                                                ("3"
@@ -5977,16 +6076,22 @@
                                                 nil)
                                                ("4" (skosimp*) nil nil)
                                                ("5"
-                                                (lemma "connected_domain")
-                                                (("5" (skosimp*) nil nil))
+                                                (lemma
+                                                 "connected_domain")
+                                                (("5"
+                                                  (skosimp*)
+                                                  nil
+                                                  nil))
                                                 nil))
                                               nil))
                                             nil))
                                           nil))
                                         nil))
                                       nil)
-                                     ("2" (replace -1 * rl)
-                                      (("2" (assert) nil nil)) nil))
+                                     ("2"
+                                      (replace -1 * rl)
+                                      (("2" (assert) nil nil))
+                                      nil))
                                     nil)
                                    ("2" (propax) nil nil))
                                   nil))
@@ -6050,9 +6155,11 @@
     (A const-decl "setof[nzreal]" derivatives_def analysis)
     (NQ const-decl "real" derivatives_def analysis)
     (Gseq const-decl "real" power_series_deriv_scaf nil)
-    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq nil)
+    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq
+     nil)
     (deriv_fun_def formula-decl nil derivatives analysis)
-    (deriv_powerseries_conv formula-decl nil power_series_derivseq nil))
+    (deriv_powerseries_conv formula-decl nil power_series_derivseq
+     nil))
    nil)
   (powerseries_deriv-8 nil 3299584269
    ("" (skosimp*)
@@ -6074,15 +6181,18 @@
                             (("2"
                               (name "FA"
                                     "(LAMBDA x: limit(powerseries(a!1)(x)))")
-                              (("1" (replace -1)
+                              (("1"
+                                (replace -1)
                                 (("1"
-                                  (name "FG"
-                                        "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+                                  (name
+                                   "FG"
+                                   "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
                                   (("1"
                                     (case-replace
                                      "limit(series(deriv_powerseq(a!1, x!1))) = FG(x!1)")
                                     (("1"
-                                      (lemma "derivative_squeeze_delta[T]")
+                                      (lemma
+                                       "derivative_squeeze_delta[T]")
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -6101,7 +6211,8 @@
                                                   (("1"
                                                     (hide -2 -3)
                                                     (("1"
-                                                      (case "xp!1 /= 0")
+                                                      (case
+                                                       "xp!1 /= 0")
                                                       (("1"
                                                         (flatten)
                                                         (("1"
@@ -6177,7 +6288,8 @@
                                                                   nil))
                                                                 nil)
                                                                ("2"
-                                                                (hide 2)
+                                                                (hide
+                                                                 2)
                                                                 (("2"
                                                                   (expand
                                                                    "conv_series?")
@@ -6868,7 +6980,8 @@
                                                                 nil)
                                                                ("2"
                                                                 (hide-all-but
-                                                                 (-1 1))
+                                                                 (-1
+                                                                  1))
                                                                 (("2"
                                                                   (grind)
                                                                   nil
@@ -6904,7 +7017,8 @@
                                                           nil))
                                                         nil)
                                                        ("2"
-                                                        (hide-all-but (-1 1))
+                                                        (hide-all-but
+                                                         (-1 1))
                                                         (("2"
                                                           (grind)
                                                           nil
@@ -6922,7 +7036,9 @@
                                                       (("1"
                                                         (lemma "open")
                                                         (("1"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("1"
                                                             (skosimp*)
                                                             (("1"
@@ -6950,7 +7066,9 @@
                                                        ("2"
                                                         (lemma "open")
                                                         (("2"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("2"
                                                             (skosimp*)
                                                             (("2"
@@ -6991,9 +7109,13 @@
                                                   (("1"
                                                     (expand "NQ")
                                                     (("1"
-                                                      (expand "inf_sum")
+                                                      (expand
+                                                       "inf_sum")
                                                       (("1"
-                                                        (replace -2 * rl)
+                                                        (replace
+                                                         -2
+                                                         *
+                                                         rl)
                                                         (("1"
                                                           (case-replace
                                                            "(FA(x!1 + x!2) - FA(x!1)) / x!2 =
@@ -7883,7 +8005,8 @@
                                                                         nil))
                                                                       nil)
                                                                      ("2"
-                                                                      (hide 2)
+                                                                      (hide
+                                                                       2)
                                                                       (("2"
                                                                         (inst?
                                                                          -7)
@@ -7891,7 +8014,8 @@
                                                                         nil))
                                                                       nil)
                                                                      ("3"
-                                                                      (hide 2)
+                                                                      (hide
+                                                                       2)
                                                                       (("3"
                                                                         (inst?
                                                                          -7)
@@ -7921,7 +8045,10 @@
                                                            ("3"
                                                             (hide 2)
                                                             (("3"
-                                                              (hide -1 -2 -3)
+                                                              (hide
+                                                               -1
+                                                               -2
+                                                               -3)
                                                               (("3"
                                                                 (expand
                                                                  "conv_series?")
@@ -7959,9 +8086,11 @@
                                                            ("4"
                                                             (hide 2)
                                                             (("4"
-                                                              (typepred "x!2")
+                                                              (typepred
+                                                               "x!2")
                                                               (("4"
-                                                                (expand "A")
+                                                                (expand
+                                                                 "A")
                                                                 (("4"
                                                                   (propax)
                                                                   nil
@@ -7976,7 +8105,8 @@
                                                    ("2"
                                                     (skosimp*)
                                                     (("2"
-                                                      (lemma "Gseq_conv[T]")
+                                                      (lemma
+                                                       "Gseq_conv[T]")
                                                       (("2"
                                                         (inst?)
                                                         (("2"
@@ -7990,10 +8120,17 @@
                                                       nil))
                                                     nil)
                                                    ("3"
-                                                    (lemma "not_one_element")
-                                                    (("3" (skosimp*) nil nil))
+                                                    (lemma
+                                                     "not_one_element")
+                                                    (("3"
+                                                      (skosimp*)
+                                                      nil
+                                                      nil))
                                                     nil)
-                                                   ("4" (skosimp*) nil nil))
+                                                   ("4"
+                                                    (skosimp*)
+                                                    nil
+                                                    nil))
                                                   nil))
                                                 nil)
                                                ("3"
@@ -8017,16 +8154,22 @@
                                                 nil)
                                                ("4" (skosimp*) nil nil)
                                                ("5"
-                                                (lemma "connected_domain")
-                                                (("5" (skosimp*) nil nil))
+                                                (lemma
+                                                 "connected_domain")
+                                                (("5"
+                                                  (skosimp*)
+                                                  nil
+                                                  nil))
                                                 nil))
                                               nil))
                                             nil))
                                           nil))
                                         nil))
                                       nil)
-                                     ("2" (replace -1 * rl)
-                                      (("2" (assert) nil nil)) nil)
+                                     ("2"
+                                      (replace -1 * rl)
+                                      (("2" (assert) nil nil))
+                                      nil)
                                      ("3" (inst? -3) nil nil))
                                     nil)
                                    ("2" (propax) nil nil))
@@ -8050,7 +8193,8 @@
     nil)
    ((deriv_powerseries_conv formula-decl nil power_series_derivseq nil)
     (deriv_fun_def formula-decl nil derivatives analysis)
-    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq nil)
+    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq
+     nil)
     (Gseq const-decl "real" power_series_deriv_scaf nil)
     (A2seq const-decl "real" power_series_deriv_scaf nil)
     (Gseq_conv formula-decl nil power_series_deriv_scaf nil)
@@ -8111,15 +8255,18 @@
                             (("2"
                               (name "FA"
                                     "(LAMBDA x: limit(powerseries(a!1)(x)))")
-                              (("1" (replace -1)
+                              (("1"
+                                (replace -1)
                                 (("1"
-                                  (name "FG"
-                                        "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+                                  (name
+                                   "FG"
+                                   "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
                                   (("1"
                                     (case-replace
                                      "limit(series(deriv_powerseq(a!1, x!1))) = FG(x!1)")
                                     (("1"
-                                      (lemma "derivative_squeeze_delta[T]")
+                                      (lemma
+                                       "derivative_squeeze_delta[T]")
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -8138,7 +8285,8 @@
                                                   (("1"
                                                     (hide -2 -3)
                                                     (("1"
-                                                      (case "xp!1 /= 0")
+                                                      (case
+                                                       "xp!1 /= 0")
                                                       (("1"
                                                         (flatten)
                                                         (("1"
@@ -8199,7 +8347,8 @@
                                                                   (skosimp*)
                                                                   nil)))
                                                                ("2"
-                                                                (hide 2)
+                                                                (hide
+                                                                 2)
                                                                 (("2"
                                                                   (expand
                                                                    "conv_series?")
@@ -8727,7 +8876,8 @@
                                                                       nil)))))))
                                                                ("2"
                                                                 (hide-all-but
-                                                                 (-1 1))
+                                                                 (-1
+                                                                  1))
                                                                 (("2"
                                                                   (grind)
                                                                   nil)))))))
@@ -8750,7 +8900,8 @@
                                                             (skosimp*)
                                                             nil)))))
                                                        ("2"
-                                                        (hide-all-but (-1 1))
+                                                        (hide-all-but
+                                                         (-1 1))
                                                         (("2"
                                                           (grind)
                                                           nil)))))))))
@@ -8763,7 +8914,9 @@
                                                       (("1"
                                                         (lemma "open")
                                                         (("1"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("1"
                                                             (skosimp*)
                                                             (("1"
@@ -8783,7 +8936,9 @@
                                                        ("2"
                                                         (lemma "open")
                                                         (("2"
-                                                          (inst - "x!1")
+                                                          (inst
+                                                           -
+                                                           "x!1")
                                                           (("2"
                                                             (skosimp*)
                                                             (("2"
@@ -8812,9 +8967,13 @@
                                                   (("1"
                                                     (expand "NQ")
                                                     (("1"
-                                                      (expand "inf_sum")
+                                                      (expand
+                                                       "inf_sum")
                                                       (("1"
-                                                        (replace -2 * rl)
+                                                        (replace
+                                                         -2
+                                                         *
+                                                         rl)
                                                         (("1"
                                                           (case-replace
                                                            "(FA(x!1 + x!2) - FA(x!1)) / x!2 =
@@ -9482,13 +9641,15 @@
                                                                                     (ground)
                                                                                     nil)))))))))))))))
                                                                      ("2"
-                                                                      (hide 2)
+                                                                      (hide
+                                                                       2)
                                                                       (("2"
                                                                         (inst?
                                                                          -7)
                                                                         nil)))
                                                                      ("3"
-                                                                      (hide 2)
+                                                                      (hide
+                                                                       2)
                                                                       (("3"
                                                                         (inst?
                                                                          -7)
@@ -9507,7 +9668,10 @@
                                                            ("3"
                                                             (hide 2)
                                                             (("3"
-                                                              (hide -1 -2 -3)
+                                                              (hide
+                                                               -1
+                                                               -2
+                                                               -3)
                                                               (("3"
                                                                 (expand
                                                                  "conv_series?")
@@ -9535,16 +9699,19 @@
                                                            ("4"
                                                             (hide 2)
                                                             (("4"
-                                                              (typepred "x!2")
+                                                              (typepred
+                                                               "x!2")
                                                               (("4"
-                                                                (expand "A")
+                                                                (expand
+                                                                 "A")
                                                                 (("4"
                                                                   (propax)
                                                                   nil)))))))))))))))
                                                    ("2"
                                                     (skosimp*)
                                                     (("2"
-                                                      (lemma "Gseq_conv")
+                                                      (lemma
+                                                       "Gseq_conv")
                                                       (("2"
                                                         (inst?)
                                                         (("2"
@@ -9553,9 +9720,14 @@
                                                             (assert)
                                                             nil)))))))))
                                                    ("3"
-                                                    (lemma "not_one_element")
-                                                    (("3" (skosimp*) nil)))
-                                                   ("4" (skosimp*) nil)))))
+                                                    (lemma
+                                                     "not_one_element")
+                                                    (("3"
+                                                      (skosimp*)
+                                                      nil)))
+                                                   ("4"
+                                                    (skosimp*)
+                                                    nil)))))
                                                ("3"
                                                 (skosimp*)
                                                 (("3"
@@ -9571,11 +9743,13 @@
                                                           nil)))))))))))
                                                ("4" (skosimp*) nil)
                                                ("5"
-                                                (lemma "connected_domain")
+                                                (lemma
+                                                 "connected_domain")
                                                 (("5"
                                                   (skosimp*)
                                                   nil)))))))))))))
-                                     ("2" (replace -1 * rl)
+                                     ("2"
+                                      (replace -1 * rl)
                                       (("2" (assert) nil)))
                                      ("3" (inst? -3) nil)))
                                    ("2" (propax) nil)))))
@@ -9589,7 +9763,9 @@
       (("1" (assert)
         (("1" (lemma "deriv_fun_def[T]")
           (("1" (inst?)
-            (("1" (inst - "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+            (("1"
+              (inst -
+               "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
               (("1" (split -1)
                 (("1" (flatten) (("1" (assert) nil nil)) nil)
                  ("2" (hide 2)
@@ -9601,12 +9777,16 @@
                             (case "FORALL (x0:T,h:(A(x!1)), k: upfrom(2)): EXISTS (c: between[T](x0,x0+h)):
                                                                                 (x0+h)^k - x0^k = h*k*x0^(k-1) + (1/2)*ktkm1(k)*c^(k-2)*h^2")
                             (("1" (lemma "derivative_squeeze[T]")
-                              (("1" (inst?)
-                                (("1" (expand "convergence" -1)
+                              (("1"
+                                (inst?)
+                                (("1"
+                                  (expand "convergence" -1)
                                   (("1"
-                                    (inst -
+                                    (inst
+                                     -
                                      "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
-                                    (("1" (assert)
+                                    (("1"
+                                      (assert)
                                       (("1"
                                         (hide 2)
                                         (("1"
@@ -9653,7 +9833,10 @@
 
  a!1(k) * (h * k * x!1 ^ (k - 1) + (1 / 2) * ktkm1(k) * CC!1(k - 2) * h ^ 2))))")
                                                             (("1"
-                                                              (hide -1 -2 -4)
+                                                              (hide
+                                                               -1
+                                                               -2
+                                                               -4)
                                                               (("1"
                                                                 (postpone)
                                                                 nil
@@ -9691,15 +9874,36 @@
                                                           nil))
                                                         nil))
                                                       nil)
-                                                     ("2" (postpone) nil nil)
-                                                     ("3" (postpone) nil nil)
-                                                     ("4" (postpone) nil nil)
-                                                     ("5" (postpone) nil nil))
+                                                     ("2"
+                                                      (postpone)
+                                                      nil
+                                                      nil)
+                                                     ("3"
+                                                      (postpone)
+                                                      nil
+                                                      nil)
+                                                     ("4"
+                                                      (postpone)
+                                                      nil
+                                                      nil)
+                                                     ("5"
+                                                      (postpone)
+                                                      nil
+                                                      nil))
                                                     nil))
                                                   nil)
-                                                 ("2" (postpone) nil nil)
-                                                 ("3" (postpone) nil nil)
-                                                 ("4" (postpone) nil nil))
+                                                 ("2"
+                                                  (postpone)
+                                                  nil
+                                                  nil)
+                                                 ("3"
+                                                  (postpone)
+                                                  nil
+                                                  nil)
+                                                 ("4"
+                                                  (postpone)
+                                                  nil
+                                                  nil))
                                                 nil))
                                               nil)
                                              ("2"
@@ -9712,8 +9916,12 @@
                                                 (("2"
                                                   (expand "-")
                                                   (("2"
-                                                    (expand "const_fun")
-                                                    (("2" (propax) nil nil))
+                                                    (expand
+                                                     "const_fun")
+                                                    (("2"
+                                                      (propax)
+                                                      nil
+                                                      nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -9727,8 +9935,10 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2" (skosimp*)
-                                      (("2" (postpone) nil nil)) nil))
+                                     ("2"
+                                      (skosimp*)
+                                      (("2" (postpone) nil nil))
+                                      nil))
                                     nil))
                                   nil))
                                 nil)
@@ -9736,9 +9946,12 @@
                                ("3" (postpone) nil nil))
                               nil)
                              ("2" (hide 2)
-                              (("2" (skosimp*)
-                                (("2" (hide -2 -3)
-                                  (("2" (lemma "Taylors[T]")
+                              (("2"
+                                (skosimp*)
+                                (("2"
+                                  (hide -2 -3)
+                                  (("2"
+                                    (lemma "Taylors[T]")
                                     (("1"
                                       (inst
                                        -
@@ -9763,9 +9976,11 @@
                                                     (("1"
                                                       (expand "sigma")
                                                       (("1"
-                                                        (expand "factorial")
+                                                        (expand
+                                                         "factorial")
                                                         (("1"
-                                                          (expand "factorial")
+                                                          (expand
+                                                           "factorial")
                                                           (("1"
                                                             (expand
                                                              "factorial")
@@ -9876,7 +10091,8 @@
                                          ("2"
                                           (hide 2)
                                           (("2"
-                                            (expand "derivable_n_times")
+                                            (expand
+                                             "derivable_n_times")
                                             (("2"
                                               (lemma "deriv_x_to_n[T]")
                                               (("2"
@@ -9939,32 +10155,47 @@
                                               (expand "A")
                                               (("2"
                                                 (flatten)
-                                                (("2" (postpone) nil nil))
+                                                (("2"
+                                                  (postpone)
+                                                  nil
+                                                  nil))
                                                 nil))
                                               nil))
                                             nil))
                                           nil))
                                         nil))
                                       nil)
-                                     ("2" (lemma "not_one_element")
-                                      (("2" (propax) nil nil)) nil)
-                                     ("3" (lemma "connected_domain")
-                                      (("3" (propax) nil nil)) nil))
+                                     ("2"
+                                      (lemma "not_one_element")
+                                      (("2" (propax) nil nil))
+                                      nil)
+                                     ("3"
+                                      (lemma "connected_domain")
+                                      (("3" (propax) nil nil))
+                                      nil))
                                     nil))
                                   nil))
                                 nil))
                               nil)
                              ("3" (hide 2)
-                              (("3" (skosimp*)
-                                (("3" (lemma "not_one_element")
-                                  (("3" (inst?) nil nil)) nil))
+                              (("3"
+                                (skosimp*)
+                                (("3"
+                                  (lemma "not_one_element")
+                                  (("3" (inst?) nil nil))
+                                  nil))
                                 nil))
                               nil)
                              ("4" (skosimp*)
-                              (("4" (hide 2)
-                                (("4" (lemma "connected_domain")
-                                  (("4" (inst?)
-                                    (("4" (inst?) (("4" (assert) nil nil))
+                              (("4"
+                                (hide 2)
+                                (("4"
+                                  (lemma "connected_domain")
+                                  (("4"
+                                    (inst?)
+                                    (("4"
+                                      (inst?)
+                                      (("4" (assert) nil nil))
                                       nil))
                                     nil))
                                   nil))
@@ -9984,7 +10215,8 @@
                       (("2" (inst?)
                         (("2" (lemma "deriv_powerseries_conv")
                           (("2" (inst?)
-                            (("2" (replace -4) (("2" (inst?) nil nil)) nil))
+                            (("2" (replace -4) (("2" (inst?) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -9996,13 +10228,14 @@
             nil))
           nil))
         nil)
-       ("2" (flatten) (("2" (replace -1) (("2" (propax) nil nil)) nil)) nil)
+       ("2" (flatten) (("2" (replace -1) (("2" (propax) nil nil)) nil))
+        nil)
        ("3" (hide -1)
         (("3" (flatten)
           (("3" (skosimp*)
             (("3" (lemma "deriv_powerseries_conv")
-              (("3" (inst?) (("3" (replace -3) (("3" (inst?) nil nil)) nil))
-                nil))
+              (("3" (inst?)
+                (("3" (replace -3) (("3" (inst?) nil nil)) nil)) nil))
               nil))
             nil))
           nil))
@@ -10016,7 +10249,9 @@
       (("1" (assert)
         (("1" (lemma "deriv_fun_def[T]")
           (("1" (inst?)
-            (("1" (inst - "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+            (("1"
+              (inst -
+               "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
               (("1" (split -1)
                 (("1" (flatten) (("1" (assert) nil)))
                  ("2" (hide 2)
@@ -10029,9 +10264,12 @@
                                                                    (x0+h)^k - x0^k = h*k*x0^(k-1) + (1/2)*ktkm1(k)*c^(k-2)*h^2")
                             (("1" (postpone) nil)
                              ("2" (hide 2)
-                              (("2" (skosimp*)
-                                (("2" (hide -2 -3)
-                                  (("2" (lemma "Taylors[T]")
+                              (("2"
+                                (skosimp*)
+                                (("2"
+                                  (hide -2 -3)
+                                  (("2"
+                                    (lemma "Taylors[T]")
                                     (("1"
                                       (inst
                                        -
@@ -10056,9 +10294,11 @@
                                                     (("1"
                                                       (expand "sigma")
                                                       (("1"
-                                                        (expand "factorial")
+                                                        (expand
+                                                         "factorial")
                                                         (("1"
-                                                          (expand "factorial")
+                                                          (expand
+                                                           "factorial")
                                                           (("1"
                                                             (expand
                                                              "factorial")
@@ -10135,7 +10375,8 @@
                                          ("2"
                                           (hide 2)
                                           (("2"
-                                            (expand "derivable_n_times")
+                                            (expand
+                                             "derivable_n_times")
                                             (("2"
                                               (lemma "deriv_x_to_n[T]")
                                               (("2"
@@ -10177,20 +10418,30 @@
                                           (typepred "h!1")
                                           (("2"
                                             (typepred "x0!1")
-                                            (("2" (postpone) nil)))))))))
-                                     ("2" (lemma "not_one_element")
+                                            (("2"
+                                              (postpone)
+                                              nil)))))))))
+                                     ("2"
+                                      (lemma "not_one_element")
                                       (("2" (propax) nil)))
-                                     ("3" (lemma "connected_domain")
+                                     ("3"
+                                      (lemma "connected_domain")
                                       (("3" (propax) nil)))))))))))
                              ("3" (hide 2)
-                              (("3" (skosimp*)
-                                (("3" (lemma "not_one_element")
+                              (("3"
+                                (skosimp*)
+                                (("3"
+                                  (lemma "not_one_element")
                                   (("3" (inst?) nil)))))))
                              ("4" (skosimp*)
-                              (("4" (hide 2)
-                                (("4" (lemma "connected_domain")
-                                  (("4" (inst?)
-                                    (("4" (inst?)
+                              (("4"
+                                (hide 2)
+                                (("4"
+                                  (lemma "connected_domain")
+                                  (("4"
+                                    (inst?)
+                                    (("4"
+                                      (inst?)
                                       (("4"
                                         (assert)
                                         nil)))))))))))))))))))))))))
@@ -10202,7 +10453,9 @@
                         (("2" (lemma "deriv_powerseries_conv")
                           (("2" (inst?)
                             (("2" (replace -4)
-                              (("2" (inst?) nil)))))))))))))))))))))))))
+                              (("2"
+                                (inst?)
+                                nil)))))))))))))))))))))))))
        ("2" (flatten) (("2" (replace -1) (("2" (propax) nil)))))
        ("3" (hide -1)
         (("3" (flatten)
@@ -10218,7 +10471,9 @@
       (("1" (assert)
         (("1" (lemma "deriv_fun_def[T]")
           (("1" (inst?)
-            (("1" (inst - "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+            (("1"
+              (inst -
+               "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
               (("1" (split -1)
                 (("1" (flatten) (("1" (assert) nil)))
                  ("2" (hide 2)
@@ -10231,9 +10486,12 @@
                                                       (x0+h)^k - x0^k = h*k*x0^(k-1) + (1/2)*ktkm1(k)*c^(k-2)*h^2")
                             (("1" (postpone) nil)
                              ("2" (hide 2)
-                              (("2" (skosimp*)
-                                (("2" (hide -2 -3)
-                                  (("2" (lemma "Taylors[T]")
+                              (("2"
+                                (skosimp*)
+                                (("2"
+                                  (hide -2 -3)
+                                  (("2"
+                                    (lemma "Taylors[T]")
                                     (("1"
                                       (inst
                                        -
@@ -10258,9 +10516,11 @@
                                                     (("1"
                                                       (expand "sigma")
                                                       (("1"
-                                                        (expand "factorial")
+                                                        (expand
+                                                         "factorial")
                                                         (("1"
-                                                          (expand "factorial")
+                                                          (expand
+                                                           "factorial")
                                                           (("1"
                                                             (expand
                                                              "factorial")
@@ -10319,7 +10579,8 @@
                                                                             (postpone)
                                                                             nil)))))))))
                                                                    ("2"
-                                                                    (hide 2)
+                                                                    (hide
+                                                                     2)
                                                                     (("2"
                                                                       (postpone)
                                                                       nil)))
@@ -10327,7 +10588,8 @@
                                                                     (postpone)
                                                                     nil)))
                                                                  ("2"
-                                                                  (hide 2)
+                                                                  (hide
+                                                                   2)
                                                                   (("2"
                                                                     (postpone)
                                                                     nil)))
@@ -10342,14 +10604,20 @@
                                      ("2" (postpone) nil)
                                      ("3" (postpone) nil)))))))))
                              ("3" (hide 2)
-                              (("3" (skosimp*)
-                                (("3" (lemma "not_one_element")
+                              (("3"
+                                (skosimp*)
+                                (("3"
+                                  (lemma "not_one_element")
                                   (("3" (inst?) nil)))))))
                              ("4" (skosimp*)
-                              (("4" (hide 2)
-                                (("4" (lemma "connected_domain")
-                                  (("4" (inst?)
-                                    (("4" (inst?)
+                              (("4"
+                                (hide 2)
+                                (("4"
+                                  (lemma "connected_domain")
+                                  (("4"
+                                    (inst?)
+                                    (("4"
+                                      (inst?)
                                       (("4"
                                         (assert)
                                         nil)))))))))))))))))))))))))
@@ -10361,7 +10629,9 @@
                         (("2" (lemma "deriv_powerseries_conv")
                           (("2" (inst?)
                             (("2" (replace -4)
-                              (("2" (inst?) nil)))))))))))))))))))))))))
+                              (("2"
+                                (inst?)
+                                nil)))))))))))))))))))))))))
        ("2" (flatten) (("2" (replace -1) (("2" (propax) nil)))))
        ("3" (hide -1)
         (("3" (flatten)
@@ -10377,7 +10647,9 @@
       (("1" (assert)
         (("1" (lemma "deriv_fun_def[T]")
           (("1" (inst?)
-            (("1" (inst - "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+            (("1"
+              (inst -
+               "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
               (("1" (split -1)
                 (("1" (flatten) (("1" (assert) nil)))
                  ("2" (hide 2)
@@ -10390,9 +10662,12 @@
                                          (x0+h)^k - x0^k = h*k*x0^(k-1) + (1/2)*ktkm1(k)*c^(k-2)*h^2")
                             (("1" (postpone) nil)
                              ("2" (hide 2)
-                              (("2" (skosimp*)
-                                (("2" (hide -2 -3)
-                                  (("2" (lemma "Taylors[T]")
+                              (("2"
+                                (skosimp*)
+                                (("2"
+                                  (hide -2 -3)
+                                  (("2"
+                                    (lemma "Taylors[T]")
                                     (("1"
                                       (inst
                                        -
@@ -10417,9 +10692,11 @@
                                                     (("1"
                                                       (expand "sigma")
                                                       (("1"
-                                                        (expand "factorial")
+                                                        (expand
+                                                         "factorial")
                                                         (("1"
-                                                          (expand "factorial")
+                                                          (expand
+                                                           "factorial")
                                                           (("1"
                                                             (expand
                                                              "factorial")
@@ -10478,7 +10755,8 @@
                                                                             (postpone)
                                                                             nil)))))))))
                                                                    ("2"
-                                                                    (hide 2)
+                                                                    (hide
+                                                                     2)
                                                                     (("2"
                                                                       (postpone)
                                                                       nil)))
@@ -10486,7 +10764,8 @@
                                                                     (postpone)
                                                                     nil)))
                                                                  ("2"
-                                                                  (hide 2)
+                                                                  (hide
+                                                                   2)
                                                                   (("2"
                                                                     (postpone)
                                                                     nil)))
@@ -10501,14 +10780,20 @@
                                      ("2" (postpone) nil)
                                      ("3" (postpone) nil)))))))))
                              ("3" (hide 2)
-                              (("3" (skosimp*)
-                                (("3" (lemma "not_one_element")
+                              (("3"
+                                (skosimp*)
+                                (("3"
+                                  (lemma "not_one_element")
                                   (("3" (inst?) nil)))))))
                              ("4" (skosimp*)
-                              (("4" (hide 2)
-                                (("4" (lemma "connected_domain")
-                                  (("4" (inst?)
-                                    (("4" (inst?)
+                              (("4"
+                                (hide 2)
+                                (("4"
+                                  (lemma "connected_domain")
+                                  (("4"
+                                    (inst?)
+                                    (("4"
+                                      (inst?)
                                       (("4"
                                         (assert)
                                         nil)))))))))))))))))))))))))
@@ -10520,7 +10805,9 @@
                         (("2" (lemma "deriv_powerseries_conv")
                           (("2" (inst?)
                             (("2" (replace -4)
-                              (("2" (inst?) nil)))))))))))))))))))))))))
+                              (("2"
+                                (inst?)
+                                nil)))))))))))))))))))))))))
        ("2" (flatten) (("2" (replace -1) (("2" (propax) nil)))))
        ("3" (hide -1)
         (("3" (flatten)
@@ -10547,7 +10834,9 @@
       (("1" (assert)
         (("1" (lemma "deriv_fun_def[T]")
           (("1" (inst?)
-            (("1" (inst - "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
+            (("1"
+              (inst -
+               "(LAMBDA x: limit(series(deriv_powerseq(a!1, x))))")
               (("1" (split -1)
                 (("1" (flatten) (("1" (assert) nil nil)) nil)
                  ("2" (hide 2)
@@ -10560,9 +10849,12 @@
                (x0+h)^k - x0^k = h*k*x0^(k-1) + (1/2)*ktkm1(k)*c^(k-2)*h^2")
                             (("1" (postpone) nil nil)
                              ("2" (hide 2)
-                              (("2" (skosimp*)
-                                (("2" (hide -2 -3)
-                                  (("2" (lemma "Taylors[T]")
+                              (("2"
+                                (skosimp*)
+                                (("2"
+                                  (hide -2 -3)
+                                  (("2"
+                                    (lemma "Taylors[T]")
                                     (("1"
                                       (inst
                                        -
@@ -10587,9 +10879,11 @@
                                                     (("1"
                                                       (expand "sigma")
                                                       (("1"
-                                                        (expand "factorial")
+                                                        (expand
+                                                         "factorial")
                                                         (("1"
-                                                          (expand "factorial")
+                                                          (expand
+                                                           "factorial")
                                                           (("1"
                                                             (expand
                                                              "factorial")
@@ -10600,7 +10894,8 @@
                                                                  "XDEL"
                                                                  "(x0!1 - x!1)")
                                                                 (("1"
-                                                                  (replace -1)
+                                                                  (replace
+                                                                   -1)
                                                                   (("1"
                                                                     (case-replace
                                                                      "deriv[T](deriv[T]((LAMBDA x: x ^ k!1)))(c!1) = 
@@ -10673,16 +10968,24 @@
                                 nil))
                               nil)
                              ("3" (hide 2)
-                              (("3" (skosimp*)
-                                (("3" (lemma "not_one_element")
-                                  (("3" (inst?) nil nil)) nil))
+                              (("3"
+                                (skosimp*)
+                                (("3"
+                                  (lemma "not_one_element")
+                                  (("3" (inst?) nil nil))
+                                  nil))
                                 nil))
                               nil)
                              ("4" (skosimp*)
-                              (("4" (hide 2)
-                                (("4" (lemma "connected_domain")
-                                  (("4" (inst?)
-                                    (("4" (inst?) (("4" (assert) nil nil))
+                              (("4"
+                                (hide 2)
+                                (("4"
+                                  (lemma "connected_domain")
+                                  (("4"
+                                    (inst?)
+                                    (("4"
+                                      (inst?)
+                                      (("4" (assert) nil nil))
                                       nil))
                                     nil))
                                   nil))
@@ -10702,7 +11005,8 @@
                       (("2" (inst?)
                         (("2" (lemma "deriv_powerseries_conv")
                           (("2" (inst?)
-                            (("2" (replace -4) (("2" (inst?) nil nil)) nil))
+                            (("2" (replace -4) (("2" (inst?) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -10714,13 +11018,14 @@
             nil))
           nil))
         nil)
-       ("2" (flatten) (("2" (replace -1) (("2" (propax) nil nil)) nil)) nil)
+       ("2" (flatten) (("2" (replace -1) (("2" (propax) nil nil)) nil))
+        nil)
        ("3" (hide -1)
         (("3" (flatten)
           (("3" (skosimp*)
             (("3" (lemma "deriv_powerseries_conv")
-              (("3" (inst?) (("3" (replace -3) (("3" (inst?) nil nil)) nil))
-                nil))
+              (("3" (inst?)
+                (("3" (replace -3) (("3" (inst?) nil nil)) nil)) nil))
               nil))
             nil))
           nil))
@@ -10732,7 +11037,8 @@
   (powerseries_derivable-1 nil 3298198161
    ("" (skosimp*)
     (("" (lemma "powerseries_deriv")
-      (("" (inst?) (("" (replace -2) (("" (flatten) nil nil)) nil)) nil))
+      (("" (inst?) (("" (replace -2) (("" (flatten) nil nil)) nil))
+        nil))
       nil))
     nil)
    ((powerseries_deriv formula-decl nil power_series_deriv nil)
@@ -10747,7 +11053,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    shostak))
@@ -10796,8 +11103,8 @@
                           (("2" (inst?) nil nil)) nil))
                         nil))
                       nil)
-                     ("2" (lemma "not_one_element") (("2" (propax) nil nil))
-                      nil)
+                     ("2" (lemma "not_one_element")
+                      (("2" (propax) nil nil)) nil)
                      ("3" (hide 2)
                       (("3" (lemma "deriv_domain")
                         (("3" (expand "deriv_domain?")
@@ -10816,14 +11123,10 @@
    ((powerseries_derivable formula-decl nil power_series_deriv nil)
     (T formal-subtype-decl nil power_series_deriv nil)
     (T_pred const-decl "[real -> boolean]" power_series_deriv nil)
-    (convergent? const-decl "bool" convergence_sequences analysis)
-    (powerseries const-decl "sequence[real]" power_series nil)
-    (a!1 skolem-const-decl "sequence[real]" power_series_deriv nil)
-    (limit const-decl "real" convergence_sequences analysis)
-    (conv_powerseries? const-decl "bool" power_series_conv nil)
+    (convergent? const-decl "bool" convergence_sequences analysis) nil
+    nil (limit const-decl "real" convergence_sequences analysis) nil
     (derivable_continuous formula-decl nil derivatives_def analysis)
-    (derivable? const-decl "bool" derivatives analysis)
-    (continuous? const-decl "bool" continuous_functions analysis)
+    (derivable? const-decl "bool" derivatives analysis) nil
     (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -10835,7 +11138,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    nil)
@@ -10855,17 +11159,19 @@
                         (("2" (expand "conv_powerseries?")
                           (("2" (inst?)
                             (("2" (assert)
-                              (("2" (hide -1 2) (("2" (postpone) nil nil))
+                              (("2"
+                                (hide -1 2)
+                                (("2" (postpone) nil nil))
                                 nil))
                               nil))
                             nil))
                           nil))
                         nil))
                       nil)
-                     ("2" (lemma "not_one_element") (("2" (propax) nil nil))
-                      nil)
-                     ("3" (lemma "connected_domain") (("3" (propax) nil nil))
-                      nil))
+                     ("2" (lemma "not_one_element")
+                      (("2" (propax) nil nil)) nil)
+                     ("3" (lemma "connected_domain")
+                      (("3" (propax) nil nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -10893,7 +11199,8 @@
                        ("2" (skosimp*)
                         (("2" (expand "conv_powerseries?")
                           (("2" (inst?) nil)))))))
-                     ("2" (lemma "not_one_element") (("2" (propax) nil)))
+                     ("2" (lemma "not_one_element")
+                      (("2" (propax) nil)))
                      ("3" (lemma "connected_domain")
                       (("3" (propax) nil))))))))))))))))))))
     nil)
@@ -10907,16 +11214,15 @@
           (("" (replace -2)
             (("" (flatten)
               (("" (assert)
-                (("" (expand "Inf_sum") (("" (propax) nil nil)) nil)) nil))
+                (("" (expand "Inf_sum") (("" (propax) nil nil)) nil))
+                nil))
               nil))
             nil))
           nil))
         nil))
       nil))
     nil)
-   ((powerseries_deriv formula-decl nil power_series_deriv nil)
-    (conv_powerseries? const-decl "bool" power_series_conv nil)
-    (Inf_sum const-decl "real" power_series_conv nil)
+   ((powerseries_deriv formula-decl nil power_series_deriv nil) nil nil
     (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -10928,7 +11234,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    nil))
@@ -10938,7 +11245,8 @@
    ((Inf_sum_derivable formula-decl nil power_series_deriv nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -10951,7 +11259,8 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (sequence type-eq-decl nil sequences nil))
    shostak
-   (deriv_Inf_sum subtype "power_series_conv[T].Inf_sum(power_series_deriv.a)"
+   (deriv_Inf_sum subtype
+    "power_series_conv[T].Inf_sum(power_series_deriv.a)"
     "deriv_fun[T]")))
  (deriv_Inf_sum_TCC2 0
   (deriv_Inf_sum_TCC2-1 nil 3298199128
@@ -10967,7 +11276,8 @@
     (sequence type-eq-decl nil sequences nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -10992,7 +11302,8 @@
                       (("1" (expand "powerseries" +)
                         (("1" (lemma "deriv_series_shift")
                           (("1" (inst?)
-                            (("1" (replace -3) (("1" (propax) nil nil)) nil))
+                            (("1" (replace -3) (("1" (propax) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil)
@@ -11000,9 +11311,12 @@
                         (("2" (lemma "derivseq_conv")
                           (("2" (inst?)
                             (("2" (inst?)
-                              (("2" (replace -3)
-                                (("2" (expand "powerseries")
-                                  (("2" (propax) nil nil)) nil))
+                              (("2"
+                                (replace -3)
+                                (("2"
+                                  (expand "powerseries")
+                                  (("2" (propax) nil nil))
+                                  nil))
                                 nil))
                               nil))
                             nil))
@@ -11011,7 +11325,8 @@
                        ("3" (lemma "deriv_powerseries_conv")
                         (("3" (inst?)
                           (("3" (skosimp*)
-                            (("3" (replace -3) (("3" (inst?) nil nil)) nil))
+                            (("3" (replace -3) (("3" (inst?) nil nil))
+                              nil))
                             nil))
                           nil))
                         nil))
@@ -11028,18 +11343,15 @@
    ((powerseries_deriv formula-decl nil power_series_deriv nil)
     (T formal-subtype-decl nil power_series_deriv nil)
     (T_pred const-decl "[real -> boolean]" power_series_deriv nil)
-    (limit const-decl "real" convergence_sequences analysis)
-    (powerseries const-decl "sequence[real]" power_series nil)
+    (limit const-decl "real" convergence_sequences analysis) nil
     (derivseq const-decl "sequence[real]" power_series_derivseq nil)
-    (convergent? const-decl "bool" convergence_sequences analysis)
-    (series const-decl "sequence[real]" series nil)
-    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq nil)
-    (a!1 skolem-const-decl "sequence[real]" power_series_deriv nil)
-    (deriv_series_shift formula-decl nil power_series_derivseq nil)
+    (convergent? const-decl "bool" convergence_sequences analysis) nil
+    (deriv_powerseq const-decl "sequence[real]" power_series_derivseq
+     nil)
+    nil (deriv_series_shift formula-decl nil power_series_derivseq nil)
     (derivseq_conv formula-decl nil power_series_derivseq nil)
     (deriv_powerseries_conv formula-decl nil power_series_derivseq nil)
-    (Inf_sum const-decl "real" power_series_conv nil)
-    (sequence type-eq-decl nil sequences nil)
+    nil (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -11050,7 +11362,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    shostak))
@@ -11071,9 +11384,14 @@
                           (("1" (propax) nil nil)
                            ("2" (hide 2)
                             (("2" (expand "conv_powerseries?")
-                              (("2" (skosimp*)
-                                (("2" (expand "powerseries")
-                                  (("2" (rewrite "derivseq_conv") nil nil))
+                              (("2"
+                                (skosimp*)
+                                (("2"
+                                  (expand "powerseries")
+                                  (("2"
+                                    (rewrite "derivseq_conv")
+                                    nil
+                                    nil))
                                   nil))
                                 nil))
                               nil))
@@ -11090,10 +11408,10 @@
         nil))
       nil))
     nil)
-   ((Inf_sum const-decl "real" power_series_conv nil)
-    (number nonempty-type-decl nil numbers nil)
+   (nil (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -11104,9 +11422,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (sequence type-eq-decl nil sequences nil)
-    (conv_powerseries? const-decl "bool" power_series_conv nil)
-    (powerseries const-decl "sequence[real]" power_series nil)
+    (sequence type-eq-decl nil sequences nil) nil nil
     (derivseq_conv formula-decl nil power_series_derivseq nil)
     (derivseq const-decl "sequence[real]" power_series_derivseq nil)
     (T formal-subtype-decl nil power_series_deriv nil)
@@ -11114,10 +11430,10 @@
     (powerseries_derivable formula-decl nil power_series_deriv nil)
     (deriv_Inf_sum formula-decl nil power_series_deriv nil))
    nil))
- (Inf_sum_derivable_n_times_TCC1 0
-  (Inf_sum_derivable_n_times_TCC1-1 nil 3790091549 ("" (assuming-tcc) nil nil)
-   nil nil
-   (Inf_sum_derivable_n_times assuming
+ (IMP_nth_derivatives_TCC1 0
+  (IMP_nth_derivatives_TCC1-1 nil 3791312590
+   ("" (assuming-tcc) nil nil) nil nil
+   (IMP_nth_derivatives assuming
     "analysis@nth_derivatives[T].nth_derivatives"
     "deriv_domain: ASSUMPTION deriv_domain_def[T].deriv_domain?")))
  (Inf_sum_derivable_n_times 0
@@ -11125,7 +11441,8 @@
    ("" (expand "Inf_sum")
     (("" (induct "n" 1)
       (("1" (skosimp*)
-        (("1" (expand "derivable_n_times?") (("1" (propax) nil nil)) nil))
+        (("1" (expand "derivable_n_times?") (("1" (propax) nil nil))
+          nil))
         nil)
        ("2" (skosimp*)
         (("2" (expand "derivable_n_times?" 1)
@@ -11143,9 +11460,14 @@
                         (("2" (replace -1)
                           (("2" (hide -1)
                             (("2" (inst?)
-                              (("2" (assert)
-                                (("2" (hide 1)
-                                  (("2" (rewrite "conv_derivseq") nil nil))
+                              (("2"
+                                (assert)
+                                (("2"
+                                  (hide 1)
+                                  (("2"
+                                    (rewrite "conv_derivseq")
+                                    nil
+                                    nil))
                                   nil))
                                 nil))
                               nil))
@@ -11162,25 +11484,41 @@
         nil)
        ("3" (hide 2)
         (("3" (skosimp*)
-          (("3" (lemma "not_one_element") (("3" (inst?) nil nil)) nil)) nil))
-        nil)
-       ("4" (hide 2)
-        (("4" (skosimp*)
-          (("4" (lemma "deriv_domain") (("4" (inst?) nil nil)) nil)) nil))
-        nil)
-       ("5" (hide 2)
-        (("5" (skosimp*)
-          (("5" (expand "conv_powerseries?") (("5" (inst?) nil nil)) nil))
+          (("3" (expand "conv_powerseries?") (("3" (inst?) nil nil))
+            nil))
           nil))
         nil))
       nil))
     nil)
-   ((convergent? const-decl "bool" convergence_sequences analysis)
-    (deriv_domain? const-decl "bool" deriv_domain_def analysis)
-    (not_one_element? const-decl "bool" deriv_domain_def analysis)
+   ((powerseries const-decl "sequence[real]" power_series nil)
+    (convergent? const-decl "bool" convergence_sequences analysis)
+    (conv_powerseries? const-decl "bool" power_series_conv nil)
+    (T formal-subtype-decl nil power_series_deriv nil)
+    (T_pred const-decl "[real -> boolean]" power_series_deriv nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (sequence type-eq-decl nil sequences nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (pred type-eq-decl nil defined_types nil)
     (derivable_n_times? def-decl "bool" nth_derivatives analysis)
     (limit const-decl "real" convergence_sequences analysis)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (deriv_Inf_sum formula-decl nil power_series_deriv nil)
     (derivseq const-decl "sequence[real]" power_series_derivseq nil)
-    (conv_derivseq formula-decl nil power_series_derivseq nil))
+    (conv_derivseq formula-decl nil power_series_derivseq nil)
+    (powerseries_derivable formula-decl nil power_series_deriv nil)
+    (Inf_sum const-decl "real" power_series_conv nil))
    nil)))
 
