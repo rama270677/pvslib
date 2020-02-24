@@ -120,6 +120,11 @@ more_list_props   [ T : TYPE ]
   every_forall: LEMMA
     every(p)(L) IFF FORALL (n:below(length(L))): p(nth(L,n))
 
+  every_as_member
+  : LEMMA
+    FORALL(P: PRED[T], l: list[T])
+    : every(P)(l) IMPLIES FORALL(x: T): member(x,l) IMPLIES P(x)
+
   some_exists: LEMMA
     some(p)(L) IFF EXISTS (n:below(length(L))): p(nth(L,n))
 
@@ -187,7 +192,7 @@ more_list_props   [ T : TYPE ]
   : LEMMA FORALL(l1|NOT null?(l1)): car(append(l1,l2)) = car(l1)
 
   car_append_2
-  : LEMMA FORALL(l1|null?(l1)): car(append(l1,l2)) = car(l2)
+  : LEMMA FORALL(l1|null?(l1) AND cons?(append(l1,l2))): car(append(l1,l2)) = car(l2)
 
   member_nth: LEMMA
    FORALL(l: list[T], t: T): 
@@ -574,6 +579,28 @@ more_list_props   [ T : TYPE ]
   : LEMMA
     FORALL (l: list[T], n: below(length(l)), m: below(length(takeFromRight(l, n))))
     : nth(takeFromRight(l, n), m) = nth(l, length(l) - n + m)
+
+  %
+  % Merge
+  %
+
+  merge(l: list[list[T]])
+  : RECURSIVE list[T]
+  = CASES l OF
+      null: null,
+      cons(x,xs): append(x, merge(xs))
+    ENDCASES
+  MEASURE length(l)
+
+  %
+  % Generalized induction on lists
+  %
+
+  LIST_induction: LEMMA
+    FORALL (p: [list[T] -> boolean]):
+      (FORALL (l1: list[T]):
+        (FORALL (l2: list[T]): length(l2) < length(l1) IMPLIES p(l2)) IMPLIES p(l1))
+       IMPLIES (FORALL (l: list[T]): p(l))
 
 END more_list_props
 
