@@ -3,13 +3,15 @@
   (Convergent_Series_TCC1-2 "" 3351489592
    ("" (lemma "single_nz_series_conv" ("a" "LAMBDA n: 0" "n" "0"))
     (("" (split -1)
-      (("1" (propax) nil nil) ("2" (hide 2) (("2" (skosimp) nil nil)) nil))
+      (("1" (propax) nil nil)
+       ("2" (hide 2) (("2" (skosimp) nil nil)) nil))
       nil))
     nil)
    ((single_nz_series_conv formula-decl nil series_lems nil)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -21,19 +23,23 @@
     (>= const-decl "bool" reals nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (sequence type-eq-decl nil sequences nil))
-   shostak (Convergent_Series subtype "(LAMBDA n: 0)" "Convergent_Series"))
-  (Convergent_Series_TCC1-1 nil 3351489385 ("" (subtype-tcc) nil nil) nil nil
+   shostak
+   (Convergent_Series subtype "(LAMBDA n: 0)" "Convergent_Series"))
+  (Convergent_Series_TCC1-1 nil 3351489385 ("" (subtype-tcc) nil nil)
+   nil nil
    (Convergent_Series subtype "(LAMBDA n: 0)" "Convergent_Series")))
  (absconvergent_series_TCC1 0
   (absconvergent_series_TCC1-1 nil 3323144142
    ("" (inst + "lambda n: 0")
     (("" (expand "absconvergent?")
       (("" (expand "abs")
-        (("" (expand "abs") (("" (rewrite "zero_series_conv") nil nil)) nil))
+        (("" (expand "abs") (("" (rewrite "zero_series_conv") nil nil))
+          nil))
         nil))
       nil))
     nil)
-   ((abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
+   ((abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
     (zero_series_conv formula-decl nil series nil)
     (abs const-decl "sequence[real]" series nil)
     (absconvergent? const-decl "bool" absconv_series nil)
@@ -48,7 +54,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    shostak
@@ -59,8 +66,8 @@
    ("" (skosimp)
     (("" (typepred "x!1")
       (("" (expand "absconvergent?")
-        (("" (lemma "convergent_abs" ("a" "x!1")) (("" (assert) nil nil))
-          nil))
+        (("" (lemma "convergent_abs" ("a" "x!1"))
+          (("" (assert) nil nil)) nil))
         nil))
       nil))
     nil)
@@ -76,7 +83,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -91,11 +99,14 @@
     (("" (typepred "phi!1")
       (("" (split)
         (("1" (flatten)
-          (("1" (lemma "bijective_inverse_exists[nat,nat]" ("f" "phi!1"))
+          (("1"
+            (lemma "bijective_inverse_exists[nat,nat]" ("f" "phi!1"))
             (("1" (expand "exists1")
               (("1" (flatten)
                 (("1" (skosimp)
-                  (("1" (lemma "bij_inv_is_bij_alt" ("f" "phi!1" "g" "x!2"))
+                  (("1"
+                    (lemma "bij_inv_is_bij_alt"
+                     ("f" "phi!1" "g" "x!2"))
                     (("1"
                       (lemma "abs_series_bij"
                        ("a" "aa!1 o phi!1" "phi" "x!2" "x" "x!1"))
@@ -106,20 +117,30 @@
                           (("1" (split -1)
                             (("1" (assert) nil nil)
                              ("2" (hide-all-but (-2 -3 -4 -6 1))
-                              (("2" (rewrite "assoc")
+                              (("2"
+                                (rewrite "assoc")
                                 (("2"
                                   (case-replace
                                    "phi!1 o x!2 = lambda (n:nat): n")
-                                  (("1" (expand "o" 1)
-                                    (("1" (propax) nil nil)) nil)
-                                   ("2" (hide 2)
-                                    (("2" (apply-extensionality 1 :hide? t)
+                                  (("1"
+                                    (expand "o" 1)
+                                    (("1" (propax) nil nil))
+                                    nil)
+                                   ("2"
+                                    (hide 2)
+                                    (("2"
+                                      (apply-extensionality 1 :hide? t)
                                       (("2"
                                         (expand "o")
                                         (("2"
                                           (lemma
                                            "comp_inverse_right_alt"
-                                           ("f" "phi!1" "g" "x!2" "r" "x!3"))
+                                           ("f"
+                                            "phi!1"
+                                            "g"
+                                            "x!2"
+                                            "r"
+                                            "x!3"))
                                           (("2" (propax) nil nil))
                                           nil))
                                         nil))
@@ -134,11 +155,15 @@
                           (("2" (expand "absconvergent?")
                             (("2" (hide-all-but (-1 -6 1))
                               (("2"
-                                (lemma "abs_series_bij_conv"
+                                (lemma
+                                 "abs_series_bij_conv"
                                  ("a" "abs(aa!1)" "phi" "phi!1"))
-                                (("2" (split -1)
-                                  (("1" (hide -2 -3)
-                                    (("1" (expand "o ")
+                                (("2"
+                                  (split -1)
+                                  (("1"
+                                    (hide -2 -3)
+                                    (("1"
+                                      (expand "o ")
                                       (("1"
                                         (expand "abs")
                                         (("1" (propax) nil nil))
@@ -148,7 +173,8 @@
                                    ("2"
                                     (case-replace
                                      "abs(abs(aa!1)) = abs(aa!1)")
-                                    (("2" (hide-all-but 1)
+                                    (("2"
+                                      (hide-all-but 1)
                                       (("2"
                                         (apply-extensionality :hide? t)
                                         (("2" (grind) nil nil))
@@ -172,10 +198,13 @@
             nil))
           nil)
          ("2" (flatten)
-          (("2" (lemma "abs_series_bij" ("a" "aa!1" "phi" "phi!1" "x" "x!1"))
+          (("2"
+            (lemma "abs_series_bij"
+             ("a" "aa!1" "phi" "phi!1" "x" "x!1"))
             (("2" (assert)
               (("2" (typepred "aa!1")
-                (("2" (expand "absconvergent?") (("2" (propax) nil nil)) nil))
+                (("2" (expand "absconvergent?")
+                  (("2" (propax) nil nil)) nil))
                 nil))
               nil))
             nil))
@@ -193,30 +222,33 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (exists1 const-decl "bool" exists1 nil)
-    (absconvergent_series nonempty-type-eq-decl nil absconv_series nil)
-    (absconvergent? const-decl "bool" absconv_series nil)
-    (O const-decl "T3" function_props nil)
-    (sequence type-eq-decl nil sequences nil)
-    (abs_series_bij formula-decl nil series_lems nil)
-    (minus_real_is_real application-judgement "real" reals nil)
+    (bijective_inverse_exists formula-decl nil function_inverse_def
+     nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
+    (minus_real_is_real application-judgement "real" reals nil)
     (abs const-decl "sequence[real]" series nil)
     (abs_series_bij_conv formula-decl nil series_lems nil)
     (extensionality formula-decl nil functions nil)
+    (assoc formula-decl nil function_props2 nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (comp_inverse_right_alt formula-decl nil function_inverse_def nil)
-    (assoc formula-decl nil function_props2 nil)
+    (abs_series_bij formula-decl nil series_lems nil)
+    (sequence type-eq-decl nil sequences nil)
+    (O const-decl "T3" function_props nil)
+    (absconvergent? const-decl "bool" absconv_series nil)
+    (absconvergent_series nonempty-type-eq-decl nil absconv_series nil)
     (inverse? const-decl "bool" function_inverse_def nil)
     (bij_inv_is_bij_alt formula-decl nil function_inverse_def nil)
-    (bijective_inverse_exists formula-decl nil function_inverse_def nil))
+    (exists1 const-decl "bool" exists1 nil))
    shostak))
  (abs_series_bij_conv_abs 0
   (abs_series_bij_conv_abs-1 nil 3351601719
@@ -250,7 +282,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (abs_series_bij_abs formula-decl nil absconv_series nil)
@@ -278,7 +311,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -300,9 +334,11 @@
               (lemma "limit_equiv"
                ("s" "series(aa!1)" "l" "limit(series(aa!1))"))
               (("" (assert)
-                (("" (lemma "absconvergent_series_is_convergent" ("x" "aa!1"))
-                  (("" (assert) (("" (rewrite "limit_equiv" -4) nil nil))
-                    nil))
+                ((""
+                  (lemma "absconvergent_series_is_convergent"
+                   ("x" "aa!1"))
+                  (("" (assert)
+                    (("" (rewrite "limit_equiv" -4) nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -325,12 +361,14 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (abs_series_bij_abs formula-decl nil absconv_series nil)
     (limit_equiv formula-decl nil convergence_ops analysis)
-    (absconvergent_series_is_convergent judgement-tcc nil absconv_series nil)
+    (absconvergent_series_is_convergent judgement-tcc nil
+     absconv_series nil)
     (O const-decl "T3" function_props nil)
     (series const-decl "sequence[real]" series nil)
     (limit const-decl "real" convergence_sequences analysis)
@@ -369,12 +407,14 @@
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (convergence_subsequence formula-decl nil convergence_sequences analysis)
+    (convergence_subsequence formula-decl nil convergence_sequences
+     analysis)
     (subseq const-decl "bool" sequence_props analysis)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (convergent? const-decl "bool" convergence_sequences analysis))
@@ -393,7 +433,8 @@
                   (("1" (replace -1)
                     (("1" (hide -1)
                       (("1" (expand "sigma")
-                        (("1" (expand "sigma") (("1" (propax) nil nil)) nil))
+                        (("1" (expand "sigma") (("1" (propax) nil nil))
+                          nil))
                         nil))
                       nil))
                     nil))
@@ -406,13 +447,18 @@
                           (("2" (assert)
                             (("2" (expand "sigma" 1 1)
                               (("2"
-                                (name-replace "F" "LAMBDA (n_1: nat):
+                                (name-replace
+                                 "F"
+                                 "LAMBDA (n_1: nat):
                IF EXISTS (m_1: nat): n_1 = f!1(m_1) THEN a!1(n_1)
                ELSE 0
                ENDIF")
-                                (("2" (replace -1 1)
-                                  (("2" (hide -1)
-                                    (("2" (replace -1 1 rl)
+                                (("2"
+                                  (replace -1 1)
+                                  (("2"
+                                    (hide -1)
+                                    (("2"
+                                      (replace -1 1 rl)
                                       (("2"
                                         (lemma
                                          "sigma_split"
@@ -449,9 +495,12 @@
                         (("1" (typepred "f!1(0)")
                           (("1" (expand ">=")
                             (("1" (expand "<=")
-                              (("1" (split -1)
-                                (("1" (expand "sigma" 1)
-                                  (("1" (assert)
+                              (("1"
+                                (split -1)
+                                (("1"
+                                  (expand "sigma" 1)
+                                  (("1"
+                                    (assert)
                                     (("1"
                                       (case-replace
                                        "EXISTS m: f!1(0) = f!1(m)")
@@ -488,7 +537,8 @@
                                                     (("2"
                                                       (typepred "x!1")
                                                       (("2"
-                                                        (case "x!1<f!1(0)")
+                                                        (case
+                                                         "x!1<f!1(0)")
                                                         (("1"
                                                           (assert)
                                                           (("1"
@@ -538,7 +588,9 @@
                                                                 nil))
                                                               nil)
                                                              ("2"
-                                                              (replace 1 2)
+                                                              (replace
+                                                               1
+                                                               2)
                                                               (("2"
                                                                 (propax)
                                                                 nil
@@ -563,10 +615,13 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2" (replace -1 * rl)
-                                  (("2" (expand "sigma" 1)
+                                 ("2"
+                                  (replace -1 * rl)
+                                  (("2"
+                                    (expand "sigma" 1)
                                     (("2"
-                                      (case-replace "EXISTS m: 0 = f!1(m)")
+                                      (case-replace
+                                       "EXISTS m: 0 = f!1(m)")
                                       (("1"
                                         (expand "sigma")
                                         (("1" (propax) nil nil))
@@ -584,8 +639,10 @@
                         (("2" (typepred "f!1(n!1 - 1)")
                           (("2" (inst-cp - "n!1-1" "n!1")
                             (("2" (assert)
-                              (("2" (expand "sigma" 2)
-                                (("2" (assert)
+                              (("2"
+                                (expand "sigma" 2)
+                                (("2"
+                                  (assert)
                                   (("2"
                                     (case-replace
                                      "EXISTS m: f!1(n!1) = f!1(m)")
@@ -614,7 +671,8 @@
                                             (("2"
                                               (split -1)
                                               (("1"
-                                                (rewrite "sigma_zero[nat]")
+                                                (rewrite
+                                                 "sigma_zero[nat]")
                                                 nil
                                                 nil)
                                                ("2"
@@ -634,7 +692,9 @@
                                                           (case-replace
                                                            "x!1 < 1 + f!1(n!1 - 1) OR x!1 > f!1(n!1) - 1")
                                                           (("2"
-                                                            (replace 1 2)
+                                                            (replace
+                                                             1
+                                                             2)
                                                             (("2"
                                                               (flatten)
                                                               (("2"
@@ -738,7 +798,65 @@
         nil))
       nil))
     nil)
-   nil shostak)
+   ((extraction type-eq-decl nil sequence_props analysis)
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (series const-decl "sequence[real]" series nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (> const-decl "bool" reals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (< const-decl "bool" reals nil)
+    (restrict const-decl "[T -> real]" sigma reals)
+    (sigma_zero formula-decl nil sigma reals)
+    (sigma_restrict_eq formula-decl nil sigma reals)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (trich_lt formula-decl nil real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers
+     nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (sigma_split formula-decl nil sigma reals)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (pred type-eq-decl nil defined_types nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (sequence type-eq-decl nil sequences nil)
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
+    (<= const-decl "bool" reals nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (extensionality_postulate formula-decl nil functions nil)
+    (O const-decl "T3" function_props nil))
+   shostak)
   (extract_comp-1 nil 3323305712
    ("" (skosimp)
     (("" (typepred "f!1")
@@ -752,7 +870,8 @@
                   (("1" (replace -1)
                     (("1" (hide -1)
                       (("1" (expand "sigma")
-                        (("1" (expand "sigma") (("1" (propax) nil nil)) nil))
+                        (("1" (expand "sigma") (("1" (propax) nil nil))
+                          nil))
                         nil))
                       nil))
                     nil))
@@ -764,14 +883,19 @@
                         (("2" (expand "strict_increasing?")
                           (("2" (inst - "j!1" "1+j!1")
                             (("2" (assert)
-                              (("2" (expand "sigma" 1 1)
+                              (("2"
+                                (expand "sigma" 1 1)
                                 (("2"
-                                  (name-replace "F" "LAMBDA (n_1: nat):
+                                  (name-replace
+                                   "F"
+                                   "LAMBDA (n_1: nat):
                IF EXISTS (m_1: nat): n_1 = f!1(m_1) THEN a!1(n_1)
                ELSE 0
                ENDIF")
-                                  (("2" (replace -1 1)
-                                    (("2" (hide -1)
+                                  (("2"
+                                    (replace -1 1)
+                                    (("2"
+                                      (hide -1)
                                       (("2"
                                         (replace -1 1 rl)
                                         (("2"
@@ -813,9 +937,12 @@
                         (("1" (typepred "f!1(0)")
                           (("1" (expand ">=")
                             (("1" (expand "<=")
-                              (("1" (split -1)
-                                (("1" (expand "sigma" 1)
-                                  (("1" (assert)
+                              (("1"
+                                (split -1)
+                                (("1"
+                                  (expand "sigma" 1)
+                                  (("1"
+                                    (assert)
                                     (("1"
                                       (case-replace
                                        "EXISTS m: f!1(0) = f!1(m)")
@@ -852,7 +979,8 @@
                                                     (("2"
                                                       (typepred "x!1")
                                                       (("2"
-                                                        (case "x!1<f!1(0)")
+                                                        (case
+                                                         "x!1<f!1(0)")
                                                         (("1"
                                                           (assert)
                                                           (("1"
@@ -902,7 +1030,9 @@
                                                                 nil))
                                                               nil)
                                                              ("2"
-                                                              (replace 1 2)
+                                                              (replace
+                                                               1
+                                                               2)
                                                               (("2"
                                                                 (propax)
                                                                 nil
@@ -927,10 +1057,13 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2" (replace -1 * rl)
-                                  (("2" (expand "sigma" 1)
+                                 ("2"
+                                  (replace -1 * rl)
+                                  (("2"
+                                    (expand "sigma" 1)
                                     (("2"
-                                      (case-replace "EXISTS m: 0 = f!1(m)")
+                                      (case-replace
+                                       "EXISTS m: 0 = f!1(m)")
                                       (("1"
                                         (expand "sigma")
                                         (("1" (propax) nil nil))
@@ -948,8 +1081,10 @@
                         (("2" (typepred "f!1(n!1 - 1)")
                           (("2" (inst-cp - "n!1-1" "n!1")
                             (("2" (assert)
-                              (("2" (expand "sigma" 2)
-                                (("2" (assert)
+                              (("2"
+                                (expand "sigma" 2)
+                                (("2"
+                                  (assert)
                                   (("2"
                                     (case-replace
                                      "EXISTS m: f!1(n!1) = f!1(m)")
@@ -978,7 +1113,8 @@
                                             (("2"
                                               (split -1)
                                               (("1"
-                                                (rewrite "sigma_zero[nat]")
+                                                (rewrite
+                                                 "sigma_zero[nat]")
                                                 nil
                                                 nil)
                                                ("2"
@@ -998,7 +1134,9 @@
                                                           (case-replace
                                                            "x!1 < 1 + f!1(n!1 - 1) OR x!1 > f!1(n!1) - 1")
                                                           (("2"
-                                                            (replace 1 2)
+                                                            (replace
+                                                             1
+                                                             2)
                                                             (("2"
                                                               (flatten)
                                                               (("2"
@@ -1107,55 +1245,13 @@
     nil)
    ((extraction type-eq-decl nil sequence_props analysis)
     (strict_increasing? const-decl "bool" real_fun_preds reals)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (series const-decl "sequence[real]" series nil)
-    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
     (sigma_split formula-decl nil sigma reals)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (pred type-eq-decl nil defined_types nil)
     (sigma_zero formula-decl nil sigma reals)
     (restrict const-decl "[T -> real]" sigma reals)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (< const-decl "bool" reals nil) (> const-decl "bool" reals nil)
     (sigma_restrict_eq formula-decl nil sigma reals)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (trich_lt formula-decl nil real_props nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (sequence type-eq-decl nil sequences nil)
-    (sigma def-decl "real" sigma reals) (T_high type-eq-decl nil sigma reals)
-    (T_low type-eq-decl nil sigma reals) (<= const-decl "bool" reals nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (extensionality_postulate formula-decl nil functions nil)
-    (O const-decl "T3" function_props nil))
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals))
    shostak))
  (subseq_absconvergent 0
   (subseq_absconvergent-2 "" 3790091644
@@ -1163,7 +1259,8 @@
     (("" (skosimp*)
       (("" (typepred "bb!1")
         (("" (expand "absconvergent?")
-          (("" (case-replace "series(abs(a!1)) = series(abs(bb!1) o f!1)")
+          ((""
+            (case-replace "series(abs(a!1)) = series(abs(bb!1) o f!1)")
             (("1" (hide -1 -3)
               (("1" (rewrite "extract_comp")
                 (("1"
@@ -1171,24 +1268,33 @@
                           IF EXISTS m: n = f!1(m) THEN abs(bb!1)(n)
                           ELSE 0
                           ENDIF")
-                  (("1" (lemma "comparison_test" ("b" "abs(bb!1)" "a" "DRL"))
+                  (("1"
+                    (lemma "comparison_test"
+                     ("b" "abs(bb!1)" "a" "DRL"))
                     (("1" (split -1)
-                      (("1" (lemma "extract_convergent" ("a" "DRL" "f" "f!1"))
+                      (("1"
+                        (lemma "extract_convergent"
+                         ("a" "DRL" "f" "f!1"))
                         (("1" (assert) nil nil)) nil)
                        ("2" (propax) nil nil)
                        ("3" (hide-all-but 1)
                         (("3" (expand "abs" 1 2)
                           (("3" (expand "DRL")
                             (("3" (skosimp)
-                              (("3" (expand "abs" 1 2)
-                                (("3" (expand "abs" 1 3)
-                                  (("3" (lift-if 1)
+                              (("3"
+                                (expand "abs" 1 2)
+                                (("3"
+                                  (expand "abs" 1 3)
+                                  (("3"
+                                    (lift-if 1)
                                     (("3"
-                                      (case-replace "EXISTS m: n!1 = f!1(m)")
+                                      (case-replace
+                                       "EXISTS m: n!1 = f!1(m)")
                                       (("1"
                                         (expand "abs" 1 1)
                                         (("1"
-                                          (case-replace "abs(bb!1(n!1)) < 0")
+                                          (case-replace
+                                           "abs(bb!1(n!1)) < 0")
                                           (("1" (assert) nil nil)
                                            ("2" (assert) nil nil))
                                           nil))
@@ -1220,15 +1326,21 @@
                         (("1" (expand "abs" 1)
                           (("1" (induct "x")
                             (("1" (expand "sigma")
-                              (("1" (inst - "0")
-                                (("1" (expand "sigma")
-                                  (("1" (propax) nil nil)) nil))
+                              (("1"
+                                (inst - "0")
+                                (("1"
+                                  (expand "sigma")
+                                  (("1" (propax) nil nil))
+                                  nil))
                                 nil))
                               nil)
                              ("2" (skosimp*)
-                              (("2" (expand "sigma" 1)
-                                (("2" (inst - "1+j!1")
-                                  (("2" (assert) nil nil)) nil))
+                              (("2"
+                                (expand "sigma" 1)
+                                (("2"
+                                  (inst - "1+j!1")
+                                  (("2" (assert) nil nil))
+                                  nil))
                                 nil))
                               nil))
                             nil))
@@ -1236,7 +1348,8 @@
                         nil)
                        ("2" (hide 2)
                         (("2" (skosimp)
-                          (("2" (inst - "i!1") (("2" (assert) nil nil)) nil))
+                          (("2" (inst - "i!1") (("2" (assert) nil nil))
+                            nil))
                           nil))
                         nil))
                       nil))
@@ -1249,13 +1362,71 @@
         nil))
       nil))
     nil)
-   nil shostak)
+   ((= const-decl "[T, T -> boolean]" equalities nil)
+    (series const-decl "sequence[real]" series nil)
+    (abs const-decl "sequence[real]" series nil)
+    (O const-decl "T3" function_props nil)
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
+    (extraction type-eq-decl nil sequence_props analysis)
+    (extract_comp formula-decl nil absconv_series nil)
+    (comparison_test formula-decl nil series nil)
+    (extract_convergent formula-decl nil absconv_series nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (< const-decl "bool" reals nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (DRL skolem-const-decl "[nat -> real]" absconv_series nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (pred type-eq-decl nil defined_types nil)
+    (nat_induction formula-decl nil naturalnumbers nil)
+    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (sigma_nnreal application-judgement "nnreal" sigma_nat reals)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
+    (<= const-decl "bool" reals nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (extensionality_postulate formula-decl nil functions nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (sequence type-eq-decl nil sequences nil)
+    (absconvergent? const-decl "bool" absconv_series nil)
+    (absconvergent_series nonempty-type-eq-decl nil absconv_series nil)
+    (subseq const-decl "bool" sequence_props analysis))
+   shostak)
   (subseq_absconvergent-1 nil 3323310449
    ("" (expand "subseq")
     (("" (skosimp*)
       (("" (typepred "bb!1")
         (("" (expand "absconvergent?")
-          (("" (case-replace "series(abs(a!1)) = series(abs(bb!1) o f!1)")
+          ((""
+            (case-replace "series(abs(a!1)) = series(abs(bb!1) o f!1)")
             (("1" (hide -1 -3)
               (("1" (rewrite "extract_comp")
                 (("1"
@@ -1263,24 +1434,33 @@
                           IF EXISTS m: n = f!1(m) THEN abs(bb!1)(n)
                           ELSE 0
                           ENDIF")
-                  (("1" (lemma "comparison_test" ("b" "abs(bb!1)" "a" "DRL"))
+                  (("1"
+                    (lemma "comparison_test"
+                     ("b" "abs(bb!1)" "a" "DRL"))
                     (("1" (split -1)
-                      (("1" (lemma "extract_convergent" ("a" "DRL" "f" "f!1"))
+                      (("1"
+                        (lemma "extract_convergent"
+                         ("a" "DRL" "f" "f!1"))
                         (("1" (assert) nil nil)) nil)
                        ("2" (propax) nil nil)
                        ("3" (hide-all-but 1)
                         (("3" (expand "abs" 1 2)
                           (("3" (expand "DRL")
                             (("3" (skosimp)
-                              (("3" (expand "abs" 1 2)
-                                (("3" (expand "abs" 1 3)
-                                  (("3" (lift-if 1)
+                              (("3"
+                                (expand "abs" 1 2)
+                                (("3"
+                                  (expand "abs" 1 3)
+                                  (("3"
+                                    (lift-if 1)
                                     (("3"
-                                      (case-replace "EXISTS m: n!1 = f!1(m)")
+                                      (case-replace
+                                       "EXISTS m: n!1 = f!1(m)")
                                       (("1"
                                         (expand "abs" 1 1)
                                         (("1"
-                                          (case-replace "abs(bb!1(n!1)) < 0")
+                                          (case-replace
+                                           "abs(bb!1(n!1)) < 0")
                                           (("1" (assert) nil nil)
                                            ("2" (assert) nil nil))
                                           nil))
@@ -1301,7 +1481,8 @@
                     nil)
                    ("2" (skosimp*)
                     (("2" (assert)
-                      (("2" (expand "abs") (("2" (assert) nil nil)) nil))
+                      (("2" (expand "abs") (("2" (assert) nil nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -1317,15 +1498,21 @@
                         (("1" (expand "abs" 1)
                           (("1" (induct "x")
                             (("1" (expand "sigma")
-                              (("1" (inst - "0")
-                                (("1" (expand "sigma")
-                                  (("1" (propax) nil nil)) nil))
+                              (("1"
+                                (inst - "0")
+                                (("1"
+                                  (expand "sigma")
+                                  (("1" (propax) nil nil))
+                                  nil))
                                 nil))
                               nil)
                              ("2" (skosimp*)
-                              (("2" (expand "sigma" 1)
-                                (("2" (inst - "1+j!1")
-                                  (("2" (assert) nil nil)) nil))
+                              (("2"
+                                (expand "sigma" 1)
+                                (("2"
+                                  (inst - "1+j!1")
+                                  (("2" (assert) nil nil))
+                                  nil))
                                 nil))
                               nil))
                             nil))
@@ -1333,7 +1520,8 @@
                         nil)
                        ("2" (hide 2)
                         (("2" (skosimp)
-                          (("2" (inst - "i!1") (("2" (assert) nil nil)) nil))
+                          (("2" (inst - "i!1") (("2" (assert) nil nil))
+                            nil))
                           nil))
                         nil))
                       nil))
@@ -1346,57 +1534,13 @@
         nil))
       nil))
     nil)
-   ((extensionality_postulate formula-decl nil functions nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil) (T_low type-eq-decl nil sigma reals)
-    (T_high type-eq-decl nil sigma reals) (sigma def-decl "real" sigma reals)
-    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat reals)
-    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal" real_types
-     nil)
-    (nat_induction formula-decl nil naturalnumbers nil)
-    (pred type-eq-decl nil defined_types nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (extract_convergent formula-decl nil absconv_series nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (< const-decl "bool" reals nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (DRL skolem-const-decl "[nat -> real]" absconv_series nil)
+   ((T_low type-eq-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (sigma def-decl "real" sigma reals)
     (comparison_test formula-decl nil series nil)
-    (extract_comp formula-decl nil absconv_series nil)
     (extraction type-eq-decl nil sequence_props analysis)
     (strict_increasing? const-decl "bool" real_fun_preds reals)
-    (O const-decl "T3" function_props nil)
     (abs const-decl "sequence[real]" series nil)
-    (series const-decl "sequence[real]" series nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (sequence type-eq-decl nil sequences nil)
-    (absconvergent? const-decl "bool" absconv_series nil)
-    (absconvergent_series nonempty-type-eq-decl nil absconv_series nil)
     (subseq const-decl "bool" sequence_props analysis))
    shostak))
  (nonneg_subseq 0
@@ -1404,23 +1548,32 @@
    ("" (skosimp)
     (("" (lemma "subseq_absconvergent" ("a" "nna!1" "bb" "nnb!1"))
       (("1" (assert)
-        (("1" (lemma "absconvergent_series_is_convergent" ("x" "nna!1"))
+        (("1"
+          (lemma "absconvergent_series_is_convergent" ("x" "nna!1"))
           (("1" (lemma "limit_nonneg" ("nna" "series(nna!1)"))
             (("1" (assert)
               (("1" (expand "convergent?")
                 (("1" (skosimp)
-                  (("1" (lemma "limit_equiv" ("s" "series(nna!1)" "l" "l!1"))
+                  (("1"
+                    (lemma "limit_equiv"
+                     ("s" "series(nna!1)" "l" "l!1"))
                     (("1" (inst + "l!1")
                       (("1" (assert)
-                        (("1" (lemma "subseq_def" ("u" "nna!1" "v" "nnb!1"))
+                        (("1"
+                          (lemma "subseq_def"
+                           ("u" "nna!1" "v" "nnb!1"))
                           (("1" (assert)
                             (("1" (skosimp)
-                              (("1" (case "nna!1 = nnb!1 o f!1")
+                              (("1"
+                                (case "nna!1 = nnb!1 o f!1")
                                 (("1"
-                                  (lemma "extract_comp"
+                                  (lemma
+                                   "extract_comp"
                                    ("a" "nnb!1" "f" "f!1"))
-                                  (("1" (expand "o" -1 1)
-                                    (("1" (expand "o" -2)
+                                  (("1"
+                                    (expand "o" -1 1)
+                                    (("1"
+                                      (expand "o" -2)
                                       (("1"
                                         (replace -2 -1 rl)
                                         (("1"
@@ -1453,13 +1606,17 @@
                                                     (replace -1 -2)
                                                     (("1"
                                                       (split -2)
-                                                      (("1" (propax) nil nil)
+                                                      (("1"
+                                                        (propax)
+                                                        nil
+                                                        nil)
                                                        ("2"
                                                         (replace -2 1)
                                                         (("2"
                                                           (expand "o")
                                                           (("2"
-                                                            (expand "series")
+                                                            (expand
+                                                             "series")
                                                             (("2"
                                                               (skosimp)
                                                               (("2"
@@ -1474,7 +1631,8 @@
                                                                   "G"
                                                                   "nnb!1"))
                                                                 (("2"
-                                                                  (split -1)
+                                                                  (split
+                                                                   -1)
                                                                   (("1"
                                                                     (propax)
                                                                     nil
@@ -1537,8 +1695,11 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2" (expand "o ")
-                                  (("2" (apply-extensionality 1 :hide? t) nil
+                                 ("2"
+                                  (expand "o ")
+                                  (("2"
+                                    (apply-extensionality 1 :hide? t)
+                                    nil
                                     nil))
                                   nil))
                                 nil))
@@ -1581,13 +1742,18 @@
                         (("2" (skosimp)
                           (("2" (inst - "i!1")
                             (("2" (assert)
-                              (("2" (expand "abs" 1 2)
-                                (("2" (expand "abs" 1 2)
+                              (("2"
+                                (expand "abs" 1 2)
+                                (("2"
+                                  (expand "abs" 1 2)
                                   (("2"
-                                    (case-replace "(LAMBDA (n: nat):
+                                    (case-replace
+                                     "(LAMBDA (n: nat):
                        IF nnb!1(n) < 0 THEN -nnb!1(n) ELSE nnb!1(n) ENDIF) = nnb!1")
-                                    (("2" (apply-extensionality 1 :hide? t)
-                                      nil nil))
+                                    (("2"
+                                      (apply-extensionality 1 :hide? t)
+                                      nil
+                                      nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1605,87 +1771,102 @@
         nil))
       nil))
     nil)
-   ((absconvergent_series nonempty-type-eq-decl nil absconv_series nil)
-    (absconvergent? const-decl "bool" absconv_series nil)
-    (nnreal type-eq-decl nil real_types nil)
-    (sequence type-eq-decl nil sequences nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (subseq_absconvergent formula-decl nil absconv_series nil)
-    (absconvergent_series_is_convergent judgement-tcc nil absconv_series nil)
+   ((real_minus_real_is_real application-judgement "real" reals nil)
+    (convergence const-decl "bool" convergence_sequences analysis)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (abs const-decl "sequence[real]" series nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (< const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (sigma_nonneg formula-decl nil sigma reals)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (l!1 skolem-const-decl "real" absconv_series nil)
-    (subseq_def formula-decl nil sequence_props analysis)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (extract_comp formula-decl nil absconv_series nil)
     (limit_order formula-decl nil convergence_ops analysis)
-    (convergence_subsequence formula-decl nil convergence_sequences analysis)
+    (convergence_subsequence formula-decl nil convergence_sequences
+     analysis)
+    (subseq const-decl "bool" sequence_props analysis)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (subrange type-eq-decl nil integers nil)
-    (T_low type-eq-decl nil sigma reals) (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals)
     (<= const-decl "bool" reals nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (sigma_le formula-decl nil sigma reals)
-    (subseq const-decl "bool" sequence_props analysis)
     (extraction type-eq-decl nil sequence_props analysis)
     (strict_increasing? const-decl "bool" real_fun_preds reals)
     (O const-decl "T3" function_props nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
+    (subseq_def formula-decl nil sequence_props analysis)
+    (l!1 skolem-const-decl "real" absconv_series nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (limit_equiv formula-decl nil convergence_ops analysis)
     (convergent? const-decl "bool" convergence_sequences analysis)
     (series const-decl "sequence[real]" series nil)
     (limit_nonneg formula-decl nil series_lems nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (< const-decl "bool" reals nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (abs const-decl "sequence[real]" series nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (convergence const-decl "bool" convergence_sequences analysis)
-    (real_minus_real_is_real application-judgement "real" reals nil))
+    (absconvergent_series_is_convergent judgement-tcc nil
+     absconv_series nil)
+    (subseq_absconvergent formula-decl nil absconv_series nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (sequence type-eq-decl nil sequences nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (absconvergent? const-decl "bool" absconv_series nil)
+    (absconvergent_series nonempty-type-eq-decl nil absconv_series
+     nil))
    nil)
   (nonneg_subseq-1 nil 3324005273
    ("" (skosimp)
     (("" (lemma "subseq_absconvergent" ("a" "nna!1" "bb" "nnb!1"))
       (("1" (assert)
-        (("1" (lemma "absconvergent_series_is_convergent" ("x" "nna!1"))
+        (("1"
+          (lemma "absconvergent_series_is_convergent" ("x" "nna!1"))
           (("1" (lemma "limit_nonneg" ("nna" "series(nna!1)"))
             (("1" (assert)
               (("1" (expand "convergent?")
                 (("1" (skosimp)
-                  (("1" (lemma "limit_equiv" ("s" "series(nna!1)" "l" "l!1"))
+                  (("1"
+                    (lemma "limit_equiv"
+                     ("s" "series(nna!1)" "l" "l!1"))
                     (("1" (inst + "l!1")
                       (("1" (assert)
-                        (("1" (lemma "subseq_def" ("a" "nna!1" "b" "nnb!1"))
+                        (("1"
+                          (lemma "subseq_def"
+                           ("a" "nna!1" "b" "nnb!1"))
                           (("1" (assert)
                             (("1" (skosimp)
-                              (("1" (case "nna!1 = nnb!1 o f!1")
+                              (("1"
+                                (case "nna!1 = nnb!1 o f!1")
                                 (("1"
-                                  (lemma "extract_comp"
+                                  (lemma
+                                   "extract_comp"
                                    ("a" "nnb!1" "f" "f!1"))
-                                  (("1" (expand "o" -1 1)
-                                    (("1" (expand "o" -2)
+                                  (("1"
+                                    (expand "o" -1 1)
+                                    (("1"
+                                      (expand "o" -2)
                                       (("1"
                                         (replace -2 -1 rl)
                                         (("1"
@@ -1718,13 +1899,17 @@
                                                     (replace -1 -2)
                                                     (("1"
                                                       (split -2)
-                                                      (("1" (propax) nil nil)
+                                                      (("1"
+                                                        (propax)
+                                                        nil
+                                                        nil)
                                                        ("2"
                                                         (replace -2 1)
                                                         (("2"
                                                           (expand "o")
                                                           (("2"
-                                                            (expand "series")
+                                                            (expand
+                                                             "series")
                                                             (("2"
                                                               (skosimp)
                                                               (("2"
@@ -1739,7 +1924,8 @@
                                                                   "G"
                                                                   "nnb!1"))
                                                                 (("2"
-                                                                  (split -1)
+                                                                  (split
+                                                                   -1)
                                                                   (("1"
                                                                     (propax)
                                                                     nil
@@ -1802,8 +1988,11 @@
                                       nil))
                                     nil))
                                   nil)
-                                 ("2" (expand "o ")
-                                  (("2" (apply-extensionality 1 :hide? t) nil
+                                 ("2"
+                                  (expand "o ")
+                                  (("2"
+                                    (apply-extensionality 1 :hide? t)
+                                    nil
                                     nil))
                                   nil))
                                 nil))
@@ -1846,13 +2035,18 @@
                         (("2" (skosimp)
                           (("2" (inst - "i!1")
                             (("2" (assert)
-                              (("2" (expand "abs" 1 2)
-                                (("2" (expand "abs" 1 2)
+                              (("2"
+                                (expand "abs" 1 2)
+                                (("2"
+                                  (expand "abs" 1 2)
                                   (("2"
-                                    (case-replace "(LAMBDA (n: nat):
+                                    (case-replace
+                                     "(LAMBDA (n: nat):
                    IF nnb!1(n) < 0 THEN -nnb!1(n) ELSE nnb!1(n) ENDIF) = nnb!1")
-                                    (("2" (apply-extensionality 1 :hide? t)
-                                      nil nil))
+                                    (("2"
+                                      (apply-extensionality 1 :hide? t)
+                                      nil
+                                      nil))
                                     nil))
                                   nil))
                                 nil))
@@ -1871,8 +2065,10 @@
       nil))
     nil)
    ((sigma_nonneg formula-decl nil sigma reals)
-    (convergence_subsequence formula-decl nil convergence_sequences analysis)
-    (T_low type-eq-decl nil sigma reals) (T_high type-eq-decl nil sigma reals)
+    (convergence_subsequence formula-decl nil convergence_sequences
+     analysis)
+    (T_low type-eq-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals)
     (sigma_le formula-decl nil sigma reals)
     (subseq const-decl "bool" sequence_props analysis)
     (extraction type-eq-decl nil sequence_props analysis)
@@ -1887,7 +2083,8 @@
     (("" (typepred "aa!1")
       (("" (typepred "bb!1")
         (("" (expand "absconvergent?")
-          (("" (lemma "series_sum_conv" ("a" "abs(aa!1)" "b" "abs(bb!1)"))
+          ((""
+            (lemma "series_sum_conv" ("a" "abs(aa!1)" "b" "abs(bb!1)"))
             (("" (assert)
               ((""
                 (lemma "comparison_test"
@@ -1897,16 +2094,20 @@
                     (("" (skosimp)
                       (("" (expand "abs")
                         (("" (expand "+")
-                          (("" (case-replace "abs(aa!1(n!1) + bb!1(n!1)) < 0")
+                          ((""
+                            (case-replace
+                             "abs(aa!1(n!1) + bb!1(n!1)) < 0")
                             (("1"
                               (lemma "triangle"
                                ("x" "aa!1(n!1)" "y" "bb!1(n!1)"))
                               (("1" (assert) nil nil)) nil)
                              ("2" (assert)
                               (("2"
-                                (lemma "triangle"
+                                (lemma
+                                 "triangle"
                                  ("x" "aa!1(n!1)" "y" "bb!1(n!1)"))
-                                (("2" (propax) nil nil)) nil))
+                                (("2" (propax) nil nil))
+                                nil))
                               nil))
                             nil))
                           nil))
@@ -1933,28 +2134,30 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (triangle formula-decl nil real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal" real_types
-     nil)
+    (< const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (< const-decl "bool" reals nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
+    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (triangle formula-decl nil real_props nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
     (comparison_test formula-decl nil series nil)
     (+ const-decl "[T -> real]" real_fun_ops reals)
     (series_sum_conv formula-decl nil series nil)
@@ -1981,7 +2184,8 @@
                    ("2" (skosimp)
                     (("2" (expand "abs")
                       (("2" (case-replace "aa!1(n!1) < 0")
-                        (("1" (assert) nil nil) ("2" (assert) nil nil)) nil))
+                        (("1" (assert) nil nil) ("2" (assert) nil nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -1992,7 +2196,44 @@
         nil))
       nil))
     nil)
-   nil shostak)
+   ((absconvergent_series nonempty-type-eq-decl nil absconv_series nil)
+    (absconvergent? const-decl "bool" absconv_series nil)
+    (sequence type-eq-decl nil sequences nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (abs const-decl "sequence[real]" series nil)
+    (- const-decl "[T -> real]" real_fun_ops reals)
+    (< const-decl "bool" reals nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (trichotomy formula-decl nil real_axioms nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (aa!1 skolem-const-decl "absconvergent_series" absconv_series nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (minus_real_is_real application-judgement "real" reals nil))
+   shostak)
   (opp_absconvergent-1 nil 3323311392
    ("" (skosimp)
     (("" (typepred "aa!1")
@@ -2013,7 +2254,8 @@
                    ("2" (skosimp)
                     (("2" (expand "abs")
                       (("2" (case-replace "aa!1(n!1) < 0")
-                        (("1" (assert) nil nil) ("2" (assert) nil nil)) nil))
+                        (("1" (assert) nil nil) ("2" (assert) nil nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -2039,42 +2281,7 @@
         nil))
       nil))
     nil)
-   ((absconvergent_series nonempty-type-eq-decl nil absconv_series nil)
-    (absconvergent? const-decl "bool" absconv_series nil)
-    (sequence type-eq-decl nil sequences nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (abs const-decl "sequence[real]" series nil)
-    (- const-decl "[T -> real]" real_fun_ops reals)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (aa!1 skolem-const-decl "absconvergent_series" absconv_series nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (trichotomy formula-decl nil real_axioms nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (< const-decl "bool" reals nil)
-    (minus_real_is_real application-judgement "real" reals nil))
-   shostak))
+   ((abs const-decl "sequence[real]" series nil)) shostak))
  (diff_absconvergent 0
   (diff_absconvergent-1 nil 3323311541
    ("" (skosimp)
@@ -2108,23 +2315,24 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (- const-decl "[T -> real]" real_fun_ops reals)
-    (sum_absconvergent formula-decl nil absconv_series nil)
-    (+ const-decl "[T -> real]" real_fun_ops reals)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (- const-decl "[T -> real]" real_fun_ops reals)
     (real_minus_real_is_real application-judgement "real" reals nil)
+    (- const-decl "[T -> real]" real_fun_ops reals)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (+ const-decl "[T -> real]" real_fun_ops reals)
+    (sum_absconvergent formula-decl nil absconv_series nil)
+    (- const-decl "[T -> real]" real_fun_ops reals)
     (opp_absconvergent formula-decl nil absconv_series nil))
    shostak))
  (scal_absconvergent 0
@@ -2145,7 +2353,8 @@
                      ("2" (hide 2)
                       (("2" (apply-extensionality :hide? t)
                         (("2" (expand "abs")
-                          (("2" (expand "abs") (("2" (assert) nil nil)) nil))
+                          (("2" (expand "abs") (("2" (assert) nil nil))
+                            nil))
                           nil))
                         nil))
                       nil))
@@ -2184,15 +2393,23 @@
                         (("2" (apply-extensionality :hide? t)
                           (("2" (expand "series")
                             (("2" (expand "abs")
-                              (("2" (expand "*")
-                                (("2" (rewrite "sigma_scal[nat]" 1 :dir rl)
+                              (("2"
+                                (expand "*")
+                                (("2"
+                                  (rewrite "sigma_scal[nat]" 1 :dir rl)
                                   (("2"
-                                    (lemma "sigma_eq[nat]"
-                                     ("low" "0" "high" "x!2" "F"
+                                    (lemma
+                                     "sigma_eq[nat]"
+                                     ("low"
+                                      "0"
+                                      "high"
+                                      "x!2"
+                                      "F"
                                       "LAMBDA (n: nat): abs(px!1 * aa!1(n))"
                                       "G"
                                       "LAMBDA (i: nat): px!1 * abs(aa!1(i))"))
-                                    (("2" (split -1)
+                                    (("2"
+                                      (split -1)
                                       (("1" (propax) nil nil)
                                        ("2"
                                         (hide 2)
@@ -2225,62 +2442,66 @@
         nil))
       nil))
     nil)
-   ((absconvergent_series nonempty-type-eq-decl nil absconv_series nil)
-    (* const-decl "[T -> real]" real_fun_ops reals)
-    (absconvergent? const-decl "bool" absconv_series nil)
-    (sequence type-eq-decl nil sequences nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (x!1 skolem-const-decl "real" absconv_series nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
-    (zero_series_conv formula-decl nil series nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (abs const-decl "sequence[real]" series nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (opp_absconvergent formula-decl nil absconv_series nil)
-    (- const-decl "[T -> real]" real_fun_ops reals)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (trichotomy formula-decl nil real_axioms nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (sigma_scal formula-decl nil sigma reals)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil) (T_high type-eq-decl nil sigma reals)
-    (T_low type-eq-decl nil sigma reals)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
-     nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat reals)
+   ((series const-decl "sequence[real]" series nil)
+    (convergent_scal formula-decl nil convergence_ops analysis)
+    (sigma_eq formula-decl nil sigma reals)
     (nonzero_abs_is_pos application-judgement "{y: posreal | y >= x}"
      real_defs nil)
     (abs_mult formula-decl nil real_props nil)
     (subrange type-eq-decl nil integers nil)
-    (sigma_eq formula-decl nil sigma reals)
-    (convergent_scal formula-decl nil convergence_ops analysis)
-    (series const-decl "sequence[real]" series nil))
+    (sigma_nnreal application-judgement "nnreal" sigma_nat reals)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (T_low type-eq-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (<= const-decl "bool" reals nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (sigma_scal formula-decl nil sigma reals)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (trichotomy formula-decl nil real_axioms nil)
+    (x!1 skolem-const-decl "real" absconv_series nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (abs const-decl "sequence[real]" series nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (zero_series_conv formula-decl nil series nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (minus_real_is_real application-judgement "real" reals nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (opp_absconvergent formula-decl nil absconv_series nil)
+    (- const-decl "[T -> real]" real_fun_ops reals)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (sequence type-eq-decl nil sequences nil)
+    (absconvergent? const-decl "bool" absconv_series nil)
+    (* const-decl "[T -> real]" real_fun_ops reals)
+    (absconvergent_series nonempty-type-eq-decl nil absconv_series
+     nil))
    shostak)))
 
