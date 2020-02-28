@@ -1,7 +1,8 @@
 (integral_cont
  (IMP_integral_cont_scaf_TCC1 0
   (IMP_integral_cont_scaf_TCC1-2 "" 3790090260
-   ("" (lemma "connected_domain") (("" (propax) nil nil)) nil) nil shostak
+   ("" (lemma "connected_domain") (("" (propax) nil nil)) nil)
+   ((connected_domain formula-decl nil integral_cont nil)) shostak
    (IMP_integral_cont_scaf assuming "integral_cont_scaf[T].integral_cont_scaf"
     "connected_domain: ASSUMPTION deriv_domain_def[T].connected?"))
   (IMP_integral_cont_scaf_TCC1-1 nil 3292324347
@@ -9,17 +10,17 @@
     (("" (lemma "connected_domain")
       (("" (inst?) (("" (inst?) (("" (assert) nil nil)) nil)) nil)) nil))
     nil)
-   ((connected_domain formula-decl nil integral_cont nil)) shostak
+   nil shostak
    (IMP_integral_cont_scaf assuming "integral_cont_scaf[T].integral_cont_scaf"
     "connected_domain: ASSUMPTION deriv_domain_def[T].connected?")))
  (IMP_integral_cont_scaf_TCC2 0
   (IMP_integral_cont_scaf_TCC2-2 "" 3790090260
-   ("" (rewrite "not_one_element") nil nil) nil shostak
+   ("" (rewrite "not_one_element") nil nil)
+   ((not_one_element formula-decl nil integral_cont nil)) shostak
    (IMP_integral_cont_scaf assuming "integral_cont_scaf[T].integral_cont_scaf"
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?"))
   (IMP_integral_cont_scaf_TCC2-1 nil 3292324347
-   ("" (skosimp*) (("" (rewrite "not_one_element") nil nil)) nil)
-   ((not_one_element formula-decl nil integral_cont nil)) shostak
+   ("" (skosimp*) (("" (rewrite "not_one_element") nil nil)) nil) nil shostak
    (IMP_integral_cont_scaf assuming "integral_cont_scaf[T].integral_cont_scaf"
     "not_one_element: ASSUMPTION deriv_domain_def[T].not_one_element?")))
  (in_interval_TCC1 0
@@ -941,33 +942,29 @@
         nil))
       nil))
     nil)
-   ((closed_interval type-eq-decl nil intervals_real reals)
-    (<= const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (T formal-subtype-decl nil integral_cont nil)
-    (T_pred const-decl "[real -> boolean]" integral_cont nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (unif_cont_interval formula-decl nil unif_cont_fun nil)
-    (connected? const-decl "bool" deriv_domain_def nil)
-    (not_one_element? const-decl "bool" deriv_domain_def nil)
+   ((connected_domain formula-decl nil integral_cont nil)
     (restrict const-decl "R" restrict nil)
-    (continuity_def formula-decl nil continuous_functions nil)
-    (extend const-decl "R" extend nil) (abs_0 formula-decl nil abs_lems reals)
-    (fullset const-decl "set" sets nil)
-    (adh const-decl "setof[real]" convergence_functions nil)
-    (convergence const-decl "bool" convergence_functions nil)
-    (convergence const-decl "bool" lim_of_functions nil)
-    (continuous_on_def formula-decl nil continuous_functions nil)
-    (step_to_integrable formula-decl nil integral_step nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (uniformly_continuous? const-decl "bool" unif_cont_fun nil)
-    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props nil)
+    (setof type-eq-decl nil defined_types nil)
+    (continuous_on? const-decl "bool" continuous_functions nil)
+    (TRUE const-decl "bool" booleans nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (below type-eq-decl nil nat_types nil)
+    (finite_sequence type-eq-decl nil finite_sequences nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (< const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (above nonempty-type-eq-decl nil integers nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (partition type-eq-decl nil integral_def nil)
+    (eq_partition const-decl "partition(a, b)" integral_def nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (step_function? const-decl "bool" step_fun_def nil)
     (continuous? const-decl "bool" continuous_functions nil)
     (fun_cont_on type-eq-decl nil integral_cont_scaf nil)
@@ -986,27 +983,26 @@
            ff(x) = f(min_x(xx(ii), xx(ii + 1), f)))
           AND ((xx(ii) = x OR x = xx(ii + 1)) IMPLIES ff(x) = f(x))}"
      integral_cont_scaf nil)
-    (fmax_step formula-decl nil integral_cont_scaf nil)
+    (max_x const-decl "{mx: T |
+   a <= mx AND
+    mx <= b AND (FORALL (x: T): a <= x AND x <= b IMPLIES f(mx) >= f(x))}"
+     interval_minmax nil)
+    (fmax const-decl "{ff: [T -> real] |
+   LET xx = seq(P) IN
+     FORALL (ii: below(length(P) - 1)):
+       FORALL (x: T):
+         (xx(ii) < x AND x < xx(ii + 1) IMPLIES
+           ff(x) = f(max_x(xx(ii), xx(ii + 1), f)))
+          AND ((xx(ii) = x OR x = xx(ii + 1)) IMPLIES ff(x) = f(x))}"
+     integral_cont_scaf nil)
     (integrable? const-decl "bool" integral_def nil)
     (- const-decl "[T -> real]" real_fun_ops reals)
-    (integral? const-decl "bool" integral_def nil)
-    (integral const-decl "{S: real | integral?(a, b, ff, S)}" integral_def
-     nil)
-    (part_induction formula-decl nil integral_def nil)
-    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (width_eq_part formula-decl nil integral_def nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
     (width const-decl "posreal" integral_def nil)
     (integral_bound_abs formula-decl nil integral_prep nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (minus_real_is_real application-judgement "real" reals nil)
-    (both_sides_times_pos_le1 formula-decl nil real_props nil)
-    (BMA skolem-const-decl "real" integral_cont nil)
-    (div_cancel2 formula-decl nil real_props nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
-    (in_interval formula-decl nil integral_cont nil)
     (PP skolem-const-decl "partition[T](a!1, b!1)" integral_cont nil)
     (ii!1 skolem-const-decl "below(PP`length - 1)" integral_cont nil)
     (f!1 skolem-const-decl "[T -> real]" integral_cont nil)
@@ -1024,52 +1020,36 @@
         f!1(mx) <= f!1(x)}" integral_cont nil)
     (width_lem formula-decl nil integral_def nil)
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences nil)
+    (in_interval formula-decl nil integral_cont nil)
+    (both_sides_times_pos_le1 formula-decl nil real_props nil)
+    (BMA skolem-const-decl "real" integral_cont nil)
+    (div_cancel2 formula-decl nil real_props nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
     (fmax_ge formula-decl nil integral_cont_scaf nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (real_times_real_is_real application-judgement "real" reals nil)
+    (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props nil)
+    (delta!1 skolem-const-decl "posreal" integral_cont nil)
+    (BMA skolem-const-decl "real" integral_cont nil)
+    (times_div_cancel1 formula-decl nil extra_real_props nil)
+    (both_sides_div_pos_lt1 formula-decl nil real_props nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
      nil)
     (both_sides_times_pos_ge1 formula-decl nil real_props nil)
-    (both_sides_div_pos_lt1 formula-decl nil real_props nil)
-    (times_div_cancel1 formula-decl nil extra_real_props nil)
-    (BMA skolem-const-decl "real" integral_cont nil)
-    (delta!1 skolem-const-decl "posreal" integral_cont nil)
-    (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
+    (width_eq_part formula-decl nil integral_def nil)
+    (part_induction formula-decl nil integral_def nil)
+    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (integral const-decl "{S: real | integral?(a, b, ff, S)}" integral_def
+     nil)
+    (integral? const-decl "bool" integral_def nil)
     (integral_diff formula-decl nil integral_prep nil)
     (step_function_integrable? formula-decl nil integral_step nil)
-    (fmax const-decl "{ff: [T -> real] |
-   LET xx = seq(P) IN
-     FORALL (ii: below(length(P) - 1)):
-       FORALL (x: T):
-         (xx(ii) < x AND x < xx(ii + 1) IMPLIES
-           ff(x) = f(max_x(xx(ii), xx(ii + 1), f)))
-          AND ((xx(ii) = x OR x = xx(ii + 1)) IMPLIES ff(x) = f(x))}"
-     integral_cont_scaf nil)
-    (max_x const-decl "{mx: T |
-   a <= mx AND
-    mx <= b AND (FORALL (x: T): a <= x AND x <= b IMPLIES f(mx) >= f(x))}"
-     interval_minmax nil)
+    (fmax_step formula-decl nil integral_cont_scaf nil)
     (fmin_step formula-decl nil integral_cont_scaf nil)
     (cont_restrict formula-decl nil integral_cont_scaf nil)
-    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
-    (integer nonempty-type-from-decl nil integers nil)
-    (eq_partition const-decl "partition(a, b)" integral_def nil)
-    (partition type-eq-decl nil integral_def nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (above nonempty-type-eq-decl nil integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (< const-decl "bool" reals nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (finite_sequence type-eq-decl nil finite_sequences nil)
-    (below type-eq-decl nil nat_types nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (eps!1 skolem-const-decl "posreal" integral_cont nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
@@ -1088,16 +1068,37 @@
      nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (TRUE const-decl "bool" booleans nil)
-    (continuous_on? const-decl "bool" continuous_functions nil)
-    (setof type-eq-decl nil defined_types nil)
+    (uniformly_continuous? const-decl "bool" unif_cont_fun nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (step_to_integrable formula-decl nil integral_step nil)
+    (continuous_on_def formula-decl nil continuous_functions nil)
+    (convergence const-decl "bool" lim_of_functions nil)
+    (convergence const-decl "bool" convergence_functions nil)
+    (adh const-decl "setof[real]" convergence_functions nil)
+    (abs_0 formula-decl nil abs_lems reals)
+    (fullset const-decl "set" sets nil) (extend const-decl "R" extend nil)
+    (continuity_def formula-decl nil continuous_functions nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (b!1 skolem-const-decl "T" integral_cont nil)
     (a!1 skolem-const-decl "T" integral_cont nil)
     (real_le_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
-    (connected_domain formula-decl nil integral_cont nil))
+    (not_one_element? const-decl "bool" deriv_domain_def nil)
+    (connected? const-decl "bool" deriv_domain_def nil)
+    (unif_cont_interval formula-decl nil unif_cont_fun nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (T_pred const-decl "[real -> boolean]" integral_cont nil)
+    (T formal-subtype-decl nil integral_cont nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil)
+    (closed_interval type-eq-decl nil intervals_real reals))
    nil)
   (continuous_integrable-2 nil 3292320666
    ("" (skosimp*)
