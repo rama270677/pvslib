@@ -24,7 +24,8 @@
                     (("" (expand "alt")
                       (("" (inst 1 "x1!1`1 * a!1")
                         (("1" (replaces -1)
-                          (("1" (rewrite "left_coset_assoc") nil nil)) nil)
+                          (("1" (rewrite "left_coset_assoc") nil nil))
+                          nil)
                          ("2" (rewrite "product_in") nil nil))
                         nil))
                       nil))
@@ -51,18 +52,15 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (member const-decl "bool" sets nil) (subset? const-decl "bool" sets nil)
-    (alt const-decl "set[T]" p_groups nil)
-    (product_in formula-decl nil group algebra)
-    (TRUE const-decl "bool" booleans nil)
+    (member const-decl "bool" sets nil)
+    (subset? const-decl "bool" sets nil)
+    (alt const-decl "set[T]" p_groups nil) nil nil nil nil nil
     (left_coset_assoc formula-decl nil cosets algebra)
-    (G!1 skolem-const-decl "group[T, *, one]" p_groups nil)
-    (H!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil)
-    (K!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil)
-    (x1!1 skolem-const-decl "[(H!1), (left_cosets(G!1, K!1))]" p_groups nil)
-    (a!1 skolem-const-decl "(G!1)" p_groups nil))
+    (TRUE const-decl "bool" booleans nil)
+    (product_in formula-decl nil group algebra))
    nil
-   (alt_is_action subtype "p_groups.alt(p_groups.G, p_groups.H, p_groups.K)"
+   (alt_is_action subtype
+    "p_groups.alt(p_groups.G, p_groups.H, p_groups.K)"
     "group_action[p_groups.T, p_groups.*, p_groups.one, setof[T]].F(p_groups.H, right_left_cosets[p_groups.T, p_groups.*, p_groups.one].left_cosets(p_groups.G, p_groups.K))")))
  (alt_is_action 0
   (alt_is_action-1 nil 3530282276
@@ -70,29 +68,31 @@
     (("" (expand "group_action?")
       (("" (skosimp*)
         (("" (prop)
-          (("1" (expand "alt") (("1" (rewrite "left_coset_one") nil nil)) nil)
-           ("2" (expand "alt") (("2" (rewrite "left_coset_assoc") nil nil))
-            nil))
+          (("1" (expand "alt")
+            (("1" (rewrite "left_coset_one") nil nil)) nil)
+           ("2" (expand "alt")
+            (("2" (rewrite "left_coset_assoc") nil nil)) nil))
           nil))
         nil))
       nil))
     nil)
    ((group_action? const-decl "bool" group_action nil)
-    (left_coset_one formula-decl nil cosets algebra)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil) (setof type-eq-decl nil defined_types nil)
-    (group nonempty-type-eq-decl nil group algebra)
-    (group? const-decl "bool" group_def algebra)
-    (subgroup? const-decl "bool" group_def algebra)
-    (subgroup type-eq-decl nil group algebra)
-    (setofsets type-eq-decl nil sets nil)
-    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
-    (T formal-type-decl nil p_groups nil)
-    (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (one formal-const-decl "T" p_groups nil)
+    (left_coset_assoc formula-decl nil cosets algebra)
     (alt const-decl "set[T]" p_groups nil)
-    (left_coset_assoc formula-decl nil cosets algebra))
+    (one formal-const-decl "T" p_groups nil)
+    (* formal-const-decl "[T, T -> T]" p_groups nil)
+    (T formal-type-decl nil p_groups nil)
+    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
+    (setofsets type-eq-decl nil sets nil)
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (setof type-eq-decl nil defined_types nil)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (left_coset_one formula-decl nil cosets algebra))
    shostak))
  (Fix_iff_subset 0
   (Fix_iff_subset-1 nil 3530282442
@@ -110,8 +110,13 @@
                         (("1" (hide (-2 -3 -4))
                           (("1" (expand "*" 1)
                             (("1" (inst 1 "g!1 * h!1")
-                              (("1" (replace -1 1 rl)
-                                (("1" (rewrite "assoc" :dir rl) nil nil)) nil)
+                              (("1"
+                                (replace -1 1 rl)
+                                (("1"
+                                  (rewrite "assoc" :dir rl)
+                                  nil
+                                  nil))
+                                nil)
                                ("2" (inst?) nil nil))
                               nil))
                             nil))
@@ -132,11 +137,16 @@
                       (("2" (hide -1)
                         (("2" (rewrite "left_coset_assoc")
                           (("2" (lemma "lc_is_eq")
-                            (("2" (inst -1 "G!1" "K!1" "g!2 * g!1" "g!1")
-                              (("2" (assert)
-                                (("2" (inst 1 "inv(g!1) * h!1")
-                                  (("1" (hide 2)
-                                    (("1" (replaces -2)
+                            (("2"
+                              (inst -1 "G!1" "K!1" "g!2 * g!1" "g!1")
+                              (("2"
+                                (assert)
+                                (("2"
+                                  (inst 1 "inv(g!1) * h!1")
+                                  (("1"
+                                    (hide 2)
+                                    (("1"
+                                      (replaces -2)
                                       (("1"
                                         (rewrite "assoc")
                                         (("1"
@@ -146,15 +156,20 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2" (hide (-1 -2 2))
-                                    (("2" (typepred "h!1")
+                                   ("2"
+                                    (hide (-1 -2 2))
+                                    (("2"
+                                      (typepred "h!1")
                                       (("2"
                                         (skosimp)
                                         (("2"
                                           (replaces -1)
                                           (("2"
                                             (typepred "h!2")
-                                            (("2" (rewrite "assoc") nil nil))
+                                            (("2"
+                                              (rewrite "assoc")
+                                              nil
+                                              nil))
                                             nil))
                                           nil))
                                         nil))
@@ -173,48 +188,40 @@
               nil))
             nil)
            ("3" (hide -1)
-            (("3" (expand "left_cosets") (("3" (inst?) nil nil)) nil)) nil))
+            (("3" (expand "left_cosets") (("3" (inst?) nil nil)) nil))
+            nil))
           nil))
         nil))
       nil))
     nil)
-   ((member const-decl "bool" sets nil) (alt const-decl "set[T]" p_groups nil)
+   ((member const-decl "bool" sets nil)
+    (alt const-decl "set[T]" p_groups nil)
     (Fix const-decl "{Y: set[T1] | subset?(Y, X)}" group_action nil)
     (subset? const-decl "bool" sets nil)
-    (x!1 skolem-const-decl "T" p_groups nil)
-    (H!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil)
-    (subgroup type-eq-decl nil group algebra)
-    (G!1 skolem-const-decl "group[T, *, one]" p_groups nil)
-    (subgroup? const-decl "bool" group_def algebra)
-    (group nonempty-type-eq-decl nil group algebra)
-    (group? const-decl "bool" group_def algebra)
-    (one formal-const-decl "T" p_groups nil)
-    (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (set type-eq-decl nil sets nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (T formal-type-decl nil p_groups nil)
-    (lc_eq formula-decl nil cosets algebra)
-    (K!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (g!1 skolem-const-decl "(G!1)" p_groups nil)
-    (h!1 skolem-const-decl "(K!1)" p_groups nil)
+    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
+    (lc_is_eq formula-decl nil cosets algebra) nil
+    (TRUE const-decl "bool" booleans nil)
+    (inv_left formula-decl nil group algebra)
+    (left_identity formula-decl nil monad algebra)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (left_coset_assoc formula-decl nil cosets algebra) nil nil nil
+    (= const-decl "[T, T -> boolean]" equalities nil) nil nil
     (inv_right formula-decl nil group algebra)
     (right_identity formula-decl nil monad algebra)
     (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (assoc formula-decl nil group algebra)
-    (* const-decl "set[T]" cosets algebra)
-    (* const-decl "set[T]" cosets algebra)
-    (left_coset_assoc formula-decl nil cosets algebra)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (h!1 skolem-const-decl "({t: T | EXISTS (h: (K!1)): t = g!1 * h})"
-     p_groups nil)
-    (TRUE const-decl "bool" booleans nil)
-    (inv_left formula-decl nil group algebra)
-    (left_identity formula-decl nil monad algebra)
-    (lc_is_eq formula-decl nil cosets algebra)
-    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
+    (lc_eq formula-decl nil cosets algebra)
+    (T formal-type-decl nil p_groups nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (* formal-const-decl "[T, T -> T]" p_groups nil)
+    (one formal-const-decl "T" p_groups nil)
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra) nil
+    (subgroup type-eq-decl nil group algebra) nil nil
     (extend const-decl "R" extend nil))
    shostak))
  (Fix_iff_subset_cor_TCC1 0
@@ -231,7 +238,8 @@
                     (("" (expand "alt")
                       (("" (inst 1 "x1!1`1 * a!1")
                         (("1" (replaces -1)
-                          (("1" (rewrite "left_coset_assoc") nil nil)) nil)
+                          (("1" (rewrite "left_coset_assoc") nil nil))
+                          nil)
                          ("2" (rewrite "product_in") nil nil))
                         nil))
                       nil))
@@ -260,15 +268,12 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (member const-decl "bool" sets nil) (subset? const-decl "bool" sets nil)
-    (alt const-decl "set[T]" p_groups nil)
-    (product_in formula-decl nil group algebra)
-    (TRUE const-decl "bool" booleans nil)
+    (member const-decl "bool" sets nil)
+    (subset? const-decl "bool" sets nil)
+    (alt const-decl "set[T]" p_groups nil) nil nil nil nil
     (left_coset_assoc formula-decl nil cosets algebra)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil)
-    (H!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil)
-    (x1!1 skolem-const-decl "[(H!1), (left_cosets(G!1, H!1))]" p_groups nil)
-    (a!1 skolem-const-decl "(G!1)" p_groups nil))
+    (TRUE const-decl "bool" booleans nil)
+    (product_in formula-decl nil group algebra))
    nil
    (Fix_iff_subset_cor subtype
     "p_groups.alt(p_groups.G, p_groups.H, p_groups.H)"
@@ -289,17 +294,24 @@
                         (("1" (lemma "finite_subgroups")
                           (("1" (inst?)
                             (("1" (assert)
-                              (("1" (hide -2)
-                                (("1" (expand "finite_group?")
-                                  (("1" (lemma "card_eq_bij[T, T]")
+                              (("1"
+                                (hide -2)
+                                (("1"
+                                  (expand "finite_group?")
+                                  (("1"
+                                    (lemma "card_eq_bij[T, T]")
                                     (("1"
-                                      (inst -1 "H!1" "g!1 * H!1 * inv(g!1)")
+                                      (inst
+                                       -1
+                                       "H!1"
+                                       "g!1 * H!1 * inv(g!1)")
                                       (("1"
                                         (prop)
                                         (("1"
                                           (hide (-2 -4))
                                           (("1"
-                                            (rewrite "same_card_subset")
+                                            (rewrite
+                                             "same_card_subset")
                                             nil
                                             nil))
                                           nil))
@@ -307,7 +319,8 @@
                                        ("2"
                                         (hide (-3 2))
                                         (("2"
-                                          (lemma "bijection_finite_set2[T,T]")
+                                          (lemma
+                                           "bijection_finite_set2[T,T]")
                                           (("2"
                                             (inst
                                              -1
@@ -332,8 +345,8 @@
               nil)
              ("2" (hide (1 3))
               (("2" (replace -1 1 rl)
-                (("2" (hide -1) (("2" (rewrite "subset_reflexive") nil nil))
-                  nil))
+                (("2" (hide -1)
+                  (("2" (rewrite "subset_reflexive") nil nil)) nil))
                 nil))
               nil))
             nil))
@@ -345,23 +358,19 @@
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (member const-decl "bool" sets nil)
-    (subset_reflexive formula-decl nil sets_lemmas nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (finite_subgroups formula-decl nil group algebra)
-    (is_finite const-decl "bool" finite_sets nil)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil)
-    (H!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil)
+    (left_coset_correspondence_inv formula-decl nil right_left_cosets
+     nil)
+    (card_eq_bij formula-decl nil finite_sets_card_eq finite_sets)
+    (is_finite const-decl "bool" finite_sets nil) nil nil
     (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (g!1 skolem-const-decl "(G!1)" p_groups nil)
-    (* const-decl "set[T]" cosets algebra)
-    (* const-decl "set[T]" cosets algebra)
+    (AND const-decl "[bool, bool -> bool]" booleans nil) nil nil nil
     (finite_set type-eq-decl nil finite_sets nil)
     (same_card_subset formula-decl nil finite_sets nil)
     (bijection_finite_set2 formula-decl nil finite_sets_eq finite_sets)
-    (card_eq_bij formula-decl nil finite_sets_card_eq finite_sets)
-    (left_coset_correspondence_inv formula-decl nil right_left_cosets nil)
+    (finite_subgroups formula-decl nil group algebra)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (subset_reflexive formula-decl nil sets_lemmas nil)
     (subgroup type-eq-decl nil group algebra)
     (subgroup? const-decl "bool" group_def algebra)
     (finite_group nonempty-type-eq-decl nil group algebra)
@@ -394,7 +403,9 @@
     (set type-eq-decl nil sets nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil (subgroup_is_p_group subtype "p_groups.H" "finite_group[T, *, one]")))
+   nil
+   (subgroup_is_p_group subtype "p_groups.H"
+    "finite_group[T, *, one]")))
  (subgroup_is_p_group 0
   (subgroup_is_p_group-1 nil 3530352927
    ("" (skosimp*)
@@ -406,7 +417,8 @@
               (("1" (inst?)
                 (("1" (replace -1 1 rl)
                   (("1" (hide -1)
-                    (("1" (expand "period") (("1" (propax) nil nil)) nil))
+                    (("1" (expand "period") (("1" (propax) nil nil))
+                      nil))
                     nil))
                   nil))
                 nil))
@@ -416,7 +428,8 @@
                 (("2" (hide -2)
                   (("2" (expand "subgroup?")
                     (("2" (expand "subset?")
-                      (("2" (inst?) (("2" (assert) nil nil)) nil)) nil))
+                      (("2" (inst?) (("2" (assert) nil nil)) nil))
+                      nil))
                     nil))
                   nil))
                 nil))
@@ -426,41 +439,39 @@
         nil))
       nil))
     nil)
-   ((subset? const-decl "bool" sets nil) (member const-decl "bool" sets nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (period const-decl "posnat" finite_groups algebra)
-    (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (>= const-decl "bool" reals nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (T formal-type-decl nil p_groups nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (one formal-const-decl "T" p_groups nil)
-    (finite_group? const-decl "bool" group_def algebra)
-    (finite_group nonempty-type-eq-decl nil group algebra)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil)
-    (group? const-decl "bool" group_def algebra)
-    (group nonempty-type-eq-decl nil group algebra)
+   (nil nil (subgroup type-eq-decl nil group algebra)
     (subgroup? const-decl "bool" group_def algebra)
-    (subgroup type-eq-decl nil group algebra)
-    (H!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil)
-    (a!1 skolem-const-decl "(H!1)" p_groups nil)
+    (group nonempty-type-eq-decl nil group algebra)
+    (group? const-decl "bool" group_def algebra) nil
+    (finite_group nonempty-type-eq-decl nil group algebra)
+    (finite_group? const-decl "bool" group_def algebra)
+    (one formal-const-decl "T" p_groups nil)
+    (* formal-const-decl "[T, T -> T]" p_groups nil)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (T formal-type-decl nil p_groups nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (period const-decl "posnat" finite_groups algebra)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (member const-decl "bool" sets nil)
+    (subset? const-decl "bool" sets nil)
     (p_group? const-decl "bool" p_groups nil))
    shostak))
  (p_group_iff_power_TCC1 0
   (p_group_iff_power_TCC1-1 nil 3530273648 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)
-    (divides const-decl "bool" divides nil)
+   ((/= const-decl "boolean" notequal nil) nil
     (prime? const-decl "bool" primes ints))
    nil
    (p_group_iff_power subtype "p_groups.m"
@@ -475,8 +486,8 @@
             (("1" (lemma "product_only_power")
               (("1" (inst -1 "fs!1" "p!1")
                 (("1" (prop)
-                  (("1" (skosimp) (("1" (inst?) (("1" (assert) nil nil)) nil))
-                    nil)
+                  (("1" (skosimp)
+                    (("1" (inst?) (("1" (assert) nil nil)) nil)) nil)
                    ("2" (hide 2)
                     (("2" (expand "ordered_list_of_primes?")
                       (("2" (flatten)
@@ -485,10 +496,14 @@
                             (expand* "only_power_p" "p_group?"
                              "list_of_primes?")
                             (("2" (skosimp)
-                              (("2" (lemma "divides_product")
-                                (("2" (inst -1 "fs!1" "j!1")
-                                  (("2" (inst -3 "j!1")
-                                    (("2" (replace -2 -1 rl)
+                              (("2"
+                                (lemma "divides_product")
+                                (("2"
+                                  (inst -1 "fs!1" "j!1")
+                                  (("2"
+                                    (inst -3 "j!1")
+                                    (("2"
+                                      (replace -2 -1 rl)
                                       (("2"
                                         (hide -2)
                                         (("2"
@@ -505,7 +520,10 @@
                                                     (skosimp)
                                                     (("2"
                                                       (replaces -1)
-                                                      (("2" (inst?) nil nil))
+                                                      (("2"
+                                                        (inst?)
+                                                        nil
+                                                        nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -542,11 +560,16 @@
                         (("1" (assert)
                           (("1" (skosimp)
                             (("1" (hide -1)
-                              (("1" (lemma "period_is_generated_order")
-                                (("1" (inst?)
-                                  (("1" (assert)
-                                    (("1" (inst 1 "i!1")
-                                      (("1" (assert) nil nil)) nil))
+                              (("1"
+                                (lemma "period_is_generated_order")
+                                (("1"
+                                  (inst?)
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (inst 1 "i!1")
+                                      (("1" (assert) nil nil))
+                                      nil))
                                     nil))
                                   nil))
                                 nil))
@@ -557,13 +580,14 @@
                       nil))
                     nil)
                    ("2" (hide-all-but 1)
-                    (("2" (rewrite "generated_is_subgroup") nil nil)) nil))
+                    (("2" (rewrite "generated_is_subgroup") nil nil))
+                    nil))
                   nil)
                  ("2" (hide-all-but 1)
                   (("2" (expand "finite_group?")
                     (("2" (lemma "finite_generated_by")
-                      (("2" (inst -1 "G!1" "a!1") (("2" (assert) nil nil))
-                        nil))
+                      (("2" (inst -1 "G!1" "a!1")
+                        (("2" (assert) nil nil)) nil))
                       nil))
                     nil))
                   nil))
@@ -574,54 +598,56 @@
         nil))
       nil))
     nil)
-   ((number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (>= const-decl "bool" reals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (T formal-type-decl nil p_groups nil) (set type-eq-decl nil sets nil)
-    (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (one formal-const-decl "T" p_groups nil)
-    (finite_monad? const-decl "bool" monad_def algebra)
-    (finite_monad nonempty-type-eq-decl nil monad algebra)
-    (order const-decl "posnat" monad algebra)
-    (finite_group? const-decl "bool" group_def algebra)
-    (finite_group nonempty-type-eq-decl nil group algebra)
-    (product_only_power formula-decl nil general_properties nil)
+   ((finite_generated_by formula-decl nil finite_groups algebra)
+    (generated_is_subgroup formula-decl nil cyclic_group algebra)
+    (period_is_generated_order formula-decl nil finite_groups algebra)
+    (member const-decl "bool" sets nil)
+    (divides_prime_power formula-decl nil general_properties nil)
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (generated_by const-decl "group" group algebra) nil nil
+    (Lagrange formula-decl nil lagrange algebra)
+    (prime_factors formula-decl nil prime_factorization numbers)
+    (fseq type-eq-decl nil fseqs structures)
+    (barray type-eq-decl nil fseqs structures)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (ordered_list_of_primes? const-decl "bool" prime_factorization numbers)
+    (ordered_list_of_primes? const-decl "bool" prime_factorization
+     numbers)
     (below type-eq-decl nil naturalnumbers nil)
-    (< const-decl "bool" reals nil) (cauchy formula-decl nil cauchy nil)
+    (< const-decl "bool" reals nil)
+    (cauchy formula-decl nil cauchy nil)
     (TRUE const-decl "bool" booleans nil)
     (divides_product formula-decl nil general_properties nil)
     (only_power_p const-decl "bool" general_properties nil)
     (list_of_primes? const-decl "bool" prime_factorization numbers)
     (p_group? const-decl "bool" p_groups nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (barray type-eq-decl nil fseqs structures)
-    (fseq type-eq-decl nil fseqs structures)
-    (prime_factors formula-decl nil prime_factorization numbers)
-    (Lagrange formula-decl nil lagrange algebra)
-    (finite_generated_by formula-decl nil finite_groups algebra)
-    (divides_prime_power formula-decl nil general_properties nil)
-    (member const-decl "bool" sets nil)
-    (period_is_generated_order formula-decl nil finite_groups algebra)
-    (generated_is_subgroup formula-decl nil cyclic_group algebra)
-    (group? const-decl "bool" group_def algebra)
-    (group nonempty-type-eq-decl nil group algebra)
-    (generated_by const-decl "group" group algebra)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil)
-    (a!1 skolem-const-decl "(G!1)" p_groups nil))
+    (product_only_power formula-decl nil general_properties nil)
+    (finite_group nonempty-type-eq-decl nil group algebra)
+    (finite_group? const-decl "bool" group_def algebra)
+    (order const-decl "posnat" monad algebra)
+    (finite_monad nonempty-type-eq-decl nil monad algebra)
+    (finite_monad? const-decl "bool" monad_def algebra)
+    (one formal-const-decl "T" p_groups nil)
+    (* formal-const-decl "[T, T -> T]" p_groups nil)
+    (set type-eq-decl nil sets nil)
+    (T formal-type-decl nil p_groups nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil))
    shostak))
  (p_divides_index 0
   (p_divides_index-1 nil 3530567198
@@ -639,14 +665,21 @@
                         (("" (assert)
                           (("" (skosimp)
                             (("" (replaces -1)
-                              (("" (lemma "divides_prime_power")
-                                (("" (inst?)
-                                  (("1" (assert)
-                                    (("1" (skosimp)
+                              ((""
+                                (lemma "divides_prime_power")
+                                ((""
+                                  (inst?)
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (skosimp)
                                       (("1"
                                         (hide (-1 -3 -8))
                                         (("1"
-                                          (case-replace "i!1 = 0" :hide? T)
+                                          (case-replace
+                                           "i!1 = 0"
+                                           :hide?
+                                           T)
                                           (("1"
                                             (rewrite "expt_x0")
                                             (("1"
@@ -661,7 +694,8 @@
                                                       (rewrite
                                                        "identity_mult")
                                                       (("1"
-                                                        (lemma "orders_equal")
+                                                        (lemma
+                                                         "orders_equal")
                                                         (("1"
                                                           (inst
                                                            -1
@@ -684,7 +718,8 @@
                                             (("2"
                                               (replaces -1)
                                               (("2"
-                                                (rewrite "divides_power")
+                                                (rewrite
+                                                 "divides_power")
                                                 nil
                                                 nil))
                                               nil))
@@ -693,8 +728,10 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2" (hide (-1 -5 -6 2 3))
-                                    (("2" (lemma "index_gt1")
+                                   ("2"
+                                    (hide (-1 -5 -6 2 3))
+                                    (("2"
+                                      (lemma "index_gt1")
                                       (("2"
                                         (inst?)
                                         (("2" (assert) nil nil))
@@ -725,19 +762,18 @@
     (finite_group? const-decl "bool" group_def algebra)
     (one formal-const-decl "T" p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (set type-eq-decl nil sets nil) (T formal-type-decl nil p_groups nil)
+    (set type-eq-decl nil sets nil)
+    (T formal-type-decl nil p_groups nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (finite_subgroups formula-decl nil group algebra)
     (p_group_iff_power formula-decl nil p_groups nil)
     (TRUE const-decl "bool" booleans nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (index const-decl "nat" right_left_cosets nil)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil)
-    (H!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (index_gt1 formula-decl nil right_left_cosets nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (Lagrange_index formula-decl nil lagrange_index nil)
     (order const-decl "posnat" monad algebra)
@@ -747,11 +783,11 @@
     (identity_mult formula-decl nil number_fields nil)
     (orders_equal formula-decl nil finite_groups algebra)
     (expt_x0 formula-decl nil exponentiation nil)
-    (divides_power formula-decl nil general_properties nil)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (index_gt1 formula-decl nil right_left_cosets nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
+    (divides_power formula-decl nil general_properties nil) nil nil
+    (index const-decl "nat" right_left_cosets nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
     (divides_prime_power formula-decl nil general_properties nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
@@ -764,7 +800,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number nonempty-type-decl nil numbers nil)
     (index_divides formula-decl nil lagrange_index nil))
    shostak))
@@ -784,10 +821,14 @@
                         (("" (expand "*")
                           (("" (skosimp)
                             (("" (typepred "h!1")
-                              (("" (skosimp)
-                                (("" (typepred "h!2")
-                                  (("" (expand "center")
-                                    (("" (expand "extend")
+                              ((""
+                                (skosimp)
+                                ((""
+                                  (typepred "h!2")
+                                  ((""
+                                    (expand "center")
+                                    ((""
+                                      (expand "extend")
                                       ((""
                                         (ground)
                                         (("1"
@@ -801,13 +842,19 @@
                                                 (("1"
                                                   (inst-cp -1 "a!1")
                                                   (("1"
-                                                    (rewrite "assoc" :dir rl)
+                                                    (rewrite
+                                                     "assoc"
+                                                     :dir
+                                                     rl)
                                                     (("1"
                                                       (replace -2 1 rl)
                                                       (("1"
-                                                        (rewrite "assoc")
+                                                        (rewrite
+                                                         "assoc")
                                                         (("1"
-                                                          (inst -1 "x!2")
+                                                          (inst
+                                                           -1
+                                                           "x!2")
                                                           nil
                                                           nil))
                                                         nil))
@@ -827,7 +874,8 @@
                                               (("2"
                                                 (rewrite "product_in")
                                                 (("2"
-                                                  (rewrite "product_in")
+                                                  (rewrite
+                                                   "product_in")
                                                   (("2"
                                                     (rewrite "inv_in")
                                                     nil
@@ -861,21 +909,21 @@
     (T formal-type-decl nil p_groups nil)
     (center_subgroup formula-decl nil group algebra)
     (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
-    (subgroup? const-decl "bool" group_def algebra)
-    (* const-decl "set[T]" cosets algebra)
-    (* const-decl "set[T]" cosets algebra)
+    (subgroup? const-decl "bool" group_def algebra) nil nil
     (NOT const-decl "[bool -> bool]" booleans nil)
     (center const-decl "{s: set[T] | subset?(s, G)}" group algebra)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
-    (extend const-decl "R" extend nil) (inv_in formula-decl nil group algebra)
-    (product_in formula-decl nil group algebra)
-    (TRUE const-decl "bool" booleans nil)
-    (left_identity formula-decl nil monad algebra)
-    (inv_left formula-decl nil group algebra)
+    (extend const-decl "R" extend nil)
     (assoc formula-decl nil group algebra)
-    (subset? const-decl "bool" sets nil) (member const-decl "bool" sets nil)
+    (inv_left formula-decl nil group algebra)
+    (left_identity formula-decl nil monad algebra)
+    (TRUE const-decl "bool" booleans nil)
+    (product_in formula-decl nil group algebra)
+    (inv_in formula-decl nil group algebra)
+    (subset? const-decl "bool" sets nil)
+    (member const-decl "bool" sets nil)
     (group nonempty-type-eq-decl nil group algebra)
     (group? const-decl "bool" group_def algebra)
     (set type-eq-decl nil sets nil)
@@ -893,21 +941,20 @@
        ("2" (rewrite "one_in") nil nil))
       nil))
     nil)
-   ((G!1 skolem-const-decl "group[T, *, one]" p_groups nil)
-    (group nonempty-type-eq-decl nil group algebra)
-    (group? const-decl "bool" group_def algebra)
-    (one formal-const-decl "T" p_groups nil)
-    (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (set type-eq-decl nil sets nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (T formal-type-decl nil p_groups nil)
-    (center const-decl "{s: set[T] | subset?(s, G)}" group algebra)
-    (subset? const-decl "bool" sets nil)
-    (left_coset_one formula-decl nil cosets algebra)
-    (monad nonempty-type-eq-decl nil monad algebra)
+   ((one_in formula-decl nil monad algebra)
     (monad? const-decl "bool" monad_def algebra)
-    (one_in formula-decl nil monad algebra))
+    (monad nonempty-type-eq-decl nil monad algebra)
+    (left_coset_one formula-decl nil cosets algebra)
+    (subset? const-decl "bool" sets nil)
+    (center const-decl "{s: set[T] | subset?(s, G)}" group algebra)
+    (T formal-type-decl nil p_groups nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (set type-eq-decl nil sets nil)
+    (* formal-const-decl "[T, T -> T]" p_groups nil)
+    (one formal-const-decl "T" p_groups nil)
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra) nil)
    nil
    (factor_cyclic subtype
     "group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)"
@@ -923,13 +970,15 @@
               (("1" (expand "normal_subgroup?")
                 (("1" (flatten)
                   (("1" (hide -2)
-                    (("1" (expand "subgroup?") (("1" (propax) nil nil)) nil))
+                    (("1" (expand "subgroup?") (("1" (propax) nil nil))
+                      nil))
                     nil))
                   nil))
                 nil))
               nil))
             nil)
-           ("2" (hide 2) (("2" (rewrite "fullset_is_group") nil nil)) nil))
+           ("2" (hide 2) (("2" (rewrite "fullset_is_group") nil nil))
+            nil))
           nil))
         nil))
       nil))
@@ -948,10 +997,10 @@
     (T formal-type-decl nil p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
     (one formal-const-decl "T" p_groups nil)
-    (center_is_normal formula-decl nil groups_scaf nil)
-    (fullset const-decl "set" sets nil)
+    (fullset_is_group formula-decl nil p_groups nil)
     (subgroup? const-decl "bool" group_def algebra)
-    (fullset_is_group formula-decl nil p_groups nil))
+    (fullset const-decl "set" sets nil)
+    (center_is_normal formula-decl nil groups_scaf nil))
    nil
    (factor_cyclic assuming
     "algebra@group[cosets[p_groups.T, p_groups.*, p_groups.one].left_cosets(p_groups.G, group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)), factor_groups[p_groups.T, p_groups.*, p_groups.one].mult(p_groups.G, group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)), group[p_groups.T, p_groups.*, p_groups.one].center(p_groups.G)].group"
@@ -972,10 +1021,14 @@
                         (("1" (skosimp)
                           (("1" (inst-cp -1 "x!1 * center(G!1)")
                             (("1" (iff)
-                              (("1" (prop)
-                                (("1" (hide -1)
-                                  (("1" (inst -2 "y!1 * center(G!1)")
-                                    (("1" (iff)
+                              (("1"
+                                (prop)
+                                (("1"
+                                  (hide -1)
+                                  (("1"
+                                    (inst -2 "y!1 * center(G!1)")
+                                    (("1"
+                                      (iff)
                                       (("1"
                                         (prop)
                                         (("1"
@@ -1008,7 +1061,8 @@
                                                         (("1"
                                                           (replaces -1)
                                                           (("1"
-                                                            (lemma "lc_eq")
+                                                            (lemma
+                                                             "lc_eq")
                                                             (("1"
                                                               (inst-cp
                                                                -1
@@ -1268,13 +1322,18 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2" (hide-all-but 1)
-                                      (("2" (inst 1 "y!1") nil nil)) nil))
+                                     ("2"
+                                      (hide-all-but 1)
+                                      (("2" (inst 1 "y!1") nil nil))
+                                      nil))
                                     nil))
                                   nil)
-                                 ("2" (hide-all-but 2)
-                                  (("2" (expand "/")
-                                    (("2" (expand "restrict")
+                                 ("2"
+                                  (hide-all-but 2)
+                                  (("2"
+                                    (expand "/")
+                                    (("2"
+                                      (expand "restrict")
                                       (("2"
                                         (expand "left_cosets")
                                         (("2" (inst?) nil nil))
@@ -1291,10 +1350,8 @@
                         nil))
                       nil))
                     nil)
-                   ("2" (hide-all-but (-3 1))
-                    (("2" (rewrite "left_cosets_group") nil nil)) nil)
-                   ("3" (hide-all-but 1)
-                    (("3" (inst 1 "one")
+                   ("2" (hide-all-but 1)
+                    (("2" (inst 1 "one")
                       (("1" (rewrite "left_coset_one") nil nil)
                        ("2" (rewrite "one_in") nil nil))
                       nil))
@@ -1305,14 +1362,20 @@
             nil))
           nil))
         nil)
-       ("2" (hide-all-but 1) (("2" (rewrite "fullset_is_group") nil nil))
-        nil))
+       ("2" (hide-all-but 1)
+        (("2" (rewrite "fullset_is_group") nil nil)) nil))
       nil))
     nil)
-   ((center_is_normal formula-decl nil groups_scaf nil)
+   ((one formal-const-decl "T" p_groups nil)
+    (* formal-const-decl "[T, T -> T]" p_groups nil)
+    (T formal-type-decl nil p_groups nil)
+    (center_is_normal formula-decl nil groups_scaf nil)
     (fullset const-decl "set" sets nil)
     (group? const-decl "bool" group_def algebra)
     (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (group nonempty-type-eq-decl nil group algebra)
     (cyclic? const-decl "boolean" group algebra)
     (/ const-decl "group[left_cosets[T, *, one](G, N), mult(G, N), N]"
        right_left_cosets nil)
@@ -1322,21 +1385,45 @@
     (left_cosets type-eq-decl nil cosets algebra)
     (center const-decl "{s: set[T] | subset?(s, G)}" group algebra)
     (subset? const-decl "bool" sets nil)
+    (* const-decl "set[T]" cosets algebra)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
     (generated_by const-decl "group" group algebra)
     (abelian_group? const-decl "bool" group_def algebra)
-    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
+    (restrict const-decl "R" restrict nil)
+    (commutative? const-decl "bool" operator_defs nil)
+    (G!1 skolem-const-decl "group[T, *, one]" p_groups nil)
+    (x!1 skolem-const-decl "(G!1)" p_groups nil)
+    (y!1 skolem-const-decl "(G!1)" p_groups nil)
+    (TRUE const-decl "bool" booleans nil)
     (coset_power_int formula-decl nil groups_scaf nil)
-    (^ const-decl "T" group algebra) (member const-decl "bool" sets nil)
-    (expt_member formula-decl nil group algebra)
-    (expt_mult formula-decl nil group algebra)
-    (assoc formula-decl nil group algebra)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
     (lc_eq formula-decl nil cosets algebra)
-    (left_cosets_group formula-decl nil factor_groups algebra)
+    (^ const-decl "T" group algebra) (extend const-decl "R" extend nil)
+    (assoc formula-decl nil group algebra)
+    (a!2 skolem-const-decl "(G!1)" p_groups nil)
+    (i!1 skolem-const-decl "int" p_groups nil)
+    (h!1 skolem-const-decl "(center(G!1))" p_groups nil)
+    (i!2 skolem-const-decl "int" p_groups nil)
+    (expt_mult formula-decl nil group algebra)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (expt_member formula-decl nil group algebra)
+    (member const-decl "bool" sets nil)
+    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
     (left_coset_one formula-decl nil cosets algebra)
-    (one_in formula-decl nil monad algebra)
-    (monad? const-decl "bool" monad_def algebra)
     (monad nonempty-type-eq-decl nil monad algebra)
-    (group nonempty-type-eq-decl nil group algebra))
+    (monad? const-decl "bool" monad_def algebra)
+    (one_in formula-decl nil monad algebra)
+    (fullset_is_group formula-decl nil p_groups nil))
    shostak))
  (normalizer_index_TCC1 0
   (normalizer_index_TCC1-1 nil 3530273648
@@ -1356,12 +1443,14 @@
     (group? const-decl "bool" group_def algebra)
     (one formal-const-decl "T" p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (set type-eq-decl nil sets nil) (T formal-type-decl nil p_groups nil)
+    (set type-eq-decl nil sets nil)
+    (T formal-type-decl nil p_groups nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (finite_subgroups formula-decl nil group algebra))
-   nil (normalizer_index subtype "p_groups.H" "finite_group[T, *, one]")))
+   nil
+   (normalizer_index subtype "p_groups.H" "finite_group[T, *, one]")))
  (normalizer_index_TCC2 0
   (normalizer_index_TCC2-1 nil 3530273648
    ("" (skosimp*)
@@ -1379,7 +1468,8 @@
    ((one formal-const-decl "T" p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
     (T formal-type-decl nil p_groups nil)
-    (normalizer_is_subgroup formula-decl nil normalizer_centralizer nil)
+    (normalizer_is_subgroup formula-decl nil normalizer_centralizer
+     nil)
     (finite_subgroups formula-decl nil group algebra)
     (normalizer const-decl "{S: set[T] | subset?(S, G)}"
      normalizer_centralizer nil)
@@ -1404,7 +1494,8 @@
       (("" (lemma "normal_in_normalizer")
         (("" (inst?)
           (("" (assert)
-            (("" (expand "normal_subgroup?") (("" (propax) nil nil)) nil))
+            (("" (expand "normal_subgroup?") (("" (propax) nil nil))
+              nil))
             nil))
           nil))
         nil))
@@ -1448,7 +1539,9 @@
                         (("1" (expand "divides")
                           (("1" (skosimp*)
                             (("1" (inst 1 "x!2 - x!1")
-                              (("1" (replaces -2) (("1" (assert) nil nil))
+                              (("1"
+                                (replaces -2)
+                                (("1" (assert) nil nil))
                                 nil))
                               nil))
                             nil))
@@ -1458,10 +1551,14 @@
                         (("2" (decompose-equality 1)
                           (("2" (iff)
                             (("2" (prop)
-                              (("1" (copy -1)
-                                (("1" (expand "Fix" -1)
-                                  (("1" (expand "extend")
-                                    (("1" (prop)
+                              (("1"
+                                (copy -1)
+                                (("1"
+                                  (expand "Fix" -1)
+                                  (("1"
+                                    (expand "extend")
+                                    (("1"
+                                      (prop)
                                       (("1"
                                         (hide -2)
                                         (("1"
@@ -1471,7 +1568,8 @@
                                             (("1"
                                               (replaces -1)
                                               (("1"
-                                                (lemma "Fix_iff_subset_cor")
+                                                (lemma
+                                                 "Fix_iff_subset_cor")
                                                 (("1"
                                                   (inst
                                                    -1
@@ -1484,7 +1582,8 @@
                                                     (("1"
                                                       (hide -2)
                                                       (("1"
-                                                        (expand "left_cosets")
+                                                        (expand
+                                                         "left_cosets")
                                                         (("1"
                                                           (inst?)
                                                           (("1"
@@ -1494,7 +1593,9 @@
                                                               (expand
                                                                "extend")
                                                               (("1"
-                                                                (replace -1 1)
+                                                                (replace
+                                                                 -1
+                                                                 1)
                                                                 (("1"
                                                                   (rewrite
                                                                    "lr_coset_assoc")
@@ -1533,10 +1634,14 @@
                                     nil))
                                   nil))
                                 nil)
-                               ("2" (expand "left_cosets" -1)
-                                (("2" (skosimp)
-                                  (("2" (typepred "a!1")
-                                    (("2" (replaces -2)
+                               ("2"
+                                (expand "left_cosets" -1)
+                                (("2"
+                                  (skosimp)
+                                  (("2"
+                                    (typepred "a!1")
+                                    (("2"
+                                      (replaces -2)
                                       (("2"
                                         (expand "normalizer")
                                         (("2"
@@ -1546,7 +1651,8 @@
                                             (("2"
                                               (hide -1)
                                               (("2"
-                                                (lemma "Fix_iff_subset_cor")
+                                                (lemma
+                                                 "Fix_iff_subset_cor")
                                                 (("2"
                                                   (inst
                                                    -1
@@ -1559,7 +1665,10 @@
                                                     (("2"
                                                       (hide 2)
                                                       (("2"
-                                                        (replace -1 1 rl)
+                                                        (replace
+                                                         -1
+                                                         1
+                                                         rl)
                                                         (("2"
                                                           (rewrite
                                                            "lr_coset_assoc")
@@ -1604,7 +1713,8 @@
                     (("2" (typepred "G!1" "H!1")
                       (("2" (hide -2)
                         (("2" (lemma "finite_subgroups")
-                          (("2" (inst?) (("2" (assert) nil nil)) nil)) nil))
+                          (("2" (inst?) (("2" (assert) nil nil)) nil))
+                          nil))
                         nil))
                       nil))
                     nil)
@@ -1631,8 +1741,8 @@
                       nil))
                     nil)
                    ("5" (hide-all-but 1)
-                    (("5" (lemma "alt_is_action") (("5" (inst?) nil nil))
-                      nil))
+                    (("5" (lemma "alt_is_action")
+                      (("5" (inst?) nil nil)) nil))
                     nil))
                   nil)
                  ("2" (hide-all-but 1)
@@ -1642,17 +1752,26 @@
                         (("2" (expand "left_cosets")
                           (("2" (skosimp)
                             (("2" (replaces -1)
-                              (("2" (inst 1 "x1!1`1 * a!1")
-                                (("1" (rewrite "left_coset_assoc") nil nil)
-                                 ("2" (rewrite "product_in")
-                                  (("2" (hide 2)
-                                    (("2" (typepred "x1!1`1" "H!1")
+                              (("2"
+                                (inst 1 "x1!1`1 * a!1")
+                                (("1"
+                                  (rewrite "left_coset_assoc")
+                                  nil
+                                  nil)
+                                 ("2"
+                                  (rewrite "product_in")
+                                  (("2"
+                                    (hide 2)
+                                    (("2"
+                                      (typepred "x1!1`1" "H!1")
                                       (("2"
                                         (hide -2)
                                         (("2"
                                           (expand "subgroup?")
                                           (("2"
-                                            (expand* "subset?" "member")
+                                            (expand*
+                                             "subset?"
+                                             "member")
                                             (("2"
                                               (inst?)
                                               (("2" (assert) nil nil))
@@ -1679,22 +1798,13 @@
       nil))
     nil)
    ((p_group_iff_power formula-decl nil p_groups nil)
-    (Fix_congruence formula-decl nil group_action nil)
-    (product_in formula-decl nil group algebra)
-    (a!1 skolem-const-decl "(G!1)" p_groups nil)
-    (x1!1 skolem-const-decl "[(H!1), (left_cosets(G!1, H!1))]" p_groups nil)
-    (normalizer const-decl "{S: set[T] | subset?(S, G)}"
-     normalizer_centralizer nil)
-    (Fix const-decl "{Y: set[T1] | subset?(Y, X)}" group_action nil)
-    (subset? const-decl "bool" sets nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (divides const-decl "bool" divides nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (int_times_int_is_int application-judgement "int" integers nil)
-    (TRUE const-decl "bool" booleans nil)
-    (a!1 skolem-const-decl "(G!1)" p_groups nil)
+    (Fix_congruence formula-decl nil group_action nil) nil nil
+    (setof type-eq-decl nil defined_types nil)
+    (setofsets type-eq-decl nil sets nil)
+    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
+    (alt const-decl "set[T]" p_groups nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (F type-eq-decl nil group_action nil) nil
     (inv const-decl "{y | x * y = one AND y * x = one}" group algebra)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (lr_coset_assoc formula-decl nil cosets algebra)
@@ -1702,30 +1812,33 @@
     (right_coset_one formula-decl nil cosets algebra)
     (right_coset_assoc formula-decl nil cosets algebra)
     (inv_left formula-decl nil group algebra)
-    (left_coset_assoc formula-decl nil cosets algebra)
-    (* const-decl "set[T]" cosets algebra) (member const-decl "bool" sets nil)
+    (left_coset_assoc formula-decl nil cosets algebra) nil
+    (member const-decl "bool" sets nil)
     (Fix_iff_subset_cor formula-decl nil p_groups nil)
     (extend const-decl "R" extend nil)
     (inv_right formula-decl nil group algebra)
     (NOT const-decl "[bool -> bool]" booleans nil)
+    (TRUE const-decl "bool" booleans nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (int_minus_int_is_int application-judgement "int" integers nil) nil
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (subset? const-decl "bool" sets nil)
+    (Fix const-decl "{Y: set[T1] | subset?(Y, X)}" group_action nil)
+    (normalizer const-decl "{S: set[T] | subset?(S, G)}"
+     normalizer_centralizer nil)
     (index const-decl "nat" right_left_cosets nil)
     (finite_subgroups formula-decl nil group algebra)
     (left_cosets_partition formula-decl nil right_left_cosets nil)
     (finite_partition? const-decl "bool" lagrange_scaf algebra)
     (nonempty? const-decl "bool" sets nil)
-    (one_in formula-decl nil monad algebra)
-    (monad? const-decl "bool" monad_def algebra)
     (monad nonempty-type-eq-decl nil monad algebra)
+    (monad? const-decl "bool" monad_def algebra)
+    (one_in formula-decl nil monad algebra)
     (empty? const-decl "bool" sets nil)
     (alt_is_action formula-decl nil p_groups nil)
-    (F type-eq-decl nil group_action nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (alt const-decl "set[T]" p_groups nil)
-    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
-    (setofsets type-eq-decl nil sets nil)
-    (setof type-eq-decl nil defined_types nil)
-    (H!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil)
+    (product_in formula-decl nil group algebra) nil nil
     (subgroup type-eq-decl nil group algebra)
     (subgroup? const-decl "bool" group_def algebra)
     (group nonempty-type-eq-decl nil group algebra)
@@ -1734,7 +1847,8 @@
     (finite_group? const-decl "bool" group_def algebra)
     (one formal-const-decl "T" p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (set type-eq-decl nil sets nil) (T formal-type-decl nil p_groups nil)
+    (set type-eq-decl nil sets nil)
+    (T formal-type-decl nil p_groups nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -1747,7 +1861,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    shostak))
@@ -1765,49 +1880,64 @@
                     (("1" (inst -1 "normalizer(G!1, H!1)" "H!1")
                       (("1" (assert) nil nil)
                        ("2" (lemma "normal_in_normalizer")
-                        (("2" (inst?) (("2" (assert) nil nil)) nil)) nil)
+                        (("2" (inst?) (("2" (assert) nil nil)) nil))
+                        nil)
                        ("3" (lemma "normalizer_is_subgroup")
-                        (("3" (inst?) (("3" (assert) nil nil)) nil)) nil))
+                        (("3" (inst?) (("3" (assert) nil nil)) nil))
+                        nil))
                       nil))
                     nil))
                   nil)
                  ("2" (expand "<=")
                   (("2" (prop)
                     (("1" (hide-all-but (-1 -5))
-                      (("1" (expand "order") (("1" (assert) nil nil)) nil))
+                      (("1" (expand "order") (("1" (assert) nil nil))
+                        nil))
                       nil)
                      ("2" (lemma "index_gt1")
                       (("2" (inst -1 "normalizer(G!1, H!1)" "H!1")
                         (("1" (lemma "prime_gt_1")
                           (("1" (inst?)
                             (("1" (assert)
-                              (("1" (hide -4)
+                              (("1"
+                                (hide -4)
                                 (("1"
-                                  (case "index(normalizer(G!1, H!1), H!1) > 1")
-                                  (("1" (hide (-2 -3))
-                                    (("1" (lemma "Lagrange_index")
+                                  (case
+                                   "index(normalizer(G!1, H!1), H!1) > 1")
+                                  (("1"
+                                    (hide (-2 -3))
+                                    (("1"
+                                      (lemma "Lagrange_index")
                                       (("1"
-                                        (inst -1 "normalizer(G!1, H!1)" "H!1")
+                                        (inst
+                                         -1
+                                         "normalizer(G!1, H!1)"
+                                         "H!1")
                                         (("1"
                                           (prop)
                                           (("1"
                                             (replaces -3)
                                             (("1"
-                                              (lemma "both_sides_times1")
+                                              (lemma
+                                               "both_sides_times1")
                                               (("1"
                                                 (inst
                                                  -1
                                                  "order(normalizer(G!1, H!1))"
                                                  "1"
                                                  "index(normalizer(G!1, H!1), H!1)")
-                                                (("1" (assert) nil nil))
+                                                (("1"
+                                                  (assert)
+                                                  nil
+                                                  nil))
                                                 nil))
                                               nil))
                                             nil)
                                            ("2"
                                             (hide-all-but 1)
                                             (("2"
-                                              (lemma "normal_in_normalizer")
+                                              (lemma
+                                               "normal_in_normalizer")
                                               (("2"
                                                 (inst?)
                                                 (("2"
@@ -1815,7 +1945,10 @@
                                                   (("2"
                                                     (expand
                                                      "normal_subgroup?")
-                                                    (("2" (propax) nil nil))
+                                                    (("2"
+                                                      (propax)
+                                                      nil
+                                                      nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -1829,10 +1962,14 @@
                                             (("2"
                                               (hide -1)
                                               (("2"
-                                                (lemma "finite_subgroups")
+                                                (lemma
+                                                 "finite_subgroups")
                                                 (("2"
                                                   (inst?)
-                                                  (("2" (assert) nil nil))
+                                                  (("2"
+                                                    (assert)
+                                                    nil
+                                                    nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1841,8 +1978,10 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2" (lemma "subgroup_is_p_group")
-                                    (("2" (inst -1 "p!1" "G!1" "H!1")
+                                   ("2"
+                                    (lemma "subgroup_is_p_group")
+                                    (("2"
+                                      (inst -1 "p!1" "G!1" "H!1")
                                       (("2"
                                         (assert)
                                         (("2"
@@ -1856,7 +1995,8 @@
                                                 (("2"
                                                   (prop)
                                                   (("1"
-                                                    (lemma "divisor_smaller")
+                                                    (lemma
+                                                     "divisor_smaller")
                                                     (("1"
                                                       (inst?)
                                                       (("1"
@@ -1866,7 +2006,8 @@
                                                           nil
                                                           nil)
                                                          ("2"
-                                                          (hide (-2 -3 -6))
+                                                          (hide
+                                                           (-2 -3 -6))
                                                           (("2"
                                                             (assert)
                                                             nil
@@ -1876,10 +2017,14 @@
                                                       nil))
                                                     nil)
                                                    ("2"
-                                                    (lemma "p_divides_index")
+                                                    (lemma
+                                                     "p_divides_index")
                                                     (("2"
                                                       (inst?)
-                                                      (("2" (assert) nil nil))
+                                                      (("2"
+                                                        (assert)
+                                                        nil
+                                                        nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -1898,9 +2043,12 @@
                          ("2" (hide-all-but 1)
                           (("2" (lemma "normal_in_normalizer")
                             (("2" (inst?)
-                              (("2" (assert)
-                                (("2" (expand "normal_subgroup?")
-                                  (("2" (propax) nil nil)) nil))
+                              (("2"
+                                (assert)
+                                (("2"
+                                  (expand "normal_subgroup?")
+                                  (("2" (propax) nil nil))
+                                  nil))
                                 nil))
                               nil))
                             nil))
@@ -1908,9 +2056,14 @@
                          ("3" (hide-all-but 1)
                           (("3" (lemma "normalizer_is_subgroup")
                             (("3" (inst?)
-                              (("3" (assert)
-                                (("3" (lemma "finite_subgroups")
-                                  (("3" (inst?) (("3" (assert) nil nil)) nil))
+                              (("3"
+                                (assert)
+                                (("3"
+                                  (lemma "finite_subgroups")
+                                  (("3"
+                                    (inst?)
+                                    (("3" (assert) nil nil))
+                                    nil))
                                   nil))
                                 nil))
                               nil))
@@ -1927,8 +2080,8 @@
             (("2" (lemma "normal_in_normalizer")
               (("2" (inst?)
                 (("2" (assert)
-                  (("2" (expand "normal_subgroup?") (("2" (propax) nil nil))
-                    nil))
+                  (("2" (expand "normal_subgroup?")
+                    (("2" (propax) nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -1958,9 +2111,22 @@
    ((one formal-const-decl "T" p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
     (T formal-type-decl nil p_groups nil)
-    (Lagrange formula-decl nil lagrange algebra)
+    (Lagrange formula-decl nil lagrange algebra) nil nil
+    (finite_group nonempty-type-eq-decl nil group algebra)
+    (normalizer const-decl "{S: set[T] | subset?(S, G)}"
+     normalizer_centralizer nil)
+    (subset? const-decl "bool" sets nil)
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (group? const-decl "bool" group_def algebra)
+    (group nonempty-type-eq-decl nil group algebra)
+    (finite_group? const-decl "bool" group_def algebra)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -1975,50 +2141,38 @@
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (posnat nonempty-type-eq-decl nil integers nil)
-    (order const-decl "posnat" monad algebra) (<= const-decl "bool" reals nil)
-    (prime_gt_1 formula-decl nil primes ints)
+    (order const-decl "posnat" monad algebra)
+    (index_gt1 formula-decl nil right_left_cosets nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (normal_in_normalizer formula-decl nil normalizer_centralizer nil)
+    (normalizer_is_subgroup formula-decl nil normalizer_centralizer
+     nil)
     (index const-decl "nat" right_left_cosets nil)
     (Lagrange_index formula-decl nil lagrange_index nil)
-    (finite_subgroups formula-decl nil group algebra)
-    (NOT const-decl "[bool -> bool]" booleans nil)
     (both_sides_times1 formula-decl nil real_props nil)
-    (posint_times_posint_is_posint application-judgement "posint" integers
-     nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int" integers
-     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (/= const-decl "boolean" notequal nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (TRUE const-decl "bool" booleans nil)
     (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (finite_subgroups formula-decl nil group algebra)
     (p_divides_index formula-decl nil p_groups nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (normalizer_index formula-decl nil p_groups nil)
     (subgroup_is_p_group formula-decl nil p_groups nil)
+    (prime_gt_1 formula-decl nil primes ints)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (normal_in_normalizer formula-decl nil normalizer_centralizer nil)
-    (normalizer_is_subgroup formula-decl nil normalizer_centralizer nil)
-    (index_gt1 formula-decl nil right_left_cosets nil)
-    (divisor_smaller formula-decl nil divides nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (finite_group? const-decl "bool" group_def algebra)
-    (group nonempty-type-eq-decl nil group algebra)
-    (group? const-decl "bool" group_def algebra)
-    (subgroup? const-decl "bool" group_def algebra)
-    (subgroup type-eq-decl nil group algebra)
-    (subset? const-decl "bool" sets nil)
-    (normalizer const-decl "{S: set[T] | subset?(S, G)}"
-     normalizer_centralizer nil)
-    (finite_group nonempty-type-eq-decl nil group algebra)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil)
-    (H!1 skolem-const-decl "subgroup[T, *, one](G!1)" p_groups nil))
+    (<= const-decl "bool" reals nil)
+    (divisor_smaller formula-decl nil divides nil))
    shostak))
  (burside_theorem_TCC1 0
   (burside_theorem_TCC1-1 nil 3530273648
@@ -2046,7 +2200,8 @@
     (finite_group? const-decl "bool" group_def algebra)
     (one formal-const-decl "T" p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (set type-eq-decl nil sets nil) (T formal-type-decl nil p_groups nil)
+    (set type-eq-decl nil sets nil)
+    (T formal-type-decl nil p_groups nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -2073,7 +2228,9 @@
           (("" (skosimp)
             (("" (case-replace "m!1 = 0" :hide? T)
               (("1" (hide (-3 -4 1))
-                (("1" (rewrite "expt_x0") (("1" (assert) nil nil)) nil)) nil)
+                (("1" (rewrite "expt_x0") (("1" (assert) nil nil))
+                  nil))
+                nil)
                ("2" (case-replace "center(G!1) = G!1" :hide? T)
                 (("1" (expand ">=")
                   (("1" (replace -1 2)
@@ -2082,9 +2239,12 @@
                         (("1" (prop)
                           (("1" (hide (-2 -3 -4 -5))
                             (("1" (lemma "both_sides_expt_gt1_le")
-                              (("1" (inst -1 "p!1" "1" "m!1")
-                                (("1" (rewrite "expt_x1")
-                                  (("1" (assert) nil nil)) nil))
+                              (("1"
+                                (inst -1 "p!1" "1" "m!1")
+                                (("1"
+                                  (rewrite "expt_x1")
+                                  (("1" (assert) nil nil))
+                                  nil))
                                 nil))
                               nil))
                             nil))
@@ -2102,10 +2262,14 @@
                             (("1"
                               (name-replace "ZZ"
                                "sigma_set.sigma(restrict[setof[T], finite_set[T], boolean](CLs_nc(G!1)), card)")
-                              (("1" (lemma "divides_power")
-                                (("1" (inst?)
-                                  (("1" (replace -5 -1 rl)
-                                    (("1" (replace -3 -1)
+                              (("1"
+                                (lemma "divides_power")
+                                (("1"
+                                  (inst?)
+                                  (("1"
+                                    (replace -5 -1 rl)
+                                    (("1"
+                                      (replace -3 -1)
                                       (("1"
                                         (lemma "divides_element")
                                         (("1"
@@ -2119,12 +2283,16 @@
                                             (("1"
                                               (hide-all-but (-1 -8 3))
                                               (("1"
-                                                (lemma "order_gt_p[T,*,one]")
+                                                (lemma
+                                                 "order_gt_p[T,*,one]")
                                                 (("1"
                                                   (inst?)
                                                   (("1"
                                                     (expand "order")
-                                                    (("1" (propax) nil nil))
+                                                    (("1"
+                                                      (propax)
+                                                      nil
+                                                      nil))
                                                     nil)
                                                    ("2"
                                                     (hide (-1 -2 2))
@@ -2134,7 +2302,8 @@
                                                       (("2"
                                                         (inst?)
                                                         (("2"
-                                                          (typepred "G!1")
+                                                          (typepred
+                                                           "G!1")
                                                           (("2"
                                                             (lemma
                                                              "finite_subgroups")
@@ -2152,7 +2321,8 @@
                                                     nil))
                                                   nil)
                                                  ("2"
-                                                  (rewrite "fullset_is_group")
+                                                  (rewrite
+                                                   "fullset_is_group")
                                                   nil
                                                   nil))
                                                 nil))
@@ -2170,7 +2340,10 @@
                                                    -1
                                                    "card(G!1)"
                                                    "card(center(G!1))")
-                                                  (("2" (assert) nil nil))
+                                                  (("2"
+                                                    (assert)
+                                                    nil
+                                                    nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -2179,16 +2352,22 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2" (typepred "m!1")
-                                    (("2" (assert) nil nil)) nil))
+                                   ("2"
+                                    (typepred "m!1")
+                                    (("2" (assert) nil nil))
+                                    nil))
                                   nil))
                                 nil))
                               nil)
                              ("2" (hide-all-but (-3 -5 1))
-                              (("2" (skosimp)
-                                (("2" (prop)
-                                  (("1" (hide (-2 -3))
-                                    (("1" (lemma "empty_card[T]")
+                              (("2"
+                                (skosimp)
+                                (("2"
+                                  (prop)
+                                  (("1"
+                                    (hide (-2 -3))
+                                    (("1"
+                                      (lemma "empty_card[T]")
                                       (("1"
                                         (inst?)
                                         (("1"
@@ -2206,15 +2385,18 @@
                                                     (("1"
                                                       (skosimp)
                                                       (("1"
-                                                        (expand "empty?")
+                                                        (expand
+                                                         "empty?")
                                                         (("1"
                                                           (inst?)
                                                           (("1"
-                                                            (expand "member")
+                                                            (expand
+                                                             "member")
                                                             (("1"
                                                               (hide -1)
                                                               (("1"
-                                                                (replaces -1)
+                                                                (replaces
+                                                                 -1)
                                                                 (("1"
                                                                   (expand
                                                                    "CL")
@@ -2252,8 +2434,10 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2" (typepred "A!1")
-                                    (("2" (expand "CLs_nc")
+                                   ("2"
+                                    (typepred "A!1")
+                                    (("2"
+                                      (expand "CLs_nc")
                                       (("2"
                                         (expand "extend")
                                         (("2"
@@ -2276,7 +2460,8 @@
                                                          :hide?
                                                          T)
                                                         (("1"
-                                                          (hide (-1 -2 -3))
+                                                          (hide
+                                                           (-1 -2 -3))
                                                           (("1"
                                                             (rewrite
                                                              "divides_zero")
@@ -2470,7 +2655,8 @@
                                                                     nil))
                                                                   nil)
                                                                  ("2"
-                                                                  (hide 3)
+                                                                  (hide
+                                                                   3)
                                                                   (("2"
                                                                     (lemma
                                                                      "Lagrange_index")
@@ -2563,10 +2749,14 @@
                             nil)
                            ("2" (hide-all-but 1)
                             (("2" (lemma "orbits_nFix_is_CLs_nc")
-                              (("2" (inst?)
-                                (("2" (replace -1 1 rl)
-                                  (("2" (hide -1)
-                                    (("2" (typepred "G!1")
+                              (("2"
+                                (inst?)
+                                (("2"
+                                  (replace -1 1 rl)
+                                  (("2"
+                                    (hide -1)
+                                    (("2"
+                                      (typepred "G!1")
                                       (("2"
                                         (expand "finite_group?")
                                         (("2"
@@ -2574,7 +2764,8 @@
                                           (("2"
                                             (hide -1)
                                             (("2"
-                                              (lemma "orbits_nFix_partition")
+                                              (lemma
+                                               "orbits_nFix_partition")
                                               (("2"
                                                 (inst?)
                                                 (("2"
@@ -2616,17 +2807,26 @@
                         (("2" (iff)
                           (("2" (prop)
                             (("1" (hide -2)
-                              (("1" (expand* "center" "extend")
-                                (("1" (assert) nil nil)) nil))
+                              (("1"
+                                (expand* "center" "extend")
+                                (("1" (assert) nil nil))
+                                nil))
                               nil)
                              ("2" (inst -2 "CL(G!1)(x!1)")
-                              (("2" (expand "CLs_nc")
-                                (("2" (expand "extend")
-                                  (("2" (prop)
-                                    (("1" (inst 1 "x!1")
-                                      (("1" (assert) nil nil)) nil)
-                                     ("2" (expand "CLs")
-                                      (("2" (inst 1 "x!1") nil nil)) nil))
+                              (("2"
+                                (expand "CLs_nc")
+                                (("2"
+                                  (expand "extend")
+                                  (("2"
+                                    (prop)
+                                    (("1"
+                                      (inst 1 "x!1")
+                                      (("1" (assert) nil nil))
+                                      nil)
+                                     ("2"
+                                      (expand "CLs")
+                                      (("2" (inst 1 "x!1") nil nil))
+                                      nil))
                                     nil))
                                   nil))
                                 nil))
@@ -2645,71 +2845,63 @@
       nil))
     nil)
    ((p_group_iff_power formula-decl nil p_groups nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (expt_x0 formula-decl nil exponentiation nil)
-    (setof type-eq-decl nil defined_types nil)
-    (nonempty? const-decl "bool" sets nil)
-    (setofsets type-eq-decl nil sets nil)
-    (CLs_nc const-decl "setofsets[T]" normalizer_centralizer nil)
-    (finite_partition? const-decl "bool" lagrange_scaf algebra)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil)
+    nil (CLs const-decl "setofsets[T]" normalizer_centralizer nil)
+    (class_equation_2 formula-decl nil normalizer_centralizer nil)
+    (divide_sigma formula-decl nil class_equation_scaf nil)
+    (finite_partition? const-decl "bool" lagrange_scaf algebra) nil
     (finite_partition type-eq-decl nil lagrange_scaf algebra)
+    (divides_power formula-decl nil general_properties nil) nil
+    (closed_minus formula-decl nil integers nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (fullset_is_group formula-decl nil p_groups nil)
+    (finite_subgroups formula-decl nil group algebra)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (center_subgroup formula-decl nil group algebra)
+    (order const-decl "posnat" monad algebra)
+    (fullset const-decl "set" sets nil)
+    (order_gt_p formula-decl nil groups_scaf nil) nil
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (divides_element formula-decl nil general_properties nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (finite_set type-eq-decl nil finite_sets nil)
+    (convergent? const-decl "bool" convergence_set sigma_set)
+    (sigma const-decl "real" sigma_set sigma_set)
+    (restrict const-decl "R" restrict nil)
+    (Card const-decl "nat" finite_sets nil)
+    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
     (empty_card formula-decl nil finite_sets nil)
-    (extend const-decl "R" extend nil) (member const-decl "bool" sets nil)
-    (CL const-decl "{X: set[T] | subset?(X, G)}" normalizer_centralizer nil)
-    (right_identity formula-decl nil monad algebra)
-    (inv_one formula-decl nil group algebra)
-    (left_identity formula-decl nil monad algebra)
-    (one_in formula-decl nil monad algebra)
-    (monad? const-decl "bool" monad_def algebra)
-    (monad nonempty-type-eq-decl nil monad algebra)
-    (TRUE const-decl "bool" booleans nil) (empty? const-decl "bool" sets nil)
-    (divides_prime_power formula-decl nil general_properties nil)
-    (divides const-decl "bool" divides nil)
-    (i!1 skolem-const-decl "nat" p_groups nil)
-    (centralizer const-decl "{S: set[T] | subset?(S, G)}"
-     normalizer_centralizer nil)
-    (x!1 skolem-const-decl "{x: (G!1) | NOT member(x, center(G!1))}" p_groups
+    (extend const-decl "R" extend nil)
+    (member const-decl "bool" sets nil)
+    (CL const-decl "{X: set[T] | subset?(X, G)}" normalizer_centralizer
      nil)
-    (centralizer_is_subgroup formula-decl nil normalizer_centralizer nil)
+    (monad nonempty-type-eq-decl nil monad algebra)
+    (monad? const-decl "bool" monad_def algebra)
+    (one_in formula-decl nil monad algebra)
+    (left_identity formula-decl nil monad algebra)
+    (inv_one formula-decl nil group algebra)
+    (right_identity formula-decl nil monad algebra)
+    (TRUE const-decl "bool" booleans nil)
+    (empty? const-decl "bool" sets nil)
+    (divides_zero formula-decl nil divides nil) nil
+    (centralizer_is_subgroup formula-decl nil normalizer_centralizer
+     nil)
     (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
      sets_lemmas nil)
     (same_card_subset formula-decl nil finite_sets nil)
     (identity_mult formula-decl nil number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (finite_monad? const-decl "bool" monad_def algebra)
-    (finite_monad nonempty-type-eq-decl nil monad algebra)
-    (Lagrange_index formula-decl nil lagrange_index nil)
-    (A!1 skolem-const-decl "(CLs_nc(G!1))" p_groups nil)
-    (divides_zero formula-decl nil divides nil)
+    (finite_monad nonempty-type-eq-decl nil monad algebra) nil
+    (centralizer const-decl "{S: set[T] | subset?(S, G)}"
+     normalizer_centralizer nil)
+    (Lagrange_index formula-decl nil lagrange_index nil) nil nil
+    (divides_prime_power formula-decl nil general_properties nil)
     (CLs_eq_index formula-decl nil normalizer_centralizer nil)
-    (card const-decl "{n: nat | n = Card(S)}" finite_sets nil)
-    (Card const-decl "nat" finite_sets nil)
-    (restrict const-decl "R" restrict nil)
-    (sigma const-decl "real" sigma_set sigma_set)
-    (convergent? const-decl "bool" convergence_set sigma_set)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (is_finite const-decl "bool" finite_sets nil)
-    (m!1 skolem-const-decl "nat" p_groups nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (ZZ skolem-const-decl "real" p_groups nil)
-    (fullset_is_group formula-decl nil p_groups nil)
-    (order const-decl "posnat" monad algebra)
-    (center_subgroup formula-decl nil group algebra)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (finite_subgroups formula-decl nil group algebra)
-    (fullset const-decl "set" sets nil)
-    (order_gt_p formula-decl nil groups_scaf nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (closed_minus formula-decl nil integers nil)
-    (divides_element formula-decl nil general_properties nil)
-    (divides_power formula-decl nil general_properties nil)
     (orbits_nFix_is_CLs_nc formula-decl nil normalizer_centralizer nil)
     (orbits_nFix_partition formula-decl nil group_action nil)
     (a_by_c_is_action formula-decl nil normalizer_centralizer nil)
@@ -2718,15 +2910,15 @@
     (subgroup? const-decl "bool" group_def algebra)
     (subgroup type-eq-decl nil group algebra)
     (a_by_c const-decl "(G)" normalizer_centralizer nil)
-    (divide_sigma formula-decl nil class_equation_scaf nil)
-    (class_equation_2 formula-decl nil normalizer_centralizer nil)
-    (CLs const-decl "setofsets[T]" normalizer_centralizer nil)
-    (x!1 skolem-const-decl "T" p_groups nil)
+    (CLs_nc const-decl "setofsets[T]" normalizer_centralizer nil)
+    (setofsets type-eq-decl nil sets nil)
+    (nonempty? const-decl "bool" sets nil)
+    (setof type-eq-decl nil defined_types nil)
     (prime_gt_1 formula-decl nil primes ints)
     (both_sides_expt_gt1_le formula-decl nil exponentiation nil)
     (expt_x1 formula-decl nil exponentiation nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
@@ -2734,11 +2926,15 @@
     (subset? const-decl "bool" sets nil)
     (group? const-decl "bool" group_def algebra)
     (center const-decl "{s: set[T] | subset?(s, G)}" group algebra)
+    (expt_x0 formula-decl nil exponentiation nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (finite_group nonempty-type-eq-decl nil group algebra)
     (finite_group? const-decl "bool" group_def algebra)
     (one formal-const-decl "T" p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
-    (set type-eq-decl nil sets nil) (T formal-type-decl nil p_groups nil)
+    (set type-eq-decl nil sets nil)
+    (T formal-type-decl nil p_groups nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
@@ -2751,14 +2947,14 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil))
    shostak))
  (p_square_is_abelian_TCC1 0
   (p_square_is_abelian_TCC1-1 nil 3530273648 ("" (subtype-tcc) nil nil)
-   ((/= const-decl "boolean" notequal nil)
-    (divides const-decl "bool" divides nil)
+   ((/= const-decl "boolean" notequal nil) nil
     (prime? const-decl "bool" primes ints))
    nil
    (p_square_is_abelian subtype "2"
@@ -2779,10 +2975,14 @@
                         (("1" (hide -1)
                           (("1" (rewrite "expt_x0")
                             (("1" (lemma "prime_gt_1")
-                              (("1" (inst?)
-                                (("1" (assert)
-                                  (("1" (lemma "burside_theorem")
-                                    (("1" (inst -1 "p!1" "G!1")
+                              (("1"
+                                (inst?)
+                                (("1"
+                                  (assert)
+                                  (("1"
+                                    (lemma "burside_theorem")
+                                    (("1"
+                                      (inst -1 "p!1" "G!1")
                                       (("1"
                                         (prop)
                                         (("1"
@@ -2808,7 +3008,9 @@
                                                         (("2"
                                                           (copy -2)
                                                           (("2"
-                                                            (replace -2 -1)
+                                                            (replace
+                                                             -2
+                                                             -1)
                                                             (("2"
                                                               (hide -2)
                                                               (("2"
@@ -2865,9 +3067,12 @@
                          ("2" (case-replace "i!1 = 1" :hide? T)
                           (("1" (rewrite "expt_x1")
                             (("1" (hide 1)
-                              (("1" (lemma "order_factor")
-                                (("1" (inst -1 "G!1" "center(G!1)")
-                                  (("1" (prop)
+                              (("1"
+                                (lemma "order_factor")
+                                (("1"
+                                  (inst -1 "G!1" "center(G!1)")
+                                  (("1"
+                                    (prop)
                                     (("1"
                                       (lemma
                                        "card_extend[set[T], left_cosets[T, *, one](G!1,center(G!1))]")
@@ -2883,7 +3088,11 @@
                                                 (lemma
                                                  "exponentiation.expt_div")
                                                 (("1"
-                                                  (inst -1 "2" "1" "p!1")
+                                                  (inst
+                                                   -1
+                                                   "2"
+                                                   "1"
+                                                   "p!1")
                                                   (("1"
                                                     (rewrite "expt_x1")
                                                     (("1"
@@ -2894,11 +3103,13 @@
                                                         (("1"
                                                           (inst?)
                                                           (("1"
-                                                            (expand "order")
+                                                            (expand
+                                                             "order")
                                                             (("1"
                                                               (assert)
                                                               (("1"
-                                                                (hide -2)
+                                                                (hide
+                                                                 -2)
                                                                 (("1"
                                                                   (rewrite
                                                                    "factor_cyclic")
@@ -2908,7 +3119,8 @@
                                                               nil))
                                                             nil)
                                                            ("2"
-                                                            (hide-all-but 1)
+                                                            (hide-all-but
+                                                             1)
                                                             (("2"
                                                               (expand
                                                                "finite_group?")
@@ -2955,7 +3167,8 @@
                                                             nil))
                                                           nil)
                                                          ("2"
-                                                          (hide-all-but 1)
+                                                          (hide-all-but
+                                                           1)
                                                           (("2"
                                                             (rewrite
                                                              "left_cosets_group")
@@ -2990,7 +3203,8 @@
                                                                     nil))
                                                                   nil)
                                                                  ("2"
-                                                                  (hide 2)
+                                                                  (hide
+                                                                   2)
                                                                   (("2"
                                                                     (rewrite
                                                                      "fullset_is_group")
@@ -3002,9 +3216,12 @@
                                                             nil))
                                                           nil)
                                                          ("3"
-                                                          (hide-all-but 1)
+                                                          (hide-all-but
+                                                           1)
                                                           (("3"
-                                                            (inst 1 "one")
+                                                            (inst
+                                                             1
+                                                             "one")
                                                             (("1"
                                                               (rewrite
                                                                "left_coset_one")
@@ -3018,13 +3235,16 @@
                                                             nil))
                                                           nil)
                                                          ("4"
-                                                          (hide-all-but 1)
+                                                          (hide-all-but
+                                                           1)
                                                           (("4"
                                                             (inst
                                                              1
                                                              "center(G!1)")
                                                             (("4"
-                                                              (inst 1 "one")
+                                                              (inst
+                                                               1
+                                                               "one")
                                                               (("1"
                                                                 (rewrite
                                                                  "left_coset_one")
@@ -3083,22 +3303,26 @@
                                           nil))
                                         nil))
                                       nil)
-                                     ("2" (hide-all-but 1)
+                                     ("2"
+                                      (hide-all-but 1)
                                       (("2"
                                         (rewrite
                                          "center_is_normal[T, *, one]")
                                         (("2"
                                           (hide 2)
                                           (("2"
-                                            (rewrite "fullset_is_group")
+                                            (rewrite
+                                             "fullset_is_group")
                                             nil
                                             nil))
                                           nil))
                                         nil))
                                       nil))
                                     nil)
-                                   ("2" (hide-all-but 1)
-                                    (("2" (typepred "G!1")
+                                   ("2"
+                                    (hide-all-but 1)
+                                    (("2"
+                                      (typepred "G!1")
                                       (("2"
                                         (lemma "finite_subgroups")
                                         (("2"
@@ -3108,7 +3332,8 @@
                                             (("2"
                                               (hide (-1 2))
                                               (("2"
-                                                (rewrite "center_subgroup")
+                                                (rewrite
+                                                 "center_subgroup")
                                                 nil
                                                 nil))
                                               nil))
@@ -3123,16 +3348,23 @@
                             nil)
                            ("2" (expand "<=")
                             (("2" (assert)
-                              (("2" (replaces -1)
-                                (("2" (hide (-2 1 2))
-                                  (("2" (expand "order")
-                                    (("2" (replace -1 -2 rl)
+                              (("2"
+                                (replaces -1)
+                                (("2"
+                                  (hide (-2 1 2))
+                                  (("2"
+                                    (expand "order")
+                                    (("2"
+                                      (replace -1 -2 rl)
                                       (("2"
                                         (hide -1)
                                         (("2"
                                           (lemma "same_card_subset[T]")
                                           (("2"
-                                            (inst -1 "center(G!1)" "G!1")
+                                            (inst
+                                             -1
+                                             "center(G!1)"
+                                             "G!1")
                                             (("2"
                                               (assert)
                                               (("2"
@@ -3142,7 +3374,10 @@
                                                    "abelian_eq_center[T,*,one]")
                                                   (("1"
                                                     (inst?)
-                                                    (("1" (assert) nil nil))
+                                                    (("1"
+                                                      (assert)
+                                                      nil
+                                                      nil))
                                                     nil)
                                                    ("2"
                                                     (hide (-1 2))
@@ -3172,16 +3407,16 @@
                 nil))
               nil))
             nil)
-           ("2" (hide-all-but 1) (("2" (rewrite "center_subgroup") nil nil))
-            nil))
+           ("2" (hide-all-but 1)
+            (("2" (rewrite "center_subgroup") nil nil)) nil))
           nil)
          ("2" (hide-all-but 1)
           (("2" (lemma "finite_subgroups")
             (("2" (inst -1 "center(G!1)" "G!1")
               (("2" (assert)
                 (("2" (hide 2)
-                  (("2" (lemma "center_subgroup") (("2" (inst?) nil nil))
-                    nil))
+                  (("2" (lemma "center_subgroup")
+                    (("2" (inst?) nil nil)) nil))
                   nil))
                 nil))
               nil))
@@ -3193,52 +3428,21 @@
    ((one formal-const-decl "T" p_groups nil)
     (* formal-const-decl "[T, T -> T]" p_groups nil)
     (T formal-type-decl nil p_groups nil)
-    (Lagrange formula-decl nil lagrange algebra)
+    (Lagrange formula-decl nil lagrange algebra) nil
+    (finite_group nonempty-type-eq-decl nil group algebra)
+    (center const-decl "{s: set[T] | subset?(s, G)}" group algebra)
+    (group? const-decl "bool" group_def algebra)
+    (subset? const-decl "bool" sets nil)
+    (group nonempty-type-eq-decl nil group algebra)
+    (finite_group? const-decl "bool" group_def algebra)
+    (set type-eq-decl nil sets nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (divides_prime_power formula-decl nil general_properties nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (card_extend formula-decl nil extend_set_props nil)
-    (* const-decl "set[T]" cosets algebra)
-    (left_cosets type-eq-decl nil cosets algebra)
-    (nzreal nonempty-type-eq-decl nil reals nil)
-    (/= const-decl "boolean" notequal nil)
-    (monad nonempty-type-eq-decl nil monad algebra)
-    (monad? const-decl "bool" monad_def algebra)
-    (one_in formula-decl nil monad algebra)
-    (left_coset_one formula-decl nil cosets algebra)
-    (left_cosets_group formula-decl nil factor_groups algebra)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (factor_cyclic formula-decl nil p_groups nil)
-    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
-    (setofsets type-eq-decl nil sets nil)
-    (subgroup type-eq-decl nil group algebra)
-    (subgroup? const-decl "bool" group_def algebra)
-    (restrict const-decl "R" restrict nil)
-    (setof type-eq-decl nil defined_types nil)
-    (finite_extension formula-decl nil extend_set_props nil)
-    (center_is_normal formula-decl nil groups_scaf nil)
-    (fullset_is_group formula-decl nil p_groups nil)
-    (card_factor_TCC1 subtype-tcc nil right_left_cosets nil)
-    (fullset const-decl "set" sets nil)
-    (prime_order_cycle formula-decl nil finite_cyclic_groups algebra)
-    (expt_div formula-decl nil exponentiation nil)
-    (finite_set type-eq-decl nil finite_sets nil)
-    (/ const-decl "group[left_cosets[T, *, one](G, N), mult(G, N), N]"
-       right_left_cosets nil)
-    (mult const-decl "left_cosets(G, H)" factor_groups algebra)
-    (normal_subgroup type-eq-decl nil normal_subgroups algebra)
-    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
-    (is_finite const-decl "bool" finite_sets nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (center_subgroup formula-decl nil group algebra)
-    (finite_subgroups formula-decl nil group algebra)
-    (order_factor formula-decl nil lagrange_index nil)
-    (same_card_subset formula-decl nil finite_sets nil)
-    (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
-     sets_lemmas nil)
-    (abelian_eq_center formula-decl nil groups_scaf nil)
-    (prime_gt_1 formula-decl nil primes ints)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (expt_x0 formula-decl nil exponentiation nil)
+    (burside_theorem formula-decl nil p_groups nil)
     (p_group_iff_power formula-decl nil p_groups nil)
     (expt_ge1 formula-decl nil exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
@@ -3252,11 +3456,50 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (TRUE const-decl "bool" booleans nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (burside_theorem formula-decl nil p_groups nil)
-    (expt_x0 formula-decl nil exponentiation nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (prime_gt_1 formula-decl nil primes ints)
+    (finite_subgroups formula-decl nil group algebra)
+    (center_subgroup formula-decl nil group algebra)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (card_extend formula-decl nil extend_set_props nil) nil
+    (left_cosets type-eq-decl nil cosets algebra)
+    (is_finite const-decl "bool" finite_sets nil)
+    (normal_subgroup? const-decl "boolean" normal_subgroups algebra)
+    (normal_subgroup type-eq-decl nil normal_subgroups algebra)
+    (mult const-decl "left_cosets(G, H)" factor_groups algebra)
+    (/ const-decl "group[left_cosets[T, *, one](G, N), mult(G, N), N]"
+       right_left_cosets nil)
+    (finite_set type-eq-decl nil finite_sets nil)
+    (expt_div formula-decl nil exponentiation nil)
+    (left_coset_one formula-decl nil cosets algebra)
+    (one_in formula-decl nil monad algebra)
+    (monad? const-decl "bool" monad_def algebra)
+    (monad nonempty-type-eq-decl nil monad algebra)
+    (left_cosets_group formula-decl nil factor_groups algebra)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (card_factor_TCC1 subtype-tcc nil right_left_cosets nil)
+    (left_cosets const-decl "setofsets[T]" right_left_cosets nil)
+    (setofsets type-eq-decl nil sets nil)
+    (subgroup type-eq-decl nil group algebra)
+    (subgroup? const-decl "bool" group_def algebra)
+    (restrict const-decl "R" restrict nil)
+    (setof type-eq-decl nil defined_types nil)
+    (finite_extension formula-decl nil extend_set_props nil)
+    (center_is_normal formula-decl nil groups_scaf nil)
+    (fullset_is_group formula-decl nil p_groups nil)
+    (factor_cyclic formula-decl nil p_groups nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (fullset const-decl "set" sets nil)
+    (prime_order_cycle formula-decl nil finite_cyclic_groups algebra)
+    (/= const-decl "boolean" notequal nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (order_factor formula-decl nil lagrange_index nil)
+    (same_card_subset formula-decl nil finite_sets nil)
+    (subset_is_partial_order name-judgement "(partial_order?[set[T]])"
+     sets_lemmas nil)
+    (abelian_eq_center formula-decl nil groups_scaf nil)
     (order const-decl "posnat" monad algebra)
     (finite_monad nonempty-type-eq-decl nil monad algebra)
     (finite_monad? const-decl "bool" monad_def algebra)
@@ -3272,17 +3515,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (set type-eq-decl nil sets nil)
-    (finite_group? const-decl "bool" group_def algebra)
-    (group nonempty-type-eq-decl nil group algebra)
-    (subset? const-decl "bool" sets nil)
-    (group? const-decl "bool" group_def algebra)
-    (center const-decl "{s: set[T] | subset?(s, G)}" group algebra)
-    (finite_group nonempty-type-eq-decl nil group algebra)
-    (G!1 skolem-const-decl "finite_group[T, *, one]" p_groups nil))
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil))
    shostak)))
 
