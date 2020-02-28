@@ -37,11 +37,7 @@
     "round_even_closest: ASSUMPTION FORALL (x: reals.real, f: (float[accum_err_mul.radix].Fbounded?(accum_err_mul.b))): booleans.IMPLIES(accum_err_mul.round(x, f), float[accum_err_mul.radix].EvenClosest?(accum_err_mul.b)(x, f))")))
  (IMP_accum_err_mul_TCC3 0
   (IMP_accum_err_mul_TCC3-2 "" 3790103497
-   ("" (typepred "sp_closest?") (("" (propax) nil nil)) nil) nil shostak
-   (IMP_accum_err_mul assuming
-    "accum_err_mul[2, ieee754sp.single_precision_format, ieee754sp.sp_closest?, ieee754sp.RtoS].accum_err_mul"
-    "round_rounded_mode: ASSUMPTION float[accum_err_mul.radix].rounded_mode?(accum_err_mul.b)(accum_err_mul.round)"))
-  (IMP_accum_err_mul_TCC3-1 nil 3698089989 ("" (typepred "sp_closest?"))
+   ("" (typepred "sp_closest?") (("" (propax) nil nil)) nil)
    ((sp_closest?_closestroundingpred_j name-judgement
      "ClosestRoundingPred[2](single_precision_format)" ieee754sp nil)
     (sp_closest?_j name-judgement
@@ -63,6 +59,24 @@
     (Fbounded? const-decl "bool" float nil)
     (single_precision_format const-decl "Format" ieee754sp nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (sp_closest? const-decl "bool" ieee754sp nil)
+    (Closest? const-decl "bool" float nil)
+    (EvenClosest? const-decl "bool" float nil)
+    (Rounding type-eq-decl nil float nil)
+    (rounded_mode? const-decl "bool" float nil))
+   shostak
+   (IMP_accum_err_mul assuming
+    "accum_err_mul[2, ieee754sp.single_precision_format, ieee754sp.sp_closest?, ieee754sp.RtoS].accum_err_mul"
+    "round_rounded_mode: ASSUMPTION float[accum_err_mul.radix].rounded_mode?(accum_err_mul.b)(accum_err_mul.round)"))
+  (IMP_accum_err_mul_TCC3-1 nil 3698089989 ("" (typepred "sp_closest?"))
+   ((sp_closest?_closestroundingpred_j name-judgement
+     "ClosestRoundingPred[2](single_precision_format)" ieee754sp nil)
+    (sp_closest?_j name-judgement
+     "{round: RestrictedRounding[2](single_precision_format, EvenClosest?) |
+   rounded_mode?(single_precision_format)(round)}" ieee754sp nil)
+    (float type-eq-decl nil float nil) (Format type-eq-decl nil float nil)
+    (Fbounded? const-decl "bool" float nil)
+    (single_precision_format const-decl "Format" ieee754sp nil)
     (sp_closest? const-decl "bool" ieee754sp nil)
     (Closest? const-decl "bool" float nil)
     (EvenClosest? const-decl "bool" float nil)
@@ -195,25 +209,18 @@
       nil))
     nil)
    ((real_minus_real_is_real application-judgement "real" reals nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (< const-decl "bool" reals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (>= const-decl "bool" reals nil)
-    (below type-eq-decl nil naturalnumbers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (f skolem-const-decl "unb_single" aerr754sp_mul nil)
-    (n skolem-const-decl "{n: below(24) | n < 24 - Fexp(f)}" aerr754sp_mul
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
      nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (StoR const-decl "real" ieee754sp nil)
-    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}" real_defs
+    (rtos_canonicroundfun_exactrepconservation_j name-judgement
+     "{RtoF: CanonicRoundingFun(single_precision_format, sp_closest?) |
+   exact_rep_conservation[2](single_precision_format, sp_closest?)(RtoF)}"
+     ieee754sp nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
-    (mul_aerr_bound const-decl "nonneg_real" accum_err_mul nil)
+    (Smul const-decl
+     "{f: unb_single | closest_single?(FtoR(f1) * FtoR(f2))(f)}" ieee754sp_mul
+     nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
@@ -221,18 +228,25 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (/= const-decl "boolean" notequal nil)
     (^ const-decl "real" exponentiation nil)
-    (Smul const-decl
-     "{f: unb_single | closest_single?(FtoR(f1) * FtoR(f2))(f)}" ieee754sp_mul
+    (mul_aerr_bound const-decl "nonneg_real" accum_err_mul nil)
+    (nzint_abs_is_pos application-judgement "{j: posint | j >= i}" real_defs
      nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+    (StoR const-decl "real" ieee754sp nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (n skolem-const-decl "{n: below(24) | n < 24 - Fexp(f)}" aerr754sp_mul
      nil)
-    (rtos_canonicroundfun_exactrepconservation_j name-judgement
-     "{RtoF: CanonicRoundingFun(single_precision_format, sp_closest?) |
-   exact_rep_conservation[2](single_precision_format, sp_closest?)(RtoF)}"
-     ieee754sp nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal" real_types
-     nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
+    (f skolem-const-decl "unb_single" aerr754sp_mul nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (< const-decl "bool" reals nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
     (accum_err_bound_exact_l formula-decl nil aerr_mul_props nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (above nonempty-type-eq-decl nil integers nil)

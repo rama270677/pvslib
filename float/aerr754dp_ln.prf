@@ -35,11 +35,7 @@
     "round_even_closest: ASSUMPTION FORALL (x: reals.real, f: (float[accum_err_ln.radix].Fbounded?(accum_err_ln.b))): booleans.IMPLIES(accum_err_ln.round(x, f), float[accum_err_ln.radix].EvenClosest?(accum_err_ln.b)(x, f))")))
  (IMP_accum_err_ln_TCC3 0
   (IMP_accum_err_ln_TCC3-2 "" 3790103676
-   ("" (typepred "dp_closest?") (("" (propax) nil nil)) nil) nil shostak
-   (IMP_accum_err_ln assuming
-    "accum_err_ln[2, ieee754dp.double_precision_format, ieee754dp.dp_closest?, ieee754dp.RtoD].accum_err_ln"
-    "round_rounded_mode: ASSUMPTION float[accum_err_ln.radix].rounded_mode?(accum_err_ln.b)(accum_err_ln.round)"))
-  (IMP_accum_err_ln_TCC3-1 nil 3699783472 ("" (typepred "dp_closest?"))
+   ("" (typepred "dp_closest?") (("" (propax) nil nil)) nil)
    ((dp_closest?_closestroundingpred_j name-judgement
      "ClosestRoundingPred[2](double_precision_format)" ieee754dp nil)
     (dp_closest?_j name-judgement
@@ -61,6 +57,24 @@
     (Fbounded? const-decl "bool" float nil)
     (double_precision_format const-decl "Format" ieee754dp nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (dp_closest? const-decl "bool" ieee754dp nil)
+    (Closest? const-decl "bool" float nil)
+    (EvenClosest? const-decl "bool" float nil)
+    (Rounding type-eq-decl nil float nil)
+    (rounded_mode? const-decl "bool" float nil))
+   shostak
+   (IMP_accum_err_ln assuming
+    "accum_err_ln[2, ieee754dp.double_precision_format, ieee754dp.dp_closest?, ieee754dp.RtoD].accum_err_ln"
+    "round_rounded_mode: ASSUMPTION float[accum_err_ln.radix].rounded_mode?(accum_err_ln.b)(accum_err_ln.round)"))
+  (IMP_accum_err_ln_TCC3-1 nil 3699783472 ("" (typepred "dp_closest?"))
+   ((dp_closest?_closestroundingpred_j name-judgement
+     "ClosestRoundingPred[2](double_precision_format)" ieee754dp nil)
+    (dp_closest?_j name-judgement
+     "{round: RestrictedRounding[2](double_precision_format, EvenClosest?) |
+   rounded_mode?(double_precision_format)(round)}" ieee754dp nil)
+    (float type-eq-decl nil float nil) (Format type-eq-decl nil float nil)
+    (Fbounded? const-decl "bool" float nil)
+    (double_precision_format const-decl "Format" ieee754dp nil)
     (dp_closest? const-decl "bool" ieee754dp nil)
     (Closest? const-decl "bool" float nil)
     (EvenClosest? const-decl "bool" float nil)
@@ -178,24 +192,6 @@
         nil))
       nil))
     nil)
-   nil shostak)
-  (Dln_aerr-1 nil 3699783488
-   ("" (expand "aebounddp_ln")
-    (("" (skeep)
-      (("" (lemma "accum_err_bound")
-        (("" (expand "DtoR")
-          (("" (expand "Dln" 1)
-            (("" (expand "ulp_dp")
-              (("" (inst?)
-                (("" (split -1)
-                  (("1" (propax) nil nil) ("2" (propax) nil nil)) nil))
-                nil))
-              nil))
-            nil))
-          nil))
-        nil))
-      nil))
-    nil)
    ((real_minus_real_is_real application-judgement "real" reals nil)
     (DtoR const-decl "real" ieee754dp nil)
     (ulp_dp const-decl "nonneg_real" ieee754dp nil)
@@ -225,6 +221,38 @@
     (RtoD const-decl "{f: unb_double | closest_double?(x1)(f)}" ieee754dp nil)
     (aebounddp_ln const-decl "nonneg_real" aerr754dp_ln nil)
     (nnreal_div_posreal_is_nnreal application-judgement "nnreal" real_types
+     nil))
+   shostak)
+  (Dln_aerr-1 nil 3699783488
+   ("" (expand "aebounddp_ln")
+    (("" (skeep)
+      (("" (lemma "accum_err_bound")
+        (("" (expand "DtoR")
+          (("" (expand "Dln" 1)
+            (("" (expand "ulp_dp")
+              (("" (inst?)
+                (("" (split -1)
+                  (("1" (propax) nil nil) ("2" (propax) nil nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((DtoR const-decl "real" ieee754dp nil)
+    (ulp_dp const-decl "nonneg_real" ieee754dp nil)
+    (Dln const-decl "{f: unb_double | closest_double?(ln(FtoR(f1)))(f)}"
+     ieee754dp_ln nil)
+    (accum_err_bound formula-decl nil accum_err_ln nil)
+    (Format type-eq-decl nil float nil)
+    (double_precision_format const-decl "Format" ieee754dp nil)
+    (float type-eq-decl nil float nil) (Fbounded? const-decl "bool" float nil)
+    (dp_closest? const-decl "bool" ieee754dp nil)
+    (Fcanonic? const-decl "bool" float nil)
+    (unb_double type-eq-decl nil ieee754dp nil)
+    (closest_double? const-decl "bool" ieee754dp nil)
+    (RtoD const-decl "{f: unb_double | closest_double?(x1)(f)}" ieee754dp
      nil))
    nil)))
 

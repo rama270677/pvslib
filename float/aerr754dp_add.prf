@@ -35,11 +35,7 @@
     "round_even_closest: ASSUMPTION FORALL (x: reals.real, f: (float[accum_err_add.radix].Fbounded?(accum_err_add.b))): booleans.IMPLIES(accum_err_add.round(x, f), float[accum_err_add.radix].EvenClosest?(accum_err_add.b)(x, f))")))
  (IMP_accum_err_add_TCC3 0
   (IMP_accum_err_add_TCC3-2 "" 3790103626
-   ("" (typepred "dp_closest?") (("" (propax) nil nil)) nil) nil shostak
-   (IMP_accum_err_add assuming
-    "accum_err_add[2, ieee754dp.double_precision_format, ieee754dp.dp_closest?, ieee754dp.RtoD].accum_err_add"
-    "round_rounded_mode: ASSUMPTION float[accum_err_add.radix].rounded_mode?(accum_err_add.b)(accum_err_add.round)"))
-  (IMP_accum_err_add_TCC3-1 nil 3698153831 ("" (typepred "dp_closest?"))
+   ("" (typepred "dp_closest?") (("" (propax) nil nil)) nil)
    ((dp_closest?_closestroundingpred_j name-judgement
      "ClosestRoundingPred[2](double_precision_format)" ieee754dp nil)
     (dp_closest?_j name-judgement
@@ -61,6 +57,24 @@
     (Fbounded? const-decl "bool" float nil)
     (double_precision_format const-decl "Format" ieee754dp nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (dp_closest? const-decl "bool" ieee754dp nil)
+    (Closest? const-decl "bool" float nil)
+    (EvenClosest? const-decl "bool" float nil)
+    (Rounding type-eq-decl nil float nil)
+    (rounded_mode? const-decl "bool" float nil))
+   shostak
+   (IMP_accum_err_add assuming
+    "accum_err_add[2, ieee754dp.double_precision_format, ieee754dp.dp_closest?, ieee754dp.RtoD].accum_err_add"
+    "round_rounded_mode: ASSUMPTION float[accum_err_add.radix].rounded_mode?(accum_err_add.b)(accum_err_add.round)"))
+  (IMP_accum_err_add_TCC3-1 nil 3698153831 ("" (typepred "dp_closest?"))
+   ((dp_closest?_closestroundingpred_j name-judgement
+     "ClosestRoundingPred[2](double_precision_format)" ieee754dp nil)
+    (dp_closest?_j name-judgement
+     "{round: RestrictedRounding[2](double_precision_format, EvenClosest?) |
+   rounded_mode?(double_precision_format)(round)}" ieee754dp nil)
+    (float type-eq-decl nil float nil) (Format type-eq-decl nil float nil)
+    (Fbounded? const-decl "bool" float nil)
+    (double_precision_format const-decl "Format" ieee754dp nil)
     (dp_closest? const-decl "bool" ieee754dp nil)
     (Closest? const-decl "bool" float nil)
     (EvenClosest? const-decl "bool" float nil)
@@ -94,19 +108,19 @@
     nil)
    ((DtoR const-decl "real" ieee754dp nil)
     (ulp_dp const-decl "nonneg_real" ieee754dp nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (nnreal_plus_posreal_is_posreal application-judgement "posreal" real_types
+     nil)
+    (dp_closest?_closestroundingpred_j name-judgement
+     "ClosestRoundingPred[2](double_precision_format)" ieee754dp nil)
+    (dp_closest?_j name-judgement
+     "{round: RestrictedRounding[2](double_precision_format, EvenClosest?) |
+   rounded_mode?(double_precision_format)(round)}" ieee754dp nil)
     (rtod_canonicroundfun_exactrepconservation_j name-judgement
      "{RtoF: CanonicRoundingFun(double_precision_format, dp_closest?) |
    exact_rep_conservation[2](double_precision_format, dp_closest?)(RtoF)}"
      ieee754dp nil)
-    (dp_closest?_j name-judgement
-     "{round: RestrictedRounding[2](double_precision_format, EvenClosest?) |
-   rounded_mode?(double_precision_format)(round)}" ieee754dp nil)
-    (dp_closest?_closestroundingpred_j name-judgement
-     "ClosestRoundingPred[2](double_precision_format)" ieee754dp nil)
-    (nnreal_plus_posreal_is_posreal application-judgement "posreal" real_types
-     nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
     (>= const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (real_plus_real_is_real application-judgement "real" reals nil)

@@ -25,13 +25,13 @@
     "single__interprets__ieee754_data.dExp_"
     "{d: integers.posnat | reals.>(d, 45)}")))
  (IMP_ieee754_domain_TCC1 0
-  (IMP_ieee754_domain_TCC1-2 "" 3790103900 ("" (tcc) nil nil) nil shostak
-   (IMP_ieee754_domain subtype "single__interprets__ieee754_data.radix_"
-    "integers.above(1)"))
-  (IMP_ieee754_domain_TCC1-1 nil 3763916267 ("" (tcc))
+  (IMP_ieee754_domain_TCC1-2 "" 3790103900 ("" (tcc) nil nil)
    ((real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil
+   shostak
+   (IMP_ieee754_domain subtype "single__interprets__ieee754_data.radix_"
+    "integers.above(1)"))
+  (IMP_ieee754_domain_TCC1-1 nil 3763916267 ("" (tcc)) nil nil
    (IMP_ieee754_domain subtype "single__interprets__ieee754_data.radix_"
     "integers.above(1)")))
  (IMP_ieee754_domain_TCC2 0
@@ -166,12 +166,12 @@
      single__interprets__ieee754_data nil)
     (rounded_mode? const-decl "bool" float nil)
     (monotone? const-decl "bool" float nil)
-    (prj_ucf const-decl "real" extended_float nil)
     (real_le_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (= const-decl "[T, T -> boolean]" equalities nil))
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (prj_ucf const-decl "real" extended_float nil))
    nil))
  (ieee754_semantics_interpretation_obligation_1 0
   (ieee754_semantics_interpretation_obligation_1-1 nil 3765289162
@@ -180,7 +180,9 @@
   (ieee754_semantics_interpretation_obligation_2-2 "" 3790103904
    ("" (use "round_inverse_of_projection_on_nzfinite") (("" (assert) nil nil))
     nil)
-   nil shostak)
+   ((round_inverse_of_projection_on_nzfinite formula-decl nil
+     extended_float_rounding nil))
+   shostak)
   (ieee754_semantics_interpretation_obligation_2-1 nil 3765289162
    (""
     (then (skeep)
@@ -729,108 +731,7 @@
       nil))
     nil)
    ((prj_ef const-decl "real" extended_float_rounding nil)
-    (float type-eq-decl nil float nil)
-    (efloat type-decl nil extended_float nil)
-    (nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil)
-    (Format type-eq-decl nil float nil)
-    (Fcanonic? const-decl "bool" float nil)
-    (given_format const-decl "Format" extended_float nil)
-    (unb_canonic_float type-eq-decl nil extended_float nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (posint nonempty-type-eq-decl nil integers nil)
-    (max_exp const-decl "posint" extended_float nil)
-    (val adt-accessor-decl "[(nzfinite?) ->
-   {v: unb_canonic_float | Fexp(v) <= max_exp AND Fnum(v) /= 0}]"
-     extended_float nil)
-    (is_finite? const-decl "bool" extended_float nil)
-    (posrat_times_posrat_is_posrat application-judgement "posrat" rationals
-     nil)
-    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (int_times_int_is_int application-judgement "int" integers nil)
-    (upto nonempty-type-eq-decl nil naturalnumbers nil)
-    (even_minus_even_is_even application-judgement "even_int" integers nil)
-    (floor_int formula-decl nil floor_ceil nil)
-    (odd_plus_odd_is_even application-judgement "even_int" integers nil)
-    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
-    (pred type-eq-decl nil defined_types nil)
-    (upto_induction formula-decl nil bounded_nat_inductions nil)
-    (floor_0 formula-decl nil floor_ceil nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (Fbounded? const-decl "bool" float nil)
-    (vNum const-decl "posnat" float nil)
-    (FcanonicBounded formula-decl nil float nil)
-    (nzreal nonempty-type-eq-decl nil reals nil)
-    (expt_plus formula-decl nil exponentiation nil)
-    (even_plus_even_is_even application-judgement "even_int" integers nil)
-    (nnint_times_nnint_is_nnint application-judgement "nonneg_int" integers
-     nil)
-    (posint_times_posint_is_posint application-judgement "posint" integers
-     nil)
-    (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props nil)
-    (sigma_0_neg formula-decl nil sigma_nat reals)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (even_times_int_is_even application-judgement "even_int" integers nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int" integers
-     nil)
-    (rem_floor formula-decl nil modulo_arithmetic nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (times_div_cancel2 formula-decl nil extra_real_props nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (both_sides_div_pos_lt1 formula-decl nil real_props nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat" rationals nil)
-    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
-    (times_div_cancel1 formula-decl nil extra_real_props nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (rem const-decl "{r: mod(b) | EXISTS q: x = b * q + r}" modulo_arithmetic
-         nil)
-    (mod nonempty-type-eq-decl nil euclidean_division nil)
-    (mod_to_rem formula-decl nil mod_lems ints)
-    (jt skolem-const-decl "upto(24)" single__interprets__ieee754_semantics
-     nil)
-    (significand_value skolem-const-decl "rational"
-     single__interprets__ieee754_semantics nil)
-    (FtoR const-decl "real" float nil)
-    (div_cancel4 formula-decl nil real_props nil)
-    (pos_times_ge formula-decl nil real_props nil)
-    (neg_times_ge formula-decl nil real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (neg_times_neg formula-decl nil real_props nil)
-    (posrat nonempty-type-eq-decl nil rationals nil)
-    (nonneg_rat nonempty-type-eq-decl nil rationals nil)
-    (div_cancel2 formula-decl nil real_props nil)
-    (both_sides_times1 formula-decl nil real_props nil)
-    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals nil)
-    (prj_ucf const-decl "real" extended_float nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (both_sides_div1 formula-decl nil real_props nil)
-    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (sigma_rat application-judgement "rational" sigma_nat reals)
-    (sigma def-decl "real" sigma reals)
-    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
-    (integer nonempty-type-from-decl nil integers nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" mod nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (nonzero_integer nonempty-type-eq-decl nil integers nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (f skolem-const-decl "{v: unb_canonic_float[2, 24, 149] |
-   Fexp(v) <= max_exp[2, 24, 149] AND Fnum(v) /= 0}"
-     single__interprets__ieee754_semantics nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
-     real_defs nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (nil application-judgement "below(m)" mod nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
+    (exactly_representable? const-decl "bool" ieee754_domain nil)
     (real_le_is_total_order name-judgement "(total_order?[real])" real_props
      nil)
     (emin const-decl "negint" ieee754_domain nil)
@@ -861,35 +762,136 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (below type-eq-decl nil naturalnumbers nil)
     (significand type-eq-decl nil ieee754_domain nil)
-    (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat" rationals
-     nil)
-    (minus_int_is_int application-judgement "int" integers nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (/= const-decl "boolean" notequal nil)
-    (^ const-decl "real" exponentiation nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (T_low type-eq-decl nil sigma reals) (T_high type-eq-decl nil sigma reals)
-    (sigma_zero formula-decl nil sigma reals)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (int_exp application-judgement "int" exponentiation nil)
-    (nzreal_exp application-judgement "nzreal" exponentiation nil)
-    (nzint_times_nzint_is_nzint application-judgement "nzint" integers nil)
-    (sigma_nat application-judgement "nat" sigma_nat reals)
-    (int_times_even_is_even application-judgement "even_int" integers nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (expt_x0 formula-decl nil exponentiation nil)
-    (expt_x1 formula-decl nil exponentiation nil)
-    (zero_inclusive formula-decl nil extended_float nil)
+    (posrat_exp application-judgement "posrat" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (posrat_exp application-judgement "posrat" exponentiation nil)
+    (zero_inclusive formula-decl nil extended_float nil)
+    (expt_x1 formula-decl nil exponentiation nil)
+    (expt_x0 formula-decl nil exponentiation nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (int_times_even_is_even application-judgement "even_int" integers nil)
+    (sigma_nat application-judgement "nat" sigma_nat reals)
+    (nzint_times_nzint_is_nzint application-judgement "nzint" integers nil)
+    (nzreal_exp application-judgement "nzreal" exponentiation nil)
+    (int_exp application-judgement "int" exponentiation nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (sigma_zero formula-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals) (T_low type-eq-decl nil sigma reals)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (^ const-decl "real" exponentiation nil)
+    (/= const-decl "boolean" notequal nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (minus_int_is_int application-judgement "int" integers nil)
+    (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat" rationals
+     nil)
     (value const-decl "real" ieee754_domain nil)
     (TRUE const-decl "bool" booleans nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (bijective? const-decl "bool" functions nil)
-    (exactly_representable? const-decl "bool" ieee754_domain nil))
+    (float type-eq-decl nil float nil)
+    (efloat type-decl nil extended_float nil)
+    (nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil)
+    (Format type-eq-decl nil float nil)
+    (Fcanonic? const-decl "bool" float nil)
+    (given_format const-decl "Format" extended_float nil)
+    (unb_canonic_float type-eq-decl nil extended_float nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posint nonempty-type-eq-decl nil integers nil)
+    (max_exp const-decl "posint" extended_float nil)
+    (val adt-accessor-decl "[(nzfinite?) ->
+   {v: unb_canonic_float | Fexp(v) <= max_exp AND Fnum(v) /= 0}]"
+     extended_float nil)
+    (is_finite? const-decl "bool" extended_float nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (nil application-judgement "below(m)" mod nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
+     real_defs nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (f skolem-const-decl "{v: unb_canonic_float[2, 24, 149] |
+   Fexp(v) <= max_exp[2, 24, 149] AND Fnum(v) /= 0}"
+     single__interprets__ieee754_semantics nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (nonzero_integer nonempty-type-eq-decl nil integers nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" mod nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
+    (sigma def-decl "real" sigma reals)
+    (sigma_rat application-judgement "rational" sigma_nat reals)
+    (posrat_times_posrat_is_posrat application-judgement "posrat" rationals
+     nil)
+    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals nil)
+    (both_sides_times1 formula-decl nil real_props nil)
+    (div_cancel2 formula-decl nil real_props nil)
+    (nonneg_rat nonempty-type-eq-decl nil rationals nil)
+    (posrat nonempty-type-eq-decl nil rationals nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
+     nil)
+    (neg_times_ge formula-decl nil real_props nil)
+    (pos_times_ge formula-decl nil real_props nil)
+    (div_cancel4 formula-decl nil real_props nil)
+    (FtoR const-decl "real" float nil)
+    (significand_value skolem-const-decl "rational"
+     single__interprets__ieee754_semantics nil)
+    (upto nonempty-type-eq-decl nil naturalnumbers nil)
+    (even_minus_even_is_even application-judgement "even_int" integers nil)
+    (floor_int formula-decl nil floor_ceil nil)
+    (odd_plus_odd_is_even application-judgement "even_int" integers nil)
+    (nnint_plus_posint_is_posint application-judgement "posint" integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers nil)
+    (rem_floor formula-decl nil modulo_arithmetic nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (mod nonempty-type-eq-decl nil euclidean_division nil)
+    (rem const-decl "{r: mod(b) | EXISTS q: x = b * q + r}" modulo_arithmetic
+         nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (times_div_cancel1 formula-decl nil extra_real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat" rationals nil)
+    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
+    (times_div_cancel2 formula-decl nil extra_real_props nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (both_sides_div_pos_lt1 formula-decl nil real_props nil)
+    (mod_to_rem formula-decl nil mod_lems ints)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int" integers
+     nil)
+    (jt skolem-const-decl "upto(24)" single__interprets__ieee754_semantics
+     nil)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (sigma_0_neg formula-decl nil sigma_nat reals)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (expt_plus formula-decl nil exponentiation nil)
+    (even_plus_even_is_even application-judgement "even_int" integers nil)
+    (FcanonicBounded formula-decl nil float nil)
+    (vNum const-decl "posnat" float nil)
+    (Fbounded? const-decl "bool" float nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int" integers
+     nil)
+    (posint_times_posint_is_posint application-judgement "posint" integers
+     nil)
+    (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props nil)
+    (floor_0 formula-decl nil floor_ceil nil)
+    (upto_induction formula-decl nil bounded_nat_inductions nil)
+    (pred type-eq-decl nil defined_types nil)
+    (neg_times_neg formula-decl nil real_props nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (prj_ucf const-decl "real" extended_float nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (both_sides_div1 formula-decl nil real_props nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil))
    shostak))
  (ieee754_semantics_round_er_injective_interpretation_obligation_1 0
   (ieee754_semantics_round_er_injective_interpretation_obligation_1-1 nil
@@ -939,31 +941,31 @@
        ("2" (use "ieee754_semantics_interpretation_obligation_5") nil nil))
       nil))
     nil)
-   ((f skolem-const-decl "{x: efloat | nzfinite?(x)}"
+   ((ieee754_semantics_interpretation_obligation_5 formula-decl nil
      single__interprets__ieee754_semantics nil)
-    (nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil)
-    (prj_ef const-decl "real" extended_float_rounding nil)
-    (is_finite? const-decl "bool" extended_float nil)
-    (efloat type-decl nil extended_float nil)
-    (exactly_representable? const-decl "bool" ieee754_domain nil)
-    (emax const-decl "above(1)" extended_float nil)
-    (above nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (er_real nonempty-type-eq-decl nil ieee754_domain nil)
     (round_inverse_of_projection_on_nzfinite formula-decl nil
      extended_float_rounding nil)
-    (ieee754_semantics_interpretation_obligation_5 formula-decl nil
+    (er_real nonempty-type-eq-decl nil ieee754_domain nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (above nonempty-type-eq-decl nil integers nil)
+    (emax const-decl "above(1)" extended_float nil)
+    (exactly_representable? const-decl "bool" ieee754_domain nil)
+    (efloat type-decl nil extended_float nil)
+    (is_finite? const-decl "bool" extended_float nil)
+    (prj_ef const-decl "real" extended_float_rounding nil)
+    (nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil)
+    (f skolem-const-decl "{x: efloat | nzfinite?(x)}"
      single__interprets__ieee754_semantics nil))
    shostak))
  (ieee754_semantics_round_zero_interpretation_obligation_1 0
@@ -981,9 +983,9 @@
         nil))
       nil))
     nil)
-   ((real_lt_is_strict_total_order name-judgement
+   ((minus_nzreal_is_nzreal application-judgement "nzreal" real_types nil)
+    (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types nil)
     (rnd_ef const-decl "efloat" extended_float_rounding nil))
    shostak))
  (ieee754_semantics_proj_round_interpretation_obligation_1_TCC1 0
@@ -1024,16 +1026,16 @@
    shostak))
  (IMP_ieee754_semantics_TCC1 0
   (IMP_ieee754_semantics_TCC1-3 "" 3790103919
-   ("" (use "ieee754_semantics_interpretation_obligation_1") nil nil) nil
+   ("" (use "ieee754_semantics_interpretation_obligation_1") nil nil)
+   ((ieee754_semantics_interpretation_obligation_1 formula-decl nil
+     single__interprets__ieee754_semantics nil))
    shostak
    (IMP_ieee754_semantics subtype "single__interprets__ieee754_data.radix_"
     "ieee754_radix"))
   (IMP_ieee754_semantics_TCC1-2 "" 3765287804
    ("" (then (use "ieee754_semantics_interpretation_obligation_1") (assert))
     nil nil)
-   ((ieee754_semantics_interpretation_obligation_1 formula-decl nil
-     single__interprets__ieee754_semantics nil))
-   shostak
+   nil shostak
    (IMP_ieee754_semantics subtype "single__interprets__ieee754_data.radix_"
     "ieee754_radix"))
   (IMP_ieee754_semantics_TCC1-1 nil 3763730012
@@ -1552,7 +1554,9 @@
     "ieee754_radix")))
  (IMP_ieee754_semantics_TCC2 0
   (IMP_ieee754_semantics_TCC2-1 "" 3790103920
-   ("" (use "ieee754_semantics_interpretation_obligation_2") nil nil) nil
+   ("" (use "ieee754_semantics_interpretation_obligation_2") nil nil)
+   ((ieee754_semantics_interpretation_obligation_2 formula-decl nil
+     single__interprets__ieee754_semantics nil))
    shostak
    (IMP_ieee754_semantics subtype
     "single__interprets__ieee754_data.precision_"
@@ -1560,31 +1564,35 @@
   (IMP_ieee754_semantics_round_er_injective_TCC1-1 nil 3763730012
    ("" (then (use "ieee754_semantics_interpretation_obligation_2") (assert))
     nil nil)
-   ((ieee754_semantics_interpretation_obligation_2 formula-decl nil
-     single__interprets__ieee754_semantics nil))
-   nil
+   nil nil
    (IMP_ieee754_semantics subtype
     "single__interprets__ieee754_data.precision_"
     "ieee754_format_parameters.ieee754_precision(2)")))
  (IMP_ieee754_semantics_TCC3 0
   (IMP_ieee754_semantics_TCC3-1 "" 3790103920
-   ("" (use "ieee754_semantics_interpretation_obligation_3") nil nil) nil
+   ("" (use "ieee754_semantics_interpretation_obligation_3") nil nil)
+   ((ieee754_semantics_interpretation_obligation_3 formula-decl nil
+     single__interprets__ieee754_semantics nil))
    shostak
    (IMP_ieee754_semantics subtype "extended_float[2, 24, 149].emax"
     "ieee754_format_parameters.ieee754_maxExp(2, 24)"))
   (IMP_ieee754_semantics_finite_represents_er_TCC1-1 nil 3763730012
    ("" (then (use "ieee754_semantics_interpretation_obligation_3") (assert))
     nil nil)
-   ((ieee754_semantics_interpretation_obligation_3 formula-decl nil
-     single__interprets__ieee754_semantics nil))
-   nil
+   nil nil
    (IMP_ieee754_semantics subtype "extended_float[2, 24, 149].emax"
     "ieee754_format_parameters.ieee754_maxExp(2, 24)")))
  (IMP_ieee754_semantics_TCC4 0
   (IMP_ieee754_semantics_TCC4-1 "" 3790103921
    ("" (skeep)
     (("" (use "ieee754_semantics_interpretation_obligation_5") nil nil)) nil)
-   nil shostak
+   ((is_finite? const-decl "bool" extended_float nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (efloat type-decl nil extended_float nil)
+    (ieee754_semantics_interpretation_obligation_5 formula-decl nil
+     single__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics subtype "extended_float_rounding[2, 24, 149].prj_ef"
     "[{x: extended_float[2, 24, 149].efloat | extended_float[2, 24, 149].is_finite?(x)} -> er_real[2, 24, emax[2, 24, 149]]]"))
   (IMP_ieee754_semantics_TCC5-1 nil 3765214228
@@ -1644,11 +1652,7 @@
       nil))
     nil)
    ((is_finite? const-decl "bool" extended_float nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (efloat type-decl nil extended_float nil)
-    (ieee754_semantics_interpretation_obligation_5 formula-decl nil
-     single__interprets__ieee754_semantics nil))
+    (efloat type-decl nil extended_float nil))
    nil
    (IMP_ieee754_semantics subtype "extended_float_rounding[2, 24, 149].prj_ef"
     "[{x: extended_float[2, 24, 149].efloat | extended_float[2, 24, 149].is_finite?(x)} -> er_real[2, 24, emax[2, 24, 149]]]"))
@@ -1659,7 +1663,9 @@
    (IMP_ieee754_semantics subtype "extended_float_rounding[2, 24, 149].prj_ef"
     "[{x: extended_float[2, 24, 149].efloat | extended_float[2, 24, 149].is_finite?(x)} -> er_real[2, 24, emax[2, 24, 149]]]")))
  (IMP_ieee754_semantics_TCC5 0
-  (IMP_ieee754_semantics_TCC5-1 "" 3790103922 ("" (assert) nil nil) nil
+  (IMP_ieee754_semantics_TCC5-1 "" 3790103922 ("" (assert) nil nil)
+   ((flip_sign const-decl "efloat" extended_float_rounding nil)
+    (is_finite? const-decl "bool" extended_float nil))
    shostak
    (IMP_ieee754_semantics subtype
     "extended_float_rounding[2, 24, 149].flip_sign"
@@ -1734,7 +1740,25 @@
       (use "ieee754_semantics_round_er_injective_interpretation_obligation_1")
       (("" (assert) nil nil)) nil))
     nil)
-   nil shostak
+   ((ieee754_semantics_round_er_injective_interpretation_obligation_1
+     formula-decl nil single__interprets__ieee754_semantics nil)
+    (er_real nonempty-type-eq-decl nil ieee754_domain nil)
+    (exactly_representable? const-decl "bool" ieee754_domain nil)
+    (emax const-decl "above(1)" extended_float nil)
+    (above nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "round_er_injective: AXIOM FORALL (x, y: ieee754_domain[ieee754_semantics.b, ieee754_semantics.p, ieee754_semantics.emax].er_real): booleans.IMPLIES(ieee754_semantics.round(x) = ieee754_semantics.round(y), x = y)"))
@@ -1744,24 +1768,9 @@
      (use "ieee754_semantics_round_er_injective_interpretation_obligation_1")
      (assert))
     nil nil)
-   ((number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (above nonempty-type-eq-decl nil integers nil)
-    (emax const-decl "above(1)" extended_float nil)
+   ((emax const-decl "above(1)" extended_float nil)
     (exactly_representable? const-decl "bool" ieee754_domain nil)
-    (er_real nonempty-type-eq-decl nil ieee754_domain nil)
-    (ieee754_semantics_round_er_injective_interpretation_obligation_1
-     formula-decl nil single__interprets__ieee754_semantics nil))
+    (er_real nonempty-type-eq-decl nil ieee754_domain nil))
    nil
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
@@ -1770,7 +1779,9 @@
   (IMP_ieee754_semantics_proj_def_pZero_TCC1-1 "" 3790103923
    ("" (use "ieee754_semantics_proj_def_pZero_interpretation_obligation_1")
     nil nil)
-   nil shostak
+   ((ieee754_semantics_proj_def_pZero_interpretation_obligation_1 formula-decl
+     nil single__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "proj_def_pZero: AXIOM ieee754_semantics.proj(ieee754_data.pZero) = 0"))
@@ -1780,9 +1791,7 @@
      (use "ieee754_semantics_proj_def_pZero_interpretation_obligation_1")
      (assert))
     nil nil)
-   ((ieee754_semantics_proj_def_pZero_interpretation_obligation_1 formula-decl
-     nil single__interprets__ieee754_semantics nil))
-   nil
+   nil nil
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "proj_def_pZero: AXIOM ieee754_semantics.proj(ieee754_data.pZero) = 0"))
@@ -1795,7 +1804,9 @@
   (IMP_ieee754_semantics_proj_def_nZero_TCC1-1 "" 3790103924
    ("" (use "ieee754_semantics_proj_def_nZero_interpretation_obligation_1")
     nil nil)
-   nil shostak
+   ((ieee754_semantics_proj_def_nZero_interpretation_obligation_1 formula-decl
+     nil single__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "proj_def_nZero: AXIOM ieee754_semantics.proj(ieee754_data.nZero) = 0"))
@@ -1805,9 +1816,7 @@
      (use "ieee754_semantics_proj_def_nZero_interpretation_obligation_1")
      (assert))
     nil nil)
-   ((ieee754_semantics_proj_def_nZero_interpretation_obligation_1 formula-decl
-     nil single__interprets__ieee754_semantics nil))
-   shostak
+   nil shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "proj_def_nZero: AXIOM ieee754_semantics.proj(ieee754_data.nZero) = 0")))
@@ -1817,7 +1826,10 @@
     (("" (use "ieee754_semantics_nzfinite?_def_interpretation_obligation_1")
       nil nil))
     nil)
-   nil shostak
+   ((efloat type-decl nil extended_float nil)
+    (ieee754_semantics_nzfinite?_def_interpretation_obligation_1 formula-decl
+     nil extended_float_rounding__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "nzfinite?_def: AXIOM FORALL (f: ieee754_data.datum): ieee754_semantics.nzfinite?(f) = (booleans.AND(ieee754_data.finite?(f), ieee754_semantics.proj(f) /= 0))"))
@@ -1840,7 +1852,10 @@
     (("" (use "ieee754_semantics_pfinite?_def_interpretation_obligation_1")
       nil nil))
     nil)
-   nil shostak
+   ((efloat type-decl nil extended_float nil)
+    (ieee754_semantics_pfinite?_def_interpretation_obligation_1 formula-decl
+     nil extended_float_rounding__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "pfinite?_def: AXIOM FORALL (f: ieee754_data.datum): ieee754_semantics.pfinite?(f) = (booleans.AND(ieee754_data.finite?(f), reals.>(ieee754_semantics.proj(f), 0)))"))
@@ -1863,7 +1878,10 @@
     (("" (use "ieee754_semantics_nfinite?_def_interpretation_obligation_1")
       nil nil))
     nil)
-   nil shostak
+   ((efloat type-decl nil extended_float nil)
+    (ieee754_semantics_nfinite?_def_interpretation_obligation_1 formula-decl
+     nil extended_float_rounding__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "nfinite?_def: AXIOM FORALL (f: ieee754_data.datum): ieee754_semantics.nfinite?(f) = (booleans.AND(ieee754_data.finite?(f), reals.<(ieee754_semantics.proj(f), 0)))"))
@@ -1886,7 +1904,12 @@
     (("" (use "ieee754_semantics_add_inv_def_interpretation_obligation_1") nil
       nil))
     nil)
-   nil shostak
+   ((nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (efloat type-decl nil extended_float nil)
+    (ieee754_semantics_add_inv_def_interpretation_obligation_1 formula-decl
+     nil extended_float_rounding__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "add_inv_def: AXIOM FORALL (f: (ieee754_semantics.nzfinite?)): ieee754_semantics.proj(ieee754_semantics.add_inv(f)) = (number_fields.-)(ieee754_semantics.proj(f))"))
@@ -1899,7 +1922,6 @@
    ((ieee754_semantics_add_inv_def_interpretation_obligation_1 formula-decl
      nil extended_float_rounding__interprets__ieee754_semantics nil)
     (efloat type-decl nil extended_float nil)
-    (boolean nonempty-type-decl nil booleans nil)
     (nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil))
    nil
    (IMP_ieee754_semantics mapped-axiom
@@ -1920,7 +1942,12 @@
       (use "ieee754_semantics_round_total_on_nzfinite_interpretation_obligation_1")
       nil nil))
     nil)
-   nil shostak
+   ((nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (efloat type-decl nil extended_float nil)
+    (ieee754_semantics_round_total_on_nzfinite_interpretation_obligation_1
+     formula-decl nil single__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "round_total_on_nzfinite: AXIOM FORALL (f: (ieee754_semantics.nzfinite?)): EXISTS (r: ieee754_domain[ieee754_semantics.b, ieee754_semantics.p, ieee754_semantics.emax].er_real): f = ieee754_semantics.round(r)"))
@@ -1930,10 +1957,7 @@
      (use "ieee754_semantics_round_total_on_nzfinite_interpretation_obligation_1")
      (assert))
     nil nil)
-   ((ieee754_semantics_round_total_on_nzfinite_interpretation_obligation_1
-     formula-decl nil single__interprets__ieee754_semantics nil)
-    (efloat type-decl nil extended_float nil)
-    (boolean nonempty-type-decl nil booleans nil)
+   ((efloat type-decl nil extended_float nil)
     (nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil))
    nil
    (IMP_ieee754_semantics mapped-axiom
@@ -1951,7 +1975,9 @@
   (IMP_ieee754_semantics_round_zero_TCC1-1 "" 3790103927
    ("" (use "ieee754_semantics_round_zero_interpretation_obligation_1") nil
     nil)
-   nil shostak
+   ((ieee754_semantics_round_zero_interpretation_obligation_1 formula-decl nil
+     single__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "round_zero: AXIOM ieee754_data.pZero = ieee754_semantics.round(0)"))
@@ -1961,9 +1987,7 @@
      (use "ieee754_semantics_round_zero_interpretation_obligation_1")
      (assert))
     nil nil)
-   ((ieee754_semantics_round_zero_interpretation_obligation_1 formula-decl nil
-     single__interprets__ieee754_semantics nil))
-   nil
+   nil nil
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "round_zero: AXIOM ieee754_data.pZero = ieee754_semantics.round(0)"))
@@ -1978,7 +2002,12 @@
     (("" (use "ieee754_semantics_round_proj_interpretation_obligation_1") nil
       nil))
     nil)
-   nil shostak
+   ((nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (efloat type-decl nil extended_float nil)
+    (ieee754_semantics_round_proj_interpretation_obligation_1 formula-decl nil
+     extended_float_rounding__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "round_proj: AXIOM FORALL (f: (ieee754_semantics.nzfinite?)): f = ieee754_semantics.round(ieee754_semantics.proj(f))"))
@@ -1991,7 +2020,6 @@
    ((ieee754_semantics_round_proj_interpretation_obligation_1 formula-decl nil
      extended_float_rounding__interprets__ieee754_semantics nil)
     (efloat type-decl nil extended_float nil)
-    (boolean nonempty-type-decl nil booleans nil)
     (nzfinite? adt-recognizer-decl "[efloat -> boolean]" extended_float nil))
    nil
    (IMP_ieee754_semantics mapped-axiom
@@ -2003,7 +2031,25 @@
     (("" (use "ieee754_semantics_proj_round_interpretation_obligation_1") nil
       nil))
     nil)
-   nil shostak
+   ((er_real nonempty-type-eq-decl nil ieee754_domain nil)
+    (exactly_representable? const-decl "bool" ieee754_domain nil)
+    (emax const-decl "above(1)" extended_float nil)
+    (above nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (ieee754_semantics_proj_round_interpretation_obligation_1 formula-decl nil
+     single__interprets__ieee754_semantics nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "proj_round: AXIOM FORALL (x: ieee754_domain[ieee754_semantics.b, ieee754_semantics.p, ieee754_semantics.emax].er_real): x = ieee754_semantics.proj(ieee754_semantics.round(x))"))
@@ -2013,22 +2059,7 @@
      (use "ieee754_semantics_proj_round_interpretation_obligation_1")
      (assert))
     nil nil)
-   ((ieee754_semantics_proj_round_interpretation_obligation_1 formula-decl nil
-     single__interprets__ieee754_semantics nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (above nonempty-type-eq-decl nil integers nil)
-    (emax const-decl "above(1)" extended_float nil)
+   ((emax const-decl "above(1)" extended_float nil)
     (exactly_representable? const-decl "bool" ieee754_domain nil)
     (er_real nonempty-type-eq-decl nil ieee754_domain nil))
    nil
@@ -2041,7 +2072,27 @@
     (("" (use "ieee754_semantics_round_monotone_interpretation_obligation_1")
       (("" (assert) nil nil)) nil))
     nil)
-   nil shostak
+   ((ieee754_semantics_round_monotone_interpretation_obligation_1 formula-decl
+     nil single__interprets__ieee754_semantics nil)
+    (er_real nonempty-type-eq-decl nil ieee754_domain nil)
+    (exactly_representable? const-decl "bool" ieee754_domain nil)
+    (emax const-decl "above(1)" extended_float nil)
+    (above nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
+     nil))
+   shostak
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
     "round_monotone: AXIOM FORALL (x, y: ieee754_domain[ieee754_semantics.b, ieee754_semantics.p, ieee754_semantics.emax].er_real): booleans.IMPLIES(reals.<=(x, y), reals.<=(ieee754_semantics.proj(ieee754_semantics.round(x)), ieee754_semantics.proj(ieee754_semantics.round(y))))"))
@@ -2051,26 +2102,9 @@
      (use "ieee754_semantics_round_monotone_interpretation_obligation_1")
      (assert))
     nil nil)
-   ((real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (number nonempty-type-decl nil numbers nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (above nonempty-type-eq-decl nil integers nil)
-    (emax const-decl "above(1)" extended_float nil)
+   ((emax const-decl "above(1)" extended_float nil)
     (exactly_representable? const-decl "bool" ieee754_domain nil)
-    (er_real nonempty-type-eq-decl nil ieee754_domain nil)
-    (ieee754_semantics_round_monotone_interpretation_obligation_1 formula-decl
-     nil single__interprets__ieee754_semantics nil))
+    (er_real nonempty-type-eq-decl nil ieee754_domain nil))
    nil
    (IMP_ieee754_semantics mapped-axiom
     "ieee754_semantics[2, 24, extended_float[2, 24, 149].emax]{{ data_th := single__interprets__ieee754_data, round := rnd_ef, proj := prj_ef, add_inv := flip_sign, nzfinite? := nzfinite?, pfinite? := nzpfinite?, nfinite? := nznfinite? }}.ieee754_semantics"
