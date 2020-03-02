@@ -5,12 +5,12 @@
     (("" (expand "image")
       (("" (skosimp*)
         (("" (typepred "f!1")
-          (("" (typepred "x1!1") (("" (inst + "x1!1") nil nil)) nil)) nil))
+          (("" (typepred "x1!1") (("" (inst + "x1!1") nil nil)) nil))
+          nil))
         nil))
       nil))
     nil)
-   ((image const-decl "set[R]" function_image nil)
-    (extraction type-eq-decl nil sequence_props analysis)
+   (nil (extraction type-eq-decl nil sequence_props analysis)
     (strict_increasing? const-decl "bool" real_fun_preds reals)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
@@ -21,12 +21,14 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (TRUE const-decl "bool" booleans nil) (fullset const-decl "set" sets nil))
+    (TRUE const-decl "bool" booleans nil)
+    (fullset const-decl "set" sets nil))
    shostak
    (extract_bij subtype "absconv_series_aux.f"
     "[nat -> (function_image[nat, nat].image(absconv_series_aux.f, sets[nat].fullset))]")))
@@ -41,10 +43,11 @@
               (("1" (skosimp)
                 (("1" (lemma "trich_lt" ("x" "x1!1" "y" "x2!1"))
                   (("1" (split -1)
-                    (("1" (inst - "x1!1" "x2!1") (("1" (assert) nil nil)) nil)
+                    (("1" (inst - "x1!1" "x2!1")
+                      (("1" (assert) nil nil)) nil)
                      ("2" (propax) nil nil)
-                     ("3" (inst - "x2!1" "x1!1") (("3" (assert) nil nil))
-                      nil))
+                     ("3" (inst - "x2!1" "x1!1")
+                      (("3" (assert) nil nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -55,7 +58,8 @@
                   (("2" (expand "fullset")
                     (("2" (expand "image")
                       (("2" (skosimp)
-                        (("2" (inst + "x!1") (("2" (assert) nil nil)) nil))
+                        (("2" (inst + "x!1") (("2" (assert) nil nil))
+                          nil))
                         nil))
                       nil))
                     nil))
@@ -69,9 +73,9 @@
     nil)
    ((bijective? const-decl "bool" functions nil)
     (surjective? const-decl "bool" functions nil)
-    (fullset const-decl "set" sets nil)
-    (image const-decl "set[R]" function_image nil)
-    (set type-eq-decl nil sets nil) (TRUE const-decl "bool" booleans nil)
+    (fullset const-decl "set" sets nil) nil
+    (set type-eq-decl nil sets nil)
+    (TRUE const-decl "bool" booleans nil)
     (injective? const-decl "bool" functions nil)
     (trich_lt formula-decl nil real_props nil)
     (real_lt_is_strict_total_order name-judgement
@@ -80,7 +84,8 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -122,10 +127,14 @@
                               (lemma
                                "bijective_inverse_exists[nat, ((image(F, fullset[nat])))]"
                                ("f" "F"))
-                              (("1" (expand "exists1")
-                                (("1" (flatten)
-                                  (("1" (hide -2)
-                                    (("1" (skolem - ("F_INV"))
+                              (("1"
+                                (expand "exists1")
+                                (("1"
+                                  (flatten)
+                                  (("1"
+                                    (hide -2)
+                                    (("1"
+                                      (skolem - ("F_INV"))
                                       (("1"
                                         (lemma "enum_def" ("S" "SS"))
                                         (("1"
@@ -156,13 +165,20 @@
                                                       (case-replace
                                                        "SS(F(x!1))")
                                                       (("1"
-                                                        (replace -2 1 rl)
+                                                        (replace
+                                                         -2
+                                                         1
+                                                         rl)
                                                         (("1"
-                                                          (expand "fullset")
+                                                          (expand
+                                                           "fullset")
                                                           (("1"
-                                                            (expand "image")
+                                                            (expand
+                                                             "image")
                                                             (("1"
-                                                              (inst + "x!1")
+                                                              (inst
+                                                               +
+                                                               "x!1")
                                                               nil
                                                               nil))
                                                             nil))
@@ -178,7 +194,10 @@
                                                   (skosimp)
                                                   (("2"
                                                     (replace -2 1)
-                                                    (("2" (propax) nil nil))
+                                                    (("2"
+                                                      (propax)
+                                                      nil
+                                                      nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -190,7 +209,10 @@
                                               (("1"
                                                 (lemma
                                                  "composition_bijective[(SS),nat,(SS)]"
-                                                 ("f1" "F_INV" "f2" "inj!1"))
+                                                 ("f1"
+                                                  "F_INV"
+                                                  "f2"
+                                                  "inj!1"))
                                                 (("1"
                                                   (expand "bijective?")
                                                   (("1"
@@ -198,7 +220,8 @@
                                                     (("1"
                                                       (split 1)
                                                       (("1"
-                                                        (expand "injective?")
+                                                        (expand
+                                                         "injective?")
                                                         (("1"
                                                           (skosimp)
                                                           (("1"
@@ -213,7 +236,8 @@
                                                                  "x1!1"
                                                                  "x2!1")
                                                                 (("1"
-                                                                  (expand "o")
+                                                                  (expand
+                                                                   "o")
                                                                   (("1"
                                                                     (assert)
                                                                     nil
@@ -289,13 +313,17 @@
                                                           nil))
                                                         nil)
                                                        ("2"
-                                                        (expand "surjective?")
+                                                        (expand
+                                                         "surjective?")
                                                         (("2"
                                                           (skosimp)
                                                           (("2"
-                                                            (case "SS(y!1)")
+                                                            (case
+                                                             "SS(y!1)")
                                                             (("1"
-                                                              (inst -3 "y!1")
+                                                              (inst
+                                                               -3
+                                                               "y!1")
                                                               (("1"
                                                                 (skosimp)
                                                                 (("1"
@@ -314,7 +342,9 @@
                                                                 nil))
                                                               nil)
                                                              ("2"
-                                                              (inst + "y!1")
+                                                              (inst
+                                                               +
+                                                               "y!1")
                                                               (("2"
                                                                 (assert)
                                                                 nil
@@ -327,13 +357,16 @@
                                                     nil))
                                                   nil)
                                                  ("2"
-                                                  (hide-all-but (-5 1 -8))
+                                                  (hide-all-but
+                                                   (-5 1 -8))
                                                   (("2"
-                                                    (expand "bijective?")
+                                                    (expand
+                                                     "bijective?")
                                                     (("2"
                                                       (assert)
                                                       (("2"
-                                                        (expand "surjective?")
+                                                        (expand
+                                                         "surjective?")
                                                         (("2"
                                                           (skeep)
                                                           (("2"
@@ -346,7 +379,8 @@
                                                     nil))
                                                   nil)
                                                  ("3"
-                                                  (hide-all-but (-1 -8 1 -2))
+                                                  (hide-all-but
+                                                   (-1 -8 1 -2))
                                                   (("3"
                                                     (split 1)
                                                     (("1"
@@ -360,7 +394,8 @@
                                                         nil))
                                                       nil)
                                                      ("2"
-                                                      (expand "bijective?")
+                                                      (expand
+                                                       "bijective?")
                                                       (("2"
                                                         (flatten)
                                                         (("2"
@@ -408,7 +443,9 @@
                                                             (("2"
                                                               (skosimp)
                                                               (("2"
-                                                                (inst - "y!1")
+                                                                (inst
+                                                                 -
+                                                                 "y!1")
                                                                 (("2"
                                                                   (skosimp)
                                                                   (("2"
@@ -442,7 +479,10 @@
                                               (skosimp)
                                               (("3"
                                                 (replace -2)
-                                                (("3" (propax) nil nil))
+                                                (("3"
+                                                  (propax)
+                                                  nil
+                                                  nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -454,10 +494,16 @@
                                 nil)
                                ("2" (propax) nil nil))
                               nil)
-                             ("2" (lemma "enum_strictly_monotone" ("S" "SS"))
-                              (("2" (expand "strictly_monotone?")
-                                (("2" (expand "strict_increasing?")
-                                  (("2" (expand "F") (("2" (propax) nil nil))
+                             ("2"
+                              (lemma "enum_strictly_monotone"
+                               ("S" "SS"))
+                              (("2"
+                                (expand "strictly_monotone?")
+                                (("2"
+                                  (expand "strict_increasing?")
+                                  (("2"
+                                    (expand "F")
+                                    (("2" (propax) nil nil))
                                     nil))
                                   nil))
                                 nil))
@@ -476,7 +522,10 @@
                         (("2" (skeep :preds? t)
                           (("2" (expand "image" -1)
                             (("2" (skeep)
-                              (("2" (inst?) (("2" (assert) nil nil)) nil))
+                              (("2"
+                                (inst?)
+                                (("2" (assert) nil nil))
+                                nil))
                               nil))
                             nil))
                           nil))
@@ -486,15 +535,16 @@
                   nil)
                  ("3" (skosimp)
                   (("3" (expand "fullset")
-                    (("3" (expand "image") (("3" (inst + "x1!1") nil nil))
-                      nil))
+                    (("3" (expand "image")
+                      (("3" (inst + "x1!1") nil nil)) nil))
                     nil))
                   nil))
                 nil)
                ("2" (lemma "enum_strictly_monotone" ("S" "SS"))
                 (("2" (expand "strictly_monotone?")
                   (("2" (expand "strict_increasing?")
-                    (("2" (expand "F" 1) (("2" (propax) nil nil)) nil)) nil))
+                    (("2" (expand "F" 1) (("2" (propax) nil nil)) nil))
+                    nil))
                   nil))
                 nil))
               nil)
@@ -505,8 +555,8 @@
                     (("1" (inst + "0")
                       (("1" (expand "lower_bound?")
                         (("1" (skosimp)
-                          (("1" (expand "restrict") (("1" (assert) nil nil))
-                            nil))
+                          (("1" (expand "restrict")
+                            (("1" (assert) nil nil)) nil))
                           nil))
                         nil))
                       nil))
@@ -517,10 +567,14 @@
                         (("1" (hide 2 -3)
                           (("1" (expand "injective?")
                             (("1" (skosimp*)
-                              (("1" (typepred "x1!1")
-                                (("1" (typepred "x2!1")
-                                  (("1" (replace -7 -1 rl)
-                                    (("1" (replace -7 -3 rl)
+                              (("1"
+                                (typepred "x1!1")
+                                (("1"
+                                  (typepred "x2!1")
+                                  (("1"
+                                    (replace -7 -1 rl)
+                                    (("1"
+                                      (replace -7 -3 rl)
                                       (("1"
                                         (hide -2 -4 -7)
                                         (("1"
@@ -538,11 +592,16 @@
                          ("2" (skosimp)
                           (("2" (replace -2)
                             (("2" (case-replace "SS(x!1)")
-                              (("1" (assert)
-                                (("1" (hide-all-but (-1 -3 1))
-                                  (("1" (expand "image")
-                                    (("1" (replace -2 -1 rl)
-                                      (("1" (assert) nil nil)) nil))
+                              (("1"
+                                (assert)
+                                (("1"
+                                  (hide-all-but (-1 -3 1))
+                                  (("1"
+                                    (expand "image")
+                                    (("1"
+                                      (replace -2 -1 rl)
+                                      (("1" (assert) nil nil))
+                                      nil))
                                     nil))
                                   nil))
                                 nil)
@@ -557,35 +616,28 @@
                 nil))
               nil))
             nil)
-           ("2" (hide 2)
-            (("2" (skosimp)
-              (("2" (expand "SS")
-                (("2" (expand "image")
-                  (("2" (inst + "x1!1")
-                    (("2" (expand "fullset") (("2" (propax) nil nil)) nil))
-                    nil))
-                  nil))
-                nil))
-              nil))
-            nil)
-           ("3" (hide-all-but -1)
-            (("3" (expand "fullset")
-              (("3" (expand "is_finite")
-                (("3" (skosimp)
-                  (("3"
+           ("2" (hide-all-but -1)
+            (("2" (expand "fullset")
+              (("2" (expand "is_finite")
+                (("2" (skosimp)
+                  (("2"
                     (lemma
                      "composition_injective[below[N!1 + 1],nat, below[N!1]]")
-                    (("3" (inst - "lambda (n:below[N!1+1]): n" "f!1")
-                      (("1" (lemma "injection_n_to_m" ("n" "N!1+1" "m" "N!1"))
+                    (("2" (inst - "lambda (n:below[N!1+1]): n" "f!1")
+                      (("1"
+                        (lemma "injection_n_to_m"
+                         ("n" "N!1+1" "m" "N!1"))
                         (("1" (split -1)
                           (("1" (assert) nil nil)
                            ("2"
-                            (inst + "f!1 o (LAMBDA (n: below[N!1 + 1]): n)")
+                            (inst +
+                             "f!1 o (LAMBDA (n: below[N!1 + 1]): n)")
                             nil nil))
                           nil))
                         nil)
                        ("2" (expand "injective?")
-                        (("2" (hide -1) (("2" (skosimp) nil nil)) nil)) nil))
+                        (("2" (hide -1) (("2" (skosimp) nil nil)) nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -596,7 +648,87 @@
         nil))
       nil))
     nil)
-   nil shostak)
+   ((injective? const-decl "bool" functions nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (infinite_set type-eq-decl nil infinite_sets_def nil)
+    (is_finite const-decl "bool" finite_sets nil)
+    (infinite_injective_image judgement-tcc nil infinite_image
+     sets_aux)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (restrict const-decl "R" restrict nil)
+    (lower_bound? const-decl "bool" bounded_orders orders)
+    (bounded_below? const-decl "bool" bounded_orders orders)
+    (< const-decl "bool" reals nil)
+    (below type-eq-decl nil nat_types nil)
+    (extract_bij formula-decl nil absconv_series_aux nil)
+    (strict_increasing? const-decl "bool" real_fun_preds reals)
+    (extraction type-eq-decl nil sequence_props analysis)
+    (bijective_inverse_exists formula-decl nil function_inverse_def
+     nil)
+    (enum_strictly_monotone judgement-tcc nil integer_enumerations
+     orders)
+    (bij_inv_is_bij_alt formula-decl nil function_inverse_def nil)
+    (x!1 skolem-const-decl "((image(F, fullset[nat])))"
+     absconv_series_aux nil)
+    (x2!1 skolem-const-decl "nat" absconv_series_aux nil)
+    (x1!1 skolem-const-decl "nat" absconv_series_aux nil)
+    (y!1 skolem-const-decl "nat" absconv_series_aux nil)
+    (surjective? const-decl "bool" functions nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (composition_bijective judgement-tcc nil function_props nil)
+    (O const-decl "T3" function_props nil)
+    (comp_inverse_left_alt formula-decl nil function_inverse_def nil)
+    (inverse? const-decl "bool" function_inverse_def nil)
+    (TRUE const-decl "bool" booleans nil)
+    (F_INV skolem-const-decl "[((image(F, fullset[nat]))) -> nat]"
+     absconv_series_aux nil)
+    (inj!1 skolem-const-decl "(injective?[nat, nat])"
+     absconv_series_aux nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    (SS skolem-const-decl "set[nat]" absconv_series_aux nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (enum_def formula-decl nil integer_enumerations orders)
+    (F skolem-const-decl "(strictly_monotone?)" absconv_series_aux nil)
+    (exists1 const-decl "bool" exists1 nil)
+    (bijective? const-decl "bool" functions nil)
+    (strictly_monotone? const-decl "bool" integer_enumerations orders)
+    (enum def-decl "T" integer_enumerations orders)
+    (enumerable? const-decl "bool" integer_enumerations orders)
+    (enum_strictly_monotone application-judgement
+     "(strictly_monotone?)" countability sets_aux)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (N!1 skolem-const-decl "nat" absconv_series_aux nil)
+    (f!1 skolem-const-decl "[nat -> below[N!1]]" absconv_series_aux
+     nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (injection_n_to_m formula-decl nil nat_fun_props nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (composition_injective judgement-tcc nil function_props nil)
+    (set type-eq-decl nil sets nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (image const-decl "set[R]" function_image nil)
+    (fullset const-decl "set" sets nil))
+   shostak)
   (inj_is_bij_extract-1 nil 3323488489
    ("" (skosimp)
     (("" (typepred "inj!1")
@@ -621,10 +753,14 @@
                               (lemma
                                "bijective_inverse_exists[nat, ((image(F, fullset[nat])))]"
                                ("f" "F"))
-                              (("1" (expand "exists1")
-                                (("1" (flatten)
-                                  (("1" (hide -2)
-                                    (("1" (skolem - ("F_INV"))
+                              (("1"
+                                (expand "exists1")
+                                (("1"
+                                  (flatten)
+                                  (("1"
+                                    (hide -2)
+                                    (("1"
+                                      (skolem - ("F_INV"))
                                       (("1"
                                         (lemma "enum_def" ("S" "SS"))
                                         (("1"
@@ -655,13 +791,20 @@
                                                       (case-replace
                                                        "SS(F(x!1))")
                                                       (("1"
-                                                        (replace -2 1 rl)
+                                                        (replace
+                                                         -2
+                                                         1
+                                                         rl)
                                                         (("1"
-                                                          (expand "fullset")
+                                                          (expand
+                                                           "fullset")
                                                           (("1"
-                                                            (expand "image")
+                                                            (expand
+                                                             "image")
                                                             (("1"
-                                                              (inst + "x!1")
+                                                              (inst
+                                                               +
+                                                               "x!1")
                                                               nil
                                                               nil))
                                                             nil))
@@ -677,7 +820,10 @@
                                                   (skosimp)
                                                   (("2"
                                                     (replace -2 1)
-                                                    (("2" (propax) nil nil))
+                                                    (("2"
+                                                      (propax)
+                                                      nil
+                                                      nil))
                                                     nil))
                                                   nil))
                                                 nil))
@@ -689,7 +835,10 @@
                                               (("1"
                                                 (lemma
                                                  "composition_bijective[(SS),nat,(SS)]"
-                                                 ("f1" "F_INV" "f2" "inj!1"))
+                                                 ("f1"
+                                                  "F_INV"
+                                                  "f2"
+                                                  "inj!1"))
                                                 (("1"
                                                   (expand "bijective?")
                                                   (("1"
@@ -697,7 +846,8 @@
                                                     (("1"
                                                       (split 1)
                                                       (("1"
-                                                        (expand "injective?")
+                                                        (expand
+                                                         "injective?")
                                                         (("1"
                                                           (skosimp)
                                                           (("1"
@@ -712,7 +862,8 @@
                                                                  "x1!1"
                                                                  "x2!1")
                                                                 (("1"
-                                                                  (expand "o")
+                                                                  (expand
+                                                                   "o")
                                                                   (("1"
                                                                     (assert)
                                                                     nil
@@ -788,13 +939,17 @@
                                                           nil))
                                                         nil)
                                                        ("2"
-                                                        (expand "surjective?")
+                                                        (expand
+                                                         "surjective?")
                                                         (("2"
                                                           (skosimp)
                                                           (("2"
-                                                            (case "SS(y!1)")
+                                                            (case
+                                                             "SS(y!1)")
                                                             (("1"
-                                                              (inst -3 "y!1")
+                                                              (inst
+                                                               -3
+                                                               "y!1")
                                                               (("1"
                                                                 (skosimp)
                                                                 (("1"
@@ -813,7 +968,9 @@
                                                                 nil))
                                                               nil)
                                                              ("2"
-                                                              (inst + "y!1")
+                                                              (inst
+                                                               +
+                                                               "y!1")
                                                               (("2"
                                                                 (assert)
                                                                 nil
@@ -826,9 +983,11 @@
                                                     nil))
                                                   nil)
                                                  ("2"
-                                                  (hide-all-but (-5 1 -8))
+                                                  (hide-all-but
+                                                   (-5 1 -8))
                                                   (("2"
-                                                    (expand "bijective?")
+                                                    (expand
+                                                     "bijective?")
                                                     (("2"
                                                       (flatten)
                                                       (("2"
@@ -847,7 +1006,8 @@
                                                           (("2"
                                                             (skosimp)
                                                             (("2"
-                                                              (typepred "y!1")
+                                                              (typepred
+                                                               "y!1")
                                                               (("2"
                                                                 (replace
                                                                  -4
@@ -868,7 +1028,8 @@
                                                     nil))
                                                   nil)
                                                  ("3"
-                                                  (hide-all-but (-1 -8 1 -2))
+                                                  (hide-all-but
+                                                   (-1 -8 1 -2))
                                                   (("3"
                                                     (split 1)
                                                     (("1"
@@ -882,7 +1043,8 @@
                                                         nil))
                                                       nil)
                                                      ("2"
-                                                      (expand "bijective?")
+                                                      (expand
+                                                       "bijective?")
                                                       (("2"
                                                         (flatten)
                                                         (("2"
@@ -930,7 +1092,9 @@
                                                             (("2"
                                                               (skosimp)
                                                               (("2"
-                                                                (inst - "y!1")
+                                                                (inst
+                                                                 -
+                                                                 "y!1")
                                                                 (("2"
                                                                   (skosimp)
                                                                   (("2"
@@ -964,7 +1128,10 @@
                                               (skosimp)
                                               (("3"
                                                 (replace -2)
-                                                (("3" (propax) nil nil))
+                                                (("3"
+                                                  (propax)
+                                                  nil
+                                                  nil))
                                                 nil))
                                               nil))
                                             nil))
@@ -976,10 +1143,16 @@
                                 nil)
                                ("2" (propax) nil nil))
                               nil)
-                             ("2" (lemma "enum_strictly_monotone" ("S" "SS"))
-                              (("2" (expand "strictly_monotone?")
-                                (("2" (expand "strict_increasing?")
-                                  (("2" (expand "F") (("2" (propax) nil nil))
+                             ("2"
+                              (lemma "enum_strictly_monotone"
+                               ("S" "SS"))
+                              (("2"
+                                (expand "strictly_monotone?")
+                                (("2"
+                                  (expand "strict_increasing?")
+                                  (("2"
+                                    (expand "F")
+                                    (("2" (propax) nil nil))
                                     nil))
                                   nil))
                                 nil))
@@ -995,17 +1168,21 @@
                   (("2" (flatten)
                     (("2" (split)
                       (("1" (hide-all-but (-5 1))
-                        (("1" (expand "injective?") (("1" (propax) nil nil))
-                          nil))
+                        (("1" (expand "injective?")
+                          (("1" (propax) nil nil)) nil))
                         nil)
                        ("2" (expand "surjective?")
                         (("2" (skosimp)
                           (("2" (typepred "y!1")
                             (("2" (expand "fullset")
-                              (("2" (expand "image")
-                                (("2" (skosimp)
-                                  (("2" (inst + "x!1")
-                                    (("2" (assert) nil nil)) nil))
+                              (("2"
+                                (expand "image")
+                                (("2"
+                                  (skosimp)
+                                  (("2"
+                                    (inst + "x!1")
+                                    (("2" (assert) nil nil))
+                                    nil))
                                   nil))
                                 nil))
                               nil))
@@ -1017,15 +1194,16 @@
                   nil)
                  ("3" (skosimp)
                   (("3" (expand "fullset")
-                    (("3" (expand "image") (("3" (inst + "x1!1") nil nil))
-                      nil))
+                    (("3" (expand "image")
+                      (("3" (inst + "x1!1") nil nil)) nil))
                     nil))
                   nil))
                 nil)
                ("2" (lemma "enum_strictly_monotone" ("S" "SS"))
                 (("2" (expand "strictly_monotone?")
                   (("2" (expand "strict_increasing?")
-                    (("2" (expand "F" 1) (("2" (propax) nil nil)) nil)) nil))
+                    (("2" (expand "F" 1) (("2" (propax) nil nil)) nil))
+                    nil))
                   nil))
                 nil))
               nil)
@@ -1036,8 +1214,8 @@
                     (("1" (inst + "0")
                       (("1" (expand "lower_bound?")
                         (("1" (skosimp)
-                          (("1" (expand "restrict") (("1" (assert) nil nil))
-                            nil))
+                          (("1" (expand "restrict")
+                            (("1" (assert) nil nil)) nil))
                           nil))
                         nil))
                       nil))
@@ -1048,10 +1226,14 @@
                         (("1" (hide 2 -3)
                           (("1" (expand "injective?")
                             (("1" (skosimp*)
-                              (("1" (typepred "x1!1")
-                                (("1" (typepred "x2!1")
-                                  (("1" (replace -7 -1 rl)
-                                    (("1" (replace -7 -3 rl)
+                              (("1"
+                                (typepred "x1!1")
+                                (("1"
+                                  (typepred "x2!1")
+                                  (("1"
+                                    (replace -7 -1 rl)
+                                    (("1"
+                                      (replace -7 -3 rl)
                                       (("1"
                                         (hide -2 -4 -7)
                                         (("1"
@@ -1069,11 +1251,16 @@
                          ("2" (skosimp)
                           (("2" (replace -2)
                             (("2" (case-replace "SS(x!1)")
-                              (("1" (assert)
-                                (("1" (hide-all-but (-1 -3 1))
-                                  (("1" (expand "image")
-                                    (("1" (replace -2 -1 rl)
-                                      (("1" (assert) nil nil)) nil))
+                              (("1"
+                                (assert)
+                                (("1"
+                                  (hide-all-but (-1 -3 1))
+                                  (("1"
+                                    (expand "image")
+                                    (("1"
+                                      (replace -2 -1 rl)
+                                      (("1" (assert) nil nil))
+                                      nil))
                                     nil))
                                   nil))
                                 nil)
@@ -1094,12 +1281,14 @@
                 (("1" (expand "SS")
                   (("1" (expand "image")
                     (("1" (inst + "x1!1")
-                      (("1" (expand "fullset") (("1" (propax) nil nil)) nil))
+                      (("1" (expand "fullset") (("1" (propax) nil nil))
+                        nil))
                       nil))
                     nil))
                   nil))
                 nil)
-               ("2" (expand "injective?") (("2" (propax) nil nil)) nil))
+               ("2" (expand "injective?") (("2" (propax) nil nil))
+                nil))
               nil))
             nil)
            ("3" (hide-all-but -1)
@@ -1110,16 +1299,20 @@
                     (lemma
                      "composition_injective[below[N!1 + 1],nat, below[N!1]]")
                     (("3" (inst - "lambda (n:below[N!1+1]): n" "f!1")
-                      (("1" (lemma "injection_n_to_m" ("n" "N!1+1" "m" "N!1"))
+                      (("1"
+                        (lemma "injection_n_to_m"
+                         ("n" "N!1+1" "m" "N!1"))
                         (("1" (split -1)
                           (("1" (assert) nil nil)
                            ("2"
-                            (inst + "f!1 o (LAMBDA (n: below[N!1 + 1]): n)")
+                            (inst +
+                             "f!1 o (LAMBDA (n: below[N!1 + 1]): n)")
                             nil nil))
                           nil))
                         nil)
                        ("2" (expand "injective?")
-                        (("2" (hide -1) (("2" (skosimp) nil nil)) nil)) nil))
+                        (("2" (hide -1) (("2" (skosimp) nil nil)) nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -1135,12 +1328,14 @@
     (enum def-decl "T" integer_enumerations orders)
     (strictly_monotone? const-decl "bool" integer_enumerations orders)
     (enum_def formula-decl nil integer_enumerations orders)
-    (enum_strictly_monotone judgement-tcc nil integer_enumerations orders)
+    (enum_strictly_monotone judgement-tcc nil integer_enumerations
+     orders)
     (extraction type-eq-decl nil sequence_props analysis)
     (strict_increasing? const-decl "bool" real_fun_preds reals)
     (bounded_below? const-decl "bool" bounded_orders orders)
     (lower_bound? const-decl "bool" bounded_orders orders)
-    (infinite_injective_image judgement-tcc nil infinite_image sets_aux)
+    (infinite_injective_image judgement-tcc nil infinite_image
+     sets_aux)
     (is_finite const-decl "bool" finite_sets nil)
     (infinite_set type-eq-decl nil infinite_sets_def nil))
    shostak))
@@ -1150,19 +1345,23 @@
     (("" (lemma "inj_is_bij_extract" ("inj" "inj!1"))
       (("" (skosimp)
         (("" (replace -1)
-          (("" (lemma "nonneg_series_bij_conv" ("nna" "nna!1" "phi" "phi!1"))
+          ((""
+            (lemma "nonneg_series_bij_conv"
+             ("nna" "nna!1" "phi" "phi!1"))
             (("" (assert)
               ((""
                 (lemma "subseq_absconvergent"
                  ("a" "nna!1 o (phi!1 o f!1)" "bb" "nna!1 o phi!1"))
                 (("1" (split -1)
                   (("1" (lemma "absconvergent_series_is_convergent")
-                    (("1" (inst - "nna!1 o (phi!1 o f!1)") nil nil)) nil)
+                    (("1" (inst - "nna!1 o (phi!1 o f!1)") nil nil))
+                    nil)
                    ("2" (hide-all-but 1)
                     (("2" (expand "subseq")
                       (("2" (inst + "f!1")
                         (("2" (skosimp)
-                          (("2" (expand "o") (("2" (propax) nil nil)) nil))
+                          (("2" (expand "o") (("2" (propax) nil nil))
+                            nil))
                           nil))
                         nil))
                       nil))
@@ -1177,11 +1376,16 @@
                            "(LAMBDA (n: nat): abs(nna!1(phi!1(n)))) = (LAMBDA (x: nat): nna!1(phi!1(x)))")
                           (("2" (hide-all-but 1)
                             (("2" (apply-extensionality :hide? t)
-                              (("1" (expand "abs") (("1" (propax) nil nil))
+                              (("1"
+                                (expand "abs")
+                                (("1" (propax) nil nil))
                                 nil)
-                               ("2" (skosimp)
-                                (("2" (typepred "nna!1(phi!1(x!1))")
-                                  (("2" (assert) nil nil)) nil))
+                               ("2"
+                                (skosimp)
+                                (("2"
+                                  (typepred "nna!1(phi!1(x!1))")
+                                  (("2" (assert) nil nil))
+                                  nil))
                                 nil))
                               nil))
                             nil))
@@ -1208,33 +1412,34 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (inj_is_bij_extract formula-decl nil absconv_series_aux nil)
     (abs const-decl "sequence[real]" series series)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (minus_real_is_real application-judgement "real" reals nil)
-    (nna!1 skolem-const-decl "sequence[nnreal]" absconv_series_aux nil)
-    (phi!1 skolem-const-decl "(bijective?[nat, nat])" absconv_series_aux nil)
-    (f!1 skolem-const-decl "extraction" absconv_series_aux nil)
-    (absconvergent_series_is_convergent judgement-tcc nil absconv_series
-     series)
+    (minus_real_is_real application-judgement "real" reals nil) nil nil
+    nil
+    (absconvergent_series_is_convergent judgement-tcc nil
+     absconv_series series)
     (subseq const-decl "bool" sequence_props analysis)
     (subseq_absconvergent formula-decl nil absconv_series series)
     (O const-decl "T3" function_props nil)
     (strict_increasing? const-decl "bool" real_fun_preds reals)
     (extraction type-eq-decl nil sequence_props analysis)
     (absconvergent? const-decl "bool" absconv_series series)
-    (absconvergent_series nonempty-type-eq-decl nil absconv_series series)
+    (absconvergent_series nonempty-type-eq-decl nil absconv_series
+     series)
     (nonneg_series_bij_conv formula-decl nil series_lems series)
     (nnreal type-eq-decl nil real_types nil)
     (sequence type-eq-decl nil sequences nil)
@@ -1259,7 +1464,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (nonneg_series_inj_conv formula-decl nil absconv_series_aux nil))
@@ -1285,25 +1491,32 @@
                     (("" (assert)
                       ((""
                         (lemma "nonneg_subseq"
-                         ("nna" "nna!1 o (phi!1 o f!1)" "nnb" "nna!1 o phi!1"
-                          "nny" "limit(series(nna!1 o phi!1))"))
+                         ("nna" "nna!1 o (phi!1 o f!1)" "nnb"
+                          "nna!1 o phi!1" "nny"
+                          "limit(series(nna!1 o phi!1))"))
                         (("1" (split -1)
                           (("1" (skosimp)
                             (("1" (replace -3)
-                              (("1" (rewrite "limit_equiv" -1)
-                                (("1" (assert) nil nil)) nil))
+                              (("1"
+                                (rewrite "limit_equiv" -1)
+                                (("1" (assert) nil nil))
+                                nil))
                               nil))
                             nil)
                            ("2" (hide 2)
                             (("2" (rewrite "subseq_def" 1)
-                              (("2" (inst + "f!1")
-                                (("2" (expand "o") (("2" (propax) nil nil))
+                              (("2"
+                                (inst + "f!1")
+                                (("2"
+                                  (expand "o")
+                                  (("2" (propax) nil nil))
                                   nil))
                                 nil))
                               nil))
                             nil)
                            ("3" (hide 2)
-                            (("3" (rewrite "limit_equiv" 1) nil nil)) nil))
+                            (("3" (rewrite "limit_equiv" 1) nil nil))
+                            nil))
                           nil)
                          ("2"
                           (lemma "limit_nonneg"
@@ -1311,12 +1524,18 @@
                           (("1" (assert) nil nil)
                            ("2" (hide 2 3)
                             (("2" (expand "o")
-                              (("2" (expand "series")
-                                (("2" (hide-all-but 1)
-                                  (("2" (induct "x1")
-                                    (("1" (expand "sigma")
-                                      (("1" (assert) nil nil)) nil)
-                                     ("2" (skosimp*)
+                              (("2"
+                                (expand "series")
+                                (("2"
+                                  (hide-all-but 1)
+                                  (("2"
+                                    (induct "x1")
+                                    (("1"
+                                      (expand "sigma")
+                                      (("1" (assert) nil nil))
+                                      nil)
+                                     ("2"
+                                      (skosimp*)
                                       (("2"
                                         (expand "sigma" 1)
                                         (("2" (assert) nil nil))
@@ -1352,7 +1571,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (nonneg_series_inj_conv formula-decl nil absconv_series_aux nil)
@@ -1360,20 +1580,22 @@
     (nonneg_series_bij_conv formula-decl nil series_lems series)
     (bijective? const-decl "bool" functions nil)
     (limit_nonneg formula-decl nil series_lems series)
-    (posint_plus_nnint_is_posint application-judgement "posint" integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal" real_types
-     nil)
-    (sigma_nnreal application-judgement "nnreal" sigma_nat reals)
-    (sigma_0_neg formula-decl nil sigma_nat reals)
+    (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    nil (sigma_0_neg formula-decl nil sigma_nat reals)
     (nat_induction formula-decl nil naturalnumbers nil)
     (pred type-eq-decl nil defined_types nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (<= const-decl "bool" reals nil) (T_low type-eq-decl nil sigma reals)
-    (T_high type-eq-decl nil sigma reals) (sigma def-decl "real" sigma reals)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
+    (<= const-decl "bool" reals nil)
+    (T_low type-eq-decl nil sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (sigma def-decl "real" sigma reals)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (limit_equiv formula-decl nil convergence_ops analysis)
     (subseq_def formula-decl nil absconv_series_aux nil)
     (nonneg_subseq formula-decl nil absconv_series series)
@@ -1381,11 +1603,10 @@
     (strict_increasing? const-decl "bool" real_fun_preds reals)
     (extraction type-eq-decl nil sequence_props analysis)
     (convergent? const-decl "bool" convergence_sequences analysis)
-    (limit const-decl "real" convergence_sequences analysis)
-    (series const-decl "sequence[real]" series series)
+    (limit const-decl "real" convergence_sequences analysis) nil
     (nonneg_series_bij_limit formula-decl nil series_lems series)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil))
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil))
    shostak))
  (abs_series_inj_conv 0
   (abs_series_inj_conv-3 "" 3790094090
@@ -1401,7 +1622,8 @@
             (("1" (case "convergent?(series(AA))")
               (("1" (case "convergent?(series(BB))")
                 (("1"
-                  (lemma "nonneg_series_inj_conv" ("nna" "AA" "inj" "inj!1"))
+                  (lemma "nonneg_series_inj_conv"
+                   ("nna" "AA" "inj" "inj!1"))
                   (("1" (assert)
                     (("1"
                       (lemma "nonneg_series_inj_conv"
@@ -1412,24 +1634,33 @@
                            ("a" "AA o inj!1" "b" "-(BB o inj!1)"))
                           (("1" (split -1)
                             (("1" (expand "o")
-                              (("1" (replace -6 1)
-                                (("1" (expand "-")
-                                  (("1" (expand "+") (("1" (assert) nil nil))
+                              (("1"
+                                (replace -6 1)
+                                (("1"
+                                  (expand "-")
+                                  (("1"
+                                    (expand "+")
+                                    (("1" (assert) nil nil))
                                     nil))
                                   nil))
                                 nil))
                               nil)
                              ("2" (hide-all-but (-2 1))
-                              (("2" (expand "o") (("2" (propax) nil nil))
+                              (("2"
+                                (expand "o")
+                                (("2" (propax) nil nil))
                                 nil))
                               nil)
                              ("3" (hide-all-but (-1 1))
-                              (("3" (assert)
+                              (("3"
+                                (assert)
                                 (("3"
                                   (case-replace
                                    "-1 * series(BB o inj!1) = series(-(BB o inj!1))")
-                                  (("1" (hide-all-but 1)
-                                    (("1" (expand "o")
+                                  (("1"
+                                    (hide-all-but 1)
+                                    (("1"
+                                      (expand "o")
                                       (("1"
                                         (lemma
                                          "scal_series_conv"
@@ -1449,10 +1680,15 @@
                                                 (("1"
                                                   (expand "-")
                                                   (("1"
-                                                    (rewrite "series_scal" 1)
+                                                    (rewrite
+                                                     "series_scal"
+                                                     1)
                                                     (("1"
                                                       (expand "o")
-                                                      (("1" (assert) nil nil))
+                                                      (("1"
+                                                        (assert)
+                                                        nil
+                                                        nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -1464,17 +1700,22 @@
                                             (("2"
                                               (lemma
                                                "nonneg_series_inj_conv"
-                                               ("nna" "BB" "inj" "inj!1"))
+                                               ("nna"
+                                                "BB"
+                                                "inj"
+                                                "inj!1"))
                                               (("2"
                                                 (split -1)
                                                 (("1"
-                                                  (expand "convergent?")
+                                                  (expand
+                                                   "convergent?")
                                                   (("1"
                                                     (skosimp)
                                                     (("1"
                                                       (inst + "l!1")
                                                       (("1"
-                                                        (expand "convergence")
+                                                        (expand
+                                                         "convergence")
                                                         (("1"
                                                           (skosimp)
                                                           (("1"
@@ -1484,7 +1725,9 @@
                                                             (("1"
                                                               (skosimp)
                                                               (("1"
-                                                                (inst + "n!1")
+                                                                (inst
+                                                                 +
+                                                                 "n!1")
                                                                 (("1"
                                                                   (skosimp)
                                                                   (("1"
@@ -1530,11 +1773,13 @@
                                                             nil
                                                             nil)
                                                            ("3"
-                                                            (hide-all-but 1)
+                                                            (hide-all-but
+                                                             1)
                                                             (("3"
                                                               (skosimp)
                                                               (("3"
-                                                                (expand "BB")
+                                                                (expand
+                                                                 "BB")
                                                                 (("3"
                                                                   (expand
                                                                    "abs")
@@ -1566,10 +1811,15 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2" (hide-all-but 1)
-                                    (("2" (expand "series")
+                                   ("2"
+                                    (hide-all-but 1)
+                                    (("2"
+                                      (expand "series")
                                       (("2"
-                                        (apply-extensionality 1 :hide? t)
+                                        (apply-extensionality
+                                         1
+                                         :hide?
+                                         t)
                                         (("2"
                                           (expand "o")
                                           (("2"
@@ -1584,7 +1834,10 @@
                                                    1
                                                    :dir
                                                    rl)
-                                                  (("2" (assert) nil nil))
+                                                  (("2"
+                                                    (assert)
+                                                    nil
+                                                    nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1603,7 +1856,8 @@
                         (("2" (skosimp)
                           (("2" (expand "BB")
                             (("2" (case-replace "aa!1(x1!1) < 0")
-                              (("1" (assert) nil nil) ("2" (assert) nil nil))
+                              (("1" (assert) nil nil)
+                               ("2" (assert) nil nil))
                               nil))
                             nil))
                           nil))
@@ -1621,14 +1875,19 @@
                   nil)
                  ("2" (hide-all-but (1 -5))
                   (("2" (expand "absconvergent?")
-                    (("2" (lemma "comparison_test" ("b" "abs(aa!1)" "a" "BB"))
+                    (("2"
+                      (lemma "comparison_test"
+                       ("b" "abs(aa!1)" "a" "BB"))
                       (("2" (assert)
                         (("2" (hide-all-but 1)
                           (("2" (skosimp)
                             (("2" (expand "abs")
-                              (("2" (expand "abs")
-                                (("2" (expand "BB")
-                                  (("2" (case-replace "aa!1(n!1) < 0")
+                              (("2"
+                                (expand "abs")
+                                (("2"
+                                  (expand "BB")
+                                  (("2"
+                                    (case-replace "aa!1(n!1) < 0")
                                     (("1" (assert) nil nil)
                                      ("2" (assert) nil nil))
                                     nil))
@@ -1643,14 +1902,16 @@
                   nil))
                 nil)
                ("2" (expand "absconvergent?")
-                (("2" (lemma "comparison_test" ("b" "abs(aa!1)" "a" "AA"))
+                (("2"
+                  (lemma "comparison_test" ("b" "abs(aa!1)" "a" "AA"))
                   (("2" (assert)
                     (("2" (hide-all-but 1)
                       (("2" (expand "abs")
                         (("2" (expand "abs")
                           (("2" (skosimp)
                             (("2" (expand "AA")
-                              (("2" (case-replace "aa!1(n!1) < 0")
+                              (("2"
+                                (case-replace "aa!1(n!1) < 0")
                                 (("1" (assert) nil nil)
                                  ("2" (assert) nil nil))
                                 nil))
@@ -1669,7 +1930,8 @@
                   (("2" (expand "-")
                     (("2" (apply-extensionality :hide? t)
                       (("2" (case-replace "aa!1(x!1) < 0")
-                        (("1" (assert) nil nil) ("2" (assert) nil nil)) nil))
+                        (("1" (assert) nil nil) ("2" (assert) nil nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -1694,7 +1956,8 @@
             (("1" (case "convergent?(series(AA))")
               (("1" (case "convergent?(series(BB))")
                 (("1"
-                  (lemma "nonneg_series_inj_conv" ("nna" "AA" "inj" "inj!1"))
+                  (lemma "nonneg_series_inj_conv"
+                   ("nna" "AA" "inj" "inj!1"))
                   (("1" (assert)
                     (("1"
                       (lemma "nonneg_series_inj_conv"
@@ -1705,24 +1968,33 @@
                            ("a" "AA o inj!1" "b" "-(BB o inj!1)"))
                           (("1" (split -1)
                             (("1" (expand "o")
-                              (("1" (replace -6 1)
-                                (("1" (expand "-")
-                                  (("1" (expand "+") (("1" (assert) nil nil))
+                              (("1"
+                                (replace -6 1)
+                                (("1"
+                                  (expand "-")
+                                  (("1"
+                                    (expand "+")
+                                    (("1" (assert) nil nil))
                                     nil))
                                   nil))
                                 nil))
                               nil)
                              ("2" (hide-all-but (-2 1))
-                              (("2" (expand "o") (("2" (propax) nil nil))
+                              (("2"
+                                (expand "o")
+                                (("2" (propax) nil nil))
                                 nil))
                               nil)
                              ("3" (hide-all-but (-1 1))
-                              (("3" (assert)
+                              (("3"
+                                (assert)
                                 (("3"
                                   (case-replace
                                    "-1 * series(BB o inj!1) = series(-(BB o inj!1))")
-                                  (("1" (hide-all-but 1)
-                                    (("1" (expand "o")
+                                  (("1"
+                                    (hide-all-but 1)
+                                    (("1"
+                                      (expand "o")
                                       (("1"
                                         (lemma
                                          "scal_series_conv"
@@ -1742,10 +2014,15 @@
                                                 (("1"
                                                   (expand "-")
                                                   (("1"
-                                                    (rewrite "series_scal" 1)
+                                                    (rewrite
+                                                     "series_scal"
+                                                     1)
                                                     (("1"
                                                       (expand "o")
-                                                      (("1" (assert) nil nil))
+                                                      (("1"
+                                                        (assert)
+                                                        nil
+                                                        nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -1757,17 +2034,22 @@
                                             (("2"
                                               (lemma
                                                "nonneg_series_inj_conv"
-                                               ("nna" "BB" "inj" "inj!1"))
+                                               ("nna"
+                                                "BB"
+                                                "inj"
+                                                "inj!1"))
                                               (("2"
                                                 (split -1)
                                                 (("1"
-                                                  (expand "convergent?")
+                                                  (expand
+                                                   "convergent?")
                                                   (("1"
                                                     (skosimp)
                                                     (("1"
                                                       (inst + "l!1")
                                                       (("1"
-                                                        (expand "convergence")
+                                                        (expand
+                                                         "convergence")
                                                         (("1"
                                                           (skosimp)
                                                           (("1"
@@ -1777,7 +2059,9 @@
                                                             (("1"
                                                               (skosimp)
                                                               (("1"
-                                                                (inst + "n!1")
+                                                                (inst
+                                                                 +
+                                                                 "n!1")
                                                                 (("1"
                                                                   (skosimp)
                                                                   (("1"
@@ -1830,11 +2114,13 @@
                                                             nil
                                                             nil)
                                                            ("3"
-                                                            (hide-all-but 1)
+                                                            (hide-all-but
+                                                             1)
                                                             (("3"
                                                               (skosimp)
                                                               (("3"
-                                                                (expand "BB")
+                                                                (expand
+                                                                 "BB")
                                                                 (("3"
                                                                   (expand
                                                                    "abs")
@@ -1866,10 +2152,15 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2" (hide-all-but 1)
-                                    (("2" (expand "series")
+                                   ("2"
+                                    (hide-all-but 1)
+                                    (("2"
+                                      (expand "series")
                                       (("2"
-                                        (apply-extensionality 1 :hide? t)
+                                        (apply-extensionality
+                                         1
+                                         :hide?
+                                         t)
                                         (("2"
                                           (expand "o")
                                           (("2"
@@ -1884,7 +2175,10 @@
                                                    1
                                                    :dir
                                                    rl)
-                                                  (("2" (assert) nil nil))
+                                                  (("2"
+                                                    (assert)
+                                                    nil
+                                                    nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -1903,7 +2197,8 @@
                         (("2" (skosimp)
                           (("2" (expand "BB")
                             (("2" (case-replace "aa!1(x1!1) < 0")
-                              (("1" (assert) nil nil) ("2" (assert) nil nil))
+                              (("1" (assert) nil nil)
+                               ("2" (assert) nil nil))
                               nil))
                             nil))
                           nil))
@@ -1921,14 +2216,19 @@
                   nil)
                  ("2" (hide-all-but (1 -5))
                   (("2" (expand "absconvergent?")
-                    (("2" (lemma "comparison_test" ("b" "abs(aa!1)" "a" "BB"))
+                    (("2"
+                      (lemma "comparison_test"
+                       ("b" "abs(aa!1)" "a" "BB"))
                       (("2" (assert)
                         (("2" (hide-all-but 1)
                           (("2" (skosimp)
                             (("2" (expand "abs")
-                              (("2" (expand "abs")
-                                (("2" (expand "BB")
-                                  (("2" (case-replace "aa!1(n!1) < 0")
+                              (("2"
+                                (expand "abs")
+                                (("2"
+                                  (expand "BB")
+                                  (("2"
+                                    (case-replace "aa!1(n!1) < 0")
                                     (("1" (assert) nil nil)
                                      ("2" (assert) nil nil))
                                     nil))
@@ -1943,14 +2243,16 @@
                   nil))
                 nil)
                ("2" (expand "absconvergent?")
-                (("2" (lemma "comparison_test" ("b" "abs(aa!1)" "a" "AA"))
+                (("2"
+                  (lemma "comparison_test" ("b" "abs(aa!1)" "a" "AA"))
                   (("2" (assert)
                     (("2" (hide-all-but 1)
                       (("2" (expand "abs")
                         (("2" (expand "abs")
                           (("2" (skosimp)
                             (("2" (expand "AA")
-                              (("2" (case-replace "aa!1(n!1) < 0")
+                              (("2"
+                                (case-replace "aa!1(n!1) < 0")
                                 (("1" (assert) nil nil)
                                  ("2" (assert) nil nil))
                                 nil))
@@ -1969,7 +2271,8 @@
                   (("2" (expand "-")
                     (("2" (apply-extensionality :hide? t)
                       (("2" (case-replace "aa!1(x!1) < 0")
-                        (("1" (assert) nil nil) ("2" (assert) nil nil)) nil))
+                        (("1" (assert) nil nil) ("2" (assert) nil nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -1980,7 +2283,8 @@
         nil))
       nil))
     nil)
-   ((absconvergent_series nonempty-type-eq-decl nil absconv_series series)
+   ((absconvergent_series nonempty-type-eq-decl nil absconv_series
+     series)
     (absconvergent? const-decl "bool" absconv_series series)
     (sequence type-eq-decl nil sequences nil)
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
@@ -1992,7 +2296,8 @@
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
     (number nonempty-type-decl nil numbers nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -2002,43 +2307,39 @@
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (minus_real_is_real application-judgement "real" reals nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (convergent? const-decl "bool" convergence_sequences analysis)
-    (series const-decl "sequence[real]" series series)
+    (convergent? const-decl "bool" convergence_sequences analysis) nil
     (nonneg_series_inj_conv formula-decl nil absconv_series_aux nil)
     (injective? const-decl "bool" functions nil)
     (nnreal type-eq-decl nil real_types nil)
     (series_sum_conv formula-decl nil series series)
-    (O const-decl "T3" function_props nil)
-    (- const-decl "[T -> real]" real_fun_ops reals)
-    (* const-decl "[T -> real]" real_fun_ops reals)
+    (O const-decl "T3" function_props nil) nil nil
     (real_times_real_is_real application-judgement "real" reals nil)
     (series_scal formula-decl nil series series)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs nil)
-    (BB skolem-const-decl "[nat -> real]" absconv_series_aux nil)
-    (abs const-decl "sequence[real]" series series)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    nil (abs const-decl "sequence[real]" series series)
     (comparison_test formula-decl nil series series)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (convergence const-decl "bool" convergence_sequences analysis)
     (scal_series_conv formula-decl nil series series)
     (sigma_scal formula-decl nil sigma reals)
-    (real_le_is_total_order name-judgement "(total_order?[real])" real_props
-     nil)
-    (sigma def-decl "real" sigma reals) (T_high type-eq-decl nil sigma reals)
-    (T_low type-eq-decl nil sigma reals) (<= const-decl "bool" reals nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
+    (T_low type-eq-decl nil sigma reals)
+    (<= const-decl "bool" reals nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (+ const-decl "[T -> real]" real_fun_ops reals)
-    (AA skolem-const-decl "[nat -> real]" absconv_series_aux nil)
-    (- const-decl "[T -> real]" real_fun_ops reals)
-    (= const-decl "[T, T -> boolean]" equalities nil)
+    (real_plus_real_is_real application-judgement "real" reals nil) nil
+    nil nil (= const-decl "[T, T -> boolean]" equalities nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil))
    nil)
   (abs_series_inj_conv-1 nil 3324002029
@@ -2054,7 +2355,8 @@
             (("1" (case "convergent(series(AA))")
               (("1" (case "convergent(series(BB))")
                 (("1"
-                  (lemma "nonneg_series_inj_conv" ("nna" "AA" "inj" "inj!1"))
+                  (lemma "nonneg_series_inj_conv"
+                   ("nna" "AA" "inj" "inj!1"))
                   (("1" (assert)
                     (("1"
                       (lemma "nonneg_series_inj_conv"
@@ -2065,24 +2367,33 @@
                            ("a" "AA o inj!1" "b" "-(BB o inj!1)"))
                           (("1" (split -1)
                             (("1" (expand "o")
-                              (("1" (replace -6 1)
-                                (("1" (expand "-")
-                                  (("1" (expand "+") (("1" (assert) nil nil))
+                              (("1"
+                                (replace -6 1)
+                                (("1"
+                                  (expand "-")
+                                  (("1"
+                                    (expand "+")
+                                    (("1" (assert) nil nil))
                                     nil))
                                   nil))
                                 nil))
                               nil)
                              ("2" (hide-all-but (-2 1))
-                              (("2" (expand "o") (("2" (propax) nil nil))
+                              (("2"
+                                (expand "o")
+                                (("2" (propax) nil nil))
                                 nil))
                               nil)
                              ("3" (hide-all-but (-1 1))
-                              (("3" (assert)
+                              (("3"
+                                (assert)
                                 (("3"
                                   (case-replace
                                    "-1 * series(BB o inj!1) = series(-(BB o inj!1))")
-                                  (("1" (hide-all-but 1)
-                                    (("1" (expand "o")
+                                  (("1"
+                                    (hide-all-but 1)
+                                    (("1"
+                                      (expand "o")
                                       (("1"
                                         (lemma
                                          "scal_series_conv"
@@ -2102,10 +2413,15 @@
                                                 (("1"
                                                   (expand "-")
                                                   (("1"
-                                                    (rewrite "series_scal" 1)
+                                                    (rewrite
+                                                     "series_scal"
+                                                     1)
                                                     (("1"
                                                       (expand "o")
-                                                      (("1" (assert) nil nil))
+                                                      (("1"
+                                                        (assert)
+                                                        nil
+                                                        nil))
                                                       nil))
                                                     nil))
                                                   nil))
@@ -2117,7 +2433,10 @@
                                             (("2"
                                               (lemma
                                                "nonneg_series_inj_conv"
-                                               ("nna" "BB" "inj" "inj!1"))
+                                               ("nna"
+                                                "BB"
+                                                "inj"
+                                                "inj!1"))
                                               (("2"
                                                 (split -1)
                                                 (("1"
@@ -2127,7 +2446,8 @@
                                                     (("1"
                                                       (inst + "l!1")
                                                       (("1"
-                                                        (expand "convergence")
+                                                        (expand
+                                                         "convergence")
                                                         (("1"
                                                           (skosimp)
                                                           (("1"
@@ -2137,7 +2457,9 @@
                                                             (("1"
                                                               (skosimp)
                                                               (("1"
-                                                                (inst + "n!1")
+                                                                (inst
+                                                                 +
+                                                                 "n!1")
                                                                 (("1"
                                                                   (skosimp)
                                                                   (("1"
@@ -2190,11 +2512,13 @@
                                                             nil
                                                             nil)
                                                            ("3"
-                                                            (hide-all-but 1)
+                                                            (hide-all-but
+                                                             1)
                                                             (("3"
                                                               (skosimp)
                                                               (("3"
-                                                                (expand "BB")
+                                                                (expand
+                                                                 "BB")
                                                                 (("3"
                                                                   (expand
                                                                    "abs")
@@ -2226,10 +2550,15 @@
                                         nil))
                                       nil))
                                     nil)
-                                   ("2" (hide-all-but 1)
-                                    (("2" (expand "series")
+                                   ("2"
+                                    (hide-all-but 1)
+                                    (("2"
+                                      (expand "series")
                                       (("2"
-                                        (apply-extensionality 1 :hide? t)
+                                        (apply-extensionality
+                                         1
+                                         :hide?
+                                         t)
                                         (("2"
                                           (expand "o")
                                           (("2"
@@ -2244,7 +2573,10 @@
                                                    1
                                                    :dir
                                                    rl)
-                                                  (("2" (assert) nil nil))
+                                                  (("2"
+                                                    (assert)
+                                                    nil
+                                                    nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -2263,7 +2595,8 @@
                         (("2" (skosimp)
                           (("2" (expand "BB")
                             (("2" (case-replace "aa!1(x1!1) < 0")
-                              (("1" (assert) nil nil) ("2" (assert) nil nil))
+                              (("1" (assert) nil nil)
+                               ("2" (assert) nil nil))
                               nil))
                             nil))
                           nil))
@@ -2281,14 +2614,19 @@
                   nil)
                  ("2" (hide-all-but (1 -5))
                   (("2" (expand "absconvergent?")
-                    (("2" (lemma "comparison_test" ("b" "abs(aa!1)" "a" "BB"))
+                    (("2"
+                      (lemma "comparison_test"
+                       ("b" "abs(aa!1)" "a" "BB"))
                       (("2" (assert)
                         (("2" (hide-all-but 1)
                           (("2" (skosimp)
                             (("2" (expand "abs")
-                              (("2" (expand "abs")
-                                (("2" (expand "BB")
-                                  (("2" (case-replace "aa!1(n!1) < 0")
+                              (("2"
+                                (expand "abs")
+                                (("2"
+                                  (expand "BB")
+                                  (("2"
+                                    (case-replace "aa!1(n!1) < 0")
                                     (("1" (assert) nil nil)
                                      ("2" (assert) nil nil))
                                     nil))
@@ -2303,14 +2641,16 @@
                   nil))
                 nil)
                ("2" (expand "absconvergent?")
-                (("2" (lemma "comparison_test" ("b" "abs(aa!1)" "a" "AA"))
+                (("2"
+                  (lemma "comparison_test" ("b" "abs(aa!1)" "a" "AA"))
                   (("2" (assert)
                     (("2" (hide-all-but 1)
                       (("2" (expand "abs")
                         (("2" (expand "abs")
                           (("2" (skosimp)
                             (("2" (expand "AA")
-                              (("2" (case-replace "aa!1(n!1) < 0")
+                              (("2"
+                                (case-replace "aa!1(n!1) < 0")
                                 (("1" (assert) nil nil)
                                  ("2" (assert) nil nil))
                                 nil))
@@ -2329,7 +2669,8 @@
                   (("2" (expand "-")
                     (("2" (apply-extensionality :hide? t)
                       (("2" (case-replace "aa!1(x!1) < 0")
-                        (("1" (assert) nil nil) ("2" (assert) nil nil)) nil))
+                        (("1" (assert) nil nil) ("2" (assert) nil nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -2347,7 +2688,8 @@
     (convergence const-decl "bool" convergence_sequences analysis)
     (scal_series_conv formula-decl nil series series)
     (sigma_scal formula-decl nil sigma reals)
-    (sigma def-decl "real" sigma reals) (T_high type-eq-decl nil sigma reals)
+    (sigma def-decl "real" sigma reals)
+    (T_high type-eq-decl nil sigma reals)
     (T_low type-eq-decl nil sigma reals))
    shostak)))
 
