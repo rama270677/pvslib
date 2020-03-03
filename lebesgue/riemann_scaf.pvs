@@ -195,6 +195,9 @@ BEGIN
          EXISTS (jj:below(length(P2)-1)):
             seq(P2)(jj) <= seq(P1)(ii) AND seq(P1)(ii+1) <= seq(P2)(jj+1)
 
+  %% Force PVS to resolve ^ as power@real_expt.^
+  ;^(x:nnreal,a:{a:real | a >= 0 OR x > 0}): MACRO nnreal = power@real_expt.^(x,a)
+
   partition_2n(n):partition(a,b) = eq_partition(a,b,2^n+1)
 
   part_norm_partition_2n: LEMMA part_norm(partition_2n(n)) = (b-a)/2^n
