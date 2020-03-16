@@ -164,6 +164,86 @@
     "(more_list_props.^(more_list_props.l1, ((number_fields.+)(more_list_props.m, 1), more_list_props.n)))"
     "nil")))
  (caret_length 0
+  (caret_length-3 nil 3792848292
+   (""
+    (case "FORALL ( l1: list[T], pair: [nat, nat], N:nat ):
+                             N=pair`2-pair`1 AND pair`2 >= pair`1 AND pair`2 < length(l1) IMPLIES length((l1 ^ pair)) = pair`2 - pair`1 + 1")
+    (("1" (skeep)
+      (("1" (inst?)
+        (("1" (inst -1 "pair`2 - pair`1")
+          (("1" (ground) nil) ("2" (ground) nil)))))))
+     ("2" (hide 2)
+      (("2" (induct "N")
+        (("1" (skeep)
+          (("1" (expand "^")
+            (("1" (lift-if 1)
+              (("1" (split)
+                (("1" (ground) nil)
+                 ("2" (flatten)
+                  (("2" (split 4)
+                    (("1" (ground)
+                      (("1" (expand "length")
+                        (("1" (expand "length")
+                          (("1" (propax) nil)))))))
+                     ("2" (flatten) (("2" (ground) nil)))))))))))))))
+         ("2" (skeep)
+          (("2" (skeep)
+            (("2" (expand "^" 1)
+              (("2" (lift-if 1)
+                (("2" (split 1)
+                  (("1" (flatten) (("1" (ground) nil)))
+                   ("2" (flatten)
+                    (("2" (split 4)
+                      (("1" (flatten) (("1" (ground) nil)))
+                       ("2" (flatten)
+                        (("2" (inst -1 "l1" "(1+pair`1, pair`2)")
+                          (("2" (assert)
+                            (("2" (expand "length" 2)
+                              (("2"
+                                (propax)
+                                nil))))))))))))))))))))))))))))
+    nil)
+   nil nil)
+  (caret_length-2 nil 3792848259
+   (""
+    (case "FORALL ( l1: list[T], pair: [nat, nat], N:nat ):
+                             N=pair`2-pair`1 AND pair`2 >= pair`1 AND pair`2 < length(l1) IMPLIES length((l1 ^ pair)) = pair`2 - pair`1 + 1")
+    (("1" (skeep)
+      (("1" (inst?)
+        (("1" (inst -1 "pair`2 - pair`1")
+          (("1" (ground) nil) ("2" (ground) nil)))))))
+     ("2" (hide 2)
+      (("2" (induct "N")
+        (("1" (skeep)
+          (("1" (expand "^")
+            (("1" (lift-if 1)
+              (("1" (split)
+                (("1" (ground) nil)
+                 ("2" (flatten)
+                  (("2" (split 4)
+                    (("1" (ground)
+                      (("1" (expand "length")
+                        (("1" (expand "length")
+                          (("1" (propax) nil)))))))
+                     ("2" (flatten) (("2" (ground) nil)))))))))))))))
+         ("2" (skeep)
+          (("2" (skeep)
+            (("2" (expand "^" 1)
+              (("2" (lift-if 1)
+                (("2" (split 1)
+                  (("1" (flatten) (("1" (ground) nil)))
+                   ("2" (flatten)
+                    (("2" (split 4)
+                      (("1" (flatten) (("1" (ground) nil)))
+                       ("2" (flatten)
+                        (("2" (inst -1 "l1" "(1+pair`1, pair`2)")
+                          (("2" (assert)
+                            (("2" (expand "length" 2)
+                              (("2"
+                                (propax)
+                                nil))))))))))))))))))))))))))))
+    nil)
+   nil nil)
   (caret_length-1 nil 3655812777
    (""
     (case "FORALL (l1: list[T], pair: [nat, nat], N:nat ):
@@ -8169,25 +8249,22 @@
    (clone_times subtype
     "list_adt[list[nat]].cons(more_list_props.l, more_list_props.clone_times((number_fields.-)(more_list_props.n, 1))(more_list_props.l))"
     "{r: list_adt[list[nat]].list | booleans.AND(list_props[list[nat]].length(r) = more_list_props.n, FORALL (i: naturalnumbers.below(more_list_props.n)): list_props[list[nat]].nth(r, i) = more_list_props.l)}")))
- (length_append1 0
-  (length_append1-1 nil 3792423264
-   ("" (skeep :preds? t)
-    (("" (expand "append1") (("" (rewrite "length_append") nil nil))
-      nil))
+ (length_snoc 0
+  (length_snoc-1 nil 3793386649
+   ("" (skeep)
+    (("" (expand "snoc") (("" (rewrite "length_append") nil nil)) nil))
     nil)
-   ((append1 const-decl "list[T]" more_list_props nil)
-    (T formal-type-decl nil more_list_props nil)
-    (null adt-constructor-decl "(null?)" list_adt nil)
-    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
-    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (list type-decl nil list_adt nil)
-    (length_append formula-decl nil list_props nil)
+   ((nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
     (length_singleton formula-decl nil more_list_props nil)
-    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
-     integers nil))
-   shostak))
+    (length_append formula-decl nil list_props nil)
+    (list type-decl nil list_adt nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
+    (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
+    (T formal-type-decl nil more_list_props nil)
+    (snoc const-decl "list[T]" more_list_props nil))
+   nil))
  (length_parm 0
   (length_parm-2 "" 3790088164
    ("" (skolem 1 ("PP" _))
