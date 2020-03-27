@@ -29,5 +29,9 @@ BEGIN
       AND (LAMBDA(s:S): f(s)) = g)
            IMPLIES  (derivable?[S](g)  AND deriv[S](g) = (LAMBDA(s:S): deriv[T](f)(s)))
 
+  derivable_subtype_del: LEMMA
+    FORALL(g:[S->real], x:{xx:S | EXISTS(del:posreal): FORALL(y:T): abs(xx-y)<del IFF member[T](y,fullset[S])}): ((deriv_domain?[S] AND not_one_element?[S]) AND (LAMBDA(s:S): f(s)) = g)
+           IMPLIES (derivable?[S](g,x) IFF derivable?[T](f,x))  
 
+  
 END derivatives_subtype
