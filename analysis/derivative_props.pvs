@@ -107,7 +107,6 @@ BEGIN
        IMPLIES
            f=g
 
-
   monotonic_antideriv: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
     (FORALL (x:T): deriv(f)(x) >= deriv(g)(x)) AND
     a <= b =>
@@ -131,5 +130,42 @@ BEGIN
   epsi_lt_le: LEMMA (FORALL (epsilon: posreal): x < epsilon) IFF
                (FORALL (epsilon: posreal): x <= epsilon) 
 
+	   
+%% --- J. Tanner Slagel Additions ---
+
+  derivs_funs_neq: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
+       a < b AND
+       (FORALL (x:T): deriv(f)(x) = deriv(g)(x))
+       AND (EXISTS (dd:T): f(dd) /= g(dd))
+       IMPLIES
+          (FORALL (x:T):  f(x) /= g(x))
+
+  derivs_funs_leq: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
+       a < b AND
+       (FORALL (x:T): deriv(f)(x) <= deriv(g)(x))
+       IMPLIES 
+       (FORALL(d:{dd:T| f(dd) <= g(dd) AND FORALL(xx:T): dd<=xx}):
+         (FORALL (x:T):  f(x) <= g(x)))
+
+  derivs_funs_lt: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
+       a < b AND
+       (FORALL (x:T): deriv(f)(x) <= deriv(g)(x))
+       IMPLIES 
+       (FORALL(d:{dd:T| f(dd) < g(dd) AND FORALL(xx:T): dd <= xx}):
+         (FORALL (x:T):  f(x) < g(x)))
+
+  derivs_funs_geq: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
+       a < b AND
+       (FORALL (x:T): deriv(f)(x) >= deriv(g)(x))
+       IMPLIES 
+       (FORALL(d:{dd:T| f(dd) >= g(dd) AND FORALL(xx:T): dd <= xx}):
+         (FORALL (x:T):  f(x) >= g(x)))
+
+  derivs_funs_gt: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
+        a < b AND
+       (FORALL (x:T): deriv(f)(x) >= deriv(g)(x))
+       IMPLIES 
+       (FORALL(d:{dd:T| f(dd) > g(dd) AND FORALL(xx:T): dd <= xx}):
+         (FORALL (x:T):  f(x) > g(x)))
 
 END derivative_props
