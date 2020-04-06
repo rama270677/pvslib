@@ -131,7 +131,13 @@ BEGIN
                (FORALL (epsilon: posreal): x <= epsilon) 
 
 	   
-%% --- J. Tanner Slagel Additions ---
+%% --- J. Tanner Slagel Additions, 4/2020 ---
+
+
+%-------------------------------------------------------------------------
+%% If two functions are not the same at an initial point, but they have
+%  the same derivative, they are not the same anywhere
+%-------------------------------------------------------------------------
 
   derivs_funs_neq: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
        a < b AND
@@ -140,6 +146,13 @@ BEGIN
        IMPLIES
           (FORALL (x:T):  f(x) /= g(x))
 
+%-------------------------------------------------------------------------
+%%Inequalities at some initial point and of the derivatives of two
+% functions on a domain,  preserve the inequality of the two functions
+% through to the whole domain 
+%-------------------------------------------------------------------------
+
+  %Less than or equal to 
   derivs_funs_leq: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
        a < b AND
        (FORALL (x:T): deriv(f)(x) <= deriv(g)(x))
@@ -147,6 +160,7 @@ BEGIN
        (FORALL(d:{dd:T| f(dd) <= g(dd) AND FORALL(xx:T): dd<=xx}):
          (FORALL (x:T):  f(x) <= g(x)))
 
+  %Less than
   derivs_funs_lt: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
        a < b AND
        (FORALL (x:T): deriv(f)(x) <= deriv(g)(x))
@@ -154,18 +168,21 @@ BEGIN
        (FORALL(d:{dd:T| f(dd) < g(dd) AND FORALL(xx:T): dd <= xx}):
          (FORALL (x:T):  f(x) < g(x)))
 
+  %Greater than or equal to
   derivs_funs_geq: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
        a < b AND
        (FORALL (x:T): deriv(f)(x) >= deriv(g)(x))
        IMPLIES 
        (FORALL(d:{dd:T| f(dd) >= g(dd) AND FORALL(xx:T): dd <= xx}):
          (FORALL (x:T):  f(x) >= g(x)))
-
+	 
+  %Greater than
   derivs_funs_gt: LEMMA FORALL (a, b: T, f, g: deriv_fun[T]):
         a < b AND
        (FORALL (x:T): deriv(f)(x) >= deriv(g)(x))
        IMPLIES 
        (FORALL(d:{dd:T| f(dd) > g(dd) AND FORALL(xx:T): dd <= xx}):
          (FORALL (x:T):  f(x) > g(x)))
-
+	 
+%~~~      END   ~~~%
 END derivative_props
