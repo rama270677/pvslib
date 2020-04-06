@@ -4,6 +4,7 @@
 
 use Getopt::Long;
 use File::Basename;
+use Cwd;
 
 $usageln = "Usage: dependencygraph [--help] [<option> ...] [<file>]";
 
@@ -29,6 +30,8 @@ $usageln
   --from=<dir>             process all libraries from <dir>, inclusive
   --to=<dir>               process all libraries to <dir>, inclusive
   --top=<topfile>          specify name of the top file directory
+  --force                  regenerate .dep file
+  --full-path              print library full paths 
 
 File <file> is an ordered list of libraries to be processed by proveit. If <file>
 is not provided, the file name all-theories is assumed. Particular developments in
@@ -54,21 +57,38 @@ sub deslash($)
 
 sub trim($)
 {
-	my $string = shift;
-	$string =~ s/^\s+//;
-	$string =~ s/\s+$//;
-	return $string;
+  my $string = shift;
+  $string =~ s/^\s+//;
+  $string =~ s/\s+$//;
+  return $string;
 }
 
 my %libgraph;
 my $graph;
 
+sub liblabel($){
+  my $string = shift;
+  if (! $fullpath){
+    $string =~ s/^\/.*\/([^\/]+)$/$1/;
+  }
+  return $string;
+}
+
+sub unqualifyLibName($){
+  my $lib = shift;
+  if ( $lib =~/^.+\/([^\/]+)$/ ) {
+    return $1;
+  } else {
+    return $lib;
+  }
+}
+
 sub qid {
   my ($lib,$th) = @_;
   if ($th) {
-    return "{$lib"."_at_"."$th [label=\"$th\"]}";
+    return "{\"$lib"."_at_"."$th\" [label=\"$th\"]}";
   } else {
-    return "{$lib [label=\"$lib\"]}";
+    return "{\"$lib\" [label=\"" . liblabel($lib) . "\"]}";
   }
 } 
 
@@ -76,11 +96,11 @@ sub edgestr {
   my ($fromlib,$fromth,$tolib,$toth) = @_;
   my $from = $fromlib;
   if ($fromth) {
-    $from = "$fromlib_at_$fromth";
+    $from .= "_at_$fromth";
   }
   my $to = $tolib;
   if ($toth) {
-    $to = "$tolib_at_$toth";
+    $to .= "_at_$toth";
   }
   if (!$libgraph{$from}{$to}) {
     $libgraph{$from}{$to}=1;
@@ -95,18 +115,17 @@ sub writesubgraph {
   my ($lib, $from, $tos) = @_;
   @tolist = split /,/,$tos;
   foreach $to (@tolist) {
-    @libto = split /@/,$to;
-    if ($libto[1]) {
+    if ($to =~/^(.*\/)([^\/]+)\/([^\/]+)$/) { # if is has a slash, it is a fully qualified name
       my $str;
-      if (grep(/^$libto[0]$/,@zoomlist)) {
-	$str = edgestr($lib,$from,$libto[0],$libto[1]);
+      if (grep(/^$2$/,@zoomlist)) {
+	$str = edgestr($lib,$from,$1.$2,$3);
       } else {
-	$str = edgestr($lib,$from,$libto[0],"");
+	$str = edgestr($lib,$from,$1.$2,"");
       }
       $graph .= "  ".$str if $str;
     } else {
       my $str = edgestr($lib,$from,$lib,$to);
-      $subgraph{$lib} .= "    ".$str if $str;
+      $subgraph{unqualifyLibName($lib)} .= "    ".$str if $str;
     }
   }
 }
@@ -123,7 +142,9 @@ GetOptions('dot'=>\$dot,
            'from=s'=>\$from,
 	   'help'=>\$help,
 	   'top=s'=>\$top,
-           'to=s'=>\$to) or exit 1;
+           'to=s'=>\$to,
+	   'force'=>\$force,
+	   'full-path'=>\$fullpath) or exit 1;
 
 $after = deslash($after);
 $before = deslash($before);
@@ -202,7 +223,7 @@ while (<INFILE>) {
       }
     } elsif ($lib) {
       die "Directory $lib not found\n";
-    } 
+    }
   }
 }
 
@@ -219,18 +240,35 @@ my @libraries=@targets;
 
 foreach $lib (@libraries) {
   push(@nodes,$lib);
+
+  if ($force || ! -f "$lib/pvsbin/$topfile.dep" ) {
+    if ($force) {
+      print "Generating $lib/pvsbin/$topfile.dep... ";
+    } elsif (! -f "$lib/pvsbin/$topfile.dep") {
+      print "File $lib/pvsbin/$topfile.dep not found. Generating it... ";
+    }
+    my $proveitresult = `proveit -T -q --dependencies $lib`;
+    die("Error: could not generate dep file (reported error: $!)\n")
+      if !defined($proveitresult);
+    print "done.\n";
+  }
+  
   if (-f "$lib/pvsbin/$topfile.dep") {
     open(FILE,"$lib/pvsbin/$topfile.dep");
     $zoom = grep(/^$lib$/,@zoomlist);
-    $graph .= "  ".qid($lib,"").";\n" if !$zoom;
+    $graph .= "  ".qid(getcwd."/".$lib,"").";\n" if !$zoom;
     while($line = <FILE>) {
       if ($zoom) {
 	if ($line =~/(.+):(.*)/ && $1 ne "$topfile") {
-	  $subgraph{$lib} .= "    ".qid($lib,$1).";\n";
-	  writesubgraph($lib,$1,$2) if $2;
+	  $subgraph{$lib} .= "    ".qid(getcwd."/".$lib,$1).";\n";
+	  writesubgraph(getcwd."/".$lib,$1,$2) if $2;
 	}
-      } elsif ($line =~/(.+)\//) {
-	my $str = edgestr($lib,"",$1,"");
+      } elsif ($line =~/(.+)\/$/) {
+	# omit path-only library entry in the dep file
+      } elsif ($line =~/(.+)\/$lib\/([^\/]+)$/) {
+	# omit own library entry
+      } elsif ($line =~/^(\/.+)\//) {
+	my $str = edgestr(getcwd($lib)."/".$lib,"",$1,"");
 	$graph .= "  ".$str if $str;
       }
     } 
@@ -241,7 +279,7 @@ foreach $lib (@libraries) {
 }
 
 foreach $ext (@external) {
-  $graph .= "  {$ext [label=\"$ext\", style=filled, fillcolor=yellow]}\n";
+  $graph .= "  {\"$ext\" [label=\"".liblabel($ext)."\", style=filled, fillcolor=yellow, shape=box]}\n";
 }
 
 foreach $lib (@zoomlist) {
@@ -271,7 +309,9 @@ close(DOT);
 print "File $out.dot has been generated\n" if $dot;
 if (!$dot || $pdf) {
   die "To produce $out.pdf, install Graphviz and add it to PATH\n" if !`which dot`;
-  `dot -Tpdf $out.dot -o $out.pdf`;
+  my $dotresult = `dot -Tpdf $out.dot -o $out.pdf`;
+  die("Error: could not generate dot file (reported error: $!)\n")
+    if !defined($dotresult);
   print "File $out.pdf has been generated\n";
 } 
 
