@@ -1,49 +1,87 @@
 #!/usr/bin/env perl
 # Script for generating a library dependency graph (requires dot) 
-# Based on code wriiten by George Hagen (NASA)
+# Based on code written by George Hagen (NASA)
 
 use Getopt::Long;
 use File::Basename;
 use Cwd;
 
-$usageln = "Usage: dependencygraph [--help] [<option> ...] [<file>]";
+# use lib(lib);
+use Graph;
+use Graph::Writer::Dot;
+
+$usageln = "Usage: $0 [--help] [<option> ...] [<file>]";
 
 sub usage() {
   print <<EOF;
-dependencygraph -- generates a library dependency graph for <file>.
+$0 -- generates a library dependency graph for <file>.
 
-This script builds a dot graph of library dependecies. It will then call 
-Graphviz's dot utility on that file to produce a pdf graph.
+This script builds a dot graph of library dependencies. 
 
 $usageln
-<option> is
-  --dot                    don't generate PDF unless --pdf is specified
+
+File <file> is an ordered list of libraries to be processed by proveit. 
+
+The available options (<option>) are shown below.
+
+ OUPUT
+
+  --dot                    generate a dot file. Do not generate PDF unless --pdf is specified
   --pdf                    generate a pdf file (default)
   --title=<string>         use <string> as the title of the graph
   --out=<outfile>          use <outfile> as name of the output file
-  --zoom=<dir1>,...,<dirn> zoom into libraries <dir1>,...,<dirn>
-  --help                   print this message
-  --after=<dir>            process all libraries after <dir>, exclusive
-  --before=<dir>           process all libraries before <dir>, exclusive
-  --but=<dir1>,..,<dirn>   do not process libraries <dir1>,...,<dirn>
+
+ SCOPE the scope of the visited libraries can be controlled with the following options
+
   --do=<dir1>,..,<dirn>    process libraries <dir1>,...,<dirn> 
+  --but=<dir1>,..,<dirn>   do not process libraries <dir1>,...,<dirn>
+  --after=<dir>            process all libraries after <dir>, exclusive
   --from=<dir>             process all libraries from <dir>, inclusive
+  --before=<dir>           process all libraries before <dir>, exclusive
   --to=<dir>               process all libraries to <dir>, inclusive
-  --top=<topfile>          specify name of the top file directory
-  --force                  regenerate .dep file
+  --reach-from=<lib>@<th>  print (only) every reachable theory from <lib@th>. 
+  --closure=[lib|theory]   automatically grows the scope in order to 
+                           - (lib) include every library reachable from theories in it.
+                           - (theory) zoom into those theories.
+
+ FINE-GRAINED CONTROL
+
+  --top=<topfile>          specify name of the top file directory (default: "top")
+  --zoom=<dir1>,...,<dirn> zoom into libraries <dir1>,...,<dirn>
+
+ VISUALIZATION
+
   --full-path              print library full paths 
+  --show-top               show top file in the graph (not shown by default)
 
-File <file> is an ordered list of libraries to be processed by proveit. If <file>
-is not provided, the file name all-theories is assumed. Particular developments in
-<file> can be selected using the options: --do, --after, --before, --from,
---to. The option --but unselect a list of developments. If <outfile>
-is not specified, <file><postfix> is used. The <postfix> depends on
-library selection option, i.e.,
---do,--but,--from,--to,--after,--before,--zoom.
+ EXTRAS
 
-When the option --zoom is used, the specified developments are zoomed
-such that the each theory in those developments in represented by a
-node in the dependency graph.
+  --force                  regenerate .dep files
+  --help                   print this message
+
+DESCRIPTION
+
+If <file> is not provided, the file name all-theories is assumed.
+
+If <outfile> is not specified, <file><postfix> is used. The <postfix> depends 
+on library selection option, i.e., --do,--but,--from,--to,--after,--before,--zoom.
+$0 depends on Graphviz's dot utility to produce a pdf output.
+
+Particular developments in <file> can be selected using the options: --do,
+--after, --before, --from, --to. The option --but unselect a list of developments.
+
+When the option --zoom is used, the specified developments are zoomed such 
+that the each theory in those developments in represented by a node in the 
+dependency graph.
+
+The --reach-from=<lib>@<th> option allows to print only the theories which are 
+reachable from <lib>@<th>. Note, also, that <lib> will be added to the visible 
+scope if not already part of it. Additionally, DEPENDENCYGRAPH will zoom into 
+<lib> as if it were mentioned in the --zoom option. Theories from other libraries 
+are explicitly mentioned in the resulting graph only if they belong to a zoomed 
+library, otherwise only the referenced library is mentioned.
+
+
 EOF
   exit;
 }
@@ -63,18 +101,27 @@ sub trim($)
   return $string;
 }
 
-my %libgraph;
-my $graph;
+my $graph = Graph->new; 
 
-sub liblabel($){
-  my $string = shift;
-  if (! $fullpath){
+sub library_label {
+  my ($string,$short) = @_;
+  if ($short || ! $fullpath){
     $string =~ s/^\/.*\/([^\/]+)$/$1/;
   }
   return $string;
 }
 
-sub unqualifyLibName($){
+sub collection_label($){
+  my $lib = shift;
+  my $result =~ s/^\/.*\/([^\/]+)\/[^\/]+$/$1/;
+  if (! $result) {
+    $result = getcwd; # it's a local library.
+    $result =~ s/^\/.*\/([^\/]+)$/$1/ if ! $fullpath;
+  }
+  return $result;
+}
+
+sub unqualify_library_name($) {
   my $lib = shift;
   if ( $lib =~/^.+\/([^\/]+)$/ ) {
     return $1;
@@ -83,52 +130,67 @@ sub unqualifyLibName($){
   }
 }
 
-sub qid {
-  my ($lib,$th) = @_;
-  if ($th) {
-    return "{\"$lib"."_at_"."$th\" [label=\"$th\"]}";
+sub add_theory_vertex {
+  my ($lib,$thy) = @_;
+
+  my $node_id = $lib."@".$thy;
+
+  $graph->set_vertex_attribute($node_id,'label',$thy);
+  $graph->set_vertex_attribute($node_id,'group',$lib);
+  $graph->set_vertex_attribute($node_id,'style','filled');
+  $graph->set_vertex_attribute($node_id,'fillcolor','#e6f3ff');
+
+  return ($node_id eq $reach_from);
+}
+
+sub add_library_vertex {
+  my ($lib) = @_;
+
+  $graph->set_vertex_attribute($lib,'label',library_label($lib,true));
+  $graph->set_vertex_attribute($lib,'group',collection_label($lib));
+  $graph->set_vertex_attribute($lib,'style','filled');
+  $graph->set_vertex_attribute($lib,'fillcolor','#fcfcd7');
+  $graph->set_vertex_attribute($lib,'shape','box');
+}
+
+sub add_edge {
+  my ($libsrc,$thysrc,$libtgt,$thytgt) = @_;
+  my $reach_from_theory_found=add_theory_vertex($libsrc,$thysrc);
+
+  my $uname = unqualify_library_name($libtgt);
+  if (grep(/^$uname$/,@zoomlist)) {
+    $reach_from_theory_found = add_theory_vertex($libtgt,$thytgt) || $reach_from_theory_found;
+    $graph->add_edge($libsrc."@".$thysrc,$libtgt."@".$thytgt);
   } else {
-    return "{\"$lib\" [label=\"" . liblabel($lib) . "\"]}";
+    add_library_vertex($libtgt);
+    $graph->add_edge($libsrc."@".$thysrc,$libtgt);
   }
-} 
 
-sub edgestr {
-  my ($fromlib,$fromth,$tolib,$toth) = @_;
-  my $from = $fromlib;
-  if ($fromth) {
-    $from .= "_at_$fromth";
-  }
-  my $to = $tolib;
-  if ($toth) {
-    $to .= "_at_$toth";
-  }
-  if (!$libgraph{$from}{$to}) {
-    $libgraph{$from}{$to}=1;
-    push(@targets,$tolib) if grep(/^$tolib$/,@nasalib) && !grep(/^$tolib$/,@targets);
-    push(@external,$tolib) if $fromth && !$toth && !grep(/^$tolib$/,@external);
-    return qid($fromlib,$fromth)." -> ".qid($tolib,$toth).";\n";
-  }
-  return "";
+  return $reach_from_theory_found;
 }
 
-sub writesubgraph {
-  my ($lib, $from, $tos) = @_;
-  @tolist = split /,/,$tos;
-  foreach $to (@tolist) {
-    if ($to =~/^(.*\/)([^\/]+)\/([^\/]+)$/) { # if is has a slash, it is a fully qualified name
-      my $str;
-      if (grep(/^$2$/,@zoomlist)) {
-	$str = edgestr($lib,$from,$1.$2,$3);
-      } else {
-	$str = edgestr($lib,$from,$1.$2,"");
-      }
-      $graph .= "  ".$str if $str;
-    } else {
-      my $str = edgestr($lib,$from,$lib,$to);
-      $subgraph{unqualifyLibName($lib)} .= "    ".$str if $str;
-    }
+sub add_libraries_edge {
+  my ($libsrc,$libtgt) = @_;
+  add_library_vertex($libsrc);
+  add_library_vertex($libtgt);
+  $graph->add_edge($libsrc,$libtgt);
+}
+
+# Every vertex in the TARGET graph receive the attributes
+# that it holds in the SOURCE graph.
+#
+sub transfer_vertex_attributes {
+  my ($tgt,$src) = @_;
+
+  foreach $tgtv ($tgt->vertices) {
+    my $srcatt = $src->get_vertex_attributes($tgtv);
+    $tgt->set_vertex_attributes($tgtv,$srcatt);
   }
 }
+
+#
+# -- Main 
+#
 
 GetOptions('dot'=>\$dot,
 	   'pdf'=>\$pdf,
@@ -144,7 +206,10 @@ GetOptions('dot'=>\$dot,
 	   'top=s'=>\$top,
            'to=s'=>\$to,
 	   'force'=>\$force,
-	   'full-path'=>\$fullpath) or exit 1;
+	   'full-path'=>\$fullpath,
+	   'show-top'=>\$showtop,
+	   'reach-from=s'=>\$reach_from,
+	   'closure=s'=>\$closure) or exit 1;
 
 $after = deslash($after);
 $before = deslash($before);
@@ -153,6 +218,9 @@ $from = deslash($from);
 $do = deslash(join(',',@do));
 $but = deslash(join(',',@but));
 $zoom = deslash(join(',',@zoom));
+my ($reach_from_library,$reach_from_theory) = split(/@/,$reach_from) if $reach_from;
+
+# my $reach_from_checked = 0;
 
 usage if $help;
 
@@ -171,8 +239,12 @@ die "$usageln\n" if shift;
 die "$file is a directory\n" if -d $file;
 open (INFILE,$file) || die "File $file doesn't exist\n";
 
+# Compute graph name and output file name.
+#
+my $graphName;
 if ($out) {
-  my ($base,$path,$type) = fileparse($out,qr{\..*});  
+  my ($base,$path,$type) = fileparse($out,qr{\..*});
+  $graphName=$base;
   if ($type eq ".pdf") {
     $pdf = 1;
     $dot = 0;
@@ -180,24 +252,32 @@ if ($out) {
     $dot = 1;
     $pdf = 0;
   }
-  $out  = "$path$base";
 } else {
   my ($base,$path,$type) = fileparse($file,qr{\..*});  
-  $out  = "$path$base";
+  $graphName = "$base";
   my $dol = join('_',@dolist);
-  $out .= "-$dol" if $dol;
+  $graphName .= "-$dol" if $dol;
   my $butl = join('_',@butlist);
-  $out .= "-but_$butl" if $butl;
-  $out .= "-from_$from" if $from;
-  $out .= "-to_$to" if $to;
-  $out .= "-after_$after" if $after;
-  $out .= "-below_$below" if $below;
+  $graphName .= "-but_$butl" if $butl;
+  $graphName .= "-from_$from" if $from;
+  $graphName .= "-to_$to" if $to;
+  $graphName .= "-after_$after" if $after;
+  $graphName .= "-below_$below" if $below;
   my $zooml = join('_',@zoomlist);
-  $out .= "-zoom_$zooml" if $zooml;
+  $graphName .= "-zoom_$zooml" if $zooml;
+  $graphName .= "-top_$top" if $top;
+  $graphName .= "-rf_$reach_from" if $reach_from;
+  $graphName .= "-closure_$closure" if $closure;
+  $graphName .= "-fullpath" if $fullpath;
 }
+$graphName =~ s/@/AT/g;
 
+$out = $path . $graphName;
+
+# Process input file (all-theories by default)
+#
 my $all = !($from || $after || @dolist || @zoomlist);
-
+my @all_libs;
 while (<INFILE>) {
   $line = $_;
   $line =~ s/\#.*$//;
@@ -205,6 +285,7 @@ while (<INFILE>) {
   if ($line) {
     @listline = split /:/,$line;
     $lib = trim($listline[0]);
+    push(@all_libs,$lib);
     if ($lib && -d $lib) {
       push(@nasalib,$lib);
       if ($lib eq $from) {
@@ -221,24 +302,34 @@ while (<INFILE>) {
       } elsif ($lib eq $to) {
 	$all = 0;
       }
+      # $reach_from_checked = ($lib eq $reach_from_library) || $reach_from_checked if $reach_from;
     } elsif ($lib) {
       die "Directory $lib not found\n";
     }
   }
 }
-
 close(INFILE);
+
+# die("ERROR in --reach-from option value: library '$reach_from_library' is not visible.\n(HINT: Doublecheck spelling and values for --do, --from, --to, --but options.)\n")
+#  if $reach_from && !$reach_from_checked;
+if ($reach_from) {
+  push(@targets, $reach_from_library) if !grep(/^$reach_from_library$/,@targets);
+  push(@zoomlist, $reach_from_library) if !grep(/^$reach_from_library$/,@zoomlist);
+}
+
+die "Nothing to generate\n" if !@targets;
+
 if ($top) {
   $topfile = $top;
 } else {
   $topfile = "top";
 }
 
-die "Nothing to generate\n" if !@targets;
-
 my @libraries=@targets;
 
-foreach $lib (@libraries) {
+while (@libraries) {
+  $lib = pop(@libraries);
+  
   push(@nodes,$lib);
 
   if ($force || ! -f "$lib/pvsbin/$topfile.dep" ) {
@@ -247,66 +338,101 @@ foreach $lib (@libraries) {
     } elsif (! -f "$lib/pvsbin/$topfile.dep") {
       print "File $lib/pvsbin/$topfile.dep not found. Generating it... ";
     }
-    my $proveitresult = `proveit -T -q --dependencies $lib`;
+    my $prove_it_result = `proveit -T -i -q --dependencies $lib/$topfile`;      
     die("Error: could not generate dep file (reported error: $!)\n")
-      if !defined($proveitresult);
+      if !defined($prove_it_result);
     print "done.\n";
   }
-  
+
+  my $fullyQualifiedLibName = getcwd."/".$lib;
+  my $librarylabel = library_label($fullyQualifiedLibName);
+
+  my $reach_from_theory_found=0;
   if (-f "$lib/pvsbin/$topfile.dep") {
     open(FILE,"$lib/pvsbin/$topfile.dep");
     $zoom = grep(/^$lib$/,@zoomlist);
-    $graph .= "  ".qid(getcwd."/".$lib,"").";\n" if !$zoom;
     while($line = <FILE>) {
       if ($zoom) {
-	if ($line =~/(.+):(.*)/ && $1 ne "$topfile") {
-	  $subgraph{$lib} .= "    ".qid(getcwd."/".$lib,$1).";\n";
-	  writesubgraph(getcwd."/".$lib,$1,$2) if $2;
+	if ($line =~/(.+):(.*)/ && ($showtop || $1 ne "$topfile")) {
+	  
+	  add_theory_vertex($librarylabel,$1);
+	  
+	  if ($2) {
+	    my $lib=$fullyQualifiedLibName;
+	    my $from=$1;
+	    my $tos=$2;
+	    @tolist = split /,/,$tos;
+	    foreach $to (@tolist) {
+	      if ($to =~/^(.*\/)([^\/]+)\/([^\/]+)$/) { # if it has a slash, it is a fully qualified name
+		
+		my $uname = unqualify_library_name($1.$2);
+		if ($closure) {
+		  if (!grep(/^$uname$/,@libraries) && !grep(/^$uname$/,@libraries) && grep(/^$uname$/,@all_libs)) {
+		    push(@libraries, $uname);
+		    if ($closure eq "theory" && !grep(/^$uname$/,@zoomlist)) {
+		      push(@zoomlist, $uname);
+		    }
+		  } 
+		}
+
+		$reach_from_theory_found = add_edge(library_label($lib),$from,library_label($1.$2),$3) || $reach_from_theory_found;
+	      } else {
+		$reach_from_theory_found = add_edge(library_label($lib),$from,library_label($lib),$to) || $reach_from_theory_found;
+	      }
+	      # print "\n";
+	    }
+	  }
 	}
       } elsif ($line =~/(.+)\/$/) {
 	# omit path-only library entry in the dep file
       } elsif ($line =~/(.+)\/$lib\/([^\/]+)$/) {
 	# omit own library entry
       } elsif ($line =~/^(\/.+)\//) {
-	my $str = edgestr(getcwd($lib)."/".$lib,"",$1,"");
-	$graph .= "  ".$str if $str;
+	my $uname = unqualify_library_name($1);
+	if ($closure) {
+	  if (!grep(/^$uname$/,@libraries) && !grep(/^$uname$/,@libraries) && grep(/^$uname$/,@all_libs)) {
+	    push(@libraries, $uname);
+	    push(@zoomlist, $uname) if ($closure eq "theory") && !grep(/^$uname$/,@zoomlist);
+	  } 
+	}
+	add_libraries_edge($fullyQualifiedLibName,$1);
       }
     } 
     close FILE;
   } else {
     die "File $lib/pvsbin/$topfile.dep not found\n";
   }
+  die("ERROR in --reach-from option value: theory '$reach_from' is not visible.\n".
+      "(HINT: Doublecheck spelling and values for --do, --from, --to, --but options.)\n")
+    if ($reach_from && ($lib eq $reach_from_library) && !$reach_from_theory_found);
+
 }
 
-foreach $ext (@external) {
-  $graph .= "  {\"$ext\" [label=\"".liblabel($ext)."\", style=filled, fillcolor=yellow, shape=box]}\n";
-}
+# Add graphs attributes
+$graph->set_graph_attribute('name',"\"$graphName\"");
+$graph->set_graph_attribute('rankdir','LR');
+# splines=ortho for a more circuit diagram form, splines=true for default curves
+$graph->set_graph_attribute('splines',true);
+$graph->set_graph_attribute('concentrate',true);
 
-foreach $lib (@zoomlist) {
-  $graph .= "  subgraph cluster_$lib {\n";
-  $graph .= $subgraph{$lib};
-  $graph .= "    label=\"$lib\";\n";
-  $graph .= "    style=filled;\n";
-  $graph .= "  }\n";
+# Print dot file
+#
+my $writer = Graph::Writer::Dot->new(cluster => 'group');
+if ($reach_from) {
+  # Compute Shortest Path Tree from $reach_from node.
+  my $tree = $graph->SPT_Dijkstra(first_root => $reach_from,next_root => sub { undef });
+  # Copy attributes
+  $tree->set_graph_attributes($graph->get_graph_attributes());  
+  transfer_vertex_attributes($tree,$graph);
+  # Write graph
+  $writer->write_graph($tree, "$out.dot");
+} else {
+  $writer->write_graph($graph, "$out.dot");
 }
-
-my ($graphname,$path,$type) = fileparse($out);
-$graphname =~ s/-/_/g;
-
-open(DOT,">$out.dot") or die "can't open $out.dot\n";
-print DOT "digraph $graphname {\n";
-if ($title) {
-  print DOT "labelloc=\"t\"";
-  print DOT "label=\"$title\"";
-}
-print DOT "  rankdir=LR;\n";
-#print DOT "  node [shape=box]\n" if !$zoom;
-print DOT "  concentrate=true;\n";
-print DOT "  splines=true;\n";  # splines=ortho for a more circuit diagram form, splines=true for default curves
-print DOT $graph;
-print DOT "}\n";
-close(DOT);
 print "File $out.dot has been generated\n" if $dot;
+
+# Print pdf file
+#
 if (!$dot || $pdf) {
   die "To produce $out.pdf, install Graphviz and add it to PATH\n" if !`which dot`;
   my $dotresult = `dot -Tpdf $out.dot -o $out.pdf`;
@@ -315,6 +441,6 @@ if (!$dot || $pdf) {
   print "File $out.pdf has been generated\n";
 } 
 
+# Clean
+#
 `rm $out.dot` if !$dot;
-
-
