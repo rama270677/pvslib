@@ -1,0 +1,12 @@
+(defun get-pvs-library-alist ()
+  (let ((alist nil))
+    (dolist (path *pvs-library-path*)
+      (assert (directory-p path))
+      (dolist (sdir (uiop:subdirectories path))
+	(let* ((subdir (truename sdir))
+	       (dname (or (pathname-name subdir)
+			 (car (last (pathname-directory subdir))))))
+	  (when (valid-pvs-id* dname)
+	    (push (cons (intern dname :pvs) subdir) alist)))))
+    ;; earlier paths in *pvs-library-path* shadow later ones.
+    (nreverse alist)))
