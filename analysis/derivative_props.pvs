@@ -200,7 +200,14 @@ BEGIN
          (FORALL(d:
           {dd:T| FORALL(xx:real): dd <= xx
 	  IFF member[real](xx,fullset[T])}):
-           EXISTS(x:T): FORALL(xx:{xxx:T| xxx>=x}):  f(xx)<0)
-	 
+            FORALL(x:{xx:T| xx>(d+f(d)/eps)}):  f(x)<0)
+
+   neg_spot(eps:posreal,
+   d: {dd:T| FORALL(xx:real): dd <= xx
+    IFF member[real](xx,fullset[T])},
+   f:{ff:deriv_fun[T] | (FORALL (x:T): -eps >= deriv(ff)(x))}):
+   {r:real | FORALL(x:{xx:T | xx> r}): f(x)<0} =
+    (d+f(d)/eps)
+   
 %~~~      END   ~~~%
 END derivative_props
