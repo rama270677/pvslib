@@ -183,6 +183,24 @@ BEGIN
        IMPLIES 
        (FORALL(d:{dd:T| f(dd) > g(dd) AND FORALL(xx:T): dd <= xx}):
          (FORALL (x:T):  f(x) > g(x)))
+
+%-------------------------------------------------------------------------
+%% If a function has a derivative that is negative and bounded away from
+%  zero, then eventually that function becomes negative. 
+%-------------------------------------------------------------------------
+
+  deriv_neg_neg: LEMMA
+    FORALL (a, b: T, f: deriv_fun[T], eps:posreal):
+        a < b AND
+       (EXISTS(d:
+       {dd:T| FORALL(xx:real): dd <= xx
+       IFF member[real](xx,fullset[T])}):
+        (FORALL (x:T): -eps >= deriv(f)(x)))
+         IMPLIES 
+         (FORALL(d:
+          {dd:T| FORALL(xx:real): dd <= xx
+	  IFF member[real](xx,fullset[T])}):
+           EXISTS(x:T): FORALL(xx:{xxx:T| xxx>=x}):  f(xx)<0)
 	 
 %~~~      END   ~~~%
 END derivative_props
