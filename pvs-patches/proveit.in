@@ -16,7 +16,7 @@
 #  
 
 PVSPATH=@PVSPATH@
-VERSION="ProofLite-7.0.0 (03/10/20)"
+VERSION="ProofLite-7.0.0 (02/04/20)"
 
 export PROVEITVERSION="proveit - $VERSION"
 
@@ -193,7 +193,11 @@ cleanup() {
   if [ "$CLEAN" ]
   then
       if [ "$PVSCONTEXT" ]; then
-	  PVSCONTEXT_CTXT="$PVSCONTEXT/.pvscontext $PVSCONTEXT/$PVSBIN/*.*"
+	  if [ "$BINARIESONLY" ]; then
+	      PVSCONTEXT_CTXT="$PVSCONTEXT/.pvscontext $PVSCONTEXT/$PVSBIN/*.bin"
+	  else
+	      PVSCONTEXT_CTXT="$PVSCONTEXT/.pvscontext $PVSCONTEXT/$PVSBIN/*.*"
+	  fi
       fi   
       if [ "$LOGFILE" ]; then
 	  if [ "$OUTDIR" ]; then
@@ -260,7 +264,8 @@ OPTIONS
                        acceptable distance between the current branch and the sibling 
                        which proof is to be tried; default value is 2)
    -c|--clean          remove bin files and .pvscontext
-   -C|--clean-only     clean but do not typecheck or prove the theory
+   -C|--clean-only     remove all files in pvsbin but do not typecheck or prove the theory
+   --Clean-bin         remove binary files but do not typecheck or prove the theory
    -d|--dir <dir>      use <dir> as default directory of summary files
    --dependencies      compute theory dependencies and save them in pvsbin/<file>.dep.
    --default-script <proof script> default prooflite script to be tried on unfinished branches
@@ -387,11 +392,8 @@ process_opts() {
     case $1 in
 	-a|all|--all)  
 	    all_opt;;
-	-c|-clean|--clean)   
+	-c|-clean|--clean)
 	    CLEAN=yes;;
-	-C|-Clean|--Clean|-clean-only|--clean-only)
-	    QUIET=
-	    CLEAN=only;;
         ~c|-no-clean|--no-clean)
 	    CLEAN=;;
         -dep|--dep|-dependencies|--dependencies)
@@ -496,6 +498,7 @@ process_opts() {
     shift
   done
 }
+
 
 # Main Function
 proveit() {
@@ -684,8 +687,13 @@ do
 	  TOP=$2
 	  shift;;
     -C|-Clean|--Clean|-clean-only|--clean-only)
-	  QUIET=
-	  CLEAN=only;;
+	QUIET=
+	BINARIESONLY=
+	CLEAN=only;;
+    -Clean-bin|--Clean-bin)
+	QUIET=
+	BINARIESONLY=yes
+	CLEAN=only;;
     -o|-out|--out)           
 	  if [ -d "$2" ]; then
 	      echo "Error: $2 is a directory"
