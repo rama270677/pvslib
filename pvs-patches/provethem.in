@@ -44,8 +44,10 @@ $usageln
   --before=<dir>          prove all libraries before <dir>, exclusive
   --but=<dir1>,..,<dirn>  do not process libraries <dir1>,...,<dirn>
   --color                 do not use colors
-  --clean | --cleanbin    clean binary files but do not prove the libraries. All precomputed 
-                          (binaries, dep, tptp) files or only binaries, respectively.
+  --clean-only            remove .pvscontext and binary files in the pvsbin folder but 
+                          do not prove the libraries. 
+  --clean-all             remove .pvscontext and all files in the pvsbin folder but do 
+                          not prove the libraries.
   --clearpath             clear PVS_LIBRARY_PATH 
   --dir <dir>             use <dir> as default directory of summary files
   --do=<dir1>,..,<dirn>   process libraries <dir1>,...,<dirn>
@@ -88,8 +90,9 @@ GetOptions('addpath'=>\$addpath,
            'after=s'=>\$after,
            'before=s'=>\$before,
 	   'but=s'=>\@but,
-	   'clean!'=>\$clean,
+	   'clean-only!'=>\$clean,
 	   'cleanbin!'=>\$cleanbin,
+	   'clean-all'=>\$cleanall,
 	   'clearpath'=>\$clearpath,
 	   'color!'=>\$color,
            'dir=s'=>\$dir,
@@ -111,6 +114,8 @@ GetOptions('addpath'=>\$addpath,
            'typecheck-only'=>\$typecheckonly,
 	   'verbose'=>\$verbose,
            'version'=>\$version) or exit 1;
+
+die "Error --cleanbin option is not longer supported. Please use --clean-only instead.\n" if $cleanbin;
 
 $from =~ s/\/$//;
 $to =~ s/\/$//;
@@ -157,7 +162,7 @@ $enablelist = join(',',@enable);
 die "$file is a directory\n" if -d $file;
 open (INFILE,$file) || die "File $file doesn't exist\n";
 
-if (!$out && !$cleanbin && !$clean && !$execute && !$test) {
+if (!$out && !$cleanall && !$clean && !$execute && !$test) {
   my ($base,$path,$type) = fileparse($file,qr{\..*});  
   $out  = "$path$base";
   my $dol = join('_',@dolist);
@@ -174,8 +179,8 @@ if (!$out && !$cleanbin && !$clean && !$execute && !$test) {
 
 open (OUTFILE,">$out") if $out;
 
-$overopts .= " --Clean" if (! $cleanbin) && $clean;
-$overopts .= " --Clean-bin" if $cleanbin;
+$overopts .= " --clean-only" if (! $cleanall) && $clean;
+$overopts .= " --clean-all" if $cleanall;
 $overopts .= " --Typecheck" if $typecheckonly;
 $overopts .= " --disable \"$disablelist\"" if $disablelist;
 $overopts .= " --disable-oracles" if $disableoracles;
@@ -210,12 +215,12 @@ $act = "Proving";
 if ($execute) {
   print "Executing shell command \"$execute\" on library\n";
   print "The output of the execution is in $out\n" if $out;
-} elsif ($cleanbin || $clean || $typecheckonly) {
-  if ($cleanbin) {
-    print "Removing only binary files from library\n";
+} elsif ($cleanall || $clean || $typecheckonly) {
+  if ($clean) {
+    print "Removing .pvscontext and binary files from the pvsbin folder of each library\n";
     $act = "Cleaning";
-  } elsif ($clean) {
-    print "Removing binary and precomputed files from library\n";
+  } elsif ($cleanall) {
+    print "Removing .pvscontext and all files from the pvsbin folder of each library\n";
     $act = "Cleaning";
   } elsif ($typecheckonly) {
     print "Typechecking library\n";
@@ -290,7 +295,7 @@ while (<INFILE>) {
 	      }
 	      last if !$force && $fail;
 	      if (!$fail) {
-		if ($cleanbin || $clean || $typecheckonly) {
+		if ($cleanall || $clean || $typecheckonly) {
 		  $status = "OK";
 		  if ($color) {
 		    print DARK GREEN $status; 
@@ -335,7 +340,7 @@ while (<INFILE>) {
 		}
 		print $endln;
 		$summary .= "$beginln$status$endln";
-		if (!$cleanbin && !$clean) {
+		if (!$cleanall && !$clean) {
 		  $top = "top" if !$top;
 		  $depfile = "$lib/pvsbin/$top.dep";
 		  if (-f $depfile) {
@@ -361,7 +366,7 @@ while (<INFILE>) {
 	  }
 	}
       }
-      push(@libraries,$lib) if !$execute && !$cleanbin && !$clean;
+      push(@libraries,$lib) if !$execute && !$cleanall && !$clean;
       $go = "ok" if $after eq $lib;
       last if $to eq $lib;
     } else {
@@ -370,7 +375,7 @@ while (<INFILE>) {
   }
 }
  my $mssg = "\n";
-if (!$cleanbin && !$clean && !$typecheckonly && !$execute) {
+if (!$cleanall && !$clean && !$typecheckonly && !$execute) {
   my $missed = $totalformulas-$totalproofs;
   $mssg .= "*** Grand Totals: $totalproofs proofs / $totalformulas formulas. Missed: $missed formulas.\n";
 }
