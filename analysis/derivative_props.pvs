@@ -208,6 +208,30 @@ BEGIN
    f:{ff:deriv_fun[T] | (FORALL (x:T): -eps >= deriv(ff)(x))}):
    {r:real | FORALL(x:{xx:T | xx> r}): f(x)<0} =
     (d+f(d)/eps)
+
+  deriv_neg_root: LEMMA
+      FORALL (a, b: T, f: deriv_fun[T], eps:posreal):
+        (a < b AND
+       EXISTS(d:
+       {dd:T| FORALL(xx:real): dd <= xx
+       IFF member[real](xx,fullset[T])}):
+       (FORALL (x:T): -eps >= deriv(f)(x)))
+       IMPLIES 
+	(FORALL(d:
+          {dd:T| FORALL(xx:real): dd <= xx
+	  IFF member[real](xx,fullset[T])}):
+	  (f(d)<0 IMPLIES FORALL(x:{xx:T| xx>=d}):
+	  f(x)<0)
+	  AND
+	  (f(d)>0 IMPLIES EXISTS(r:{rr:T | f(rr)=0}):
+	  (FORALL(r1:{rr:T |f(rr) = 0}):
+	  r=r1)
+	  AND
+	  ((FORALL (t:{rr:T| r<rr}):
+	  f(t)<0)
+	  AND
+	  (FORALL (t:{rr:T| r>rr}):
+	  f(t)>0))))
    
 %~~~      END   ~~~%
 END derivative_props
