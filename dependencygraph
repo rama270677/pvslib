@@ -6,7 +6,6 @@ use Getopt::Long;
 use File::Basename;
 use Cwd;
 
-# use lib(lib);
 use Graph;
 use Graph::Writer::Dot;
 
@@ -51,9 +50,16 @@ The available options (<option>) are shown below.
 
  VISUALIZATION
 
-  --full-path              print library full paths 
+  --full-path              print library full paths (short paths are shown by default)
   --show-top               show top file in the graph (not shown by default)
   --splines=<mode>         control the way in which edges are drawn ('spline' by default)
+                           - none: no edges
+                           - line: (straight) line [O]
+                           - polyline: connected sequence of line segments [N]
+                           - ortho: polyline of axis-aligned segments [N]
+                           - curved: arc [O]
+                           - splines: a special curve defined piecewise by polynomials [N]
+                           [O(N)]: (no) overlaps with vertices (when possible)
                            For details, see Vizgraph documentation.
 
  EXTRAS
@@ -139,7 +145,11 @@ sub add_theory_vertex {
   my $node_id = $lib."@".$thy;
 
   $graph->set_vertex_attribute($node_id,'label',$thy);
-  $graph->set_vertex_attribute($node_id,'group',$lib);
+  if ($fullpath) { 
+    $graph->set_vertex_attribute($node_id,'group',$lib);
+  } else {
+    $graph->set_vertex_attribute($node_id,'group',library_label($lib));
+  }
   $graph->set_vertex_attribute($node_id,'style','filled');
   $graph->set_vertex_attribute($node_id,'fillcolor','#e6f3ff');
 
@@ -310,7 +320,6 @@ while (<INFILE>) {
       } elsif ($lib eq $to) {
 	$all = 0;
       }
-      # $reach_from_checked = ($lib eq $reach_from_library) || $reach_from_checked if $reach_from;
     } elsif ($lib) {
       die "Directory $lib not found\n";
     }
@@ -318,8 +327,6 @@ while (<INFILE>) {
 }
 close(INFILE);
 
-# die("ERROR in --reach-from option value: library '$reach_from_library' is not visible.\n(HINT: Doublecheck spelling and values for --do, --from, --to, --but options.)\n")
-#  if $reach_from && !$reach_from_checked;
 if ($reach_from) {
   push(@targets, $reach_from_library) if !grep(/^$reach_from_library$/,@targets);
   push(@zoomlist, $reach_from_library) if !grep(/^$reach_from_library$/,@zoomlist);
@@ -355,6 +362,8 @@ while (@libraries) {
   my $fullyQualifiedLibName = getcwd."/".$lib;
   my $librarylabel = library_label($fullyQualifiedLibName);
 
+  $reach_from = getcwd."/".$reach_from if $reach_from;
+
   my $reach_from_theory_found=0;
   if (-f "$lib/pvsbin/$topfile.dep") {
     open(FILE,"$lib/pvsbin/$topfile.dep");
@@ -363,7 +372,7 @@ while (@libraries) {
       if ($zoom) {
 	if ($line =~/(.+):(.*)/ && ($showtop || $1 ne "$topfile")) {
 	  
-	  add_theory_vertex($librarylabel,$1);
+	  add_theory_vertex($fullyQualifiedLibName,$1);
 	  
 	  if ($2) {
 	    my $lib=$fullyQualifiedLibName;
@@ -383,11 +392,10 @@ while (@libraries) {
 		  } 
 		}
 
-		$reach_from_theory_found = add_edge(library_label($lib),$from,$1.$2,$3) || $reach_from_theory_found;
+		$reach_from_theory_found = add_edge($lib,$from,$1.$2,$3) || $reach_from_theory_found;
 	      } else {
-		$reach_from_theory_found = add_edge(library_label($lib),$from,library_label($lib),$to) || $reach_from_theory_found;
+		$reach_from_theory_found = add_edge($lib,$from,$lib,$to) || $reach_from_theory_found;
 	      }
-	      # print "\n";
 	    }
 	  }
 	}
@@ -444,6 +452,7 @@ print "File $out.dot has been generated\n" if $dot;
 #
 if (!$dot || $pdf) {
   die "To produce $out.pdf, install Graphviz and add it to PATH\n" if !`which dot`;
+  rename "$out.pdf", "$out.pdf.bak" if -f "$out.pdf";
   my $dotresult = `dot -Tpdf $out.dot -o $out.pdf`;
   die("Error: could not generate dot file (reported error: $!)\n")
     if !defined($dotresult);
