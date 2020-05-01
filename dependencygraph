@@ -27,6 +27,7 @@ The available options (<option>) are shown below.
 
   --dot                    generate a dot file. Do not generate PDF unless --pdf is specified
   --pdf                    generate a pdf file (default)
+  --svg                    generate a svg file.
   --title=<string>         use <string> as the title of the graph
   --out=<outfile>          use <outfile> as name of the output file
 
@@ -61,10 +62,14 @@ The available options (<option>) are shown below.
                            - splines: a special curve defined piecewise by polynomials [N]
                            [O(N)]: (no) overlaps with vertices (when possible)
                            For details, see Vizgraph documentation.
+  --collection-label="<collection>=<label>"
+                           Replace collection names (folder of path, according to the full-path 
+                           parameter) with user provided labels. This parameter can be used
+                           several times: once for each collection to be relabeled.
 
  EXTRAS
 
-  --force                  regenerate .dep files
+  --force                  force regeneration of .dep files
   --help                   print this message
 
 DESCRIPTION
@@ -73,7 +78,7 @@ If <file> is not provided, the file name all-theories is assumed.
 
 If <outfile> is not specified, <file><postfix> is used. The <postfix> depends 
 on library selection option, i.e., --do,--but,--from,--to,--after,--before,--zoom.
-$0 depends on Graphviz's dot utility to produce a pdf output.
+$0 depends on Graphviz's dot utility to produce a pdf or svg output.
 
 Particular developments in <file> can be selected using the options: --do,
 --after, --before, --from, --to. The option --but unselect a list of developments.
@@ -127,6 +132,8 @@ sub collection_label($){
     $result = getcwd; # it's a local library.
     $result =~ s/^\/.*\/([^\/]+)$/$1/ if ! $fullpath;
   }
+  my $user_label = $collection_labels{$result};
+  $result = $user_label if $user_label;
   return $result;
 }
 
@@ -207,6 +214,7 @@ sub transfer_vertex_attributes {
 
 GetOptions('dot'=>\$dot,
 	   'pdf'=>\$pdf,
+	   'svg'=>\$svg,
 	   'out=s'=>\$out,
 	   'title=s'=>\$title,
            'after=s'=>\$after,
@@ -223,7 +231,8 @@ GetOptions('dot'=>\$dot,
 	   'show-top'=>\$showtop,
 	   'reach-from=s'=>\$reach_from,
 	   'splines=s'=>\$splines,
-	   'closure=s'=>\$closure) or exit 1;
+	   'closure=s'=>\$closure,
+	   'collection-label=s'=>\%collection_labels) or exit 1;
 
 die("Error: unkonwn value for splines: $splines.\n") if $splines && ($splines ne "ortho")  && ($splines ne "none") && ($splines ne "line") && ($splines ne "false") && ($splines ne "polyline") && ($splines ne "curved") && ($splines ne "spline") && ($splines ne "true");
 
@@ -237,8 +246,7 @@ $do = deslash(join(',',@do));
 $but = deslash(join(',',@but));
 $zoom = deslash(join(',',@zoom));
 my ($reach_from_library,$reach_from_theory) = split(/@/,$reach_from) if $reach_from;
-
-# my $reach_from_checked = 0;
+$pdf = $pdf || (!$dot && !$svg);
 
 usage if $help;
 
@@ -264,12 +272,18 @@ if ($out) {
   my ($base,$path,$type) = fileparse($out,qr{\..*});
   $graphName=$base;
   if ($type eq ".pdf") {
+    $svg = 0;
     $pdf = 1;
     $dot = 0;
   } elsif ($type eq ".dot") {
+    $svg = 0;
     $dot = 1;
     $pdf = 0;
-  }
+  } elsif ($type eq ".svg") {
+    $svg = 1;
+    $dot = 0;
+    $pdf = 0;
+  } 
 } else {
   my ($base,$path,$type) = fileparse($file,qr{\..*});  
   $graphName = "$base";
@@ -448,15 +462,18 @@ if ($reach_from) {
 }
 print "File $out.dot has been generated\n" if $dot;
 
-# Print pdf file
+# Print file
 #
-if (!$dot || $pdf) {
-  die "To produce $out.pdf, install Graphviz and add it to PATH\n" if !`which dot`;
-  rename "$out.pdf", "$out.pdf.bak" if -f "$out.pdf";
-  my $dotresult = `dot -Tpdf $out.dot -o $out.pdf`;
+if (!$dot || $pdf || $svg) {
+  my $outext;
+  $outext = "pdf" if $pdf;
+  $outext = "svg" if $svg;
+  die "To produce $out.$outext, install Graphviz and add it to PATH\n" if !`which dot`;
+  rename "$out.$outext", "$out.$outext.bak" if -f "$out.$outext";
+  my $dotresult = `dot -T$outext $out.dot -o $out.$outext`;
   die("Error: could not generate dot file (reported error: $!)\n")
     if !defined($dotresult);
-  print "File $out.pdf has been generated\n";
+  print "File $out.$outext has been generated\n";
 } 
 
 # Clean
