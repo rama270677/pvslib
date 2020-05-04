@@ -53,15 +53,20 @@ The available options (<option>) are shown below.
 
   --full-path              print library full paths (short paths are shown by default)
   --show-top               show top file in the graph (not shown by default)
-  --splines=<mode>         control the way in which edges are drawn ('spline' by default)
-                           - none: no edges
-                           - line: (straight) line [O]
-                           - polyline: connected sequence of line segments [N]
-                           - ortho: polyline of axis-aligned segments [N]
-                           - curved: arc [O]
-                           - splines: a special curve defined piecewise by polynomials [N]
-                           [O(N)]: (no) overlaps with vertices (when possible)
+  --splines=<mode>         control the way in which edges are drawn:
+                           - none: no edges,
+                           - line: (straight) line [O],
+                           - polyline: connected sequence of line segments [N],
+                           - ortho: polyline of axis-aligned segments [N],
+                           - curved: arc [O],
+                           - splines: a special curve defined piecewise by polynomials [N] (default),
+                           [O(N)]: (no) overlaps with vertices (when possible).
                            For details, see Vizgraph documentation.
+  --rankdir=<mode>         control the direction in which nodes are set:
+                           - TB: top to bottom,
+                           - BT: bottom to top,
+                           - LR: left to right (default),
+                           - RL: right to left.
   --collection-label="<collection>=<label>"
                            Replace collection names (folder of path, according to the full-path 
                            parameter) with user provided labels. This parameter can be used
@@ -232,12 +237,13 @@ GetOptions('dot'=>\$dot,
 	   'reach-from=s'=>\$reach_from,
 	   'splines=s'=>\$splines,
 	   'closure=s'=>\$closure,
-	   'collection-label=s'=>\%collection_labels) or exit 1;
+	   'collection-label=s'=>\%collection_labels,
+	   'rankdir=s'=>\$rankdir) or exit 1;
 
 die("Error: unkonwn value for splines: $splines.\n") if $splines && ($splines ne "ortho")  && ($splines ne "none") && ($splines ne "line") && ($splines ne "false") && ($splines ne "polyline") && ($splines ne "curved") && ($splines ne "spline") && ($splines ne "true");
 
 $splines="spline" if !$splines;
-
+$rankdir="LR" if !$rankdir;
 $after = deslash($after);
 $before = deslash($before);
 $to = deslash($to);
@@ -416,7 +422,8 @@ while (@libraries) {
       } elsif ($line =~/(.+)\/$/) {
 	# omit path-only library entry in the dep file
       } elsif ($line =~/(.+)\/$lib\/([^\/]+)$/) {
-	# omit own library entry
+	# add vertex in case the library is not connected to any other
+	add_library_vertex($fullyQualifiedLibName);
       } elsif ($line =~/^(\/.+)\//) {
 	my $uname = unqualify_library_name($1);
 	if ($closure) {
@@ -440,7 +447,7 @@ while (@libraries) {
 
 # Add graphs attributes
 $graph->set_graph_attribute('name',"\"$graphName\"");
-$graph->set_graph_attribute('rankdir','LR');
+$graph->set_graph_attribute('rankdir',$rankdir);
 $graph->set_graph_attribute('splines',$splines);
 $graph->set_graph_attribute('concentrate',true);
 
