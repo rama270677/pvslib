@@ -9,25 +9,26 @@ use Cwd;
 use Graph;
 use Graph::Writer::Dot;
 
-$usageln = "Usage: $0 [--help] [<option> ...] [<file>]";
+$usageln = "$0 [<option> ...] [<file>]";
 
 sub usage() {
   print <<EOF;
-$0 -- generates a library dependency graph for <file>.
+NAME
+  $0 -- Generates a library dependency graph for libraries in the current directory.
 
-This script builds a dot graph of library dependencies. 
+SYNOPSIS
 
-$usageln
+  $usageln
 
-File <file> is an ordered list of libraries to be processed by proveit. 
+  File <file> contains the list of libraries to be processed.
 
-The available options (<option>) are shown below.
+OPTIONS
 
- OUPUT
+ OUTPUT
 
   --dot                    generate a dot file. Do not generate PDF unless --pdf is specified
   --pdf                    generate a pdf file (default)
-  --svg                    generate a svg file.
+  --svg                    generate a svg file
   --title=<string>         use <string> as the title of the graph
   --out=<outfile>          use <outfile> as name of the output file
 
@@ -39,10 +40,11 @@ The available options (<option>) are shown below.
   --from=<dir>             process all libraries from <dir>, inclusive
   --before=<dir>           process all libraries before <dir>, exclusive
   --to=<dir>               process all libraries to <dir>, inclusive
-  --reach-from=<lib>@<th>  print (only) every reachable theory from <lib@th>. 
+  --reach-from=<lib>@<th>  print (only) every reachable theory from <lib@th>
+  --centered-in=<lib>      show only elements related directly to <lib> 
   --closure=[lib|theory]   automatically grows the scope in order to 
-                           - (lib) include every library reachable from theories in it.
-                           - (theory) zoom into those theories.
+                           - (lib) include every library reachable from theories in it
+                           - (theory) zoom into those theories
 
  FINE-GRAINED CONTROL
 
@@ -60,17 +62,17 @@ The available options (<option>) are shown below.
                            - ortho: polyline of axis-aligned segments [N],
                            - curved: arc [O],
                            - splines: a special curve defined piecewise by polynomials [N] (default),
-                           [O(N)]: (no) overlaps with vertices (when possible).
-                           For details, see Vizgraph documentation.
+                           [O(N)]: (no) overlaps with vertices (when possible)
+                           For details, see Vizgraph documentation
   --rankdir=<mode>         control the direction in which nodes are set:
                            - TB: top to bottom,
                            - BT: bottom to top,
                            - LR: left to right (default),
-                           - RL: right to left.
+                           - RL: right to left
   --collection-label="<collection>=<label>"
                            Replace collection names (folder of path, according to the full-path 
                            parameter) with user provided labels. This parameter can be used
-                           several times: once for each collection to be relabeled.
+                           several times: once for each collection to be relabeled
 
  EXTRAS
 
@@ -79,26 +81,26 @@ The available options (<option>) are shown below.
 
 DESCRIPTION
 
-If <file> is not provided, the file name all-theories is assumed.
+  This script builds a dot graph of library dependencies. 
 
-If <outfile> is not specified, <file><postfix> is used. The <postfix> depends 
-on library selection option, i.e., --do,--but,--from,--to,--after,--before,--zoom.
-$0 depends on Graphviz's dot utility to produce a pdf or svg output.
-
-Particular developments in <file> can be selected using the options: --do,
---after, --before, --from, --to. The option --but unselect a list of developments.
-
-When the option --zoom is used, the specified developments are zoomed such 
-that the each theory in those developments in represented by a node in the 
-dependency graph.
-
-The --reach-from=<lib>@<th> option allows to print only the theories which are 
-reachable from <lib>@<th>. Note, also, that <lib> will be added to the visible 
-scope if not already part of it. Additionally, DEPENDENCYGRAPH will zoom into 
-<lib> as if it were mentioned in the --zoom option. Theories from other libraries 
-are explicitly mentioned in the resulting graph only if they belong to a zoomed 
-library, otherwise only the referenced library is mentioned.
-
+  If <file> is not provided, the file name all-theories is assumed.
+  Particular developments in <file> can be selected using the options: --do,
+  --after, --before, --from, --to. The option --but unselect a list of developments.
+  
+  If <outfile> is not specified, <file><postfix> is used. The <postfix> depends 
+  on library selection option, i.e., --do,--but,--from,--to,--after,--before,--zoom.
+  Dependencygraph depends on Graphviz's dot utility to produce a pdf or svg output.  
+  
+  When the option --zoom is used, the specified developments are zoomed such 
+  that the each theory in those developments in represented by a node in the 
+  dependency graph.
+  
+  The --reach-from=<lib>@<th> option allows to print only the theories which are 
+  reachable from <lib>@<th>. Note, also, that <lib> will be added to the visible 
+  scope if not already part of it. Additionally, dependencygraph will zoom into 
+  <lib> as if it were mentioned in the --zoom option. Theories from other libraries 
+  are explicitly mentioned in the resulting graph only if they belong to a zoomed 
+  library, otherwise only the referenced library is mentioned.
 
 EOF
   exit;
@@ -235,6 +237,7 @@ GetOptions('dot'=>\$dot,
 	   'full-path'=>\$fullpath,
 	   'show-top'=>\$showtop,
 	   'reach-from=s'=>\$reach_from,
+	   'centered-in=s'=>\$centered_in,
 	   'splines=s'=>\$splines,
 	   'closure=s'=>\$closure,
 	   'collection-label=s'=>\%collection_labels,
@@ -305,6 +308,7 @@ if ($out) {
   $graphName .= "-zoom_$zooml" if $zooml;
   $graphName .= "-top_$top" if $top;
   $graphName .= "-rf_$reach_from" if $reach_from;
+  $graphName .= "-center_$centered_in" if $centered_in;
   $graphName .= "-closure_$closure" if $closure;
   $graphName .= "-fullpath" if $fullpath;
 }
@@ -352,6 +356,10 @@ if ($reach_from) {
   push(@zoomlist, $reach_from_library) if !grep(/^$reach_from_library$/,@zoomlist);
 }
 
+if ($centered_in) {
+  push(@targets, $centered_in) if !grep(/^$centered_in$/,@targets);
+}
+
 die "Nothing to generate\n" if !@targets;
 
 if ($top) {
@@ -361,6 +369,10 @@ if ($top) {
 }
 
 my @libraries=@targets;
+
+
+$reach_from = getcwd."/".$reach_from if $reach_from;
+$centered_in = getcwd."/".$centered_in if $centered_in;
 
 while (@libraries) {
   $lib = pop(@libraries);
@@ -381,8 +393,6 @@ while (@libraries) {
 
   my $fullyQualifiedLibName = getcwd."/".$lib;
   my $librarylabel = library_label($fullyQualifiedLibName);
-
-  $reach_from = getcwd."/".$reach_from if $reach_from;
 
   my $reach_from_theory_found=0;
   if (-f "$lib/pvsbin/$topfile.dep") {
@@ -442,7 +452,6 @@ while (@libraries) {
   die("ERROR in --reach-from option value: theory '$reach_from' is not visible.\n".
       "(HINT: Doublecheck spelling and values for --do, --from, --to, --but options.)\n")
     if ($reach_from && ($lib eq $reach_from_library) && !$reach_from_theory_found);
-
 }
 
 # Add graphs attributes
@@ -454,11 +463,27 @@ $graph->set_graph_attribute('concentrate',true);
 # Print dot file
 #
 my $writer = Graph::Writer::Dot->new(cluster => 'group');
-if ($reach_from) {
+if ($reach_from || $centered_in) {
+
+#  print "graph $graph \n";
+
+  
   # Compute Shortest Path Tree from $reach_from node.
-  my @reachables = $graph->all_successors($reach_from);
-  push(@reachables, $reach_from);
+  my @reachables;
+  @reachables = $graph->all_successors($reach_from) if $reach_from; 
+  @reachables = $graph->neighbours($centered_in) if $centered_in;
+
+#  print "centered_in $centered_in \n";
+#  print "reachables @reachables \n";
+  
+  push(@reachables, $reach_from) if $reach_from;
+  push(@reachables, $centered_in) if $centered_in;
+
+  $graph->set_vertex_attribute($centered_in,'fillcolor','#f7e28d') if $centered_in;
+  
   my $tree = $graph->subgraph(\@reachables);
+
+  
   # Copy attributes
   $tree->set_graph_attributes($graph->get_graph_attributes());  
   transfer_vertex_attributes($tree,$graph);
