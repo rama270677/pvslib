@@ -7,7 +7,7 @@ This library contains several formalizations of floating-point numbers.
 * *High-level*: A general high-level formalization that is proven to interpret correctly the axiomatic IEEE 754 formalization. It is also proven that a reduced version is equivalent to the IEEE 854 specification.
 
 ## Axiomatic Formal Description of the IEEE 754 Standard
-*Contact:* Mariano Moscato (author/maintainer) mariano.moscato _AT_ nianet.org
+*Contact:* Mariano Moscato, NIA, USA
 
 This library presents an axiomatic formalization of the floating-point numbers defined in the 754 standard by IEEE. The formalization is parametric in the values that define a specific format according to the standard: _radix_ (`b`), _precision_(`p`), and _maximum exponent_(`emax`). It accepts the values defined by the standard.
 
@@ -23,7 +23,7 @@ Some example instantiations for specific formats are provided in the theories:
 *  `ieee754_single` for _binary32_, and
 *  `ieee754_double` for _binary64_.
 
-There renamings for the specifically instantiated floating-point datatype as well as for the operations, are provided by convinience of the user.
+There, definitions for the specifically instantiated floating-point datatype as well as for the operations are provided by convenience of the user.
 
 Several operations on floating-point data are axiomatized accordingly to the standard.
 At the moment, support for the following operations is provided:
@@ -47,7 +47,7 @@ Nevertheless, flags and exceptions are not currently supported.
 
 The theory `ieee754_data` contains fundamental declarations and properties, such as the datatype denoting floating-point data and its special values (_NaN_, _infinites_, _zeros_). Properties of the fragment of the real numbers being represented by floating-point numbers are provided in the theory `ieee754_domain`. The connection between both theories is established in `ieee754_semantics` where notions such as rounding and projection are axiomatized.
 
-The theory hiearchy is shown below. The arrows depicts importing relations.
+The theory hierarchy is shown below. The arrows depicts importing relations.
 
 ```mermaid
 graph LR;
@@ -58,16 +58,15 @@ graph LR;
   ieee754_semantics-->ieee754_data;
   ieee754_semantics-->ieee754_domain;
 ```
-where op = add | sub | mul | div | max | min | abs | sqt | qlt | qle |
-qgt | qge | qeq | qun.
+where `op` = `add` | `sub` | `mul` | `div` | `max` | `min` | `abs` | `sqt` | `qlt` | `qle` | `qgt` | `qge` | `qeq` | `qun`.
 
 ## Low-level Formalization of IEEE 854 Floating-Point Numbers
-*Author:* Paul Miner (NASA LaRC)
+*Author:* Paul Miner, NASA, LaRC
 
 This is a hardware level model of floating-point numbers as described by the IEEE 854 Standard. See [5] for details.
 
 ## High-level Formalization of Floating Point Numbers 
-*Contact:* Mariano Moscato (co-author/maintainer) mariano.moscato _AT_ nianet.org
+*Contact:* Mariano Moscato, NIA, USA
 
 This formalization was initiated by Sylvie Boldo (ENS-Lyon) [1,2]
 while visiting the National Institute of Aerospace (NIA) * in late 2005.
@@ -134,8 +133,8 @@ to the IEEE754 standard.
 The theory-interpretation feature provided by PVS [4] is used to prove
 that the single and double precision instantiations (`single` and
 `double`) are correct implementations of the model determined by the
-axiomatic formalization of floating-point numbers acompaning this
-library. The interpretation is performed by levels as depiected in the diagram below.
+axiomatic formalization of floating-point numbers accompanying this
+library. The interpretation is performed by levels as depicted in the diagram below.
 
 ```mermaid
 graph TD;
@@ -178,7 +177,7 @@ sit-->|"[2,24,149]"|top;
 sit-->atop;
 ```
 
-Arrows denotes importings between theories. Actual parameters (of any) of each importing are indicated on the correspoding arrow. The abbreviation _<op>_ stands for each of the operations mentioned above.
+Arrows denotes dependencies between theories. Actual parameters (of any) of each importing are indicated on the corresponding arrow. The abbreviation _<op>_ stands for each of the operations mentioned above.
 
 ## Rerunning the Proofs
 
@@ -194,13 +193,22 @@ sys	0m8.613s
 ````
 _Configuration:_ macOS 10.13.6, 2.7 GHz i7, 16 GB 2133 MHz LPDDR3.
 
-## Last Documentation Update
+# Contributors
+* [Mariano Moscato](https://www.nianet.org/directory/research-staff/mariano-moscato/), NIA & NASA, USA
+* [Paul Miner](http://shemesh.larc.nasa.gov/people/psm), NASA, USA
+* [Silvie Boldo](https://www.lri.fr/~sboldo), INRIA, France
+* [César Muñoz](http://shemesh.larc.nasa.gov/people/cam), NASA, USA
+* [Sam Owre](http://www.csl.sri.com/users/owre), SRI, USA
 
-May, 2019.
+## Maintainer
+* [Mariano Moscato](https://www.nianet.org/directory/research-staff/mariano-moscato/), NIA & NASA, USA
+
+# Dependencies
+![dependency graph](./float.svg "Dependency Graph")
 
 ## References
 
-[1] S. Boldo, [Preuves formelles en arithmetiques a virgule flottante](http://www.ens-lyon.fr/LIP/Pub/Rapports/PhD/PhD2004/PhD2004-05.pdf), PhD. Thesis, Ecole Normale Superieure de Lyon, 2004.
+[1] S. Boldo, [Preuves formelles en arithmétiques a virgule flottante](http://www.ens-lyon.fr/LIP/Pub/Rapports/PhD/PhD2004/PhD2004-05.pdf), PhD. Thesis, Ecole Normale Supérieure de Lyon, 2004.
 
 [2] Sylvie Boldo and César Muñoz. (2006). [A High-Level Formalization of Floating-Point Numbers in PVS](https://shemesh.larc.nasa.gov/people/cam/publications/NASA-CR-2006-214298.pdf). Contractor Report NASA/CR-2006-214298. NASA Langley Research Center, Hampton VA 23681-2199, USA.
 
@@ -212,4 +220,4 @@ May, 2019.
 
 ---
 
-[*] This work has been partially funded by NASA LaRC under the Research Cooperative Agreement No. NCC-1-02043 awarded to the National Institute of Aerospace, and the French CNRS under PICS 2533 awarded to the Laboratoire de l'Informatique du Parallelisme.
+[*] This work has been partially funded by NASA LaRC under the Research Cooperative Agreement No. NCC-1-02043 awarded to the National Institute of Aerospace, and the French CNRS under PICS 2533 awarded to the Laboratoire de l'Informatique du Parallélisme.
