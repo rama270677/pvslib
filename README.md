@@ -88,6 +88,7 @@ The NASALib also provides a collection of scripts that automates several tasks.
 * [`cleanbin-all`](./Scripts#cleanbin-all) - Clean `.pvscontext` and binary files from PVS libraries.
 * [`find-all`](./Scripts#find-all) - Searches strings matching a given regular expressions in PVS libraries.
 * [`dependencygraph`](./Scripts#dependencygraph) - Generates a library dependency graph for libraries in the current directory.
+* [`dependency-all`](./Scripts#d#dependency-all) - Generates the dependency graphs for the PVS libraries in the current folder.
 
 (*) Already included in the PVS 7.1 distribution.
 

@@ -9,6 +9,7 @@ The NASALib also provides a collection of scripts that automates several tasks.
 * [`cleanbin-all`](#cleanbin-all) - Clean `.pvscontext` and binary files from PVS libraries.
 * [`find-all`](#find-all) - Searches strings matching a given regular expressions in PVS libraries.
 * [`dependencygraph`](#dependencygraph) - Generates a library dependency graph for libraries in the current directory.
+* [`dependency-all`](#dependency-all) - Generates the dependency graphs for the PVS libraries in the current folder.
 
 # `proveit`
 
@@ -71,7 +72,7 @@ Options are processed in the order they appear. One letter options can be combin
 |`.<ext>` | use `<ext>` as default extension of summary files |
 |`-f \| --force` | force proof reruns (**default**) |
 |`~f \| --no-force` | do not force proof reruns |
-|`-h \| --help` | print this message |
+|`-h \| --help` | print help message |
 |`-i \| --importchain` | prove chain of imported theories (set `--no-scripts`) |
 |`~i \| --no-importchain` | do not prove chain of imported theories (**default**) |
 |`--lisp <lisp>` | specify lisp version; `<lisp>` is one of `allegro`, `cmulisp` |
@@ -145,7 +146,7 @@ Unless the option `-out` is explicitly use, an output file is not created when t
 |`--out <outfile>` | save output to `<outfile>` |
 |`--test` | process `<file>` but do not call `proveit` |
 |`--to=<dir>` | prove all libraries to `<dir>`, inclusive. |
-|`--top <th>` | use `<th>.pvs` instead of top.pvs as top theory   |
+|`--top <th>` | use `<th>.pvs` instead of `top.pvs` as the top theory   |
 |`--typecheck-only` | typecheck but do not prove the libraries |
 |`--verbose` | print summary information for all theories |
 |`--version` | print version information and exit |
@@ -166,7 +167,7 @@ $ pvsio <options> [<pvsfile>][@<theory>[:[<function> [<arguments>]]]]
 
 | Option | Description |
 | --- | --- |
-|`-h \| --help` | Print this message |
+|`-h \| --help` | Print help message |
 |`-p \| --packages <P1>,..,<Pn>` | Load packages (prelude libraries) `<P1>,..,<Pn>` |
 |`-promptin <string> ` | Change prompt `<PVSio>` to `<string>` |
 |`-promptout <string> ` | Change prompt `==>~%` to `<string>` |
@@ -201,8 +202,8 @@ $ pvsio <file>@<theory>:<f> <a1> ... <an>
 # `prove-all`
 
 Runs `proveit` on each library in the NASALib by wrapping `provethem` in order to provide a specific kind of run. 
-By default, it removes `.pvscontext` and the binary files from the `pvsbin` folder in each library directory, replaces the pvs library path by the current directory, and runs `proveit` as indicated by the `nasalib.all` file.
-As a side effect, it generates the dependency and _tptp_ files as needed by each library.
+By default, it removes `.pvscontext` and the binary files from the `pvsbin` folder in each library directory, replaces the PVS library path by the current directory, and runs `proveit` as indicated by the `nasalib.all` file.
+As a side effect, it generates the dependency and `.tptp` files as needed by each library.
 
 To supersede this particular configuration, the same options accepted by `provethem` can be used on this script.
 
@@ -245,7 +246,7 @@ cleanbin-all <options>
 |`--do=<dir1>,..,<dirn>` | process libraries `<dir1>,...,<dirn>` |
 |`--from=<dir>` | prove all libraries from `<dir>`, inclusive. |
 |`--to=<dir>` | prove all libraries to `<dir>`, inclusive. |
-|`-h \| --help` | print this message |
+|`-h \| --help` | print help message |
 |`--version` | print version information and exit |
 
 # `find-all`
@@ -280,7 +281,7 @@ The order implicitly referred to by all these options is the one induced by the 
 |`--do=<dir1>,..,<dirn>` | find <regexpr> in libraries `<dir1>,...,<dirn>` |
 |`--from=<dir>` | find <regexpr> in libraries from `<dir>`, inclusive |
 |`--to=<dir>` | find <regexpr> in libraries up to `<dir>`, inclusive |
-|`--help` | print this message |
+|`--help` | print help message |
 
 # `dependencygraph`
 
@@ -344,7 +345,7 @@ The scope of the visited libraries can be controlled with the following options
 | Option | Description |
 | --- | --- |
 |`--force` | force regeneration of `.dep` files |
-|`--help` | print this message |
+|`--help` | print help message |
 
 ## Description 
 
@@ -354,11 +355,39 @@ If `<file>` is not provided, the file name all-theories is assumed.
 Particular libraries in `<file>` can be selected using the options: `--do`, `--after`, `--before`, `--from`, `--to`. The option `--but` unselect a list of developments.
 
 If `<outfile>` is not specified, `<file><postfix>` is used. The `<postfix>` depends on library selection option, i.e., `--do`,`--but`,`--from`,`--to`,`--after`,`--before`,`--zoom`.
-Dependencygraph depends on Graphviz's dot utility to produce a pdf or SVG output.
+DependencyGraph depends on Graphviz's dot utility to produce a pdf or SVG output.
   
 When the option `--zoom` is used, the specified developments are zoomed such that the each theory in those developments in represented by a node in the dependency graph.
   
 The `--reach-from=<lib>@<th>` option allows to print only the theories which are reachable from `<lib>@<th>`.
 Note, also, that `<lib>` will be added to the visible scope if not already part of it.
-Additionally, Dependencygraph will zoom into `<lib>` as if it were mentioned in the `--zoom` option.
+Additionally, DependencyGraph will zoom into `<lib>` as if it were mentioned in the `--zoom` option.
 Theories from other libraries are explicitly mentioned in the resulting graph only if they belong to a zoomed library, otherwise only the referenced library is mentioned.
+
+# `dependency-all`
+
+Generates the dependency graphs for the PVS libraries in the current folder.
+
+## Synopsis
+
+```shell
+dependency-all [<option> ...]
+```
+
+## Options 
+
+| Option | Description |
+| --- | --- |
+|`--force` | forces regeneration of `.dep` files |
+|`--after=<dir>` | find <regexpr> in all libraries after `<dir>`, exclusive |
+|`--before=<dir>` | find <regexpr> in all libraries before `<dir>`, exclusive |
+|`--but=<dir1>,..,<dirn>` | exclude libraries `<dir1>,...,<dirn>` |
+|`--do=<dir1>,..,<dirn>` | find <regexpr> in libraries `<dir1>,...,<dirn>` |
+|`--from=<dir>` | find <regexpr> in libraries from `<dir>`, inclusive |
+|`--to=<dir>` | find <regexpr> in libraries up to `<dir>`, inclusive |
+|`--help` | print help message |
+
+## Description
+Uses `provethem` to iterate dependency-graph over all the libraries in the current directory. 
+
+As in `provethem`, the scope of application of dependency-all can be controlled using the options --after, --before, --but, --do, --from, and --to detailed below. The order implicitly referred to by all these options is the one induced by the applicable `all-theories` file.
