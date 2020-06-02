@@ -44,12 +44,14 @@ ADDITIONALARGS=
 while [ $# -gt 0 ]
 do
   case $1 in
-    -h|-help|--help)    
+    -h|-help|--help) 
 	usage
 	exit 0;;
-    -version|--version)     
+    -version|--version)
 	echo $DEPENDENCYALLVERSION
 	exit 0;;
+    -force|--force)
+	FORCE=--force;;
     # valid options
     --after=*|-after=*\
 	|--before=*|-before=*\
@@ -70,7 +72,7 @@ provethem=`which provethem`
 if [ "$provethem" ]; then
     NASALIBPATH=$(pvs -raw -E '(let ((msg (extra-pvs-nasalib))) (format t "~%NASALIBPATH ~a~%" msg)(bye))' -v 0 -batch | sed -nE 's#NASALIBPATH (.*)$#\1#p')
     NASALIBDIR=$(echo $NASALIBPATH | sed -nE 's#^.*/([^/]+)/$#\1#p')
-    $provethem $ADDITIONALARGS --execute "cd $NASALIBPATH; ./dependencygraph --do=%DIR% --closure=%DIR% --centered-in=%DIR% --svg --rankdir=TB --collection-label=\"$NASALIBDIR=NASALib\" --collection-label=\"lib=PVS Prelude\" --splines=ortho --out=%DIR%; mv %DIR%.svg %DIR%/"
+    $provethem $ADDITIONALARGS --execute "cd $NASALIBPATH; ./dependencygraph $FORCE --do=%DIR% --closure=%DIR% --centered-in=%DIR% --svg --rankdir=TB --collection-label=\"$NASALIBDIR=NASALib\" --collection-label=\"lib=PVS Prelude\" --splines=ortho --out=%DIR%; mv %DIR%.svg %DIR%/"
 else
   echo "Error: directory where PVS is installed must be in the environment variable PATH for this command to work"
 fi
