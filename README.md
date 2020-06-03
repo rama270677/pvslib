@@ -145,14 +145,13 @@ For Borne shell (bash or sh), add this line in either `~/.bashrc` or `~/.profile
 export PVS_LIBRARY_PATH="<pvsdir>/nasalib"
 ```
 
-## 2) Additional steps to protect previous NASALib configurations
+## 2) Additional steps to protect previous NASALib configurations (optional)
 
 If you had a previous installation of the NASALib, either remove the file `~/.pvs.lisp` or, if you have a special configuration in that file, remove the following line  
 ```lisp
 (load "<pvsdir>/nasalib/pvs-patches.lisp") 
 ```
-
-## 3) Install Hyphateon
+## 3) Install Scripts
 
 Finally, go to the directory `<pvsdir>/nasalib` and run the following shell scripts (the dollar sign represents the prompt of the operating system).
 
@@ -160,6 +159,8 @@ The `install-scripts` command will update and install the NASALib scripts as nee
 ~~~shell
 $ ./install-scripts
 ~~~
+
+## 4) Install Hyphateon (optional)
 
 The `fetch-hypatheon-db` utility fetches an updated version of the NASALib database to be used by Hypatheon.
 ~~~shell
