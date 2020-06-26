@@ -219,7 +219,7 @@ The NASALib has grown over the years thanks to the contribution of the following
 * [Silvie Boldo](https://www.lri.fr/~sboldo), INRIA, France
 * [Sam Owre](http://www.csl.sri.com/users/owre), SRI, USA
 * Thaynara de Lima, Federal University of Goiás, Brazil
-* Thiago Mendoça Ferreira Ramos, University of Brasilia, Brazil
+* Thiago Mendonça Ferreira Ramos, University of Brasilia, Brazil
 * [Víctor Carreño](http://shemesh.larc.nasa.gov/people/vac), NASA, USA
 
 

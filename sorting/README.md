@@ -12,7 +12,7 @@ Popular sorting algorithms as Bubble Sort, Quick Sort, Merge Sort, Insertion Sor
 | --- | --- | --- | --- |
 
 # Contributors
-* Thiago Mendoça Ferreira Ramos, University of Brasilia, Brazil
+* Thiago Mendonça Ferreira Ramos, University of Brasilia, Brazil
 * Ariane Alves Almeida, University of Brasilia, Brazil
 * Flavio L.C. de Moura, University of Brasilia, Brazil
 * Ana Cristina Rocha Oliveira, University of Brasilia, Brazil
