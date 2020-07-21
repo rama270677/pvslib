@@ -217,6 +217,8 @@
 		   (when envstr (read-from-string envstr))))
 	 (scripts (let ((envstr (environment-variable "PROVEITLISPSCRIPTS")))
 		    (when envstr (read-from-string envstr))))
+	 (write-scripts (let ((envstr (environment-variable "PROVEITLISPWRITESCRIPTS")))
+		    (when envstr (read-from-string envstr))))
 	 (traces (let ((envstr (environment-variable "PROVEITLISPTRACES")))
 		   (when envstr (read-from-string envstr))))
 	 (force (let ((envstr (environment-variable "PROVEITLISPFORCE")))
@@ -319,14 +321,18 @@
 	  (let ((pvstheories 
 		 (remove-if #'(lambda (th) (typep th '(or datatype codatatype)))
 			    pvstheories)))
-	    (when scripts 
+	    (when (or scripts write-scripts)
 	      (dolist (theory pvstheories)
 		(progn
-		  (install-prooflite-scripts-from-prl-file (format nil "~a" (id theory)) force)
-		  (install-prooflite-scripts (filename theory) (id theory) 0 force))))
+		  (when scripts
+		    (install-prooflite-scripts-from-prl-file (format nil "~a" (id theory)) force)
+		    (install-prooflite-scripts (filename theory) (id theory) 0 force)))))
 	    (proveit-theories pvstheories force thfs traces txtproofs texproofs nil
 			      ;; if auto-fix?, save proofs
 			      auto-fix?)
-	    (proveit-status-proof-theories pvstheories thfs))))
+	    (when write-scripts
+	      (dolist (theory pvstheories)
+		(write-all-prooflite-scripts-to-file (format nil "~a" (id theory)))))
+	    (proveit-status-proof-theories pvstheories thfs)))))
       (save-context)
-      (bye 0))))
+      (bye 0)))
