@@ -307,7 +307,7 @@ is replaced with replacement."
 			(t (setq str nil))))))))))
 
 (defun install-prooflite-scripts-from-prl-file (theory-name force &optional (plain-script? t))
-  "Installs all the prooflite scripts from a file called "<filename>__<theory-name>.prl", where <filename> is the name of the file where the theory is defined."
+  "Installs all the prooflite scripts from a file called \"<filename>__<theory-name>.prl\", where <filename> is the name of the file where the theory is defined."
   (let ((theory (get-typechecked-theory theory-name)))
     (if theory
 	(let((filename (get-prooflite-file-name theory))
@@ -444,7 +444,7 @@ is replaced with replacement."
   (format outstream "~%QED ~a~%" (id fdecl)))
 
 (defun get-prooflite-file-name (theory)
-  (format nil "~a__~a.prl" (filename theory) (id theory)))
+  (format nil "~a.prl" (id theory)))
 
 (defun write-all-prooflite-scripts-to-file (theoryname)
   "Writes the proofscripts of all declarations in the theory (including TCCs)  into a file called \"<filename>__<theoryname>.prl\", where <filename> is the name of the file where the theory is defined. This function overwrites the \"prl\" file if it already exists. It returns the filename of the produced file on success and nil on error."
