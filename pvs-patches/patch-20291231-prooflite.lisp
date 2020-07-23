@@ -322,7 +322,7 @@ is replaced with replacement."
 		      (script))
 		     ((null str))
 		   (let ((proofcomment (if plain-script?
-					   (trim-left str)
+					   (pregexp-replace "\%.*" (trim-left str) "")
 					 (is-proof-comment str))))
 		     (cond (proofcomment
 			    (let* ((proof     (match-proof proofcomment))
@@ -458,8 +458,8 @@ is replaced with replacement."
 		  :direction :output
 		  :if-exists :supersede
 		  :if-does-not-exist :create)
-	    (loop for d in (all-declarations theory)
-		  when (formula-decl? d)
+	    (loop for d in (all-decls theory)
+		  when (and (formula-decl? d) (not (or (axiom? d) (assumption? d))))
 		  do (write-prooflite-script d outs)
 		  finally (return prl-filename)))
 	   (file-error
