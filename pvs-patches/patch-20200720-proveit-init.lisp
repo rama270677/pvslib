@@ -1,6 +1,6 @@
 ;;
 ;; proveit-init.lisp
-;; Release: ProofLite-7.0.0 (06/30/19)
+;; Release: ProofLite-7.0.0 (07/27/20)
 ;;
 ;; Contact: Cesar Munoz (cesar.a.munoz@nasa.gov)
 ;; NASA Langley Research Center
