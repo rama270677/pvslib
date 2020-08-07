@@ -96,20 +96,14 @@ Click [here](./Scripts) for details.
 
 # Getting the NASALib
 
-## Last Stable Version
-
-The last stable version of the NASALib is available from this 
-[web site](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library). 
-It comes in 3 sizes: *basic*, *classic*, and *full*. 
-All the distribution files include the same PVS specification and proof files. 
-They differ in the binary files, which are only included in the classic and full distributions. 
-The full distribution also includes pre-installed versions of [Z3](http://z3.codeplex.com) and [MetiTarski](http://www.cl.cam.ac.uk/~lp15/papers/Arith). 
-
-Download and decompress the version of your preference in the `<pvsdir>` directory.
+## Older Versions
+-
+Older versions of NASALib are available from
+[http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library). 
 
 ## Development Version
 
-For PVS advanced users, the development version of the NASA PVS Library is available from [GitHub](https://github.com/nasa/pvslib). 
+For PVS advanced users, the development version is available from [GitHub](https://github.com/nasa/pvslib). 
 To clone the development version, type the following command at the directory `<pvsdir>`
 (the dollar sign represents the prompt of the operating system).
 
@@ -181,10 +175,10 @@ The NASALib has grown over the years thanks to the contribution of the following
 * Ana Cristina Rocha Oliveira, University of Brasilia, Brazil
 * André Galdino, Federal University of Goiás, Brazil
 * Andreia Avelar Borges, University of Brasilia, Brazil
-* Anthony Narkawicz, NASA, USA
+* Anthony Narkawicz, formerly at NASA, USA
 * Ariane Alves Almeida, University of Brasilia, Brazil
 * [Bruno Dutertre](http://www.csl.sri.com/users/bruno), SRI, USA
-* [Ben Di Vito](http://shemesh.larc.nasa.gov/people/bld), NASA, USA
+* Ben Di Vito, NASA (retired), USA
 * [César Muñoz](http://shemesh.larc.nasa.gov/people/cam), NASA, USA
 * Concepción Vidal, University of La Coruña, Spain
 * David Griffioen,CWI, The Netherlands
@@ -197,33 +191,50 @@ The NASALib has grown over the years thanks to the contribution of the following
 * [George Hagen](http://shemesh.larc.nasa.gov/people/geh), NASA, USA
 * Gilberto Perez, University of La Coruña, Spain
 * Gregory Anderson, University of Texas at Austin, USA
-* Hanne Gottliebsen, NIA, USA
-* [Heber Herencia-Zapana](http://www.nianet.org/resources/Research/Research-Staff/Heber-Herencia-Zapana/Heber-Herencia-Zapana.aspx), NIA, USA
+* Hanne Gottliebsen, formerly at NIA, USA
+* Heber Herencia-Zapana, formerly at  NIA, USA
 * J. Tanner Slagel, NASA, USA
 * Jerry James, Utah State University, USA
 * [Jeff Maddalon](http://shemesh.larc.nasa.gov/people/jmm), NASA, USA
 * Jon Sjogren, Department of Defense, USA
-* John Siratt, University of Arkansas at Little Rock, USA
+* John Siratt, formerly at University of Arkansas at Little Rock, USA
 * Katherine Cordwell, CMU, USA
-* [Kristin Rozier](http://ti.arc.nasa.gov/profile/kyrozier), NASA, USA
-* [Lee Pike](http://corp.galois.com/lee-pike), Galois, USA
+* Kristin Rozier, formerly at NASA, USA
+* [Lee Pike](http://corp.galois.com/lee-pike), formerly at Galois, USA
 * [Marco A. Feliú](https://www.nianet.org/directory/research-staff/marco-feliu/), NIA & NASA, USA
 * [Mariano Moscato](https://www.nianet.org/directory/research-staff/mariano-moscato/), NIA & NASA, USA
 * [Mauricio Ayala-Rincón](http://www.mat.unb.br/~ayala), University of Brasilia, Brazil
 * [Natarajan Shankar](http://www.csl.sri.com/users/shankar), SRI, USA
-* Pablo Ascariz, University of La Coruña, Spain
+* Pablo Ascariz, formerly at University of La Coruña, Spain
 * [Paul Miner](http://shemesh.larc.nasa.gov/people/psm), NASA, USA
 * Pedro Cabalar, University of La Coruña, Spain
-* Radu Siminiceanu, NIA, USA
-* [Ricky Butler](http://shemesh.larc.nasa.gov/people/rwb), NASA, USA
+* Radu Siminiceanu, formerly at NIA, USA
+* Ricky Butler, NASA (retired), USA
 * [Silvie Boldo](https://www.lri.fr/~sboldo), INRIA, France
 * [Sam Owre](http://www.csl.sri.com/users/owre), SRI, USA
 * Thaynara de Lima, Federal University of Goiás, Brazil
 * Thiago Mendonça Ferreira Ramos, University of Brasilia, Brazil
-* [Víctor Carreño](http://shemesh.larc.nasa.gov/people/vac), NASA, USA
+* Víctor Carreño, NASA (retired), USA
 
+DISCLAIMER
+--
+NASA PVS Library is a collection of formal specifications most of
+which have been in the public domain for several years. We still
+maintain these developments. For the developments originally made by
+the Formal Methods group at Langley Research Center, these
+developments are considered fundamental research that do not
+constitute software. Contributions made by others may have particular
+licenses, which are listed in the file `top.pvs` in each
+respective directory.  In case of doubt, please contact the developers
+of each contribution, which are also listed in this file.
 
----
+PVS patches, which are included in the directory `pvs-patches`, are part of the
+PVS source and they are covered by the PVS open source license.
+
+Some proof strategies require third party research tools, e.g.,
+MetiTarski and Z3. For convenience, they are included in this
+repository with permission from their authors. Licenses for these
+tools are also included as appropriate.
 
 Enjoy it.
 
