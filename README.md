@@ -97,7 +97,7 @@ Click [here](./Scripts) for details.
 # Getting the NASALib
 
 ## Older Versions
--
+
 Older versions of NASALib are available from
 [http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library). 
 
@@ -119,9 +119,9 @@ Hypatheon is a database utility that provides a capability for indexing PVS theo
 
 ### Major Recent Changes
 
-*) **The library `trig_fnd` is now deprecated**. It's still provided for backward compatibility, but it should be replaced by `trig`.  The new library `trig`, which used to be axiomatic, is now foundational. However, in contrast to `trig_fnd`, trigonometric definitions are based on infinite series, rather than integrals. This change considerably reduces the type-checking of theories involving trigonometric functions. The change from `trig_fnd` to `trig` should not have a major impact in your formal developments since names of definitions and lemmas are the same. However, theory importing may be slightly different.
+* **The library `trig_fnd` is now deprecated**. It's still provided for backward compatibility, but it should be replaced by `trig`.  The new library `trig`, which used to be axiomatic, is now foundational. However, in contrast to `trig_fnd`, trigonometric definitions are based on infinite series, rather than integrals. This change considerably reduces the type-checking of theories involving trigonometric functions. The change from `trig_fnd` to `trig` should not have a major impact in your formal developments since names of definitions and lemmas are the same. However, theory importing may be slightly different.
 
-*) The PVS developments `TCASII`, `WellClear`,  and `DAIDALUS` are now [available](https://github.com/nasa/WellClear/tree/master/PVS) as part of the [GitHub WellClear distribution](https://github.com/nasa/WellClear). The PVS development `PRECiSA`  is now [available](https://github.com/nasa/PRECiSA/tree/master/PVS) as part of the [GitHub PRECiSA distribution](https://github.com/nasa/PRECiSA). The PVS development `PolyCARP`  is now [available](https://github.com/nasa/PolyCARP/tree/master/PVS) as part of the [GitHub PolyCARP distribution](https://github.com/nasa/PolyCARP).
+* The PVS developments `TCASII`, `WellClear`,  and `DAIDALUS` are now [available](https://github.com/nasa/WellClear/tree/master/PVS) as part of the [GitHub WellClear distribution](https://github.com/nasa/WellClear). The PVS development `PRECiSA`  is now [available](https://github.com/nasa/PRECiSA/tree/master/PVS) as part of the [GitHub PRECiSA distribution](https://github.com/nasa/PRECiSA). The PVS development `PolyCARP`  is now [available](https://github.com/nasa/PolyCARP/tree/master/PVS) as part of the [GitHub PolyCARP distribution](https://github.com/nasa/PolyCARP).
 
 
 # Quick Installation
