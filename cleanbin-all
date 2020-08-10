@@ -82,6 +82,22 @@ do
 	|--from=*|-from=*\
 	|--to=*|-to=*)
 	ADDITIONALARGS="$ADDITIONALARGS $1";;	
+    --after|-after\
+	|--before|-before\
+	|--but|-but\
+	|--do|-do\
+	|--from|-from\
+	|--to|-to)
+	if [[ $2 == -* ]]; then
+	    if [[ $1 =~ ^-[^-].*$ ]]; then
+		echo "Warning: missing values for $1 option (expected syntax is $1 <values>)"
+	    else
+		echo "Warning: missing values for $1 option (expected syntax is $1=<values>)"
+	    fi;
+	else
+	    ADDITIONALARGS="$ADDITIONALARGS $1 $2"
+	    shift
+	fi;;
     # invalid options
     *)
 	echo "Warning: omitting unrecognized option $1";;
