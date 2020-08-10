@@ -17,6 +17,7 @@ Directed graphs: circuits, maximal subtrees, paths, DAGs.
 * [César Muñoz](http://shemesh.larc.nasa.gov/people/cam), NASA, USA
 * [Mariano Moscato](https://www.nianet.org/directory/research-staff/mariano-moscato/), NIA & NASA, USA
 * [Sam Owre](http://www.csl.sri.com/users/owre), SRI, USA
+* Thomas Norris
 
 ## Maintainer
 * [César Muñoz](http://shemesh.larc.nasa.gov/people/cam), NASA, USA

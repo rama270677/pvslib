@@ -214,6 +214,7 @@ The NASALib has grown over the years thanks to the contribution of the following
 * [Sam Owre](http://www.csl.sri.com/users/owre), SRI, USA
 * Thaynara de Lima, Federal University of Goiás, Brazil
 * Thiago Mendonça Ferreira Ramos, University of Brasilia, Brazil
+* Thomas Norris
 * Víctor Carreño, NASA (retired), USA
 
 DISCLAIMER
