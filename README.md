@@ -165,7 +165,7 @@ For more information about the installation process and options visit the [insta
 
 # Contributors
 
-NASALib has grown over the years thanks to the contribution of the following people.
+NASALib has grown over the years thanks to the contribution of several people, among them
 
 * [Aaron Dutle](http://shemesh.larc.nasa.gov/people/amd), NASA, USA
 * Alfons Geser, HTWK Leipzig, Germany
@@ -215,6 +215,9 @@ NASALib has grown over the years thanks to the contribution of the following peo
 * Thiago Mendonça Ferreira Ramos, University of Brasilia, Brazil
 * Thomas Norris
 * Víctor Carreño, NASA (retired), USA
+
+If we have incorrectly attributed a PVS development or you have contributed to NASALib and
+your name is not included here, please let us know. 
 
 DISCLAIMER
 --
