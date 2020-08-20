@@ -47,12 +47,9 @@ Currently, NASALib consists of 53 libraries and includes about 28K lemmas.
 | [lebesgue](./lebesgue/README.md) | Lebesgue integral with connection to Riemann Integral. |
 | [linear_algebra](./linear_algebra/README.md) | Linear algebra. |
 | [lnexp](./lnexp/README.md) |  Logarithm, exponential and hyperbolic functions. & Foundational definitions of logarithm, exponential and hyperbolic functions. |
-| [matrices](./matrices/README.md) | Executable specification of MxN
-matrices. This library includes computation of inverse and basic matrix operations such as addition and multiplication. |
+| [matrices](./matrices/README.md) | Executable specification of MxN matrices. This library includes computation of inverse and basic matrix operations such as addition and multiplication. |
 | [measure_integration](./measure_integration/README.md) | Sigma algebras, measures, Fubini-Tonelli Lemmas. |
-| [MetiTarski](./MetiTarski/README.md) | Integration of MetiTarski (an
-autoamted theorem prover for real-valued functions) into PVS via the
-strategy `metit`|
+| [MetiTarski](./MetiTarski/README.md) | Integration of MetiTarski, an automated theorem prover for real-valued functions. |
 | [metric_space](./metric_space/README.md) | Domains with a distance metric, continuity and uniform continuity. |
 | [numbers](./numbers/README.md) | Elementary number theory. |
 | [orders](./orders/README.md) | Abstract orders, lattices, fix points. |
@@ -61,7 +58,7 @@ strategy `metit`|
 | [PVS0](./PVS0/README.md) | Formalization of fundamental computability concepts. |
 | [PVSioChecker](./PVSioChecker/README.md) | Animation of PVS specifications. |
 | [reals](./reals/README.md) | Summations, sup, inf, sqrt over the reals, absolute value, etc. |
-| [Riemann](./Riemann/README.md) |  Riemann Integral |
+| [Riemann](./Riemann/README.md) |  Riemann integral. |
 | [scott](./scott/README.md) | Scott topology. |
 | [series](./series/README.md) | Power series, comparison test, ratio test, Taylor's theorem. |
 | [sets_aux](./sets_aux/README.md) | Power sets, orders, cardinality over infinite sets. Includes functional and relational facts based on Axiom of Choice and refinement relations based on equivalence relations. |
