@@ -77,7 +77,7 @@ Currently, NASALib consists of 53 libraries and includes about 28K lemmas.
 
 ## Dependencies
 
-![dependency graph](./all-theories.svg "Dependency Graph")
+Check the [NASALib dependency graph](./all-theories.svg "Dependency Graph").
 
 # Scripts
 
@@ -93,7 +93,7 @@ NASALib also provides a collection of scripts that automates several tasks.
 * [`dependencygraph`](./Scripts#dependencygraph) - Generates a library dependency graph for libraries in the current directory.
 * [`dependency-all`](./Scripts#d#dependency-all) - Generates the dependency graphs for the PVS libraries in the current folder.
 
-Click [here](./Scripts) for more details on these scripts.
+Click [here](Scripts.md) for more details on these scripts.
 
 (*) Already included in the PVS 7.1 distribution.
 
