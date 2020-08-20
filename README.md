@@ -7,9 +7,9 @@ in the context of the
 [research effort on theorem proving](http://shemesh.larc.nasa.gov/fm/fm-pvs.html)
 sponsored by
 [NASA Langley Research Center (LaRC)](http://www.nasa.gov/centers/langley/home).
-It consist of a collection of formal development (i.,e.,
+It consist of a collection of formal development (i.e.,
 <i>libraries</i>) written in the Prototype Verification System
-([PVS](http://pvs.csl.sri.com)) maintained by the
+([PVS](http://pvs.csl.sri.com)) and maintained by the
 [Formal Methods Team at NASA LaRC](http://shemesh.larc.nasa.gov/fm).
 
 # Release
@@ -17,7 +17,7 @@ The current version of NASALib is 7.1.0 (08/20/20) and it requires [PVS 7.1](htt
 
 # Libraries
 
-Currently, NASALib is composed by 53 libraries.
+Currently, NASALib consists of 53 libraries and includes about 28K lemmas.
 
 | Library  | Description | 
 | --- | --- | 
