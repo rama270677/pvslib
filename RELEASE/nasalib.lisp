@@ -1,1 +1,1 @@
-(defparameter *nasalib-version* "7.1.0 (06/20/19)")
+(defparameter *nasalib-version* "7.1.0 (08/20/20)")
