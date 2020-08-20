@@ -93,9 +93,9 @@ NASALib also provides a collection of scripts that automates several tasks.
 * [`dependencygraph`](./Scripts#dependencygraph) - Generates a library dependency graph for libraries in the current directory.
 * [`dependency-all`](./Scripts#d#dependency-all) - Generates the dependency graphs for the PVS libraries in the current folder.
 
-(*) Already included in the PVS 7.1 distribution.
+Click [here](./Scripts) for more details on these scripts.
 
-Click [here](./Scripts) for details.
+(*) Already included in the PVS 7.1 distribution.
 
 # Getting NASALib
 
@@ -110,8 +110,8 @@ version of NASALib can be installed from VSCode-PVS.
 ## Development Version
 
 For PVS advanced users, the development version is available from [GitHub](https://github.com/nasa/pvslib). 
-To clone the development version, type the following command at the directory `<pvsdir>`
-(the dollar sign represents the prompt of the operating system).
+To clone the development version, type the following command inside directory where PVS 7.0 is installed. Henceforth, that directory will be referred to as `<pvsdir>`. In the following commands, the dollar sign 
+represents the prompt of the operating system.
 
 ```shell
 $ git clone http://github.com/nasa/pvslib nasalib 
@@ -126,7 +126,7 @@ The command above will put a copy of the library in the directory `<pvsdir>/nasa
 * The PVS developments `TCASII`, `WellClear`,  and `DAIDALUS` are now [available](https://github.com/nasa/WellClear/tree/master/PVS) as part of the [GitHub WellClear distribution](https://github.com/nasa/WellClear). The PVS development `PRECiSA`  is now [available](https://github.com/nasa/PRECiSA/tree/master/PVS) as part of the [GitHub PRECiSA distribution](https://github.com/nasa/PRECiSA). The PVS development `PolyCARP`  is now [available](https://github.com/nasa/PolyCARP/tree/master/PVS) as part of the [GitHub PolyCARP distribution](https://github.com/nasa/PolyCARP).
 
 
-# Quick Installation
+# Manual Installation
 
 The following instructions assume that NASALib is located in the directory `<pvsdir>/nasalib`.
 
