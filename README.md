@@ -84,14 +84,14 @@ Check the [NASALib dependency graph](./all-theories.svg "Dependency Graph").
 NASALib also provides a collection of scripts that automates several tasks.
 
 * [`proveit`](./Scripts.md#proveit) (*) - Runs PVS in batch mode 
-* [`provethem`](./Scripts#provethem) (*) - Runs `proveit` on several libraries 
-* [`pvsio`](./Scripts#pvsio) (*) - Command-line utility to run the PVSio ground evaluator.
-* [`prove-all`](./Scripts#prove-all) - Runs `proveit` on each library
+* [`provethem`](./Scripts.md#provethem) (*) - Runs `proveit` on several libraries 
+* [`pvsio`](./Scripts.md#pvsio) (*) - Command-line utility to run the PVSio ground evaluator.
+* [`prove-all`](./Scripts.md#prove-all) - Runs `proveit` on each library
   in NASALib by wrapping `provethem` in order to provide a specific kind of run. 
-* [`cleanbin-all`](./Scripts#cleanbin-all) - Clean `.pvscontext` and binary files from PVS libraries.
-* [`find-all`](./Scripts#find-all) - Searches strings matching a given regular expressions in PVS libraries.
-* [`dependencygraph`](./Scripts#dependencygraph) - Generates a library dependency graph for libraries in the current directory.
-* [`dependency-all`](./Scripts#d#dependency-all) - Generates the dependency graphs for the PVS libraries in the current folder.
+* [`cleanbin-all`](./Scripts.md#cleanbin-all) - Clean `.pvscontext` and binary files from PVS libraries.
+* [`find-all`](./Scripts.md#find-all) - Searches strings matching a given regular expressions in PVS libraries.
+* [`dependencygraph`](./Scripts.md#dependencygraph) - Generates a library dependency graph for libraries in the current directory.
+* [`dependency-all`](./Scripts.md#d#dependency-all) - Generates the dependency graphs for the PVS libraries in the current folder.
 
 Click [here](Scripts.md) for more details on these scripts.
 
