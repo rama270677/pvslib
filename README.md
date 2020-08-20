@@ -7,7 +7,7 @@ in the context of the
 [research effort on theorem proving](http://shemesh.larc.nasa.gov/fm/fm-pvs.html)
 sponsored by
 [NASA Langley Research Center (LaRC)](http://www.nasa.gov/centers/langley/home).
-It consist of a collection of formal development (i.e.,
+It consists of a collection of formal development (i.e.,
 <i>libraries</i>) written in the Prototype Verification System
 ([PVS](http://pvs.csl.sri.com)) and maintained by the
 [Formal Methods Team at NASA LaRC](http://shemesh.larc.nasa.gov/fm).
@@ -47,9 +47,12 @@ Currently, NASALib consists of 53 libraries and includes about 28K lemmas.
 | [lebesgue](./lebesgue/README.md) | Lebesgue integral with connection to Riemann Integral. |
 | [linear_algebra](./linear_algebra/README.md) | Linear algebra. |
 | [lnexp](./lnexp/README.md) |  Logarithm, exponential and hyperbolic functions. & Foundational definitions of logarithm, exponential and hyperbolic functions. |
-| [matrices](./matrices/README.md) |  |
+| [matrices](./matrices/README.md) | Executable specification of MxN
+matrices. This library includes computation of inverse and basic matrix operations such as addition and multiplication. |
 | [measure_integration](./measure_integration/README.md) | Sigma algebras, measures, Fubini-Tonelli Lemmas. |
-| [MetiTarski](./MetiTarski/README.md) | |
+| [MetiTarski](./MetiTarski/README.md) | Integration of MetiTarski (an
+autoamted theorem prover for real-valued functions) into PVS via the
+strategy `metit`|
 | [metric_space](./metric_space/README.md) | Domains with a distance metric, continuity and uniform continuity. |
 | [numbers](./numbers/README.md) | Elementary number theory. |
 | [orders](./orders/README.md) | Abstract orders, lattices, fix points. |
