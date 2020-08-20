@@ -83,7 +83,7 @@ Check the [NASALib dependency graph](./all-theories.svg "Dependency Graph").
 
 NASALib also provides a collection of scripts that automates several tasks.
 
-* [`proveit`](./Scripts#proveit) (*) - Runs PVS in batch mode 
+* [`proveit`](./Scripts.md#proveit) (*) - Runs PVS in batch mode 
 * [`provethem`](./Scripts#provethem) (*) - Runs `proveit` on several libraries 
 * [`pvsio`](./Scripts#pvsio) (*) - Command-line utility to run the PVSio ground evaluator.
 * [`prove-all`](./Scripts#prove-all) - Runs `proveit` on each library
