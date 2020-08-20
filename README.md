@@ -1,21 +1,23 @@
 NASALib
 =
 
-The NASALib is a collaborative effort being carried out for over [three decades](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library) in the context of the [research on theorem proving](http://shemesh.larc.nasa.gov/fm/fm-pvs.html) sponsored by [NASA Langley](http://www.nasa.gov/centers/langley/home) and maintained by the [NASA
-Langley Formal Methods Team](http://shemesh.larc.nasa.gov/fm).
+NASALib is a collaborative effort being carried out for over
+[three decades](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library)
+in the context of the
+[research effort on theorem proving](http://shemesh.larc.nasa.gov/fm/fm-pvs.html)
+sponsored by
+[NASA Langley Research Center (LaRC)](http://www.nasa.gov/centers/langley/home).
+It consist of a collection of formal development (i.,e.,
+<i>libraries</i>) written in the Prototype Verification System
+([PVS](http://pvs.csl.sri.com)) maintained by the
+[Formal Methods Team at NASA LaRC](http://shemesh.larc.nasa.gov/fm).
 
-Mostly centered in the Prototype Verification System ([PVS](http://pvs.csl.sri.com)) by SRI International, the The NASALib main contributions are: 
-1) [PVS libraries](#Libraries): a collection of formal developments and 
-2) [Scripts](#Scripts): a set of shell scripts designed to automate and ease the PVS user experience.
-
-The current version of the NASALib is 7.1.0 (06/20/19) and it is compatible with [PVS 7.1+](http://pvs.csl.sri.com/download.shtml).
-The following instructions assume that PVS 7.1 is installed in the directory
-`<pvsdir>`, i.e., in the instructions below replace `<pvsdir>` by the
-absolute path where PVS is installed.
+# Release
+The current version of NASALib is 7.1.0 (08/20/20) and it requires [PVS 7.1](http://pvs.csl.sri.com/download.shtml).
 
 # Libraries
 
-Currently, the NASALib is composed by the following 53 libraries.
+Currently, NASALib is composed by 53 libraries.
 
 | Library  | Description | 
 | --- | --- | 
@@ -33,7 +35,7 @@ Currently, the NASALib is composed by the following 53 libraries.
 | [co_structures](./co_structures/README.md) | Sequences of countable length defined as co-algebraic datatypes. |
 | [digraphs](./digraphs/README.md) | Directed graphs: circuits, maximal subtrees, paths, DAGs. |
 | [exact_real_arith](./exact_real_arith/README.md) | Exact real arithmetic including trig functions. |
-| [examples](./examples/README.md) | Examples of application of the functionality provided by the NASALib. |
+| [examples](./examples/README.md) | Examples of application of the functionality provided by NASALib. |
 | [extended_nnreal](./extended_nnreal/README.md) | Extended non-negative reals. |
 | [fast_approx](./fast_approx/README.md) | Approximations of standard numerical functions. |
 | [fault_tolerance](./fault_tolerance/README.md) | Fault tolerance protocols. |
@@ -79,12 +81,13 @@ Currently, the NASALib is composed by the following 53 libraries.
 
 # Scripts
 
-The NASALib also provides a collection of scripts that automates several tasks.
+NASALib also provides a collection of scripts that automates several tasks.
 
 * [`proveit`](./Scripts#proveit) (*) - Runs PVS in batch mode 
 * [`provethem`](./Scripts#provethem) (*) - Runs `proveit` on several libraries 
 * [`pvsio`](./Scripts#pvsio) (*) - Command-line utility to run the PVSio ground evaluator.
-* [`prove-all`](./Scripts#prove-all) - Runs `proveit` on each library in the NASALib by wrapping `provethem` in order to provide a specific kind of run. 
+* [`prove-all`](./Scripts#prove-all) - Runs `proveit` on each library
+  in NASALib by wrapping `provethem` in order to provide a specific kind of run. 
 * [`cleanbin-all`](./Scripts#cleanbin-all) - Clean `.pvscontext` and binary files from PVS libraries.
 * [`find-all`](./Scripts#find-all) - Searches strings matching a given regular expressions in PVS libraries.
 * [`dependencygraph`](./Scripts#dependencygraph) - Generates a library dependency graph for libraries in the current directory.
@@ -94,12 +97,15 @@ The NASALib also provides a collection of scripts that automates several tasks.
 
 Click [here](./Scripts) for details.
 
-# Getting the NASALib
+# Getting NASALib
 
-## Older Versions
+## Via VSCode-PVS (recommended for new PVS users)
 
-Older versions of NASALib are available from
-[http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library). 
+NASALib (v7.0.1) is fully compatible with
+[VSCode-PVS](http://github.com/nasa/vscode-pvs), a modern graphical
+interface to PVS based on
+[Visual Studio Code](https://code.visualstudio.com). The latest
+version of NASALib can be installed from VSCode-PVS.
 
 ## Development Version
 
@@ -111,11 +117,7 @@ To clone the development version, type the following command at the directory `<
 $ git clone http://github.com/nasa/pvslib nasalib 
 ```
 
-The command above will put a copy of the library in the directory
-`<pvsdir>/nasalib`.
-
-This version of the NASA PVS Library includes [Hypatheon](http://shemesh.larc.nasa.gov/people/bld/hypatheon.html). 
-Hypatheon is a database utility that provides a capability for indexing PVS theories and making them searchable via a GUI client.
+The command above will put a copy of the library in the directory `<pvsdir>/nasalib`.
 
 ### Major Recent Changes
 
@@ -126,7 +128,7 @@ Hypatheon is a database utility that provides a capability for indexing PVS theo
 
 # Quick Installation
 
-The following instructions assume that the NASALib is located in the directory `<pvsdir>/nasalib`.
+The following instructions assume that NASALib is located in the directory `<pvsdir>/nasalib`.
 
 ## 1) Add this directory to the environment variable `PVS_LIBRARY_PATH`
 
@@ -141,7 +143,7 @@ export PVS_LIBRARY_PATH="<pvsdir>/nasalib"
 
 ## 2) Additional steps to protect previous NASALib configurations (optional)
 
-If you had a previous installation of the NASALib, either remove the file `~/.pvs.lisp` or, if you have a special configuration in that file, remove the following line  
+If you had a previous installation of NASALib, either remove the file `~/.pvs.lisp` or, if you have a special configuration in that file, remove the following line  
 ```lisp
 (load "<pvsdir>/nasalib/pvs-patches.lisp") 
 ```
@@ -149,24 +151,21 @@ If you had a previous installation of the NASALib, either remove the file `~/.pv
 
 Finally, go to the directory `<pvsdir>/nasalib` and run the following shell scripts (the dollar sign represents the prompt of the operating system).
 
-The `install-scripts` command will update and install the NASALib scripts as needed.
+The `install-scripts` command will update and install NASALib scripts as needed.
 ~~~shell
 $ ./install-scripts
 ~~~
 
-## 4) Install Hyphateon (optional)
+## Older Versions 
+Older versions of NASALib are available from 
+[http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library).
 
-The `fetch-hypatheon-db` utility fetches an updated version of the NASALib database to be used by Hypatheon.
-~~~shell
-$ ./fetch-hypatheon-db
-~~~
-
-## Details
-For more information about the installation process and options visit the [installation](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library/installation.html) page.
+## Details 
+For more information about the installation process and options visit the [installation](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library/installation.html) page. 
 
 # Contributors
 
-The NASALib has grown over the years thanks to the contribution of the following people.
+NASALib has grown over the years thanks to the contribution of the following people.
 
 * [Aaron Dutle](http://shemesh.larc.nasa.gov/people/amd), NASA, USA
 * Alfons Geser, HTWK Leipzig, Germany
@@ -201,8 +200,8 @@ The NASALib has grown over the years thanks to the contribution of the following
 * Katherine Cordwell, CMU, USA
 * Kristin Rozier, formerly at NASA, USA
 * [Lee Pike](http://corp.galois.com/lee-pike), formerly at Galois, USA
-* [Marco A. Feliú](https://www.nianet.org/directory/research-staff/marco-feliu/), NIA & NASA, USA
-* [Mariano Moscato](https://www.nianet.org/directory/research-staff/mariano-moscato/), NIA & NASA, USA
+* [Marco A. Feliú](https://www.nianet.org/directory/research-staff/marco-feliu/), NIA, USA
+* [Mariano Moscato](https://www.nianet.org/directory/research-staff/mariano-moscato/), NIA, USA
 * [Mauricio Ayala-Rincón](http://www.mat.unb.br/~ayala), University of Brasilia, Brazil
 * [Natarajan Shankar](http://www.csl.sri.com/users/shankar), SRI, USA
 * Pablo Ascariz, formerly at University of La Coruña, Spain
@@ -219,18 +218,19 @@ The NASALib has grown over the years thanks to the contribution of the following
 
 DISCLAIMER
 --
-NASA PVS Library is a collection of formal specifications most of
-which have been in the public domain for several years. We still
-maintain these developments. For the developments originally made by
-the Formal Methods group at Langley Research Center, these
+NASALib is a collection of formal specifications most of
+which have been in the public domain for several years. The Formal
+Methods Team at NASA LaRC still
+maintains these developments. For the developments originally made by
+the Formal Methods Team, these
 developments are considered fundamental research that do not
 constitute software. Contributions made by others may have particular
 licenses, which are listed in the file `top.pvs` in each
 respective directory.  In case of doubt, please contact the developers
-of each contribution, which are also listed in this file.
+of each contribution, which are also listed in that file.
 
 PVS patches, which are included in the directory `pvs-patches`, are part of the
-PVS source and they are covered by the PVS open source license.
+PVS source code and they are covered by the PVS open source license.
 
 Some proof strategies require third party research tools, e.g.,
 MetiTarski and Z3. For convenience, they are included in this
@@ -239,4 +239,4 @@ tools are also included as appropriate.
 
 Enjoy it.
 
-[The NASA Langley Formal Methods Team](http://shemesh.larc.nasa.gov/fm)
+[The Formal Methods Team at NASA LaRC](http://shemesh.larc.nasa.gov/fm)
