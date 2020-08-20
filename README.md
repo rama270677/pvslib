@@ -160,9 +160,6 @@ $ ./install-scripts
 Older versions of NASALib are available from 
 [http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library).
 
-## Details 
-For more information about the installation process and options visit the [installation](http://shemesh.larc.nasa.gov/fm/ftp/larc/PVS-library/installation.html) page. 
-
 # Contributors
 
 NASALib has grown over the years thanks to the contribution of several people, among them
