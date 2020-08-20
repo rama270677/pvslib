@@ -243,4 +243,5 @@ tools are also included as appropriate.
 Enjoy it.
 
 [The Formal Methods Team at NASA LaRC](http://shemesh.larc.nasa.gov/fm)
-POC: [César A. Muñoz (NASA)](http://shemesh.larc.nasa.gov/people/cam)
+
+Contact: [César A. Muñoz (NASA)](http://shemesh.larc.nasa.gov/people/cam)
